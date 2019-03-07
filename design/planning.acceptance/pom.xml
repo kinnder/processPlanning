@@ -9,7 +9,16 @@
 		<artifactId>design</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
-	<artifactId>planning</artifactId>
-	<name>planning</name>
+	<artifactId>planning.acceptance</artifactId>
+	<name>planning.acceptance</name>
 	<url>http://maven.apache.org</url>
+
+	<dependencies>
+		<dependency>
+			<groupId>design</groupId>
+			<artifactId>planning</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+	</dependencies>
+
 </project>
