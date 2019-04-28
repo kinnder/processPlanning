@@ -76,24 +76,24 @@ class AttributeTest {
 	}
 
 	@Test
-	public void getBoolean() {
+	public void getValueAsBoolean() {
 		final boolean value = true;
 		testable = new Attribute("attribute", value);
-		assertEquals(value, testable.getBoolean());
+		assertEquals(value, testable.getValueAsBoolean());
 	}
 
 	@Test
-	public void getString() {
+	public void getValueAsString() {
 		String value = "value";
 		testable = new Attribute("attribute", value);
-		assertEquals(value, testable.getString());
+		assertEquals(value, testable.getValueAsString());
 	}
 
 	@Test
-	public void getObject() {
+	public void getValueAsObject() {
 		Object value = new Object();
 		testable = new Attribute("attribute", value);
-		assertEquals(value, testable.getObject());
+		assertEquals(value, testable.getValueAsObject());
 	}
 
 	@Test

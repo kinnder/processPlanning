@@ -30,23 +30,23 @@ public class Attribute {
 	public Object clone() {
 		switch (type) {
 		case Boolean:
-			return new Attribute(name, getBoolean());
+			return new Attribute(name, getValueAsBoolean());
 		case String:
-			return new Attribute(name, getString());
+			return new Attribute(name, getValueAsString());
 		default:
-			return new Attribute(name, getObject());
+			return new Attribute(name, getValueAsObject());
 		}
 	}
 
-	public String getString() {
+	public String getValueAsString() {
 		return (String) value;
 	}
 
-	public boolean getBoolean() {
+	public boolean getValueAsBoolean() {
 		return (boolean) (value);
 	}
 
-	public Object getObject() {
+	public Object getValueAsObject() {
 		return value;
 	}
 
