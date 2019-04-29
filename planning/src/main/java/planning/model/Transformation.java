@@ -4,14 +4,12 @@ import java.util.Map;
 
 public class Transformation {
 
-	private String thingId;
+	protected String objectId;
 
-	public Transformation(String thingId) {
-		this.thingId = thingId;
+	public Transformation(String objectId) {
+		this.objectId = objectId;
 	}
 
-	public void applyTo(System tranformed, Map<String, String> idsMatching) {
-		// TODO Auto-generated method stub
-
+	public void applyTo(System system, Map<String, String> idsMatching) {
 	}
 }

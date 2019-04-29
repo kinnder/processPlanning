@@ -32,7 +32,7 @@ public class LinkTest {
 
 	@BeforeEach
 	public void setup() {
-		system_mock = context.mock(System.class);
+		system_mock = context.mock(System.class, "system");
 
 		testable = new Link("link", system_mock, "id");
 	}
@@ -98,5 +98,12 @@ public class LinkTest {
 	@Test
 	public void getName() {
 		assertEquals("link", testable.getName());
+	}
+
+	@Test
+	public void setSystem() {
+		final System system_mock = context.mock(System.class, "new-system");
+
+		testable.setSystem(system_mock);
 	}
 }

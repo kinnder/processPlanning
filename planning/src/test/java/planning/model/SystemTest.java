@@ -5,6 +5,8 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
+import java.util.Map;
+
 import org.jmock.Expectations;
 import org.jmock.imposters.ByteBuddyClassImposteriser;
 import org.jmock.junit5.JUnit5Mockery;
@@ -109,5 +111,53 @@ public class SystemTest {
 	@Test
 	public void getObjectById_notFound() {
 		assertNull(testable.getObjectById("id"));
+	}
+
+	@Test
+	public void matchIds() {
+		final SystemObject object_1_mock = context.mock(SystemObject.class, "object-1");
+		final SystemObject object_2_mock = context.mock(SystemObject.class, "object-2");
+		final SystemObject object_3_mock = context.mock(SystemObject.class, "object-3");
+		testable.addObject(object_3_mock);
+		testable.addObject(object_1_mock);
+		testable.addObject(object_2_mock);
+
+		final System systemTemplate = new System();
+		final SystemObject object_1_template_mock = context.mock(SystemObject.class, "object-1-template");
+		final SystemObject object_2_template_mock = context.mock(SystemObject.class, "object-2-template");
+		systemTemplate.addObject(object_1_template_mock);
+		systemTemplate.addObject(object_2_template_mock);
+
+		context.checking(new Expectations() {
+			{
+				oneOf(object_3_mock).matches(object_1_template_mock);
+				will(returnValue(false));
+
+				oneOf(object_3_mock).matches(object_2_template_mock);
+				will(returnValue(false));
+
+				oneOf(object_1_mock).matches(object_1_template_mock);
+				will(returnValue(true));
+
+				oneOf(object_1_template_mock).getObjectId();
+				will(returnValue("id-1-template"));
+
+				oneOf(object_1_mock).getObjectId();
+				will(returnValue("id-1"));
+
+				oneOf(object_2_mock).matches(object_2_template_mock);
+				will(returnValue(true));
+
+				oneOf(object_2_template_mock).getObjectId();
+				will(returnValue("id-2-template"));
+
+				oneOf(object_2_mock).getObjectId();
+				will(returnValue("id-2"));
+			}
+		});
+
+		Map<String, String> idsMatching = testable.matchIds(systemTemplate);
+		assertEquals("id-1", idsMatching.get("id-1-template"));
+		assertEquals("id-2", idsMatching.get("id-2-template"));
 	}
 }

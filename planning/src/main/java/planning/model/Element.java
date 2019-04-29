@@ -17,13 +17,13 @@ public class Element {
 	}
 
 	public System applyTo(System system) {
-		System tranformed = system.clone();
+		System transformedSystem = system.clone();
 
-		Map<String, String> idsMatching = system.matchIds(template);
+		Map<String, String> idsMatching = transformedSystem.matchIds(template);
 		for (Transformation transformation : transformations) {
-			transformation.applyTo(tranformed, idsMatching);
+			transformation.applyTo(transformedSystem, idsMatching);
 		}
 
-		return tranformed;
+		return transformedSystem;
 	}
 }

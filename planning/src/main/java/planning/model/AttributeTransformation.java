@@ -4,12 +4,11 @@ public class AttributeTransformation extends Transformation {
 
 	private String attributeName;
 
-	private boolean attributeValue;
+	private Object attributeValue;
 
-	public AttributeTransformation(String thingId, String attributeName, boolean attributeValue) {
-		super(thingId);
+	public AttributeTransformation(String objectId, String attributeName, Object attributeValue) {
+		super(objectId);
 		this.attributeName = attributeName;
 		this.attributeValue = attributeValue;
 	}
-
 }

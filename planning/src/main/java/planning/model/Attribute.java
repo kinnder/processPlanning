@@ -65,4 +65,9 @@ public class Attribute {
 	public String getName() {
 		return this.name;
 	}
+
+	public boolean matches(Attribute template) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }

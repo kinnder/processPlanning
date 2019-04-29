@@ -1,6 +1,7 @@
 package planning.model;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -13,16 +14,20 @@ public class System {
 	}
 
 	public Map<String, String> matchIds(System template) {
-		/*
-		 * Map<String, String> matchings = new HashMap<String, String>();
-		 *
-		 * List<Thing> notMatchedThings = new ArrayList<Thing>(things); for (Thing
-		 * templateThing : template.things) { for (Thing notMatchedThing :
-		 * notMatchedThings) { if (notMatchedThing.matches(templateThing, this)) { } } }
-		 *
-		 * return matchings;
-		 */
-		return null;
+		Map<String, String> matchings = new HashMap<String, String>();
+
+		List<SystemObject> templateObjects = new ArrayList<SystemObject>(template.objects);
+		for (SystemObject object : objects) {
+			for (SystemObject templateObject : templateObjects) {
+				if (object.matches(templateObject)) {
+					matchings.put(templateObject.getObjectId(), object.getObjectId());
+					templateObjects.remove(templateObject);
+					break;
+				}
+			}
+		}
+
+		return matchings;
 	}
 
 	public System clone() {

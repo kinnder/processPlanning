@@ -57,7 +57,7 @@ public class ElementTest {
 				oneOf(system_mock).clone();
 				will(returnValue(transformed_mock));
 
-				oneOf(system_mock).matchIds(template_mock);
+				oneOf(transformed_mock).matchIds(template_mock);
 				will(returnValue(matchings));
 
 				oneOf(transformation_mock).applyTo(transformed_mock, matchings);

@@ -39,4 +39,9 @@ public class Link {
 	public void setSystem(System system) {
 		this.system = system;
 	}
+
+	public boolean matches(Link linkTemplate) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }

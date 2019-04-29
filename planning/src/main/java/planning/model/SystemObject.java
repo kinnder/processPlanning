@@ -1,6 +1,8 @@
 package planning.model;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -31,9 +33,34 @@ public class SystemObject {
 		attributes.put(attribute.getName(), attribute);
 	}
 
-	public boolean matches(SystemObject template, System system) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean matches(SystemObject template) {
+		List<Attribute> attributeTemplates = new ArrayList<Attribute>(template.attributes.values());
+		for (Attribute attribute : attributes.values()) {
+			for (Attribute attributeTemplate : attributeTemplates) {
+				if (attribute.matches(attributeTemplate)) {
+					attributeTemplates.remove(attributeTemplate);
+					break;
+				}
+			}
+		}
+		if (attributeTemplates.size() != 0) {
+			return false;
+		}
+
+		List<Link> linkTemplates = new ArrayList<Link>(template.links.values());
+		for (Link link : links.values()) {
+			for (Link linkTemplate : linkTemplates) {
+				if (link.matches(linkTemplate)) {
+					linkTemplates.remove(linkTemplate);
+					break;
+				}
+			}
+		}
+		if (linkTemplates.size() != 0) {
+			return false;
+		}
+
+		return true;
 	}
 
 	public void addLink(Link link) {
