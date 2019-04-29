@@ -1,7 +1,5 @@
 package cppbuilder.utility;
 
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
-
 /** Логические операторы */
 public class LogicOperators<Type> {
 
@@ -37,21 +35,21 @@ public class LogicOperators<Type> {
 
 	/** Предикат - все поля равны */
 	protected boolean allFieldsAreEqual(Type value) {
-		throw new NotImplementedException();
+		throw new AssertionError("not implemented");
 	}
 
 	/** Предикат - есть совпадающие поля */
 	protected boolean haveMatchingFields(Type value) {
-		throw new NotImplementedException();
+		throw new AssertionError("not implemented");
 	}
 
 	/** Предикат - включает множество */
 	protected boolean haveSubset(Type value) {
-		throw new NotImplementedException();
+		throw new AssertionError("not implemented");
 	}
 
 	/** Представить в виде XML строки */
 	public String toXMLString() {
-		throw new NotImplementedException();
+		throw new AssertionError("not implemented");
 	}
 }
