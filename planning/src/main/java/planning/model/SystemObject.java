@@ -113,12 +113,6 @@ public class SystemObject {
 		return cloned;
 	}
 
-	public void updateLinks(System system) {
-		for (Link link : links.values()) {
-			link.setSystem(system);
-		}
-	}
-
 	public Attribute getAttribute(String attributeName) {
 		return attributes.get(attributeName);
 	}

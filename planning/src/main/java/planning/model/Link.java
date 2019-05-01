@@ -6,12 +6,9 @@ public class Link {
 
 	private String name;
 
-	private System system;
-
-	public Link(String name, System system, String objectId) {
+	public Link(String name, String objectId) {
 		this.name = name;
 		this.objectId = objectId;
-		this.system = system;
 	}
 
 	@Override
@@ -23,21 +20,16 @@ public class Link {
 			return true;
 		}
 		Link link = (Link) obj;
-		return name.equals(link.name) && objectId.equals(link.objectId)
-				&& system.getObjectById(objectId).equals(link.system.getObjectById(objectId));
+		return name.equals(link.name) && objectId.equals(link.objectId);
 	}
 
 	@Override
 	public Object clone() {
-		return new Link(name, system, objectId);
+		return new Link(name, objectId);
 	}
 
 	public String getName() {
 		return name;
-	}
-
-	public void setSystem(System system) {
-		this.system = system;
 	}
 
 	public boolean matches(Link template) {

@@ -2,7 +2,6 @@ package domain;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import planning.model.Attribute;
@@ -16,74 +15,74 @@ import planning.model.AttributeTransformation;
 
 public class MaterialPoints {
 
+	private static final String LINK_POSITION = "position";
+
+	private static final String LINK_NEIGHBOR_RIGHT = "neighborOnTheRight";
+
+	private static final String LINK_NEIGHBOR_LEFT = "neighborOnTheLeft";
+
+	private static final String ATTRIBUTE_OCCUPIED = "occupied";
+
 	public static Element moveRight() {
 		System template = new System();
-
 		SystemObject object = new SystemObject("материальная точка", "#ID-1");
-		object.addLink(new Link("position", template, "#ID-2"));
-
 		SystemObject point_A = new SystemObject("точка", "#ID-2");
-		point_A.addAttribute(new Attribute("occupied", true));
-		point_A.addLink(new Link("neighborOnTheRight", template, "#ID-3"));
-
 		SystemObject point_B = new SystemObject("точка", "#ID-3");
-		point_A.addAttribute(new Attribute("occupied", false));
-		point_B.addLink(new Link("neighborOnTheLeft", template, "#ID-2"));
+
+		final String object_id = object.getObjectId();
+		final String point_A_id = point_A.getObjectId();
+		final String point_B_id = point_B.getObjectId();
+
+		object.addLink(new Link(LINK_POSITION, point_A_id));
+
+		point_A.addAttribute(new Attribute(ATTRIBUTE_OCCUPIED, true));
+		point_A.addLink(new Link(LINK_NEIGHBOR_RIGHT, point_B_id));
+
+		point_B.addAttribute(new Attribute(ATTRIBUTE_OCCUPIED, false));
+		point_B.addLink(new Link(LINK_NEIGHBOR_LEFT, point_A_id));
 
 		template.addObject(object);
 		template.addObject(point_A);
 		template.addObject(point_B);
 
-		Transformation transformations[] = new Transformation[] { new LinkTransformation("#ID-1", "position", "#ID-3"),
-				new AttributeTransformation("#ID-2", "occupied", false),
-				new AttributeTransformation("#ID-3", "occupied", true) };
+		Transformation transformations[] = new Transformation[] {
+				new LinkTransformation(object_id, LINK_POSITION, point_B_id),
+				new AttributeTransformation(point_A_id, ATTRIBUTE_OCCUPIED, false),
+				new AttributeTransformation(point_B_id, ATTRIBUTE_OCCUPIED, true) };
 
 		return new Element("Движение вправо", template, transformations);
 	}
 
 	@Test
-	@Disabled
-	public void applyElement_moveRight() {
-		System initialSystem = new System();
-		SystemObject initialSystem_object = new SystemObject("материальная точка");
-		SystemObject initialSystem_point_A = new SystemObject("точка");
-		SystemObject initialSystem_point_B = new SystemObject("точка");
+	public void applicationOfElements() {
+		final System initial_system = new System();
+		final SystemObject initial_object = new SystemObject("материальная точка");
+		final SystemObject initial_point_A = new SystemObject("точка-1");
+		final SystemObject initial_point_B = new SystemObject("точка-2");
 
-		initialSystem_object.addLink(new Link("position", initialSystem, initialSystem_point_A.getObjectId()));
+		final String initial_object_id = initial_object.getObjectId();
+		final String initial_point_A_id = initial_point_A.getObjectId();
+		final String initial_point_B_id = initial_point_B.getObjectId();
 
-		initialSystem_point_A.addAttribute(new Attribute("occupied", true));
-		initialSystem_point_A
-				.addLink(new Link("neighborOnTheRight", initialSystem, initialSystem_point_B.getObjectId()));
+		initial_object.addLink(new Link(LINK_POSITION, initial_point_A_id));
 
-		initialSystem_point_A.addAttribute(new Attribute("occupied", false));
-		initialSystem_point_A
-				.addLink(new Link("neighborOnTheLeft", initialSystem, initialSystem_point_A.getObjectId()));
+		initial_point_A.addAttribute(new Attribute(ATTRIBUTE_OCCUPIED, true));
+		initial_point_A.addLink(new Link(LINK_NEIGHBOR_RIGHT, initial_point_B_id));
 
-		initialSystem.addObject(initialSystem_object);
-		initialSystem.addObject(initialSystem_point_A);
-		initialSystem.addObject(initialSystem_point_B);
+		initial_point_B.addAttribute(new Attribute(ATTRIBUTE_OCCUPIED, false));
+		initial_point_B.addLink(new Link(LINK_NEIGHBOR_LEFT, initial_point_A_id));
 
-		System expectedSystem = new System();
-		SystemObject expectedSystem_object = new SystemObject("материальная точка");
-		SystemObject expectedSystem_point_A = new SystemObject("точка");
-		SystemObject expectedSystem_point_B = new SystemObject("точка");
+		initial_system.addObject(initial_object);
+		initial_system.addObject(initial_point_A);
+		initial_system.addObject(initial_point_B);
 
-		expectedSystem_object.addLink(new Link("position", expectedSystem, expectedSystem_point_B.getObjectId()));
+		final System expected_system = initial_system.clone();
+		expected_system.getObjectById(initial_object_id).getLink(LINK_POSITION).setObjectId(initial_point_B_id);
+		expected_system.getObjectById(initial_point_A_id).getAttribute(ATTRIBUTE_OCCUPIED).setValue(false);
+		expected_system.getObjectById(initial_point_B_id).getAttribute(ATTRIBUTE_OCCUPIED).setValue(true);
 
-		expectedSystem_point_A.addAttribute(new Attribute("occupied", false));
-		expectedSystem_point_A
-				.addLink(new Link("neighborOnTheRight", expectedSystem, expectedSystem_point_B.getObjectId()));
+		final System actual_system = moveRight().applyTo(initial_system);
 
-		expectedSystem_point_A.addAttribute(new Attribute("occupied", true));
-		expectedSystem_point_A
-				.addLink(new Link("neighborOnTheLeft", expectedSystem, expectedSystem_point_A.getObjectId()));
-
-		expectedSystem.addObject(expectedSystem_object);
-		expectedSystem.addObject(expectedSystem_point_A);
-		expectedSystem.addObject(expectedSystem_point_B);
-
-		System actualSystem = moveRight().applyTo(initialSystem);
-
-		assertTrue(expectedSystem.equals(actualSystem));
+		assertTrue(expected_system.equals(actual_system));
 	}
 }

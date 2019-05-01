@@ -257,28 +257,6 @@ public class SystemObjectTest {
 	}
 
 	@Test
-	public void updateLinks() {
-		final System system_mock = context.mock(System.class);
-		final Link link_mock = context.mock(Link.class);
-
-		context.checking(new Expectations() {
-			{
-				oneOf(link_mock).getName();
-				will(returnValue("link-name"));
-			}
-		});
-		testable.addLink(link_mock);
-
-		context.checking(new Expectations() {
-			{
-				oneOf(link_mock).setSystem(system_mock);
-			}
-		});
-
-		testable.updateLinks(system_mock);
-	}
-
-	@Test
 	public void matches() {
 		final Attribute attribute_1_mock = context.mock(Attribute.class, "attribute-1");
 		final Attribute attribute_2_mock = context.mock(Attribute.class, "attribute-2");

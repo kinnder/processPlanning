@@ -4,7 +4,6 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.jmock.Expectations;
 import org.jmock.imposters.ByteBuddyClassImposteriser;
 import org.jmock.junit5.JUnit5Mockery;
 import org.junit.jupiter.api.AfterEach;
@@ -28,13 +27,9 @@ public class LinkTest {
 
 	Link testable;
 
-	System system_mock;
-
 	@BeforeEach
 	public void setup() {
-		system_mock = context.mock(System.class, "system");
-
-		testable = new Link("link", system_mock, "id");
+		testable = new Link("link", "id");
 	}
 
 	@Test
@@ -44,17 +39,6 @@ public class LinkTest {
 
 	@Test
 	public void equals() {
-		final SystemObject object_mock = context.mock(SystemObject.class);
-
-		context.checking(new Expectations() {
-			{
-				oneOf(system_mock).getObjectById("id");
-				will(returnValue(object_mock));
-
-				oneOf(system_mock).getObjectById("id");
-				will(returnValue(object_mock));
-			}
-		});
 		assertTrue(testable.equals(testable.clone()));
 	}
 
@@ -70,53 +54,29 @@ public class LinkTest {
 
 	@Test
 	public void equals_differentName() {
-		assertFalse(testable.equals(new Link("different", system_mock, "value")));
+		assertFalse(testable.equals(new Link("different", "value")));
 	}
 
 	@Test
 	public void equals_differentId() {
-		assertFalse(testable.equals(new Link("link", system_mock, "different")));
-	}
-
-	@Test
-	public void equals_differentObjects() {
-		final SystemObject object_mock = context.mock(SystemObject.class);
-
-		context.checking(new Expectations() {
-			{
-				oneOf(system_mock).getObjectById("id");
-				will(returnValue(object_mock));
-
-				oneOf(system_mock).getObjectById("id");
-				will(returnValue(null));
-			}
-		});
-
-		assertFalse(testable.equals(testable.clone()));
+		assertFalse(testable.equals(new Link("link", "different")));
 	}
 
 	@Test
 	public void matches() {
-		final Link template = new Link("link", system_mock, "id");
+		final Link template = new Link("link", "id");
 		assertTrue(testable.matches(template));
 	}
 
 	@Test
 	public void matches_differentName() {
-		final Link template = new Link("different", system_mock, "id");
+		final Link template = new Link("different", "id");
 		assertFalse(testable.matches(template));
 	}
 
 	@Test
 	public void getName() {
 		assertEquals("link", testable.getName());
-	}
-
-	@Test
-	public void setSystem() {
-		final System system_mock = context.mock(System.class, "new-system");
-
-		testable.setSystem(system_mock);
 	}
 
 	@Test

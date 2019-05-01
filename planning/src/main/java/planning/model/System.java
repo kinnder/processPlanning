@@ -34,7 +34,6 @@ public class System {
 		System system = new System();
 		for (SystemObject object : objects) {
 			SystemObject cloned = (SystemObject) object.clone();
-			cloned.updateLinks(system);
 			system.addObject(cloned);
 		}
 		return system;

@@ -45,8 +45,6 @@ public class SystemTest {
 			{
 				oneOf(object_1_mock).clone();
 				will(returnValue(object_2_mock));
-
-				oneOf(object_2_mock).updateLinks(with(any(System.class)));
 			}
 		});
 
