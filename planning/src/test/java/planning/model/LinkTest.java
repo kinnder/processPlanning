@@ -96,6 +96,18 @@ public class LinkTest {
 	}
 
 	@Test
+	public void matches() {
+		final Link template = new Link("link", system_mock, "id");
+		assertTrue(testable.matches(template));
+	}
+
+	@Test
+	public void matches_differentName() {
+		final Link template = new Link("different", system_mock, "id");
+		assertFalse(testable.matches(template));
+	}
+
+	@Test
 	public void getName() {
 		assertEquals("link", testable.getName());
 	}

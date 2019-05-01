@@ -67,7 +67,6 @@ public class Attribute {
 	}
 
 	public boolean matches(Attribute template) {
-		// TODO Auto-generated method stub
-		return false;
+		return name.equals(template.name) && type.equals(template.type) && value.equals(template.value);
 	}
 }

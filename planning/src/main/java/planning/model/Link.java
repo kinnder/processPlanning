@@ -40,8 +40,7 @@ public class Link {
 		this.system = system;
 	}
 
-	public boolean matches(Link linkTemplate) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean matches(Link template) {
+		return name.equals(template.name);
 	}
 }

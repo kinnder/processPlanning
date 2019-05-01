@@ -76,6 +76,30 @@ class AttributeTest {
 	}
 
 	@Test
+	public void matches() {
+		final Attribute template = new Attribute("attribute", "value");
+		assertTrue(testable.matches(template));
+	}
+
+	@Test
+	public void matches_differentName() {
+		final Attribute template = new Attribute("different", "value");
+		assertFalse(testable.matches(template));
+	}
+
+	@Test
+	public void matches_differentType() {
+		final Attribute template = new Attribute("attribute", 10);
+		assertFalse(testable.matches(template));
+	}
+
+	@Test
+	public void matches_differentValue() {
+		final Attribute template = new Attribute("attribute", "different");
+		assertFalse(testable.matches(template));
+	}
+
+	@Test
 	public void getValueAsBoolean() {
 		final boolean value = true;
 		testable = new Attribute("attribute", value);
