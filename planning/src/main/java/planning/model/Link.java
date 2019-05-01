@@ -43,4 +43,8 @@ public class Link {
 	public boolean matches(Link template) {
 		return name.equals(template.name);
 	}
+
+	public void setObjectId(String objectId) {
+		this.objectId = objectId;
+	}
 }

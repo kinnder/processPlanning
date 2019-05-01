@@ -118,4 +118,9 @@ public class LinkTest {
 
 		testable.setSystem(system_mock);
 	}
+
+	@Test
+	public void setObjectId() {
+		testable.setObjectId("new id");
+	}
 }

@@ -124,4 +124,9 @@ class AttributeTest {
 	public void getName() {
 		assertEquals("attribute", testable.getName());
 	}
+
+	@Test
+	public void setValue() {
+		testable.setValue("new value");
+	}
 }

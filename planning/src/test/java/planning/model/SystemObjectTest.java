@@ -452,4 +452,34 @@ public class SystemObjectTest {
 
 		assertFalse(testable.matches(template));
 	}
+
+	@Test
+	public void getAttribute() {
+		final Attribute attribute_mock = context.mock(Attribute.class, "attribute");
+
+		context.checking(new Expectations() {
+			{
+				oneOf(attribute_mock).getName();
+				will(returnValue("attribute-name"));
+			}
+		});
+		testable.addAttribute(attribute_mock);
+
+		assertEquals(attribute_mock, testable.getAttribute("attribute-name"));
+	}
+
+	@Test
+	public void getLink() {
+		final Link link_mock = context.mock(Link.class, "link");
+
+		context.checking(new Expectations() {
+			{
+				oneOf(link_mock).getName();
+				will(returnValue("link-name"));
+			}
+		});
+		testable.addLink(link_mock);
+
+		assertEquals(link_mock, testable.getLink("link-name"));
+	}
 }

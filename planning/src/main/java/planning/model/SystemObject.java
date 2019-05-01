@@ -118,4 +118,12 @@ public class SystemObject {
 			link.setSystem(system);
 		}
 	}
+
+	public Attribute getAttribute(String attributeName) {
+		return attributes.get(attributeName);
+	}
+
+	public Link getLink(String linkName) {
+		return links.get(linkName);
+	}
 }

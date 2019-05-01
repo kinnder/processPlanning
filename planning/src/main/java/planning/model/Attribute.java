@@ -69,4 +69,8 @@ public class Attribute {
 	public boolean matches(Attribute template) {
 		return name.equals(template.name) && type.equals(template.type) && value.equals(template.value);
 	}
+
+	public void setValue(Object value) {
+		this.value = value;
+	}
 }
