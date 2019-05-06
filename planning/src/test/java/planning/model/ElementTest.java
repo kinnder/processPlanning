@@ -1,6 +1,5 @@
 package planning.model;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.util.Map;
 
 import org.jmock.Expectations;
@@ -48,22 +47,15 @@ public class ElementTest {
 	@Test
 	public void applyTo() {
 		final System system_mock = context.mock(System.class, "system");
-		final System transformed_mock = context.mock(System.class, "transformed");
 		@SuppressWarnings("unchecked")
 		final Map<String, String> matchings = context.mock(Map.class, "matchings");
 
 		context.checking(new Expectations() {
 			{
-				oneOf(system_mock).clone();
-				will(returnValue(transformed_mock));
-
-				oneOf(transformed_mock).matchIds(template_mock);
-				will(returnValue(matchings));
-
-				oneOf(transformation_mock).applyTo(transformed_mock, matchings);
+				oneOf(transformation_mock).applyTo(system_mock, matchings);
 			}
 		});
 
-		assertEquals(transformed_mock, testable.applyTo(system_mock));
+		testable.applyTo(system_mock, matchings);
 	}
 }

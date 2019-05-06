@@ -2,6 +2,8 @@ package domain;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.Map;
+
 import org.junit.jupiter.api.Test;
 
 import planning.model.Attribute;
@@ -186,12 +188,19 @@ public class MaterialPoints {
 		initial_system.addObject(initial_point_3);
 		initial_system.addObject(initial_point_4);
 
-		System expected_system = initial_system.clone();
+		System expected_system;
+		System actual_system = initial_system.clone();
+		Element element;
+		Map<String, String> idsMatching;
+
+		expected_system = actual_system.clone();
 		expected_system.getObjectById(initial_object_id).getLink(LINK_POSITION).setObjectId(initial_point_2_id);
 		expected_system.getObjectById(initial_point_1_id).getAttribute(ATTRIBUTE_OCCUPIED).setValue(false);
 		expected_system.getObjectById(initial_point_2_id).getAttribute(ATTRIBUTE_OCCUPIED).setValue(true);
 
-		System actual_system = moveRight().applyTo(initial_system);
+		element = moveRight();
+		idsMatching = actual_system.matchIds(element.getTemplate());
+		element.applyTo(actual_system, idsMatching);
 		assertTrue(expected_system.equals(actual_system));
 
 		expected_system = actual_system.clone();
@@ -199,7 +208,9 @@ public class MaterialPoints {
 		expected_system.getObjectById(initial_point_2_id).getAttribute(ATTRIBUTE_OCCUPIED).setValue(false);
 		expected_system.getObjectById(initial_point_4_id).getAttribute(ATTRIBUTE_OCCUPIED).setValue(true);
 
-		actual_system = moveBottom().applyTo(actual_system);
+		element = moveBottom();
+		idsMatching = actual_system.matchIds(element.getTemplate());
+		element.applyTo(actual_system, idsMatching);
 		assertTrue(expected_system.equals(actual_system));
 	}
 }

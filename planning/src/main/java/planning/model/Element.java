@@ -16,14 +16,13 @@ public class Element {
 		this.transformations = transformations;
 	}
 
-	public System applyTo(System system) {
-		System transformedSystem = system.clone();
+	public System getTemplate() {
+		return template;
+	}
 
-		Map<String, String> idsMatching = transformedSystem.matchIds(template);
+	public void applyTo(System system, Map<String, String> idsMatching) {
 		for (Transformation transformation : transformations) {
-			transformation.applyTo(transformedSystem, idsMatching);
+			transformation.applyTo(system, idsMatching);
 		}
-
-		return transformedSystem;
 	}
 }
