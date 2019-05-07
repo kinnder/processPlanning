@@ -1,5 +1,7 @@
 package planning.model;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import org.jmock.Expectations;
 import org.jmock.imposters.ByteBuddyClassImposteriser;
 import org.jmock.junit5.JUnit5Mockery;
@@ -53,5 +55,10 @@ public class ElementTest {
 		});
 
 		testable.applyTo(systemVariant_mock);
+	}
+
+	@Test
+	public void getTemplate() {
+		assertEquals(template_mock, testable.getTemplate());
 	}
 }
