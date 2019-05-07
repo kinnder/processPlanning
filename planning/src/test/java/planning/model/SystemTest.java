@@ -5,8 +5,6 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
-import java.util.Map;
-
 import org.jmock.Expectations;
 import org.jmock.imposters.ByteBuddyClassImposteriser;
 import org.jmock.junit5.JUnit5Mockery;
@@ -126,6 +124,10 @@ public class SystemTest {
 		systemTemplate.addObject(object_1_template_mock);
 		systemTemplate.addObject(object_2_template_mock);
 
+		final SystemObject object_1_clone_mock = context.mock(SystemObject.class, "object-1-clone");
+		final SystemObject object_2_clone_mock = context.mock(SystemObject.class, "object-2-clone");
+		final SystemObject object_3_clone_mock = context.mock(SystemObject.class, "object-3-clone");
+
 		context.checking(new Expectations() {
 			{
 				oneOf(object_3_mock).matches(object_1_template_mock);
@@ -151,11 +153,21 @@ public class SystemTest {
 
 				oneOf(object_2_mock).getObjectId();
 				will(returnValue("id-2"));
+
+				oneOf(object_3_mock).clone();
+				will(returnValue(object_3_clone_mock));
+
+				oneOf(object_1_mock).clone();
+				will(returnValue(object_1_clone_mock));
+
+				oneOf(object_2_mock).clone();
+				will(returnValue(object_2_clone_mock));
 			}
 		});
 
-		Map<String, String> idsMatching = testable.matchIds(systemTemplate);
-		assertEquals("id-1", idsMatching.get("id-1-template"));
-		assertEquals("id-2", idsMatching.get("id-2-template"));
+		SystemVariant[] systemVariants = testable.matchIds(systemTemplate);
+		assertEquals(1, systemVariants.length);
+		assertEquals("id-1", systemVariants[0].getObjectIdByIdMatch("id-1-template"));
+		assertEquals("id-2", systemVariants[0].getObjectIdByIdMatch("id-2-template"));
 	}
 }

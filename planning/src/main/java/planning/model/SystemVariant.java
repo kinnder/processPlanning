@@ -21,4 +21,8 @@ public class SystemVariant {
 		String objectIdMatch = idsMatching.get(objectId);
 		return system.getObjectById(objectIdMatch);
 	}
+
+	public System getSystem() {
+		return system;
+	}
 }

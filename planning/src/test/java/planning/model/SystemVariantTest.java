@@ -69,4 +69,9 @@ public class SystemVariantTest {
 
 		assertEquals(object_mock, testable.getObjectByIdMatch("#ID-1"));
 	}
+
+	@Test
+	public void getSystem() {
+		assertEquals(system_mock, testable.getSystem());
+	}
 }

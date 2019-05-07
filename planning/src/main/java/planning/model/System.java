@@ -13,7 +13,7 @@ public class System {
 		objects.add(object);
 	}
 
-	public Map<String, String> matchIds(System template) {
+	public SystemVariant[] matchIds(System template) {
 		Map<String, String> matchings = new HashMap<String, String>();
 
 		List<SystemObject> templateObjects = new ArrayList<SystemObject>(template.objects);
@@ -27,7 +27,7 @@ public class System {
 			}
 		}
 
-		return matchings;
+		return new SystemVariant[] { new SystemVariant(clone(), matchings) };
 	}
 
 	public System clone() {
