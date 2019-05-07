@@ -1,7 +1,5 @@
 package planning.model;
 
-import java.util.Map;
-
 public class Transformation {
 
 	protected String objectId;
@@ -10,6 +8,6 @@ public class Transformation {
 		this.objectId = objectId;
 	}
 
-	public void applyTo(System system, Map<String, String> idsMatching) {
+	public void applyTo(SystemVariant systemVariant) {
 	}
 }

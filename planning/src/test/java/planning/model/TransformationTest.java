@@ -1,8 +1,5 @@
 package planning.model;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.jmock.imposters.ByteBuddyClassImposteriser;
 import org.jmock.junit5.JUnit5Mockery;
 import org.junit.jupiter.api.AfterEach;
@@ -33,10 +30,8 @@ public class TransformationTest {
 
 	@Test
 	public void applyTo() {
-		final System system_mock = context.mock(System.class);
-		final Map<String, String> idsMatching = new HashMap<String, String>();
-		idsMatching.put("id-template", "id");
+		final SystemVariant systemVariant_mock = context.mock(SystemVariant.class);
 
-		testable.applyTo(system_mock, idsMatching);
+		testable.applyTo(systemVariant_mock);
 	}
 }

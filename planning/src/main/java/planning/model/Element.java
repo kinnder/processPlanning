@@ -1,7 +1,5 @@
 package planning.model;
 
-import java.util.Map;
-
 public class Element {
 
 	private String operation;
@@ -20,9 +18,9 @@ public class Element {
 		return template;
 	}
 
-	public void applyTo(System system, Map<String, String> idsMatching) {
+	public void applyTo(SystemVariant systemVariant) {
 		for (Transformation transformation : transformations) {
-			transformation.applyTo(system, idsMatching);
+			transformation.applyTo(systemVariant);
 		}
 	}
 }

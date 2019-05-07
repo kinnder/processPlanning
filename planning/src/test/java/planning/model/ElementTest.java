@@ -1,7 +1,5 @@
 package planning.model;
 
-import java.util.Map;
-
 import org.jmock.Expectations;
 import org.jmock.imposters.ByteBuddyClassImposteriser;
 import org.jmock.junit5.JUnit5Mockery;
@@ -46,16 +44,14 @@ public class ElementTest {
 
 	@Test
 	public void applyTo() {
-		final System system_mock = context.mock(System.class, "system");
-		@SuppressWarnings("unchecked")
-		final Map<String, String> matchings = context.mock(Map.class, "matchings");
+		final SystemVariant systemVariant_mock = context.mock(SystemVariant.class);
 
 		context.checking(new Expectations() {
 			{
-				oneOf(transformation_mock).applyTo(system_mock, matchings);
+				oneOf(transformation_mock).applyTo(systemVariant_mock);
 			}
 		});
 
-		testable.applyTo(system_mock, matchings);
+		testable.applyTo(systemVariant_mock);
 	}
 }

@@ -1,8 +1,5 @@
 package planning.model;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.jmock.Expectations;
 import org.jmock.imposters.ByteBuddyClassImposteriser;
 import org.jmock.junit5.JUnit5Mockery;
@@ -34,17 +31,17 @@ public class LinkTransformationTest {
 
 	@Test
 	public void applyTo() {
-		final System system_mock = context.mock(System.class);
-		final Map<String, String> idsMatching = new HashMap<String, String>();
-		idsMatching.put("id-template", "id");
-		idsMatching.put("link-value", "link-id");
 		final SystemObject object_mock = context.mock(SystemObject.class);
 		final Link link_mock = context.mock(Link.class);
+		final SystemVariant systemVariant_mock = context.mock(SystemVariant.class);
 
 		context.checking(new Expectations() {
 			{
-				oneOf(system_mock).getObjectById("id");
+				oneOf(systemVariant_mock).getObjectByIdMatch("id-template");
 				will(returnValue(object_mock));
+
+				oneOf(systemVariant_mock).getObjectIdByIdMatch("link-value");
+				will(returnValue("link-id"));
 
 				oneOf(object_mock).getLink("link-name");
 				will(returnValue(link_mock));
@@ -53,6 +50,6 @@ public class LinkTransformationTest {
 			}
 		});
 
-		testable.applyTo(system_mock, idsMatching);
+		testable.applyTo(systemVariant_mock);
 	}
 }

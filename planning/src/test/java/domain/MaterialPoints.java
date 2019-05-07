@@ -12,6 +12,7 @@ import planning.model.Link;
 import planning.model.LinkTransformation;
 import planning.model.System;
 import planning.model.SystemObject;
+import planning.model.SystemVariant;
 import planning.model.Transformation;
 import planning.model.AttributeTransformation;
 
@@ -200,7 +201,7 @@ public class MaterialPoints {
 
 		element = moveRight();
 		idsMatching = actual_system.matchIds(element.getTemplate());
-		element.applyTo(actual_system, idsMatching);
+		element.applyTo(new SystemVariant(actual_system, idsMatching));
 		assertTrue(expected_system.equals(actual_system));
 
 		expected_system = actual_system.clone();
@@ -210,7 +211,7 @@ public class MaterialPoints {
 
 		element = moveBottom();
 		idsMatching = actual_system.matchIds(element.getTemplate());
-		element.applyTo(actual_system, idsMatching);
+		element.applyTo(new SystemVariant(actual_system, idsMatching));
 		assertTrue(expected_system.equals(actual_system));
 	}
 }

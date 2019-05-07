@@ -1,7 +1,5 @@
 package planning.model;
 
-import java.util.Map;
-
 public class AttributeTransformation extends Transformation {
 
 	private String attributeName;
@@ -15,9 +13,8 @@ public class AttributeTransformation extends Transformation {
 	}
 
 	@Override
-	public void applyTo(System system, Map<String, String> idsMatching) {
-		String concreateObjectId = idsMatching.get(objectId);
-		SystemObject object = system.getObjectById(concreateObjectId);
+	public void applyTo(SystemVariant systemVariant) {
+		SystemObject object = systemVariant.getObjectByIdMatch(objectId);
 
 		Attribute attribute = object.getAttribute(attributeName);
 		attribute.setValue(attributeValue);
