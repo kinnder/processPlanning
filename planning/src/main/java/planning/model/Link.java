@@ -20,7 +20,13 @@ public class Link {
 			return true;
 		}
 		Link link = (Link) obj;
-		return name.equals(link.name) && objectId.equals(link.objectId);
+		if (name.equals(link.name)) {
+			if (objectId == null) {
+				return link.objectId == null;
+			}
+		}
+
+		return objectId.equals(link.objectId);
 	}
 
 	@Override
@@ -32,8 +38,16 @@ public class Link {
 		return name;
 	}
 
+	public String getObjectId() {
+		return objectId;
+	}
+
 	public boolean matches(Link template) {
 		return name.equals(template.name);
+	}
+
+	public boolean matches(Link template, IdsMatching matching) {
+		return objectId != null && name.equals(template.name) && objectId.equals(matching.get(template.objectId));
 	}
 
 	public void setObjectId(String objectId) {

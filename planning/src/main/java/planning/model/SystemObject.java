@@ -2,8 +2,10 @@ package planning.model;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.UUID;
 
 public class SystemObject {
@@ -51,6 +53,39 @@ public class SystemObject {
 		for (Link link : links.values()) {
 			for (Link linkTemplate : linkTemplates) {
 				if (link.matches(linkTemplate)) {
+					linkTemplates.remove(linkTemplate);
+					break;
+				}
+			}
+		}
+		if (linkTemplates.size() != 0) {
+			return false;
+		}
+
+		return true;
+	}
+
+	public boolean matchesAttributes(SystemObject templateObject) {
+		List<Attribute> attributeTemplates = new ArrayList<Attribute>(templateObject.attributes.values());
+		for (Attribute attribute : attributes.values()) {
+			for (Attribute attributeTemplate : attributeTemplates) {
+				if (attribute.matches(attributeTemplate)) {
+					attributeTemplates.remove(attributeTemplate);
+					break;
+				}
+			}
+		}
+		if (attributeTemplates.size() != 0) {
+			return false;
+		}
+		return true;
+	}
+
+	public boolean matchesLinks(SystemObject template, IdsMatching matching) {
+		List<Link> linkTemplates = new ArrayList<Link>(template.links.values());
+		for (Link link : links.values()) {
+			for (Link linkTemplate : linkTemplates) {
+				if (link.matches(linkTemplate, matching)) {
 					linkTemplates.remove(linkTemplate);
 					break;
 				}
@@ -119,5 +154,14 @@ public class SystemObject {
 
 	public Link getLink(String linkName) {
 		return links.get(linkName);
+	}
+
+	public Set<String> getObjectIds() {
+		Set<String> objectIds = new HashSet<String>();
+		objectIds.add(objectId);
+		for (Link link : links.values()) {
+			objectIds.add(link.getObjectId());
+		}
+		return objectIds;
 	}
 }

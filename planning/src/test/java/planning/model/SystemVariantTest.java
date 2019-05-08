@@ -2,8 +2,6 @@ package planning.model;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.util.Map;
-
 import org.jmock.Expectations;
 import org.jmock.imposters.ByteBuddyClassImposteriser;
 import org.jmock.junit5.JUnit5Mockery;
@@ -30,15 +28,14 @@ public class SystemVariantTest {
 
 	System system_mock;
 
-	Map<?, ?> idsMatching;
+	IdsMatching idsMatching;
 
-	@SuppressWarnings("unchecked")
 	@BeforeEach
 	public void setup() {
 		system_mock = context.mock(System.class);
-		idsMatching = context.mock(Map.class);
+		idsMatching = context.mock(IdsMatching.class);
 
-		testable = new SystemVariant(system_mock, (Map<String, String>) idsMatching);
+		testable = new SystemVariant(system_mock, idsMatching);
 	}
 
 	@Test

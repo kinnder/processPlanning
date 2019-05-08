@@ -1,25 +1,23 @@
 package planning.model;
 
-import java.util.Map;
-
 public class SystemVariant {
 
 	private System system;
 
-	private Map<String, String> idsMatching;
+	private IdsMatching idsMatching;
 
-	public SystemVariant(System system, Map<String, String> idsMatching) {
+	public SystemVariant(System system, IdsMatching idsMatching) {
 		this.system = system;
 		this.idsMatching = idsMatching;
 	}
 
-	public String getObjectIdByIdMatch(String objectId) {
-		return idsMatching.get(objectId);
+	public String getObjectIdByIdMatch(String templateId) {
+		return idsMatching.get(templateId);
 	}
 
-	public SystemObject getObjectByIdMatch(String objectId) {
-		String objectIdMatch = idsMatching.get(objectId);
-		return system.getObjectById(objectIdMatch);
+	public SystemObject getObjectByIdMatch(String templateId) {
+		String objectId = idsMatching.get(templateId);
+		return system.getObjectById(objectId);
 	}
 
 	public System getSystem() {
