@@ -5,9 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.util.Arrays;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import org.jmock.imposters.ByteBuddyClassImposteriser;
@@ -44,64 +42,6 @@ public class IdsMatchingManagerTest {
 	}
 
 	@Test
-	public void construct_objectIdsLessThatTemplateIds() {
-		Set<String> templateIds = new HashSet<String>();
-		templateIds.add("T-1");
-		Set<String> objectIds = new HashSet<String>();
-
-		testable = new IdsMatchingManager(templateIds, objectIds);
-
-		assertEquals(0, testable.getMatchingsAmount());
-	}
-
-	@Test
-	public void construct_2x2_permutations() {
-		Set<String> templateIds = new HashSet<String>();
-		templateIds.add("T-1");
-		templateIds.add("T-2");
-		Set<String> objectIds = new HashSet<String>();
-		objectIds.add("ID-1");
-		objectIds.add("ID-2");
-
-		testable = new IdsMatchingManager(templateIds, objectIds);
-
-		assertEquals(4, testable.getMatchingsAmount());
-	}
-
-	@Test
-	public void construct_3x3_permutations() {
-		Set<String> templateIds = new HashSet<String>();
-		templateIds.add("T-1");
-		templateIds.add("T-2");
-		templateIds.add("T-3");
-		Set<String> objectIds = new HashSet<String>();
-		objectIds.add("ID-1");
-		objectIds.add("ID-2");
-		objectIds.add("ID-3");
-
-		testable = new IdsMatchingManager(templateIds, objectIds);
-		assertEquals(36, testable.getMatchingsAmount());
-
-		testable.removeMatchings("T-1", "ID-2");
-		assertEquals(24, testable.getMatchingsAmount());
-
-		testable.removeMatchings("T-1", "ID-3");
-		assertEquals(12, testable.getMatchingsAmount());
-
-		testable.removeMatchings("T-2", "ID-1");
-		assertEquals(12, testable.getMatchingsAmount());
-
-		testable.removeMatchings("T-2", "ID-3");
-		assertEquals(6, testable.getMatchingsAmount());
-
-		testable.removeMatchings("T-3", "ID-1");
-		assertEquals(6, testable.getMatchingsAmount());
-
-		testable.removeMatchings("T-3", "ID-2");
-		assertEquals(6, testable.getMatchingsAmount());
-	}
-
-	@Test
 	public void haveUncheckedMatching() {
 		Set<String> templateIds = new HashSet<String>();
 		templateIds.add("T-1");
@@ -110,21 +50,16 @@ public class IdsMatchingManagerTest {
 		objectIds.add("ID-1");
 		objectIds.add("ID-2");
 
-		testable = new IdsMatchingManager(templateIds, objectIds);
+		testable.prepareMatchingsCandidates(templateIds, objectIds);
+		testable.generateMatchingsFromCandidates();
 
-		assertEquals(4, testable.getMatchingsAmount());
+		assertEquals(2, testable.getMatchingsAmount());
 
 		assertTrue(testable.haveUncheckedMatching());
 		assertEquals(testable.getMatching(0), testable.getUncheckedMatching());
 
 		assertTrue(testable.haveUncheckedMatching());
 		assertEquals(testable.getMatching(1), testable.getUncheckedMatching());
-
-		assertTrue(testable.haveUncheckedMatching());
-		assertEquals(testable.getMatching(2), testable.getUncheckedMatching());
-
-		assertTrue(testable.haveUncheckedMatching());
-		assertEquals(testable.getMatching(3), testable.getUncheckedMatching());
 
 		assertFalse(testable.haveUncheckedMatching());
 		assertNull(testable.getUncheckedMatching());
@@ -162,15 +97,5 @@ public class IdsMatchingManagerTest {
 
 		testable.removeMatching(idsMatching);
 		assertEquals(8, testable.getMatchingsAmount());
-	}
-
-	@Test
-	public void computeCombinations2() {
-		List<String> t1 = Arrays.asList("ID-1", "ID-2", "ID-3", "ID-4", "ID-5");
-		List<String> t2 = Arrays.asList("ID-2");
-		List<String> t3 = Arrays.asList("ID-3", "ID-4", "ID-5");
-
-		List<List<String>> combinations = testable.computeCombinations2(Arrays.asList(t1, t2, t3));
-		assertEquals(15, combinations.size());
 	}
 }

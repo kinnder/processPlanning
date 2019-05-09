@@ -113,71 +113,9 @@ public class SystemTest {
 		assertNull(testable.getObjectById("id"));
 	}
 
-	@Test
-	public void matchIds() {
-		final SystemObject object_1_mock = context.mock(SystemObject.class, "object-1");
-		final SystemObject object_2_mock = context.mock(SystemObject.class, "object-2");
-		final SystemObject object_3_mock = context.mock(SystemObject.class, "object-3");
-		testable.addObject(object_3_mock);
-		testable.addObject(object_1_mock);
-		testable.addObject(object_2_mock);
-
-		final System systemTemplate = new System();
-		final SystemObject object_1_template_mock = context.mock(SystemObject.class, "object-1-template");
-		final SystemObject object_2_template_mock = context.mock(SystemObject.class, "object-2-template");
-		systemTemplate.addObject(object_1_template_mock);
-		systemTemplate.addObject(object_2_template_mock);
-
-		final SystemObject object_1_clone_mock = context.mock(SystemObject.class, "object-1-clone");
-		final SystemObject object_2_clone_mock = context.mock(SystemObject.class, "object-2-clone");
-		final SystemObject object_3_clone_mock = context.mock(SystemObject.class, "object-3-clone");
-
-		context.checking(new Expectations() {
-			{
-				oneOf(object_3_mock).matches(object_1_template_mock);
-				will(returnValue(false));
-
-				oneOf(object_3_mock).matches(object_2_template_mock);
-				will(returnValue(false));
-
-				oneOf(object_1_mock).matches(object_1_template_mock);
-				will(returnValue(true));
-
-				oneOf(object_1_template_mock).getObjectId();
-				will(returnValue("id-1-template"));
-
-				oneOf(object_1_mock).getObjectId();
-				will(returnValue("id-1"));
-
-				oneOf(object_2_mock).matches(object_2_template_mock);
-				will(returnValue(true));
-
-				oneOf(object_2_template_mock).getObjectId();
-				will(returnValue("id-2-template"));
-
-				oneOf(object_2_mock).getObjectId();
-				will(returnValue("id-2"));
-
-				oneOf(object_3_mock).clone();
-				will(returnValue(object_3_clone_mock));
-
-				oneOf(object_1_mock).clone();
-				will(returnValue(object_1_clone_mock));
-
-				oneOf(object_2_mock).clone();
-				will(returnValue(object_2_clone_mock));
-			}
-		});
-
-		SystemVariant[] systemVariants = testable.matchIds(systemTemplate);
-		assertEquals(1, systemVariants.length);
-		assertEquals("id-1", systemVariants[0].getObjectIdByIdMatch("id-1-template"));
-		assertEquals("id-2", systemVariants[0].getObjectIdByIdMatch("id-2-template"));
-	}
-
 	@SuppressWarnings("unchecked")
 	@Test
-	public void matchIds_new() {
+	public void matchIds() {
 		final IdsMatchingManager idsMatchingManager_mock = context.mock(IdsMatchingManager.class);
 		testable = new System(idsMatchingManager_mock);
 
@@ -235,13 +173,13 @@ public class SystemTest {
 			}
 		});
 
-		SystemVariant[] systemVariants = testable.matchIds_new(systemTemplate);
+		SystemVariant[] systemVariants = testable.matchIds(systemTemplate);
 		assertEquals(1, systemVariants.length);
 	}
 
 	@SuppressWarnings("unchecked")
 	@Test
-	public void matchIds_new_differentAttributes() {
+	public void matchIds_differentAttributes() {
 		final IdsMatchingManager idsMatchingManager_mock = context.mock(IdsMatchingManager.class);
 		testable = new System(idsMatchingManager_mock);
 
@@ -286,13 +224,13 @@ public class SystemTest {
 			}
 		});
 
-		SystemVariant[] systemVariants = testable.matchIds_new(systemTemplate);
+		SystemVariant[] systemVariants = testable.matchIds(systemTemplate);
 		assertEquals(0, systemVariants.length);
 	}
 
 	@SuppressWarnings("unchecked")
 	@Test
-	public void matchIds_new_differentLinks() {
+	public void matchIds_differentLinks() {
 		final IdsMatchingManager idsMatchingManager_mock = context.mock(IdsMatchingManager.class);
 		testable = new System(idsMatchingManager_mock);
 
@@ -345,7 +283,7 @@ public class SystemTest {
 			}
 		});
 
-		SystemVariant[] systemVariants = testable.matchIds_new(systemTemplate);
+		SystemVariant[] systemVariants = testable.matchIds(systemTemplate);
 		assertEquals(0, systemVariants.length);
 	}
 

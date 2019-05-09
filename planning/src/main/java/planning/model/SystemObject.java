@@ -35,36 +35,6 @@ public class SystemObject {
 		attributes.put(attribute.getName(), attribute);
 	}
 
-	public boolean matches(SystemObject template) {
-		List<Attribute> attributeTemplates = new ArrayList<Attribute>(template.attributes.values());
-		for (Attribute attribute : attributes.values()) {
-			for (Attribute attributeTemplate : attributeTemplates) {
-				if (attribute.matches(attributeTemplate)) {
-					attributeTemplates.remove(attributeTemplate);
-					break;
-				}
-			}
-		}
-		if (attributeTemplates.size() != 0) {
-			return false;
-		}
-
-		List<Link> linkTemplates = new ArrayList<Link>(template.links.values());
-		for (Link link : links.values()) {
-			for (Link linkTemplate : linkTemplates) {
-				if (link.matches(linkTemplate)) {
-					linkTemplates.remove(linkTemplate);
-					break;
-				}
-			}
-		}
-		if (linkTemplates.size() != 0) {
-			return false;
-		}
-
-		return true;
-	}
-
 	public boolean matchesAttributes(SystemObject templateObject) {
 		List<Attribute> attributeTemplates = new ArrayList<Attribute>(templateObject.attributes.values());
 		for (Attribute attribute : attributes.values()) {

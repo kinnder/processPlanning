@@ -1,7 +1,8 @@
-package algorithms.permutation;
+package algorithms;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.util.Arrays;
 import java.util.List;
 
 import org.jmock.imposters.ByteBuddyClassImposteriser;
@@ -11,7 +12,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
-public class HeapsAlgorithmTest {
+public class CartesianProductTest {
 
 	@RegisterExtension
 	JUnit5Mockery context = new JUnit5Mockery() {
@@ -25,18 +26,20 @@ public class HeapsAlgorithmTest {
 		context.assertIsSatisfied();
 	}
 
-	HeapsAlgorithm testable;
+	CartesianProduct testable;
 
 	@BeforeEach
 	public void setup() {
-		testable = new HeapsAlgorithm();
+		testable = new CartesianProduct();
 	}
 
 	@Test
-	public void getPermutations() {
-		String[] ids = { "t-1", "t-2", "t-3", null };
+	public void computeCombinations2() {
+		List<String> t1 = Arrays.asList("ID-1", "ID-2", "ID-3", "ID-4", "ID-5");
+		List<String> t2 = Arrays.asList("ID-2");
+		List<String> t3 = Arrays.asList("ID-3", "ID-4", "ID-5");
 
-		List<Object[]> permutations = testable.getPermutations(ids, ids.length);
-		assertEquals(24, permutations.size());
+		List<List<String>> combinations = CartesianProduct.compute(Arrays.asList(t1, t2, t3));
+		assertEquals(15, combinations.size());
 	}
 }

@@ -13,23 +13,6 @@ public class System {
 		objects.add(object);
 	}
 
-	public SystemVariant[] matchIds(System template) {
-		IdsMatching idsMatching = new IdsMatching();
-
-		List<SystemObject> templateObjects = new ArrayList<SystemObject>(template.objects);
-		for (SystemObject object : objects) {
-			for (SystemObject templateObject : templateObjects) {
-				if (object.matches(templateObject)) {
-					idsMatching.add(templateObject.getObjectId(), object.getObjectId());
-					templateObjects.remove(templateObject);
-					break;
-				}
-			}
-		}
-
-		return new SystemVariant[] { new SystemVariant(clone(), idsMatching) };
-	}
-
 	public System() {
 	}
 
@@ -39,7 +22,7 @@ public class System {
 
 	private IdsMatchingManager idsMatchingsManager = new IdsMatchingManager();
 
-	public SystemVariant[] matchIds_new(System template) {
+	public SystemVariant[] matchIds(System template) {
 		idsMatchingsManager.prepareMatchingsCandidates(template.getSystemIds(), getSystemIds());
 
 		for (SystemObject object : objects) {
@@ -57,12 +40,12 @@ public class System {
 			int templateMatchings = 0;
 			for (SystemObject object : objects) {
 				for (SystemObject templateObject : template.objects) {
-					if(object.matchesAttributes(templateObject) && object.matchesLinks(templateObject, matching)) {
-						templateMatchings ++;
+					if (object.matchesAttributes(templateObject) && object.matchesLinks(templateObject, matching)) {
+						templateMatchings++;
 					}
 				}
 			}
-			if(templateMatchings != template.objects.size()) {
+			if (templateMatchings != template.objects.size()) {
 				idsMatchingsManager.removeMatching(matching);
 			}
 		}
