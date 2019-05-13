@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import algorithms.CartesianProduct;
+import algorithms.set.CartesianProduct;
 
 public class IdsMatchingManager {
 
