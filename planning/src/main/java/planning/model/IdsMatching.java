@@ -17,11 +17,11 @@ public class IdsMatching {
 
 	private boolean checked = false;
 
-	public boolean getChecked() {
+	public boolean isChecked() {
 		return checked;
 	}
 
-	public void setChecked(boolean checked) {
-		this.checked = checked;
+	public void check() {
+		checked = true;
 	}
 }

@@ -21,11 +21,11 @@ public class IdsMatchingManager {
 
 	public boolean haveUncheckedMatching() {
 		if (unchekedIdsMatching != null) {
-			unchekedIdsMatching.setChecked(true);
+			unchekedIdsMatching.check();
 
 		}
 		for (IdsMatching idsMatching : idsMatchings) {
-			if (!idsMatching.getChecked()) {
+			if (!idsMatching.isChecked()) {
 				unchekedIdsMatching = idsMatching;
 				return true;
 			}

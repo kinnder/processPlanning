@@ -46,14 +46,14 @@ public class IdsMatchingTest {
 	}
 
 	@Test
-	public void getChecked() {
-		assertFalse(testable.getChecked());
+	public void isChecked() {
+		assertFalse(testable.isChecked());
 	}
 
 	@Test
-	public void setChecked() {
-		testable.setChecked(true);
+	public void check() {
+		testable.check();
 
-		assertTrue(testable.getChecked());
+		assertTrue(testable.isChecked());
 	}
 }
