@@ -17,20 +17,14 @@ import java.util.List;
 public class GraphMatrixDirected<V, E> extends GraphMatrix<V, E> {
 
 	/**
-	 * construct a directed, adjacency-matrix based graph
+	 * Construct a directed, adjacency-matrix based graph.
 	 *
-	 * @param size the maximum number of vertices allows in graph
+	 * @param size - maximum number of vertices allowed in graph
 	 */
 	public GraphMatrixDirected(int size) {
 		super(size, true);
 	}
 
-	/**
-	 * construct an traversal over all edges
-	 *
-	 * @return Iterator over edges
-	 */
-	@SuppressWarnings("unchecked")
 	@Override
 	public Iterator<Edge<V, E>> edges() {
 		List<Edge<V, E>> list = new ArrayList<Edge<V, E>>();
@@ -45,14 +39,6 @@ public class GraphMatrixDirected<V, E> extends GraphMatrix<V, E> {
 		return list.iterator();
 	}
 
-	/**
-	 * add an edge between two vertices within the graph. Edge is directed.
-	 * Duplicate edges are silently replaced. Labels on edges may be null
-	 *
-	 * @param vLabel1 source vertex
-	 * @param vLabel2 destination vertex
-	 * @param label   label associated with the edge
-	 */
 	@Override
 	public void addEdge(V vLabel1, V vLabel2, E label) {
 		GraphMatrixVertex<V> vtx1, vtx2;
@@ -64,15 +50,6 @@ public class GraphMatrixDirected<V, E> extends GraphMatrix<V, E> {
 		data[vtx1.index()][vtx2.index()] = e;
 	}
 
-	/**
-	 * remove possible edge between vertices labeled vLabel1 and vLabel2. vLabel1 is
-	 * the source
-	 *
-	 * @param vLabel1 source vertex
-	 * @param vLabel2 destination vertex
-	 * @return the label associated with the edge removed
-	 */
-	@SuppressWarnings("unchecked")
 	@Override
 	public E removeEdge(V vLabel1, V vLabel2) {
 		// get indices
@@ -85,11 +62,6 @@ public class GraphMatrixDirected<V, E> extends GraphMatrix<V, E> {
 		return e == null ? null : e.label();
 	}
 
-	/**
-	 * determine the number of edges in graph
-	 *
-	 * @return number of edges in graph
-	 */
 	@Override
 	public int edgeCount() {
 		// count non-null entries in table
@@ -104,11 +76,6 @@ public class GraphMatrixDirected<V, E> extends GraphMatrix<V, E> {
 		return sum;
 	}
 
-	/**
-	 * construct a string representation of graph
-	 *
-	 * @return string representation graph
-	 */
 	@Override
 	public String toString() {
 		StringBuffer s = new StringBuffer();

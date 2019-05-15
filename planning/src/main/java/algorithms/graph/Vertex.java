@@ -9,19 +9,19 @@ package algorithms.graph;
 public class Vertex<V> {
 
 	/**
-	 * label associated with vertex
+	 * Label associated with vertex.
 	 */
 	protected V label;
 
 	/**
-	 * whether or not the vertex has been visited
+	 * Whether or not the vertex has been visited.
 	 */
 	protected boolean visited;
 
 	/**
-	 * construct a vertex with an associated label
+	 * Construct a vertex with an associated label.
 	 *
-	 * @param label label to be associated with vertex
+	 * @param label - label to be associated with vertex
 	 */
 	public Vertex(V label) {
 		this.label = label;
@@ -29,7 +29,7 @@ public class Vertex<V> {
 	}
 
 	/**
-	 * fetch the label associated with vertex
+	 * Fetch the label associated with vertex.
 	 *
 	 * @return label associated with vertex
 	 */
@@ -38,7 +38,7 @@ public class Vertex<V> {
 	}
 
 	/**
-	 * test and set the visited flag
+	 * Test and set the visited flag.
 	 *
 	 * @return value of the flag before marking
 	 */
@@ -49,7 +49,7 @@ public class Vertex<V> {
 	}
 
 	/**
-	 * determine if the vertex has been visited
+	 * Determine if the vertex has been visited.
 	 *
 	 * @return true if the vertex has been visited
 	 */
@@ -58,37 +58,23 @@ public class Vertex<V> {
 	}
 
 	/**
-	 * clears the visited flag
+	 * Clears the visited flag.
 	 */
 	public void reset() {
 		visited = false;
 	}
 
-	/**
-	 * @param o another vertex
-	 * @return true if the vertex labels are equal
-	 */
 	@Override
 	public boolean equals(Object o) {
 		Vertex<?> v = (Vertex<?>) o;
 		return label.equals(v.label);
 	}
 
-	/**
-	 * return a hashcode associated with the vertex
-	 *
-	 * @return an integer for use in hashing values into tables
-	 */
 	@Override
 	public int hashCode() {
 		return label.hashCode();
 	}
 
-	/**
-	 * construct a string representing vertex
-	 *
-	 * @return a string representing vertex
-	 */
 	@Override
 	public String toString() {
 		return "Vertex: " + label + ">";

@@ -7,25 +7,54 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ * Implementation of graph using adjacency matrices.<br>
+ * User must commit to maximum size of graph (in vertices), it may be smaller.
+ * Edges are stored in matrix. Not suitable for large graphs.<br>
+ * Class is abstract: you must use GraphMatrixDirected or GraphMatrixUndirected
+ * to construct particular instances of graph.
+ *
  * @see https://github.com/sliuu/word_gen/blob/master/structure5/GraphMatrix.java
  */
 abstract public class GraphMatrix<V, E> implements Graph<V, E> {
 
-	protected int size; // allocation size for graph
+	/**
+	 * Maximum number of vertices in graph.
+	 */
+	protected int size;
 
-	protected Object data[][]; // matrix - array of arrays
+	/**
+	 * The edge data. Every edge appears on one(directed) or two(undirected)
+	 * locations within graph.
+	 */
+	protected Edge<V, E> data[][];
 
-	protected Map<V, GraphMatrixVertex<V>> dict; // labels ->vertices
+	/**
+	 * Translation between vertex labels and vertex structures.
+	 */
+	protected Map<V, GraphMatrixVertex<V>> dict;
 
-	protected List<Integer> freeList; // available indices in matrix
+	/**
+	 * List of free vertex indices within graph.
+	 */
+	protected List<Integer> freeList;
 
-	protected boolean directed; // graph is directed
+	/**
+	 * Whether or not graph is directed.
+	 */
+	protected boolean directed;
 
-	protected GraphMatrix(int size, boolean dir) {
-		this.size = size; // set maximum size
-		directed = dir; // fix direction of edges
-		// the following construcs a size x size matrix
-		data = new Object[size][size];
+	/**
+	 * Constructor of directed/undirected GraphMatrix.
+	 *
+	 * @param size     - maximum size of graph
+	 * @param directed - true if graph is to be directed
+	 */
+	@SuppressWarnings("unchecked")
+	protected GraphMatrix(int size, boolean directed) {
+		this.size = size;
+		this.directed = directed;
+		// the following constructs a size x size matrix
+		data = (Edge<V, E>[][]) new Object[size][size];
 		// label to index translation table
 		dict = new Hashtable<V, GraphMatrixVertex<V>>(size);
 		// put all indices in the free list
@@ -37,9 +66,6 @@ abstract public class GraphMatrix<V, E> implements Graph<V, E> {
 
 	@Override
 	public void add(V label) {
-		// pre: label is a non-null label for vertex
-		// post: a vertex with label is added to graph. if vertex with label is already
-		// in graph, no action
 		// if there already, do nothing
 		if (dict.containsKey(label)) {
 			return;
@@ -52,8 +78,6 @@ abstract public class GraphMatrix<V, E> implements Graph<V, E> {
 
 	@Override
 	public V remove(V label) {
-		// pre: label is non-null vertex label
-		// post: vertex with "equals" label is removed, if found
 		// find and extract vertex
 		GraphMatrixVertex<V> vert;
 		vert = dict.remove(label);
@@ -73,83 +97,99 @@ abstract public class GraphMatrix<V, E> implements Graph<V, E> {
 	}
 
 	@Override
-	public Vertex<V> get(V label) {
-		// TODO Auto-generated method stub
-		return null;
+	public V get(V label) {
+		GraphMatrixVertex<V> vert;
+		vert = dict.get(label);
+		return vert.label();
 	}
 
 	@Override
 	public Edge<V, E> getEdge(V label1, V label2) {
-		// TODO Auto-generated method stub
-		return null;
+		int row, col;
+		row = dict.get(label1).index();
+		col = dict.get(label2).index();
+		return (Edge<V, E>) data[row][col];
 	}
 
 	@Override
 	public boolean contains(V label) {
-		// TODO Auto-generated method stub
-		return false;
+		return dict.containsKey(label);
 	}
 
 	@Override
 	public boolean containsEdge(V vLabel1, V vLabel2) {
-		// TODO Auto-generated method stub
-		return false;
+		GraphMatrixVertex<V> vtx1, vtx2;
+		vtx1 = dict.get(vLabel1);
+		vtx2 = dict.get(vLabel2);
+		return data[vtx1.index()][vtx2.index()] != null;
 	}
 
 	@Override
 	public boolean visit(V label) {
-		// post : sets visited flag on vertex, returns previous value
 		Vertex<V> vert = dict.get(label);
 		return vert.visit();
 	}
 
 	@Override
 	public boolean visitEdge(Edge<V, E> e) {
-		// TODO Auto-generated method stub
-		return false;
+		return e.visit();
 	}
 
 	@Override
 	public boolean isVisited(V label) {
-		// TODO Auto-generated method stub
-		return false;
+		GraphMatrixVertex<V> vert;
+		vert = dict.get(label);
+		return vert.isVisited();
 	}
 
 	@Override
 	public boolean isVisitedEdge(Edge<V, E> e) {
-		// TODO Auto-generated method stub
-		return false;
+		return e.isVisited();
 	}
 
 	@Override
 	public void reset() {
-		// TODO Auto-generated method stub
-
+		Iterator<GraphMatrixVertex<V>> it = dict.values().iterator();
+		while (it.hasNext()) {
+			it.next().reset();
+		}
+		for (int row = 0; row < size; row++) {
+			for (int col = 0; col < size; col++) {
+				Edge<V, E> e = (Edge<V, E>) data[row][col];
+				if (e != null) {
+					e.reset();
+				}
+			}
+		}
 	}
 
 	@Override
 	public int size() {
-		// TODO Auto-generated method stub
-		return 0;
+		return dict.size();
 	}
 
 	@Override
 	public int degree(V label) {
-		// TODO Auto-generated method stub
-		return 0;
+		// get index
+		int row = dict.get(label).index();
+		int col;
+		int result = 0;
+		// count non-null columns in row
+		for (col = 0; col < size; col++) {
+			if (data[row][col] != null) {
+				result++;
+			}
+		}
+		return result;
 	}
 
 	@Override
 	public Iterator<V> iterator() {
-		// post: returns traversal across all vertices of graph
 		return dict.keySet().iterator();
 	}
 
 	@Override
 	public Iterator<V> neighbors(V label) {
-		// pre: label is label of vertex in graph
-		// post: returns traversal over vertices adj to vertex each edge beginning at
-		// label visited exactly once
 		GraphMatrixVertex<V> vert;
 		vert = dict.get(label);
 		List<V> list = new ArrayList<V>();
@@ -168,19 +208,25 @@ abstract public class GraphMatrix<V, E> implements Graph<V, E> {
 
 	@Override
 	public void clear() {
-		// TODO Auto-generated method stub
-
+		dict.clear();
+		for (int row = 0; row < size; row++) {
+			for (int col = 0; col < size; col++) {
+				data[row][col] = null;
+			}
+		}
+		freeList = new ArrayList<Integer>();
+		for (int row = size - 1; row >= 0; row--) {
+			freeList.add(new Integer(row));
+		}
 	}
 
 	@Override
 	public boolean isEmpty() {
-		// TODO Auto-generated method stub
-		return false;
+		return dict.isEmpty();
 	}
 
 	@Override
 	public boolean isDirected() {
-		// TODO Auto-generated method stub
-		return false;
+		return directed;
 	}
 }

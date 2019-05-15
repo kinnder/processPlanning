@@ -10,12 +10,12 @@ package algorithms.graph;
 class GraphMatrixVertex<V> extends Vertex<V> {
 
 	/**
-	 * index associated with vertex
+	 * Index associated with vertex.
 	 */
 	protected int index;
 
 	/**
-	 * constructs a new augmented vertex
+	 * Constructs a new augmented vertex.
 	 *
 	 * @param label
 	 * @param idx
@@ -32,11 +32,6 @@ class GraphMatrixVertex<V> extends Vertex<V> {
 		return index;
 	}
 
-	/**
-	 * constructs a string representation of vertex
-	 *
-	 * @return string representation of vertex
-	 */
 	@Override
 	public String toString() {
 		return "<GraphMatrixVertex: " + label() + ">";
