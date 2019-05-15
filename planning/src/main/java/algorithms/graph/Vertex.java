@@ -64,17 +64,31 @@ public class Vertex<V> {
 		visited = false;
 	}
 
+	/**
+	 * @param o another vertex
+	 * @return true if the vertex labels are equal
+	 */
 	@Override
 	public boolean equals(Object o) {
 		Vertex<?> v = (Vertex<?>) o;
 		return label.equals(v.label);
 	}
 
+	/**
+	 * return a hashcode associated with the vertex
+	 *
+	 * @return an integer for use in hashing values into tables
+	 */
 	@Override
 	public int hashCode() {
 		return label.hashCode();
 	}
 
+	/**
+	 * construct a string representing vertex
+	 *
+	 * @return a string representing vertex
+	 */
 	@Override
 	public String toString() {
 		return "Vertex: " + label + ">";

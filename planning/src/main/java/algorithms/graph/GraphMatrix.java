@@ -140,12 +140,6 @@ abstract public class GraphMatrix<V, E> implements Graph<V, E> {
 	}
 
 	@Override
-	public int edgeCount() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
 	public Iterator<V> iterator() {
 		// post: returns traversal across all vertices of graph
 		return dict.keySet().iterator();

@@ -60,4 +60,10 @@ public class GraphMatrixUndirected<V, E> extends GraphMatrix<V, E> {
 		}
 		return list.iterator();
 	}
+
+	@Override
+	public int edgeCount() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 }
