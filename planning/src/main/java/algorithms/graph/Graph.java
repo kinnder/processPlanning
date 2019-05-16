@@ -12,6 +12,8 @@ import java.util.Iterator;
  *
  * @param <V> - label type for vertices
  * @param <E> - label type for edges
+ *
+ * @see https://github.com/sliuu/word_gen/blob/master/structure5/Graph.java
  */
 public interface Graph<V, E> {
 
