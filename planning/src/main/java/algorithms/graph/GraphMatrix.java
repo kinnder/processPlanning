@@ -60,7 +60,7 @@ abstract public class GraphMatrix<V, E> implements Graph<V, E> {
 		// put all indices in the free list
 		freeList = new ArrayList<Integer>();
 		for (int row = size - 1; row >= 0; row--) {
-			freeList.add(new Integer(row));
+			freeList.add(Integer.valueOf(row));
 		}
 	}
 
@@ -92,7 +92,7 @@ abstract public class GraphMatrix<V, E> implements Graph<V, E> {
 			data[index][row] = null;
 		}
 		// add node index to free list
-		freeList.add(new Integer(index));
+		freeList.add(Integer.valueOf(index));
 		return vert.label();
 	}
 
@@ -216,7 +216,7 @@ abstract public class GraphMatrix<V, E> implements Graph<V, E> {
 		}
 		freeList = new ArrayList<Integer>();
 		for (int row = size - 1; row >= 0; row--) {
-			freeList.add(new Integer(row));
+			freeList.add(Integer.valueOf(row));
 		}
 	}
 
