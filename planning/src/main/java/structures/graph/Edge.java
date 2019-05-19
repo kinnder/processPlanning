@@ -1,4 +1,4 @@
-package algorithms.graph;
+package structures.graph;
 
 public class Edge<V, E> {
 

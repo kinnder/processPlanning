@@ -1,4 +1,4 @@
-package algorithms.graph;
+package structures.graph;
 
 /**
  * A private implementation of a vertex for use in graphs that are internally

@@ -1,4 +1,4 @@
-package algorithms.graph;
+package structures.graph;
 
 import java.util.Iterator;
 

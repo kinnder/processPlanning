@@ -1,4 +1,4 @@
-package algorithms.graph;
+package structures.graph;
 
 import java.util.Iterator;
 
@@ -20,29 +20,29 @@ public interface Graph<V, E> {
 	/**
 	 * Add a vertex to the graph.
 	 *
-	 * @param label label of the vertex; should be non-null
+	 * @param vLabel label of the vertex; should be non-null
 	 */
-	public void add(V label);
+	public void add(V vLabel);
 
 	/**
 	 * Add an edge between two vertices within the graph. Edge is directed if graph
 	 * is directed. Duplicate edges are silently replaced. Labels on edges may be
 	 * null.
 	 *
-	 * @param vtx1  - first (or source, if directed) vertex
-	 * @param vtx2  - second (or destination, if directed) vertex
-	 * @param label - label associated with the edge
+	 * @param vLabel1 - first (or source, if directed) vertex
+	 * @param vLabel2 - second (or destination, if directed) vertex
+	 * @param eLabel  - label associated with the edge
 	 */
-	public void addEdge(V vtx1, V vtx2, E label);
+	public void addEdge(V vLabel1, V vLabel2, E eLabel);
 
 	/**
 	 * Remove a vertex from the graph. Associated edges are also removed.
 	 * Non-vertices are silently ignored.
 	 *
-	 * @param label the label of the vertex within the graph
+	 * @param vLabel the label of the vertex within the graph
 	 * @return label associated with the vertex
 	 */
-	public V remove(V label);
+	public V remove(V vLabel);
 
 	/**
 	 * Remove possible edge between vertices with specified labels.
@@ -58,28 +58,28 @@ public interface Graph<V, E> {
 	 * their equals method, which may or may not test for actual equivalence. Result
 	 * remains part of graph.
 	 *
-	 * @param label - label of the vertex thought
+	 * @param vLabel - label of the vertex thought
 	 * @return actual label, or null if none is found
 	 */
-	public V get(V label);
+	public V get(V vLabel);
 
 	/**
 	 * Get reference to actual edge. Edge is identified by the labels on associated
 	 * vertices.
 	 *
-	 * @param label1 - first (or source, if directed) vertex
-	 * @param label2 - second (or destination, if directed) vertex
+	 * @param vLabel1 - first (or source, if directed) vertex
+	 * @param vLabel2 - second (or destination, if directed) vertex
 	 * @return the edge, if found, or null
 	 */
-	public Edge<V, E> getEdge(V label1, V label2);
+	public Edge<V, E> getEdge(V vLabel1, V vLabel2);
 
 	/**
 	 * Test for vertex membership.
 	 *
-	 * @param label - the label1 of the vertex thought
+	 * @param vLabel - the label1 of the vertex thought
 	 * @return true if vertex with matching label is found
 	 */
-	public boolean contains(V label);
+	public boolean contains(V vLabel);
 
 	/**
 	 * Test for edge membership.
@@ -93,10 +93,10 @@ public interface Graph<V, E> {
 	/**
 	 * Test and set visited flag of vertex
 	 *
-	 * @param label - label of vertex to be visited
+	 * @param vLabel - label of vertex to be visited
 	 * @return previous value of visited flag on vertex
 	 */
-	public boolean visit(V label);
+	public boolean visit(V vLabel);
 
 	/**
 	 * Test and set visited flag of edge.
@@ -109,10 +109,10 @@ public interface Graph<V, E> {
 	/**
 	 * Return visited flag of vertex.
 	 *
-	 * @param label - label of vertex
+	 * @param vLabel - label of vertex
 	 * @return true if vertex has been visited
 	 */
-	public boolean isVisited(V label);
+	public boolean isVisited(V vLabel);
 
 	/**
 	 * Return visited flag of edge.
@@ -137,10 +137,10 @@ public interface Graph<V, E> {
 	/**
 	 * Determine out degree of vertex.
 	 *
-	 * @param label - label associated with vertex
+	 * @param vLabel - label associated with vertex
 	 * @return the number of edges with this vertex as source
 	 */
-	public int degree(V label);
+	public int degree(V vLabel);
 
 	/**
 	 * Determine the number of edges in graph.
@@ -161,10 +161,10 @@ public interface Graph<V, E> {
 	 * destination of edge, if directed) are considered, but not in any guaranteed
 	 * order.
 	 *
-	 * @param label - label of the vertex
+	 * @param vLabel - label of the vertex
 	 * @return iterator traversing the adjacent vertices of labeled vertex
 	 */
-	public Iterator<V> neighbors(V label);
+	public Iterator<V> neighbors(V vLabel);
 
 	/**
 	 * Construct an iterator over all edges. Every directed/undirected edge is

@@ -1,4 +1,4 @@
-package algorithms.graph;
+package structures.graph;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -30,24 +30,24 @@ public class GraphMatrixUndirected<V, E> extends GraphMatrix<V, E> {
 	public void addEdge(V vLabel1, V vLabel2, E label) {
 		GraphMatrixVertex<V> vtx1, vtx2;
 		// get vertices
-		vtx1 = dict.get(vLabel1);
-		vtx2 = dict.get(vLabel2);
+		vtx1 = vertexData.get(vLabel1);
+		vtx2 = vertexData.get(vLabel2);
 		// update matrix with new edge
 		Edge<V, E> e = new Edge<V, E>(vtx1.label(), vtx2.label(), label, false);
-		data[vtx1.index()][vtx2.index()] = e;
-		data[vtx2.index()][vtx1.index()] = e;
+		edgeData[vtx1.index()][vtx2.index()] = e;
+		edgeData[vtx2.index()][vtx1.index()] = e;
 	}
 
 	@Override
 	public E removeEdge(V vLabel1, V vLabel2) {
 		// get indices
-		int row = dict.get(vLabel1).index();
-		int col = dict.get(vLabel2).index();
+		int row = vertexData.get(vLabel1).index();
+		int col = vertexData.get(vLabel2).index();
 		// cache old value
-		Edge<V, E> e = (Edge<V, E>) data[row][col];
+		Edge<V, E> e = (Edge<V, E>) edgeData[row][col];
 		// update matrix
-		data[row][col] = null;
-		data[col][row] = null;
+		edgeData[row][col] = null;
+		edgeData[col][row] = null;
 		return e == null ? null : e.label();
 	}
 
@@ -57,7 +57,7 @@ public class GraphMatrixUndirected<V, E> extends GraphMatrix<V, E> {
 		int sum = 0;
 		for (int row = 0; row < size; row++) {
 			for (int col = row; col < size; col++) {
-				if (data[row][col] != null) {
+				if (edgeData[row][col] != null) {
 					sum++;
 				}
 			}
@@ -70,7 +70,7 @@ public class GraphMatrixUndirected<V, E> extends GraphMatrix<V, E> {
 		List<Edge<V, E>> list = new ArrayList<Edge<V, E>>();
 		for (int row = size - 1; row >= 0; row--) {
 			for (int col = size - 1; col >= row; col--) {
-				Edge<V, E> e = (Edge<V, E>) data[row][col];
+				Edge<V, E> e = (Edge<V, E>) edgeData[row][col];
 				if (e != null) {
 					list.add(e);
 				}
