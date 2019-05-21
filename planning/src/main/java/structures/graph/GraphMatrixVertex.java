@@ -18,11 +18,11 @@ class GraphMatrixVertex<V> extends Vertex<V> {
 	 * Constructs a new augmented vertex.
 	 *
 	 * @param label
-	 * @param idx
+	 * @param index
 	 */
-	public GraphMatrixVertex(V label, int idx) {
+	public GraphMatrixVertex(V label, int index) {
 		super(label);
-		index = idx;
+		this.index = index;
 	}
 
 	/**
@@ -30,10 +30,5 @@ class GraphMatrixVertex<V> extends Vertex<V> {
 	 */
 	public int index() {
 		return index;
-	}
-
-	@Override
-	public String toString() {
-		return "<GraphMatrixVertex: " + label() + ">";
 	}
 }

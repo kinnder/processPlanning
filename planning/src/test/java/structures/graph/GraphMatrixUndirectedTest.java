@@ -2,6 +2,8 @@ package structures.graph;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Iterator;
@@ -53,5 +55,51 @@ public class GraphMatrixUndirectedTest {
 		assertTrue(neighbors.hasNext());
 		assertEquals("object-d", neighbors.next());
 		assertFalse(neighbors.hasNext());
+	}
+
+	@Test
+	public void edges() {
+		testable.add("object-a");
+		testable.add("object-b");
+		testable.add("object-c");
+		testable.addEdge("object-a", "object-b", "relation-ab");
+		testable.addEdge("object-b", "object-c", "relation-bc");
+
+		Iterator<Edge<String, String>> edges = testable.edges();
+		assertTrue(edges.hasNext());
+		assertEquals("relation-ab", edges.next().label());
+		assertTrue(edges.hasNext());
+		assertEquals("relation-bc", edges.next().label());
+		assertFalse(edges.hasNext());
+	}
+
+	@Test
+	public void addEdge() {
+		testable.add("object-a");
+		testable.add("object-b");
+		testable.addEdge("object-a", "object-b", "relation-ab");
+
+		assertNotNull(testable.getEdge("object-a", "object-b"));
+		assertNotNull(testable.getEdge("object-b", "object-a"));
+	}
+
+	@Test
+	public void removeEdge() {
+		testable.add("object-a");
+		testable.add("object-b");
+		testable.addEdge("object-a", "object-b", "relation-ab");
+
+		assertNotNull(testable.removeEdge("object-a", "object-b"));
+
+		assertNull(testable.removeEdge("object-a", "object-b"));
+	}
+
+	@Test
+	public void edgeCount() {
+		testable.add("object-a");
+		testable.add("object-b");
+		testable.addEdge("object-a", "object-b", "relation-ab");
+
+		assertEquals(1, testable.edgeCount());
 	}
 }

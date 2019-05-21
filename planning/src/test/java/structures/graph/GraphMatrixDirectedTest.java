@@ -6,6 +6,8 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.Iterator;
+
 import org.jmock.imposters.ByteBuddyClassImposteriser;
 import org.jmock.junit5.JUnit5Mockery;
 import org.junit.jupiter.api.AfterEach;
@@ -63,7 +65,7 @@ public class GraphMatrixDirectedTest {
 	public void getEdge() {
 		testable.add("object-a");
 		testable.add("object-b");
-		testable.addEdge("object-a", "object-b", "relation");
+		testable.addEdge("object-a", "object-b", "relation-ab");
 		assertNotNull(testable.getEdge("object-a", "object-b"));
 	}
 
@@ -81,7 +83,7 @@ public class GraphMatrixDirectedTest {
 		testable.add("object-b");
 		assertFalse(testable.containsEdge("object-a", "object-b"));
 
-		testable.addEdge("object-a", "object-b", "relation");
+		testable.addEdge("object-a", "object-b", "relation-ab");
 		assertTrue(testable.containsEdge("object-a", "object-b"));
 	}
 
@@ -96,7 +98,7 @@ public class GraphMatrixDirectedTest {
 	public void visitEdge() {
 		testable.add("object-a");
 		testable.add("object-b");
-		testable.addEdge("object-a", "object-b", "relation");
+		testable.addEdge("object-a", "object-b", "relation-ab");
 
 		Edge<String, String> edge = testable.getEdge("object-a", "object-b");
 		assertFalse(testable.visitEdge(edge));
@@ -112,7 +114,7 @@ public class GraphMatrixDirectedTest {
 	public void isVisitedEdge() {
 		testable.add("object-a");
 		testable.add("object-b");
-		testable.addEdge("object-a", "object-b", "relation");
+		testable.addEdge("object-a", "object-b", "relation-ab");
 
 		Edge<String, String> edge = testable.getEdge("object-a", "object-b");
 		assertFalse(testable.isVisitedEdge(edge));
@@ -122,7 +124,7 @@ public class GraphMatrixDirectedTest {
 	public void reset() {
 		testable.add("object-a");
 		testable.add("object-b");
-		testable.addEdge("object-a", "object-b", "relation");
+		testable.addEdge("object-a", "object-b", "relation-ab");
 		testable.visit("object-a");
 		Edge<String, String> edge = testable.getEdge("object-a", "object-b");
 		testable.visitEdge(edge);
@@ -144,7 +146,7 @@ public class GraphMatrixDirectedTest {
 	public void degree() {
 		testable.add("object-a");
 		testable.add("object-b");
-		testable.addEdge("object-a", "object-b", "relation");
+		testable.addEdge("object-a", "object-b", "relation-ab");
 
 		assertEquals(1, testable.degree("object-a"));
 	}
@@ -173,5 +175,51 @@ public class GraphMatrixDirectedTest {
 	@Test
 	public void isDirected() {
 		assertTrue(testable.isDirected());
+	}
+
+	@Test
+	public void edges() {
+		testable.add("object-a");
+		testable.add("object-b");
+		testable.add("object-c");
+		testable.addEdge("object-a", "object-b", "relation-ab");
+		testable.addEdge("object-b", "object-c", "relation-bc");
+
+		Iterator<Edge<String, String>> edges = testable.edges();
+		assertTrue(edges.hasNext());
+		assertEquals("relation-ab", edges.next().label());
+		assertTrue(edges.hasNext());
+		assertEquals("relation-bc", edges.next().label());
+		assertFalse(edges.hasNext());
+	}
+
+	@Test
+	public void addEdge() {
+		testable.add("object-a");
+		testable.add("object-b");
+		testable.addEdge("object-a", "object-b", "relation-ab");
+
+		assertNotNull(testable.getEdge("object-a", "object-b"));
+		assertNull(testable.getEdge("object-b", "object-a"));
+	}
+
+	@Test
+	public void removeEdge() {
+		testable.add("object-a");
+		testable.add("object-b");
+		testable.addEdge("object-a", "object-b", "relation-ab");
+
+		assertNotNull(testable.removeEdge("object-a", "object-b"));
+
+		assertNull(testable.removeEdge("object-a", "object-b"));
+	}
+
+	@Test
+	public void edgeCount() {
+		testable.add("object-a");
+		testable.add("object-b");
+		testable.addEdge("object-a", "object-b", "relation-ab");
+
+		assertEquals(1, testable.edgeCount());
 	}
 }

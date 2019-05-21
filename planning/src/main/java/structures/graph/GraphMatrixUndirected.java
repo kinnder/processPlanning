@@ -27,37 +27,30 @@ public class GraphMatrixUndirected<V, E> extends GraphMatrix<V, E> {
 	}
 
 	@Override
-	public void addEdge(V vLabel1, V vLabel2, E label) {
-		GraphMatrixVertex<V> vtx1, vtx2;
-		// get vertices
-		vtx1 = vertexData.get(vLabel1);
-		vtx2 = vertexData.get(vLabel2);
-		// update matrix with new edge
-		Edge<V, E> e = new Edge<V, E>(vtx1.label(), vtx2.label(), label, false);
-		edgeData[vtx1.index()][vtx2.index()] = e;
-		edgeData[vtx2.index()][vtx1.index()] = e;
+	public void addEdge(V vLabel1, V vLabel2, E elabel) {
+		GraphMatrixVertex<V> vertex1 = vertexData.get(vLabel1);
+		GraphMatrixVertex<V> vertex2 = vertexData.get(vLabel2);
+		Edge<V, E> edge = new Edge<V, E>(vertex1.label(), vertex2.label(), elabel, false);
+		edgeData[vertex1.index()][vertex2.index()] = edge;
+		edgeData[vertex2.index()][vertex1.index()] = edge;
 	}
 
 	@Override
 	public E removeEdge(V vLabel1, V vLabel2) {
-		// get indices
-		int row = vertexData.get(vLabel1).index();
-		int col = vertexData.get(vLabel2).index();
-		// cache old value
-		Edge<V, E> e = (Edge<V, E>) edgeData[row][col];
-		// update matrix
-		edgeData[row][col] = null;
-		edgeData[col][row] = null;
-		return e == null ? null : e.label();
+		int vIndex1 = vertexData.get(vLabel1).index();
+		int vIndex2 = vertexData.get(vLabel2).index();
+		Edge<V, E> edge = (Edge<V, E>) edgeData[vIndex1][vIndex2];
+		edgeData[vIndex1][vIndex2] = null;
+		edgeData[vIndex2][vIndex1] = null;
+		return edge == null ? null : edge.label();
 	}
 
 	@Override
 	public int edgeCount() {
-		// count non-null entries in table
 		int sum = 0;
-		for (int row = 0; row < size; row++) {
-			for (int col = row; col < size; col++) {
-				if (edgeData[row][col] != null) {
+		for (int vIndex1 = 0; vIndex1 < size; vIndex1++) {
+			for (int vIndex2 = vIndex1; vIndex2 < size; vIndex2++) {
+				if (edgeData[vIndex1][vIndex2] != null) {
 					sum++;
 				}
 			}
@@ -67,34 +60,15 @@ public class GraphMatrixUndirected<V, E> extends GraphMatrix<V, E> {
 
 	@Override
 	public Iterator<Edge<V, E>> edges() {
-		List<Edge<V, E>> list = new ArrayList<Edge<V, E>>();
-		for (int row = size - 1; row >= 0; row--) {
-			for (int col = size - 1; col >= row; col--) {
-				Edge<V, E> e = (Edge<V, E>) edgeData[row][col];
-				if (e != null) {
-					list.add(e);
+		List<Edge<V, E>> result = new ArrayList<Edge<V, E>>();
+		for (int vIndex1 = size - 1; vIndex1 >= 0; vIndex1--) {
+			for (int vIndex2 = size - 1; vIndex2 >= vIndex1; vIndex2--) {
+				Edge<V, E> edge = (Edge<V, E>) edgeData[vIndex1][vIndex2];
+				if (edge != null) {
+					result.add(edge);
 				}
 			}
 		}
-		return list.iterator();
-	}
-
-	@Override
-	public String toString() {
-		StringBuffer s = new StringBuffer();
-		Iterator<V> source = iterator();
-		Iterator<V> dest;
-
-		s.append("<GraphMatrixUndirected:");
-		while (source.hasNext()) {
-			V srcValue = source.next();
-			s.append(" (" + srcValue + "->");
-			dest = neighbors(srcValue);
-			while (dest.hasNext()) {
-				s.append(srcValue + "->" + dest.next());
-			}
-		}
-		s.append(">");
-		return s.toString();
+		return result.iterator();
 	}
 }

@@ -79,25 +79,25 @@ abstract public class GraphMatrix<V, E> implements Graph<V, E> {
 
 	@Override
 	public V remove(V vLabel) {
-		GraphMatrixVertex<V> vtx = vertexData.remove(vLabel);
-		if (vtx == null) {
+		GraphMatrixVertex<V> vertex = vertexData.remove(vLabel);
+		if (vertex == null) {
 			return null;
 		}
 
-		int index = vtx.index();
+		int index = vertex.index();
 		for (int i = 0; i < size; i++) {
 			edgeData[i][index] = null;
 			edgeData[index][i] = null;
 		}
 
 		freeIndexes.add(index);
-		return vtx.label();
+		return vertex.label();
 	}
 
 	@Override
 	public V get(V vLabel) {
-		GraphMatrixVertex<V> vtx = vertexData.get(vLabel);
-		return vtx.label();
+		GraphMatrixVertex<V> vertex = vertexData.get(vLabel);
+		return vertex.label();
 	}
 
 	@Override
@@ -115,16 +115,15 @@ abstract public class GraphMatrix<V, E> implements Graph<V, E> {
 
 	@Override
 	public boolean containsEdge(V vLabel1, V vLabel2) {
-		GraphMatrixVertex<V> vtx1, vtx2;
-		vtx1 = vertexData.get(vLabel1);
-		vtx2 = vertexData.get(vLabel2);
-		return edgeData[vtx1.index()][vtx2.index()] != null;
+		GraphMatrixVertex<V> vertex1 = vertexData.get(vLabel1);
+		GraphMatrixVertex<V> vertex2 = vertexData.get(vLabel2);
+		return edgeData[vertex1.index()][vertex2.index()] != null;
 	}
 
 	@Override
 	public boolean visit(V vLabel) {
-		Vertex<V> vtx = vertexData.get(vLabel);
-		return vtx.visit();
+		Vertex<V> vertex = vertexData.get(vLabel);
+		return vertex.visit();
 	}
 
 	@Override
@@ -134,8 +133,8 @@ abstract public class GraphMatrix<V, E> implements Graph<V, E> {
 
 	@Override
 	public boolean isVisited(V vLabel) {
-		GraphMatrixVertex<V> vtx = vertexData.get(vLabel);
-		return vtx.isVisited();
+		GraphMatrixVertex<V> vertex = vertexData.get(vLabel);
+		return vertex.isVisited();
 	}
 
 	@Override
@@ -145,14 +144,14 @@ abstract public class GraphMatrix<V, E> implements Graph<V, E> {
 
 	@Override
 	public void reset() {
-		for (GraphMatrixVertex<V> vtx : vertexData.values()) {
-			vtx.reset();
+		for (GraphMatrixVertex<V> vertex : vertexData.values()) {
+			vertex.reset();
 		}
 		for (int index1 = 0; index1 < size; index1++) {
 			for (int index2 = 0; index2 < size; index2++) {
-				Edge<V, E> e = edgeData[index1][index2];
-				if (e != null) {
-					e.reset();
+				Edge<V, E> edge = edgeData[index1][index2];
+				if (edge != null) {
+					edge.reset();
 				}
 			}
 		}
@@ -182,19 +181,19 @@ abstract public class GraphMatrix<V, E> implements Graph<V, E> {
 
 	@Override
 	public Iterator<V> neighbors(V vLabel) {
-		GraphMatrixVertex<V> vtx = vertexData.get(vLabel);
-		List<V> list = new ArrayList<V>();
+		GraphMatrixVertex<V> vertex = vertexData.get(vLabel);
+		List<V> result = new ArrayList<V>();
 		for (int index = size - 1; index >= 0; index--) {
-			Edge<V, E> e = edgeData[vtx.index()][index];
-			if (e != null) {
-				if (e.here().equals(vtx.label())) {
-					list.add(e.there());
+			Edge<V, E> edge = edgeData[vertex.index()][index];
+			if (edge != null) {
+				if (edge.here().equals(vertex.label())) {
+					result.add(edge.there());
 				} else {
-					list.add(e.here());
+					result.add(edge.here());
 				}
 			}
 		}
-		return list.iterator();
+		return result.iterator();
 	}
 
 	@Override
