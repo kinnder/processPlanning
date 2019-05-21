@@ -1,52 +1,160 @@
 package structures.graph;
 
+/**
+ * A class implementing common edge type among graphs. This class supports both
+ * directed and undirected edge. Edge have visited flag to support algorithms.
+ *
+ * @param <V> - label type for vertices
+ * @param <E> - label type for edges
+ *
+ * @see https://github.com/sliuu/word_gen/blob/master/structure5/Edge.java
+ */
 public class Edge<V, E> {
 
+	/**
+	 * Two element array of vertex labels. When necessary, first element is source.
+	 */
+	protected V here, there;
+
+	/**
+	 * Label associated with edge. May be null.
+	 */
+	protected E label;
+
+	/**
+	 * Whether or not this edge has been visited.
+	 */
+	protected boolean visited;
+
+	/**
+	 * Whether or not this edge is directed
+	 */
+	protected boolean directed;
+
+	/**
+	 * Construct a (possibly directed) edge between two labeled vertices. When edge
+	 * is directed, vtx1 specifies source. When undirected, order of vertices is
+	 * unimportant. Label on edge is any type, and may be null. Edge is initially
+	 * unvisited.
+	 *
+	 * @param vtx1     - the label of a vertex (source if directed)
+	 * @param vtx2     - the label of another vertex (destination if directed)
+	 * @param label    - the label associated with the edge
+	 * @param directed - true if this edge is directed
+	 */
 	public Edge(V vtx1, V vtx2, E label, boolean directed) {
-		// post: edge associates vtx1 and vtx2; labeled with label; directed if
-		// "directed" set true
+		this.here = vtx1;
+		this.there = vtx2;
+		this.label = label;
+		this.visited = false;
+		this.directed = directed;
 	}
 
+	/**
+	 * @return the first vertex (or source if directed)
+	 */
 	public V here() {
-		// post: returns first node in edge
-		return null;
+		return here;
 	}
 
+	/**
+	 * @return the second vertex (or destination if directed)
+	 */
 	public V there() {
-		// post: returns second node in edge
-		return null;
+		return there;
 	}
 
+	/**
+	 * Sets the label associated with the edge. May be null.
+	 *
+	 * @param label - any object to label edge, or null
+	 */
 	public void setLabel(E label) {
-		// post: sets label of this edge to label
+		this.label = label;
 	}
 
+	/**
+	 * Get label associated with edge
+	 *
+	 * @return the label found on the edge
+	 */
 	public E label() {
-		// post: returns label associated with this edge
-		return null;
+		return label;
 	}
 
+	/**
+	 * Test and set visited flag on vertex
+	 *
+	 * @return true if edge was visited previously
+	 */
 	public boolean visit() {
-		// post: visits edge, returns whether previously visited
-		return false;
+		boolean was = visited;
+		visited = true;
+		return was;
 	}
 
+	/**
+	 * Check to see if edge has been visited.
+	 *
+	 * @return true if edge has been visited
+	 */
 	public boolean isVisited() {
-		// post: returns true if edge has been visited
-		return false;
+		return visited;
 	}
 
+	/**
+	 * Check to see if edge is directed
+	 *
+	 * @return true if edge is directed
+	 */
 	public boolean isDirected() {
-		// post: returns true if edge is directed
-		return false;
+		return directed;
 	}
 
+	/**
+	 * Clear the visited flag associated with edge
+	 */
 	public void reset() {
-		// post: resets edge's visited flag to initial state
+		visited = false;
 	}
 
+	/**
+	 * Test for equality of edges. Undirected edges are equal if they connect the
+	 * same vertices. Directed edges must have same direction.
+	 *
+	 * @param o - the other edge
+	 * @return true if this edge is equal to other edge
+	 */
+	@Override
 	public boolean equals(Object o) {
-		// post: returns true if edges connect same vertices
-		return false;
+		Edge<?, ?> e = (Edge<?, ?>) o;
+		return ((here().equals(e.here()) && there().equals(e.there()))
+				|| (!directed && (here().equals(e.there()) && there().equals(e.here()))));
+	}
+
+	@Override
+	public int hashCode() {
+		if (directed) {
+			return here().hashCode() - there().hashCode();
+		} else {
+			return here().hashCode() ^ there().hashCode();
+		}
+	}
+
+	@Override
+	public String toString() {
+		StringBuffer s = new StringBuffer();
+		s.append("<Edge:");
+		if (visited) {
+			s.append(" visited");
+		}
+		s.append(" " + here());
+		if (directed) {
+			s.append(" ->");
+		} else {
+			s.append(" <->");
+		}
+		s.append(" " + there() + ">");
+		return s.toString();
 	}
 }

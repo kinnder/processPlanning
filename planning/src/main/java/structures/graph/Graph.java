@@ -164,6 +164,7 @@ public interface Graph<V, E> {
 	 * @param vLabel - label of the vertex
 	 * @return iterator traversing the adjacent vertices of labeled vertex
 	 */
+	// TODO: replace iterator with list
 	public Iterator<V> neighbors(V vLabel);
 
 	/**
@@ -172,6 +173,7 @@ public interface Graph<V, E> {
 	 *
 	 * @return Iterator over edges
 	 */
+	// TODO: replace iterator with list
 	public Iterator<Edge<V, E>> edges();
 
 	/**

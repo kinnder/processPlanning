@@ -4,6 +4,8 @@ package structures.graph;
  * A private implementation of a vertex for use in graphs. A vertex is capable
  * of holding a label and has a flag that can be set to mark is as visited.
  *
+ * @param <V> - label type for vertices
+ *
  * @see https://github.com/sliuu/word_gen/blob/master/structure5/Vertex.java
  */
 public class Vertex<V> {

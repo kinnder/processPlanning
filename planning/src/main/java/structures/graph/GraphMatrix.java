@@ -29,14 +29,14 @@ abstract public class GraphMatrix<V, E> implements Graph<V, E> {
 	protected Edge<V, E> edgeData[][];
 
 	/**
-	 * Translation between vertex labels and vertex structures.
+	 * The vertex data. Mapping between vertex labels and vertex structures.
 	 */
 	protected Map<V, GraphMatrixVertex<V>> vertexData;
 
 	/**
-	 * List of free vertex indices within graph.
+	 * List of free vertex indexes within graph.
 	 */
-	protected List<Integer> freeList;
+	protected List<Integer> freeIndexes;
 
 	/**
 	 * Whether or not graph is directed.
@@ -53,60 +53,59 @@ abstract public class GraphMatrix<V, E> implements Graph<V, E> {
 	protected GraphMatrix(int size, boolean directed) {
 		this.size = size;
 		this.directed = directed;
-		// the following constructs a size x size matrix
+
 		edgeData = new Edge[size][size];
-		// label to index translation table
 		vertexData = new Hashtable<V, GraphMatrixVertex<V>>(size);
-		// put all indices in the free list
-		freeList = new ArrayList<Integer>();
-		for (int row = size - 1; row >= 0; row--) {
-			freeList.add(Integer.valueOf(row));
+
+		fillFreeIndexes();
+	}
+
+	private void fillFreeIndexes() {
+		freeIndexes = new ArrayList<Integer>();
+		for (int index = size - 1; index >= 0; index--) {
+			freeIndexes.add(index);
 		}
 	}
 
 	@Override
 	public void add(V vLabel) {
-		// if there already, do nothing
 		if (vertexData.containsKey(vLabel)) {
 			return;
 		}
-		// allocate a free row and column
-		int row = freeList.remove(0).intValue();
-		// add vertex to dictionary
-		vertexData.put(vLabel, new GraphMatrixVertex<V>(vLabel, row));
+
+		int index = freeIndexes.remove(0);
+		vertexData.put(vLabel, new GraphMatrixVertex<V>(vLabel, index));
 	}
 
 	@Override
 	public V remove(V vLabel) {
-		// find and extract vertex
-		GraphMatrixVertex<V> vert = vertexData.remove(vLabel);
-		if (vert == null) {
+		GraphMatrixVertex<V> vtx = vertexData.remove(vLabel);
+		if (vtx == null) {
 			return null;
 		}
-		// remove vertex from matrix
-		int index = vert.index();
-		// clear row and column entries
-		for (int row = 0; row < size; row++) {
-			edgeData[row][index] = null;
-			edgeData[index][row] = null;
+
+		int index = vtx.index();
+		for (int i = 0; i < size; i++) {
+			edgeData[i][index] = null;
+			edgeData[index][i] = null;
 		}
-		// add node index to free list
-		freeList.add(Integer.valueOf(index));
-		return vert.label();
+
+		freeIndexes.add(index);
+		return vtx.label();
 	}
 
 	@Override
 	public V get(V vLabel) {
-		GraphMatrixVertex<V> vert = vertexData.get(vLabel);
-		return vert.label();
+		GraphMatrixVertex<V> vtx = vertexData.get(vLabel);
+		return vtx.label();
 	}
 
 	@Override
 	public Edge<V, E> getEdge(V vLabel1, V vLabel2) {
-		int row, col;
-		row = vertexData.get(vLabel1).index();
-		col = vertexData.get(vLabel2).index();
-		return (Edge<V, E>) edgeData[row][col];
+		int vIndex1, vIndex2;
+		vIndex1 = vertexData.get(vLabel1).index();
+		vIndex2 = vertexData.get(vLabel2).index();
+		return (Edge<V, E>) edgeData[vIndex1][vIndex2];
 	}
 
 	@Override
@@ -123,9 +122,9 @@ abstract public class GraphMatrix<V, E> implements Graph<V, E> {
 	}
 
 	@Override
-	public boolean visit(V label) {
-		Vertex<V> vert = vertexData.get(label);
-		return vert.visit();
+	public boolean visit(V vLabel) {
+		Vertex<V> vtx = vertexData.get(vLabel);
+		return vtx.visit();
 	}
 
 	@Override
@@ -134,10 +133,9 @@ abstract public class GraphMatrix<V, E> implements Graph<V, E> {
 	}
 
 	@Override
-	public boolean isVisited(V label) {
-		GraphMatrixVertex<V> vert;
-		vert = vertexData.get(label);
-		return vert.isVisited();
+	public boolean isVisited(V vLabel) {
+		GraphMatrixVertex<V> vtx = vertexData.get(vLabel);
+		return vtx.isVisited();
 	}
 
 	@Override
@@ -147,13 +145,12 @@ abstract public class GraphMatrix<V, E> implements Graph<V, E> {
 
 	@Override
 	public void reset() {
-		Iterator<GraphMatrixVertex<V>> it = vertexData.values().iterator();
-		while (it.hasNext()) {
-			it.next().reset();
+		for (GraphMatrixVertex<V> vtx : vertexData.values()) {
+			vtx.reset();
 		}
-		for (int row = 0; row < size; row++) {
-			for (int col = 0; col < size; col++) {
-				Edge<V, E> e = (Edge<V, E>) edgeData[row][col];
+		for (int index1 = 0; index1 < size; index1++) {
+			for (int index2 = 0; index2 < size; index2++) {
+				Edge<V, E> e = edgeData[index1][index2];
 				if (e != null) {
 					e.reset();
 				}
@@ -167,14 +164,11 @@ abstract public class GraphMatrix<V, E> implements Graph<V, E> {
 	}
 
 	@Override
-	public int degree(V label) {
-		// get index
-		int row = vertexData.get(label).index();
-		int col;
+	public int degree(V vLabel) {
+		int vIndex = vertexData.get(vLabel).index();
 		int result = 0;
-		// count non-null columns in row
-		for (col = 0; col < size; col++) {
-			if (edgeData[row][col] != null) {
+		for (int index = 0; index < size; index++) {
+			if (edgeData[vIndex][index] != null) {
 				result++;
 			}
 		}
@@ -187,14 +181,13 @@ abstract public class GraphMatrix<V, E> implements Graph<V, E> {
 	}
 
 	@Override
-	public Iterator<V> neighbors(V label) {
-		GraphMatrixVertex<V> vert;
-		vert = vertexData.get(label);
+	public Iterator<V> neighbors(V vLabel) {
+		GraphMatrixVertex<V> vtx = vertexData.get(vLabel);
 		List<V> list = new ArrayList<V>();
-		for (int row = size - 1; row >= 0; row--) {
-			Edge<V, E> e = (Edge<V, E>) edgeData[vert.index()][row];
+		for (int index = size - 1; index >= 0; index--) {
+			Edge<V, E> e = edgeData[vtx.index()][index];
 			if (e != null) {
-				if (e.here().equals(vert.label())) {
+				if (e.here().equals(vtx.label())) {
 					list.add(e.there());
 				} else {
 					list.add(e.here());
@@ -207,15 +200,12 @@ abstract public class GraphMatrix<V, E> implements Graph<V, E> {
 	@Override
 	public void clear() {
 		vertexData.clear();
-		for (int row = 0; row < size; row++) {
-			for (int col = 0; col < size; col++) {
-				edgeData[row][col] = null;
+		for (int index1 = 0; index1 < size; index1++) {
+			for (int index2 = 0; index2 < size; index2++) {
+				edgeData[index1][index2] = null;
 			}
 		}
-		freeList = new ArrayList<Integer>();
-		for (int row = size - 1; row >= 0; row--) {
-			freeList.add(Integer.valueOf(row));
-		}
+		fillFreeIndexes();
 	}
 
 	@Override

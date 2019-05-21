@@ -74,4 +74,104 @@ public class GraphMatrixDirectedTest {
 		testable.add("object-a");
 		assertTrue(testable.contains("object-a"));
 	}
+
+	@Test
+	public void containsEdge() {
+		testable.add("object-a");
+		testable.add("object-b");
+		assertFalse(testable.containsEdge("object-a", "object-b"));
+
+		testable.addEdge("object-a", "object-b", "relation");
+		assertTrue(testable.containsEdge("object-a", "object-b"));
+	}
+
+	@Test
+	public void visit() {
+		testable.add("object-a");
+
+		assertFalse(testable.visit("object-a"));
+	}
+
+	@Test
+	public void visitEdge() {
+		testable.add("object-a");
+		testable.add("object-b");
+		testable.addEdge("object-a", "object-b", "relation");
+
+		Edge<String, String> edge = testable.getEdge("object-a", "object-b");
+		assertFalse(testable.visitEdge(edge));
+	}
+
+	@Test
+	public void isVisited() {
+		testable.add("object-a");
+		assertFalse(testable.isVisited("object-a"));
+	}
+
+	@Test
+	public void isVisitedEdge() {
+		testable.add("object-a");
+		testable.add("object-b");
+		testable.addEdge("object-a", "object-b", "relation");
+
+		Edge<String, String> edge = testable.getEdge("object-a", "object-b");
+		assertFalse(testable.isVisitedEdge(edge));
+	}
+
+	@Test
+	public void reset() {
+		testable.add("object-a");
+		testable.add("object-b");
+		testable.addEdge("object-a", "object-b", "relation");
+		testable.visit("object-a");
+		Edge<String, String> edge = testable.getEdge("object-a", "object-b");
+		testable.visitEdge(edge);
+
+		testable.reset();
+		assertFalse(testable.isVisited("object-a"));
+		assertFalse(testable.isVisitedEdge(edge));
+	}
+
+	@Test
+	public void size() {
+		assertEquals(0, testable.size());
+
+		testable.add("object-a");
+		assertEquals(1, testable.size());
+	}
+
+	@Test
+	public void degree() {
+		testable.add("object-a");
+		testable.add("object-b");
+		testable.addEdge("object-a", "object-b", "relation");
+
+		assertEquals(1, testable.degree("object-a"));
+	}
+
+	@Test
+	public void iterator() {
+		assertNotNull(testable.iterator());
+	}
+
+	@Test
+	public void clear() {
+		testable.add("object-a");
+
+		testable.clear();
+		assertTrue(testable.isEmpty());
+	}
+
+	@Test
+	public void isEmpty() {
+		assertTrue(testable.isEmpty());
+
+		testable.add("object-a");
+		assertFalse(testable.isEmpty());
+	}
+
+	@Test
+	public void isDirected() {
+		assertTrue(testable.isDirected());
+	}
 }
