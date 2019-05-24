@@ -1,7 +1,9 @@
 package structures.graph;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Hashtable;
-import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -47,9 +49,7 @@ abstract public class GraphList<V, E> implements Graph<V, E> {
 	public V remove(V vLabel) {
 		GraphListVertex<V, E> v = dict.get(vLabel);
 
-		Iterator<V> vi = iterator();
-		while (vi.hasNext()) {
-			V v2 = vi.next();
+		for (V v2 : dict.keySet()) {
 			if (!vLabel.equals(v2)) {
 				removeEdge(v2, vLabel);
 			}
@@ -106,9 +106,7 @@ abstract public class GraphList<V, E> implements Graph<V, E> {
 		for (GraphListVertex<V, E> vertex : dict.values()) {
 			vertex.reset();
 		}
-		Iterator<Edge<V, E>> ei = edges();
-		while (ei.hasNext()) {
-			Edge<V, E> edge = ei.next();
+		for (Edge<V, E> edge : edges()) {
 			edge.reset();
 		}
 	}
@@ -124,18 +122,26 @@ abstract public class GraphList<V, E> implements Graph<V, E> {
 	}
 
 	@Override
-	public Iterator<V> iterator() {
-		return dict.keySet().iterator();
+	public List<V> vertices() {
+		return Collections.unmodifiableList(new ArrayList<V>(dict.keySet()));
 	}
 
 	@Override
-	public Iterator<V> neighbors(V vLabel) {
+	public List<V> neighbors(V vLabel) {
 		return dict.get(vLabel).adjacentVertices();
 	}
 
 	@Override
-	public Iterator<Edge<V, E>> edges() {
-		return new GraphListEIterator<V, E>(dict);
+	public List<Edge<V, E>> edges() {
+		List<Edge<V, E>> result = new ArrayList<Edge<V, E>>();
+		for (GraphListVertex<V, E> vertex : dict.values()) {
+			for (Edge<V, E> edge : vertex.adjacentEdges()) {
+				if (vertex.label().equals(edge.here())) {
+					result.add(edge);
+				}
+			}
+		}
+		return Collections.unmodifiableList(result);
 	}
 
 	@Override

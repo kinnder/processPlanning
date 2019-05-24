@@ -1,7 +1,7 @@
 package structures.graph;
 
 import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -26,7 +26,7 @@ public class GraphMatrixDirected<V, E> extends GraphMatrix<V, E> {
 	}
 
 	@Override
-	public Iterator<Edge<V, E>> edges() {
+	public List<Edge<V, E>> edges() {
 		List<Edge<V, E>> result = new ArrayList<Edge<V, E>>();
 		for (int vIndex1 = size - 1; vIndex1 >= 0; vIndex1--) {
 			for (int vIndex2 = size - 1; vIndex2 >= 0; vIndex2--) {
@@ -36,7 +36,7 @@ public class GraphMatrixDirected<V, E> extends GraphMatrix<V, E> {
 				}
 			}
 		}
-		return result.iterator();
+		return Collections.unmodifiableList(result);
 	}
 
 	@Override

@@ -1,7 +1,6 @@
 package algorithms.graph;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import structures.graph.Edge;
@@ -15,9 +14,7 @@ public class GraphAlgorithms {
 	{
 		g.visit(vertexLabel); // visit this vertex
 		// recursively visit unvisited neighbor vertices
-		Iterator<V> ni = g.neighbors(vertexLabel);
-		while (ni.hasNext()) {
-			V neighbor = ni.next(); // adjacent node label
+		for (V neighbor : g.neighbors(vertexLabel)) {
 			if (!g.isVisited(neighbor)) {
 				reachableFrom(g, neighbor); // depth-first search
 			}
@@ -30,9 +27,7 @@ public class GraphAlgorithms {
 	{
 		// construct result list
 		List<V> l = new ArrayList<V>();
-		Iterator<V> vi = g.iterator();
-		while (vi.hasNext()) {
-			V v = vi.next();
+		for (V v : g.vertices()) {
 			// perform depth-first search on unvisited vertices
 			if (!g.isVisited(v)) {
 				DFS(g, v, l);
@@ -47,9 +42,7 @@ public class GraphAlgorithms {
 	// unvisited descendants of node n into l
 	{
 		g.visit(n); // mark node visited
-		Iterator<V> ei = g.neighbors(n); // get neighbors
-		while (ei.hasNext()) {
-			V neighbor = ei.next();
+		for (V neighbor : g.neighbors(n)) {
 			// potentially deepen search if neighbor not visited
 			if (!g.isVisited(neighbor)) {
 				DFS(g, neighbor, l);
@@ -63,15 +56,9 @@ public class GraphAlgorithms {
 	// pre: g is non-null
 	// post: g contains edge (a,b) if there is a path from a to b
 	{
-		Iterator<V> witer = g.iterator();
-		while (witer.hasNext()) {
-			Iterator<V> uiter = g.iterator();
-			V w = witer.next();
-			while (uiter.hasNext()) {
-				Iterator<V> viter = g.iterator();
-				V u = uiter.next();
-				while (viter.hasNext()) {
-					V v = viter.next();
+		for (V w : g.vertices()) {
+			for (V u : g.vertices()) {
+				for (V v : g.vertices()) {
 					// check for edge from u to v via w
 					if (g.containsEdge(u, w) && g.containsEdge(w, v)) {
 						g.addEdge(u, v, null);
@@ -82,31 +69,25 @@ public class GraphAlgorithms {
 	}
 
 	// all pairs minimum distance
-	static public <V, E> void floyd(Graph<V, E> g)
+	static public <V, E> void floyd(Graph<V, Integer> g)
 	// post: g contains edge (a,b) if there is a path from a to b
 	{
-		Iterator<V> witer = g.iterator();
-		while (witer.hasNext()) {
-			Iterator<V> uiter = g.iterator();
-			V w = witer.next();
-			while (uiter.hasNext()) {
-				Iterator<V> viter = g.iterator();
-				V u = uiter.next();
-				while (viter.hasNext()) {
-					V v = viter.next();
+		for (V w : g.vertices()) {
+			for (V u : g.vertices()) {
+				for (V v : g.vertices()) {
 					if (g.containsEdge(u, w) && g.containsEdge(w, v)) {
-						Edge<V, E> leg1 = g.getEdge(u, w);
-						Edge<V, E> leg2 = g.getEdge(w, v);
-						Integer leg1Dist = (Integer) leg1.label();
-						Integer leg2Dist = (Integer) leg2.label();
+						Edge<V, Integer> leg1 = g.getEdge(u, w);
+						Edge<V, Integer> leg2 = g.getEdge(w, v);
+						Integer leg1Dist = leg1.label();
+						Integer leg2Dist = leg2.label();
 						Integer newDist = leg1Dist + leg2Dist;
 						if (g.containsEdge(u, v)) {
-							Edge<V, E> across = g.getEdge(u, v);
-							int acrossDist = (int) across.label();
+							Edge<V, Integer> across = g.getEdge(u, v);
+							Integer acrossDist = across.label();
 							if (newDist < acrossDist)
-								across.setLabel((E) newDist);
+								across.setLabel(newDist);
 						} else {
-							g.addEdge(u, v, (E) newDist);
+							g.addEdge(u, v, newDist);
 						}
 					}
 				}

@@ -1,8 +1,8 @@
 package structures.graph;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Hashtable;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -175,12 +175,12 @@ abstract public class GraphMatrix<V, E> implements Graph<V, E> {
 	}
 
 	@Override
-	public Iterator<V> iterator() {
-		return vertexData.keySet().iterator();
+	public List<V> vertices() {
+		return Collections.unmodifiableList(new ArrayList<V>(vertexData.keySet()));
 	}
 
 	@Override
-	public Iterator<V> neighbors(V vLabel) {
+	public List<V> neighbors(V vLabel) {
 		GraphMatrixVertex<V> vertex = vertexData.get(vLabel);
 		List<V> result = new ArrayList<V>();
 		for (int index = size - 1; index >= 0; index--) {
@@ -193,7 +193,7 @@ abstract public class GraphMatrix<V, E> implements Graph<V, E> {
 				}
 			}
 		}
-		return result.iterator();
+		return Collections.unmodifiableList(result);
 	}
 
 	@Override

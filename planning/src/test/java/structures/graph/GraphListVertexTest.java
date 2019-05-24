@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.util.Iterator;
+import java.util.List;
 
 import org.jmock.imposters.ByteBuddyClassImposteriser;
 import org.jmock.junit5.JUnit5Mockery;
@@ -84,16 +84,14 @@ public class GraphListVertexTest {
 	@Test
 	public void adjacentVertices() {
 		Edge<String, String> edge1 = new Edge<String, String>("a", "b", "link-1", false);
-		Edge<String, String> edge2 = new Edge<String, String>("a", "c", "link-2", false);
+		Edge<String, String> edge2 = new Edge<String, String>("c", "a", "link-2", false);
 		testable.addEdge(edge1);
 		testable.addEdge(edge2);
 
-		Iterator<String> vLabels = testable.adjacentVertices();
-		assertTrue(vLabels.hasNext());
-		assertEquals("b", vLabels.next());
-		assertTrue(vLabels.hasNext());
-		assertEquals("c", vLabels.next());
-		assertFalse(vLabels.hasNext());
+		List<String> vertices = testable.adjacentVertices();
+		assertEquals(2, vertices.size());
+		assertEquals("b", vertices.get(0));
+		assertEquals("c", vertices.get(1));
 	}
 
 	@Test
@@ -103,11 +101,9 @@ public class GraphListVertexTest {
 		testable.addEdge(edge1);
 		testable.addEdge(edge2);
 
-		Iterator<Edge<String, String>> edges = testable.adjacentEdges();
-		assertTrue(edges.hasNext());
-		assertEquals("link-1", edges.next().label());
-		assertTrue(edges.hasNext());
-		assertEquals("link-2", edges.next().label());
-		assertFalse(edges.hasNext());
+		List<Edge<String, String>> edges = testable.adjacentEdges();
+		assertEquals(2, edges.size());
+		assertEquals(edge1, edges.get(0));
+		assertEquals(edge2, edges.get(1));
 	}
 }

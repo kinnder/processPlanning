@@ -1,7 +1,7 @@
 package structures.graph;
 
 import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -16,7 +16,7 @@ class GraphListVertex<V, E> extends Vertex<V> {
 	/**
 	 * Adjacent edges;
 	 */
-	protected List<Edge<V, E>> adjacencies;
+	protected List<Edge<V, E>> adjacentEdges;
 
 	/**
 	 * Constructs a new vertex, not incident to any edge
@@ -25,7 +25,7 @@ class GraphListVertex<V, E> extends Vertex<V> {
 	 */
 	public GraphListVertex(V label) {
 		super(label);
-		adjacencies = new ArrayList<Edge<V, E>>();
+		adjacentEdges = new ArrayList<Edge<V, E>>();
 	}
 
 	/**
@@ -35,7 +35,7 @@ class GraphListVertex<V, E> extends Vertex<V> {
 	 */
 	public void addEdge(Edge<V, E> e) {
 		if (!containsEdge(e)) {
-			adjacencies.add(e);
+			adjacentEdges.add(e);
 		}
 	}
 
@@ -45,7 +45,7 @@ class GraphListVertex<V, E> extends Vertex<V> {
 	 * @return true if e appears on adjacency list
 	 */
 	public boolean containsEdge(Edge<V, E> e) {
-		return adjacencies.contains(e);
+		return adjacentEdges.contains(e);
 	}
 
 	/**
@@ -54,9 +54,9 @@ class GraphListVertex<V, E> extends Vertex<V> {
 	 * @param e
 	 */
 	public Edge<V, E> removeEdge(Edge<V, E> e) {
-		Edge<V, E> adjE = getEdge(e);
-		adjacencies.remove(adjE);
-		return adjE;
+		Edge<V, E> edge = getEdge(e);
+		adjacentEdges.remove(edge);
+		return edge;
 	}
 
 	/**
@@ -65,11 +65,9 @@ class GraphListVertex<V, E> extends Vertex<V> {
 	 * @return edge that "equals e, or null
 	 */
 	public Edge<V, E> getEdge(Edge<V, E> e) {
-		Iterator<Edge<V, E>> edges = adjacencies.iterator();
-		while (edges.hasNext()) {
-			Edge<V, E> adjE = edges.next();
-			if (e.equals(adjE)) {
-				return adjE;
+		for (Edge<V, E> edge : adjacentEdges) {
+			if (e.equals(edge)) {
+				return edge;
 			}
 		}
 		return null;
@@ -79,20 +77,28 @@ class GraphListVertex<V, E> extends Vertex<V> {
 	 * @return degree of this node
 	 */
 	public int degree() {
-		return adjacencies.size();
+		return adjacentEdges.size();
 	}
 
 	/**
-	 * @return iterator over adjacent vertices
+	 * @return list of labels of adjacent vertices
 	 */
-	public Iterator<V> adjacentVertices() {
-		return new GraphListAIterator<V, E>(adjacentEdges(), label());
+	public List<V> adjacentVertices() {
+		List<V> result = new ArrayList<V>();
+		for (Edge<V, E> edge : adjacentEdges) {
+			if (label.equals(edge.here())) {
+				result.add(edge.there());
+			} else {
+				result.add(edge.here());
+			}
+		}
+		return Collections.unmodifiableList(result);
 	}
 
 	/**
-	 * @return iterator over adjacent edges
+	 * @return list of adjacent edges
 	 */
-	public Iterator<Edge<V, E>> adjacentEdges() {
-		return adjacencies.iterator();
+	public List<Edge<V, E>> adjacentEdges() {
+		return Collections.unmodifiableList(adjacentEdges);
 	}
 }

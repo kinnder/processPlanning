@@ -1,6 +1,6 @@
 package structures.graph;
 
-import java.util.Iterator;
+import java.util.List;
 
 /**
  * The interface describing all Graph objects.<br>
@@ -150,11 +150,11 @@ public interface Graph<V, E> {
 	public int edgeCount();
 
 	/**
-	 * Construct vertex iterator. Vertices are not visited in any guaranteed order.
+	 * Construct vertex list. Vertices are not visited in any guaranteed order.
 	 *
-	 * @return iterator traversing vertices in graph
+	 * @return list of vertices in graph
 	 */
-	public Iterator<V> iterator();
+	public List<V> vertices();
 
 	/**
 	 * Construct an adjacent vertex iterator. Adjacent vertices (those on
@@ -162,19 +162,17 @@ public interface Graph<V, E> {
 	 * order.
 	 *
 	 * @param vLabel - label of the vertex
-	 * @return iterator traversing the adjacent vertices of labeled vertex
+	 * @return list of the adjacent vertices of labeled vertex
 	 */
-	// TODO: replace iterator with list
-	public Iterator<V> neighbors(V vLabel);
+	public List<V> neighbors(V vLabel);
 
 	/**
 	 * Construct an iterator over all edges. Every directed/undirected edge is
 	 * considered exactly once. Order is not guaranteed.
 	 *
-	 * @return Iterator over edges
+	 * @return list of edges
 	 */
-	// TODO: replace iterator with list
-	public Iterator<Edge<V, E>> edges();
+	public List<Edge<V, E>> edges();
 
 	/**
 	 * Remove all vertices (and thus, edges) of the graph.

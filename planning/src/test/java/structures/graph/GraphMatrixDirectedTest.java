@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.util.Iterator;
+import java.util.List;
 
 import org.jmock.imposters.ByteBuddyClassImposteriser;
 import org.jmock.junit5.JUnit5Mockery;
@@ -152,8 +152,8 @@ public class GraphMatrixDirectedTest {
 	}
 
 	@Test
-	public void iterator() {
-		assertNotNull(testable.iterator());
+	public void vertices() {
+		assertNotNull(testable.vertices());
 	}
 
 	@Test
@@ -185,12 +185,10 @@ public class GraphMatrixDirectedTest {
 		testable.addEdge("object-a", "object-b", "relation-ab");
 		testable.addEdge("object-b", "object-c", "relation-bc");
 
-		Iterator<Edge<String, String>> edges = testable.edges();
-		assertTrue(edges.hasNext());
-		assertEquals("relation-ab", edges.next().label());
-		assertTrue(edges.hasNext());
-		assertEquals("relation-bc", edges.next().label());
-		assertFalse(edges.hasNext());
+		List<Edge<String, String>> edges = testable.edges();
+		assertEquals(2, edges.size());
+		assertEquals("relation-ab", edges.get(0).label());
+		assertEquals("relation-bc", edges.get(1).label());
 	}
 
 	@Test
