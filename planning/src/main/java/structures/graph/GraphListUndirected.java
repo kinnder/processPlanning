@@ -16,7 +16,7 @@ public class GraphListUndirected<V, E> extends GraphList<V, E> {
 	 *
 	 * @param directed
 	 */
-	protected GraphListUndirected() {
+	public GraphListUndirected() {
 		super(false);
 	}
 

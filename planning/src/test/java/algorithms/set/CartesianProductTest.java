@@ -36,7 +36,7 @@ public class CartesianProductTest {
 	}
 
 	@Test
-	public void computeCombinations2() {
+	public void compute() {
 		List<String> t1 = Arrays.asList("ID-1", "ID-2", "ID-3", "ID-4", "ID-5");
 		List<String> t2 = Arrays.asList("ID-2");
 		List<String> t3 = Arrays.asList("ID-3", "ID-4", "ID-5");
