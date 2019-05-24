@@ -128,33 +128,12 @@ public class Edge<V, E> {
 	@Override
 	public boolean equals(Object o) {
 		Edge<?, ?> e = (Edge<?, ?>) o;
-		return ((here().equals(e.here()) && there().equals(e.there()))
-				|| (!directed && (here().equals(e.there()) && there().equals(e.here()))));
+		return ((here.equals(e.here) && there.equals(e.there))
+				|| (!directed && (here.equals(e.there) && there.equals(e.here))));
 	}
 
 	@Override
 	public int hashCode() {
-		if (directed) {
-			return here().hashCode() - there().hashCode();
-		} else {
-			return here().hashCode() ^ there().hashCode();
-		}
-	}
-
-	@Override
-	public String toString() {
-		StringBuffer s = new StringBuffer();
-		s.append("<Edge:");
-		if (visited) {
-			s.append(" visited");
-		}
-		s.append(" " + here());
-		if (directed) {
-			s.append(" ->");
-		} else {
-			s.append(" <->");
-		}
-		s.append(" " + there() + ">");
-		return s.toString();
+		return directed ? here.hashCode() - there.hashCode() : here.hashCode() ^ there.hashCode();
 	}
 }

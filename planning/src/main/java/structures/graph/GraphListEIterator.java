@@ -34,22 +34,9 @@ class GraphListEIterator<V, E> implements Iterator<Edge<V, E>> {
 		edges = l.iterator();
 	}
 
-	/**
-	 * Resets the iterator to first edge.
-	 */
-	public void reset() {
-	}
-
 	@Override
 	public boolean hasNext() {
 		return edges.hasNext();
-	}
-
-	/**
-	 * @return current element
-	 */
-	public Edge<V, E> get() {
-		return null;
 	}
 
 	@Override

@@ -54,8 +54,9 @@ class GraphListVertex<V, E> extends Vertex<V> {
 	 * @param e
 	 */
 	public Edge<V, E> removeEdge(Edge<V, E> e) {
-		adjacencies.remove(e);
-		return e;
+		Edge<V, E> adjE = getEdge(e);
+		adjacencies.remove(adjE);
+		return adjE;
 	}
 
 	/**
@@ -93,10 +94,5 @@ class GraphListVertex<V, E> extends Vertex<V> {
 	 */
 	public Iterator<Edge<V, E>> adjacentEdges() {
 		return adjacencies.iterator();
-	}
-
-	@Override
-	public String toString() {
-		return "<GraphListVertex: " + label() + ">";
 	}
 }

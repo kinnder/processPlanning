@@ -35,69 +35,81 @@ abstract public class GraphList<V, E> implements Graph<V, E> {
 	}
 
 	@Override
-	public void add(V label) {
-		if (dict.containsKey(label)) {
+	public void add(V vLabel) {
+		if (dict.containsKey(vLabel)) {
 			return;
 		}
-		GraphListVertex<V, E> v = new GraphListVertex<V, E>(label);
-		dict.put(label, v);
+		GraphListVertex<V, E> vertex = new GraphListVertex<V, E>(vLabel);
+		dict.put(vLabel, vertex);
 	}
 
 	@Override
-	public V get(V label) {
-		return dict.get(label).label;
+	public V remove(V vLabel) {
+		GraphListVertex<V, E> v = dict.get(vLabel);
+
+		Iterator<V> vi = iterator();
+		while (vi.hasNext()) {
+			V v2 = vi.next();
+			if (!vLabel.equals(v2)) {
+				removeEdge(v2, vLabel);
+			}
+		}
+
+		dict.remove(vLabel);
+		return v.label();
 	}
 
 	@Override
-	public Edge<V, E> getEdge(V label1, V label2) {
-		Edge<V, E> e = new Edge<V, E>(get(label1), get(label2), null, directed);
-		return dict.get(label1).getEdge(e);
+	public V get(V vLabel) {
+		return dict.get(vLabel).label;
 	}
 
 	@Override
-	public boolean contains(V label) {
-		return dict.containsKey(label);
+	public Edge<V, E> getEdge(V vLabel1, V vLabel2) {
+		Edge<V, E> edge = new Edge<V, E>(get(vLabel1), get(vLabel2), null, directed);
+		return dict.get(vLabel1).getEdge(edge);
+	}
+
+	@Override
+	public boolean contains(V vLabel) {
+		return dict.containsKey(vLabel);
 	}
 
 	@Override
 	public boolean containsEdge(V vLabel1, V vLabel2) {
-		Edge<V, E> e = new Edge<V, E>(vLabel1, vLabel2, null, directed);
-		return dict.get(vLabel1).containsEdge(e);
+		Edge<V, E> edge = new Edge<V, E>(vLabel1, vLabel2, null, directed);
+		return dict.get(vLabel1).containsEdge(edge);
 	}
 
 	@Override
-	public boolean visit(V label) {
-		return dict.get(label).visit();
+	public boolean visit(V vLabel) {
+		return dict.get(vLabel).visit();
 	}
 
 	@Override
-	public boolean visitEdge(Edge<V, E> e) {
-		return e.visit();
+	public boolean visitEdge(Edge<V, E> edge) {
+		return edge.visit();
 	}
 
 	@Override
-	public boolean isVisited(V label) {
-		return dict.get(label).isVisited();
+	public boolean isVisited(V vLabel) {
+		return dict.get(vLabel).isVisited();
 	}
 
 	@Override
-	public boolean isVisitedEdge(Edge<V, E> e) {
-		return e.isVisited();
+	public boolean isVisitedEdge(Edge<V, E> edge) {
+		return edge.isVisited();
 	}
 
 	@Override
 	public void reset() {
-		// reset the vertices
-		Iterator<GraphListVertex<V, E>> vi = dict.values().iterator();
-		while (vi.hasNext()) {
-			GraphListVertex<V, E> vtx = vi.next();
-			vtx.reset();
+		for (GraphListVertex<V, E> vertex : dict.values()) {
+			vertex.reset();
 		}
-		// reset the edges
 		Iterator<Edge<V, E>> ei = edges();
 		while (ei.hasNext()) {
-			Edge<V, E> e = ei.next();
-			e.reset();
+			Edge<V, E> edge = ei.next();
+			edge.reset();
 		}
 	}
 
@@ -107,8 +119,8 @@ abstract public class GraphList<V, E> implements Graph<V, E> {
 	}
 
 	@Override
-	public int degree(V label) {
-		return dict.get(label).degree();
+	public int degree(V vLabel) {
+		return dict.get(vLabel).degree();
 	}
 
 	@Override
@@ -117,8 +129,8 @@ abstract public class GraphList<V, E> implements Graph<V, E> {
 	}
 
 	@Override
-	public Iterator<V> neighbors(V label) {
-		return dict.get(label).adjacentVertices();
+	public Iterator<V> neighbors(V vLabel) {
+		return dict.get(vLabel).adjacentVertices();
 	}
 
 	@Override

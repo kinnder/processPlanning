@@ -28,12 +28,6 @@ class GraphListAIterator<V, E> implements Iterator<V> {
 		this.vertex = v;
 	}
 
-	/**
-	 * Resets iterator.
-	 */
-	public void reset() {
-	}
-
 	@Override
 	public boolean hasNext() {
 		return edges.hasNext();
@@ -47,12 +41,5 @@ class GraphListAIterator<V, E> implements Iterator<V> {
 		} else {
 			return e.here();
 		}
-	}
-
-	/**
-	 * @return current adjacent vertex
-	 */
-	public V get() {
-		return null;
 	}
 }

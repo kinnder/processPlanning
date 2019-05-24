@@ -1,12 +1,35 @@
 package structures.graph;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.util.Iterator;
+
+import org.jmock.imposters.ByteBuddyClassImposteriser;
+import org.jmock.junit5.JUnit5Mockery;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.RegisterExtension;
 
-import structures.graph.Graph;
 import structures.graph.GraphListDirected;
 
 public class GraphListDirectedTest {
+
+	@RegisterExtension
+	JUnit5Mockery context = new JUnit5Mockery() {
+		{
+			setImposteriser(ByteBuddyClassImposteriser.INSTANCE);
+		}
+	};
+
+	@AfterEach
+	public void teardown() {
+		context.assertIsSatisfied();
+	}
 
 	GraphListDirected<String, String> testable;
 
@@ -17,25 +40,185 @@ public class GraphListDirectedTest {
 
 	@Test
 	public void add() {
-		testable.add("harry");
-		testable.add("sally");
-		testable.addEdge("harry", "sally", "friendly");
+		testable.add("object-a");
+		assertEquals(1, testable.size());
+
+		testable.add("object-a");
+		assertEquals(1, testable.size());
 	}
 
 	@Test
-	public void test() {
-		Graph<String, Double> theaters = new GraphListDirected<String, Double>();
+	public void remove() {
+		testable.add("object-a");
+		testable.add("object-b");
+		assertEquals("object-a", testable.remove("object-a"));
+	}
 
-		String[] locations = new String[] { "TCL 312", "Images Cinema", "Movie Plex 3", "Cinema 1,2,&3", "Cinema 7",
-				"Berkshire Mall Cinemas", "Hathaway's Drive Inn Theatre", "Hollywood Drive-In Theatre" };
+	@Test
+	public void get() {
+		testable.add("object-a");
+		assertEquals("object-a", testable.get("object-a"));
+	}
 
-		double[] distances = new double[] { -1, 0.0, 12.6, 12.9, 12.9, 14.7, 16.5, 18.0 };
+	@Test
+	public void getEdge() {
+		testable.add("object-a");
+		testable.add("object-b");
+		testable.addEdge("object-a", "object-b", "relation-ab");
+		assertNotNull(testable.getEdge("object-a", "object-b"));
+	}
 
-		for (int i = 0; i < locations.length; i++) {
-			theaters.add(locations[i]);
-		}
-		for (int i = 1; i < distances.length; i++) {
-			theaters.addEdge(locations[0], locations[i], new Double(distances[i]));
-		}
+	@Test
+	public void contains() {
+		assertFalse(testable.contains("object-a"));
+
+		testable.add("object-a");
+		assertTrue(testable.contains("object-a"));
+	}
+
+	@Test
+	public void containsEdge() {
+		testable.add("object-a");
+		testable.add("object-b");
+		assertFalse(testable.containsEdge("object-a", "object-b"));
+
+		testable.addEdge("object-a", "object-b", "relation-ab");
+		assertTrue(testable.containsEdge("object-a", "object-b"));
+	}
+
+	@Test
+	public void visit() {
+		testable.add("object-a");
+
+		assertFalse(testable.visit("object-a"));
+	}
+
+	@Test
+	public void visitEdge() {
+		testable.add("object-a");
+		testable.add("object-b");
+		testable.addEdge("object-a", "object-b", "relation-ab");
+
+		Edge<String, String> edge = testable.getEdge("object-a", "object-b");
+		assertFalse(testable.visitEdge(edge));
+	}
+
+	@Test
+	public void isVisited() {
+		testable.add("object-a");
+		assertFalse(testable.isVisited("object-a"));
+	}
+
+	@Test
+	public void isVisitedEdge() {
+		testable.add("object-a");
+		testable.add("object-b");
+		testable.addEdge("object-a", "object-b", "relation-ab");
+
+		Edge<String, String> edge = testable.getEdge("object-a", "object-b");
+		assertFalse(testable.isVisitedEdge(edge));
+	}
+
+	@Test
+	public void reset() {
+		testable.add("object-a");
+		testable.add("object-b");
+		testable.addEdge("object-a", "object-b", "relation-ab");
+		testable.visit("object-a");
+		Edge<String, String> edge = testable.getEdge("object-a", "object-b");
+		testable.visitEdge(edge);
+
+		testable.reset();
+		assertFalse(testable.isVisited("object-a"));
+		assertFalse(testable.isVisitedEdge(edge));
+	}
+
+	@Test
+	public void size() {
+		assertEquals(0, testable.size());
+
+		testable.add("object-a");
+		assertEquals(1, testable.size());
+	}
+
+	@Test
+	public void degree() {
+		testable.add("object-a");
+		testable.add("object-b");
+		testable.addEdge("object-a", "object-b", "relation-ab");
+
+		assertEquals(1, testable.degree("object-a"));
+	}
+
+	@Test
+	public void iterator() {
+		assertNotNull(testable.iterator());
+	}
+
+	@Test
+	void edges() {
+		testable.add("object-a");
+		testable.add("object-b");
+		testable.add("object-c");
+		testable.addEdge("object-a", "object-b", "relation-ab");
+		testable.addEdge("object-b", "object-c", "relation-bc");
+
+		Iterator<Edge<String, String>> edges = testable.edges();
+		assertTrue(edges.hasNext());
+		assertEquals("relation-bc", edges.next().label());
+		assertTrue(edges.hasNext());
+		assertEquals("relation-ab", edges.next().label());
+		assertFalse(edges.hasNext());
+	}
+
+	@Test
+	public void clear() {
+		testable.add("object-a");
+
+		testable.clear();
+		assertTrue(testable.isEmpty());
+	}
+
+	@Test
+	public void isEmpty() {
+		assertTrue(testable.isEmpty());
+
+		testable.add("object-a");
+		assertFalse(testable.isEmpty());
+	}
+
+	@Test
+	public void isDirected() {
+		assertTrue(testable.isDirected());
+	}
+
+	@Test
+	public void addEdge() {
+		testable.add("object-a");
+		testable.add("object-b");
+		testable.addEdge("object-a", "object-b", "relation-ab");
+
+		assertNotNull(testable.getEdge("object-a", "object-b"));
+		assertNull(testable.getEdge("object-b", "object-a"));
+	}
+
+	@Test
+	public void removeEdge() {
+		testable.add("object-a");
+		testable.add("object-b");
+		testable.addEdge("object-a", "object-b", "relation-ab");
+
+		assertNotNull(testable.removeEdge("object-a", "object-b"));
+
+		assertNull(testable.removeEdge("object-a", "object-b"));
+	}
+
+	@Test
+	public void edgeCount() {
+		testable.add("object-a");
+		testable.add("object-b");
+		testable.addEdge("object-a", "object-b", "relation-ab");
+
+		assertEquals(1, testable.edgeCount());
 	}
 }

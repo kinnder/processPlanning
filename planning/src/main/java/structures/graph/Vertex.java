@@ -76,9 +76,4 @@ public class Vertex<V> {
 	public int hashCode() {
 		return label.hashCode();
 	}
-
-	@Override
-	public String toString() {
-		return "Vertex: " + label + ">";
-	}
 }
