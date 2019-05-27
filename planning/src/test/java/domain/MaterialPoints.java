@@ -310,20 +310,20 @@ public class MaterialPoints {
 		initial_system.addObject(initial_point_3);
 		initial_system.addObject(initial_point_4);
 
-		System target_system = new System();
-		SystemObject target_object = (SystemObject) initial_object.clone();
-		SystemObject target_point_4 = (SystemObject) initial_point_4.clone();
-		target_system.addObject(target_object);
-		target_system.addObject(target_point_4);
+		System final_system = new System();
+		SystemObject final_object = (SystemObject) initial_object.clone();
+		SystemObject final_point_4 = (SystemObject) initial_point_4.clone();
+		final_system.addObject(final_object);
+		final_system.addObject(final_point_4);
 
-		target_system.getObjectById(initial_object_id).getLink(LINK_POSITION).setObjectId(initial_point_4_id);
-		target_system.getObjectById(initial_point_4_id).getAttribute(ATTRIBUTE_OCCUPIED).setValue(true);
-		target_system.getObjectById(initial_point_4_id).getLink(LINK_POSITION).setObjectId(initial_object_id);
+		final_system.getObjectById(initial_object_id).getLink(LINK_POSITION).setObjectId(initial_point_4_id);
+		final_system.getObjectById(initial_point_4_id).getAttribute(ATTRIBUTE_OCCUPIED).setValue(true);
+		final_system.getObjectById(initial_point_4_id).getLink(LINK_POSITION).setObjectId(initial_object_id);
 
 		Element[] elements = new Element[] { moveLeft(), moveRight(), moveTop(), moveBottom() };
 
-		Planner planner = new Planner();
-		planner.plan(initial_system, target_system, elements);
+		Planner planner = new Planner(initial_system, final_system, elements);
+		planner.plan();
 
 		String[] operations = planner.getShortestPlan().getOperations();
 		assertEquals(3, operations.length);

@@ -53,6 +53,7 @@ public class System {
 		int amount = idsMatchingsManager.getMatchingsAmount();
 		SystemVariant[] systemVariants = new SystemVariant[amount];
 		for (int i = 0; i < amount; i++) {
+			// TODO : clone should be removed()
 			systemVariants[i] = new SystemVariant(clone(), idsMatchingsManager.getMatching(i));
 		}
 
@@ -113,5 +114,10 @@ public class System {
 			}
 		}
 		return null;
+	}
+
+	public boolean matches(System final_system) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 }

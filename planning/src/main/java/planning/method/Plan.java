@@ -6,5 +6,4 @@ public class Plan {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
 }
