@@ -76,6 +76,12 @@ public class LinkTest {
 	}
 
 	@Test
+	public void equals_differentName_ids_null() {
+		testable = new Link("link", null);
+		assertFalse(testable.equals(new Link("different", null)));
+	}
+
+	@Test
 	public void matches() {
 		final Link template = new Link("link", "id");
 		assertTrue(testable.matches(template));

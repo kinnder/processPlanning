@@ -24,9 +24,9 @@ public class Link {
 			if (objectId == null) {
 				return link.objectId == null;
 			}
+			return objectId.equals(link.objectId);
 		}
-
-		return objectId.equals(link.objectId);
+		return false;
 	}
 
 	@Override

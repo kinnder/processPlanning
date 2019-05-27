@@ -70,8 +70,19 @@ public class Planner {
 			for (SystemVariant systemVariant : systemVariants) {
 				element.applyTo(systemVariant);
 
-				Node targetNode = new Node(systemVariant.getSystem());
-				uncheckedNodes.add(targetNode);
+				System targetSystem = systemVariant.getSystem();
+
+				Node targetNode = null;
+				for (Node checkedNode : checkedNodes) {
+					if (checkedNode.getSystem().equals(targetSystem)) {
+						targetNode = checkedNode;
+						break;
+					}
+				}
+				if (targetNode == null) {
+					targetNode = new Node(targetSystem);
+					uncheckedNodes.add(targetNode);
+				}
 
 				Edge edge = new Edge(element, systemVariant);
 				edges.add(edge);
