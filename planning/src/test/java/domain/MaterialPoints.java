@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
+import planning.method.Planner;
 import planning.model.Attribute;
 import planning.model.Element;
 import planning.model.Link;
@@ -264,5 +265,70 @@ public class MaterialPoints {
 		element.applyTo(systemVariants[0]);
 		actual_system = systemVariants[0].getSystem();
 		assertTrue(expected_system.equals(actual_system));
+	}
+
+	@Test
+	public void movingOnStraightLine() {
+		final System initial_system = new System();
+		final SystemObject initial_object = new SystemObject("материальная точка");
+		final SystemObject initial_point_1 = new SystemObject("точка-1");
+		final SystemObject initial_point_2 = new SystemObject("точка-2");
+		final SystemObject initial_point_3 = new SystemObject("точка-3");
+		final SystemObject initial_point_4 = new SystemObject("точка-4");
+
+		final String initial_object_id = initial_object.getObjectId();
+		final String initial_point_1_id = initial_point_1.getObjectId();
+		final String initial_point_2_id = initial_point_2.getObjectId();
+		final String initial_point_3_id = initial_point_3.getObjectId();
+		final String initial_point_4_id = initial_point_4.getObjectId();
+
+		initial_object.addLink(new Link(LINK_POSITION, initial_point_1_id));
+
+		initial_point_1.addAttribute(new Attribute(ATTRIBUTE_OCCUPIED, true));
+		initial_point_1.addLink(new Link(LINK_NEIGHBOR_RIGHT, initial_point_2_id));
+		initial_point_1.addLink(new Link(LINK_NEIGHBOR_LEFT, null));
+		initial_point_1.addLink(new Link(LINK_POSITION, initial_object_id));
+
+		initial_point_2.addAttribute(new Attribute(ATTRIBUTE_OCCUPIED, false));
+		initial_point_2.addLink(new Link(LINK_NEIGHBOR_RIGHT, initial_point_3_id));
+		initial_point_2.addLink(new Link(LINK_NEIGHBOR_LEFT, initial_point_1_id));
+		initial_point_2.addLink(new Link(LINK_POSITION, null));
+
+		initial_point_3.addAttribute(new Attribute(ATTRIBUTE_OCCUPIED, false));
+		initial_point_3.addLink(new Link(LINK_NEIGHBOR_RIGHT, initial_point_4_id));
+		initial_point_3.addLink(new Link(LINK_NEIGHBOR_LEFT, initial_point_2_id));
+		initial_point_3.addLink(new Link(LINK_POSITION, null));
+
+		initial_point_4.addAttribute(new Attribute(ATTRIBUTE_OCCUPIED, false));
+		initial_point_4.addLink(new Link(LINK_NEIGHBOR_RIGHT, null));
+		initial_point_4.addLink(new Link(LINK_NEIGHBOR_LEFT, initial_point_3_id));
+		initial_point_4.addLink(new Link(LINK_POSITION, null));
+
+		initial_system.addObject(initial_object);
+		initial_system.addObject(initial_point_1);
+		initial_system.addObject(initial_point_2);
+		initial_system.addObject(initial_point_3);
+		initial_system.addObject(initial_point_4);
+
+		System target_system = new System();
+		SystemObject target_object = (SystemObject) initial_object.clone();
+		SystemObject target_point_4 = (SystemObject) initial_point_4.clone();
+		target_system.addObject(target_object);
+		target_system.addObject(target_point_4);
+
+		target_system.getObjectById(initial_object_id).getLink(LINK_POSITION).setObjectId(initial_point_4_id);
+		target_system.getObjectById(initial_point_4_id).getAttribute(ATTRIBUTE_OCCUPIED).setValue(true);
+		target_system.getObjectById(initial_point_4_id).getLink(LINK_POSITION).setObjectId(initial_object_id);
+
+		Element[] elements = new Element[] { moveLeft(), moveRight(), moveTop(), moveBottom() };
+
+		Planner planner = new Planner();
+		planner.plan(initial_system, target_system, elements);
+
+		String[] operations = planner.getShortestPlan().getOperations();
+		assertEquals(3, operations.length);
+		assertEquals("Движение вправо", operations[0]);
+		assertEquals("Движение вправо", operations[1]);
+		assertEquals("Движение вправо", operations[2]);
 	}
 }

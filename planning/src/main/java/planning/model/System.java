@@ -68,6 +68,7 @@ public class System {
 		return systemIds;
 	}
 
+	// TODO : override super-method
 	public System clone() {
 		System system = new System();
 		for (SystemObject object : objects) {
