@@ -7,6 +7,7 @@ import java.util.Set;
 
 public class System {
 
+	// TODO : replace List with Set
 	private List<SystemObject> objects = new ArrayList<SystemObject>();
 
 	public void addObject(SystemObject object) {
@@ -116,8 +117,11 @@ public class System {
 		return null;
 	}
 
-	public boolean matches(System final_system) {
-		// TODO Auto-generated method stub
+	public boolean partially_equals(System system) {
+		SystemVariant[] variants = matchIds(system);
+		if (variants.length > 0) {
+			return true;
+		}
 		return false;
 	}
 }

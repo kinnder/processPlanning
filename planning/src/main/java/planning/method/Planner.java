@@ -62,7 +62,7 @@ public class Planner {
 	private void iterate() {
 		Node sourceNode = uncheckedNodes.get(0);
 		System sourceSystem = sourceNode.getSystem();
-		if (sourceSystem.matches(final_system)) {
+		if (sourceSystem.partially_equals(final_system)) {
 			finalNode = sourceNode;
 		}
 		for (Element element : elements) {
@@ -98,6 +98,6 @@ public class Planner {
 
 	public Plan getShortestPlan() {
 		// TODO Auto-generated method stub
-		return null;
+		return new Plan();
 	}
 }
