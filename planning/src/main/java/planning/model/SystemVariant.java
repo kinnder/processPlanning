@@ -23,4 +23,8 @@ public class SystemVariant {
 	public System getSystem() {
 		return system;
 	}
+
+	public IdsMatching getIdsMatching() {
+		return idsMatching;
+	}
 }

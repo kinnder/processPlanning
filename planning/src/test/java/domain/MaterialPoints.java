@@ -310,6 +310,19 @@ public class MaterialPoints {
 		initial_system.addObject(initial_point_3);
 		initial_system.addObject(initial_point_4);
 
+		SystemVariant[] systemVariants;
+		systemVariants = initial_system.matchIds(moveRight().getTemplate());
+		assertEquals(1, systemVariants.length);
+
+		systemVariants = initial_system.matchIds(moveLeft().getTemplate());
+		assertEquals(0, systemVariants.length);
+
+		systemVariants = initial_system.matchIds(moveTop().getTemplate());
+		assertEquals(0, systemVariants.length);
+
+		systemVariants = initial_system.matchIds(moveBottom().getTemplate());
+		assertEquals(0, systemVariants.length);
+
 		System final_system = new System();
 		SystemObject final_object = (SystemObject) initial_object.clone();
 		SystemObject final_point_4 = (SystemObject) initial_point_4.clone();

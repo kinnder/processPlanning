@@ -119,7 +119,18 @@ public class System {
 
 	public boolean partially_equals(System system) {
 		SystemVariant[] variants = matchIds(system);
-		if (variants.length > 0) {
+		List<SystemVariant> matchingVariants = new ArrayList<SystemVariant>();
+		for (SystemVariant variant : variants) {
+			matchingVariants.add(variant);
+		}
+
+		for (SystemVariant variant : variants) {
+			if (!variant.getIdsMatching().areKeysAndValuesTheSame()) {
+				matchingVariants.remove(variant);
+			}
+		}
+
+		if (matchingVariants.size() > 0) {
 			return true;
 		}
 		return false;

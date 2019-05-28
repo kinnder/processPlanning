@@ -49,6 +49,8 @@ public class IdsMatchingManager {
 	private Map<String, List<String>> candidates = new HashMap<String, List<String>>();
 
 	public void prepareMatchingsCandidates(Set<String> templateIds, Set<String> systemIds) {
+		unchekedIdsMatching = null;
+		idsMatchings.clear();
 		candidates.clear();
 		for (String templateId : templateIds) {
 			candidates.put(templateId, new ArrayList<>(systemIds));
@@ -70,7 +72,11 @@ public class IdsMatchingManager {
 				IdsMatching idsMatching = new IdsMatching();
 
 				for (int i = 0; i < objectIdsCombination.size(); i++) {
-					idsMatching.add(templateIdsCombination.get(i), objectIdsCombination.get(i));
+					String templateId = templateIdsCombination.get(i);
+					String objectId = objectIdsCombination.get(i);
+					if (templateId != null) {
+						idsMatching.add(templateId, objectId);
+					}
 				}
 				idsMatchings.add(idsMatching);
 			}

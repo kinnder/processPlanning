@@ -24,4 +24,14 @@ public class IdsMatching {
 	public void check() {
 		checked = true;
 	}
+
+	public boolean areKeysAndValuesTheSame() {
+		for (String key : idsMatching.keySet()) {
+			String value = idsMatching.get(key);
+			if (!key.equals(value)) {
+				return false;
+			}
+		}
+		return true;
+	}
 }
