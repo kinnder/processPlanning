@@ -315,4 +315,136 @@ public class SystemTest {
 		assertTrue(systemIds.contains("id-1"));
 		assertTrue(systemIds.contains("id-2"));
 	}
+
+	@SuppressWarnings("unchecked")
+	@Test
+	public void partially_equals() {
+		final IdsMatchingManager idsMatchingManager_mock = context.mock(IdsMatchingManager.class);
+		testable = new System(idsMatchingManager_mock);
+
+		final SystemObject object_1_mock = context.mock(SystemObject.class, "object-1");
+		testable.addObject(object_1_mock);
+
+		final System systemTemplate = new System();
+		final SystemObject object_1_template_mock = context.mock(SystemObject.class, "object-1-template");
+		systemTemplate.addObject(object_1_template_mock);
+
+		final SystemObject object_1_clone_mock = context.mock(SystemObject.class, "object-1-clone");
+		final IdsMatching idsMatching_mock = context.mock(IdsMatching.class);
+
+		final Set<String> object_1_template_ids = new HashSet<String>();
+		final Set<String> object_1_ids_mock = new HashSet<String>();
+
+		context.checking(new Expectations() {
+			{
+				oneOf(object_1_template_mock).getObjectIds();
+				will(returnValue(object_1_template_ids));
+
+				oneOf(object_1_mock).getObjectIds();
+				will(returnValue(object_1_ids_mock));
+
+				oneOf(idsMatchingManager_mock).prepareMatchingsCandidates(with(any(Set.class)), with(any(Set.class)));
+
+				oneOf(object_1_mock).matchesAttributes(object_1_template_mock);
+				will(returnValue(true));
+
+				oneOf(idsMatchingManager_mock).generateMatchingsFromCandidates();
+
+				oneOf(idsMatchingManager_mock).haveUncheckedMatching();
+				will(returnValue(true));
+
+				oneOf(idsMatchingManager_mock).getUncheckedMatching();
+				will(returnValue(idsMatching_mock));
+
+				oneOf(object_1_mock).matchesAttributes(object_1_template_mock);
+				will(returnValue(true));
+
+				oneOf(object_1_mock).matchesLinks(object_1_template_mock, idsMatching_mock);
+				will(returnValue(true));
+
+				oneOf(idsMatchingManager_mock).haveUncheckedMatching();
+				will(returnValue(false));
+
+				oneOf(idsMatchingManager_mock).getMatchingsAmount();
+				will(returnValue(1));
+
+				oneOf(object_1_mock).clone();
+				will(returnValue(object_1_clone_mock));
+
+				oneOf(idsMatchingManager_mock).getMatching(0);
+				will(returnValue(idsMatching_mock));
+
+				oneOf(idsMatching_mock).areKeysAndValuesTheSame();
+				will(returnValue(true));
+			}
+		});
+
+		assertTrue(testable.partially_equals(systemTemplate));
+	}
+
+	@SuppressWarnings("unchecked")
+	@Test
+	public void partially_equals_different() {
+		final IdsMatchingManager idsMatchingManager_mock = context.mock(IdsMatchingManager.class);
+		testable = new System(idsMatchingManager_mock);
+
+		final SystemObject object_1_mock = context.mock(SystemObject.class, "object-1");
+		testable.addObject(object_1_mock);
+
+		final System systemTemplate = new System();
+		final SystemObject object_1_template_mock = context.mock(SystemObject.class, "object-1-template");
+		systemTemplate.addObject(object_1_template_mock);
+
+		final SystemObject object_1_clone_mock = context.mock(SystemObject.class, "object-1-clone");
+		final IdsMatching idsMatching_mock = context.mock(IdsMatching.class);
+
+		final Set<String> object_1_template_ids = new HashSet<String>();
+		final Set<String> object_1_ids_mock = new HashSet<String>();
+
+		context.checking(new Expectations() {
+			{
+				oneOf(object_1_template_mock).getObjectIds();
+				will(returnValue(object_1_template_ids));
+
+				oneOf(object_1_mock).getObjectIds();
+				will(returnValue(object_1_ids_mock));
+
+				oneOf(idsMatchingManager_mock).prepareMatchingsCandidates(with(any(Set.class)), with(any(Set.class)));
+
+				oneOf(object_1_mock).matchesAttributes(object_1_template_mock);
+				will(returnValue(true));
+
+				oneOf(idsMatchingManager_mock).generateMatchingsFromCandidates();
+
+				oneOf(idsMatchingManager_mock).haveUncheckedMatching();
+				will(returnValue(true));
+
+				oneOf(idsMatchingManager_mock).getUncheckedMatching();
+				will(returnValue(idsMatching_mock));
+
+				oneOf(object_1_mock).matchesAttributes(object_1_template_mock);
+				will(returnValue(true));
+
+				oneOf(object_1_mock).matchesLinks(object_1_template_mock, idsMatching_mock);
+				will(returnValue(true));
+
+				oneOf(idsMatchingManager_mock).haveUncheckedMatching();
+				will(returnValue(false));
+
+				oneOf(idsMatchingManager_mock).getMatchingsAmount();
+				will(returnValue(1));
+
+				oneOf(object_1_mock).clone();
+				will(returnValue(object_1_clone_mock));
+
+				oneOf(idsMatchingManager_mock).getMatching(0);
+				will(returnValue(idsMatching_mock));
+
+				oneOf(idsMatching_mock).areKeysAndValuesTheSame();
+				will(returnValue(false));
+			}
+		});
+
+		assertFalse(testable.partially_equals(systemTemplate));
+	}
 }

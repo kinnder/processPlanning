@@ -8,8 +8,16 @@ public class Node {
 
 	private String id;
 
+	public String getId() {
+		return this.id;
+	}
+
 	public Node(System system) {
-		this.id = UUID.randomUUID().toString();
+		this(UUID.randomUUID().toString(), system);
+	}
+
+	Node(String id, System system) {
+		this.id = id;
 		this.system = system;
 	}
 

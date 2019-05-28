@@ -9,8 +9,16 @@ public class Edge {
 
 	private String id;
 
+	public String getId() {
+		return this.id;
+	}
+
 	public Edge(Element element, SystemVariant systemVariant) {
-		this.id = UUID.randomUUID().toString();
+		this(UUID.randomUUID().toString(), element, systemVariant);
+	}
+
+	Edge(String id, Element element, SystemVariant systemVariant) {
+		this.id = id;
 		this.element = element;
 		this.systemVariant = systemVariant;
 	}

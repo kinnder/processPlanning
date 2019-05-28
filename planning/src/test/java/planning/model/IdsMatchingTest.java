@@ -56,4 +56,20 @@ public class IdsMatchingTest {
 
 		assertTrue(testable.isChecked());
 	}
+
+	@Test
+	public void areKeysAndValuesTheSame() {
+		testable.add("id-1", "id-1");
+		testable.add("id-2", "id-2");
+
+		assertTrue(testable.areKeysAndValuesTheSame());
+	}
+
+	@Test
+	public void areKeysAndValuesTheSame_different() {
+		testable.add("id-1", "id-1");
+		testable.add("id-2", "id-3");
+
+		assertFalse(testable.areKeysAndValuesTheSame());
+	}
 }

@@ -28,21 +28,21 @@ public class SystemVariantTest {
 
 	System system_mock;
 
-	IdsMatching idsMatching;
+	IdsMatching idsMatching_mock;
 
 	@BeforeEach
 	public void setup() {
 		system_mock = context.mock(System.class);
-		idsMatching = context.mock(IdsMatching.class);
+		idsMatching_mock = context.mock(IdsMatching.class);
 
-		testable = new SystemVariant(system_mock, idsMatching);
+		testable = new SystemVariant(system_mock, idsMatching_mock);
 	}
 
 	@Test
 	public void getObjectIdByIdMatch() {
 		context.checking(new Expectations() {
 			{
-				oneOf(idsMatching).get("#ID-1");
+				oneOf(idsMatching_mock).get("#ID-1");
 				will(returnValue("id-1"));
 			}
 		});
@@ -56,7 +56,7 @@ public class SystemVariantTest {
 
 		context.checking(new Expectations() {
 			{
-				oneOf(idsMatching).get("#ID-1");
+				oneOf(idsMatching_mock).get("#ID-1");
 				will(returnValue("id-1"));
 
 				oneOf(system_mock).getObjectById("id-1");
@@ -70,5 +70,10 @@ public class SystemVariantTest {
 	@Test
 	public void getSystem() {
 		assertEquals(system_mock, testable.getSystem());
+	}
+
+	@Test
+	public void getIdsMatching() {
+		assertEquals(idsMatching_mock, testable.getIdsMatching());
 	}
 }

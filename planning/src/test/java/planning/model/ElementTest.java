@@ -61,4 +61,9 @@ public class ElementTest {
 	public void getTemplate() {
 		assertEquals(template_mock, testable.getTemplate());
 	}
+
+	@Test
+	public void getOperation() {
+		assertEquals(operation, testable.getOperation());
+	}
 }
