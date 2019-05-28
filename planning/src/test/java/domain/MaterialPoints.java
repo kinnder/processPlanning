@@ -3,6 +3,8 @@ package domain;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.List;
+
 import org.junit.jupiter.api.Test;
 
 import planning.method.Planner;
@@ -332,16 +334,18 @@ public class MaterialPoints {
 		final_system.getObjectById(initial_object_id).getLink(LINK_POSITION).setObjectId(initial_point_4_id);
 		final_system.getObjectById(initial_point_4_id).getAttribute(ATTRIBUTE_OCCUPIED).setValue(true);
 		final_system.getObjectById(initial_point_4_id).getLink(LINK_POSITION).setObjectId(initial_object_id);
+		final_system.getObjectById(initial_point_4_id).removeLink(LINK_NEIGHBOR_RIGHT);
+		final_system.getObjectById(initial_point_4_id).removeLink(LINK_NEIGHBOR_LEFT);
 
 		Element[] elements = new Element[] { moveLeft(), moveRight(), moveTop(), moveBottom() };
 
 		Planner planner = new Planner(initial_system, final_system, elements);
 		planner.plan();
 
-		String[] operations = planner.getShortestPlan().getOperations();
-		assertEquals(3, operations.length);
-		assertEquals("Движение вправо", operations[0]);
-		assertEquals("Движение вправо", operations[1]);
-		assertEquals("Движение вправо", operations[2]);
+		List<String> operations = planner.getShortestPlan();
+		assertEquals(3, operations.size());
+		assertEquals("Движение вправо", operations.get(0));
+		assertEquals("Движение вправо", operations.get(1));
+		assertEquals("Движение вправо", operations.get(2));
 	}
 }

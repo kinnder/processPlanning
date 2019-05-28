@@ -3,8 +3,9 @@ package planning.method;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.google.common.graph.MutableNetwork;
-import com.google.common.graph.NetworkBuilder;
+import org.jgrapht.GraphPath;
+import org.jgrapht.alg.shortestpath.DijkstraShortestPath;
+import org.jgrapht.graph.DefaultDirectedGraph;
 
 import planning.model.Element;
 import planning.model.System;
@@ -28,7 +29,7 @@ public class Planner {
 
 	private Element[] elements;
 
-	private MutableNetwork<Node, Edge> network;
+	private DefaultDirectedGraph<Node, Edge> network;
 
 	public Planner(System initial_system, System final_system, Element[] elements) {
 		this.initial_system = initial_system;
@@ -40,13 +41,13 @@ public class Planner {
 
 		this.edges = new ArrayList<Edge>();
 
-		this.network = NetworkBuilder.directed().allowsParallelEdges(true).build();
+		this.network = new DefaultDirectedGraph<Node, Edge>(Edge.class);
 	}
 
 	public void plan() {
 		initialNode = new Node(initial_system);
 		uncheckedNodes.add(initialNode);
-		network.addNode(initialNode);
+		network.addVertex(initialNode);
 
 		while (true) {
 			iterate();
@@ -87,7 +88,7 @@ public class Planner {
 				Edge edge = new Edge(element, systemVariant);
 				edges.add(edge);
 
-				network.addNode(targetNode);
+				network.addVertex(targetNode);
 				network.addEdge(sourceNode, targetNode, edge);
 			}
 		}
@@ -96,8 +97,13 @@ public class Planner {
 		checkedNodes.add(sourceNode);
 	}
 
-	public Plan getShortestPlan() {
-		// TODO Auto-generated method stub
-		return new Plan();
+	public List<String> getShortestPlan() {
+		DijkstraShortestPath<Node, Edge> alg = new DijkstraShortestPath<>(network);
+		GraphPath<Node, Edge> path = alg.getPath(initialNode, finalNode);
+		List<String> operations = new ArrayList<String>();
+		for (Edge edge : path.getEdgeList()) {
+			operations.add(edge.getElement().getOperation());
+		}
+		return operations;
 	}
 }

@@ -23,4 +23,8 @@ public class Element {
 			transformation.applyTo(systemVariant);
 		}
 	}
+
+	public String getOperation() {
+		return operation;
+	}
 }
