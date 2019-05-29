@@ -41,8 +41,6 @@
 
 	<modules>
 		<module>planning</module>
-		<module>planning.cli</module>
-		<module>planning.gui</module>
 		<module>planning.acceptance</module>
 	</modules>
 </project>
