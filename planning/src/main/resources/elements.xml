@@ -1,0 +1,36 @@
+<elements>
+	<element>
+		<operation name="движение вправо" />
+		<system>
+			<object name="материальная точка" id="#ID-1">
+				<links>
+					<link name="position" value="#ID-2" />
+				</links>
+			</object>
+			<object name="точка" id="#ID-2">
+				<attributes>
+					<attribute name="occupied" type="boolean" value="true" />
+				</attributes>
+				<links>
+					<link name="right-neighbor" value="#ID-3" />
+				</links>
+			</object>
+			<object name="точка" id="#ID-3">
+				<attributes>
+					<attribute name="occupied" type="boolean" value="false" />
+				</attributes>
+				<links>
+					<link name="left-neighbor" value="#ID-2" />
+				</links>
+			</object>
+		</system>
+		<transformations>
+			<transformation type="linkUpdate" id="#ID-1"
+				name="position" value="#ID-3" />
+			<transformation type="valueUpdate" id="#ID-2"
+				name="occupied" value="false" />
+			<transformation type="valueUpdate" id="#ID-3"
+				name="occupied" value="true" />
+		</transformations>
+	</element>
+</elements>
