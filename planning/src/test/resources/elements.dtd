@@ -1,0 +1,59 @@
+<?xml encoding="UTF-8"?>
+<!-- xml.mherman.org -->
+
+<!ELEMENT elements (element)+>
+<!ATTLIST elements
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT element (operation,objects,transformations)>
+<!ATTLIST element
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT operation EMPTY>
+<!ATTLIST operation
+  xmlns CDATA #FIXED ''
+  name CDATA #REQUIRED>
+
+<!ELEMENT objects (object)+>
+<!ATTLIST objects
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT transformations (transformation)+>
+<!ATTLIST transformations
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT object (attributes?,links?)>
+<!ATTLIST object
+  xmlns CDATA #FIXED ''
+  id CDATA #REQUIRED
+  name CDATA #REQUIRED>
+
+<!ELEMENT transformation EMPTY>
+<!ATTLIST transformation
+  xmlns CDATA #FIXED ''
+  id CDATA #REQUIRED
+  name CDATA #REQUIRED
+  type (linkUpdate | valueUpdate) #REQUIRED
+  value CDATA #REQUIRED>
+
+<!ELEMENT attributes (attribute)+>
+<!ATTLIST attributes
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT links (link)+>
+<!ATTLIST links
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT attribute EMPTY>
+<!ATTLIST attribute
+  xmlns CDATA #FIXED ''
+  name CDATA #REQUIRED
+  type (boolean| string| object) #REQUIRED
+  value CDATA #REQUIRED>
+
+<!ELEMENT link EMPTY>
+<!ATTLIST link
+  xmlns CDATA #FIXED ''
+  name CDATA #REQUIRED
+  value CDATA #REQUIRED>
+
