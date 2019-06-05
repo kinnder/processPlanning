@@ -9,8 +9,8 @@
 		<version>0.0.1</version>
 	</parent>
 
-	<name>planning</name>
-	<artifactId>${project.name}</artifactId>
+	<name>${project.artifactId}</name>
+	<artifactId>planning</artifactId>
 	<packaging>jar</packaging>
 
 	<dependencies>
