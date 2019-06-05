@@ -83,13 +83,6 @@ public class LinkTest {
 
 	@Test
 	public void matches() {
-		final Link template = new Link("link", "id");
-		assertTrue(testable.matches(template));
-	}
-
-	@Test
-	public void matches_new() {
-		final Link template = new Link("link", "id-template");
 		final IdsMatching idsMatching_mock = context.mock(IdsMatching.class);
 
 		context.checking(new Expectations() {
@@ -99,26 +92,18 @@ public class LinkTest {
 			}
 		});
 
-		assertTrue(testable.matches(template, idsMatching_mock));
+		assertTrue(testable.matches(new Link("link", "id-template"), idsMatching_mock));
 	}
 
 	@Test
 	public void matches_differentName() {
-		final Link template = new Link("different", "id");
-		assertFalse(testable.matches(template));
-	}
-
-	@Test
-	public void matches_new_differentName() {
-		final Link template = new Link("different", "id");
 		final IdsMatching idsMatching_mock = context.mock(IdsMatching.class);
 
-		assertFalse(testable.matches(template, idsMatching_mock));
+		assertFalse(testable.matches(new Link("different", "id"), idsMatching_mock));
 	}
 
 	@Test
-	public void matches_new_differentId() {
-		final Link template = new Link("link", "another-id-template");
+	public void matches_differentId() {
 		final IdsMatching idsMatching_mock = context.mock(IdsMatching.class);
 
 		context.checking(new Expectations() {
@@ -128,7 +113,23 @@ public class LinkTest {
 			}
 		});
 
-		assertFalse(testable.matches(template, idsMatching_mock));
+		assertFalse(testable.matches(new Link("link", "another-id-template"), idsMatching_mock));
+	}
+
+	@Test
+	public void matches_ids_null() {
+		testable = new Link("link", null);
+		final IdsMatching idsMatching_mock = context.mock(IdsMatching.class);
+
+		assertTrue(testable.matches(new Link("link", null), idsMatching_mock));
+	}
+
+	@Test
+	public void matches_objectId_null() {
+		testable = new Link("link", null);
+		final IdsMatching idsMatching_mock = context.mock(IdsMatching.class);
+
+		assertFalse(testable.matches(new Link("link", "value"), idsMatching_mock));
 	}
 
 	@Test

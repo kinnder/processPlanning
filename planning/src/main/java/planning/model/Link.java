@@ -42,12 +42,14 @@ public class Link {
 		return objectId;
 	}
 
-	public boolean matches(Link template) {
-		return name.equals(template.name);
-	}
-
 	public boolean matches(Link template, IdsMatching matching) {
-		return objectId != null && name.equals(template.name) && objectId.equals(matching.get(template.objectId));
+		if (name.equals(template.name)) {
+			if (objectId == null) {
+				return template.objectId == null;
+			}
+			return objectId.equals(matching.get(template.objectId));
+		}
+		return false;
 	}
 
 	public void setObjectId(String objectId) {
