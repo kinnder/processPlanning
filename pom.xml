@@ -17,6 +17,8 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
+		<pmdVersion>6.15.0</pmdVersion>
+		<pmdRuleset>${project.basedir}</pmdRuleset>
 	</properties>
 
 	<dependencies>
@@ -65,9 +67,61 @@
 					<check />
 				</configuration>
 			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-pmd-plugin</artifactId>
+				<version>3.12.0</version>
+				<configuration>
+					<linkXRef>true</linkXRef>
+					<analysisCache>true</analysisCache>
+					<printFailingErrors>true</printFailingErrors>
+					<rulesets>
+						<ruleset>${pmdRuleset}/pmd-ruleset.xml</ruleset>
+					</rulesets>
+				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>check</goal>
+							<goal>cpd-check</goal>
+						</goals>
+					</execution>
+				</executions>
+				<dependencies>
+					<dependency>
+						<groupId>net.sourceforge.pmd</groupId>
+						<artifactId>pmd-core</artifactId>
+						<version>${pmdVersion}</version>
+					</dependency>
+					<dependency>
+						<groupId>net.sourceforge.pmd</groupId>
+						<artifactId>pmd-java</artifactId>
+						<version>${pmdVersion}</version>
+					</dependency>
+					<dependency>
+						<groupId>net.sourceforge.pmd</groupId>
+						<artifactId>pmd-javascript</artifactId>
+						<version>${pmdVersion}</version>
+					</dependency>
+					<dependency>
+						<groupId>net.sourceforge.pmd</groupId>
+						<artifactId>pmd-jsp</artifactId>
+						<version>${pmdVersion}</version>
+					</dependency>
+				</dependencies>
+			</plugin>
 		</plugins>
 	</build>
-
+	<reporting>
+		<plugins>
+			<plugin>
+				<!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-jxr-plugin -->
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jxr-plugin</artifactId>
+				<version>3.0.0</version>
+			</plugin>
+		</plugins>
+	</reporting>
 	<scm>
 		<url>https://github.com/kinnder/process-engineering</url>
 	</scm>

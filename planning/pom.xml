@@ -13,6 +13,10 @@
 	<artifactId>planning</artifactId>
 	<packaging>jar</packaging>
 
+	<properties>
+		<pmdRuleset>${project.basedir}/..</pmdRuleset>
+	</properties>
+
 	<dependencies>
 		<!-- https://mvnrepository.com/artifact/org.jgrapht/jgrapht-core -->
 		<dependency>
