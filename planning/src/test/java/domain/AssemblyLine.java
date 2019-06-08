@@ -39,6 +39,8 @@ public class AssemblyLine {
 
 	private static final String VALUE_TOP_PLANE = "верхняя плоскость";
 
+	private static final String VALUE_TABLE_1 = "стол 1";
+
 	private static final String VALUE_TABLE_2 = "стол 2";
 
 	// TODO : поддержка массивов связей с одинаковым именем
@@ -113,7 +115,41 @@ public class AssemblyLine {
 	}
 
 	public static Element rotateToStation() {
-		return new Element(OPERATION_ROTATE_TO_STATION, null, null);
+		final System template = new System();
+		final SystemObject robot = new SystemObject(OBJECT_PICK_AND_PLACE_ROBOT, "#ID-1");
+		final SystemObject rotaryDrive = new SystemObject(OBJECT_ROTARY_DRIVE, "#ID-2");
+		final SystemObject station = new SystemObject(OBJECT_CONFIGURATION_STATION, "#ID-3");
+		final SystemObject line = new SystemObject(OBJECT_TRANSPORT_LINE, "#ID-4");
+
+		final String robot_id = robot.getObjectId();
+		final String rotaryDrive_id = rotaryDrive.getObjectId();
+		final String station_id = station.getObjectId();
+		final String line_id = line.getObjectId();
+
+		robot.addLink(new Link(LINK_BETWEEN_ROBOT_AND_STATION, station_id));
+		robot.addLink(new Link(LINK_BETWEEN_ROBOT_AND_ROTARY_DRIVE, rotaryDrive_id));
+
+		rotaryDrive.addLink(new Link(LINK_BETWEEN_ROBOT_AND_ROTARY_DRIVE, robot_id));
+		rotaryDrive.addLink(new Link(LINK_ROTARY_DRIVE_POSITION, line_id));
+
+		station.addLink(new Link(LINK_BETWEEN_ROBOT_AND_STATION, robot_id));
+		station.addLink(new Link(LINK_BETWEEN_STATION_AND_LINE, line_id));
+		station.addLink(new Link(LINK_ROTARY_DRIVE_POSITION, null));
+
+		line.addLink(new Link(LINK_BETWEEN_STATION_AND_LINE, station_id));
+		line.addLink(new Link(LINK_ROTARY_DRIVE_POSITION, rotaryDrive_id));
+
+		template.addObject(robot);
+		template.addObject(rotaryDrive);
+		template.addObject(station);
+		template.addObject(line);
+
+		final Transformation transformations[] = new Transformation[] {
+				new LinkTransformation(rotaryDrive_id, LINK_ROTARY_DRIVE_POSITION, station_id),
+				new LinkTransformation(station_id, LINK_ROTARY_DRIVE_POSITION, rotaryDrive_id),
+				new LinkTransformation(line_id, LINK_ROTARY_DRIVE_POSITION, null) };
+
+		return new Element(OPERATION_ROTATE_TO_STATION, template, transformations);
 	}
 
 	public static Element openGrab() {
@@ -181,9 +217,9 @@ public class AssemblyLine {
 	public static Element liftUp() {
 		final System template = new System();
 		final SystemObject robot = new SystemObject(OBJECT_PICK_AND_PLACE_ROBOT, "#ID-1");
-		final SystemObject grab = new SystemObject(OBJECT_GRAB, "#ID-3");
-		final SystemObject shuttle = new SystemObject(OBJECT_SHUTTLE, "#ID-6");
-		final SystemObject packageBox = new SystemObject(OBJECT_PACKAGE_BOX, "#ID-7");
+		final SystemObject grab = new SystemObject(OBJECT_GRAB, "#ID-2");
+		final SystemObject shuttle = new SystemObject(OBJECT_SHUTTLE, "#ID-3");
+		final SystemObject packageBox = new SystemObject(OBJECT_PACKAGE_BOX, "#ID-4");
 
 		final String robot_id = robot.getObjectId();
 		final String grab_id = grab.getObjectId();
@@ -219,7 +255,20 @@ public class AssemblyLine {
 	}
 
 	public static Element moveToPosition1() {
-		return new Element(OPERATION_MOVE_TO_POSITION_1, null, null);
+		final System template = new System();
+		final SystemObject robot = new SystemObject(OBJECT_PICK_AND_PLACE_ROBOT, "#ID-1");
+
+		final String robot_id = robot.getObjectId();
+
+		robot.addAttribute(new Attribute(ATTRIBUTE_VERTICAL_DRIVE_POSITION, VALUE_TOP_PLANE));
+		robot.addAttribute(new Attribute(ATTRIBUTE_LINEAR_DRIVE_POSITION, VALUE_TABLE_2));
+
+		template.addObject(robot);
+
+		final Transformation transformations[] = new Transformation[] {
+				new AttributeTransformation(robot_id, ATTRIBUTE_LINEAR_DRIVE_POSITION, VALUE_TABLE_1) };
+
+		return new Element(OPERATION_MOVE_TO_POSITION_1, template, transformations);
 	}
 
 	public static Element moveToPosition2() {
@@ -319,5 +368,21 @@ public class AssemblyLine {
 		element.applyTo(systemVariants[0]);
 		actual_system = systemVariants[0].getSystem();
 		assertTrue(expected_system.equals(actual_system));
+
+		element = rotateToStation();
+		systemVariants = actual_system.matchIds(element.getTemplate());
+		assertEquals(1, systemVariants.length);
+
+		expected_system = actual_system.clone();
+		expected_system.getObjectById(rotaryDrive_id).getLink(LINK_ROTARY_DRIVE_POSITION).setObjectId(station_id);
+		expected_system.getObjectById(station_id).getLink(LINK_ROTARY_DRIVE_POSITION).setObjectId(rotaryDrive_id);
+		expected_system.getObjectById(line_id).getLink(LINK_ROTARY_DRIVE_POSITION).setObjectId(null);
+		element.applyTo(systemVariants[0]);
+		actual_system = systemVariants[0].getSystem();
+		assertTrue(expected_system.equals(actual_system));
+
+		element = moveToPosition1();
+		systemVariants = actual_system.matchIds(element.getTemplate());
+		assertEquals(1, systemVariants.length);
 	}
 }
