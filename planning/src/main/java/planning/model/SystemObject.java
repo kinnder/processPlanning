@@ -127,7 +127,10 @@ public class SystemObject {
 		Set<String> objectIds = new HashSet<String>();
 		objectIds.add(objectId);
 		for (Link link : links.values()) {
-			objectIds.add(link.getObjectId());
+			String linkValue = link.getObjectId();
+			if (linkValue != null) {
+				objectIds.add(linkValue);
+			}
 		}
 		return objectIds;
 	}

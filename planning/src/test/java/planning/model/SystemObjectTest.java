@@ -503,6 +503,29 @@ public class SystemObjectTest {
 	}
 
 	@Test
+	public void getObjectIds_nullValuedLink() {
+		final Link link_mock = context.mock(Link.class, "link");
+
+		context.checking(new Expectations() {
+			{
+				oneOf(link_mock).getName();
+				will(returnValue("link-name"));
+			}
+		});
+		testable.addLink(link_mock);
+
+		context.checking(new Expectations() {
+			{
+				oneOf(link_mock).getObjectId();
+				will(returnValue(null));
+			}
+		});
+
+		Set<String> systemIds = testable.getObjectIds();
+		assertEquals(1, systemIds.size());
+	}
+
+	@Test
 	public void removeLink() {
 		final Link link_mock = context.mock(Link.class, "link");
 
