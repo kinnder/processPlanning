@@ -429,7 +429,7 @@ public class AssemblyLine {
 		SystemVariant[] systemVariants;
 
 		element = rotateToTransportLine();
-		systemVariants = actual_system.matchIds(element.getTemplate());
+		systemVariants = actual_system.prepareSystemVariants(element.getTemplate());
 		assertEquals(1, systemVariants.length);
 
 		expected_system = actual_system.clone();
@@ -441,7 +441,7 @@ public class AssemblyLine {
 		assertTrue(expected_system.equals(actual_system));
 
 		element = closeGrab();
-		systemVariants = actual_system.matchIds(element.getTemplate());
+		systemVariants = actual_system.prepareSystemVariants(element.getTemplate());
 		assertEquals(1, systemVariants.length);
 
 		expected_system = actual_system.clone();
@@ -452,7 +452,7 @@ public class AssemblyLine {
 		assertTrue(expected_system.equals(actual_system));
 
 		element = liftUp();
-		systemVariants = actual_system.matchIds(element.getTemplate());
+		systemVariants = actual_system.prepareSystemVariants(element.getTemplate());
 		assertEquals(1, systemVariants.length);
 
 		expected_system = actual_system.clone();
@@ -465,7 +465,7 @@ public class AssemblyLine {
 		assertTrue(expected_system.equals(actual_system));
 
 		element = rotateToStation();
-		systemVariants = actual_system.matchIds(element.getTemplate());
+		systemVariants = actual_system.prepareSystemVariants(element.getTemplate());
 		assertEquals(1, systemVariants.length);
 
 		expected_system = actual_system.clone();
@@ -477,7 +477,7 @@ public class AssemblyLine {
 		assertTrue(expected_system.equals(actual_system));
 
 		element = moveToPosition1();
-		systemVariants = actual_system.matchIds(element.getTemplate());
+		systemVariants = actual_system.prepareSystemVariants(element.getTemplate());
 		assertEquals(1, systemVariants.length);
 
 		expected_system = actual_system.clone();
@@ -487,7 +487,7 @@ public class AssemblyLine {
 		assertTrue(expected_system.equals(actual_system));
 
 		element = lowerDown();
-		systemVariants = actual_system.matchIds(element.getTemplate());
+		systemVariants = actual_system.prepareSystemVariants(element.getTemplate());
 		assertEquals(1, systemVariants.length);
 
 		expected_system = actual_system.clone();
@@ -500,7 +500,7 @@ public class AssemblyLine {
 		assertTrue(expected_system.equals(actual_system));
 
 		element = openGrab();
-		systemVariants = actual_system.matchIds(element.getTemplate());
+		systemVariants = actual_system.prepareSystemVariants(element.getTemplate());
 		assertEquals(1, systemVariants.length);
 
 		expected_system = actual_system.clone();
@@ -511,7 +511,7 @@ public class AssemblyLine {
 		assertTrue(expected_system.equals(actual_system));
 
 		element = moveToPosition2();
-		systemVariants = actual_system.matchIds(element.getTemplate());
+		systemVariants = actual_system.prepareSystemVariants(element.getTemplate());
 		assertEquals(1, systemVariants.length);
 		expected_system = actual_system.clone();
 		expected_system.getObjectById(robot_id).getAttribute(ATTRIBUTE_LINEAR_DRIVE_POSITION).setValue(VALUE_TABLE_2);

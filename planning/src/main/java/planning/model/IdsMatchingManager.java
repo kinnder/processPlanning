@@ -82,4 +82,8 @@ public class IdsMatchingManager {
 			}
 		}
 	}
+
+	public IdsMatching[] getIdsMatchings() {
+		return idsMatchings.toArray(new IdsMatching[0]);
+	}
 }

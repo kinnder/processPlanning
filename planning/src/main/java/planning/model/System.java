@@ -23,7 +23,19 @@ public class System {
 
 	private IdsMatchingManager idsMatchingsManager = new IdsMatchingManager();
 
-	public SystemVariant[] matchIds(System template) {
+	public SystemVariant[] prepareSystemVariants(System template) {
+		IdsMatching[] idsMatchings = matchIds(template);
+
+		int amount = idsMatchings.length;
+		SystemVariant[] systemVariants = new SystemVariant[amount];
+		for (int i = 0; i < amount; i++) {
+			systemVariants[i] = new SystemVariant(clone(), idsMatchings[i]);
+		}
+
+		return systemVariants;
+	}
+
+	public IdsMatching[] matchIds(System template) {
 		idsMatchingsManager.prepareMatchingsCandidates(template.getSystemIds(), getSystemIds());
 
 		for (SystemObject object : objects) {
@@ -51,14 +63,7 @@ public class System {
 			}
 		}
 
-		int amount = idsMatchingsManager.getMatchingsAmount();
-		SystemVariant[] systemVariants = new SystemVariant[amount];
-		for (int i = 0; i < amount; i++) {
-			// TODO : clone should be removed()
-			systemVariants[i] = new SystemVariant(clone(), idsMatchingsManager.getMatching(i));
-		}
-
-		return systemVariants;
+		return idsMatchingsManager.getIdsMatchings();
 	}
 
 	public Set<String> getSystemIds() {
@@ -70,7 +75,6 @@ public class System {
 		return systemIds;
 	}
 
-	// TODO : override super-method
 	@Override
 	public System clone() {
 		System system = new System();
@@ -115,9 +119,9 @@ public class System {
 	}
 
 	public boolean partially_equals(System system) {
-		SystemVariant[] variants = matchIds(system);
-		for (SystemVariant variant : variants) {
-			if (!variant.getIdsMatching().areKeysAndValuesTheSame()) {
+		IdsMatching[] idsMatching = matchIds(system);
+		for (IdsMatching variant : idsMatching) {
+			if (!variant.areKeysAndValuesTheSame()) {
 				return false;
 			}
 		}

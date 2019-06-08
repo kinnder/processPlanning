@@ -129,6 +129,8 @@ public class SystemTest {
 		final SystemObject object_1_clone_mock = context.mock(SystemObject.class, "object-1-clone");
 		final IdsMatching idsMatching_mock = context.mock(IdsMatching.class);
 
+		final IdsMatching idsMatching[] = new IdsMatching[] { idsMatching_mock };
+
 		final Set<String> object_1_template_ids = new HashSet<String>();
 		final Set<String> object_1_ids_mock = new HashSet<String>();
 
@@ -162,18 +164,15 @@ public class SystemTest {
 				oneOf(idsMatchingManager_mock).haveUncheckedMatching();
 				will(returnValue(false));
 
-				oneOf(idsMatchingManager_mock).getMatchingsAmount();
-				will(returnValue(1));
+				oneOf(idsMatchingManager_mock).getIdsMatchings();
+				will(returnValue(idsMatching));
 
 				oneOf(object_1_mock).clone();
 				will(returnValue(object_1_clone_mock));
-
-				oneOf(idsMatchingManager_mock).getMatching(0);
-				will(returnValue(idsMatching_mock));
 			}
 		});
 
-		SystemVariant[] systemVariants = testable.matchIds(systemTemplate);
+		SystemVariant[] systemVariants = testable.prepareSystemVariants(systemTemplate);
 		assertEquals(1, systemVariants.length);
 	}
 
@@ -192,6 +191,8 @@ public class SystemTest {
 
 		final Set<String> object_1_template_ids = new HashSet<String>();
 		final Set<String> object_1_ids_mock = new HashSet<String>();
+
+		final IdsMatching idsMatching[] = new IdsMatching[] {};
 
 		context.checking(new Expectations() {
 			{
@@ -219,12 +220,12 @@ public class SystemTest {
 				oneOf(idsMatchingManager_mock).haveUncheckedMatching();
 				will(returnValue(false));
 
-				oneOf(idsMatchingManager_mock).getMatchingsAmount();
-				will(returnValue(0));
+				oneOf(idsMatchingManager_mock).getIdsMatchings();
+				will(returnValue(idsMatching));
 			}
 		});
 
-		SystemVariant[] systemVariants = testable.matchIds(systemTemplate);
+		SystemVariant[] systemVariants = testable.prepareSystemVariants(systemTemplate);
 		assertEquals(0, systemVariants.length);
 	}
 
@@ -245,6 +246,8 @@ public class SystemTest {
 
 		final Set<String> object_1_template_ids = new HashSet<String>();
 		final Set<String> object_1_ids_mock = new HashSet<String>();
+
+		final IdsMatching idsMatching[] = new IdsMatching[] {};
 
 		context.checking(new Expectations() {
 			{
@@ -278,12 +281,12 @@ public class SystemTest {
 				oneOf(idsMatchingManager_mock).haveUncheckedMatching();
 				will(returnValue(false));
 
-				oneOf(idsMatchingManager_mock).getMatchingsAmount();
-				will(returnValue(0));
+				oneOf(idsMatchingManager_mock).getIdsMatchings();
+				will(returnValue(idsMatching));
 			}
 		});
 
-		SystemVariant[] systemVariants = testable.matchIds(systemTemplate);
+		SystemVariant[] systemVariants = testable.prepareSystemVariants(systemTemplate);
 		assertEquals(0, systemVariants.length);
 	}
 
@@ -329,8 +332,9 @@ public class SystemTest {
 		final SystemObject object_1_template_mock = context.mock(SystemObject.class, "object-1-template");
 		systemTemplate.addObject(object_1_template_mock);
 
-		final SystemObject object_1_clone_mock = context.mock(SystemObject.class, "object-1-clone");
 		final IdsMatching idsMatching_mock = context.mock(IdsMatching.class);
+
+		final IdsMatching idsMatching[] = new IdsMatching[] { idsMatching_mock };
 
 		final Set<String> object_1_template_ids = new HashSet<String>();
 		final Set<String> object_1_ids_mock = new HashSet<String>();
@@ -365,14 +369,8 @@ public class SystemTest {
 				oneOf(idsMatchingManager_mock).haveUncheckedMatching();
 				will(returnValue(false));
 
-				oneOf(idsMatchingManager_mock).getMatchingsAmount();
-				will(returnValue(1));
-
-				oneOf(object_1_mock).clone();
-				will(returnValue(object_1_clone_mock));
-
-				oneOf(idsMatchingManager_mock).getMatching(0);
-				will(returnValue(idsMatching_mock));
+				oneOf(idsMatchingManager_mock).getIdsMatchings();
+				will(returnValue(idsMatching));
 
 				oneOf(idsMatching_mock).areKeysAndValuesTheSame();
 				will(returnValue(true));
@@ -395,8 +393,9 @@ public class SystemTest {
 		final SystemObject object_1_template_mock = context.mock(SystemObject.class, "object-1-template");
 		systemTemplate.addObject(object_1_template_mock);
 
-		final SystemObject object_1_clone_mock = context.mock(SystemObject.class, "object-1-clone");
 		final IdsMatching idsMatching_mock = context.mock(IdsMatching.class);
+
+		final IdsMatching idsMatching[] = new IdsMatching[] { idsMatching_mock };
 
 		final Set<String> object_1_template_ids = new HashSet<String>();
 		final Set<String> object_1_ids_mock = new HashSet<String>();
@@ -431,14 +430,8 @@ public class SystemTest {
 				oneOf(idsMatchingManager_mock).haveUncheckedMatching();
 				will(returnValue(false));
 
-				oneOf(idsMatchingManager_mock).getMatchingsAmount();
-				will(returnValue(1));
-
-				oneOf(object_1_mock).clone();
-				will(returnValue(object_1_clone_mock));
-
-				oneOf(idsMatchingManager_mock).getMatching(0);
-				will(returnValue(idsMatching_mock));
+				oneOf(idsMatchingManager_mock).getIdsMatchings();
+				will(returnValue(idsMatching));
 
 				oneOf(idsMatching_mock).areKeysAndValuesTheSame();
 				will(returnValue(false));

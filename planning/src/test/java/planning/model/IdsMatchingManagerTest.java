@@ -98,4 +98,9 @@ public class IdsMatchingManagerTest {
 		testable.removeMatching(idsMatching);
 		assertEquals(8, testable.getMatchingsAmount());
 	}
+
+	@Test
+	public void getIdsMatchings() {
+		assertEquals(0, testable.getIdsMatchings().length);
+	}
 }

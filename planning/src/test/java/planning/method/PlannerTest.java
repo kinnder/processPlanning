@@ -62,7 +62,7 @@ public class PlannerTest {
 				oneOf(element_mock).getTemplate();
 				will(returnValue(element_template_mock));
 
-				oneOf(initial_system_mock).matchIds(element_template_mock);
+				oneOf(initial_system_mock).prepareSystemVariants(element_template_mock);
 				will(returnValue(systemVariants));
 
 				oneOf(element_mock).applyTo(systemVariant_mock);
@@ -76,7 +76,7 @@ public class PlannerTest {
 				oneOf(element_mock).getTemplate();
 				will(returnValue(element_template_mock));
 
-				oneOf(system_mock).matchIds(element_template_mock);
+				oneOf(system_mock).prepareSystemVariants(element_template_mock);
 				will(returnValue(systemVariants));
 
 				oneOf(element_mock).applyTo(systemVariant_mock);
@@ -102,7 +102,7 @@ public class PlannerTest {
 				oneOf(element_mock).getTemplate();
 				will(returnValue(element_template_mock));
 
-				oneOf(initial_system_mock).matchIds(element_template_mock);
+				oneOf(initial_system_mock).prepareSystemVariants(element_template_mock);
 				will(returnValue(systemVariants));
 			}
 		});
@@ -125,7 +125,7 @@ public class PlannerTest {
 				oneOf(element_mock).getTemplate();
 				will(returnValue(element_template_mock));
 
-				oneOf(initial_system_mock).matchIds(element_template_mock);
+				oneOf(initial_system_mock).prepareSystemVariants(element_template_mock);
 				will(returnValue(systemVariants));
 
 				oneOf(element_mock).applyTo(systemVariant_mock);
@@ -139,7 +139,7 @@ public class PlannerTest {
 				oneOf(element_mock).getTemplate();
 				will(returnValue(element_template_mock));
 
-				oneOf(system_mock).matchIds(element_template_mock);
+				oneOf(system_mock).prepareSystemVariants(element_template_mock);
 				will(returnValue(systemVariants));
 
 				oneOf(element_mock).applyTo(systemVariant_mock);
