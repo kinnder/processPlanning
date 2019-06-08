@@ -224,19 +224,23 @@ public class MaterialPoints {
 		Element element;
 		SystemVariant[] systemVariants;
 
+		element = moveRight();
+		systemVariants = actual_system.matchIds(element.getTemplate());
+		assertEquals(1, systemVariants.length);
+
 		expected_system = actual_system.clone();
 		expected_system.getObjectById(object_id).getLink(LINK_POSITION).setObjectId(point_2_id);
 		expected_system.getObjectById(point_1_id).getAttribute(ATTRIBUTE_OCCUPIED).setValue(false);
 		expected_system.getObjectById(point_1_id).getLink(LINK_POSITION).setObjectId(null);
 		expected_system.getObjectById(point_2_id).getAttribute(ATTRIBUTE_OCCUPIED).setValue(true);
 		expected_system.getObjectById(point_2_id).getLink(LINK_POSITION).setObjectId(object_id);
-
-		element = moveRight();
-		systemVariants = actual_system.matchIds(element.getTemplate());
-		assertEquals(1, systemVariants.length);
 		element.applyTo(systemVariants[0]);
 		actual_system = systemVariants[0].getSystem();
 		assertTrue(expected_system.equals(actual_system));
+
+		element = moveBottom();
+		systemVariants = actual_system.matchIds(element.getTemplate());
+		assertEquals(1, systemVariants.length);
 
 		expected_system = actual_system.clone();
 		expected_system.getObjectById(object_id).getLink(LINK_POSITION).setObjectId(point_4_id);
@@ -244,13 +248,13 @@ public class MaterialPoints {
 		expected_system.getObjectById(point_2_id).getLink(LINK_POSITION).setObjectId(null);
 		expected_system.getObjectById(point_4_id).getAttribute(ATTRIBUTE_OCCUPIED).setValue(true);
 		expected_system.getObjectById(point_4_id).getLink(LINK_POSITION).setObjectId(object_id);
-
-		element = moveBottom();
-		systemVariants = actual_system.matchIds(element.getTemplate());
-		assertEquals(1, systemVariants.length);
 		element.applyTo(systemVariants[0]);
 		actual_system = systemVariants[0].getSystem();
 		assertTrue(expected_system.equals(actual_system));
+
+		element = moveLeft();
+		systemVariants = actual_system.matchIds(element.getTemplate());
+		assertEquals(1, systemVariants.length);
 
 		expected_system = actual_system.clone();
 		expected_system.getObjectById(object_id).getLink(LINK_POSITION).setObjectId(point_3_id);
@@ -258,13 +262,13 @@ public class MaterialPoints {
 		expected_system.getObjectById(point_4_id).getLink(LINK_POSITION).setObjectId(null);
 		expected_system.getObjectById(point_3_id).getAttribute(ATTRIBUTE_OCCUPIED).setValue(true);
 		expected_system.getObjectById(point_3_id).getLink(LINK_POSITION).setObjectId(object_id);
-
-		element = moveLeft();
-		systemVariants = actual_system.matchIds(element.getTemplate());
-		assertEquals(1, systemVariants.length);
 		element.applyTo(systemVariants[0]);
 		actual_system = systemVariants[0].getSystem();
 		assertTrue(expected_system.equals(actual_system));
+
+		element = moveTop();
+		systemVariants = actual_system.matchIds(element.getTemplate());
+		assertEquals(1, systemVariants.length);
 
 		expected_system = actual_system.clone();
 		expected_system.getObjectById(object_id).getLink(LINK_POSITION).setObjectId(point_1_id);
@@ -272,10 +276,6 @@ public class MaterialPoints {
 		expected_system.getObjectById(point_3_id).getLink(LINK_POSITION).setObjectId(null);
 		expected_system.getObjectById(point_1_id).getAttribute(ATTRIBUTE_OCCUPIED).setValue(true);
 		expected_system.getObjectById(point_1_id).getLink(LINK_POSITION).setObjectId(object_id);
-
-		element = moveTop();
-		systemVariants = actual_system.matchIds(element.getTemplate());
-		assertEquals(1, systemVariants.length);
 		element.applyTo(systemVariants[0]);
 		actual_system = systemVariants[0].getSystem();
 		assertTrue(expected_system.equals(actual_system));
