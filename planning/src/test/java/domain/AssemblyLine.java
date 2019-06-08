@@ -47,6 +47,7 @@ public class AssemblyLine {
 
 	private static final String VALUE_TABLE_2 = "стол 2";
 
+	// TODO : template сравнение связей на NOT-NULL или ANY-VALUE
 	// TODO : поддержка массивов связей с одинаковым именем
 	private static final String LINK_BETWEEN_STATION_AND_LINE = "связь между (станция-линия)";
 
@@ -157,7 +158,32 @@ public class AssemblyLine {
 	}
 
 	public static Element openGrab() {
-		return new Element(OPERATION_OPEN_GRAB, null, null);
+		final System template = new System();
+		final SystemObject robot = new SystemObject(OBJECT_PICK_AND_PLACE_ROBOT, "#ID-1");
+		final SystemObject grab = new SystemObject(OBJECT_GRAB, "#ID-3");
+		final SystemObject packageBox = new SystemObject(OBJECT_PACKAGE_BOX, "#ID-7");
+
+		final String robot_id = robot.getObjectId();
+		final String grab_id = grab.getObjectId();
+		final String packageBox_id = packageBox.getObjectId();
+
+		robot.addLink(new Link(LINK_BETWEEN_ROBOT_AND_GRAB, grab_id));
+		robot.addAttribute(new Attribute(ATTRIBUTE_VERTICAL_DRIVE_POSITION, VALUE_BOTTOM_PLANE));
+
+		grab.addLink(new Link(LINK_BETWEEN_ROBOT_AND_GRAB, robot_id));
+		grab.addLink(new Link(LINK_GRAB_POSITION, packageBox_id));
+
+		packageBox.addLink(new Link(LINK_GRAB_POSITION, grab_id));
+
+		template.addObject(robot);
+		template.addObject(grab);
+		template.addObject(packageBox);
+
+		final Transformation transformations[] = new Transformation[] {
+				new LinkTransformation(grab_id, LINK_GRAB_POSITION, null),
+				new LinkTransformation(packageBox_id, LINK_GRAB_POSITION, null) };
+
+		return new Element(OPERATION_OPEN_GRAB, template, transformations);
 	}
 
 	public static Element closeGrab() {
@@ -249,7 +275,7 @@ public class AssemblyLine {
 		final Transformation transformations[] = new Transformation[] {
 				new LinkTransformation(packageBox_id, LINK_PACKAGE_BOX_POSITION, null),
 				new LinkTransformation(shuttle_id, LINK_PACKAGE_BOX_POSITION, null),
-				new AttributeTransformation(robot_id, ATTRIBUTE_VERTICAL_DRIVE_POSITION, VALUE_TOP_PLANE) };
+				new AttributeTransformation(robot_id, ATTRIBUTE_VERTICAL_DRIVE_POSITION, VALUE_TOP_PLANE), };
 
 		return new Element(OPERATION_LIFT_UP, template, transformations);
 	}
@@ -449,6 +475,17 @@ public class AssemblyLine {
 		expected_system.getObjectById(table_1_id).getLink(LINK_PACKAGE_BOX_POSITION).setObjectId(packageBox_id);
 		expected_system.getObjectById(robot_id).getAttribute(ATTRIBUTE_VERTICAL_DRIVE_POSITION)
 				.setValue(VALUE_BOTTOM_PLANE);
+		element.applyTo(systemVariants[0]);
+		actual_system = systemVariants[0].getSystem();
+		assertTrue(expected_system.equals(actual_system));
+
+		element = openGrab();
+		systemVariants = actual_system.matchIds(element.getTemplate());
+		assertEquals(1, systemVariants.length);
+
+		expected_system = actual_system.clone();
+		expected_system.getObjectById(grab_id).getLink(LINK_GRAB_POSITION).setObjectId(null);
+		expected_system.getObjectById(packageBox_id).getLink(LINK_GRAB_POSITION).setObjectId(null);
 		element.applyTo(systemVariants[0]);
 		actual_system = systemVariants[0].getSystem();
 		assertTrue(expected_system.equals(actual_system));
