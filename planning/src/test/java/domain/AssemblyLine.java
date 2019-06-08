@@ -335,7 +335,27 @@ public class AssemblyLine {
 	}
 
 	public static Element moveToPosition2() {
-		return new Element(OPERATION_MOVE_TO_POSITION_2, null, null);
+		final System template = new System();
+		final SystemObject robot = new SystemObject(OBJECT_PICK_AND_PLACE_ROBOT, "#ID-1");
+		final SystemObject grab = new SystemObject(OBJECT_GRAB, "#ID-2");
+
+		final String robot_id = robot.getObjectId();
+		final String grab_id = grab.getObjectId();
+
+		robot.addAttribute(new Attribute(ATTRIBUTE_VERTICAL_DRIVE_POSITION, VALUE_BOTTOM_PLANE));
+		robot.addAttribute(new Attribute(ATTRIBUTE_LINEAR_DRIVE_POSITION, VALUE_TABLE_1));
+		robot.addLink(new Link(LINK_BETWEEN_ROBOT_AND_GRAB, grab_id));
+
+		grab.addLink(new Link(LINK_BETWEEN_ROBOT_AND_GRAB, robot_id));
+		grab.addLink(new Link(LINK_GRAB_POSITION, null));
+
+		template.addObject(robot);
+		template.addObject(grab);
+
+		final Transformation transformations[] = new Transformation[] {
+				new AttributeTransformation(robot_id, ATTRIBUTE_LINEAR_DRIVE_POSITION, VALUE_TABLE_2) };
+
+		return new Element(OPERATION_MOVE_TO_POSITION_2, template, transformations);
 	}
 
 	@Test
@@ -486,6 +506,15 @@ public class AssemblyLine {
 		expected_system = actual_system.clone();
 		expected_system.getObjectById(grab_id).getLink(LINK_GRAB_POSITION).setObjectId(null);
 		expected_system.getObjectById(packageBox_id).getLink(LINK_GRAB_POSITION).setObjectId(null);
+		element.applyTo(systemVariants[0]);
+		actual_system = systemVariants[0].getSystem();
+		assertTrue(expected_system.equals(actual_system));
+
+		element = moveToPosition2();
+		systemVariants = actual_system.matchIds(element.getTemplate());
+		assertEquals(1, systemVariants.length);
+		expected_system = actual_system.clone();
+		expected_system.getObjectById(robot_id).getAttribute(ATTRIBUTE_LINEAR_DRIVE_POSITION).setValue(VALUE_TABLE_2);
 		element.applyTo(systemVariants[0]);
 		actual_system = systemVariants[0].getSystem();
 		assertTrue(expected_system.equals(actual_system));
