@@ -31,6 +31,10 @@ public class AssemblyLine {
 
 	private static final String OBJECT_SHUTTLE = "Шаттл";
 
+	private static final String OBJECT_TABLE_1 = "Стол 1";
+
+	private static final String OBJECT_TABLE_2 = "Стол 2";
+
 	private static final String ATTRIBUTE_VERTICAL_DRIVE_POSITION = "положение вертикального привода";
 
 	private static final String ATTRIBUTE_LINEAR_DRIVE_POSITION = "положение линейного привода";
@@ -251,7 +255,40 @@ public class AssemblyLine {
 	}
 
 	public static Element lowerDown() {
-		return new Element(OPERATION_LOWER_DOWN, null, null);
+		final System template = new System();
+		final SystemObject robot = new SystemObject(OBJECT_PICK_AND_PLACE_ROBOT, "#ID-1");
+		final SystemObject grab = new SystemObject(OBJECT_GRAB, "#ID-2");
+		final SystemObject table_1 = new SystemObject(OBJECT_TABLE_1, "#ID-3");
+		final SystemObject packageBox = new SystemObject(OBJECT_PACKAGE_BOX, "#ID-4");
+
+		final String robot_id = robot.getObjectId();
+		final String grab_id = grab.getObjectId();
+		final String table_1_id = table_1.getObjectId();
+		final String packageBox_id = packageBox.getObjectId();
+
+		robot.addAttribute(new Attribute(ATTRIBUTE_LINEAR_DRIVE_POSITION, VALUE_TABLE_1));
+		robot.addAttribute(new Attribute(ATTRIBUTE_VERTICAL_DRIVE_POSITION, VALUE_TOP_PLANE));
+		robot.addLink(new Link(LINK_BETWEEN_ROBOT_AND_GRAB, grab_id));
+
+		grab.addLink(new Link(LINK_BETWEEN_ROBOT_AND_GRAB, robot_id));
+		grab.addLink(new Link(LINK_GRAB_POSITION, packageBox_id));
+
+		table_1.addLink(new Link(LINK_PACKAGE_BOX_POSITION, null));
+		table_1.addAttribute(new Attribute(ATTRIBUTE_LINEAR_DRIVE_POSITION, VALUE_TABLE_1));
+
+		packageBox.addLink(new Link(LINK_GRAB_POSITION, grab_id));
+
+		template.addObject(robot);
+		template.addObject(grab);
+		template.addObject(table_1);
+		template.addObject(packageBox);
+
+		final Transformation transformations[] = new Transformation[] {
+				new LinkTransformation(packageBox_id, LINK_PACKAGE_BOX_POSITION, table_1_id),
+				new LinkTransformation(table_1_id, LINK_PACKAGE_BOX_POSITION, packageBox_id),
+				new AttributeTransformation(robot_id, ATTRIBUTE_VERTICAL_DRIVE_POSITION, VALUE_BOTTOM_PLANE) };
+
+		return new Element(OPERATION_LOWER_DOWN, template, transformations);
 	}
 
 	public static Element moveToPosition1() {
@@ -285,6 +322,8 @@ public class AssemblyLine {
 		final SystemObject line = new SystemObject(OBJECT_TRANSPORT_LINE);
 		final SystemObject shuttle = new SystemObject(OBJECT_SHUTTLE);
 		final SystemObject packageBox = new SystemObject(OBJECT_PACKAGE_BOX);
+		final SystemObject table_1 = new SystemObject(OBJECT_TABLE_1);
+		final SystemObject table_2 = new SystemObject(OBJECT_TABLE_2);
 
 		final String robot_id = robot.getObjectId();
 		final String rotaryDrive_id = rotaryDrive.getObjectId();
@@ -293,6 +332,8 @@ public class AssemblyLine {
 		final String line_id = line.getObjectId();
 		final String shuttle_id = shuttle.getObjectId();
 		final String packageBox_id = packageBox.getObjectId();
+		final String table_1_id = table_1.getObjectId();
+		final String table_2_id = table_2.getObjectId();
 
 		robot.addLink(new Link(LINK_BETWEEN_ROBOT_AND_STATION, station_id));
 		robot.addLink(new Link(LINK_BETWEEN_ROBOT_AND_ROTARY_DRIVE, rotaryDrive_id));
@@ -320,6 +361,12 @@ public class AssemblyLine {
 		packageBox.addLink(new Link(LINK_GRAB_POSITION, null));
 		packageBox.addLink(new Link(LINK_PACKAGE_BOX_POSITION, shuttle_id));
 
+		table_1.addLink(new Link(LINK_PACKAGE_BOX_POSITION, null));
+		table_1.addAttribute(new Attribute(ATTRIBUTE_LINEAR_DRIVE_POSITION, VALUE_TABLE_1));
+
+		table_2.addLink(new Link(LINK_PACKAGE_BOX_POSITION, null));
+		table_2.addAttribute(new Attribute(ATTRIBUTE_LINEAR_DRIVE_POSITION, VALUE_TABLE_2));
+
 		initial_system.addObject(robot);
 		initial_system.addObject(rotaryDrive);
 		initial_system.addObject(grab);
@@ -327,6 +374,8 @@ public class AssemblyLine {
 		initial_system.addObject(line);
 		initial_system.addObject(shuttle);
 		initial_system.addObject(packageBox);
+		initial_system.addObject(table_1);
+		initial_system.addObject(table_2);
 
 		System expected_system;
 		System actual_system = initial_system.clone();
@@ -387,6 +436,19 @@ public class AssemblyLine {
 
 		expected_system = actual_system.clone();
 		expected_system.getObjectById(robot_id).getAttribute(ATTRIBUTE_LINEAR_DRIVE_POSITION).setValue(VALUE_TABLE_1);
+		element.applyTo(systemVariants[0]);
+		actual_system = systemVariants[0].getSystem();
+		assertTrue(expected_system.equals(actual_system));
+
+		element = lowerDown();
+		systemVariants = actual_system.matchIds(element.getTemplate());
+		assertEquals(1, systemVariants.length);
+
+		expected_system = actual_system.clone();
+		expected_system.getObjectById(packageBox_id).getLink(LINK_PACKAGE_BOX_POSITION).setObjectId(table_1_id);
+		expected_system.getObjectById(table_1_id).getLink(LINK_PACKAGE_BOX_POSITION).setObjectId(packageBox_id);
+		expected_system.getObjectById(robot_id).getAttribute(ATTRIBUTE_VERTICAL_DRIVE_POSITION)
+				.setValue(VALUE_BOTTOM_PLANE);
 		element.applyTo(systemVariants[0]);
 		actual_system = systemVariants[0].getSystem();
 		assertTrue(expected_system.equals(actual_system));
