@@ -71,6 +71,7 @@ public class System {
 	}
 
 	// TODO : override super-method
+	@Override
 	public System clone() {
 		System system = new System();
 		for (SystemObject object : objects) {
@@ -101,11 +102,7 @@ public class System {
 			}
 		}
 
-		if (notEqualThings.size() != 0) {
-			return false;
-		}
-
-		return true;
+		return notEqualThings.isEmpty();
 	}
 
 	public SystemObject getObjectById(String objectId) {
@@ -119,20 +116,11 @@ public class System {
 
 	public boolean partially_equals(System system) {
 		SystemVariant[] variants = matchIds(system);
-		List<SystemVariant> matchingVariants = new ArrayList<SystemVariant>();
-		for (SystemVariant variant : variants) {
-			matchingVariants.add(variant);
-		}
-
 		for (SystemVariant variant : variants) {
 			if (!variant.getIdsMatching().areKeysAndValuesTheSame()) {
-				matchingVariants.remove(variant);
+				return false;
 			}
 		}
-
-		if (matchingVariants.size() > 0) {
-			return true;
-		}
-		return false;
+		return true;
 	}
 }

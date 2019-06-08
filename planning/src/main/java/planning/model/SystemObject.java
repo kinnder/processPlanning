@@ -36,36 +36,29 @@ public class SystemObject {
 	}
 
 	public boolean matchesAttributes(SystemObject templateObject) {
-		List<Attribute> attributeTemplates = new ArrayList<Attribute>(templateObject.attributes.values());
+		List<Attribute> notMatchedAttributeTemplates = new ArrayList<Attribute>(templateObject.attributes.values());
 		for (Attribute attribute : attributes.values()) {
-			for (Attribute attributeTemplate : attributeTemplates) {
+			for (Attribute attributeTemplate : notMatchedAttributeTemplates) {
 				if (attribute.matches(attributeTemplate)) {
-					attributeTemplates.remove(attributeTemplate);
+					notMatchedAttributeTemplates.remove(attributeTemplate);
 					break;
 				}
 			}
 		}
-		if (attributeTemplates.size() != 0) {
-			return false;
-		}
-		return true;
+		return notMatchedAttributeTemplates.isEmpty();
 	}
 
 	public boolean matchesLinks(SystemObject template, IdsMatching matching) {
-		List<Link> linkTemplates = new ArrayList<Link>(template.links.values());
+		List<Link> notMatchedLinkTemplates = new ArrayList<Link>(template.links.values());
 		for (Link link : links.values()) {
-			for (Link linkTemplate : linkTemplates) {
+			for (Link linkTemplate : notMatchedLinkTemplates) {
 				if (link.matches(linkTemplate, matching)) {
-					linkTemplates.remove(linkTemplate);
+					notMatchedLinkTemplates.remove(linkTemplate);
 					break;
 				}
 			}
 		}
-		if (linkTemplates.size() != 0) {
-			return false;
-		}
-
-		return true;
+		return notMatchedLinkTemplates.isEmpty();
 	}
 
 	public void addLink(Link link) {
