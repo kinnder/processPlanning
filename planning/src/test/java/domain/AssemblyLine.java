@@ -83,10 +83,10 @@ public class AssemblyLine {
 
 	public static Element rotateToTransportLine() {
 		final System template = new System();
-		final SystemObject robot = new SystemObject(OBJECT_PICK_AND_PLACE_ROBOT, "#ID-1");
-		final SystemObject rotaryDrive = new SystemObject(OBJECT_ROTARY_DRIVE, "#ID-2");
-		final SystemObject station = new SystemObject(OBJECT_CONFIGURATION_STATION, "#ID-3");
-		final SystemObject line = new SystemObject(OBJECT_TRANSPORT_LINE, "#ID-4");
+		final SystemObject robot = new SystemObject(OBJECT_PICK_AND_PLACE_ROBOT, "#ROBOT");
+		final SystemObject rotaryDrive = new SystemObject(OBJECT_ROTARY_DRIVE, "#ROTARY-DRIVE");
+		final SystemObject station = new SystemObject(OBJECT_CONFIGURATION_STATION, "#STATION");
+		final SystemObject line = new SystemObject(OBJECT_TRANSPORT_LINE, "#LINE");
 
 		final String robot_id = robot.getObjectId();
 		final String rotaryDrive_id = rotaryDrive.getObjectId();
@@ -121,10 +121,10 @@ public class AssemblyLine {
 
 	public static Element rotateToStation() {
 		final System template = new System();
-		final SystemObject robot = new SystemObject(OBJECT_PICK_AND_PLACE_ROBOT, "#ID-1");
-		final SystemObject rotaryDrive = new SystemObject(OBJECT_ROTARY_DRIVE, "#ID-2");
-		final SystemObject station = new SystemObject(OBJECT_CONFIGURATION_STATION, "#ID-3");
-		final SystemObject line = new SystemObject(OBJECT_TRANSPORT_LINE, "#ID-4");
+		final SystemObject robot = new SystemObject(OBJECT_PICK_AND_PLACE_ROBOT, "#ROBOT");
+		final SystemObject rotaryDrive = new SystemObject(OBJECT_ROTARY_DRIVE, "#ROTARY-DRIVE");
+		final SystemObject station = new SystemObject(OBJECT_CONFIGURATION_STATION, "#STATION");
+		final SystemObject line = new SystemObject(OBJECT_TRANSPORT_LINE, "#LINE");
 
 		final String robot_id = robot.getObjectId();
 		final String rotaryDrive_id = rotaryDrive.getObjectId();
@@ -159,9 +159,9 @@ public class AssemblyLine {
 
 	public static Element openGrab() {
 		final System template = new System();
-		final SystemObject robot = new SystemObject(OBJECT_PICK_AND_PLACE_ROBOT, "#ID-1");
-		final SystemObject grab = new SystemObject(OBJECT_GRAB, "#ID-3");
-		final SystemObject packageBox = new SystemObject(OBJECT_PACKAGE_BOX, "#ID-7");
+		final SystemObject robot = new SystemObject(OBJECT_PICK_AND_PLACE_ROBOT, "#ROBOT");
+		final SystemObject grab = new SystemObject(OBJECT_GRAB, "#GRAB");
+		final SystemObject packageBox = new SystemObject(OBJECT_PACKAGE_BOX, "#PACKAGE-BOX");
 
 		final String robot_id = robot.getObjectId();
 		final String grab_id = grab.getObjectId();
@@ -188,13 +188,13 @@ public class AssemblyLine {
 
 	public static Element closeGrab() {
 		final System template = new System();
-		final SystemObject robot = new SystemObject(OBJECT_PICK_AND_PLACE_ROBOT, "#ID-1");
-		final SystemObject rotaryDrive = new SystemObject(OBJECT_ROTARY_DRIVE, "#ID-2");
-		final SystemObject grab = new SystemObject(OBJECT_GRAB, "#ID-3");
-		final SystemObject station = new SystemObject(OBJECT_CONFIGURATION_STATION, "#ID-4");
-		final SystemObject line = new SystemObject(OBJECT_TRANSPORT_LINE, "#ID-5");
-		final SystemObject shuttle = new SystemObject(OBJECT_SHUTTLE, "#ID-6");
-		final SystemObject packageBox = new SystemObject(OBJECT_PACKAGE_BOX, "#ID-7");
+		final SystemObject robot = new SystemObject(OBJECT_PICK_AND_PLACE_ROBOT, "#ROBOT");
+		final SystemObject rotaryDrive = new SystemObject(OBJECT_ROTARY_DRIVE, "#ROTARY-DRIVE");
+		final SystemObject grab = new SystemObject(OBJECT_GRAB, "#GRAB");
+		final SystemObject station = new SystemObject(OBJECT_CONFIGURATION_STATION, "#STATION");
+		final SystemObject line = new SystemObject(OBJECT_TRANSPORT_LINE, "#LINE");
+		final SystemObject shuttle = new SystemObject(OBJECT_SHUTTLE, "#SHUTTLE");
+		final SystemObject packageBox = new SystemObject(OBJECT_PACKAGE_BOX, "#PACKAGE-BOX");
 
 		final String robot_id = robot.getObjectId();
 		final String rotaryDrive_id = rotaryDrive.getObjectId();
@@ -246,10 +246,10 @@ public class AssemblyLine {
 
 	public static Element liftUp() {
 		final System template = new System();
-		final SystemObject robot = new SystemObject(OBJECT_PICK_AND_PLACE_ROBOT, "#ID-1");
-		final SystemObject grab = new SystemObject(OBJECT_GRAB, "#ID-2");
-		final SystemObject shuttle = new SystemObject(OBJECT_SHUTTLE, "#ID-3");
-		final SystemObject packageBox = new SystemObject(OBJECT_PACKAGE_BOX, "#ID-4");
+		final SystemObject robot = new SystemObject(OBJECT_PICK_AND_PLACE_ROBOT, "#ROBOT");
+		final SystemObject grab = new SystemObject(OBJECT_GRAB, "#GRAB");
+		final SystemObject shuttle = new SystemObject(OBJECT_SHUTTLE, "#SHUTTLE");
+		final SystemObject packageBox = new SystemObject(OBJECT_PACKAGE_BOX, "#PACKAGE-BOX");
 
 		final String robot_id = robot.getObjectId();
 		final String grab_id = grab.getObjectId();
@@ -282,10 +282,10 @@ public class AssemblyLine {
 
 	public static Element lowerDown() {
 		final System template = new System();
-		final SystemObject robot = new SystemObject(OBJECT_PICK_AND_PLACE_ROBOT, "#ID-1");
-		final SystemObject grab = new SystemObject(OBJECT_GRAB, "#ID-2");
-		final SystemObject table_1 = new SystemObject(OBJECT_TABLE_1, "#ID-3");
-		final SystemObject packageBox = new SystemObject(OBJECT_PACKAGE_BOX, "#ID-4");
+		final SystemObject robot = new SystemObject(OBJECT_PICK_AND_PLACE_ROBOT, "#ROBOT");
+		final SystemObject grab = new SystemObject(OBJECT_GRAB, "#GRAB");
+		final SystemObject table_1 = new SystemObject(OBJECT_TABLE_1, "#TABLE-1");
+		final SystemObject packageBox = new SystemObject(OBJECT_PACKAGE_BOX, "#PACKAGE-BOX");
 
 		final String robot_id = robot.getObjectId();
 		final String grab_id = grab.getObjectId();
@@ -319,7 +319,7 @@ public class AssemblyLine {
 
 	public static Element moveToPosition1() {
 		final System template = new System();
-		final SystemObject robot = new SystemObject(OBJECT_PICK_AND_PLACE_ROBOT, "#ID-1");
+		final SystemObject robot = new SystemObject(OBJECT_PICK_AND_PLACE_ROBOT, "#ROBOT");
 
 		final String robot_id = robot.getObjectId();
 
@@ -336,8 +336,8 @@ public class AssemblyLine {
 
 	public static Element moveToPosition2() {
 		final System template = new System();
-		final SystemObject robot = new SystemObject(OBJECT_PICK_AND_PLACE_ROBOT, "#ID-1");
-		final SystemObject grab = new SystemObject(OBJECT_GRAB, "#ID-2");
+		final SystemObject robot = new SystemObject(OBJECT_PICK_AND_PLACE_ROBOT, "#ROBOT");
+		final SystemObject grab = new SystemObject(OBJECT_GRAB, "#GRAB");
 
 		final String robot_id = robot.getObjectId();
 		final String grab_id = grab.getObjectId();
