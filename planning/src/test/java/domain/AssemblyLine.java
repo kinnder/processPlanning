@@ -384,5 +384,11 @@ public class AssemblyLine {
 		element = moveToPosition1();
 		systemVariants = actual_system.matchIds(element.getTemplate());
 		assertEquals(1, systemVariants.length);
+
+		expected_system = actual_system.clone();
+		expected_system.getObjectById(robot_id).getAttribute(ATTRIBUTE_LINEAR_DRIVE_POSITION).setValue(VALUE_TABLE_1);
+		element.applyTo(systemVariants[0]);
+		actual_system = systemVariants[0].getSystem();
+		assertTrue(expected_system.equals(actual_system));
 	}
 }
