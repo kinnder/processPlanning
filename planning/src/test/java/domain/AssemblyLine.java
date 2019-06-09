@@ -1,10 +1,14 @@
 package domain;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
+import planning.method.Planner;
 import planning.model.Attribute;
 import planning.model.AttributeTransformation;
 import planning.model.Element;
@@ -379,7 +383,6 @@ public class AssemblyLine {
 		final String shuttle_id = shuttle.getObjectId();
 		final String packageBox_id = packageBox.getObjectId();
 		final String table_1_id = table_1.getObjectId();
-		final String table_2_id = table_2.getObjectId();
 
 		robot.addLink(new Link(LINK_BETWEEN_ROBOT_AND_STATION, station_id));
 		robot.addLink(new Link(LINK_BETWEEN_ROBOT_AND_ROTARY_DRIVE, rotaryDrive_id));
@@ -518,5 +521,106 @@ public class AssemblyLine {
 		element.applyTo(systemVariants[0]);
 		actual_system = systemVariants[0].getSystem();
 		assertTrue(expected_system.equals(actual_system));
+	}
+
+	@Test
+	public void movePackageBoxToTable1() {
+		final System initial_system = new System();
+		final SystemObject robot = new SystemObject(OBJECT_PICK_AND_PLACE_ROBOT);
+		final SystemObject rotaryDrive = new SystemObject(OBJECT_ROTARY_DRIVE);
+		final SystemObject grab = new SystemObject(OBJECT_GRAB);
+		final SystemObject station = new SystemObject(OBJECT_CONFIGURATION_STATION);
+		final SystemObject line = new SystemObject(OBJECT_TRANSPORT_LINE);
+		final SystemObject shuttle = new SystemObject(OBJECT_SHUTTLE);
+		final SystemObject packageBox = new SystemObject(OBJECT_PACKAGE_BOX);
+		final SystemObject table_1 = new SystemObject(OBJECT_TABLE_1);
+		final SystemObject table_2 = new SystemObject(OBJECT_TABLE_2);
+
+		final String robot_id = robot.getObjectId();
+		final String rotaryDrive_id = rotaryDrive.getObjectId();
+		final String grab_id = grab.getObjectId();
+		final String station_id = station.getObjectId();
+		final String line_id = line.getObjectId();
+		final String shuttle_id = shuttle.getObjectId();
+		final String packageBox_id = packageBox.getObjectId();
+		final String table_1_id = table_1.getObjectId();
+
+		robot.addLink(new Link(LINK_BETWEEN_ROBOT_AND_STATION, station_id));
+		robot.addLink(new Link(LINK_BETWEEN_ROBOT_AND_ROTARY_DRIVE, rotaryDrive_id));
+		robot.addLink(new Link(LINK_BETWEEN_ROBOT_AND_GRAB, grab_id));
+		robot.addAttribute(new Attribute(ATTRIBUTE_VERTICAL_DRIVE_POSITION, VALUE_BOTTOM_PLANE));
+		robot.addAttribute(new Attribute(ATTRIBUTE_LINEAR_DRIVE_POSITION, VALUE_TABLE_2));
+
+		rotaryDrive.addLink(new Link(LINK_BETWEEN_ROBOT_AND_ROTARY_DRIVE, robot_id));
+		rotaryDrive.addLink(new Link(LINK_ROTARY_DRIVE_POSITION, station_id));
+
+		grab.addLink(new Link(LINK_BETWEEN_ROBOT_AND_GRAB, robot_id));
+		grab.addLink(new Link(LINK_GRAB_POSITION, null));
+
+		station.addLink(new Link(LINK_BETWEEN_ROBOT_AND_STATION, robot_id));
+		station.addLink(new Link(LINK_BETWEEN_STATION_AND_LINE, line_id));
+		station.addLink(new Link(LINK_ROTARY_DRIVE_POSITION, rotaryDrive_id));
+		station.addLink(new Link(LINK_SHUTTLE_POSITION, shuttle_id));
+
+		line.addLink(new Link(LINK_BETWEEN_STATION_AND_LINE, station_id));
+		line.addLink(new Link(LINK_ROTARY_DRIVE_POSITION, null));
+
+		shuttle.addLink(new Link(LINK_SHUTTLE_POSITION, station_id));
+		shuttle.addLink(new Link(LINK_PACKAGE_BOX_POSITION, packageBox_id));
+
+		packageBox.addLink(new Link(LINK_GRAB_POSITION, null));
+		packageBox.addLink(new Link(LINK_PACKAGE_BOX_POSITION, shuttle_id));
+
+		table_1.addLink(new Link(LINK_PACKAGE_BOX_POSITION, null));
+		table_1.addAttribute(new Attribute(ATTRIBUTE_LINEAR_DRIVE_POSITION, VALUE_TABLE_1));
+
+		table_2.addLink(new Link(LINK_PACKAGE_BOX_POSITION, null));
+		table_2.addAttribute(new Attribute(ATTRIBUTE_LINEAR_DRIVE_POSITION, VALUE_TABLE_2));
+
+		initial_system.addObject(robot);
+		initial_system.addObject(rotaryDrive);
+		initial_system.addObject(grab);
+		initial_system.addObject(station);
+		initial_system.addObject(line);
+		initial_system.addObject(shuttle);
+		initial_system.addObject(packageBox);
+		initial_system.addObject(table_1);
+		initial_system.addObject(table_2);
+
+		SystemVariant[] systemVariants;
+		systemVariants = initial_system.prepareSystemVariants(rotateToTransportLine().getTemplate());
+		assertEquals(1, systemVariants.length);
+
+		final System final_system = new System();
+		final SystemObject final_packageBox = new SystemObject(OBJECT_PACKAGE_BOX, packageBox_id);
+		final_packageBox.addLink(new Link(LINK_GRAB_POSITION, null));
+		final_packageBox.addLink(new Link(LINK_PACKAGE_BOX_POSITION, table_1_id));
+		final SystemObject final_robot = (SystemObject) robot.clone();
+		final SystemObject final_table_1 = new SystemObject(OBJECT_TABLE_1, table_1_id);
+		final_table_1.addLink(new Link(LINK_PACKAGE_BOX_POSITION, packageBox_id));
+		final_table_1.addAttribute(new Attribute(ATTRIBUTE_LINEAR_DRIVE_POSITION, VALUE_TABLE_1));
+		final_system.addObject(final_packageBox);
+		final_system.addObject(final_robot);
+		final_system.addObject(final_table_1);
+
+		assertFalse(initial_system.equals(final_system));
+		assertFalse(initial_system.partially_equals(final_system));
+
+		final Element[] elements = new Element[] { rotateToTransportLine(), rotateToStation(), openGrab(), closeGrab(),
+				liftUp(), lowerDown(), moveToPosition1(), moveToPosition2() };
+
+		Planner planner = new Planner(initial_system, final_system, elements);
+		planner.plan();
+
+		List<String> operations = planner.getShortestPlan();
+		assertEquals(7, operations.size());
+		assertEquals(OPERATION_ROTATE_TO_TRANSPORT_LINE, operations.get(0));
+		assertEquals(OPERATION_CLOSE_GRAB, operations.get(1));
+		assertEquals(OPERATION_LIFT_UP, operations.get(2));
+		// OPERATION_ROTATE_TO_STATION
+		assertEquals(OPERATION_MOVE_TO_POSITION_1, operations.get(3));
+		assertEquals(OPERATION_LOWER_DOWN, operations.get(4));
+		assertEquals(OPERATION_OPEN_GRAB, operations.get(5));
+		assertEquals(OPERATION_MOVE_TO_POSITION_2, operations.get(6));
 	}
 }

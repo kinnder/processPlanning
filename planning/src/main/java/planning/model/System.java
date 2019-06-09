@@ -125,6 +125,6 @@ public class System {
 				return false;
 			}
 		}
-		return true;
+		return idsMatching.length > 0;
 	}
 }
