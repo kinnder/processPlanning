@@ -5,14 +5,14 @@ import java.util.Map;
 
 public class IdsMatching {
 
-	private Map<String, String> idsMatching = new HashMap<String, String>();
+	private Map<String, String> matchings = new HashMap<>();
 
 	public String get(String templateId) {
-		return idsMatching.get(templateId);
+		return matchings.get(templateId);
 	}
 
 	public void add(String tempateId, String objectId) {
-		idsMatching.put(tempateId, objectId);
+		matchings.put(tempateId, objectId);
 	}
 
 	private boolean checked = false;
@@ -26,8 +26,8 @@ public class IdsMatching {
 	}
 
 	public boolean areKeysAndValuesTheSame() {
-		for (String key : idsMatching.keySet()) {
-			String value = idsMatching.get(key);
+		for (String key : matchings.keySet()) {
+			String value = matchings.get(key);
 			if (!key.equals(value)) {
 				return false;
 			}

@@ -1,6 +1,6 @@
 package planning.model;
 
-public class Link {
+public class Link implements Cloneable {
 
 	private String objectId;
 
@@ -30,7 +30,7 @@ public class Link {
 	}
 
 	@Override
-	public Object clone() {
+	public Link clone() {
 		return new Link(name, objectId);
 	}
 

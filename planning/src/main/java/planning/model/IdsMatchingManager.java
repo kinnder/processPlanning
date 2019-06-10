@@ -11,7 +11,7 @@ import algorithms.set.CartesianProduct;
 
 public class IdsMatchingManager {
 
-	private List<IdsMatching> idsMatchings = new ArrayList<IdsMatching>();
+	private List<IdsMatching> idsMatchings = new ArrayList<>();
 
 	private IdsMatching unchekedIdsMatching = null;
 
@@ -46,7 +46,7 @@ public class IdsMatchingManager {
 		return idsMatchings.get(index);
 	}
 
-	private Map<String, List<String>> candidates = new HashMap<String, List<String>>();
+	private Map<String, List<String>> candidates = new HashMap<>();
 
 	public void prepareMatchingsCandidates(Set<String> templateIds, Set<String> systemIds) {
 		unchekedIdsMatching = null;
@@ -64,9 +64,9 @@ public class IdsMatchingManager {
 
 	public void generateMatchingsFromCandidates() {
 		List<List<String>> objectIdsCombinations = CartesianProduct.compute(candidates.values());
-		List<String> templateIdsCombination = new ArrayList<String>(candidates.keySet());
+		List<String> templateIdsCombination = new ArrayList<>(candidates.keySet());
 		for (List<String> objectIdsCombination : objectIdsCombinations) {
-			Set<String> uniqueObjectIds = new HashSet<String>();
+			Set<String> uniqueObjectIds = new HashSet<>();
 			uniqueObjectIds.addAll(objectIdsCombination);
 			if (uniqueObjectIds.size() == objectIdsCombination.size()) {
 				IdsMatching idsMatching = new IdsMatching();

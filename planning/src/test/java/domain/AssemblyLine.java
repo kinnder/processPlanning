@@ -595,7 +595,7 @@ public class AssemblyLine {
 		final SystemObject final_packageBox = new SystemObject(OBJECT_PACKAGE_BOX, packageBox_id);
 		final_packageBox.addLink(new Link(LINK_GRAB_POSITION, null));
 		final_packageBox.addLink(new Link(LINK_PACKAGE_BOX_POSITION, table_1_id));
-		final SystemObject final_robot = (SystemObject) robot.clone();
+		final SystemObject final_robot = robot.clone();
 		final SystemObject final_table_1 = new SystemObject(OBJECT_TABLE_1, table_1_id);
 		final_table_1.addLink(new Link(LINK_PACKAGE_BOX_POSITION, packageBox_id));
 		final_table_1.addAttribute(new Attribute(ATTRIBUTE_LINEAR_DRIVE_POSITION, VALUE_TABLE_1));

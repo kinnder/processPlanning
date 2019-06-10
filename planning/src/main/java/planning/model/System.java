@@ -5,10 +5,10 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public class System {
+public class System implements Cloneable {
 
 	// TODO : replace List with Set
-	private List<SystemObject> objects = new ArrayList<SystemObject>();
+	private List<SystemObject> objects = new ArrayList<>();
 
 	public void addObject(SystemObject object) {
 		objects.add(object);
@@ -67,7 +67,7 @@ public class System {
 	}
 
 	public Set<String> getSystemIds() {
-		Set<String> systemIds = new HashSet<String>();
+		Set<String> systemIds = new HashSet<>();
 		for (SystemObject object : objects) {
 			Set<String> objectIds = object.getObjectIds();
 			systemIds.addAll(objectIds);
@@ -79,7 +79,7 @@ public class System {
 	public System clone() {
 		System system = new System();
 		for (SystemObject object : objects) {
-			SystemObject cloned = (SystemObject) object.clone();
+			SystemObject cloned = object.clone();
 			system.addObject(cloned);
 		}
 		return system;
@@ -87,16 +87,18 @@ public class System {
 
 	@Override
 	public boolean equals(Object obj) {
-		if (obj == null)
+		if (obj == null) {
 			return false;
-		if (obj == this)
+		}
+		if (obj == this) {
 			return true;
+		}
 		System system = (System) obj;
 		if (objects.size() != system.objects.size()) {
 			return false;
 		}
 
-		List<SystemObject> notEqualThings = new ArrayList<SystemObject>(objects);
+		List<SystemObject> notEqualThings = new ArrayList<>(objects);
 		for (SystemObject thing : system.objects) {
 			for (SystemObject notEqualThing : notEqualThings) {
 				if (thing.equals(notEqualThing)) {

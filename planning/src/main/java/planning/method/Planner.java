@@ -36,12 +36,12 @@ public class Planner {
 		this.final_system = final_system;
 		this.elements = elements;
 
-		this.checkedNodes = new ArrayList<Node>();
-		this.uncheckedNodes = new ArrayList<Node>();
+		this.checkedNodes = new ArrayList<>();
+		this.uncheckedNodes = new ArrayList<>();
 
-		this.edges = new ArrayList<Edge>();
+		this.edges = new ArrayList<>();
 
-		this.network = new DefaultDirectedGraph<Node, Edge>(Edge.class);
+		this.network = new DefaultDirectedGraph<>(Edge.class);
 	}
 
 	public void plan() {
@@ -100,7 +100,7 @@ public class Planner {
 	public List<String> getShortestPlan() {
 		DijkstraShortestPath<Node, Edge> alg = new DijkstraShortestPath<>(network);
 		GraphPath<Node, Edge> path = alg.getPath(initialNode, finalNode);
-		List<String> operations = new ArrayList<String>();
+		List<String> operations = new ArrayList<>();
 		for (Edge edge : path.getEdgeList()) {
 			operations.add(edge.getElement().getOperation());
 		}

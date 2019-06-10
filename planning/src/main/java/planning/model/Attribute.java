@@ -1,6 +1,6 @@
 package planning.model;
 
-public class Attribute {
+public class Attribute implements Cloneable {
 
 	private String name;
 
@@ -27,7 +27,7 @@ public class Attribute {
 	}
 
 	@Override
-	public Object clone() {
+	public Attribute clone() {
 		switch (type) {
 		case Boolean:
 			return new Attribute(name, getValueAsBoolean());

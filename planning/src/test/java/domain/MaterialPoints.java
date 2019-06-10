@@ -338,8 +338,8 @@ public class MaterialPoints {
 		assertEquals(0, systemVariants.length);
 
 		final System final_system = new System();
-		final SystemObject final_object = (SystemObject) object.clone();
-		final SystemObject final_point_4 = (SystemObject) point_4.clone();
+		final SystemObject final_object = object.clone();
+		final SystemObject final_point_4 = point_4.clone();
 		final_system.addObject(final_object);
 		final_system.addObject(final_point_4);
 
@@ -578,8 +578,8 @@ public class MaterialPoints {
 		assertEquals(1, systemVariants.length);
 
 		final System final_system = new System();
-		final SystemObject final_object = (SystemObject) object.clone();
-		final SystemObject final_point_92 = (SystemObject) point_92.clone();
+		final SystemObject final_object = object.clone();
+		final SystemObject final_point_92 = point_92.clone();
 		final_system.addObject(final_object);
 		final_system.addObject(final_point_92);
 

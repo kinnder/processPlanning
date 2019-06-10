@@ -11,11 +11,11 @@
 	<!-- <rule ref="category/java/design.xml/CyclomaticComplexity" /> -->
 	<!-- <rule ref="category/java/design.xml/SimplifyBooleanReturns" /> -->
 
-	<!-- <rule ref="category/java/bestpractices.xml"> -->
-	<!-- <exclude name="MethodReturnsInternalArray" /> -->
-	<!-- <exclude name="ArrayIsStoredDirectly" /> -->
-	<!-- <exclude name="UseVarargs" /> -->
-	<!-- </rule> -->
+	<rule ref="category/java/bestpractices.xml">
+		<exclude name="MethodReturnsInternalArray" />
+		<exclude name="ArrayIsStoredDirectly" />
+		<exclude name="UseVarargs" />
+	</rule>
 
 	<!-- <rule ref="category/java/bestpractices.xml" /> -->
 	<!-- <rule ref="category/java/codestyle.xml" /> -->

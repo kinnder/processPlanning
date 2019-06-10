@@ -8,11 +8,11 @@ import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 
-public class SystemObject {
+public class SystemObject implements Cloneable {
 
-	private Map<String, Attribute> attributes = new HashMap<String, Attribute>();
+	private Map<String, Attribute> attributes = new HashMap<>();
 
-	private Map<String, Link> links = new HashMap<String, Link>();
+	private Map<String, Link> links = new HashMap<>();
 
 	private String objectId;
 
@@ -36,7 +36,7 @@ public class SystemObject {
 	}
 
 	public boolean matchesAttributes(SystemObject templateObject) {
-		List<Attribute> notMatchedAttributeTemplates = new ArrayList<Attribute>(templateObject.attributes.values());
+		List<Attribute> notMatchedAttributeTemplates = new ArrayList<>(templateObject.attributes.values());
 		for (Attribute attribute : attributes.values()) {
 			for (Attribute attributeTemplate : notMatchedAttributeTemplates) {
 				if (attribute.matches(attributeTemplate)) {
@@ -49,7 +49,7 @@ public class SystemObject {
 	}
 
 	public boolean matchesLinks(SystemObject template, IdsMatching matching) {
-		List<Link> notMatchedLinkTemplates = new ArrayList<Link>(template.links.values());
+		List<Link> notMatchedLinkTemplates = new ArrayList<>(template.links.values());
 		for (Link link : links.values()) {
 			for (Link linkTemplate : notMatchedLinkTemplates) {
 				if (link.matches(linkTemplate, matching)) {
@@ -100,7 +100,7 @@ public class SystemObject {
 	}
 
 	@Override
-	public Object clone() {
+	public SystemObject clone() {
 		SystemObject cloned = new SystemObject(name, objectId);
 		for (Attribute attribute : attributes.values()) {
 			cloned.addAttribute((Attribute) attribute.clone());
@@ -124,7 +124,7 @@ public class SystemObject {
 	}
 
 	public Set<String> getObjectIds() {
-		Set<String> objectIds = new HashSet<String>();
+		Set<String> objectIds = new HashSet<>();
 		objectIds.add(objectId);
 		for (Link link : links.values()) {
 			String linkValue = link.getObjectId();
