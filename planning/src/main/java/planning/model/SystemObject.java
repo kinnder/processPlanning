@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
 
@@ -67,46 +68,32 @@ public class SystemObject implements Cloneable {
 
 	@Override
 	public boolean equals(Object obj) {
-		if (obj == null) {
-			return false;
-		}
 		if (this == obj) {
 			return true;
 		}
+		if (obj == null || getClass() != obj.getClass()) {
+			return false;
+		}
 		SystemObject systemObject = (SystemObject) obj;
-		if (!name.equals(systemObject.name)) {
-			return false;
-		}
-		if (attributes.size() != systemObject.attributes.size()) {
-			return false;
-		}
-		if (links.size() != systemObject.links.size()) {
-			return false;
-		}
-		for (Attribute thisAttribute : attributes.values()) {
-			Attribute thatAttribute = systemObject.attributes.get(thisAttribute.getName());
-			if (!thisAttribute.equals(thatAttribute)) {
-				return false;
-			}
-		}
-		for (Link thisLink : links.values()) {
-			Link thatLink = systemObject.links.get(thisLink.getName());
-			if (!thisLink.equals(thatLink)) {
-				return false;
-			}
-		}
+		return Objects.equals(name, systemObject.name) && equalsAttributes(systemObject) && equalsLinks(systemObject);
+	}
 
-		return true;
+	private boolean equalsAttributes(SystemObject systemObject) {
+		return attributes.entrySet().equals(systemObject.attributes.entrySet());
+	}
+
+	private boolean equalsLinks(SystemObject systemObject) {
+		return links.entrySet().equals(systemObject.links.entrySet());
 	}
 
 	@Override
 	public SystemObject clone() {
 		SystemObject cloned = new SystemObject(name, objectId);
 		for (Attribute attribute : attributes.values()) {
-			cloned.addAttribute((Attribute) attribute.clone());
+			cloned.addAttribute(attribute.clone());
 		}
 		for (Link link : links.values()) {
-			cloned.addLink((Link) link.clone());
+			cloned.addLink(link.clone());
 		}
 		return cloned;
 	}

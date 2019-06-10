@@ -101,22 +101,17 @@ public class SystemObjectTest {
 		systemObject.addLink(link_mock);
 		systemObject.addAttribute(attribute_mock);
 
-		context.checking(new Expectations() {
-			{
-				oneOf(attribute_mock).getName();
-				will(returnValue("attribute-name"));
-
-				oneOf(link_mock).getName();
-				will(returnValue("link-name"));
-			}
-		});
-
 		assertTrue(testable.equals(systemObject));
 	}
 
 	@Test
 	public void equals_null() {
 		assertFalse(testable.equals(null));
+	}
+
+	@Test
+	public void equals_differentType() {
+		assertFalse(testable.equals(new Object()));
 	}
 
 	@Test
@@ -127,22 +122,6 @@ public class SystemObjectTest {
 	@Test
 	public void equals_differentName() {
 		assertFalse(testable.equals(new SystemObject("object 2")));
-	}
-
-	@Test
-	public void equals_differentAttributeAmount() {
-		final Attribute attribute_mock = context.mock(Attribute.class, "attribute");
-
-		context.checking(new Expectations() {
-			{
-				oneOf(attribute_mock).getName();
-				will(returnValue("attribute-name"));
-			}
-		});
-		final SystemObject systemObject = new SystemObject("object");
-		systemObject.addAttribute(attribute_mock);
-
-		assertFalse(testable.equals(systemObject));
 	}
 
 	@Test
@@ -166,29 +145,6 @@ public class SystemObjectTest {
 		});
 		final SystemObject systemObject = new SystemObject("object");
 		systemObject.addAttribute(attribute_2_mock);
-
-		context.checking(new Expectations() {
-			{
-				oneOf(attribute_1_mock).getName();
-				will(returnValue("attribute-name"));
-			}
-		});
-
-		assertFalse(testable.equals(systemObject));
-	}
-
-	@Test
-	public void equals_differentLinkAmount() {
-		final Link link_mock = context.mock(Link.class, "link");
-
-		context.checking(new Expectations() {
-			{
-				oneOf(link_mock).getName();
-				will(returnValue("link-name"));
-			}
-		});
-		final SystemObject systemObject = new SystemObject("object");
-		systemObject.addLink(link_mock);
 
 		assertFalse(testable.equals(systemObject));
 	}
@@ -214,13 +170,6 @@ public class SystemObjectTest {
 		});
 		final SystemObject systemObject = new SystemObject("object");
 		systemObject.addLink(link_2_mock);
-
-		context.checking(new Expectations() {
-			{
-				oneOf(link_1_mock).getName();
-				will(returnValue("link-name"));
-			}
-		});
 
 		assertFalse(testable.equals(systemObject));
 	}
