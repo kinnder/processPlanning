@@ -71,7 +71,7 @@ public class SystemObject implements Cloneable {
 		if (this == obj) {
 			return true;
 		}
-		if (obj == null || getClass() != obj.getClass()) {
+		if (!(obj instanceof SystemObject)) {
 			return false;
 		}
 		SystemObject systemObject = (SystemObject) obj;

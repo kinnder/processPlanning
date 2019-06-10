@@ -110,11 +110,6 @@ public class SystemObjectTest {
 	}
 
 	@Test
-	public void equals_differentType() {
-		assertFalse(testable.equals(new Object()));
-	}
-
-	@Test
 	public void equals_self() {
 		assertTrue(testable.equals(testable));
 	}
