@@ -49,7 +49,6 @@ public class PlannerTest {
 
 	@Test
 	public void plan() {
-		final System element_template_mock = context.mock(System.class, "element-template");
 		final SystemVariant systemVariant_mock = context.mock(SystemVariant.class);
 		final SystemVariant systemVariants[] = new SystemVariant[] { systemVariant_mock };
 		final System system_mock = context.mock(System.class, "system");
@@ -59,10 +58,7 @@ public class PlannerTest {
 				oneOf(initial_system_mock).partially_equals(final_system_mock);
 				will(returnValue(false));
 
-				oneOf(element_mock).getTemplate();
-				will(returnValue(element_template_mock));
-
-				oneOf(initial_system_mock).prepareSystemVariants(element_template_mock);
+				oneOf(element_mock).prepareSystemVariants(initial_system_mock);
 				will(returnValue(systemVariants));
 
 				oneOf(element_mock).applyTo(systemVariant_mock);
@@ -73,10 +69,7 @@ public class PlannerTest {
 				oneOf(system_mock).partially_equals(final_system_mock);
 				will(returnValue(true));
 
-				oneOf(element_mock).getTemplate();
-				will(returnValue(element_template_mock));
-
-				oneOf(system_mock).prepareSystemVariants(element_template_mock);
+				oneOf(element_mock).prepareSystemVariants(system_mock);
 				will(returnValue(systemVariants));
 
 				oneOf(element_mock).applyTo(systemVariant_mock);
@@ -91,7 +84,6 @@ public class PlannerTest {
 
 	@Test
 	public void plan_no_variants() {
-		final System element_template_mock = context.mock(System.class, "element-template");
 		final SystemVariant systemVariants[] = new SystemVariant[] {};
 
 		context.checking(new Expectations() {
@@ -99,10 +91,7 @@ public class PlannerTest {
 				oneOf(initial_system_mock).partially_equals(final_system_mock);
 				will(returnValue(false));
 
-				oneOf(element_mock).getTemplate();
-				will(returnValue(element_template_mock));
-
-				oneOf(initial_system_mock).prepareSystemVariants(element_template_mock);
+				oneOf(element_mock).prepareSystemVariants(initial_system_mock);
 				will(returnValue(systemVariants));
 			}
 		});
@@ -112,7 +101,6 @@ public class PlannerTest {
 
 	@Test
 	public void getShortestPath() {
-		final System element_template_mock = context.mock(System.class, "element-template");
 		final SystemVariant systemVariant_mock = context.mock(SystemVariant.class);
 		final SystemVariant systemVariants[] = new SystemVariant[] { systemVariant_mock };
 		final System system_mock = context.mock(System.class, "system");
@@ -122,10 +110,7 @@ public class PlannerTest {
 				oneOf(initial_system_mock).partially_equals(final_system_mock);
 				will(returnValue(false));
 
-				oneOf(element_mock).getTemplate();
-				will(returnValue(element_template_mock));
-
-				oneOf(initial_system_mock).prepareSystemVariants(element_template_mock);
+				oneOf(element_mock).prepareSystemVariants(initial_system_mock);
 				will(returnValue(systemVariants));
 
 				oneOf(element_mock).applyTo(systemVariant_mock);
@@ -136,10 +121,7 @@ public class PlannerTest {
 				oneOf(system_mock).partially_equals(final_system_mock);
 				will(returnValue(true));
 
-				oneOf(element_mock).getTemplate();
-				will(returnValue(element_template_mock));
-
-				oneOf(system_mock).prepareSystemVariants(element_template_mock);
+				oneOf(element_mock).prepareSystemVariants(system_mock);
 				will(returnValue(systemVariants));
 
 				oneOf(element_mock).applyTo(systemVariant_mock);

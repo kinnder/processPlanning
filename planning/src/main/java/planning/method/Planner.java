@@ -67,7 +67,7 @@ public class Planner {
 			finalNode = sourceNode;
 		}
 		for (Element element : elements) {
-			SystemVariant systemVariants[] = sourceSystem.prepareSystemVariants(element.getTemplate());
+			SystemVariant systemVariants[] = element.prepareSystemVariants(sourceSystem);
 			for (SystemVariant systemVariant : systemVariants) {
 				element.applyTo(systemVariant);
 

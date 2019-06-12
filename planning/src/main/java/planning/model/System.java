@@ -23,18 +23,6 @@ public class System implements Cloneable {
 
 	private IdsMatchingManager idsMatchingsManager = new IdsMatchingManager();
 
-	public SystemVariant[] prepareSystemVariants(System template) {
-		IdsMatching[] idsMatchings = matchIds(template);
-
-		int amount = idsMatchings.length;
-		SystemVariant[] systemVariants = new SystemVariant[amount];
-		for (int i = 0; i < amount; i++) {
-			systemVariants[i] = new SystemVariant(clone(), idsMatchings[i]);
-		}
-
-		return systemVariants;
-	}
-
 	public IdsMatching[] matchIds(System template) {
 		idsMatchingsManager.prepareMatchingsCandidates(template.getSystemIds(), getSystemIds());
 

@@ -126,7 +126,6 @@ public class SystemTest {
 		final SystemObject object_1_template_mock = context.mock(SystemObject.class, "object-1-template");
 		systemTemplate.addObject(object_1_template_mock);
 
-		final SystemObject object_1_clone_mock = context.mock(SystemObject.class, "object-1-clone");
 		final IdsMatching idsMatching_mock = context.mock(IdsMatching.class);
 
 		final IdsMatching idsMatching[] = new IdsMatching[] { idsMatching_mock };
@@ -166,13 +165,10 @@ public class SystemTest {
 
 				oneOf(idsMatchingManager_mock).getIdsMatchings();
 				will(returnValue(idsMatching));
-
-				oneOf(object_1_mock).clone();
-				will(returnValue(object_1_clone_mock));
 			}
 		});
 
-		SystemVariant[] systemVariants = testable.prepareSystemVariants(systemTemplate);
+		IdsMatching[] systemVariants = testable.matchIds(systemTemplate);
 		assertEquals(1, systemVariants.length);
 	}
 
@@ -225,7 +221,7 @@ public class SystemTest {
 			}
 		});
 
-		SystemVariant[] systemVariants = testable.prepareSystemVariants(systemTemplate);
+		IdsMatching[] systemVariants = testable.matchIds(systemTemplate);
 		assertEquals(0, systemVariants.length);
 	}
 
@@ -286,7 +282,7 @@ public class SystemTest {
 			}
 		});
 
-		SystemVariant[] systemVariants = testable.prepareSystemVariants(systemTemplate);
+		IdsMatching[] systemVariants = testable.matchIds(systemTemplate);
 		assertEquals(0, systemVariants.length);
 	}
 

@@ -58,12 +58,28 @@ public class ElementTest {
 	}
 
 	@Test
-	public void getTemplate() {
-		assertEquals(template_mock, testable.getTemplate());
+	public void getOperation() {
+		assertEquals(operation, testable.getOperation());
 	}
 
 	@Test
-	public void getOperation() {
-		assertEquals(operation, testable.getOperation());
+	public void prepareSystemVariants() {
+		final System system_mock = context.mock(System.class, "system");
+		final System systemClone_mock = context.mock(System.class, "system-clone");
+		final IdsMatching idsMatching_mock = context.mock(IdsMatching.class, "ids-matching");
+		final IdsMatching idsMatchings[] = new IdsMatching[] { idsMatching_mock };
+
+		context.checking(new Expectations() {
+			{
+				oneOf(system_mock).matchIds(template_mock);
+				will(returnValue(idsMatchings));
+
+				oneOf(system_mock).clone();
+				will(returnValue(systemClone_mock));
+			}
+		});
+
+		SystemVariant systemVariants[] = testable.prepareSystemVariants(system_mock);
+		assertEquals(1, systemVariants.length);
 	}
 }

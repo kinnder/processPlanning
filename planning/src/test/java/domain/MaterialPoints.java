@@ -225,7 +225,7 @@ public class MaterialPoints {
 		SystemVariant[] systemVariants;
 
 		element = moveRight();
-		systemVariants = actual_system.prepareSystemVariants(element.getTemplate());
+		systemVariants = element.prepareSystemVariants(actual_system);
 		assertEquals(1, systemVariants.length);
 
 		expected_system = actual_system.clone();
@@ -239,7 +239,7 @@ public class MaterialPoints {
 		assertTrue(expected_system.equals(actual_system));
 
 		element = moveBottom();
-		systemVariants = actual_system.prepareSystemVariants(element.getTemplate());
+		systemVariants = element.prepareSystemVariants(actual_system);
 		assertEquals(1, systemVariants.length);
 
 		expected_system = actual_system.clone();
@@ -253,7 +253,7 @@ public class MaterialPoints {
 		assertTrue(expected_system.equals(actual_system));
 
 		element = moveLeft();
-		systemVariants = actual_system.prepareSystemVariants(element.getTemplate());
+		systemVariants = element.prepareSystemVariants(actual_system);
 		assertEquals(1, systemVariants.length);
 
 		expected_system = actual_system.clone();
@@ -267,7 +267,7 @@ public class MaterialPoints {
 		assertTrue(expected_system.equals(actual_system));
 
 		element = moveTop();
-		systemVariants = actual_system.prepareSystemVariants(element.getTemplate());
+		systemVariants = element.prepareSystemVariants(actual_system);
 		assertEquals(1, systemVariants.length);
 
 		expected_system = actual_system.clone();
@@ -325,16 +325,16 @@ public class MaterialPoints {
 		initial_system.addObject(point_4);
 
 		SystemVariant[] systemVariants;
-		systemVariants = initial_system.prepareSystemVariants(moveRight().getTemplate());
+		systemVariants = moveRight().prepareSystemVariants(initial_system);
 		assertEquals(1, systemVariants.length);
 
-		systemVariants = initial_system.prepareSystemVariants(moveLeft().getTemplate());
+		systemVariants = moveLeft().prepareSystemVariants(initial_system);
 		assertEquals(0, systemVariants.length);
 
-		systemVariants = initial_system.prepareSystemVariants(moveTop().getTemplate());
+		systemVariants = moveTop().prepareSystemVariants(initial_system);
 		assertEquals(0, systemVariants.length);
 
-		systemVariants = initial_system.prepareSystemVariants(moveBottom().getTemplate());
+		systemVariants = moveBottom().prepareSystemVariants(initial_system);
 		assertEquals(0, systemVariants.length);
 
 		final System final_system = new System();
@@ -565,16 +565,16 @@ public class MaterialPoints {
 		initial_system.addObject(point_91);
 
 		SystemVariant[] systemVariants;
-		systemVariants = initial_system.prepareSystemVariants(moveRight().getTemplate());
+		systemVariants = moveRight().prepareSystemVariants(initial_system);
 		assertEquals(1, systemVariants.length);
 
-		systemVariants = initial_system.prepareSystemVariants(moveLeft().getTemplate());
+		systemVariants = moveLeft().prepareSystemVariants(initial_system);
 		assertEquals(0, systemVariants.length);
 
-		systemVariants = initial_system.prepareSystemVariants(moveTop().getTemplate());
+		systemVariants = moveTop().prepareSystemVariants(initial_system);
 		assertEquals(1, systemVariants.length);
 
-		systemVariants = initial_system.prepareSystemVariants(moveBottom().getTemplate());
+		systemVariants = moveBottom().prepareSystemVariants(initial_system);
 		assertEquals(1, systemVariants.length);
 
 		final System final_system = new System();
