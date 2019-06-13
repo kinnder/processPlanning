@@ -58,10 +58,8 @@ public class PlannerTest {
 				oneOf(initial_system_mock).partially_equals(final_system_mock);
 				will(returnValue(false));
 
-				oneOf(element_mock).prepareSystemVariants(initial_system_mock);
+				oneOf(element_mock).applyTo(initial_system_mock);
 				will(returnValue(systemVariants));
-
-				oneOf(element_mock).applyTo(systemVariant_mock);
 
 				oneOf(systemVariant_mock).getSystem();
 				will(returnValue(system_mock));
@@ -69,10 +67,8 @@ public class PlannerTest {
 				oneOf(system_mock).partially_equals(final_system_mock);
 				will(returnValue(true));
 
-				oneOf(element_mock).prepareSystemVariants(system_mock);
+				oneOf(element_mock).applyTo(system_mock);
 				will(returnValue(systemVariants));
-
-				oneOf(element_mock).applyTo(systemVariant_mock);
 
 				oneOf(systemVariant_mock).getSystem();
 				will(returnValue(system_mock));
@@ -91,7 +87,7 @@ public class PlannerTest {
 				oneOf(initial_system_mock).partially_equals(final_system_mock);
 				will(returnValue(false));
 
-				oneOf(element_mock).prepareSystemVariants(initial_system_mock);
+				oneOf(element_mock).applyTo(initial_system_mock);
 				will(returnValue(systemVariants));
 			}
 		});
@@ -110,10 +106,8 @@ public class PlannerTest {
 				oneOf(initial_system_mock).partially_equals(final_system_mock);
 				will(returnValue(false));
 
-				oneOf(element_mock).prepareSystemVariants(initial_system_mock);
+				oneOf(element_mock).applyTo(initial_system_mock);
 				will(returnValue(systemVariants));
-
-				oneOf(element_mock).applyTo(systemVariant_mock);
 
 				oneOf(systemVariant_mock).getSystem();
 				will(returnValue(system_mock));
@@ -121,10 +115,8 @@ public class PlannerTest {
 				oneOf(system_mock).partially_equals(final_system_mock);
 				will(returnValue(true));
 
-				oneOf(element_mock).prepareSystemVariants(system_mock);
+				oneOf(element_mock).applyTo(system_mock);
 				will(returnValue(systemVariants));
-
-				oneOf(element_mock).applyTo(systemVariant_mock);
 
 				oneOf(systemVariant_mock).getSystem();
 				will(returnValue(system_mock));

@@ -45,25 +45,12 @@ public class ElementTest {
 	}
 
 	@Test
-	public void applyTo() {
-		final SystemVariant systemVariant_mock = context.mock(SystemVariant.class);
-
-		context.checking(new Expectations() {
-			{
-				oneOf(transformation_mock).applyTo(systemVariant_mock);
-			}
-		});
-
-		testable.applyTo(systemVariant_mock);
-	}
-
-	@Test
 	public void getOperation() {
 		assertEquals(operation, testable.getOperation());
 	}
 
 	@Test
-	public void prepareSystemVariants() {
+	public void applyTo() {
 		final System system_mock = context.mock(System.class, "system");
 		final System systemClone_mock = context.mock(System.class, "system-clone");
 		final IdsMatching idsMatching_mock = context.mock(IdsMatching.class, "ids-matching");
@@ -76,10 +63,12 @@ public class ElementTest {
 
 				oneOf(system_mock).clone();
 				will(returnValue(systemClone_mock));
+
+				oneOf(transformation_mock).applyTo(with(any(SystemVariant.class)));
 			}
 		});
 
-		SystemVariant systemVariants[] = testable.prepareSystemVariants(system_mock);
+		SystemVariant systemVariants[] = testable.applyTo(system_mock);
 		assertEquals(1, systemVariants.length);
 	}
 }

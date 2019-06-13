@@ -2,8 +2,6 @@ package domain;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
@@ -364,7 +362,6 @@ public class AssemblyLine {
 
 	@Test
 	public void applicationOfElements() {
-		final System initial_system = new System();
 		final SystemObject robot = new SystemObject(OBJECT_PICK_AND_PLACE_ROBOT);
 		final SystemObject rotaryDrive = new SystemObject(OBJECT_ROTARY_DRIVE);
 		final SystemObject grab = new SystemObject(OBJECT_GRAB);
@@ -416,111 +413,91 @@ public class AssemblyLine {
 		table_2.addLink(new Link(LINK_PACKAGE_BOX_POSITION, null));
 		table_2.addAttribute(new Attribute(ATTRIBUTE_LINEAR_DRIVE_POSITION, VALUE_TABLE_2));
 
-		initial_system.addObject(robot);
-		initial_system.addObject(rotaryDrive);
-		initial_system.addObject(grab);
-		initial_system.addObject(station);
-		initial_system.addObject(line);
-		initial_system.addObject(shuttle);
-		initial_system.addObject(packageBox);
-		initial_system.addObject(table_1);
-		initial_system.addObject(table_2);
+		System system = new System();
+		system.addObject(robot);
+		system.addObject(rotaryDrive);
+		system.addObject(grab);
+		system.addObject(station);
+		system.addObject(line);
+		system.addObject(shuttle);
+		system.addObject(packageBox);
+		system.addObject(table_1);
+		system.addObject(table_2);
 
-		System expected_system;
-		System actual_system = initial_system.clone();
 		Element element;
 		SystemVariant[] systemVariants;
 
 		element = rotateToTransportLine();
-		systemVariants = element.prepareSystemVariants(actual_system);
+		systemVariants = element.applyTo(system);
 		assertEquals(1, systemVariants.length);
 
-		expected_system = actual_system.clone();
-		expected_system.getObjectById(rotaryDrive_id).getLink(LINK_ROTARY_DRIVE_POSITION).setObjectId(line_id);
-		expected_system.getObjectById(station_id).getLink(LINK_ROTARY_DRIVE_POSITION).setObjectId(null);
-		expected_system.getObjectById(line_id).getLink(LINK_ROTARY_DRIVE_POSITION).setObjectId(rotaryDrive_id);
-		element.applyTo(systemVariants[0]);
-		actual_system = systemVariants[0].getSystem();
-		assertTrue(expected_system.equals(actual_system));
+		system = systemVariants[0].getSystem();
+		assertEquals(line_id, system.getObjectById(rotaryDrive_id).getLink(LINK_ROTARY_DRIVE_POSITION).getObjectId());
+		assertEquals(null, system.getObjectById(station_id).getLink(LINK_ROTARY_DRIVE_POSITION).getObjectId());
+		assertEquals(rotaryDrive_id, system.getObjectById(line_id).getLink(LINK_ROTARY_DRIVE_POSITION).getObjectId());
 
 		element = closeGrab();
-		systemVariants = element.prepareSystemVariants(actual_system);
+		systemVariants = element.applyTo(system);
 		assertEquals(1, systemVariants.length);
 
-		expected_system = actual_system.clone();
-		expected_system.getObjectById(grab_id).getLink(LINK_GRAB_POSITION).setObjectId(packageBox_id);
-		expected_system.getObjectById(packageBox_id).getLink(LINK_GRAB_POSITION).setObjectId(grab_id);
-		element.applyTo(systemVariants[0]);
-		actual_system = systemVariants[0].getSystem();
-		assertTrue(expected_system.equals(actual_system));
+		system = systemVariants[0].getSystem();
+		assertEquals(packageBox_id, system.getObjectById(grab_id).getLink(LINK_GRAB_POSITION).getObjectId());
+		assertEquals(grab_id, system.getObjectById(packageBox_id).getLink(LINK_GRAB_POSITION).getObjectId());
 
 		element = liftUp();
-		systemVariants = element.prepareSystemVariants(actual_system);
+		systemVariants = element.applyTo(system);
 		assertEquals(1, systemVariants.length);
 
-		expected_system = actual_system.clone();
-		expected_system.getObjectById(packageBox_id).getLink(LINK_PACKAGE_BOX_POSITION).setObjectId(null);
-		expected_system.getObjectById(shuttle_id).getLink(LINK_PACKAGE_BOX_POSITION).setObjectId(null);
-		expected_system.getObjectById(robot_id).getAttribute(ATTRIBUTE_VERTICAL_DRIVE_POSITION)
-				.setValue(VALUE_TOP_PLANE);
-		element.applyTo(systemVariants[0]);
-		actual_system = systemVariants[0].getSystem();
-		assertTrue(expected_system.equals(actual_system));
+		system = systemVariants[0].getSystem();
+		assertEquals(null, system.getObjectById(packageBox_id).getLink(LINK_PACKAGE_BOX_POSITION).getObjectId());
+		assertEquals(null, system.getObjectById(shuttle_id).getLink(LINK_PACKAGE_BOX_POSITION).getObjectId());
+		assertEquals(VALUE_TOP_PLANE,
+				system.getObjectById(robot_id).getAttribute(ATTRIBUTE_VERTICAL_DRIVE_POSITION).getValueAsString());
 
 		element = rotateToStation();
-		systemVariants = element.prepareSystemVariants(actual_system);
+		systemVariants = element.applyTo(system);
 		assertEquals(1, systemVariants.length);
 
-		expected_system = actual_system.clone();
-		expected_system.getObjectById(rotaryDrive_id).getLink(LINK_ROTARY_DRIVE_POSITION).setObjectId(station_id);
-		expected_system.getObjectById(station_id).getLink(LINK_ROTARY_DRIVE_POSITION).setObjectId(rotaryDrive_id);
-		expected_system.getObjectById(line_id).getLink(LINK_ROTARY_DRIVE_POSITION).setObjectId(null);
-		element.applyTo(systemVariants[0]);
-		actual_system = systemVariants[0].getSystem();
-		assertTrue(expected_system.equals(actual_system));
+		system = systemVariants[0].getSystem();
+		assertEquals(station_id,
+				system.getObjectById(rotaryDrive_id).getLink(LINK_ROTARY_DRIVE_POSITION).getObjectId());
+		assertEquals(rotaryDrive_id,
+				system.getObjectById(station_id).getLink(LINK_ROTARY_DRIVE_POSITION).getObjectId());
+		assertEquals(null, system.getObjectById(line_id).getLink(LINK_ROTARY_DRIVE_POSITION).getObjectId());
 
 		element = moveToPosition1();
-		systemVariants = element.prepareSystemVariants(actual_system);
+		systemVariants = element.applyTo(system);
 		assertEquals(1, systemVariants.length);
 
-		expected_system = actual_system.clone();
-		expected_system.getObjectById(robot_id).getAttribute(ATTRIBUTE_LINEAR_DRIVE_POSITION).setValue(VALUE_TABLE_1);
-		element.applyTo(systemVariants[0]);
-		actual_system = systemVariants[0].getSystem();
-		assertTrue(expected_system.equals(actual_system));
+		system = systemVariants[0].getSystem();
+		assertEquals(VALUE_TABLE_1,
+				system.getObjectById(robot_id).getAttribute(ATTRIBUTE_LINEAR_DRIVE_POSITION).getValueAsString());
 
 		element = lowerDown();
-		systemVariants = element.prepareSystemVariants(actual_system);
+		systemVariants = element.applyTo(system);
 		assertEquals(1, systemVariants.length);
 
-		expected_system = actual_system.clone();
-		expected_system.getObjectById(packageBox_id).getLink(LINK_PACKAGE_BOX_POSITION).setObjectId(table_1_id);
-		expected_system.getObjectById(table_1_id).getLink(LINK_PACKAGE_BOX_POSITION).setObjectId(packageBox_id);
-		expected_system.getObjectById(robot_id).getAttribute(ATTRIBUTE_VERTICAL_DRIVE_POSITION)
-				.setValue(VALUE_BOTTOM_PLANE);
-		element.applyTo(systemVariants[0]);
-		actual_system = systemVariants[0].getSystem();
-		assertTrue(expected_system.equals(actual_system));
+		system = systemVariants[0].getSystem();
+		assertEquals(table_1_id, system.getObjectById(packageBox_id).getLink(LINK_PACKAGE_BOX_POSITION).getObjectId());
+		assertEquals(packageBox_id, system.getObjectById(table_1_id).getLink(LINK_PACKAGE_BOX_POSITION).getObjectId());
+		assertEquals(VALUE_BOTTOM_PLANE,
+				system.getObjectById(robot_id).getAttribute(ATTRIBUTE_VERTICAL_DRIVE_POSITION).getValueAsString());
 
 		element = openGrab();
-		systemVariants = element.prepareSystemVariants(actual_system);
+		systemVariants = element.applyTo(system);
 		assertEquals(1, systemVariants.length);
 
-		expected_system = actual_system.clone();
-		expected_system.getObjectById(grab_id).getLink(LINK_GRAB_POSITION).setObjectId(null);
-		expected_system.getObjectById(packageBox_id).getLink(LINK_GRAB_POSITION).setObjectId(null);
-		element.applyTo(systemVariants[0]);
-		actual_system = systemVariants[0].getSystem();
-		assertTrue(expected_system.equals(actual_system));
+		system = systemVariants[0].getSystem();
+		assertEquals(null, system.getObjectById(grab_id).getLink(LINK_GRAB_POSITION).getObjectId());
+		assertEquals(null, system.getObjectById(packageBox_id).getLink(LINK_GRAB_POSITION).getObjectId());
 
 		element = moveToPosition2();
-		systemVariants = element.prepareSystemVariants(actual_system);
+		systemVariants = element.applyTo(system);
 		assertEquals(1, systemVariants.length);
-		expected_system = actual_system.clone();
-		expected_system.getObjectById(robot_id).getAttribute(ATTRIBUTE_LINEAR_DRIVE_POSITION).setValue(VALUE_TABLE_2);
-		element.applyTo(systemVariants[0]);
-		actual_system = systemVariants[0].getSystem();
-		assertTrue(expected_system.equals(actual_system));
+
+		system = systemVariants[0].getSystem();
+		assertEquals(VALUE_TABLE_2,
+				system.getObjectById(robot_id).getAttribute(ATTRIBUTE_LINEAR_DRIVE_POSITION).getValueAsString());
 	}
 
 	@Test
@@ -588,7 +565,7 @@ public class AssemblyLine {
 		initial_system.addObject(table_2);
 
 		SystemVariant[] systemVariants;
-		systemVariants = rotateToTransportLine().prepareSystemVariants(initial_system);
+		systemVariants = rotateToTransportLine().applyTo(initial_system);
 		assertEquals(1, systemVariants.length);
 
 		final System final_system = new System();

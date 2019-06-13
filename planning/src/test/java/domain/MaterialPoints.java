@@ -1,8 +1,6 @@
 package domain;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
@@ -178,7 +176,6 @@ public class MaterialPoints {
 
 	@Test
 	public void applicationOfElements() {
-		final System initial_system = new System();
 		final SystemObject object = new SystemObject("материальная точка");
 		final SystemObject point_1 = new SystemObject("точка-1");
 		final SystemObject point_2 = new SystemObject("точка-2");
@@ -213,72 +210,59 @@ public class MaterialPoints {
 		point_4.addLink(new Link(LINK_NEIGHBOR_TOP, point_2_id));
 		point_4.addLink(new Link(LINK_POSITION, null));
 
-		initial_system.addObject(object);
-		initial_system.addObject(point_1);
-		initial_system.addObject(point_2);
-		initial_system.addObject(point_3);
-		initial_system.addObject(point_4);
+		System system = new System();
+		system.addObject(object);
+		system.addObject(point_1);
+		system.addObject(point_2);
+		system.addObject(point_3);
+		system.addObject(point_4);
 
-		System expected_system;
-		System actual_system = initial_system.clone();
 		Element element;
 		SystemVariant[] systemVariants;
 
 		element = moveRight();
-		systemVariants = element.prepareSystemVariants(actual_system);
+		systemVariants = element.applyTo(system);
 		assertEquals(1, systemVariants.length);
 
-		expected_system = actual_system.clone();
-		expected_system.getObjectById(object_id).getLink(LINK_POSITION).setObjectId(point_2_id);
-		expected_system.getObjectById(point_1_id).getAttribute(ATTRIBUTE_OCCUPIED).setValue(false);
-		expected_system.getObjectById(point_1_id).getLink(LINK_POSITION).setObjectId(null);
-		expected_system.getObjectById(point_2_id).getAttribute(ATTRIBUTE_OCCUPIED).setValue(true);
-		expected_system.getObjectById(point_2_id).getLink(LINK_POSITION).setObjectId(object_id);
-		element.applyTo(systemVariants[0]);
-		actual_system = systemVariants[0].getSystem();
-		assertTrue(expected_system.equals(actual_system));
+		system = systemVariants[0].getSystem();
+		assertEquals(point_2_id, system.getObjectById(object_id).getLink(LINK_POSITION).getObjectId());
+		assertEquals(false, system.getObjectById(point_1_id).getAttribute(ATTRIBUTE_OCCUPIED).getValueAsBoolean());
+		assertEquals(null, system.getObjectById(point_1_id).getLink(LINK_POSITION).getObjectId());
+		assertEquals(true, system.getObjectById(point_2_id).getAttribute(ATTRIBUTE_OCCUPIED).getValueAsBoolean());
+		assertEquals(object_id, system.getObjectById(point_2_id).getLink(LINK_POSITION).getObjectId());
 
 		element = moveBottom();
-		systemVariants = element.prepareSystemVariants(actual_system);
+		systemVariants = element.applyTo(system);
 		assertEquals(1, systemVariants.length);
 
-		expected_system = actual_system.clone();
-		expected_system.getObjectById(object_id).getLink(LINK_POSITION).setObjectId(point_4_id);
-		expected_system.getObjectById(point_2_id).getAttribute(ATTRIBUTE_OCCUPIED).setValue(false);
-		expected_system.getObjectById(point_2_id).getLink(LINK_POSITION).setObjectId(null);
-		expected_system.getObjectById(point_4_id).getAttribute(ATTRIBUTE_OCCUPIED).setValue(true);
-		expected_system.getObjectById(point_4_id).getLink(LINK_POSITION).setObjectId(object_id);
-		element.applyTo(systemVariants[0]);
-		actual_system = systemVariants[0].getSystem();
-		assertTrue(expected_system.equals(actual_system));
+		system = systemVariants[0].getSystem();
+		assertEquals(point_4_id, system.getObjectById(object_id).getLink(LINK_POSITION).getObjectId());
+		assertEquals(false, system.getObjectById(point_2_id).getAttribute(ATTRIBUTE_OCCUPIED).getValueAsBoolean());
+		assertEquals(null, system.getObjectById(point_2_id).getLink(LINK_POSITION).getObjectId());
+		assertEquals(true, system.getObjectById(point_4_id).getAttribute(ATTRIBUTE_OCCUPIED).getValueAsBoolean());
+		assertEquals(object_id, system.getObjectById(point_4_id).getLink(LINK_POSITION).getObjectId());
 
 		element = moveLeft();
-		systemVariants = element.prepareSystemVariants(actual_system);
+		systemVariants = element.applyTo(system);
 		assertEquals(1, systemVariants.length);
 
-		expected_system = actual_system.clone();
-		expected_system.getObjectById(object_id).getLink(LINK_POSITION).setObjectId(point_3_id);
-		expected_system.getObjectById(point_4_id).getAttribute(ATTRIBUTE_OCCUPIED).setValue(false);
-		expected_system.getObjectById(point_4_id).getLink(LINK_POSITION).setObjectId(null);
-		expected_system.getObjectById(point_3_id).getAttribute(ATTRIBUTE_OCCUPIED).setValue(true);
-		expected_system.getObjectById(point_3_id).getLink(LINK_POSITION).setObjectId(object_id);
-		element.applyTo(systemVariants[0]);
-		actual_system = systemVariants[0].getSystem();
-		assertTrue(expected_system.equals(actual_system));
+		system = systemVariants[0].getSystem();
+		assertEquals(point_3_id, system.getObjectById(object_id).getLink(LINK_POSITION).getObjectId());
+		assertEquals(false, system.getObjectById(point_4_id).getAttribute(ATTRIBUTE_OCCUPIED).getValueAsBoolean());
+		assertEquals(null, system.getObjectById(point_4_id).getLink(LINK_POSITION).getObjectId());
+		assertEquals(true, system.getObjectById(point_3_id).getAttribute(ATTRIBUTE_OCCUPIED).getValueAsBoolean());
+		assertEquals(object_id, system.getObjectById(point_3_id).getLink(LINK_POSITION).getObjectId());
 
 		element = moveTop();
-		systemVariants = element.prepareSystemVariants(actual_system);
+		systemVariants = element.applyTo(system);
 		assertEquals(1, systemVariants.length);
 
-		expected_system = actual_system.clone();
-		expected_system.getObjectById(object_id).getLink(LINK_POSITION).setObjectId(point_1_id);
-		expected_system.getObjectById(point_3_id).getAttribute(ATTRIBUTE_OCCUPIED).setValue(false);
-		expected_system.getObjectById(point_3_id).getLink(LINK_POSITION).setObjectId(null);
-		expected_system.getObjectById(point_1_id).getAttribute(ATTRIBUTE_OCCUPIED).setValue(true);
-		expected_system.getObjectById(point_1_id).getLink(LINK_POSITION).setObjectId(object_id);
-		element.applyTo(systemVariants[0]);
-		actual_system = systemVariants[0].getSystem();
-		assertTrue(expected_system.equals(actual_system));
+		system = systemVariants[0].getSystem();
+		assertEquals(point_1_id, system.getObjectById(object_id).getLink(LINK_POSITION).getObjectId());
+		assertEquals(false, system.getObjectById(point_3_id).getAttribute(ATTRIBUTE_OCCUPIED).getValueAsBoolean());
+		assertEquals(null, system.getObjectById(point_3_id).getLink(LINK_POSITION).getObjectId());
+		assertEquals(true, system.getObjectById(point_1_id).getAttribute(ATTRIBUTE_OCCUPIED).getValueAsBoolean());
+		assertEquals(object_id, system.getObjectById(point_1_id).getLink(LINK_POSITION).getObjectId());
 	}
 
 	@Test
@@ -325,16 +309,16 @@ public class MaterialPoints {
 		initial_system.addObject(point_4);
 
 		SystemVariant[] systemVariants;
-		systemVariants = moveRight().prepareSystemVariants(initial_system);
+		systemVariants = moveRight().applyTo(initial_system);
 		assertEquals(1, systemVariants.length);
 
-		systemVariants = moveLeft().prepareSystemVariants(initial_system);
+		systemVariants = moveLeft().applyTo(initial_system);
 		assertEquals(0, systemVariants.length);
 
-		systemVariants = moveTop().prepareSystemVariants(initial_system);
+		systemVariants = moveTop().applyTo(initial_system);
 		assertEquals(0, systemVariants.length);
 
-		systemVariants = moveBottom().prepareSystemVariants(initial_system);
+		systemVariants = moveBottom().applyTo(initial_system);
 		assertEquals(0, systemVariants.length);
 
 		final System final_system = new System();
@@ -565,16 +549,16 @@ public class MaterialPoints {
 		initial_system.addObject(point_91);
 
 		SystemVariant[] systemVariants;
-		systemVariants = moveRight().prepareSystemVariants(initial_system);
+		systemVariants = moveRight().applyTo(initial_system);
 		assertEquals(1, systemVariants.length);
 
-		systemVariants = moveLeft().prepareSystemVariants(initial_system);
+		systemVariants = moveLeft().applyTo(initial_system);
 		assertEquals(0, systemVariants.length);
 
-		systemVariants = moveTop().prepareSystemVariants(initial_system);
+		systemVariants = moveTop().applyTo(initial_system);
 		assertEquals(1, systemVariants.length);
 
-		systemVariants = moveBottom().prepareSystemVariants(initial_system);
+		systemVariants = moveBottom().applyTo(initial_system);
 		assertEquals(1, systemVariants.length);
 
 		final System final_system = new System();
