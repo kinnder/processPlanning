@@ -73,15 +73,14 @@ public class AssemblyLine {
 
 	private static final String ATTRIBUTE_HACK_PLANE_X_TABLE_2 = "плоскость X стол 2";
 
-	// TODO : template сравнение связей на NOT-NULL или ANY-VALUE
 	// TODO : поддержка массивов связей с одинаковым именем
 	private static final String LINK_GRAB_POSITION = "положение захвата";
 
-	private static final String LINK_RD_POSITION = "положение поворотного привода";
+	private static final String LINK_ROTARY_DRIVE_POSITION = "положение поворотного привода";
 
-	private static final String LINK_LD_POSITION = "положение линейного привода";
+	private static final String LINK_LINEAR_DRIVE_POSITION = "положение линейного привода";
 
-	private static final String LINK_VD_POSITION = "положение вертикального привода";
+	private static final String LINK_VERTICAL_DRIVE_POSITION = "положение вертикального привода";
 
 	private static final String LINK_PACKAGE_BOX_POSITION = "место тары";
 
@@ -117,16 +116,16 @@ public class AssemblyLine {
 		final String plane_y_inside_id = plane_y_inside.getObjectId();
 
 		robot.addAttribute(new AttributeTemplate(ATTRIBUTE_PICK_AND_PLACE_ROBOT, true));
-		robot.addLink(new LinkTemplate(LINK_RD_POSITION, plane_y_inside_id));
+		robot.addLink(new LinkTemplate(LINK_ROTARY_DRIVE_POSITION, plane_y_inside_id));
 		robot.addLink(new LinkTemplate(LINK_GRAB_POSITION, null));
 
 		plane_y_inside.addAttribute(new AttributeTemplate(ATTRIBUTE_PLANE_Y, true));
 		plane_y_inside.addAttribute(new AttributeTemplate(ATTRIBUTE_HACK_PLANE_Y_INSIDE, true));
-		plane_y_inside.addLink(new LinkTemplate(LINK_RD_POSITION, robot_id));
+		plane_y_inside.addLink(new LinkTemplate(LINK_ROTARY_DRIVE_POSITION, robot_id));
 
 		plane_y_outside.addAttribute(new AttributeTemplate(ATTRIBUTE_PLANE_Y, true));
 		plane_y_outside.addAttribute(new AttributeTemplate(ATTRIBUTE_HACK_PLANE_Y_OUTSIDE, true));
-		plane_y_outside.addLink(new LinkTemplate(LINK_RD_POSITION, null));
+		plane_y_outside.addLink(new LinkTemplate(LINK_ROTARY_DRIVE_POSITION, null));
 
 		final SystemTemplate template = new SystemTemplate();
 		template.addObject(robot);
@@ -134,9 +133,9 @@ public class AssemblyLine {
 		template.addObject(plane_y_inside);
 
 		final Transformation transformations[] = new Transformation[] {
-				new LinkTransformation(robot_id, LINK_RD_POSITION, plane_y_outside_id),
-				new LinkTransformation(plane_y_outside_id, LINK_RD_POSITION, robot_id),
-				new LinkTransformation(plane_y_inside_id, LINK_RD_POSITION, null) };
+				new LinkTransformation(robot_id, LINK_ROTARY_DRIVE_POSITION, plane_y_outside_id),
+				new LinkTransformation(plane_y_outside_id, LINK_ROTARY_DRIVE_POSITION, robot_id),
+				new LinkTransformation(plane_y_inside_id, LINK_ROTARY_DRIVE_POSITION, null) };
 
 		return new Element(OPERATION_ROTATE_TO_TRANSPORT_LINE, template, transformations);
 	}
@@ -153,16 +152,16 @@ public class AssemblyLine {
 		final String packageBox_id = packageBox.getObjectId();
 
 		robot.addAttribute(new AttributeTemplate(ATTRIBUTE_PICK_AND_PLACE_ROBOT, true));
-		robot.addLink(new LinkTemplate(LINK_RD_POSITION, plane_y_outside_id));
+		robot.addLink(new LinkTemplate(LINK_ROTARY_DRIVE_POSITION, plane_y_outside_id));
 		robot.addLink(new LinkTemplate(LINK_GRAB_POSITION, packageBox_id));
 
 		plane_y_inside.addAttribute(new AttributeTemplate(ATTRIBUTE_PLANE_Y, true));
 		plane_y_inside.addAttribute(new AttributeTemplate(ATTRIBUTE_HACK_PLANE_Y_INSIDE, true));
-		plane_y_inside.addLink(new LinkTemplate(LINK_RD_POSITION, null));
+		plane_y_inside.addLink(new LinkTemplate(LINK_ROTARY_DRIVE_POSITION, null));
 
 		plane_y_outside.addAttribute(new AttributeTemplate(ATTRIBUTE_PLANE_Y, true));
 		plane_y_outside.addAttribute(new AttributeTemplate(ATTRIBUTE_HACK_PLANE_Y_OUTSIDE, true));
-		plane_y_outside.addLink(new LinkTemplate(LINK_RD_POSITION, robot_id));
+		plane_y_outside.addLink(new LinkTemplate(LINK_ROTARY_DRIVE_POSITION, robot_id));
 
 		packageBox.addAttribute(new AttributeTemplate(ATTRIBUTE_PACKAGE, true));
 		packageBox.addLink(new LinkTemplate(LINK_GRAB_POSITION, robot_id));
@@ -175,9 +174,9 @@ public class AssemblyLine {
 		template.addObject(packageBox);
 
 		final Transformation transformations[] = new Transformation[] {
-				new LinkTransformation(robot_id, LINK_RD_POSITION, plane_y_inside_id),
-				new LinkTransformation(plane_y_outside_id, LINK_RD_POSITION, null),
-				new LinkTransformation(plane_y_inside_id, LINK_RD_POSITION, robot_id) };
+				new LinkTransformation(robot_id, LINK_ROTARY_DRIVE_POSITION, plane_y_inside_id),
+				new LinkTransformation(plane_y_outside_id, LINK_ROTARY_DRIVE_POSITION, null),
+				new LinkTransformation(plane_y_inside_id, LINK_ROTARY_DRIVE_POSITION, robot_id) };
 
 		return new Element(OPERATION_ROTATE_TO_STATION, template, transformations);
 	}
@@ -207,18 +206,18 @@ public class AssemblyLine {
 
 		robot.addAttribute(new AttributeTemplate(ATTRIBUTE_PICK_AND_PLACE_ROBOT, true));
 		robot.addLink(new LinkTemplate(LINK_GRAB_POSITION, packageBox_id));
-		robot.addLink(new LinkTemplate(LINK_LD_POSITION, plane_x_id));
-		robot.addLink(new LinkTemplate(LINK_VD_POSITION, plane_z_id));
-		robot.addLink(new LinkTemplate(LINK_RD_POSITION, plane_y_id));
+		robot.addLink(new LinkTemplate(LINK_LINEAR_DRIVE_POSITION, plane_x_id));
+		robot.addLink(new LinkTemplate(LINK_VERTICAL_DRIVE_POSITION, plane_z_id));
+		robot.addLink(new LinkTemplate(LINK_ROTARY_DRIVE_POSITION, plane_y_id));
 
 		plane_x.addAttribute(new AttributeTemplate(ATTRIBUTE_PLANE_X, true));
-		plane_x.addLink(new LinkTemplate(LINK_LD_POSITION, robot_id));
+		plane_x.addLink(new LinkTemplate(LINK_LINEAR_DRIVE_POSITION, robot_id));
 
 		plane_y.addAttribute(new AttributeTemplate(ATTRIBUTE_PLANE_Y, true));
-		plane_y.addLink(new LinkTemplate(LINK_RD_POSITION, robot_id));
+		plane_y.addLink(new LinkTemplate(LINK_ROTARY_DRIVE_POSITION, robot_id));
 
 		plane_z.addAttribute(new AttributeTemplate(ATTRIBUTE_PLANE_Z, true));
-		plane_z.addLink(new LinkTemplate(LINK_VD_POSITION, robot_id));
+		plane_z.addLink(new LinkTemplate(LINK_VERTICAL_DRIVE_POSITION, robot_id));
 
 		packageBox.addAttribute(new AttributeTemplate(ATTRIBUTE_PACKAGE, true));
 		packageBox.addLink(new LinkTemplate(LINK_GRAB_POSITION, robot_id));
@@ -262,18 +261,18 @@ public class AssemblyLine {
 
 		robot.addAttribute(new AttributeTemplate(ATTRIBUTE_PICK_AND_PLACE_ROBOT, true));
 		robot.addLink(new LinkTemplate(LINK_GRAB_POSITION, null));
-		robot.addLink(new LinkTemplate(LINK_LD_POSITION, plane_x_id));
-		robot.addLink(new LinkTemplate(LINK_VD_POSITION, plane_z_id));
-		robot.addLink(new LinkTemplate(LINK_RD_POSITION, plane_y_id));
+		robot.addLink(new LinkTemplate(LINK_LINEAR_DRIVE_POSITION, plane_x_id));
+		robot.addLink(new LinkTemplate(LINK_VERTICAL_DRIVE_POSITION, plane_z_id));
+		robot.addLink(new LinkTemplate(LINK_ROTARY_DRIVE_POSITION, plane_y_id));
 
 		plane_x.addAttribute(new AttributeTemplate(ATTRIBUTE_PLANE_X, true));
-		plane_x.addLink(new LinkTemplate(LINK_LD_POSITION, robot_id));
+		plane_x.addLink(new LinkTemplate(LINK_LINEAR_DRIVE_POSITION, robot_id));
 
 		plane_y.addAttribute(new AttributeTemplate(ATTRIBUTE_PLANE_Y, true));
-		plane_y.addLink(new LinkTemplate(LINK_RD_POSITION, robot_id));
+		plane_y.addLink(new LinkTemplate(LINK_ROTARY_DRIVE_POSITION, robot_id));
 
 		plane_z.addAttribute(new AttributeTemplate(ATTRIBUTE_PLANE_Z, true));
-		plane_z.addLink(new LinkTemplate(LINK_VD_POSITION, robot_id));
+		plane_z.addLink(new LinkTemplate(LINK_VERTICAL_DRIVE_POSITION, robot_id));
 
 		packageBox.addAttribute(new AttributeTemplate(ATTRIBUTE_PACKAGE, true));
 		packageBox.addLink(new LinkTemplate(LINK_GRAB_POSITION, null));
@@ -313,14 +312,14 @@ public class AssemblyLine {
 		final String packageBoxPosition_id = packageBoxPosition.getObjectId();
 
 		robot.addAttribute(new AttributeTemplate(ATTRIBUTE_PICK_AND_PLACE_ROBOT, true));
-		robot.addLink(new LinkTemplate(LINK_VD_POSITION, plane_z_bottom_id));
+		robot.addLink(new LinkTemplate(LINK_VERTICAL_DRIVE_POSITION, plane_z_bottom_id));
 		robot.addLink(new LinkTemplate(LINK_GRAB_POSITION, packageBox_id));
 
 		plane_z_top.addAttribute(new AttributeTemplate(ATTRIBUTE_PLANE_Z, true));
-		plane_z_top.addLink(new LinkTemplate(LINK_VD_POSITION, null));
+		plane_z_top.addLink(new LinkTemplate(LINK_VERTICAL_DRIVE_POSITION, null));
 
 		plane_z_bottom.addAttribute(new AttributeTemplate(ATTRIBUTE_PLANE_Z, true));
-		plane_z_bottom.addLink(new LinkTemplate(LINK_VD_POSITION, robot_id));
+		plane_z_bottom.addLink(new LinkTemplate(LINK_VERTICAL_DRIVE_POSITION, robot_id));
 
 		packageBox.addAttribute(new AttributeTemplate(ATTRIBUTE_PACKAGE, true));
 		packageBox.addLink(new LinkTemplate(LINK_GRAB_POSITION, robot_id));
@@ -332,9 +331,9 @@ public class AssemblyLine {
 		final Transformation transformations[] = new Transformation[] {
 				new LinkTransformation(packageBox_id, LINK_PACKAGE_BOX_POSITION, null),
 				new LinkTransformation(packageBoxPosition_id, LINK_PACKAGE_BOX_POSITION, null),
-				new LinkTransformation(robot_id, LINK_VD_POSITION, plane_z_top_id),
-				new LinkTransformation(plane_z_top_id, LINK_VD_POSITION, robot_id),
-				new LinkTransformation(plane_z_bottom_id, LINK_VD_POSITION, null) };
+				new LinkTransformation(robot_id, LINK_VERTICAL_DRIVE_POSITION, plane_z_top_id),
+				new LinkTransformation(plane_z_top_id, LINK_VERTICAL_DRIVE_POSITION, robot_id),
+				new LinkTransformation(plane_z_bottom_id, LINK_VERTICAL_DRIVE_POSITION, null) };
 
 		return new Element(OPERATION_LIFT_UP, template, transformations);
 	}
@@ -366,22 +365,22 @@ public class AssemblyLine {
 		final String packageBoxPosition_id = packageBoxPosition.getObjectId();
 
 		robot.addAttribute(new AttributeTemplate(ATTRIBUTE_PICK_AND_PLACE_ROBOT, true));
-		robot.addLink(new LinkTemplate(LINK_LD_POSITION, plane_x_id));
-		robot.addLink(new LinkTemplate(LINK_VD_POSITION, plane_z_top_id));
-		robot.addLink(new LinkTemplate(LINK_RD_POSITION, plane_y_id));
+		robot.addLink(new LinkTemplate(LINK_LINEAR_DRIVE_POSITION, plane_x_id));
+		robot.addLink(new LinkTemplate(LINK_VERTICAL_DRIVE_POSITION, plane_z_top_id));
+		robot.addLink(new LinkTemplate(LINK_ROTARY_DRIVE_POSITION, plane_y_id));
 		robot.addLink(new LinkTemplate(LINK_GRAB_POSITION, packageBox_id));
 
 		plane_x.addAttribute(new AttributeTemplate(ATTRIBUTE_PLANE_X, true));
-		plane_x.addLink(new LinkTemplate(LINK_LD_POSITION, robot_id));
+		plane_x.addLink(new LinkTemplate(LINK_LINEAR_DRIVE_POSITION, robot_id));
 
 		plane_y.addAttribute(new AttributeTemplate(ATTRIBUTE_PLANE_Y, true));
-		plane_y.addLink(new LinkTemplate(LINK_RD_POSITION, robot_id));
+		plane_y.addLink(new LinkTemplate(LINK_ROTARY_DRIVE_POSITION, robot_id));
 
 		plane_z_top.addAttribute(new AttributeTemplate(ATTRIBUTE_PLANE_Z, true));
-		plane_z_top.addLink(new LinkTemplate(LINK_VD_POSITION, robot_id));
+		plane_z_top.addLink(new LinkTemplate(LINK_VERTICAL_DRIVE_POSITION, robot_id));
 
 		plane_z_bottom.addAttribute(new AttributeTemplate(ATTRIBUTE_PLANE_Z, true));
-		plane_z_bottom.addLink(new LinkTemplate(LINK_VD_POSITION, null));
+		plane_z_bottom.addLink(new LinkTemplate(LINK_VERTICAL_DRIVE_POSITION, null));
 
 		packageBox.addAttribute(new AttributeTemplate(ATTRIBUTE_PACKAGE, true));
 		packageBox.addLink(new LinkTemplate(LINK_GRAB_POSITION, robot_id));
@@ -396,9 +395,9 @@ public class AssemblyLine {
 		final Transformation transformations[] = new Transformation[] {
 				new LinkTransformation(packageBox_id, LINK_PACKAGE_BOX_POSITION, packageBoxPosition_id),
 				new LinkTransformation(packageBoxPosition_id, LINK_PACKAGE_BOX_POSITION, packageBox_id),
-				new LinkTransformation(robot_id, LINK_VD_POSITION, plane_z_bottom_id),
-				new LinkTransformation(plane_z_top_id, LINK_VD_POSITION, null),
-				new LinkTransformation(plane_z_bottom_id, LINK_VD_POSITION, robot_id) };
+				new LinkTransformation(robot_id, LINK_VERTICAL_DRIVE_POSITION, plane_z_bottom_id),
+				new LinkTransformation(plane_z_top_id, LINK_VERTICAL_DRIVE_POSITION, null),
+				new LinkTransformation(plane_z_bottom_id, LINK_VERTICAL_DRIVE_POSITION, robot_id) };
 
 		return new Element(OPERATION_LOWER_DOWN, template, transformations);
 	}
@@ -413,15 +412,15 @@ public class AssemblyLine {
 		final String plane_x_table_2_id = plane_x_table_2.getObjectId();
 
 		robot.addAttribute(new AttributeTemplate(ATTRIBUTE_PICK_AND_PLACE_ROBOT, true));
-		robot.addLink(new LinkTemplate(LINK_LD_POSITION, plane_x_table_2_id));
+		robot.addLink(new LinkTemplate(LINK_LINEAR_DRIVE_POSITION, plane_x_table_2_id));
 
 		plane_x_table_1.addAttribute(new AttributeTemplate(ATTRIBUTE_PLANE_X, true));
 		plane_x_table_1.addAttribute(new AttributeTemplate(ATTRIBUTE_HACK_PLANE_X_TABLE_1, true));
-		plane_x_table_1.addLink(new LinkTemplate(LINK_LD_POSITION, null));
+		plane_x_table_1.addLink(new LinkTemplate(LINK_LINEAR_DRIVE_POSITION, null));
 
 		plane_x_table_2.addAttribute(new AttributeTemplate(ATTRIBUTE_PLANE_X, true));
 		plane_x_table_2.addAttribute(new AttributeTemplate(ATTRIBUTE_HACK_PLANE_X_TABLE_2, true));
-		plane_x_table_2.addLink(new LinkTemplate(LINK_LD_POSITION, robot_id));
+		plane_x_table_2.addLink(new LinkTemplate(LINK_LINEAR_DRIVE_POSITION, robot_id));
 
 		final SystemTemplate template = new SystemTemplate();
 		template.addObject(robot);
@@ -429,9 +428,9 @@ public class AssemblyLine {
 		template.addObject(plane_x_table_2);
 
 		final Transformation transformations[] = new Transformation[] {
-				new LinkTransformation(robot_id, LINK_LD_POSITION, plane_x_table_1_id),
-				new LinkTransformation(plane_x_table_1_id, LINK_LD_POSITION, robot_id),
-				new LinkTransformation(plane_x_table_2_id, LINK_LD_POSITION, null) };
+				new LinkTransformation(robot_id, LINK_LINEAR_DRIVE_POSITION, plane_x_table_1_id),
+				new LinkTransformation(plane_x_table_1_id, LINK_LINEAR_DRIVE_POSITION, robot_id),
+				new LinkTransformation(plane_x_table_2_id, LINK_LINEAR_DRIVE_POSITION, null) };
 
 		return new Element(OPERATION_MOVE_TO_POSITION_1, template, transformations);
 	}
@@ -446,15 +445,15 @@ public class AssemblyLine {
 		final String plane_x_table_2_id = plane_x_table_2.getObjectId();
 
 		robot.addAttribute(new AttributeTemplate(ATTRIBUTE_PICK_AND_PLACE_ROBOT, true));
-		robot.addLink(new LinkTemplate(LINK_LD_POSITION, plane_x_table_1_id));
+		robot.addLink(new LinkTemplate(LINK_LINEAR_DRIVE_POSITION, plane_x_table_1_id));
 
 		plane_x_table_1.addAttribute(new AttributeTemplate(ATTRIBUTE_PLANE_X, true));
 		plane_x_table_1.addAttribute(new AttributeTemplate(ATTRIBUTE_HACK_PLANE_X_TABLE_1, true));
-		plane_x_table_1.addLink(new LinkTemplate(LINK_LD_POSITION, robot_id));
+		plane_x_table_1.addLink(new LinkTemplate(LINK_LINEAR_DRIVE_POSITION, robot_id));
 
 		plane_x_table_2.addAttribute(new AttributeTemplate(ATTRIBUTE_PLANE_X, true));
 		plane_x_table_2.addAttribute(new AttributeTemplate(ATTRIBUTE_HACK_PLANE_X_TABLE_2, true));
-		plane_x_table_2.addLink(new LinkTemplate(LINK_LD_POSITION, null));
+		plane_x_table_2.addLink(new LinkTemplate(LINK_LINEAR_DRIVE_POSITION, null));
 
 		final SystemTemplate template = new SystemTemplate();
 		template.addObject(robot);
@@ -462,9 +461,9 @@ public class AssemblyLine {
 		template.addObject(plane_x_table_2);
 
 		final Transformation transformations[] = new Transformation[] {
-				new LinkTransformation(robot_id, LINK_LD_POSITION, plane_x_table_2_id),
-				new LinkTransformation(plane_x_table_1_id, LINK_LD_POSITION, null),
-				new LinkTransformation(plane_x_table_2_id, LINK_LD_POSITION, robot_id) };
+				new LinkTransformation(robot_id, LINK_LINEAR_DRIVE_POSITION, plane_x_table_2_id),
+				new LinkTransformation(plane_x_table_1_id, LINK_LINEAR_DRIVE_POSITION, null),
+				new LinkTransformation(plane_x_table_2_id, LINK_LINEAR_DRIVE_POSITION, robot_id) };
 
 		return new Element(OPERATION_MOVE_TO_POSITION_2, template, transformations);
 	}
@@ -496,44 +495,44 @@ public class AssemblyLine {
 		system.addObject(table_1);
 		system.addObject(table_2);
 
-		final String robot_id = robot.getObjectId();
-		final String plane_x_table_1_id = plane_x_table_1.getObjectId();
-		final String plane_x_table_2_id = plane_x_table_2.getObjectId();
-		final String plane_y_outside_id = plane_y_outside.getObjectId();
-		final String plane_y_inside_id = plane_y_inside.getObjectId();
-		final String plane_z_top_id = plane_z_top.getObjectId();
-		final String plane_z_bottom_id = plane_z_bottom.getObjectId();
-		final String packageBox_id = packageBox.getObjectId();
-		final String shuttle_id = shuttle.getObjectId();
-		final String table_1_id = table_1.getObjectId();
+		final String robot_id = robot.getId();
+		final String plane_x_table_1_id = plane_x_table_1.getId();
+		final String plane_x_table_2_id = plane_x_table_2.getId();
+		final String plane_y_outside_id = plane_y_outside.getId();
+		final String plane_y_inside_id = plane_y_inside.getId();
+		final String plane_z_top_id = plane_z_top.getId();
+		final String plane_z_bottom_id = plane_z_bottom.getId();
+		final String packageBox_id = packageBox.getId();
+		final String shuttle_id = shuttle.getId();
+		final String table_1_id = table_1.getId();
 
 		robot.addAttribute(new Attribute(ATTRIBUTE_PICK_AND_PLACE_ROBOT, true));
-		robot.addLink(new Link(LINK_LD_POSITION, plane_x_table_2_id));
-		robot.addLink(new Link(LINK_RD_POSITION, plane_y_inside_id));
-		robot.addLink(new Link(LINK_VD_POSITION, plane_z_bottom_id));
+		robot.addLink(new Link(LINK_LINEAR_DRIVE_POSITION, plane_x_table_2_id));
+		robot.addLink(new Link(LINK_ROTARY_DRIVE_POSITION, plane_y_inside_id));
+		robot.addLink(new Link(LINK_VERTICAL_DRIVE_POSITION, plane_z_bottom_id));
 		robot.addLink(new Link(LINK_GRAB_POSITION, null));
 
 		plane_x_table_1.addAttribute(new Attribute(ATTRIBUTE_PLANE_X, true));
 		plane_x_table_1.addAttribute(new Attribute(ATTRIBUTE_HACK_PLANE_X_TABLE_1, true));
-		plane_x_table_1.addLink(new Link(LINK_LD_POSITION, null));
+		plane_x_table_1.addLink(new Link(LINK_LINEAR_DRIVE_POSITION, null));
 
 		plane_x_table_2.addAttribute(new Attribute(ATTRIBUTE_PLANE_X, true));
 		plane_x_table_2.addAttribute(new Attribute(ATTRIBUTE_HACK_PLANE_X_TABLE_2, true));
-		plane_x_table_2.addLink(new Link(LINK_LD_POSITION, robot_id));
+		plane_x_table_2.addLink(new Link(LINK_LINEAR_DRIVE_POSITION, robot_id));
 
 		plane_y_inside.addAttribute(new Attribute(ATTRIBUTE_PLANE_Y, true));
 		plane_y_inside.addAttribute(new Attribute(ATTRIBUTE_HACK_PLANE_Y_INSIDE, true));
-		plane_y_inside.addLink(new Link(LINK_RD_POSITION, robot_id));
+		plane_y_inside.addLink(new Link(LINK_ROTARY_DRIVE_POSITION, robot_id));
 
 		plane_y_outside.addAttribute(new Attribute(ATTRIBUTE_PLANE_Y, true));
 		plane_y_outside.addAttribute(new Attribute(ATTRIBUTE_HACK_PLANE_Y_OUTSIDE, true));
-		plane_y_outside.addLink(new Link(LINK_RD_POSITION, null));
+		plane_y_outside.addLink(new Link(LINK_ROTARY_DRIVE_POSITION, null));
 
 		plane_z_top.addAttribute(new Attribute(ATTRIBUTE_PLANE_Z, true));
-		plane_z_top.addLink(new Link(LINK_VD_POSITION, null));
+		plane_z_top.addLink(new Link(LINK_VERTICAL_DRIVE_POSITION, null));
 
 		plane_z_bottom.addAttribute(new Attribute(ATTRIBUTE_PLANE_Z, true));
-		plane_z_bottom.addLink(new Link(LINK_VD_POSITION, robot_id));
+		plane_z_bottom.addLink(new Link(LINK_VERTICAL_DRIVE_POSITION, robot_id));
 
 		packageBox.addAttribute(new Attribute(ATTRIBUTE_PACKAGE, true));
 		packageBox.addLink(new Link(LINK_GRAB_POSITION, null));
@@ -568,9 +567,11 @@ public class AssemblyLine {
 		assertEquals(1, systemVariants.length);
 
 		system = systemVariants[0].getSystem();
-		assertEquals(plane_y_outside_id, system.getObjectById(robot_id).getLink(LINK_RD_POSITION).getObjectId());
-		assertEquals(robot_id, system.getObjectById(plane_y_outside_id).getLink(LINK_RD_POSITION).getObjectId());
-		assertEquals(null, system.getObjectById(plane_y_inside_id).getLink(LINK_RD_POSITION).getObjectId());
+		assertEquals(plane_y_outside_id,
+				system.getObjectById(robot_id).getLink(LINK_ROTARY_DRIVE_POSITION).getObjectId());
+		assertEquals(robot_id,
+				system.getObjectById(plane_y_outside_id).getLink(LINK_ROTARY_DRIVE_POSITION).getObjectId());
+		assertEquals(null, system.getObjectById(plane_y_inside_id).getLink(LINK_ROTARY_DRIVE_POSITION).getObjectId());
 
 		element = closeGrab();
 		systemVariants = element.applyTo(system);
@@ -587,27 +588,33 @@ public class AssemblyLine {
 		system = systemVariants[0].getSystem();
 		assertEquals(null, system.getObjectById(packageBox_id).getLink(LINK_PACKAGE_BOX_POSITION).getObjectId());
 		assertEquals(null, system.getObjectById(shuttle_id).getLink(LINK_PACKAGE_BOX_POSITION).getObjectId());
-		assertEquals(plane_z_top_id, system.getObjectById(robot_id).getLink(LINK_VD_POSITION).getObjectId());
-		assertEquals(robot_id, system.getObjectById(plane_z_top_id).getLink(LINK_VD_POSITION).getObjectId());
-		assertEquals(null, system.getObjectById(plane_z_bottom_id).getLink(LINK_VD_POSITION).getObjectId());
+		assertEquals(plane_z_top_id,
+				system.getObjectById(robot_id).getLink(LINK_VERTICAL_DRIVE_POSITION).getObjectId());
+		assertEquals(robot_id,
+				system.getObjectById(plane_z_top_id).getLink(LINK_VERTICAL_DRIVE_POSITION).getObjectId());
+		assertEquals(null, system.getObjectById(plane_z_bottom_id).getLink(LINK_VERTICAL_DRIVE_POSITION).getObjectId());
 
 		element = rotateToStation();
 		systemVariants = element.applyTo(system);
 		assertEquals(1, systemVariants.length);
 
 		system = systemVariants[0].getSystem();
-		assertEquals(plane_y_inside_id, system.getObjectById(robot_id).getLink(LINK_RD_POSITION).getObjectId());
-		assertEquals(null, system.getObjectById(plane_y_outside_id).getLink(LINK_RD_POSITION).getObjectId());
-		assertEquals(robot_id, system.getObjectById(plane_y_inside_id).getLink(LINK_RD_POSITION).getObjectId());
+		assertEquals(plane_y_inside_id,
+				system.getObjectById(robot_id).getLink(LINK_ROTARY_DRIVE_POSITION).getObjectId());
+		assertEquals(null, system.getObjectById(plane_y_outside_id).getLink(LINK_ROTARY_DRIVE_POSITION).getObjectId());
+		assertEquals(robot_id,
+				system.getObjectById(plane_y_inside_id).getLink(LINK_ROTARY_DRIVE_POSITION).getObjectId());
 
 		element = moveToPosition1();
 		systemVariants = element.applyTo(system);
 		assertEquals(1, systemVariants.length);
 
 		system = systemVariants[0].getSystem();
-		assertEquals(plane_x_table_1_id, system.getObjectById(robot_id).getLink(LINK_LD_POSITION).getObjectId());
-		assertEquals(robot_id, system.getObjectById(plane_x_table_1_id).getLink(LINK_LD_POSITION).getObjectId());
-		assertEquals(null, system.getObjectById(plane_x_table_2_id).getLink(LINK_LD_POSITION).getObjectId());
+		assertEquals(plane_x_table_1_id,
+				system.getObjectById(robot_id).getLink(LINK_LINEAR_DRIVE_POSITION).getObjectId());
+		assertEquals(robot_id,
+				system.getObjectById(plane_x_table_1_id).getLink(LINK_LINEAR_DRIVE_POSITION).getObjectId());
+		assertEquals(null, system.getObjectById(plane_x_table_2_id).getLink(LINK_LINEAR_DRIVE_POSITION).getObjectId());
 
 		element = lowerDown();
 		systemVariants = element.applyTo(system);
@@ -616,9 +623,11 @@ public class AssemblyLine {
 		system = systemVariants[0].getSystem();
 		assertEquals(table_1_id, system.getObjectById(packageBox_id).getLink(LINK_PACKAGE_BOX_POSITION).getObjectId());
 		assertEquals(packageBox_id, system.getObjectById(table_1_id).getLink(LINK_PACKAGE_BOX_POSITION).getObjectId());
-		assertEquals(plane_z_bottom_id, system.getObjectById(robot_id).getLink(LINK_VD_POSITION).getObjectId());
-		assertEquals(null, system.getObjectById(plane_z_top_id).getLink(LINK_VD_POSITION).getObjectId());
-		assertEquals(robot_id, system.getObjectById(plane_z_bottom_id).getLink(LINK_VD_POSITION).getObjectId());
+		assertEquals(plane_z_bottom_id,
+				system.getObjectById(robot_id).getLink(LINK_VERTICAL_DRIVE_POSITION).getObjectId());
+		assertEquals(null, system.getObjectById(plane_z_top_id).getLink(LINK_VERTICAL_DRIVE_POSITION).getObjectId());
+		assertEquals(robot_id,
+				system.getObjectById(plane_z_bottom_id).getLink(LINK_VERTICAL_DRIVE_POSITION).getObjectId());
 
 		element = openGrab();
 		systemVariants = element.applyTo(system);
@@ -633,9 +642,11 @@ public class AssemblyLine {
 		assertEquals(1, systemVariants.length);
 
 		system = systemVariants[0].getSystem();
-		assertEquals(plane_x_table_2_id, system.getObjectById(robot_id).getLink(LINK_LD_POSITION).getObjectId());
-		assertEquals(null, system.getObjectById(plane_x_table_1_id).getLink(LINK_LD_POSITION).getObjectId());
-		assertEquals(robot_id, system.getObjectById(plane_x_table_2_id).getLink(LINK_LD_POSITION).getObjectId());
+		assertEquals(plane_x_table_2_id,
+				system.getObjectById(robot_id).getLink(LINK_LINEAR_DRIVE_POSITION).getObjectId());
+		assertEquals(null, system.getObjectById(plane_x_table_1_id).getLink(LINK_LINEAR_DRIVE_POSITION).getObjectId());
+		assertEquals(robot_id,
+				system.getObjectById(plane_x_table_2_id).getLink(LINK_LINEAR_DRIVE_POSITION).getObjectId());
 	}
 
 	@Test
@@ -665,43 +676,43 @@ public class AssemblyLine {
 		system.addObject(table_1);
 		system.addObject(table_2);
 
-		final String robot_id = robot.getObjectId();
-		final String plane_x_table_1_id = plane_x_table_1.getObjectId();
-		final String plane_x_table_2_id = plane_x_table_2.getObjectId();
-		final String plane_y_outside_id = plane_y_outside.getObjectId();
-		final String plane_y_inside_id = plane_y_inside.getObjectId();
-		final String plane_z_bottom_id = plane_z_bottom.getObjectId();
-		final String packageBox_id = packageBox.getObjectId();
-		final String shuttle_id = shuttle.getObjectId();
-		final String table_1_id = table_1.getObjectId();
+		final String robot_id = robot.getId();
+		final String plane_x_table_1_id = plane_x_table_1.getId();
+		final String plane_x_table_2_id = plane_x_table_2.getId();
+		final String plane_y_outside_id = plane_y_outside.getId();
+		final String plane_y_inside_id = plane_y_inside.getId();
+		final String plane_z_bottom_id = plane_z_bottom.getId();
+		final String packageBox_id = packageBox.getId();
+		final String shuttle_id = shuttle.getId();
+		final String table_1_id = table_1.getId();
 
 		robot.addAttribute(new Attribute(ATTRIBUTE_PICK_AND_PLACE_ROBOT, true));
-		robot.addLink(new Link(LINK_LD_POSITION, plane_x_table_2_id));
-		robot.addLink(new Link(LINK_RD_POSITION, plane_y_inside_id));
-		robot.addLink(new Link(LINK_VD_POSITION, plane_z_bottom_id));
+		robot.addLink(new Link(LINK_LINEAR_DRIVE_POSITION, plane_x_table_2_id));
+		robot.addLink(new Link(LINK_ROTARY_DRIVE_POSITION, plane_y_inside_id));
+		robot.addLink(new Link(LINK_VERTICAL_DRIVE_POSITION, plane_z_bottom_id));
 		robot.addLink(new Link(LINK_GRAB_POSITION, null));
 
 		plane_x_table_1.addAttribute(new Attribute(ATTRIBUTE_PLANE_X, true));
 		plane_x_table_1.addAttribute(new Attribute(ATTRIBUTE_HACK_PLANE_X_TABLE_1, true));
-		plane_x_table_1.addLink(new Link(LINK_LD_POSITION, null));
+		plane_x_table_1.addLink(new Link(LINK_LINEAR_DRIVE_POSITION, null));
 
 		plane_x_table_2.addAttribute(new Attribute(ATTRIBUTE_PLANE_X, true));
 		plane_x_table_2.addAttribute(new Attribute(ATTRIBUTE_HACK_PLANE_X_TABLE_2, true));
-		plane_x_table_2.addLink(new Link(LINK_LD_POSITION, robot_id));
+		plane_x_table_2.addLink(new Link(LINK_LINEAR_DRIVE_POSITION, robot_id));
 
 		plane_y_inside.addAttribute(new Attribute(ATTRIBUTE_PLANE_Y, true));
 		plane_y_inside.addAttribute(new Attribute(ATTRIBUTE_HACK_PLANE_Y_INSIDE, true));
-		plane_y_inside.addLink(new Link(LINK_RD_POSITION, robot_id));
+		plane_y_inside.addLink(new Link(LINK_ROTARY_DRIVE_POSITION, robot_id));
 
 		plane_y_outside.addAttribute(new Attribute(ATTRIBUTE_PLANE_Y, true));
 		plane_y_outside.addAttribute(new Attribute(ATTRIBUTE_HACK_PLANE_Y_OUTSIDE, true));
-		plane_y_outside.addLink(new Link(LINK_RD_POSITION, null));
+		plane_y_outside.addLink(new Link(LINK_ROTARY_DRIVE_POSITION, null));
 
 		plane_z_top.addAttribute(new Attribute(ATTRIBUTE_PLANE_Z, true));
-		plane_z_top.addLink(new Link(LINK_VD_POSITION, null));
+		plane_z_top.addLink(new Link(LINK_VERTICAL_DRIVE_POSITION, null));
 
 		plane_z_bottom.addAttribute(new Attribute(ATTRIBUTE_PLANE_Z, true));
-		plane_z_bottom.addLink(new Link(LINK_VD_POSITION, robot_id));
+		plane_z_bottom.addLink(new Link(LINK_VERTICAL_DRIVE_POSITION, robot_id));
 
 		packageBox.addAttribute(new Attribute(ATTRIBUTE_PACKAGE, true));
 		packageBox.addLink(new Link(LINK_GRAB_POSITION, null));

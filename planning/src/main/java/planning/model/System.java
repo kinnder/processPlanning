@@ -19,10 +19,10 @@ public class System implements Cloneable {
 		objects.add(object);
 	}
 
-	public Set<String> getSystemIds() {
+	public Set<String> getIds() {
 		Set<String> systemIds = new HashSet<>();
 		for (SystemObject object : objects) {
-			Set<String> objectIds = object.getObjectIds();
+			Set<String> objectIds = object.getIds();
 			systemIds.addAll(objectIds);
 		}
 		return Collections.unmodifiableSet(systemIds);
@@ -51,22 +51,22 @@ public class System implements Cloneable {
 			return false;
 		}
 
-		List<SystemObject> notEqualThings = new ArrayList<>(objects);
-		for (SystemObject thing : system.objects) {
-			for (SystemObject notEqualThing : notEqualThings) {
-				if (thing.equals(notEqualThing)) {
-					notEqualThings.remove(notEqualThing);
+		List<SystemObject> notEqualObjects = new ArrayList<>(objects);
+		for (SystemObject object : system.objects) {
+			for (SystemObject notEqualObject : notEqualObjects) {
+				if (object.equals(notEqualObject)) {
+					notEqualObjects.remove(notEqualObject);
 					break;
 				}
 			}
 		}
 
-		return notEqualThings.isEmpty();
+		return notEqualObjects.isEmpty();
 	}
 
-	public SystemObject getObjectById(String objectId) {
+	public SystemObject getObjectById(String id) {
 		for (SystemObject object : objects) {
-			if (object.getObjectId().equals(objectId)) {
+			if (object.getId().equals(id)) {
 				return object;
 			}
 		}

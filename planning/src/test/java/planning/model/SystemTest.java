@@ -115,7 +115,7 @@ public class SystemTest {
 	}
 
 	@Test
-	public void getSystemIds() {
+	public void getIds() {
 		final SystemObject object_1_mock = context.mock(SystemObject.class, "object-1");
 		final SystemObject object_2_mock = context.mock(SystemObject.class, "object-2");
 		testable.addObject(object_1_mock);
@@ -129,15 +129,15 @@ public class SystemTest {
 
 		context.checking(new Expectations() {
 			{
-				oneOf(object_1_mock).getObjectIds();
+				oneOf(object_1_mock).getIds();
 				will(returnValue(object_1_ids));
 
-				oneOf(object_2_mock).getObjectIds();
+				oneOf(object_2_mock).getIds();
 				will(returnValue(object_2_ids));
 			}
 		});
 
-		Set<String> systemIds = testable.getSystemIds();
+		Set<String> systemIds = testable.getIds();
 		assertEquals(2, systemIds.size());
 		assertTrue(systemIds.contains("id-1"));
 		assertTrue(systemIds.contains("id-2"));

@@ -57,10 +57,10 @@ public class SystemTemplateTest {
 
 		context.checking(new Expectations() {
 			{
-				oneOf(objectTemplate_mock).getObjectIds();
+				oneOf(objectTemplate_mock).getIds();
 				will(returnValue(objectTemplate_ids));
 
-				oneOf(object_mock).getObjectIds();
+				oneOf(object_mock).getIds();
 				will(returnValue(object_ids));
 
 				oneOf(idsMatchingManager_mock).prepareMatchingsCandidates(with(any(Set.class)), with(any(Set.class)));
@@ -110,10 +110,10 @@ public class SystemTemplateTest {
 
 		context.checking(new Expectations() {
 			{
-				oneOf(objectTemplate_mock).getObjectIds();
+				oneOf(objectTemplate_mock).getIds();
 				will(returnValue(objectTemplate_ids));
 
-				oneOf(object_mock).getObjectIds();
+				oneOf(object_mock).getIds();
 				will(returnValue(object_ids));
 
 				oneOf(idsMatchingManager_mock).prepareMatchingsCandidates(with(any(Set.class)), with(any(Set.class)));
@@ -124,7 +124,7 @@ public class SystemTemplateTest {
 				oneOf(objectTemplate_mock).getObjectId();
 				will(returnValue("id-template"));
 
-				oneOf(object_mock).getObjectId();
+				oneOf(object_mock).getId();
 				will(returnValue("id"));
 
 				oneOf(idsMatchingManager_mock).removeMatchingsCandidate("id-template", "id");
@@ -161,10 +161,10 @@ public class SystemTemplateTest {
 
 		context.checking(new Expectations() {
 			{
-				oneOf(object_mock).getObjectIds();
+				oneOf(object_mock).getIds();
 				will(returnValue(object_ids));
 
-				oneOf(objectTemplate_mock).getObjectIds();
+				oneOf(objectTemplate_mock).getIds();
 				will(returnValue(objectTemplate_ids));
 
 				oneOf(idsMatchingManager_mock).prepareMatchingsCandidates(with(any(Set.class)), with(any(Set.class)));

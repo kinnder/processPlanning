@@ -11,10 +11,10 @@ public class SystemTemplate {
 
 	private List<SystemObjectTemplate> objects = new ArrayList<>();
 
-	public Set<String> getSystemIds() {
+	public Set<String> getIds() {
 		Set<String> systemIds = new HashSet<>();
 		for (SystemObjectTemplate object : objects) {
-			Set<String> objectIds = object.getObjectIds();
+			Set<String> objectIds = object.getIds();
 			systemIds.addAll(objectIds);
 		}
 		return systemIds;
@@ -34,12 +34,12 @@ public class SystemTemplate {
 	private IdsMatchingManager idsMatchingsManager = new IdsMatchingManager();
 
 	public IdsMatching[] matchIds(System system) {
-		idsMatchingsManager.prepareMatchingsCandidates(getSystemIds(), system.getSystemIds());
+		idsMatchingsManager.prepareMatchingsCandidates(getIds(), system.getIds());
 
 		for (SystemObject object : system.getObjects()) {
 			for (SystemObjectTemplate templateObject : objects) {
 				if (!templateObject.matchesAttributes(object)) {
-					idsMatchingsManager.removeMatchingsCandidate(templateObject.getObjectId(), object.getObjectId());
+					idsMatchingsManager.removeMatchingsCandidate(templateObject.getObjectId(), object.getId());
 				}
 			}
 		}

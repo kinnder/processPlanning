@@ -182,11 +182,11 @@ public class MaterialPoints {
 		final SystemObject point_3 = new SystemObject("точка-3");
 		final SystemObject point_4 = new SystemObject("точка-4");
 
-		final String object_id = object.getObjectId();
-		final String point_1_id = point_1.getObjectId();
-		final String point_2_id = point_2.getObjectId();
-		final String point_3_id = point_3.getObjectId();
-		final String point_4_id = point_4.getObjectId();
+		final String object_id = object.getId();
+		final String point_1_id = point_1.getId();
+		final String point_2_id = point_2.getId();
+		final String point_3_id = point_3.getId();
+		final String point_4_id = point_4.getId();
 
 		object.addLink(new Link(LINK_POSITION, point_1_id));
 
@@ -274,11 +274,11 @@ public class MaterialPoints {
 		final SystemObject point_3 = new SystemObject("точка-3");
 		final SystemObject point_4 = new SystemObject("точка-4");
 
-		final String object_id = object.getObjectId();
-		final String point_1_id = point_1.getObjectId();
-		final String point_2_id = point_2.getObjectId();
-		final String point_3_id = point_3.getObjectId();
-		final String point_4_id = point_4.getObjectId();
+		final String object_id = object.getId();
+		final String point_1_id = point_1.getId();
+		final String point_2_id = point_2.getId();
+		final String point_3_id = point_3.getId();
+		final String point_4_id = point_4.getId();
 
 		object.addLink(new Link(LINK_POSITION, point_1_id));
 
@@ -381,30 +381,30 @@ public class MaterialPoints {
 		final SystemObject point_92 = new SystemObject("точка-92");
 		final SystemObject point_91 = new SystemObject("точка-91");
 
-		final String object_id = object.getObjectId();
-		final String point_15_id = point_15.getObjectId();
-		final String point_14_id = point_14.getObjectId();
-		final String point_13_id = point_13.getObjectId();
-		final String point_12_id = point_12.getObjectId();
-		final String point_11_id = point_11.getObjectId();
-		final String point_24_id = point_24.getObjectId();
-		final String point_34_id = point_34.getObjectId();
-		final String point_33_id = point_33.getObjectId();
-		final String point_32_id = point_32.getObjectId();
-		final String point_42_id = point_42.getObjectId();
-		final String point_54_id = point_54.getObjectId();
-		final String point_53_id = point_53.getObjectId();
-		final String point_52_id = point_52.getObjectId();
-		final String point_64_id = point_64.getObjectId();
-		final String point_74_id = point_74.getObjectId();
-		final String point_73_id = point_73.getObjectId();
-		final String point_72_id = point_72.getObjectId();
-		final String point_82_id = point_82.getObjectId();
-		final String point_95_id = point_95.getObjectId();
-		final String point_94_id = point_94.getObjectId();
-		final String point_93_id = point_93.getObjectId();
-		final String point_92_id = point_92.getObjectId();
-		final String point_91_id = point_91.getObjectId();
+		final String object_id = object.getId();
+		final String point_15_id = point_15.getId();
+		final String point_14_id = point_14.getId();
+		final String point_13_id = point_13.getId();
+		final String point_12_id = point_12.getId();
+		final String point_11_id = point_11.getId();
+		final String point_24_id = point_24.getId();
+		final String point_34_id = point_34.getId();
+		final String point_33_id = point_33.getId();
+		final String point_32_id = point_32.getId();
+		final String point_42_id = point_42.getId();
+		final String point_54_id = point_54.getId();
+		final String point_53_id = point_53.getId();
+		final String point_52_id = point_52.getId();
+		final String point_64_id = point_64.getId();
+		final String point_74_id = point_74.getId();
+		final String point_73_id = point_73.getId();
+		final String point_72_id = point_72.getId();
+		final String point_82_id = point_82.getId();
+		final String point_95_id = point_95.getId();
+		final String point_94_id = point_94.getId();
+		final String point_93_id = point_93.getId();
+		final String point_92_id = point_92.getId();
+		final String point_91_id = point_91.getId();
 
 		object.addLink(new Link(LINK_POSITION, point_14_id));
 

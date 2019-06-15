@@ -198,9 +198,9 @@ public class SystemObjectTest {
 	}
 
 	@Test
-	public void getObjectId() {
+	public void getId() {
 		testable = new SystemObject("object", "id");
-		assertEquals("id", testable.getObjectId());
+		assertEquals("id", testable.getId());
 	}
 
 	@Test
@@ -234,7 +234,7 @@ public class SystemObjectTest {
 	}
 
 	@Test
-	public void getObjectIds() {
+	public void getIds() {
 		final Link link_mock = context.mock(Link.class, "link");
 
 		context.checking(new Expectations() {
@@ -252,13 +252,13 @@ public class SystemObjectTest {
 			}
 		});
 
-		Set<String> systemIds = testable.getObjectIds();
-		assertEquals(2, systemIds.size());
-		assertTrue(systemIds.contains("id-2"));
+		Set<String> ids = testable.getIds();
+		assertEquals(2, ids.size());
+		assertTrue(ids.contains("id-2"));
 	}
 
 	@Test
-	public void getObjectIds_nullValuedLink() {
+	public void getIds_nullValuedLink() {
 		final Link link_mock = context.mock(Link.class, "link");
 
 		context.checking(new Expectations() {
@@ -276,8 +276,8 @@ public class SystemObjectTest {
 			}
 		});
 
-		Set<String> systemIds = testable.getObjectIds();
-		assertEquals(1, systemIds.size());
+		Set<String> ids = testable.getIds();
+		assertEquals(1, ids.size());
 	}
 
 	@Test

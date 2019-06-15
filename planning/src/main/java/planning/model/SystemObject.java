@@ -15,7 +15,7 @@ public class SystemObject implements Cloneable {
 
 	private Map<String, Link> links = new HashMap<>();
 
-	private String objectId;
+	private String id;
 
 	private String name;
 
@@ -23,13 +23,13 @@ public class SystemObject implements Cloneable {
 		this(name, UUID.randomUUID().toString());
 	}
 
-	public SystemObject(String name, String objectId) {
+	public SystemObject(String name, String id) {
 		this.name = name;
-		this.objectId = objectId;
+		this.id = id;
 	}
 
-	public String getObjectId() {
-		return objectId;
+	public String getId() {
+		return id;
 	}
 
 	public void addAttribute(Attribute attribute) {
@@ -62,7 +62,7 @@ public class SystemObject implements Cloneable {
 
 	@Override
 	public SystemObject clone() {
-		SystemObject cloned = new SystemObject(name, objectId);
+		SystemObject cloned = new SystemObject(name, id);
 		for (Attribute attribute : attributes.values()) {
 			cloned.addAttribute(attribute.clone());
 		}
@@ -80,9 +80,9 @@ public class SystemObject implements Cloneable {
 		return links.get(linkName);
 	}
 
-	public Set<String> getObjectIds() {
+	public Set<String> getIds() {
 		Set<String> objectIds = new HashSet<>();
-		objectIds.add(objectId);
+		objectIds.add(id);
 		for (Link link : links.values()) {
 			String linkValue = link.getObjectId();
 			if (linkValue != null) {
@@ -93,7 +93,7 @@ public class SystemObject implements Cloneable {
 	}
 
 	public SystemObjectTemplate createTemplate() {
-		SystemObjectTemplate template = new SystemObjectTemplate(objectId);
+		SystemObjectTemplate template = new SystemObjectTemplate(id);
 		for (Link link : links.values()) {
 			template.addLink(link.createTemplate());
 		}
