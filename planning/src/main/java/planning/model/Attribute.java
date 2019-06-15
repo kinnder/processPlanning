@@ -66,11 +66,22 @@ public class Attribute implements Cloneable {
 		return this.name;
 	}
 
-	public boolean matches(Attribute template) {
-		return name.equals(template.name) && type.equals(template.type) && value.equals(template.value);
-	}
-
 	public void setValue(Object value) {
 		this.value = value;
+	}
+
+	public AttributeTemplate createTemplate() {
+		switch (type) {
+		case Boolean:
+			return new AttributeTemplate(name, getValueAsBoolean());
+		case String:
+			return new AttributeTemplate(name, getValueAsString());
+		default:
+			return new AttributeTemplate(name, getValueAsObject());
+		}
+	}
+
+	public AttributeType getType() {
+		return type;
 	}
 }

@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.util.Collection;
 import java.util.Set;
 
 import org.jmock.Expectations;
@@ -203,195 +204,6 @@ public class SystemObjectTest {
 	}
 
 	@Test
-	public void matchesAttributes() {
-		final Attribute attribute_1_mock = context.mock(Attribute.class, "attribute-1");
-		final Attribute attribute_2_mock = context.mock(Attribute.class, "attribute-2");
-		context.checking(new Expectations() {
-			{
-				oneOf(attribute_1_mock).getName();
-				will(returnValue("attribute-1"));
-
-				oneOf(attribute_2_mock).getName();
-				will(returnValue("attribute-2"));
-			}
-		});
-		testable.addAttribute(attribute_1_mock);
-		testable.addAttribute(attribute_2_mock);
-
-		final SystemObject template = new SystemObject("template");
-		final Attribute attribute_1_template_mock = context.mock(Attribute.class, "attribute-1-template");
-		final Attribute attribute_2_template_mock = context.mock(Attribute.class, "attribute-2-template");
-		context.checking(new Expectations() {
-			{
-				oneOf(attribute_1_template_mock).getName();
-				will(returnValue("attribute-1-template"));
-
-				oneOf(attribute_2_template_mock).getName();
-				will(returnValue("attribute-2-template"));
-			}
-		});
-		template.addAttribute(attribute_1_template_mock);
-		template.addAttribute(attribute_2_template_mock);
-
-		context.checking(new Expectations() {
-			{
-				oneOf(attribute_2_mock).matches(attribute_1_template_mock);
-				will(returnValue(false));
-
-				oneOf(attribute_2_mock).matches(attribute_2_template_mock);
-				will(returnValue(true));
-
-				oneOf(attribute_1_mock).matches(attribute_1_template_mock);
-				will(returnValue(true));
-			}
-		});
-
-		assertTrue(testable.matchesAttributes(template));
-	}
-
-	@Test
-	public void matchesAttributes_differentAttribute() {
-		final Attribute attribute_1_mock = context.mock(Attribute.class, "attribute-1");
-		final Attribute attribute_3_mock = context.mock(Attribute.class, "attribute-3");
-		context.checking(new Expectations() {
-			{
-				oneOf(attribute_1_mock).getName();
-				will(returnValue("attribute-1"));
-
-				oneOf(attribute_3_mock).getName();
-				will(returnValue("attribute-3"));
-			}
-		});
-		testable.addAttribute(attribute_1_mock);
-		testable.addAttribute(attribute_3_mock);
-
-		final SystemObject template = new SystemObject("template");
-		final Attribute attribute_1_template_mock = context.mock(Attribute.class, "attribute-1-template");
-		final Attribute attribute_2_template_mock = context.mock(Attribute.class, "attribute-2-template");
-		context.checking(new Expectations() {
-			{
-				oneOf(attribute_1_template_mock).getName();
-				will(returnValue("attribute-1-template"));
-
-				oneOf(attribute_2_template_mock).getName();
-				will(returnValue("attribute-2-template"));
-			}
-		});
-		template.addAttribute(attribute_1_template_mock);
-		template.addAttribute(attribute_2_template_mock);
-
-		context.checking(new Expectations() {
-			{
-				oneOf(attribute_3_mock).matches(attribute_1_template_mock);
-				will(returnValue(false));
-
-				oneOf(attribute_1_mock).matches(attribute_1_template_mock);
-				will(returnValue(true));
-
-				oneOf(attribute_3_mock).matches(attribute_2_template_mock);
-				will(returnValue(false));
-			}
-		});
-
-		assertFalse(testable.matchesAttributes(template));
-	}
-
-	@Test
-	public void matchesLinks() {
-		final Link link_1_mock = context.mock(Link.class, "link-1");
-		final Link link_2_mock = context.mock(Link.class, "link-2");
-		context.checking(new Expectations() {
-			{
-				oneOf(link_1_mock).getName();
-				will(returnValue("link-1"));
-
-				oneOf(link_2_mock).getName();
-				will(returnValue("link-2"));
-			}
-		});
-		testable.addLink(link_1_mock);
-		testable.addLink(link_2_mock);
-
-		final SystemObject template = new SystemObject("template");
-		final Link link_1_template_mock = context.mock(Link.class, "link-1-template");
-		final Link link_2_template_mock = context.mock(Link.class, "link-2-template");
-		context.checking(new Expectations() {
-			{
-				oneOf(link_1_template_mock).getName();
-				will(returnValue("link-1-template"));
-
-				oneOf(link_2_template_mock).getName();
-				will(returnValue("link-2-template"));
-			}
-		});
-		template.addLink(link_1_template_mock);
-		template.addLink(link_2_template_mock);
-
-		final IdsMatching idsMatching_mock = context.mock(IdsMatching.class);
-
-		context.checking(new Expectations() {
-			{
-				oneOf(link_1_mock).matches(link_1_template_mock, idsMatching_mock);
-				will(returnValue(true));
-
-				oneOf(link_2_mock).matches(link_2_template_mock, idsMatching_mock);
-				will(returnValue(true));
-			}
-		});
-
-		assertTrue(testable.matchesLinks(template, idsMatching_mock));
-	}
-
-	@Test
-	public void matechsLinks_differentLink() {
-		final Link link_1_mock = context.mock(Link.class, "link-1");
-		final Link link_3_mock = context.mock(Link.class, "link-3");
-		context.checking(new Expectations() {
-			{
-				oneOf(link_1_mock).getName();
-				will(returnValue("link-1"));
-
-				oneOf(link_3_mock).getName();
-				will(returnValue("link-3"));
-			}
-		});
-		testable.addLink(link_1_mock);
-		testable.addLink(link_3_mock);
-
-		final SystemObject template = new SystemObject("template");
-		final Link link_1_template_mock = context.mock(Link.class, "link-1-template");
-		final Link link_2_template_mock = context.mock(Link.class, "link-2-template");
-		context.checking(new Expectations() {
-			{
-				oneOf(link_1_template_mock).getName();
-				will(returnValue("link-1-template"));
-
-				oneOf(link_2_template_mock).getName();
-				will(returnValue("link-2-template"));
-			}
-		});
-		template.addLink(link_1_template_mock);
-		template.addLink(link_2_template_mock);
-
-		final IdsMatching idsMatching_mock = context.mock(IdsMatching.class);
-
-		context.checking(new Expectations() {
-			{
-				oneOf(link_3_mock).matches(link_1_template_mock, idsMatching_mock);
-				will(returnValue(false));
-
-				oneOf(link_1_mock).matches(link_1_template_mock, idsMatching_mock);
-				will(returnValue(true));
-
-				oneOf(link_3_mock).matches(link_2_template_mock, idsMatching_mock);
-				will(returnValue(false));
-			}
-		});
-
-		assertFalse(testable.matchesLinks(template, idsMatching_mock));
-	}
-
-	@Test
 	public void getAttribute() {
 		final Attribute attribute_mock = context.mock(Attribute.class, "attribute");
 
@@ -466,5 +278,59 @@ public class SystemObjectTest {
 
 		Set<String> systemIds = testable.getObjectIds();
 		assertEquals(1, systemIds.size());
+	}
+
+	@Test
+	public void getAttributes() {
+		assertTrue(testable.getAttributes() instanceof Collection);
+	}
+
+	@Test
+	public void getLinks() {
+		assertTrue(testable.getLinks() instanceof Collection);
+	}
+
+	@Test
+	public void createTemplate() {
+		final Attribute attribute_mock = context.mock(Attribute.class);
+		context.checking(new Expectations() {
+			{
+				oneOf(attribute_mock).getName();
+				will(returnValue("attribute-name"));
+			}
+		});
+		testable.addAttribute(attribute_mock);
+
+		final Link link_mock = context.mock(Link.class);
+		context.checking(new Expectations() {
+			{
+				oneOf(link_mock).getName();
+				will(returnValue("link-name"));
+			}
+		});
+		testable.addLink(link_mock);
+
+		final AttributeTemplate attributeTemplate_mock = context.mock(AttributeTemplate.class);
+		final LinkTemplate linkTemplate_mock = context.mock(LinkTemplate.class);
+
+		context.checking(new Expectations() {
+			{
+				oneOf(attribute_mock).createTemplate();
+				will(returnValue(attributeTemplate_mock));
+
+				oneOf(link_mock).createTemplate();
+				will(returnValue(linkTemplate_mock));
+
+				oneOf(attributeTemplate_mock).getName();
+				will(returnValue("attribute-name"));
+
+				oneOf(linkTemplate_mock).getName();
+				will(returnValue("link-name"));
+			}
+		});
+
+		SystemObjectTemplate objectTemplate = testable.createTemplate();
+		assertEquals(1, objectTemplate.getAttributes().size());
+		assertEquals(1, objectTemplate.getLinks().size());
 	}
 }

@@ -4,11 +4,11 @@ public class Element {
 
 	private String operation;
 
-	private System template;
+	private SystemTemplate template;
 
 	private Transformation[] transformations;
 
-	public Element(String operation, System template, Transformation[] transformations) {
+	public Element(String operation, SystemTemplate template, Transformation[] transformations) {
 		this.operation = operation;
 		this.template = template;
 		this.transformations = transformations;
@@ -19,7 +19,7 @@ public class Element {
 	}
 
 	public SystemVariant[] applyTo(System system) {
-		IdsMatching[] idsMatchings = system.matchIds(template);
+		IdsMatching[] idsMatchings = template.matchIds(system);
 
 		int amount = idsMatchings.length;
 		SystemVariant[] systemVariants = new SystemVariant[amount];

@@ -55,7 +55,7 @@ public class PlannerTest {
 
 		context.checking(new Expectations() {
 			{
-				oneOf(initial_system_mock).partially_equals(final_system_mock);
+				oneOf(initial_system_mock).contains(final_system_mock);
 				will(returnValue(false));
 
 				oneOf(element_mock).applyTo(initial_system_mock);
@@ -64,7 +64,7 @@ public class PlannerTest {
 				oneOf(systemVariant_mock).getSystem();
 				will(returnValue(system_mock));
 
-				oneOf(system_mock).partially_equals(final_system_mock);
+				oneOf(system_mock).contains(final_system_mock);
 				will(returnValue(true));
 
 				oneOf(element_mock).applyTo(system_mock);
@@ -84,7 +84,7 @@ public class PlannerTest {
 
 		context.checking(new Expectations() {
 			{
-				oneOf(initial_system_mock).partially_equals(final_system_mock);
+				oneOf(initial_system_mock).contains(final_system_mock);
 				will(returnValue(false));
 
 				oneOf(element_mock).applyTo(initial_system_mock);
@@ -103,7 +103,7 @@ public class PlannerTest {
 
 		context.checking(new Expectations() {
 			{
-				oneOf(initial_system_mock).partially_equals(final_system_mock);
+				oneOf(initial_system_mock).contains(final_system_mock);
 				will(returnValue(false));
 
 				oneOf(element_mock).applyTo(initial_system_mock);
@@ -112,7 +112,7 @@ public class PlannerTest {
 				oneOf(systemVariant_mock).getSystem();
 				will(returnValue(system_mock));
 
-				oneOf(system_mock).partially_equals(final_system_mock);
+				oneOf(system_mock).contains(final_system_mock);
 				will(returnValue(true));
 
 				oneOf(element_mock).applyTo(system_mock);

@@ -42,17 +42,11 @@ public class Link implements Cloneable {
 		return objectId;
 	}
 
-	public boolean matches(Link template, IdsMatching matching) {
-		if (name.equals(template.name)) {
-			if (objectId == null) {
-				return template.objectId == null;
-			}
-			return objectId.equals(matching.get(template.objectId));
-		}
-		return false;
-	}
-
 	public void setObjectId(String objectId) {
 		this.objectId = objectId;
+	}
+
+	public LinkTemplate createTemplate() {
+		return new LinkTemplate(name, objectId);
 	}
 }

@@ -63,7 +63,7 @@ public class Planner {
 	private void iterate() {
 		Node sourceNode = uncheckedNodes.get(0);
 		System sourceSystem = sourceNode.getSystem();
-		if (sourceSystem.partially_equals(final_system)) {
+		if (sourceSystem.contains(final_system)) {
 			finalNode = sourceNode;
 		}
 		for (Element element : elements) {

@@ -1,57 +1,22 @@
 package planning.model;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 public class System implements Cloneable {
 
-	// TODO : replace List with Set
 	private List<SystemObject> objects = new ArrayList<>();
+
+	public Collection<SystemObject> getObjects() {
+		return Collections.unmodifiableCollection(objects);
+	}
 
 	public void addObject(SystemObject object) {
 		objects.add(object);
-	}
-
-	public System() {
-	}
-
-	System(IdsMatchingManager idsMatchingManager) {
-		this.idsMatchingsManager = idsMatchingManager;
-	}
-
-	private IdsMatchingManager idsMatchingsManager = new IdsMatchingManager();
-
-	public IdsMatching[] matchIds(System template) {
-		idsMatchingsManager.prepareMatchingsCandidates(template.getSystemIds(), getSystemIds());
-
-		for (SystemObject object : objects) {
-			for (SystemObject templateObject : template.objects) {
-				if (!object.matchesAttributes(templateObject)) {
-					idsMatchingsManager.removeMatchingsCandidate(templateObject.getObjectId(), object.getObjectId());
-				}
-			}
-		}
-
-		idsMatchingsManager.generateMatchingsFromCandidates();
-
-		while (idsMatchingsManager.haveUncheckedMatching()) {
-			IdsMatching matching = idsMatchingsManager.getUncheckedMatching();
-			int templateMatchings = 0;
-			for (SystemObject object : objects) {
-				for (SystemObject templateObject : template.objects) {
-					if (object.matchesAttributes(templateObject) && object.matchesLinks(templateObject, matching)) {
-						templateMatchings++;
-					}
-				}
-			}
-			if (templateMatchings != template.objects.size()) {
-				idsMatchingsManager.removeMatching(matching);
-			}
-		}
-
-		return idsMatchingsManager.getIdsMatchings();
 	}
 
 	public Set<String> getSystemIds() {
@@ -60,7 +25,7 @@ public class System implements Cloneable {
 			Set<String> objectIds = object.getObjectIds();
 			systemIds.addAll(objectIds);
 		}
-		return systemIds;
+		return Collections.unmodifiableSet(systemIds);
 	}
 
 	@Override
@@ -75,11 +40,11 @@ public class System implements Cloneable {
 
 	@Override
 	public boolean equals(Object obj) {
-		if (obj == null) {
-			return false;
-		}
-		if (obj == this) {
+		if (this == obj) {
 			return true;
+		}
+		if (!(obj instanceof System)) {
+			return false;
 		}
 		System system = (System) obj;
 		if (objects.size() != system.objects.size()) {
@@ -108,13 +73,21 @@ public class System implements Cloneable {
 		return null;
 	}
 
-	public boolean partially_equals(System system) {
-		IdsMatching[] idsMatching = matchIds(system);
+	public boolean contains(System system) {
+		IdsMatching[] idsMatching = system.createTemplate().matchIds(this);
 		for (IdsMatching variant : idsMatching) {
 			if (!variant.areKeysAndValuesTheSame()) {
 				return false;
 			}
 		}
 		return idsMatching.length > 0;
+	}
+
+	public SystemTemplate createTemplate() {
+		SystemTemplate template = new SystemTemplate();
+		for (SystemObject object : objects) {
+			template.addObject(object.createTemplate());
+		}
+		return template;
 	}
 }

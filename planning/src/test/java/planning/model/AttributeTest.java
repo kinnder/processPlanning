@@ -1,6 +1,7 @@
 package planning.model;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -76,30 +77,6 @@ class AttributeTest {
 	}
 
 	@Test
-	public void matches() {
-		final Attribute template = new Attribute("attribute", "value");
-		assertTrue(testable.matches(template));
-	}
-
-	@Test
-	public void matches_differentName() {
-		final Attribute template = new Attribute("different", "value");
-		assertFalse(testable.matches(template));
-	}
-
-	@Test
-	public void matches_differentType() {
-		final Attribute template = new Attribute("attribute", 10);
-		assertFalse(testable.matches(template));
-	}
-
-	@Test
-	public void matches_differentValue() {
-		final Attribute template = new Attribute("attribute", "different");
-		assertFalse(testable.matches(template));
-	}
-
-	@Test
 	public void getValueAsBoolean() {
 		final boolean value = true;
 		testable = new Attribute("attribute", value);
@@ -128,5 +105,28 @@ class AttributeTest {
 	@Test
 	public void setValue() {
 		testable.setValue("new value");
+	}
+
+	@Test
+	public void createTemplate_boolean() {
+		testable = new Attribute("attribute", true);
+		assertNotNull(testable.createTemplate());
+	}
+
+	@Test
+	public void createTemplate_string() {
+		testable = new Attribute("attribute", "value");
+		assertNotNull(testable.createTemplate());
+	}
+
+	@Test
+	public void createTemplate_object() {
+		testable = new Attribute("attribute", new Object());
+		assertNotNull(testable.createTemplate());
+	}
+
+	@Test
+	public void getType() {
+		assertEquals(AttributeType.String, testable.getType());
 	}
 }

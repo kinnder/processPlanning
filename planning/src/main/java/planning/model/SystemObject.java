@@ -1,9 +1,9 @@
 package planning.model;
 
-import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
@@ -34,32 +34,6 @@ public class SystemObject implements Cloneable {
 
 	public void addAttribute(Attribute attribute) {
 		attributes.put(attribute.getName(), attribute);
-	}
-
-	public boolean matchesAttributes(SystemObject templateObject) {
-		List<Attribute> notMatchedAttributeTemplates = new ArrayList<>(templateObject.attributes.values());
-		for (Attribute attribute : attributes.values()) {
-			for (Attribute attributeTemplate : notMatchedAttributeTemplates) {
-				if (attribute.matches(attributeTemplate)) {
-					notMatchedAttributeTemplates.remove(attributeTemplate);
-					break;
-				}
-			}
-		}
-		return notMatchedAttributeTemplates.isEmpty();
-	}
-
-	public boolean matchesLinks(SystemObject template, IdsMatching matching) {
-		List<Link> notMatchedLinkTemplates = new ArrayList<>(template.links.values());
-		for (Link link : links.values()) {
-			for (Link linkTemplate : notMatchedLinkTemplates) {
-				if (link.matches(linkTemplate, matching)) {
-					notMatchedLinkTemplates.remove(linkTemplate);
-					break;
-				}
-			}
-		}
-		return notMatchedLinkTemplates.isEmpty();
 	}
 
 	public void addLink(Link link) {
@@ -116,5 +90,24 @@ public class SystemObject implements Cloneable {
 			}
 		}
 		return objectIds;
+	}
+
+	public SystemObjectTemplate createTemplate() {
+		SystemObjectTemplate template = new SystemObjectTemplate(objectId);
+		for (Link link : links.values()) {
+			template.addLink(link.createTemplate());
+		}
+		for (Attribute attribute : attributes.values()) {
+			template.addAttribute(attribute.createTemplate());
+		}
+		return template;
+	}
+
+	public Collection<Attribute> getAttributes() {
+		return Collections.unmodifiableCollection(attributes.values());
+	}
+
+	public Collection<Link> getLinks() {
+		return Collections.unmodifiableCollection(links.values());
 	}
 }

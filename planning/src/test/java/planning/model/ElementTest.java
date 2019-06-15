@@ -28,7 +28,7 @@ public class ElementTest {
 
 	String operation;
 
-	System template_mock;
+	SystemTemplate template_mock;
 
 	Transformation transformation_mock;
 
@@ -37,7 +37,7 @@ public class ElementTest {
 	@BeforeEach
 	public void setup() {
 		operation = "operation";
-		template_mock = context.mock(System.class, "template");
+		template_mock = context.mock(SystemTemplate.class, "template");
 		transformation_mock = context.mock(Transformation.class, "transformation");
 		transformation = new Transformation[] { transformation_mock };
 
@@ -58,7 +58,7 @@ public class ElementTest {
 
 		context.checking(new Expectations() {
 			{
-				oneOf(system_mock).matchIds(template_mock);
+				oneOf(template_mock).matchIds(system_mock);
 				will(returnValue(idsMatchings));
 
 				oneOf(system_mock).clone();

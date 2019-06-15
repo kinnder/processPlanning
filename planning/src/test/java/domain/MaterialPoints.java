@@ -7,11 +7,15 @@ import org.junit.jupiter.api.Test;
 
 import planning.method.Planner;
 import planning.model.Attribute;
+import planning.model.AttributeTemplate;
 import planning.model.Element;
 import planning.model.Link;
+import planning.model.LinkTemplate;
 import planning.model.LinkTransformation;
 import planning.model.System;
 import planning.model.SystemObject;
+import planning.model.SystemObjectTemplate;
+import planning.model.SystemTemplate;
 import planning.model.SystemVariant;
 import planning.model.Transformation;
 import planning.model.AttributeTransformation;
@@ -30,10 +34,6 @@ public class MaterialPoints {
 
 	private static final String ATTRIBUTE_OCCUPIED = "occupied";
 
-	private static final String OBJECT_MATERIAL_POINT = "материальная точка";
-
-	private static final String OBJECT_POINT = "точка";
-
 	private static final String OPERATION_MOVE_RIGHT = "Движение вправо";
 
 	private static final String OPERATION_MOVE_LEFT = "Движение влево";
@@ -43,23 +43,23 @@ public class MaterialPoints {
 	private static final String OPERATION_MOVE_TOP = "Движение вверх";
 
 	public static Element moveRight() {
-		System template = new System();
-		SystemObject object = new SystemObject(OBJECT_MATERIAL_POINT, "#ID-1");
-		SystemObject point_A = new SystemObject(OBJECT_POINT, "#ID-2");
-		SystemObject point_B = new SystemObject(OBJECT_POINT, "#ID-3");
+		SystemTemplate template = new SystemTemplate();
+		SystemObjectTemplate object = new SystemObjectTemplate("#OBJECT");
+		SystemObjectTemplate point_A = new SystemObjectTemplate("#POINT-A");
+		SystemObjectTemplate point_B = new SystemObjectTemplate("#POINT-B");
 
 		final String object_id = object.getObjectId();
 		final String point_A_id = point_A.getObjectId();
 		final String point_B_id = point_B.getObjectId();
 
-		object.addLink(new Link(LINK_POSITION, point_A_id));
+		object.addLink(new LinkTemplate(LINK_POSITION, point_A_id));
 
-		point_A.addAttribute(new Attribute(ATTRIBUTE_OCCUPIED, true));
-		point_A.addLink(new Link(LINK_NEIGHBOR_RIGHT, point_B_id));
-		point_A.addLink(new Link(LINK_POSITION, object_id));
+		point_A.addAttribute(new AttributeTemplate(ATTRIBUTE_OCCUPIED, true));
+		point_A.addLink(new LinkTemplate(LINK_NEIGHBOR_RIGHT, point_B_id));
+		point_A.addLink(new LinkTemplate(LINK_POSITION, object_id));
 
-		point_B.addAttribute(new Attribute(ATTRIBUTE_OCCUPIED, false));
-		point_B.addLink(new Link(LINK_NEIGHBOR_LEFT, point_A_id));
+		point_B.addAttribute(new AttributeTemplate(ATTRIBUTE_OCCUPIED, false));
+		point_B.addLink(new LinkTemplate(LINK_NEIGHBOR_LEFT, point_A_id));
 
 		template.addObject(object);
 		template.addObject(point_A);
@@ -76,23 +76,23 @@ public class MaterialPoints {
 	}
 
 	public static Element moveLeft() {
-		System template = new System();
-		SystemObject object = new SystemObject(OBJECT_MATERIAL_POINT, "#ID-1");
-		SystemObject point_A = new SystemObject(OBJECT_POINT, "#ID-2");
-		SystemObject point_B = new SystemObject(OBJECT_POINT, "#ID-3");
+		SystemTemplate template = new SystemTemplate();
+		SystemObjectTemplate object = new SystemObjectTemplate("#OBJECT");
+		SystemObjectTemplate point_A = new SystemObjectTemplate("#POINT-A");
+		SystemObjectTemplate point_B = new SystemObjectTemplate("#POINT-B");
 
 		final String object_id = object.getObjectId();
 		final String point_A_id = point_A.getObjectId();
 		final String point_B_id = point_B.getObjectId();
 
-		object.addLink(new Link(LINK_POSITION, point_B_id));
+		object.addLink(new LinkTemplate(LINK_POSITION, point_B_id));
 
-		point_A.addAttribute(new Attribute(ATTRIBUTE_OCCUPIED, false));
-		point_A.addLink(new Link(LINK_NEIGHBOR_RIGHT, point_B_id));
+		point_A.addAttribute(new AttributeTemplate(ATTRIBUTE_OCCUPIED, false));
+		point_A.addLink(new LinkTemplate(LINK_NEIGHBOR_RIGHT, point_B_id));
 
-		point_B.addAttribute(new Attribute(ATTRIBUTE_OCCUPIED, true));
-		point_B.addLink(new Link(LINK_NEIGHBOR_LEFT, point_A_id));
-		point_B.addLink(new Link(LINK_POSITION, object_id));
+		point_B.addAttribute(new AttributeTemplate(ATTRIBUTE_OCCUPIED, true));
+		point_B.addLink(new LinkTemplate(LINK_NEIGHBOR_LEFT, point_A_id));
+		point_B.addLink(new LinkTemplate(LINK_POSITION, object_id));
 
 		template.addObject(object);
 		template.addObject(point_A);
@@ -109,23 +109,23 @@ public class MaterialPoints {
 	}
 
 	public static Element moveTop() {
-		System template = new System();
-		SystemObject object = new SystemObject(OBJECT_MATERIAL_POINT, "#ID-1");
-		SystemObject point_A = new SystemObject(OBJECT_POINT, "#ID-2");
-		SystemObject point_B = new SystemObject(OBJECT_POINT, "#ID-3");
+		SystemTemplate template = new SystemTemplate();
+		SystemObjectTemplate object = new SystemObjectTemplate("#OBJECT");
+		SystemObjectTemplate point_A = new SystemObjectTemplate("#POINT-A");
+		SystemObjectTemplate point_B = new SystemObjectTemplate("#POINT-B");
 
 		final String object_id = object.getObjectId();
 		final String point_A_id = point_A.getObjectId();
 		final String point_B_id = point_B.getObjectId();
 
-		object.addLink(new Link(LINK_POSITION, point_A_id));
+		object.addLink(new LinkTemplate(LINK_POSITION, point_A_id));
 
-		point_A.addAttribute(new Attribute(ATTRIBUTE_OCCUPIED, true));
-		point_A.addLink(new Link(LINK_NEIGHBOR_TOP, point_B_id));
-		point_A.addLink(new Link(LINK_POSITION, object_id));
+		point_A.addAttribute(new AttributeTemplate(ATTRIBUTE_OCCUPIED, true));
+		point_A.addLink(new LinkTemplate(LINK_NEIGHBOR_TOP, point_B_id));
+		point_A.addLink(new LinkTemplate(LINK_POSITION, object_id));
 
-		point_B.addAttribute(new Attribute(ATTRIBUTE_OCCUPIED, false));
-		point_B.addLink(new Link(LINK_NEIGHBOR_BOTTOM, point_A_id));
+		point_B.addAttribute(new AttributeTemplate(ATTRIBUTE_OCCUPIED, false));
+		point_B.addLink(new LinkTemplate(LINK_NEIGHBOR_BOTTOM, point_A_id));
 
 		template.addObject(object);
 		template.addObject(point_A);
@@ -142,23 +142,23 @@ public class MaterialPoints {
 	}
 
 	public static Element moveBottom() {
-		System template = new System();
-		SystemObject object = new SystemObject(OBJECT_MATERIAL_POINT, "#ID-1");
-		SystemObject point_A = new SystemObject(OBJECT_POINT, "#ID-2");
-		SystemObject point_B = new SystemObject(OBJECT_POINT, "#ID-3");
+		SystemTemplate template = new SystemTemplate();
+		SystemObjectTemplate object = new SystemObjectTemplate("#OBJECT");
+		SystemObjectTemplate point_A = new SystemObjectTemplate("#POINT-A");
+		SystemObjectTemplate point_B = new SystemObjectTemplate("#POINT-B");
 
 		final String object_id = object.getObjectId();
 		final String point_A_id = point_A.getObjectId();
 		final String point_B_id = point_B.getObjectId();
 
-		object.addLink(new Link(LINK_POSITION, point_A_id));
+		object.addLink(new LinkTemplate(LINK_POSITION, point_A_id));
 
-		point_A.addAttribute(new Attribute(ATTRIBUTE_OCCUPIED, true));
-		point_A.addLink(new Link(LINK_NEIGHBOR_BOTTOM, point_B_id));
-		point_A.addLink(new Link(LINK_POSITION, object_id));
+		point_A.addAttribute(new AttributeTemplate(ATTRIBUTE_OCCUPIED, true));
+		point_A.addLink(new LinkTemplate(LINK_NEIGHBOR_BOTTOM, point_B_id));
+		point_A.addLink(new LinkTemplate(LINK_POSITION, object_id));
 
-		point_B.addAttribute(new Attribute(ATTRIBUTE_OCCUPIED, false));
-		point_B.addLink(new Link(LINK_NEIGHBOR_TOP, point_A_id));
+		point_B.addAttribute(new AttributeTemplate(ATTRIBUTE_OCCUPIED, false));
+		point_B.addLink(new LinkTemplate(LINK_NEIGHBOR_TOP, point_A_id));
 
 		template.addObject(object);
 		template.addObject(point_A);
