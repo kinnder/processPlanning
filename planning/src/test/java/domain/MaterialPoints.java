@@ -322,16 +322,14 @@ public class MaterialPoints {
 		assertEquals(0, systemVariants.length);
 
 		final System final_system = new System();
-		final SystemObject final_object = object.clone();
-		final SystemObject final_point_4 = point_4.clone();
+		final SystemObject final_object = new SystemObject("материальная точка", object_id);
+		final SystemObject final_point_4 = new SystemObject("точка-4", point_4_id);
 		final_system.addObject(final_object);
 		final_system.addObject(final_point_4);
 
-		final_system.getObjectById(object_id).getLink(LINK_POSITION).setObjectId(point_4_id);
-		final_system.getObjectById(point_4_id).getAttribute(ATTRIBUTE_OCCUPIED).setValue(true);
-		final_system.getObjectById(point_4_id).getLink(LINK_POSITION).setObjectId(object_id);
-		final_system.getObjectById(point_4_id).removeLink(LINK_NEIGHBOR_RIGHT);
-		final_system.getObjectById(point_4_id).removeLink(LINK_NEIGHBOR_LEFT);
+		final_object.addLink(new Link(LINK_POSITION, point_4_id));
+		final_point_4.addLink(new Link(LINK_POSITION, object_id));
+		final_point_4.addAttribute(new Attribute(ATTRIBUTE_OCCUPIED, true));
 
 		final Element[] elements = new Element[] { moveLeft(), moveRight(), moveTop(), moveBottom() };
 
@@ -562,17 +560,14 @@ public class MaterialPoints {
 		assertEquals(1, systemVariants.length);
 
 		final System final_system = new System();
-		final SystemObject final_object = object.clone();
-		final SystemObject final_point_92 = point_92.clone();
+		final SystemObject final_object = new SystemObject("материальная точка", object_id);
+		final SystemObject final_point_92 = new SystemObject("точка-92", point_92_id);
 		final_system.addObject(final_object);
 		final_system.addObject(final_point_92);
 
-		final_system.getObjectById(object_id).getLink(LINK_POSITION).setObjectId(point_92_id);
-		final_system.getObjectById(point_92_id).getAttribute(ATTRIBUTE_OCCUPIED).setValue(true);
-		final_system.getObjectById(point_92_id).getLink(LINK_POSITION).setObjectId(object_id);
-		final_system.getObjectById(point_92_id).removeLink(LINK_NEIGHBOR_TOP);
-		final_system.getObjectById(point_92_id).removeLink(LINK_NEIGHBOR_LEFT);
-		final_system.getObjectById(point_92_id).removeLink(LINK_NEIGHBOR_BOTTOM);
+		final_object.addLink(new Link(LINK_POSITION, point_92_id));
+		final_point_92.addAttribute(new Attribute(ATTRIBUTE_OCCUPIED, true));
+		final_point_92.addLink(new Link(LINK_POSITION, object_id));
 
 		final Element[] elements = new Element[] { moveLeft(), moveRight(), moveTop(), moveBottom() };
 

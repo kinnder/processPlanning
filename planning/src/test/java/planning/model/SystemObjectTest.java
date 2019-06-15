@@ -1,7 +1,6 @@
 package planning.model;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -467,21 +466,5 @@ public class SystemObjectTest {
 
 		Set<String> systemIds = testable.getObjectIds();
 		assertEquals(1, systemIds.size());
-	}
-
-	@Test
-	public void removeLink() {
-		final Link link_mock = context.mock(Link.class, "link");
-
-		context.checking(new Expectations() {
-			{
-				oneOf(link_mock).getName();
-				will(returnValue("link-name"));
-			}
-		});
-		testable.addLink(link_mock);
-
-		testable.removeLink("link-name");
-		assertNull(testable.getLink("link-name"));
 	}
 }

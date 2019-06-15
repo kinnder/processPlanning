@@ -106,10 +106,6 @@ public class SystemObject implements Cloneable {
 		return links.get(linkName);
 	}
 
-	public void removeLink(String linkName) {
-		links.remove(linkName);
-	}
-
 	public Set<String> getObjectIds() {
 		Set<String> objectIds = new HashSet<>();
 		objectIds.add(objectId);
