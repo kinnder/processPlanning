@@ -9,5 +9,9 @@ public class Transformation {
 	}
 
 	public void applyTo(SystemVariant systemVariant) {
+		applyTo(systemVariant.getObjectByIdMatch(objectId), systemVariant);
+	}
+
+	protected void applyTo(SystemObject object, SystemVariant systemVariant) {
 	}
 }

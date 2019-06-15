@@ -26,7 +26,7 @@ public class LinkTransformationTest {
 
 	@BeforeEach
 	public void setup() {
-		testable = new LinkTransformation("id-template", "link-name", "link-value");
+		testable = new LinkTransformation("id-template", "link-name", "link-old-value", "link-new-value");
 	}
 
 	@Test
@@ -40,13 +40,16 @@ public class LinkTransformationTest {
 				oneOf(systemVariant_mock).getObjectByIdMatch("id-template");
 				will(returnValue(object_mock));
 
-				oneOf(systemVariant_mock).getObjectIdByIdMatch("link-value");
-				will(returnValue("link-id"));
+				oneOf(systemVariant_mock).getObjectIdByIdMatch("link-new-value");
+				will(returnValue("link-new-value-actual"));
 
-				oneOf(object_mock).getLink("link-name");
+				oneOf(systemVariant_mock).getObjectIdByIdMatch("link-old-value");
+				will(returnValue("link-old-value-actual"));
+
+				oneOf(object_mock).getLink("link-name", "link-old-value-actual");
 				will(returnValue(link_mock));
 
-				oneOf(link_mock).setObjectId("link-id");
+				oneOf(link_mock).setObjectId("link-new-value-actual");
 			}
 		});
 

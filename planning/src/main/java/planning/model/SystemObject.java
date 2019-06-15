@@ -1,9 +1,11 @@
 package planning.model;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
@@ -13,7 +15,7 @@ public class SystemObject implements Cloneable {
 
 	private Map<String, Attribute> attributes = new HashMap<>();
 
-	private Map<String, Link> links = new HashMap<>();
+	private List<Link> links = new ArrayList<>();
 
 	private String id;
 
@@ -37,7 +39,7 @@ public class SystemObject implements Cloneable {
 	}
 
 	public void addLink(Link link) {
-		links.put(link.getName(), link);
+		links.add(link);
 	}
 
 	@Override
@@ -57,7 +59,7 @@ public class SystemObject implements Cloneable {
 	}
 
 	private boolean equalsLinks(SystemObject systemObject) {
-		return links.entrySet().equals(systemObject.links.entrySet());
+		return links.equals(systemObject.links);
 	}
 
 	@Override
@@ -66,7 +68,7 @@ public class SystemObject implements Cloneable {
 		for (Attribute attribute : attributes.values()) {
 			cloned.addAttribute(attribute.clone());
 		}
-		for (Link link : links.values()) {
+		for (Link link : links) {
 			cloned.addLink(link.clone());
 		}
 		return cloned;
@@ -76,14 +78,20 @@ public class SystemObject implements Cloneable {
 		return attributes.get(attributeName);
 	}
 
-	public Link getLink(String linkName) {
-		return links.get(linkName);
+	public Link getLink(String linkName, String linkValue) {
+		Link template = new Link(linkName, linkValue);
+		for (Link link : links) {
+			if (link.equals(template)) {
+				return link;
+			}
+		}
+		return null;
 	}
 
 	public Set<String> getIds() {
 		Set<String> objectIds = new HashSet<>();
 		objectIds.add(id);
-		for (Link link : links.values()) {
+		for (Link link : links) {
 			String linkValue = link.getObjectId();
 			if (linkValue != null) {
 				objectIds.add(linkValue);
@@ -94,11 +102,11 @@ public class SystemObject implements Cloneable {
 
 	public SystemObjectTemplate createTemplate() {
 		SystemObjectTemplate template = new SystemObjectTemplate(id);
-		for (Link link : links.values()) {
-			template.addLink(link.createTemplate());
+		for (Link link : links) {
+			template.addLinkTemplate(link.createTemplate());
 		}
 		for (Attribute attribute : attributes.values()) {
-			template.addAttribute(attribute.createTemplate());
+			template.addAttributeTemplate(attribute.createTemplate());
 		}
 		return template;
 	}
@@ -108,6 +116,6 @@ public class SystemObject implements Cloneable {
 	}
 
 	public Collection<Link> getLinks() {
-		return Collections.unmodifiableCollection(links.values());
+		return Collections.unmodifiableCollection(links);
 	}
 }

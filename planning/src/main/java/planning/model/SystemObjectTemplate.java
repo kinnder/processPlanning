@@ -17,7 +17,7 @@ public class SystemObjectTemplate {
 
 	private String objectId;
 
-	public String getObjectId() {
+	public String getId() {
 		return objectId;
 	}
 
@@ -37,11 +37,11 @@ public class SystemObjectTemplate {
 		this.objectId = objectId;
 	}
 
-	public void addAttribute(AttributeTemplate attribute) {
+	public void addAttributeTemplate(AttributeTemplate attribute) {
 		attributes.put(attribute.getName(), attribute);
 	}
 
-	public void addLink(LinkTemplate link) {
+	public void addLinkTemplate(LinkTemplate link) {
 		links.put(link.getName(), link);
 	}
 

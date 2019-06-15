@@ -45,8 +45,8 @@ public class SystemObjectTemplateTest {
 				will(returnValue("attribute-2-template"));
 			}
 		});
-		testable.addAttribute(attributeTemplate_1_mock);
-		testable.addAttribute(attributeTemplate_2_mock);
+		testable.addAttributeTemplate(attributeTemplate_1_mock);
+		testable.addAttributeTemplate(attributeTemplate_2_mock);
 
 		final SystemObject object = new SystemObject("object");
 		final Attribute attribute_1_mock = context.mock(Attribute.class, "attribute-1");
@@ -92,8 +92,8 @@ public class SystemObjectTemplateTest {
 				will(returnValue("attribute-3-template"));
 			}
 		});
-		testable.addAttribute(attributeTemplate_1_mock);
-		testable.addAttribute(attributeTemplate_3_mock);
+		testable.addAttributeTemplate(attributeTemplate_1_mock);
+		testable.addAttributeTemplate(attributeTemplate_3_mock);
 
 		final SystemObject object = new SystemObject("object");
 		final Attribute attribute_1_mock = context.mock(Attribute.class, "attribute-1");
@@ -142,21 +142,12 @@ public class SystemObjectTemplateTest {
 				will(returnValue("link-2-template"));
 			}
 		});
-		testable.addLink(linkTemplate_1_mock);
-		testable.addLink(linkTemplate_2_mock);
+		testable.addLinkTemplate(linkTemplate_1_mock);
+		testable.addLinkTemplate(linkTemplate_2_mock);
 
 		final SystemObject object = new SystemObject("object");
 		final Link link_1_mock = context.mock(Link.class, "link-1");
 		final Link link_2_mock = context.mock(Link.class, "link-2");
-		context.checking(new Expectations() {
-			{
-				oneOf(link_1_mock).getName();
-				will(returnValue("link-1"));
-
-				oneOf(link_2_mock).getName();
-				will(returnValue("link-2"));
-			}
-		});
 		object.addLink(link_1_mock);
 		object.addLink(link_2_mock);
 
@@ -188,21 +179,12 @@ public class SystemObjectTemplateTest {
 				will(returnValue("link-3-template"));
 			}
 		});
-		testable.addLink(linkTemplate_1_mock);
-		testable.addLink(linkTemplate_3_mock);
+		testable.addLinkTemplate(linkTemplate_1_mock);
+		testable.addLinkTemplate(linkTemplate_3_mock);
 
 		final SystemObject object = new SystemObject("object");
 		final Link link_1_mock = context.mock(Link.class, "link-1");
 		final Link link_2_mock = context.mock(Link.class, "link-2");
-		context.checking(new Expectations() {
-			{
-				oneOf(link_1_mock).getName();
-				will(returnValue("link-1"));
-
-				oneOf(link_2_mock).getName();
-				will(returnValue("link-2"));
-			}
-		});
 		object.addLink(link_1_mock);
 		object.addLink(link_2_mock);
 

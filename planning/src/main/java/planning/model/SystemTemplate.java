@@ -20,7 +20,7 @@ public class SystemTemplate {
 		return systemIds;
 	}
 
-	public void addObject(SystemObjectTemplate object) {
+	public void addObjectTemplate(SystemObjectTemplate object) {
 		objects.add(object);
 	}
 
@@ -39,7 +39,7 @@ public class SystemTemplate {
 		for (SystemObject object : system.getObjects()) {
 			for (SystemObjectTemplate templateObject : objects) {
 				if (!templateObject.matchesAttributes(object)) {
-					idsMatchingsManager.removeMatchingsCandidate(templateObject.getObjectId(), object.getId());
+					idsMatchingsManager.removeMatchingsCandidate(templateObject.getId(), object.getId());
 				}
 			}
 		}

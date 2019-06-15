@@ -86,7 +86,7 @@ public class System implements Cloneable {
 	public SystemTemplate createTemplate() {
 		SystemTemplate template = new SystemTemplate();
 		for (SystemObject object : objects) {
-			template.addObject(object.createTemplate());
+			template.addObjectTemplate(object.createTemplate());
 		}
 		return template;
 	}

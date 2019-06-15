@@ -45,9 +45,6 @@ public class SystemObjectTest {
 
 		context.checking(new Expectations() {
 			{
-				oneOf(link_mock).getName();
-				will(returnValue("link-name"));
-
 				oneOf(attribute_mock).getName();
 				will(returnValue("attribute-name"));
 
@@ -59,9 +56,6 @@ public class SystemObjectTest {
 
 				oneOf(link_mock).clone();
 				will(returnValue(clonedLink_mock));
-
-				oneOf(clonedLink_mock).getName();
-				will(returnValue("link-name"));
 			}
 		});
 
@@ -78,9 +72,6 @@ public class SystemObjectTest {
 
 		context.checking(new Expectations() {
 			{
-				oneOf(link_mock).getName();
-				will(returnValue("link-name"));
-
 				oneOf(attribute_mock).getName();
 				will(returnValue("attribute-name"));
 			}
@@ -90,9 +81,6 @@ public class SystemObjectTest {
 
 		context.checking(new Expectations() {
 			{
-				oneOf(link_mock).getName();
-				will(returnValue("link-name"));
-
 				oneOf(attribute_mock).getName();
 				will(returnValue("attribute-name"));
 			}
@@ -149,20 +137,8 @@ public class SystemObjectTest {
 		final Link link_1_mock = context.mock(Link.class, "link-1");
 		final Link link_2_mock = context.mock(Link.class, "link-2");
 
-		context.checking(new Expectations() {
-			{
-				oneOf(link_1_mock).getName();
-				will(returnValue("link-name"));
-			}
-		});
 		testable.addLink(link_1_mock);
 
-		context.checking(new Expectations() {
-			{
-				oneOf(link_2_mock).getName();
-				will(returnValue("link-name"));
-			}
-		});
 		final SystemObject systemObject = new SystemObject("object");
 		systemObject.addLink(link_2_mock);
 
@@ -172,13 +148,6 @@ public class SystemObjectTest {
 	@Test
 	public void addLink() {
 		final Link link_mock = context.mock(Link.class, "link");
-
-		context.checking(new Expectations() {
-			{
-				oneOf(link_mock).getName();
-				will(returnValue("link-name"));
-			}
-		});
 
 		testable.addLink(link_mock);
 	}
@@ -220,29 +189,15 @@ public class SystemObjectTest {
 
 	@Test
 	public void getLink() {
-		final Link link_mock = context.mock(Link.class, "link");
+		final Link link = new Link("link-name", "link-value");
+		testable.addLink(link);
 
-		context.checking(new Expectations() {
-			{
-				oneOf(link_mock).getName();
-				will(returnValue("link-name"));
-			}
-		});
-		testable.addLink(link_mock);
-
-		assertEquals(link_mock, testable.getLink("link-name"));
+		assertEquals(link, testable.getLink("link-name", "link-value"));
 	}
 
 	@Test
 	public void getIds() {
 		final Link link_mock = context.mock(Link.class, "link");
-
-		context.checking(new Expectations() {
-			{
-				oneOf(link_mock).getName();
-				will(returnValue("link-name"));
-			}
-		});
 		testable.addLink(link_mock);
 
 		context.checking(new Expectations() {
@@ -260,13 +215,6 @@ public class SystemObjectTest {
 	@Test
 	public void getIds_nullValuedLink() {
 		final Link link_mock = context.mock(Link.class, "link");
-
-		context.checking(new Expectations() {
-			{
-				oneOf(link_mock).getName();
-				will(returnValue("link-name"));
-			}
-		});
 		testable.addLink(link_mock);
 
 		context.checking(new Expectations() {
@@ -302,12 +250,6 @@ public class SystemObjectTest {
 		testable.addAttribute(attribute_mock);
 
 		final Link link_mock = context.mock(Link.class);
-		context.checking(new Expectations() {
-			{
-				oneOf(link_mock).getName();
-				will(returnValue("link-name"));
-			}
-		});
 		testable.addLink(link_mock);
 
 		final AttributeTemplate attributeTemplate_mock = context.mock(AttributeTemplate.class);

@@ -42,7 +42,7 @@ public class SystemTemplateTest {
 	@Test
 	public void matchIds() {
 		final SystemObjectTemplate objectTemplate_mock = context.mock(SystemObjectTemplate.class);
-		testable.addObject(objectTemplate_mock);
+		testable.addObjectTemplate(objectTemplate_mock);
 
 		final System system = new System();
 		final SystemObject object_mock = context.mock(SystemObject.class);
@@ -97,7 +97,7 @@ public class SystemTemplateTest {
 	@Test
 	public void matchIds_differentAttributes() {
 		final SystemObjectTemplate objectTemplate_mock = context.mock(SystemObjectTemplate.class);
-		testable.addObject(objectTemplate_mock);
+		testable.addObjectTemplate(objectTemplate_mock);
 
 		final System system = new System();
 		final SystemObject object_mock = context.mock(SystemObject.class);
@@ -121,7 +121,7 @@ public class SystemTemplateTest {
 				oneOf(objectTemplate_mock).matchesAttributes(object_mock);
 				will(returnValue(false));
 
-				oneOf(objectTemplate_mock).getObjectId();
+				oneOf(objectTemplate_mock).getId();
 				will(returnValue("id-template"));
 
 				oneOf(object_mock).getId();
@@ -146,7 +146,7 @@ public class SystemTemplateTest {
 	@Test
 	public void matchIds_differentLinks() {
 		final SystemObjectTemplate objectTemplate_mock = context.mock(SystemObjectTemplate.class);
-		testable.addObject(objectTemplate_mock);
+		testable.addObjectTemplate(objectTemplate_mock);
 
 		final System system = new System();
 		final SystemObject object_mock = context.mock(SystemObject.class);
