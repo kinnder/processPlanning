@@ -7,6 +7,7 @@ import org.jgrapht.GraphPath;
 import org.jgrapht.alg.shortestpath.DijkstraShortestPath;
 import org.jgrapht.graph.DefaultDirectedGraph;
 
+import planning.model.Action;
 import planning.model.Element;
 import planning.model.System;
 import planning.model.SystemVariant;
@@ -95,13 +96,13 @@ public class Planner {
 		checkedNodes.add(sourceNode);
 	}
 
-	public List<String> getShortestPlan() {
+	public List<Action> getShortestPlan() {
 		DijkstraShortestPath<Node, Edge> alg = new DijkstraShortestPath<>(network);
 		GraphPath<Node, Edge> path = alg.getPath(initialNode, finalNode);
-		List<String> operations = new ArrayList<>();
+		List<Action> actions = new ArrayList<>();
 		for (Edge edge : path.getEdgeList()) {
-			operations.add(edge.getElement().getOperation());
+			actions.add(edge.getElement().getAction());
 		}
-		return operations;
+		return actions;
 	}
 }

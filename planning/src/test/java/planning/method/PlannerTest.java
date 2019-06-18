@@ -9,6 +9,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
+import planning.model.Action;
 import planning.model.Element;
 import planning.model.System;
 import planning.model.SystemVariant;
@@ -100,6 +101,7 @@ public class PlannerTest {
 		final SystemVariant systemVariant_mock = context.mock(SystemVariant.class);
 		final SystemVariant systemVariants[] = new SystemVariant[] { systemVariant_mock };
 		final System system_mock = context.mock(System.class, "system");
+		final Action action_mock = context.mock(Action.class);
 
 		context.checking(new Expectations() {
 			{
@@ -126,11 +128,11 @@ public class PlannerTest {
 
 		context.checking(new Expectations() {
 			{
-				oneOf(element_mock).getOperation();
-				will(returnValue("operation"));
+				oneOf(element_mock).getAction();
+				will(returnValue(action_mock));
 			}
 		});
 
-		assertEquals("operation", testable.getShortestPlan().get(0));
+		assertEquals(action_mock, testable.getShortestPlan().get(0));
 	}
 }

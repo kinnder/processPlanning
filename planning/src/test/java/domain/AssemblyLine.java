@@ -9,6 +9,7 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 
 import planning.method.Planner;
+import planning.model.Action;
 import planning.model.Attribute;
 import planning.model.AttributeTemplate;
 import planning.model.Element;
@@ -131,7 +132,9 @@ public class AssemblyLine {
 				new LinkTransformation(plane_y_outside_id, LINK_ROTARY_DRIVE_POSITION, null, robot_id),
 				new LinkTransformation(plane_y_inside_id, LINK_ROTARY_DRIVE_POSITION, robot_id, null) };
 
-		return new Element(OPERATION_ROTATE_TO_TRANSPORT_LINE, template, transformations);
+		final Action action = new Action(OPERATION_ROTATE_TO_TRANSPORT_LINE);
+
+		return new Element(action, template, transformations);
 	}
 
 	public static Element rotateToStation() {
@@ -172,7 +175,9 @@ public class AssemblyLine {
 				new LinkTransformation(plane_y_outside_id, LINK_ROTARY_DRIVE_POSITION, robot_id, null),
 				new LinkTransformation(plane_y_inside_id, LINK_ROTARY_DRIVE_POSITION, null, robot_id) };
 
-		return new Element(OPERATION_ROTATE_TO_STATION, template, transformations);
+		final Action action = new Action(OPERATION_ROTATE_TO_STATION);
+
+		return new Element(action, template, transformations);
 	}
 
 	public static Element openGrab() {
@@ -227,7 +232,9 @@ public class AssemblyLine {
 				new LinkTransformation(robot_id, LINK_GRAB_POSITION, packageBox_id, null),
 				new LinkTransformation(packageBox_id, LINK_GRAB_POSITION, robot_id, null) };
 
-		return new Element(OPERATION_OPEN_GRAB, template, transformations);
+		final Action action = new Action(OPERATION_OPEN_GRAB);
+
+		return new Element(action, template, transformations);
 	}
 
 	public static Element closeGrab() {
@@ -282,7 +289,9 @@ public class AssemblyLine {
 				new LinkTransformation(robot_id, LINK_GRAB_POSITION, null, packageBox_id),
 				new LinkTransformation(packageBox_id, LINK_GRAB_POSITION, null, robot_id) };
 
-		return new Element(OPERATION_CLOSE_GRAB, template, transformations);
+		final Action action = new Action(OPERATION_CLOSE_GRAB);
+
+		return new Element(action, template, transformations);
 	}
 
 	public static Element liftUp() {
@@ -329,7 +338,9 @@ public class AssemblyLine {
 				new LinkTransformation(plane_z_top_id, LINK_VERTICAL_DRIVE_POSITION, null, robot_id),
 				new LinkTransformation(plane_z_bottom_id, LINK_VERTICAL_DRIVE_POSITION, robot_id, null) };
 
-		return new Element(OPERATION_LIFT_UP, template, transformations);
+		final Action action = new Action(OPERATION_LIFT_UP);
+
+		return new Element(action, template, transformations);
 	}
 
 	public static Element lowerDown() {
@@ -394,7 +405,9 @@ public class AssemblyLine {
 				new LinkTransformation(plane_z_top_id, LINK_VERTICAL_DRIVE_POSITION, robot_id, null),
 				new LinkTransformation(plane_z_bottom_id, LINK_VERTICAL_DRIVE_POSITION, null, robot_id) };
 
-		return new Element(OPERATION_LOWER_DOWN, template, transformations);
+		final Action action = new Action(OPERATION_LOWER_DOWN);
+
+		return new Element(action, template, transformations);
 	}
 
 	public static Element moveToPosition1() {
@@ -427,7 +440,9 @@ public class AssemblyLine {
 				new LinkTransformation(plane_x_table_1_id, LINK_LINEAR_DRIVE_POSITION, null, robot_id),
 				new LinkTransformation(plane_x_table_2_id, LINK_LINEAR_DRIVE_POSITION, robot_id, null) };
 
-		return new Element(OPERATION_MOVE_TO_POSITION_1, template, transformations);
+		final Action action = new Action(OPERATION_MOVE_TO_POSITION_1);
+
+		return new Element(action, template, transformations);
 	}
 
 	public static Element moveToPosition2() {
@@ -460,7 +475,9 @@ public class AssemblyLine {
 				new LinkTransformation(plane_x_table_1_id, LINK_LINEAR_DRIVE_POSITION, robot_id, null),
 				new LinkTransformation(plane_x_table_2_id, LINK_LINEAR_DRIVE_POSITION, null, robot_id) };
 
-		return new Element(OPERATION_MOVE_TO_POSITION_2, template, transformations);
+		final Action action = new Action(OPERATION_MOVE_TO_POSITION_2);
+
+		return new Element(action, template, transformations);
 	}
 
 	@Test
@@ -765,15 +782,15 @@ public class AssemblyLine {
 		Planner planner = new Planner(system, final_system, elements);
 		planner.plan();
 
-		List<String> operations = planner.getShortestPlan();
-		assertEquals(8, operations.size());
-		assertEquals(OPERATION_ROTATE_TO_TRANSPORT_LINE, operations.get(0));
-		assertEquals(OPERATION_CLOSE_GRAB, operations.get(1));
-		assertEquals(OPERATION_LIFT_UP, operations.get(2));
-		assertEquals(OPERATION_ROTATE_TO_STATION, operations.get(3));
-		assertEquals(OPERATION_MOVE_TO_POSITION_1, operations.get(4));
-		assertEquals(OPERATION_LOWER_DOWN, operations.get(5));
-		assertEquals(OPERATION_OPEN_GRAB, operations.get(6));
-		assertEquals(OPERATION_MOVE_TO_POSITION_2, operations.get(7));
+		List<Action> actions = planner.getShortestPlan();
+		assertEquals(8, actions.size());
+		assertEquals(OPERATION_ROTATE_TO_TRANSPORT_LINE, actions.get(0).getName());
+		assertEquals(OPERATION_CLOSE_GRAB, actions.get(1).getName());
+		assertEquals(OPERATION_LIFT_UP, actions.get(2).getName());
+		assertEquals(OPERATION_ROTATE_TO_STATION, actions.get(3).getName());
+		assertEquals(OPERATION_MOVE_TO_POSITION_1, actions.get(4).getName());
+		assertEquals(OPERATION_LOWER_DOWN, actions.get(5).getName());
+		assertEquals(OPERATION_OPEN_GRAB, actions.get(6).getName());
+		assertEquals(OPERATION_MOVE_TO_POSITION_2, actions.get(7).getName());
 	}
 }

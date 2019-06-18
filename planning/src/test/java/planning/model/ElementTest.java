@@ -26,7 +26,7 @@ public class ElementTest {
 
 	Element testable;
 
-	String operation;
+	Action action;
 
 	SystemTemplate template_mock;
 
@@ -36,17 +36,17 @@ public class ElementTest {
 
 	@BeforeEach
 	public void setup() {
-		operation = "operation";
+		action = context.mock(Action.class, "action");
 		template_mock = context.mock(SystemTemplate.class, "template");
 		transformation_mock = context.mock(Transformation.class, "transformation");
 		transformation = new Transformation[] { transformation_mock };
 
-		testable = new Element(operation, template_mock, transformation);
+		testable = new Element(action, template_mock, transformation);
 	}
 
 	@Test
-	public void getOperation() {
-		assertEquals(operation, testable.getOperation());
+	public void getAction() {
+		assertEquals(action, testable.getAction());
 	}
 
 	@Test

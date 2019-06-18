@@ -8,6 +8,7 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 
 import planning.method.Planner;
+import planning.model.Action;
 import planning.model.Attribute;
 import planning.model.AttributeTemplate;
 import planning.model.Element;
@@ -67,22 +68,24 @@ public class MaterialPoints {
 		point_B.addAttributeTemplate(new AttributeTemplate(ATTRIBUTE_OCCUPIED, false));
 		point_B.addLinkTemplate(new LinkTemplate(LINK_NEIGHBOR_LEFT, point_A_id));
 
-		Transformation transformations[] = new Transformation[] {
+		final Transformation transformations[] = new Transformation[] {
 				new LinkTransformation(object_id, LINK_POSITION, point_A_id, point_B_id),
 				new LinkTransformation(point_A_id, LINK_POSITION, object_id, null),
 				new LinkTransformation(point_B_id, LINK_POSITION, null, object_id),
 				new AttributeTransformation(point_A_id, ATTRIBUTE_OCCUPIED, false),
 				new AttributeTransformation(point_B_id, ATTRIBUTE_OCCUPIED, true) };
 
-		return new Element(OPERATION_MOVE_RIGHT, template, transformations);
+		final Action action = new Action(OPERATION_MOVE_RIGHT);
+
+		return new Element(action, template, transformations);
 	}
 
 	public static Element moveLeft() {
-		SystemObjectTemplate object = new SystemObjectTemplate("#OBJECT");
-		SystemObjectTemplate point_A = new SystemObjectTemplate("#POINT-A");
-		SystemObjectTemplate point_B = new SystemObjectTemplate("#POINT-B");
+		final SystemObjectTemplate object = new SystemObjectTemplate("#OBJECT");
+		final SystemObjectTemplate point_A = new SystemObjectTemplate("#POINT-A");
+		final SystemObjectTemplate point_B = new SystemObjectTemplate("#POINT-B");
 
-		SystemTemplate template = new SystemTemplate();
+		final SystemTemplate template = new SystemTemplate();
 		template.addObjectTemplate(object);
 		template.addObjectTemplate(point_A);
 		template.addObjectTemplate(point_B);
@@ -100,22 +103,24 @@ public class MaterialPoints {
 		point_B.addLinkTemplate(new LinkTemplate(LINK_NEIGHBOR_LEFT, point_A_id));
 		point_B.addLinkTemplate(new LinkTemplate(LINK_POSITION, object_id));
 
-		Transformation transformations[] = new Transformation[] {
+		final Transformation transformations[] = new Transformation[] {
 				new LinkTransformation(object_id, LINK_POSITION, point_B_id, point_A_id),
 				new LinkTransformation(point_A_id, LINK_POSITION, null, object_id),
 				new LinkTransformation(point_B_id, LINK_POSITION, object_id, null),
 				new AttributeTransformation(point_A_id, ATTRIBUTE_OCCUPIED, true),
 				new AttributeTransformation(point_B_id, ATTRIBUTE_OCCUPIED, false) };
 
-		return new Element(OPERATION_MOVE_LEFT, template, transformations);
+		final Action action = new Action(OPERATION_MOVE_LEFT);
+
+		return new Element(action, template, transformations);
 	}
 
 	public static Element moveTop() {
-		SystemObjectTemplate object = new SystemObjectTemplate("#OBJECT");
-		SystemObjectTemplate point_A = new SystemObjectTemplate("#POINT-A");
-		SystemObjectTemplate point_B = new SystemObjectTemplate("#POINT-B");
+		final SystemObjectTemplate object = new SystemObjectTemplate("#OBJECT");
+		final SystemObjectTemplate point_A = new SystemObjectTemplate("#POINT-A");
+		final SystemObjectTemplate point_B = new SystemObjectTemplate("#POINT-B");
 
-		SystemTemplate template = new SystemTemplate();
+		final SystemTemplate template = new SystemTemplate();
 		template.addObjectTemplate(object);
 		template.addObjectTemplate(point_A);
 		template.addObjectTemplate(point_B);
@@ -133,22 +138,24 @@ public class MaterialPoints {
 		point_B.addAttributeTemplate(new AttributeTemplate(ATTRIBUTE_OCCUPIED, false));
 		point_B.addLinkTemplate(new LinkTemplate(LINK_NEIGHBOR_BOTTOM, point_A_id));
 
-		Transformation transformations[] = new Transformation[] {
+		final Transformation transformations[] = new Transformation[] {
 				new LinkTransformation(object_id, LINK_POSITION, point_A_id, point_B_id),
 				new LinkTransformation(point_A_id, LINK_POSITION, object_id, null),
 				new LinkTransformation(point_B_id, LINK_POSITION, null, object_id),
 				new AttributeTransformation(point_A_id, ATTRIBUTE_OCCUPIED, false),
 				new AttributeTransformation(point_B_id, ATTRIBUTE_OCCUPIED, true) };
 
-		return new Element(OPERATION_MOVE_TOP, template, transformations);
+		final Action action = new Action(OPERATION_MOVE_TOP);
+
+		return new Element(action, template, transformations);
 	}
 
 	public static Element moveBottom() {
-		SystemObjectTemplate object = new SystemObjectTemplate("#OBJECT");
-		SystemObjectTemplate point_A = new SystemObjectTemplate("#POINT-A");
-		SystemObjectTemplate point_B = new SystemObjectTemplate("#POINT-B");
+		final SystemObjectTemplate object = new SystemObjectTemplate("#OBJECT");
+		final SystemObjectTemplate point_A = new SystemObjectTemplate("#POINT-A");
+		final SystemObjectTemplate point_B = new SystemObjectTemplate("#POINT-B");
 
-		SystemTemplate template = new SystemTemplate();
+		final SystemTemplate template = new SystemTemplate();
 		template.addObjectTemplate(object);
 		template.addObjectTemplate(point_A);
 		template.addObjectTemplate(point_B);
@@ -166,14 +173,16 @@ public class MaterialPoints {
 		point_B.addAttributeTemplate(new AttributeTemplate(ATTRIBUTE_OCCUPIED, false));
 		point_B.addLinkTemplate(new LinkTemplate(LINK_NEIGHBOR_TOP, point_A_id));
 
-		Transformation transformations[] = new Transformation[] {
+		final Transformation transformations[] = new Transformation[] {
 				new LinkTransformation(object_id, LINK_POSITION, point_A_id, point_B_id),
 				new LinkTransformation(point_A_id, LINK_POSITION, object_id, null),
 				new LinkTransformation(point_B_id, LINK_POSITION, null, object_id),
 				new AttributeTransformation(point_A_id, ATTRIBUTE_OCCUPIED, false),
 				new AttributeTransformation(point_B_id, ATTRIBUTE_OCCUPIED, true) };
 
-		return new Element(OPERATION_MOVE_BOTTOM, template, transformations);
+		final Action action = new Action(OPERATION_MOVE_BOTTOM);
+
+		return new Element(action, template, transformations);
 	}
 
 	@Test
@@ -338,11 +347,11 @@ public class MaterialPoints {
 		Planner planner = new Planner(initial_system, final_system, elements);
 		planner.plan();
 
-		List<String> operations = planner.getShortestPlan();
-		assertEquals(3, operations.size());
-		assertEquals(OPERATION_MOVE_RIGHT, operations.get(0));
-		assertEquals(OPERATION_MOVE_RIGHT, operations.get(1));
-		assertEquals(OPERATION_MOVE_RIGHT, operations.get(2));
+		List<Action> actions = planner.getShortestPlan();
+		assertEquals(3, actions.size());
+		assertEquals(OPERATION_MOVE_RIGHT, actions.get(0).getName());
+		assertEquals(OPERATION_MOVE_RIGHT, actions.get(1).getName());
+		assertEquals(OPERATION_MOVE_RIGHT, actions.get(2).getName());
 	}
 
 	@Test
@@ -576,21 +585,21 @@ public class MaterialPoints {
 		Planner planner = new Planner(initial_system, final_system, elements);
 		planner.plan();
 
-		List<String> operations = planner.getShortestPlan();
-		assertEquals(14, operations.size());
-		assertEquals(OPERATION_MOVE_RIGHT, operations.get(0));
-		assertEquals(OPERATION_MOVE_RIGHT, operations.get(1));
-		assertEquals(OPERATION_MOVE_BOTTOM, operations.get(2));
-		assertEquals(OPERATION_MOVE_BOTTOM, operations.get(3));
-		assertEquals(OPERATION_MOVE_RIGHT, operations.get(4));
-		assertEquals(OPERATION_MOVE_RIGHT, operations.get(5));
-		assertEquals(OPERATION_MOVE_TOP, operations.get(6));
-		assertEquals(OPERATION_MOVE_TOP, operations.get(7));
-		assertEquals(OPERATION_MOVE_RIGHT, operations.get(8));
-		assertEquals(OPERATION_MOVE_RIGHT, operations.get(9));
-		assertEquals(OPERATION_MOVE_BOTTOM, operations.get(10));
-		assertEquals(OPERATION_MOVE_BOTTOM, operations.get(11));
-		assertEquals(OPERATION_MOVE_RIGHT, operations.get(12));
-		assertEquals(OPERATION_MOVE_RIGHT, operations.get(13));
+		List<Action> actions = planner.getShortestPlan();
+		assertEquals(14, actions.size());
+		assertEquals(OPERATION_MOVE_RIGHT, actions.get(0).getName());
+		assertEquals(OPERATION_MOVE_RIGHT, actions.get(1).getName());
+		assertEquals(OPERATION_MOVE_BOTTOM, actions.get(2).getName());
+		assertEquals(OPERATION_MOVE_BOTTOM, actions.get(3).getName());
+		assertEquals(OPERATION_MOVE_RIGHT, actions.get(4).getName());
+		assertEquals(OPERATION_MOVE_RIGHT, actions.get(5).getName());
+		assertEquals(OPERATION_MOVE_TOP, actions.get(6).getName());
+		assertEquals(OPERATION_MOVE_TOP, actions.get(7).getName());
+		assertEquals(OPERATION_MOVE_RIGHT, actions.get(8).getName());
+		assertEquals(OPERATION_MOVE_RIGHT, actions.get(9).getName());
+		assertEquals(OPERATION_MOVE_BOTTOM, actions.get(10).getName());
+		assertEquals(OPERATION_MOVE_BOTTOM, actions.get(11).getName());
+		assertEquals(OPERATION_MOVE_RIGHT, actions.get(12).getName());
+		assertEquals(OPERATION_MOVE_RIGHT, actions.get(13).getName());
 	}
 }

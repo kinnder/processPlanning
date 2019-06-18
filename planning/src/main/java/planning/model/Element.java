@@ -2,20 +2,20 @@ package planning.model;
 
 public class Element {
 
-	private String operation;
+	private Action action;
 
 	private SystemTemplate template;
 
 	private Transformation[] transformations;
 
-	public Element(String operation, SystemTemplate template, Transformation[] transformations) {
-		this.operation = operation;
+	public Element(Action action, SystemTemplate template, Transformation[] transformations) {
+		this.action = action;
 		this.template = template;
 		this.transformations = transformations;
 	}
 
-	public String getOperation() {
-		return operation;
+	public Action getAction() {
+		return action;
 	}
 
 	public SystemVariant[] applyTo(System system) {
