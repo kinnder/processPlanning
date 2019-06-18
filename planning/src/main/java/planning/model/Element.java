@@ -24,10 +24,11 @@ public class Element {
 		int amount = idsMatchings.length;
 		SystemVariant[] systemVariants = new SystemVariant[amount];
 		for (int i = 0; i < amount; i++) {
-			SystemVariant systemVariant = new SystemVariant(system.clone(), idsMatchings[i]);
+			SystemVariant systemVariant = new SystemVariant(system.clone(), idsMatchings[i], action.clone());
 			for (Transformation transformation : transformations) {
 				transformation.applyTo(systemVariant);
 			}
+			systemVariant.updateActionParameters();
 			systemVariants[i] = systemVariant;
 		}
 

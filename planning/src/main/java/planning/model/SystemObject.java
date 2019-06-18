@@ -118,4 +118,8 @@ public class SystemObject implements Cloneable {
 	public Collection<Link> getLinks() {
 		return Collections.unmodifiableCollection(links);
 	}
+
+	public String getName() {
+		return this.name;
+	}
 }

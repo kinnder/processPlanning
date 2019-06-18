@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.util.List;
+import java.util.Map;
 
 import org.junit.jupiter.api.Test;
 
@@ -13,9 +14,11 @@ import planning.model.Action;
 import planning.model.Attribute;
 import planning.model.AttributeTemplate;
 import planning.model.Element;
+import planning.model.IdsMatching;
 import planning.model.Link;
 import planning.model.LinkTemplate;
 import planning.model.LinkTransformation;
+import planning.model.ParameterUpdater;
 import planning.model.System;
 import planning.model.SystemObject;
 import planning.model.SystemObjectTemplate;
@@ -68,6 +71,8 @@ public class AssemblyLine {
 	private static final String ATTRIBUTE_HACK_PLANE_X_TABLE_1 = "плоскость X стол 1";
 
 	private static final String ATTRIBUTE_HACK_PLANE_X_TABLE_2 = "плоскость X стол 2";
+
+	private static final String PARAMETER_COORDINATE = "координата";
 
 	private static final String LINK_GRAB_POSITION = "положение захвата";
 
@@ -133,6 +138,14 @@ public class AssemblyLine {
 				new LinkTransformation(plane_y_inside_id, LINK_ROTARY_DRIVE_POSITION, robot_id, null) };
 
 		final Action action = new Action(OPERATION_ROTATE_TO_TRANSPORT_LINE);
+		action.registerParameterUpdater(new ParameterUpdater() {
+			@Override
+			public void invoke(System system, IdsMatching idsMatching, Map<String, String> parameters) {
+				String objectId = idsMatching.get(plane_y_outside_id);
+				SystemObject object = system.getObjectById(objectId);
+				parameters.put(PARAMETER_COORDINATE, object.getName());
+			}
+		});
 
 		return new Element(action, template, transformations);
 	}
@@ -584,6 +597,7 @@ public class AssemblyLine {
 		element = rotateToTransportLine();
 		systemVariants = element.applyTo(system);
 		assertEquals(1, systemVariants.length);
+		assertEquals(OBJECT_PLANE_Y_OUTSIDE, systemVariants[0].getAction().getParameter(PARAMETER_COORDINATE));
 
 		system = systemVariants[0].getSystem();
 		assertNotNull(system.getObjectById(robot_id).getLink(LINK_ROTARY_DRIVE_POSITION, plane_y_outside_id));

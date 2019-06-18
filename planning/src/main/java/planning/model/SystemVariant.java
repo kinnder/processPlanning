@@ -6,9 +6,12 @@ public class SystemVariant {
 
 	private IdsMatching idsMatching;
 
-	public SystemVariant(System system, IdsMatching idsMatching) {
+	private Action action;
+
+	public SystemVariant(System system, IdsMatching idsMatching, Action action) {
 		this.system = system;
 		this.idsMatching = idsMatching;
+		this.action = action;
 	}
 
 	public String getObjectIdByIdMatch(String templateId) {
@@ -26,5 +29,13 @@ public class SystemVariant {
 
 	public IdsMatching getIdsMatching() {
 		return idsMatching;
+	}
+
+	public void updateActionParameters() {
+		action.updateParameters(system, idsMatching);
+	}
+
+	public Action getAction() {
+		return action;
 	}
 }

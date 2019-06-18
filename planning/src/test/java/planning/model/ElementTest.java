@@ -26,7 +26,7 @@ public class ElementTest {
 
 	Element testable;
 
-	Action action;
+	Action action_mock;
 
 	SystemTemplate template_mock;
 
@@ -36,17 +36,17 @@ public class ElementTest {
 
 	@BeforeEach
 	public void setup() {
-		action = context.mock(Action.class, "action");
+		action_mock = context.mock(Action.class, "action");
 		template_mock = context.mock(SystemTemplate.class, "template");
 		transformation_mock = context.mock(Transformation.class, "transformation");
 		transformation = new Transformation[] { transformation_mock };
 
-		testable = new Element(action, template_mock, transformation);
+		testable = new Element(action_mock, template_mock, transformation);
 	}
 
 	@Test
 	public void getAction() {
-		assertEquals(action, testable.getAction());
+		assertEquals(action_mock, testable.getAction());
 	}
 
 	@Test
@@ -55,6 +55,7 @@ public class ElementTest {
 		final System systemClone_mock = context.mock(System.class, "system-clone");
 		final IdsMatching idsMatching_mock = context.mock(IdsMatching.class, "ids-matching");
 		final IdsMatching idsMatchings[] = new IdsMatching[] { idsMatching_mock };
+		final Action actionClone_mock = context.mock(Action.class, "action-clone");
 
 		context.checking(new Expectations() {
 			{
@@ -64,7 +65,12 @@ public class ElementTest {
 				oneOf(system_mock).clone();
 				will(returnValue(systemClone_mock));
 
+				oneOf(action_mock).clone();
+				will(returnValue(actionClone_mock));
+
 				oneOf(transformation_mock).applyTo(with(any(SystemVariant.class)));
+
+				oneOf(actionClone_mock).updateParameters(systemClone_mock, idsMatching_mock);
 			}
 		});
 

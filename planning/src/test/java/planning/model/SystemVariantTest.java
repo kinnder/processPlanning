@@ -30,12 +30,15 @@ public class SystemVariantTest {
 
 	IdsMatching idsMatching_mock;
 
+	Action action_mock;
+
 	@BeforeEach
 	public void setup() {
 		system_mock = context.mock(System.class);
 		idsMatching_mock = context.mock(IdsMatching.class);
+		action_mock = context.mock(Action.class);
 
-		testable = new SystemVariant(system_mock, idsMatching_mock);
+		testable = new SystemVariant(system_mock, idsMatching_mock, action_mock);
 	}
 
 	@Test
