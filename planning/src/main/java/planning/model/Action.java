@@ -17,6 +17,7 @@ public class Action implements Cloneable {
 		return name;
 	}
 
+	@Override
 	public Action clone() {
 		Action clone = new Action(name);
 		clone.parameterUpdaters.addAll(parameterUpdaters);
