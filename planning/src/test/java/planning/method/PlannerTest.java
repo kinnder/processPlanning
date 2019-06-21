@@ -53,6 +53,7 @@ public class PlannerTest {
 		final SystemVariant systemVariant_mock = context.mock(SystemVariant.class);
 		final SystemVariant systemVariants[] = new SystemVariant[] { systemVariant_mock };
 		final System system_mock = context.mock(System.class, "system");
+		final Action action_mock = context.mock(Action.class);
 
 		context.checking(new Expectations() {
 			{
@@ -65,6 +66,9 @@ public class PlannerTest {
 				oneOf(systemVariant_mock).getSystem();
 				will(returnValue(system_mock));
 
+				oneOf(systemVariant_mock).getAction();
+				will(returnValue(action_mock));
+
 				oneOf(system_mock).contains(final_system_mock);
 				will(returnValue(true));
 
@@ -73,6 +77,9 @@ public class PlannerTest {
 
 				oneOf(systemVariant_mock).getSystem();
 				will(returnValue(system_mock));
+
+				oneOf(systemVariant_mock).getAction();
+				will(returnValue(action_mock));
 			}
 		});
 
@@ -114,6 +121,9 @@ public class PlannerTest {
 				oneOf(systemVariant_mock).getSystem();
 				will(returnValue(system_mock));
 
+				oneOf(systemVariant_mock).getAction();
+				will(returnValue(action_mock));
+
 				oneOf(system_mock).contains(final_system_mock);
 				will(returnValue(true));
 
@@ -122,16 +132,12 @@ public class PlannerTest {
 
 				oneOf(systemVariant_mock).getSystem();
 				will(returnValue(system_mock));
-			}
-		});
-		testable.plan();
 
-		context.checking(new Expectations() {
-			{
-				oneOf(element_mock).getAction();
+				oneOf(systemVariant_mock).getAction();
 				will(returnValue(action_mock));
 			}
 		});
+		testable.plan();
 
 		assertEquals(action_mock, testable.getShortestPlan().get(0));
 	}

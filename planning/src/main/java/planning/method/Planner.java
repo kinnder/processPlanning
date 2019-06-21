@@ -84,7 +84,7 @@ public class Planner {
 					uncheckedNodes.add(targetNode);
 				}
 
-				Edge edge = new Edge(element, systemVariant);
+				Edge edge = new Edge(systemVariant.getAction());
 				edges.add(edge);
 
 				network.addVertex(targetNode);
@@ -101,7 +101,7 @@ public class Planner {
 		GraphPath<Node, Edge> path = alg.getPath(initialNode, finalNode);
 		List<Action> actions = new ArrayList<>();
 		for (Edge edge : path.getEdgeList()) {
-			actions.add(edge.getElement().getAction());
+			actions.add(edge.getAction());
 		}
 		return actions;
 	}

@@ -11,8 +11,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
-import planning.model.Element;
-import planning.model.SystemVariant;
+import planning.model.Action;
 
 public class EdgeTest {
 
@@ -30,21 +29,18 @@ public class EdgeTest {
 
 	Edge testable;
 
-	Element element_mock;
-
-	SystemVariant systemVariant_mock;
+	Action action_mock;
 
 	@BeforeEach
 	public void setup() {
-		element_mock = context.mock(Element.class, "element");
-		systemVariant_mock = context.mock(SystemVariant.class, "systemVariant");
+		action_mock = context.mock(Action.class, "action");
 
-		testable = new Edge(element_mock, systemVariant_mock);
+		testable = new Edge(action_mock);
 	}
 
 	@Test
 	public void equals() {
-		final Edge edge = new Edge(testable.getId(), testable.getElement(), testable.getSystemVariant());
+		final Edge edge = new Edge(testable.getId(), testable.getAction());
 		assertTrue(testable.equals(edge));
 	}
 
@@ -60,29 +56,24 @@ public class EdgeTest {
 
 	@Test
 	public void equals_differentId() {
-		final Edge edge = new Edge("differentId", element_mock, systemVariant_mock);
+		final Edge edge = new Edge("differentId", action_mock);
 		assertFalse(testable.equals(edge));
 	}
 
 	@Test
-	public void getElement() {
-		assertEquals(element_mock, testable.getElement());
+	public void getAction() {
+		assertEquals(action_mock, testable.getAction());
 	}
 
 	@Test
 	public void getId() {
-		testable = new Edge("id", element_mock, systemVariant_mock);
+		testable = new Edge("id", action_mock);
 		assertEquals("id", testable.getId());
 	}
 
 	@Test
-	public void getSystemVariant() {
-		assertEquals(systemVariant_mock, testable.getSystemVariant());
-	}
-
-	@Test
 	public void hashCode_test() {
-		testable = new Edge("id", element_mock, systemVariant_mock);
+		testable = new Edge("id", action_mock);
 		assertEquals(3355, testable.hashCode());
 	}
 }

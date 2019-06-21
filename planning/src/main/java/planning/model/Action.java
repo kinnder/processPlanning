@@ -21,6 +21,7 @@ public class Action implements Cloneable {
 	public Action clone() {
 		Action clone = new Action(name);
 		clone.parameterUpdaters.addAll(parameterUpdaters);
+		clone.parameters.putAll(parameters);
 		return clone;
 	}
 
