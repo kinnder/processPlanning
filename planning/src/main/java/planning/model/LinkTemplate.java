@@ -19,12 +19,12 @@ public class LinkTemplate {
 		return name;
 	}
 
-	public boolean matches(Link template, IdsMatching matching) {
-		if (template.getName().equals(name)) {
-			if (template.getObjectId() == null) {
+	public boolean matches(Link link, IdsMatching matching) {
+		if (link.getName().equals(name)) {
+			if (link.getObjectId() == null) {
 				return objectId == null;
 			}
-			return template.getObjectId().equals(matching.get(objectId));
+			return link.getObjectId().equals(matching.get(objectId));
 		}
 		return false;
 	}

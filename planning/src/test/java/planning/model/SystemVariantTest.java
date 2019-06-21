@@ -79,4 +79,20 @@ public class SystemVariantTest {
 	public void getIdsMatching() {
 		assertEquals(idsMatching_mock, testable.getIdsMatching());
 	}
+
+	@Test
+	public void getAction() {
+		assertEquals(action_mock, testable.getAction());
+	}
+
+	@Test
+	public void updateActionParameters() {
+		context.checking(new Expectations() {
+			{
+				oneOf(action_mock).updateParameters(system_mock, idsMatching_mock);
+			}
+		});
+
+		testable.updateActionParameters();
+	}
 }

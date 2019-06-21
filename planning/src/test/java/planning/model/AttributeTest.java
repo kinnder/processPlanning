@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import org.jmock.imposters.ByteBuddyClassImposteriser;
 import org.jmock.junit5.JUnit5Mockery;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -14,7 +15,11 @@ import org.junit.jupiter.api.extension.RegisterExtension;
 class AttributeTest {
 
 	@RegisterExtension
-	JUnit5Mockery context = new JUnit5Mockery();
+	JUnit5Mockery context = new JUnit5Mockery() {
+		{
+			setImposteriser(ByteBuddyClassImposteriser.INSTANCE);
+		}
+	};
 
 	@AfterEach
 	public void teardown() {

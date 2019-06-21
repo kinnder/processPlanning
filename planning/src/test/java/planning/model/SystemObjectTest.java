@@ -1,6 +1,7 @@
 package planning.model;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -34,6 +35,11 @@ public class SystemObjectTest {
 	@BeforeEach
 	public void setup() {
 		testable = new SystemObject("object");
+	}
+
+	@Test
+	public void getName() {
+		assertEquals("object", testable.getName());
 	}
 
 	@Test
@@ -193,6 +199,14 @@ public class SystemObjectTest {
 		testable.addLink(link);
 
 		assertEquals(link, testable.getLink("link-name", "link-value"));
+	}
+
+	@Test
+	public void getLink_notFound() {
+		final Link link = new Link("link-name", "link-value");
+		testable.addLink(link);
+
+		assertNull(testable.getLink("link-name-1", "link-value-2"));
 	}
 
 	@Test

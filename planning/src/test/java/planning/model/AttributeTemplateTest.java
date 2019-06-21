@@ -1,5 +1,6 @@
 package planning.model;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -39,8 +40,23 @@ public class AttributeTemplateTest {
 	}
 
 	@Test
-	public void matches_differentType() {
-		final Attribute template = new Attribute("attribute", 10);
+	public void matches_differentType_String() {
+		testable = new AttributeTemplate("attribute", "string");
+		final Attribute template = new Attribute("attribute", false);
+		assertFalse(testable.matches(template));
+	}
+
+	@Test
+	public void matches_differentType_boolean() {
+		testable = new AttributeTemplate("attribute", false);
+		final Attribute template = new Attribute("attribute", "string");
+		assertFalse(testable.matches(template));
+	}
+
+	@Test
+	public void matches_differentType_Object() {
+		testable = new AttributeTemplate("attribute", new Object());
+		final Attribute template = new Attribute("attribute", false);
 		assertFalse(testable.matches(template));
 	}
 
@@ -48,5 +64,10 @@ public class AttributeTemplateTest {
 	public void matches_differentValue() {
 		final Attribute template = new Attribute("attribute", "different");
 		assertFalse(testable.matches(template));
+	}
+
+	@Test
+	public void getName() {
+		assertEquals("attribute", testable.getName());
 	}
 }

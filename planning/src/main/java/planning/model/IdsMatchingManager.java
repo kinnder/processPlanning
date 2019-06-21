@@ -74,9 +74,7 @@ public class IdsMatchingManager {
 				for (int i = 0; i < objectIdsCombination.size(); i++) {
 					String templateId = templateIdsCombination.get(i);
 					String objectId = objectIdsCombination.get(i);
-					if (templateId != null) {
-						idsMatching.add(templateId, objectId);
-					}
+					idsMatching.add(templateId, objectId);
 				}
 				idsMatchings.add(idsMatching);
 			}

@@ -1,5 +1,6 @@
 package planning.model;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -77,16 +78,18 @@ public class LinkTemplateTest {
 
 	@Test
 	public void matches_objectId_null() {
-		testable = new LinkTemplate("link", null);
 		final IdsMatching idsMatching_mock = context.mock(IdsMatching.class);
 
-		context.checking(new Expectations() {
-			{
-				oneOf(idsMatching_mock).get(null);
-				will(returnValue(null));
-			}
-		});
+		assertFalse(testable.matches(new Link("link", null), idsMatching_mock));
+	}
 
-		assertFalse(testable.matches(new Link("link", "value"), idsMatching_mock));
+	@Test
+	public void getName() {
+		assertEquals("link", testable.getName());
+	}
+
+	@Test
+	public void getObjectId() {
+		assertEquals("id-template", testable.getObjectId());
 	}
 }

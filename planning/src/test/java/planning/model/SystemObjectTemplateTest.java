@@ -1,7 +1,11 @@
 package planning.model;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.util.Collection;
+import java.util.Set;
 
 import org.jmock.Expectations;
 import org.jmock.imposters.ByteBuddyClassImposteriser;
@@ -30,6 +34,11 @@ public class SystemObjectTemplateTest {
 	@BeforeEach
 	public void setup() {
 		testable = new SystemObjectTemplate("id");
+	}
+
+	@Test
+	public void getId() {
+		assertEquals("id", testable.getId());
 	}
 
 	@Test
@@ -201,5 +210,90 @@ public class SystemObjectTemplateTest {
 		});
 
 		assertFalse(testable.matchesLinks(object, idsMatching_mock));
+	}
+
+	@Test
+	public void getIds() {
+		final LinkTemplate link_mock = context.mock(LinkTemplate.class, "link");
+		context.checking(new Expectations() {
+			{
+				oneOf(link_mock).getName();
+				will(returnValue("link"));
+			}
+		});
+		testable.addLinkTemplate(link_mock);
+
+		context.checking(new Expectations() {
+			{
+				oneOf(link_mock).getObjectId();
+				will(returnValue("id-2"));
+			}
+		});
+
+		Set<String> ids = testable.getIds();
+		assertEquals(2, ids.size());
+		assertTrue(ids.contains("id-2"));
+	}
+
+	@Test
+	public void getIds_nullValuedLink() {
+		final LinkTemplate link_mock = context.mock(LinkTemplate.class, "link");
+		context.checking(new Expectations() {
+			{
+				oneOf(link_mock).getName();
+				will(returnValue("link"));
+			}
+		});
+		testable.addLinkTemplate(link_mock);
+
+		context.checking(new Expectations() {
+			{
+				oneOf(link_mock).getObjectId();
+				will(returnValue(null));
+			}
+		});
+
+		Set<String> ids = testable.getIds();
+		assertEquals(1, ids.size());
+	}
+
+	@Test
+	public void getAttributes() {
+		final AttributeTemplate attributeTemplate_1_mock = context.mock(AttributeTemplate.class, "attributeTemplate-1");
+		final AttributeTemplate attributeTemplate_2_mock = context.mock(AttributeTemplate.class, "attributeTemplate-2");
+		context.checking(new Expectations() {
+			{
+				oneOf(attributeTemplate_1_mock).getName();
+				will(returnValue("attribute-1-template"));
+
+				oneOf(attributeTemplate_2_mock).getName();
+				will(returnValue("attribute-2-template"));
+			}
+		});
+		testable.addAttributeTemplate(attributeTemplate_1_mock);
+		testable.addAttributeTemplate(attributeTemplate_2_mock);
+
+		Collection<AttributeTemplate> attributes = testable.getAttributes();
+		assertEquals(2, attributes.size());
+	}
+
+	@Test
+	public void getLinks() {
+		final LinkTemplate linkTemplate_1_mock = context.mock(LinkTemplate.class, "linkTemplate-1");
+		final LinkTemplate linkTemplate_2_mock = context.mock(LinkTemplate.class, "linkTemplate-2");
+		context.checking(new Expectations() {
+			{
+				oneOf(linkTemplate_1_mock).getName();
+				will(returnValue("link-1-template"));
+
+				oneOf(linkTemplate_2_mock).getName();
+				will(returnValue("link-2-template"));
+			}
+		});
+		testable.addLinkTemplate(linkTemplate_1_mock);
+		testable.addLinkTemplate(linkTemplate_2_mock);
+
+		Collection<LinkTemplate> links = testable.getLinks();
+		assertEquals(2, links.size());
 	}
 }
