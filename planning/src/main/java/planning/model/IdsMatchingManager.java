@@ -7,13 +7,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import algorithms.set.CartesianProduct;
+import algorithms.set.CartesianProductHelper;
 
 public class IdsMatchingManager {
 
 	private List<IdsMatching> idsMatchings = new ArrayList<>();
 
-	private IdsMatching unchekedIdsMatching = null;
+	private IdsMatching unchekedIdsMatching;
 
 	public IdsMatching getUncheckedMatching() {
 		return unchekedIdsMatching;
@@ -63,7 +63,7 @@ public class IdsMatchingManager {
 	}
 
 	public void generateMatchingsFromCandidates() {
-		List<List<String>> objectIdsCombinations = CartesianProduct.compute(candidates.values());
+		List<List<String>> objectIdsCombinations = CartesianProductHelper.compute(candidates.values());
 		List<String> templateIdsCombination = new ArrayList<>(candidates.keySet());
 		for (List<String> objectIdsCombination : objectIdsCombinations) {
 			Set<String> uniqueObjectIds = new HashSet<>();

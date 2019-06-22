@@ -15,7 +15,7 @@ public class IdsMatching {
 		matchings.put(tempateId, objectId);
 	}
 
-	private boolean checked = false;
+	private boolean checked;
 
 	public boolean isChecked() {
 		return checked;

@@ -12,9 +12,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
-import algorithms.set.CartesianProduct;
+import algorithms.set.CartesianProductHelper;
 
-public class CartesianProductTest {
+public class CartesianProductHelperTest {
 
 	@RegisterExtension
 	JUnit5Mockery context = new JUnit5Mockery() {
@@ -28,11 +28,8 @@ public class CartesianProductTest {
 		context.assertIsSatisfied();
 	}
 
-	CartesianProduct testable;
-
 	@BeforeEach
 	public void setup() {
-		testable = new CartesianProduct();
 	}
 
 	@Test
@@ -41,7 +38,7 @@ public class CartesianProductTest {
 		List<String> t2 = Arrays.asList("ID-2");
 		List<String> t3 = Arrays.asList("ID-3", "ID-4", "ID-5");
 
-		List<List<String>> combinations = CartesianProduct.compute(Arrays.asList(t1, t2, t3));
+		List<List<String>> combinations = CartesianProductHelper.compute(Arrays.asList(t1, t2, t3));
 		assertEquals(15, combinations.size());
 	}
 }
