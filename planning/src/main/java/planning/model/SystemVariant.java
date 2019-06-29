@@ -38,4 +38,8 @@ public class SystemVariant {
 	public Action getAction() {
 		return action;
 	}
+
+	public boolean actionConditionsPasses() {
+		return action.allConditionsPasses(system, idsMatching);
+	}
 }

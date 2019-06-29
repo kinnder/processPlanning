@@ -48,15 +48,17 @@ public class SystemTemplate {
 
 		while (idsMatchingsManager.haveUncheckedMatching()) {
 			IdsMatching matching = idsMatchingsManager.getUncheckedMatching();
-			int templateMatchings = 0;
+			List<SystemObjectTemplate> objectTemplatesToMatch = new ArrayList<>(objects);
+
 			for (SystemObject object : system.getObjects()) {
-				for (SystemObjectTemplate templateObject : objects) {
-					if (templateObject.matchesAttributes(object) && templateObject.matchesLinks(object, matching)) {
-						templateMatchings++;
+				for (SystemObjectTemplate objectTemplate : objectTemplatesToMatch) {
+					if (objectTemplate.matchesAttributes(object) && objectTemplate.matchesLinks(object, matching)) {
+						objectTemplatesToMatch.remove(objectTemplate);
+						break;
 					}
 				}
 			}
-			if (templateMatchings != objects.size()) {
+			if (!objectTemplatesToMatch.isEmpty()) {
 				idsMatchingsManager.removeMatching(matching);
 			}
 		}

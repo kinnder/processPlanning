@@ -50,6 +50,10 @@ public class Attribute implements Cloneable {
 		return value;
 	}
 
+	public Integer getValueAsInteger() {
+		return (Integer) value;
+	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (obj == null) {

@@ -68,6 +68,9 @@ public class ElementTest {
 				oneOf(action_mock).clone();
 				will(returnValue(actionClone_mock));
 
+				oneOf(actionClone_mock).allConditionsPasses(systemClone_mock, idsMatching_mock);
+				will(returnValue(true));
+
 				oneOf(transformation_mock).applyTo(with(any(SystemVariant.class)));
 
 				oneOf(actionClone_mock).updateParameters(systemClone_mock, idsMatching_mock);

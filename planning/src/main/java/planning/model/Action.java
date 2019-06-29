@@ -21,6 +21,7 @@ public class Action implements Cloneable {
 	public Action clone() {
 		Action clone = new Action(name);
 		clone.parameterUpdaters.addAll(parameterUpdaters);
+		clone.conditionCheckers.addAll(conditionCheckers);
 		clone.parameters.putAll(parameters);
 		return clone;
 	}
@@ -41,5 +42,21 @@ public class Action implements Cloneable {
 
 	public String getParameter(String parameterName) {
 		return parameters.get(parameterName);
+	}
+
+	private List<ConditionChecker> conditionCheckers = new ArrayList<>();
+
+	public void registerConditionChecker(ConditionChecker conditionChecker) {
+		conditionCheckers.add(conditionChecker);
+	}
+
+	public boolean allConditionsPasses(System system, IdsMatching idsMatching) {
+		for (ConditionChecker conditionChecker : conditionCheckers) {
+			boolean conditionPasses = conditionChecker.invoke(system, idsMatching, parameters);
+			if (!conditionPasses) {
+				return false;
+			}
+		}
+		return true;
 	}
 }

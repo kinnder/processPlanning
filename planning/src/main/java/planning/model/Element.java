@@ -1,5 +1,8 @@
 package planning.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Element {
 
 	private Action action;
@@ -21,18 +24,19 @@ public class Element {
 	public SystemVariant[] applyTo(System system) {
 		IdsMatching[] idsMatchings = template.matchIds(system);
 
-		int amount = idsMatchings.length;
-		SystemVariant[] systemVariants = new SystemVariant[amount];
-		for (int i = 0; i < amount; i++) {
-			SystemVariant systemVariant = new SystemVariant(system.clone(), idsMatchings[i], action.clone());
-			for (Transformation transformation : transformations) {
-				transformation.applyTo(systemVariant);
+		List<SystemVariant> systemVariants = new ArrayList<>();
+		for (IdsMatching idsMatching : idsMatchings) {
+			SystemVariant systemVariant = new SystemVariant(system.clone(), idsMatching, action.clone());
+			if (systemVariant.actionConditionsPasses()) {
+				for (Transformation transformation : transformations) {
+					transformation.applyTo(systemVariant);
+				}
+				systemVariant.updateActionParameters();
+				systemVariants.add(systemVariant);
 			}
-			systemVariant.updateActionParameters();
-			systemVariants[i] = systemVariant;
 		}
 
-		return systemVariants;
+		return systemVariants.toArray(new SystemVariant[] {});
 	}
 
 }
