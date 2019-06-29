@@ -80,4 +80,32 @@ public class ElementTest {
 		SystemVariant systemVariants[] = testable.applyTo(system_mock);
 		assertEquals(1, systemVariants.length);
 	}
+
+	@Test
+	public void applyTo_actionConditionsFails() {
+		final System system_mock = context.mock(System.class, "system");
+		final System systemClone_mock = context.mock(System.class, "system-clone");
+		final IdsMatching idsMatching_mock = context.mock(IdsMatching.class, "ids-matching");
+		final IdsMatching idsMatchings[] = new IdsMatching[] { idsMatching_mock };
+		final Action actionClone_mock = context.mock(Action.class, "action-clone");
+
+		context.checking(new Expectations() {
+			{
+				oneOf(template_mock).matchIds(system_mock);
+				will(returnValue(idsMatchings));
+
+				oneOf(system_mock).clone();
+				will(returnValue(systemClone_mock));
+
+				oneOf(action_mock).clone();
+				will(returnValue(actionClone_mock));
+
+				oneOf(actionClone_mock).allConditionsPasses(systemClone_mock, idsMatching_mock);
+				will(returnValue(false));
+			}
+		});
+
+		SystemVariant systemVariants[] = testable.applyTo(system_mock);
+		assertEquals(0, systemVariants.length);
+	}
 }

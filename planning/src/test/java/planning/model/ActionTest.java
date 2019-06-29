@@ -1,7 +1,9 @@
 package planning.model;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Map;
 
@@ -64,6 +66,24 @@ public class ActionTest {
 	}
 
 	@Test
+	public void allConditionsPasses() {
+		final System system_mock = context.mock(System.class);
+		final IdsMatching idsMatching_mock = context.mock(IdsMatching.class);
+
+		testable.registerConditionChecker(new ConditionChecker() {
+			@Override
+			public boolean invoke(System system, IdsMatching idsMatching, Map<String, String> parameters) {
+				assertEquals(system_mock, system);
+				assertEquals(idsMatching_mock, idsMatching);
+
+				return true;
+			}
+		});
+
+		assertTrue(testable.allConditionsPasses(system_mock, idsMatching_mock));
+	}
+
+	@Test
 	public void clone_test() {
 		final System system_mock = context.mock(System.class);
 		final IdsMatching idsMatching_mock = context.mock(IdsMatching.class);
@@ -82,11 +102,20 @@ public class ActionTest {
 		});
 		testable.updateParameters(system_mock, idsMatching_mock);
 
+		testable.registerConditionChecker(new ConditionChecker() {
+			@Override
+			public boolean invoke(System system, IdsMatching idsMatching, Map<String, String> parameters) {
+				return false;
+			}
+		});
+
 		Action cloned = testable.clone();
 		assertNotEquals(cloned, testable);
 
 		cloned.updateParameters(system_mock, idsMatching_mock);
 		assertEquals("one", testable.getParameter("parameter"));
 		assertEquals("two", cloned.getParameter("parameter"));
+
+		assertFalse(cloned.allConditionsPasses(system_mock, idsMatching_mock));
 	}
 }

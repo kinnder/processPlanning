@@ -198,4 +198,12 @@ public class SystemTemplateTest {
 
 		assertEquals(idsMatching, testable.matchIds(system));
 	}
+
+	@Test
+	public void getObjects() {
+		final SystemObjectTemplate objectTemplate_mock = context.mock(SystemObjectTemplate.class);
+		testable.addObjectTemplate(objectTemplate_mock);
+
+		assertEquals(1, testable.getObjects().size());
+	}
 }

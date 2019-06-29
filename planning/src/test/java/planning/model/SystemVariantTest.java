@@ -1,6 +1,7 @@
 package planning.model;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.jmock.Expectations;
 import org.jmock.imposters.ByteBuddyClassImposteriser;
@@ -94,5 +95,17 @@ public class SystemVariantTest {
 		});
 
 		testable.updateActionParameters();
+	}
+
+	@Test
+	public void actionConditionsPasses() {
+		context.checking(new Expectations() {
+			{
+				oneOf(action_mock).allConditionsPasses(system_mock, idsMatching_mock);
+				will(returnValue(true));
+			}
+		});
+
+		assertTrue(testable.actionConditionsPasses());
 	}
 }
