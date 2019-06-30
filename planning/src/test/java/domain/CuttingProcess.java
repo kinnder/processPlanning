@@ -62,12 +62,8 @@ public class CuttingProcess {
 		workpiece.addLinkTemplate(new LinkTemplate(LINK_IS_PART_OF, cylinderSurface_id));
 
 		cylinderSurface.addAttributeTemplate(new AttributeTemplate(ATTRIBUTE_CYLINDER_SURFACE, true));
-		// TODO : add template matching with any-value
-		//
-		// cylinderSurface.addAttributeTemplate(new
-		// AttributeTemplate(ATTRIBUTE_DIAMETER));
-		// cylinderSurface.addAttributeTemplate(new
-		// AttributeTemplate(ATTRIBUTE_DIAMETER_REQUIRED));
+		cylinderSurface.addAttributeTemplate(new AttributeTemplate(ATTRIBUTE_DIAMETER));
+		cylinderSurface.addAttributeTemplate(new AttributeTemplate(ATTRIBUTE_DIAMETER_REQUIRED));
 		cylinderSurface.addLinkTemplate(new LinkTemplate(LINK_IS_PART_OF, workpiece_id));
 
 		final Transformation transformations[] = new Transformation[] {};

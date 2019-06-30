@@ -67,6 +67,15 @@ public class AttributeTemplateTest {
 	}
 
 	@Test
+	public void matches_anyValue() {
+		final Attribute template = new Attribute("attribute", "different");
+		assertFalse(testable.matches(template));
+
+		testable = new AttributeTemplate("attribute");
+		assertTrue(testable.matches(template));
+	}
+
+	@Test
 	public void getName() {
 		assertEquals("attribute", testable.getName());
 	}
