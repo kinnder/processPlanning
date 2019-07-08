@@ -26,9 +26,9 @@ public class Action implements Cloneable {
 		return clone;
 	}
 
-	public void updateParameters(System system, IdsMatching idsMatching) {
+	public void updateParameters(SystemVariant systemVariant) {
 		for (ParameterUpdater parameterUpdater : parameterUpdaters) {
-			parameterUpdater.invoke(system, idsMatching, parameters);
+			parameterUpdater.invoke(systemVariant, parameters);
 		}
 	}
 
@@ -50,9 +50,9 @@ public class Action implements Cloneable {
 		conditionCheckers.add(conditionChecker);
 	}
 
-	public boolean allConditionsPasses(System system, IdsMatching idsMatching) {
+	public boolean allConditionsPasses(SystemVariant systemVariant) {
 		for (ConditionChecker conditionChecker : conditionCheckers) {
-			boolean conditionPasses = conditionChecker.invoke(system, idsMatching, parameters);
+			boolean conditionPasses = conditionChecker.invoke(systemVariant, parameters);
 			if (!conditionPasses) {
 				return false;
 			}

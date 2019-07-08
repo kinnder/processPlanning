@@ -16,7 +16,6 @@ import planning.model.AttributeTemplate;
 import planning.model.AttributeTransformation;
 import planning.model.ConditionChecker;
 import planning.model.Element;
-import planning.model.IdsMatching;
 import planning.model.Link;
 import planning.model.LinkTemplate;
 import planning.model.LinkTransformation;
@@ -123,14 +122,12 @@ public class CuttingProcess {
 		final Action action = new Action(OPERATION_CUT_CYLINDER_SURFACE);
 		action.registerConditionChecker(new ConditionChecker() {
 			@Override
-			public boolean invoke(System system, IdsMatching idsMatching, Map<String, String> parameters) {
+			public boolean invoke(SystemVariant systemVariant, Map<String, String> parameters) {
 				// TODO : перенести общий функционал в базовый класс
-				String cylinderSurface_id_actual = idsMatching.get(cylinderSurface_id);
-				SystemObject cylinderSurface_actual = system.getObjectById(cylinderSurface_id_actual);
+				SystemObject cylinderSurface_actual = systemVariant.getObjectByIdMatch(cylinderSurface_id);
 				Integer diameter = cylinderSurface_actual.getAttribute(ATTRIBUTE_DIAMETER).getValueAsInteger();
 
-				String requirement_id_actual = idsMatching.get(requirement_id);
-				SystemObject requirement_actual = system.getObjectById(requirement_id_actual);
+				SystemObject requirement_actual = systemVariant.getObjectByIdMatch(requirement_id);
 				Integer diameterRequired = requirement_actual.getAttribute(ATTRIBUTE_DIAMETER_REQUIREMENT)
 						.getValueAsInteger();
 
@@ -139,14 +136,12 @@ public class CuttingProcess {
 		});
 		action.registerParameterUpdater(new ParameterUpdater() {
 			@Override
-			public void invoke(System system, IdsMatching idsMatching, Map<String, String> parameters) {
+			public void invoke(SystemVariant systemVariant, Map<String, String> parameters) {
 				// TODO : перенести общий функционал в базовый класс
-				String cylinderSurface_id_actual = idsMatching.get(cylinderSurface_id);
-				SystemObject cylinderSurface_actual = system.getObjectById(cylinderSurface_id_actual);
+				SystemObject cylinderSurface_actual = systemVariant.getObjectByIdMatch(cylinderSurface_id);
 				Integer diameter = cylinderSurface_actual.getAttribute(ATTRIBUTE_DIAMETER).getValueAsInteger();
 
-				String requirement_id_actual = idsMatching.get(requirement_id);
-				SystemObject requirement_actual = system.getObjectById(requirement_id_actual);
+				SystemObject requirement_actual = systemVariant.getObjectByIdMatch(requirement_id);
 				Integer diameterRequired = requirement_actual.getAttribute(ATTRIBUTE_DIAMETER_REQUIREMENT)
 						.getValueAsInteger();
 
@@ -200,14 +195,12 @@ public class CuttingProcess {
 		final Action action = new Action(OPERATION_TRIM_CYLINDER_SURFACE);
 		action.registerConditionChecker(new ConditionChecker() {
 			@Override
-			public boolean invoke(System system, IdsMatching idsMatching, Map<String, String> parameters) {
+			public boolean invoke(SystemVariant systemVariant, Map<String, String> parameters) {
 				// TODO : перенести общий функционал в базовый класс
-				String cylinderSurface_id_actual = idsMatching.get(cylinderSurface_id);
-				SystemObject cylinderSurface_actual = system.getObjectById(cylinderSurface_id_actual);
+				SystemObject cylinderSurface_actual = systemVariant.getObjectByIdMatch(cylinderSurface_id);
 				Integer length = cylinderSurface_actual.getAttribute(ATTRIBUTE_LENGTH).getValueAsInteger();
 
-				String requirement_id_actual = idsMatching.get(requirement_id);
-				SystemObject requirement_actual = system.getObjectById(requirement_id_actual);
+				SystemObject requirement_actual = systemVariant.getObjectByIdMatch(requirement_id);
 				Integer lengthRequired = requirement_actual.getAttribute(ATTRIBUTE_LENGTH_REQUIREMENT)
 						.getValueAsInteger();
 
@@ -271,20 +264,17 @@ public class CuttingProcess {
 		final Action action = new Action(OPERATION_SPLIT_CYLINDER_SURFACE);
 		action.registerConditionChecker(new ConditionChecker() {
 			@Override
-			public boolean invoke(System system, IdsMatching idsMatching, Map<String, String> parameters) {
+			public boolean invoke(SystemVariant systemVariant, Map<String, String> parameters) {
 				// TODO : перенести общий функционал в базовый класс
-				String cylinderSurface_id_actual = idsMatching.get(cylinderSurface_id);
-				SystemObject cylinderSurface_actual = system.getObjectById(cylinderSurface_id_actual);
+				SystemObject cylinderSurface_actual = systemVariant.getObjectByIdMatch(cylinderSurface_id);
 				Integer diameter = cylinderSurface_actual.getAttribute(ATTRIBUTE_DIAMETER).getValueAsInteger();
 				Integer length = cylinderSurface_actual.getAttribute(ATTRIBUTE_LENGTH).getValueAsInteger();
 
-				String requirement_l_id_actual = idsMatching.get(requirement_l_id);
-				SystemObject requirement_l_actual = system.getObjectById(requirement_l_id_actual);
+				SystemObject requirement_l_actual = systemVariant.getObjectByIdMatch(requirement_l_id);
 				Integer lengthRequired = requirement_l_actual.getAttribute(ATTRIBUTE_LENGTH_REQUIREMENT)
 						.getValueAsInteger();
 
-				String requirement_r_id_actual = idsMatching.get(requirement_r_id);
-				SystemObject requirement_r_actual = system.getObjectById(requirement_r_id_actual);
+				SystemObject requirement_r_actual = systemVariant.getObjectByIdMatch(requirement_r_id);
 				Integer diameterRequired = requirement_r_actual.getAttribute(ATTRIBUTE_DIAMETER_REQUIREMENT)
 						.getValueAsInteger();
 
@@ -293,25 +283,21 @@ public class CuttingProcess {
 		});
 		action.registerParameterUpdater(new ParameterUpdater() {
 			@Override
-			public void invoke(System system, IdsMatching idsMatching, Map<String, String> parameters) {
+			public void invoke(SystemVariant systemVariant, Map<String, String> parameters) {
 				// TODO : перенести общий функционал в базовый класс
-				String cylinderSurface_id_actual = idsMatching.get(cylinderSurface_id);
-				SystemObject cylinderSurface_actual = system.getObjectById(cylinderSurface_id_actual);
+				SystemObject cylinderSurface_actual = systemVariant.getObjectByIdMatch(cylinderSurface_id);
 				Integer diameter = cylinderSurface_actual.getAttribute(ATTRIBUTE_DIAMETER).getValueAsInteger();
 				Integer length = cylinderSurface_actual.getAttribute(ATTRIBUTE_LENGTH).getValueAsInteger();
 
-				String requirement_l_id_actual = idsMatching.get(requirement_l_id);
-				SystemObject requirement_l_actual = system.getObjectById(requirement_l_id_actual);
+				SystemObject requirement_l_actual = systemVariant.getObjectByIdMatch(requirement_l_id);
 				Integer lengthRequired = requirement_l_actual.getAttribute(ATTRIBUTE_LENGTH_REQUIREMENT)
 						.getValueAsInteger();
 
-				String requirement_r_id_actual = idsMatching.get(requirement_r_id);
-				SystemObject requirement_r_actual = system.getObjectById(requirement_r_id_actual);
+				SystemObject requirement_r_actual = systemVariant.getObjectByIdMatch(requirement_r_id);
 				Integer diameterRequired = requirement_r_actual.getAttribute(ATTRIBUTE_DIAMETER_REQUIREMENT)
 						.getValueAsInteger();
 
-				String workpiece_id_actual = idsMatching.get(workpiece_id);
-				SystemObject workpiece_actual = system.getObjectById(workpiece_id_actual);
+				SystemObject workpiece_actual = systemVariant.getObjectByIdMatch(workpiece_id);
 
 				Integer diameterDelta = diameter - diameterRequired;
 				parameters.put(PARAMETER_DIAMETER_DELTA, Integer.toString(diameterDelta));
@@ -326,11 +312,11 @@ public class CuttingProcess {
 				cylinderSurface_new.addAttribute(new Attribute(ATTRIBUTE_LENGTH, lengthDelta));
 				cylinderSurface_new.addAttribute(new Attribute(ATTRIBUTE_HAS_DIAMETER_REQUIREMENT, true));
 				cylinderSurface_new.addAttribute(new Attribute(ATTRIBUTE_HAS_LENGTH_REQUIREMENT, false));
-				cylinderSurface_new.addLink(new Link(LINK_IS_PART_OF, workpiece_id_actual));
-				cylinderSurface_new.addLink(new Link(LINK_IS_DIAMETER_REQUIREMENT, requirement_r_id_actual));
+				cylinderSurface_new.addLink(new Link(LINK_IS_PART_OF, workpiece_actual.getId()));
+				cylinderSurface_new.addLink(new Link(LINK_IS_DIAMETER_REQUIREMENT, requirement_r_actual.getId()));
 				cylinderSurface_new.addLink(new Link(LINK_IS_LENGTH_REQUIREMENT, null));
-				cylinderSurface_new.addLink(new Link(LINK_SURFACE_SIDE_LEFT, cylinderSurface_id_actual));
-				system.addObject(cylinderSurface_new);
+				cylinderSurface_new.addLink(new Link(LINK_SURFACE_SIDE_LEFT, cylinderSurface_actual.getId()));
+				systemVariant.getSystem().addObject(cylinderSurface_new);
 
 				cylinderSurface_actual.getAttribute(ATTRIBUTE_LENGTH).setValue(lengthRequired);
 				cylinderSurface_actual.addLink(new Link(LINK_SURFACE_SIDE_RIGHT, cylinderSurface_new.getId()));

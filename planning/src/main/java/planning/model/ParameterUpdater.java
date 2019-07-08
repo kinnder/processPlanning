@@ -4,5 +4,5 @@ import java.util.Map;
 
 public interface ParameterUpdater {
 
-	void invoke(System system, IdsMatching idsMatching, Map<String, String> parameters);
+	void invoke(SystemVariant systemVariant, Map<String, String> parameters);
 }

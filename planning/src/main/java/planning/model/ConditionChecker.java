@@ -4,5 +4,5 @@ import java.util.Map;
 
 public interface ConditionChecker {
 
-	boolean invoke(System system, IdsMatching idsMatching, Map<String, String> parameters);
+	boolean invoke(SystemVariant systemVariant, Map<String, String> parameters);
 }

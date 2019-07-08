@@ -47,50 +47,45 @@ public class ActionTest {
 
 	@Test
 	public void updateParameters() {
-		final System system_mock = context.mock(System.class);
-		final IdsMatching idsMatching_mock = context.mock(IdsMatching.class);
+		final SystemVariant systemVariant_mock = context.mock(SystemVariant.class);
 
 		testable.registerParameterUpdater(new ParameterUpdater() {
 			@Override
-			public void invoke(System system, IdsMatching idsMatching, Map<String, String> parameters) {
-				assertEquals(system_mock, system);
-				assertEquals(idsMatching_mock, idsMatching);
+			public void invoke(SystemVariant systemVariant, Map<String, String> parameters) {
+				assertEquals(systemVariant_mock, systemVariant);
 
 				parameters.put("parameter-name", "parameter-value");
 			}
 		});
 
-		testable.updateParameters(system_mock, idsMatching_mock);
+		testable.updateParameters(systemVariant_mock);
 
 		assertEquals("parameter-value", testable.getParameter("parameter-name"));
 	}
 
 	@Test
 	public void allConditionsPasses() {
-		final System system_mock = context.mock(System.class);
-		final IdsMatching idsMatching_mock = context.mock(IdsMatching.class);
+		final SystemVariant systemVariant_mock = context.mock(SystemVariant.class);
 
 		testable.registerConditionChecker(new ConditionChecker() {
 			@Override
-			public boolean invoke(System system, IdsMatching idsMatching, Map<String, String> parameters) {
-				assertEquals(system_mock, system);
-				assertEquals(idsMatching_mock, idsMatching);
+			public boolean invoke(SystemVariant systemVariant, Map<String, String> parameters) {
+				assertEquals(systemVariant_mock, systemVariant);
 
 				return true;
 			}
 		});
 
-		assertTrue(testable.allConditionsPasses(system_mock, idsMatching_mock));
+		assertTrue(testable.allConditionsPasses(systemVariant_mock));
 	}
 
 	@Test
 	public void clone_test() {
-		final System system_mock = context.mock(System.class);
-		final IdsMatching idsMatching_mock = context.mock(IdsMatching.class);
+		final SystemVariant systemVariant_mock = context.mock(SystemVariant.class);
 
 		testable.registerParameterUpdater(new ParameterUpdater() {
 			@Override
-			public void invoke(System system, IdsMatching idsMatching, Map<String, String> parameters) {
+			public void invoke(SystemVariant systemVariant, Map<String, String> parameters) {
 				String value = parameters.get("parameter");
 				if (value == null) {
 					value = "one";
@@ -100,11 +95,11 @@ public class ActionTest {
 				parameters.put("parameter", value);
 			}
 		});
-		testable.updateParameters(system_mock, idsMatching_mock);
+		testable.updateParameters(systemVariant_mock);
 
 		testable.registerConditionChecker(new ConditionChecker() {
 			@Override
-			public boolean invoke(System system, IdsMatching idsMatching, Map<String, String> parameters) {
+			public boolean invoke(SystemVariant systemVariant, Map<String, String> parameters) {
 				return false;
 			}
 		});
@@ -112,10 +107,10 @@ public class ActionTest {
 		Action cloned = testable.clone();
 		assertNotEquals(cloned, testable);
 
-		cloned.updateParameters(system_mock, idsMatching_mock);
+		cloned.updateParameters(systemVariant_mock);
 		assertEquals("one", testable.getParameter("parameter"));
 		assertEquals("two", cloned.getParameter("parameter"));
 
-		assertFalse(cloned.allConditionsPasses(system_mock, idsMatching_mock));
+		assertFalse(cloned.allConditionsPasses(systemVariant_mock));
 	}
 }

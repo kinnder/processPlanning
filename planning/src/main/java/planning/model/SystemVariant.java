@@ -32,7 +32,7 @@ public class SystemVariant {
 	}
 
 	public void updateActionParameters() {
-		action.updateParameters(system, idsMatching);
+		action.updateParameters(this);
 	}
 
 	public Action getAction() {
@@ -40,6 +40,6 @@ public class SystemVariant {
 	}
 
 	public boolean actionConditionsPasses() {
-		return action.allConditionsPasses(system, idsMatching);
+		return action.allConditionsPasses(this);
 	}
 }

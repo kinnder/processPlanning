@@ -90,7 +90,7 @@ public class SystemVariantTest {
 	public void updateActionParameters() {
 		context.checking(new Expectations() {
 			{
-				oneOf(action_mock).updateParameters(system_mock, idsMatching_mock);
+				oneOf(action_mock).updateParameters(testable);
 			}
 		});
 
@@ -101,7 +101,7 @@ public class SystemVariantTest {
 	public void actionConditionsPasses() {
 		context.checking(new Expectations() {
 			{
-				oneOf(action_mock).allConditionsPasses(system_mock, idsMatching_mock);
+				oneOf(action_mock).allConditionsPasses(testable);
 				will(returnValue(true));
 			}
 		});

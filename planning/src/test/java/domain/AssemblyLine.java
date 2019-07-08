@@ -14,7 +14,6 @@ import planning.model.Action;
 import planning.model.Attribute;
 import planning.model.AttributeTemplate;
 import planning.model.Element;
-import planning.model.IdsMatching;
 import planning.model.Link;
 import planning.model.LinkTemplate;
 import planning.model.LinkTransformation;
@@ -128,9 +127,8 @@ public class AssemblyLine {
 		final Action action = new Action(OPERATION_ROTATE_WITHOUT_LOAD);
 		action.registerParameterUpdater(new ParameterUpdater() {
 			@Override
-			public void invoke(System system, IdsMatching idsMatching, Map<String, String> parameters) {
-				String objectId = idsMatching.get(plane_y_target_id);
-				SystemObject object = system.getObjectById(objectId);
+			public void invoke(SystemVariant systemVariant, Map<String, String> parameters) {
+				SystemObject object = systemVariant.getObjectByIdMatch(plane_y_target_id);
 				parameters.put(PARAMETER_TARGET, object.getName());
 			}
 		});
@@ -177,9 +175,8 @@ public class AssemblyLine {
 		final Action action = new Action(OPERATION_TURN_WITH_LOAD);
 		action.registerParameterUpdater(new ParameterUpdater() {
 			@Override
-			public void invoke(System system, IdsMatching idsMatching, Map<String, String> parameters) {
-				String objectId = idsMatching.get(plane_y_target_id);
-				SystemObject object = system.getObjectById(objectId);
+			public void invoke(SystemVariant systemVariant, Map<String, String> parameters) {
+				SystemObject object = systemVariant.getObjectByIdMatch(plane_y_target_id);
 				parameters.put(PARAMETER_TARGET, object.getName());
 			}
 		});
@@ -456,9 +453,8 @@ public class AssemblyLine {
 		final Action action = new Action(OPERATION_MOVE_WITH_LOAD);
 		action.registerParameterUpdater(new ParameterUpdater() {
 			@Override
-			public void invoke(System system, IdsMatching idsMatching, Map<String, String> parameters) {
-				String objectId = idsMatching.get(plane_x_target_id);
-				SystemObject object = system.getObjectById(objectId);
+			public void invoke(SystemVariant systemVariant, Map<String, String> parameters) {
+				SystemObject object = systemVariant.getObjectByIdMatch(plane_x_target_id);
 				parameters.put(PARAMETER_TARGET, object.getName());
 			}
 		});
@@ -498,9 +494,8 @@ public class AssemblyLine {
 		final Action action = new Action(OPERATION_MOVE_WITHOUT_LOAD);
 		action.registerParameterUpdater(new ParameterUpdater() {
 			@Override
-			public void invoke(System system, IdsMatching idsMatching, Map<String, String> parameters) {
-				String objectId = idsMatching.get(plane_x_target_id);
-				SystemObject object = system.getObjectById(objectId);
+			public void invoke(SystemVariant systemVariant, Map<String, String> parameters) {
+				SystemObject object = systemVariant.getObjectByIdMatch(plane_x_target_id);
 				parameters.put(PARAMETER_TARGET, object.getName());
 			}
 		});
