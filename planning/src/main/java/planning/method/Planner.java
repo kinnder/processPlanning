@@ -24,17 +24,17 @@ public class Planner {
 
 	private List<Edge> edges;
 
-	private System initial_system;
+	private System initialSystem;
 
-	private System final_system;
+	private System finalSystem;
 
 	private Element[] elements;
 
 	private DefaultDirectedGraph<Node, Edge> network;
 
-	public Planner(System initial_system, System final_system, Element[] elements) {
-		this.initial_system = initial_system;
-		this.final_system = final_system;
+	public Planner(System initialSystem, System finalSystem, Element[] elements) {
+		this.initialSystem = initialSystem;
+		this.finalSystem = finalSystem;
 		this.elements = elements;
 
 		this.checkedNodes = new ArrayList<>();
@@ -46,7 +46,7 @@ public class Planner {
 	}
 
 	public void plan() {
-		initialNode = new Node(initial_system);
+		initialNode = new Node(initialSystem);
 		uncheckedNodes.add(initialNode);
 		network.addVertex(initialNode);
 
@@ -64,7 +64,7 @@ public class Planner {
 	private void iterate() {
 		Node sourceNode = uncheckedNodes.get(0);
 		System sourceSystem = sourceNode.getSystem();
-		if (sourceSystem.contains(final_system)) {
+		if (sourceSystem.contains(finalSystem)) {
 			finalNode = sourceNode;
 		}
 		for (Element element : elements) {
