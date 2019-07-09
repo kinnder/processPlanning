@@ -9,7 +9,7 @@ import java.util.Set;
 
 public class SystemTemplate {
 
-	private List<SystemObjectTemplate> objects = new ArrayList<>();
+	private List<SystemObjectTemplate> objects;
 
 	public Set<String> getIds() {
 		Set<String> systemIds = new HashSet<>();
@@ -25,13 +25,15 @@ public class SystemTemplate {
 	}
 
 	public SystemTemplate() {
+		this(new IdsMatchingManager());
 	}
 
 	SystemTemplate(IdsMatchingManager idsMatchingManager) {
 		this.idsMatchingsManager = idsMatchingManager;
+		this.objects = new ArrayList<>();
 	}
 
-	private IdsMatchingManager idsMatchingsManager = new IdsMatchingManager();
+	private IdsMatchingManager idsMatchingsManager;
 
 	public IdsMatching[] matchIds(System system) {
 		idsMatchingsManager.prepareMatchingsCandidates(getIds(), system.getIds());

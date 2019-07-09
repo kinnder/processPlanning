@@ -11,9 +11,14 @@ import algorithms.set.CartesianProductHelper;
 
 public class IdsMatchingManager {
 
-	private List<IdsMatching> idsMatchings = new ArrayList<>();
+	private List<IdsMatching> idsMatchings;
 
 	private IdsMatching unchekedIdsMatching;
+
+	public IdsMatchingManager() {
+		this.idsMatchings = new ArrayList<>();
+		this.candidates = new HashMap<>();
+	}
 
 	public IdsMatching getUncheckedMatching() {
 		return unchekedIdsMatching;
@@ -46,7 +51,7 @@ public class IdsMatchingManager {
 		return idsMatchings.get(index);
 	}
 
-	private Map<String, List<String>> candidates = new HashMap<>();
+	private Map<String, List<String>> candidates;
 
 	public void prepareMatchingsCandidates(Set<String> templateIds, Set<String> systemIds) {
 		unchekedIdsMatching = null;

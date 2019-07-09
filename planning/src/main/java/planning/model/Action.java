@@ -11,6 +11,9 @@ public class Action implements Cloneable {
 
 	public Action(String name) {
 		this.name = name;
+		this.parameterUpdaters = new ArrayList<>();
+		this.parameters = new HashMap<>();
+		this.conditionCheckers = new ArrayList<>();
 	}
 
 	public String getName() {
@@ -34,19 +37,19 @@ public class Action implements Cloneable {
 		}
 	}
 
-	private List<ParameterUpdater> parameterUpdaters = new ArrayList<>();
+	private List<ParameterUpdater> parameterUpdaters;
 
 	public void registerParameterUpdater(ParameterUpdater parameterUpdater) {
 		parameterUpdaters.add(parameterUpdater);
 	}
 
-	private Map<String, String> parameters = new HashMap<>();
+	private Map<String, String> parameters;
 
 	public String getParameter(String parameterName) {
 		return parameters.get(parameterName);
 	}
 
-	private List<ConditionChecker> conditionCheckers = new ArrayList<>();
+	private List<ConditionChecker> conditionCheckers;
 
 	public void registerConditionChecker(ConditionChecker conditionChecker) {
 		conditionCheckers.add(conditionChecker);

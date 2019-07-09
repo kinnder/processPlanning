@@ -13,9 +13,9 @@ import java.util.UUID;
 
 public class SystemObject implements Cloneable {
 
-	private Map<String, Attribute> attributes = new HashMap<>();
+	private Map<String, Attribute> attributes;
 
-	private List<Link> links = new ArrayList<>();
+	private List<Link> links;
 
 	private String id;
 
@@ -28,6 +28,8 @@ public class SystemObject implements Cloneable {
 	public SystemObject(String name, String id) {
 		this.name = name;
 		this.id = id;
+		this.attributes = new HashMap<>();
+		this.links = new ArrayList<>();
 	}
 
 	public String getId() {
