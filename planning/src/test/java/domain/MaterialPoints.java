@@ -25,25 +25,27 @@ import planning.model.AttributeTransformation;
 
 public class MaterialPoints {
 
-	private static final String LINK_POSITION = "position";
+	private static final String OBJECT_MATERIAL_POINT = "материальная точка";
 
-	private static final String LINK_NEIGHBOR_RIGHT = "neighborOnTheRight";
+	private static final String LINK_POSITION = "местоположение";
 
-	private static final String LINK_NEIGHBOR_LEFT = "neighborOnTheLeft";
+	private static final String LINK_NEIGHBOR_RIGHT = "сосед справа";
 
-	private static final String LINK_NEIGHBOR_TOP = "neighborOnTheTop";
+	private static final String LINK_NEIGHBOR_LEFT = "сосед слева";
 
-	private static final String LINK_NEIGHBOR_BOTTOM = "neighborOnTheBottom";
+	private static final String LINK_NEIGHBOR_TOP = "сосед сверху";
 
-	private static final String ATTRIBUTE_OCCUPIED = "occupied";
+	private static final String LINK_NEIGHBOR_BOTTOM = "сосед снизу";
 
-	private static final String OPERATION_MOVE_RIGHT = "Движение вправо";
+	private static final String ATTRIBUTE_OCCUPIED = "занята";
 
-	private static final String OPERATION_MOVE_LEFT = "Движение влево";
+	private static final String OPERATION_MOVE_RIGHT = "движение вправо";
 
-	private static final String OPERATION_MOVE_BOTTOM = "Движение вниз";
+	private static final String OPERATION_MOVE_LEFT = "движение влево";
 
-	private static final String OPERATION_MOVE_TOP = "Движение вверх";
+	private static final String OPERATION_MOVE_BOTTOM = "движение вниз";
+
+	private static final String OPERATION_MOVE_TOP = "движение вверх";
 
 	public static Element moveRight() {
 		final SystemObjectTemplate object = new SystemObjectTemplate("#OBJECT");
@@ -187,7 +189,7 @@ public class MaterialPoints {
 
 	@Test
 	public void applicationOfElements() throws CloneNotSupportedException {
-		final SystemObject object = new SystemObject("материальная точка");
+		final SystemObject object = new SystemObject(OBJECT_MATERIAL_POINT);
 		final SystemObject point_1 = new SystemObject("точка-1");
 		final SystemObject point_2 = new SystemObject("точка-2");
 		final SystemObject point_3 = new SystemObject("точка-3");
@@ -279,7 +281,7 @@ public class MaterialPoints {
 	@Test
 	public void movingOnStraightLine() throws CloneNotSupportedException {
 		final System initial_system = new System();
-		final SystemObject object = new SystemObject("материальная точка");
+		final SystemObject object = new SystemObject(OBJECT_MATERIAL_POINT);
 		final SystemObject point_1 = new SystemObject("точка-1");
 		final SystemObject point_2 = new SystemObject("точка-2");
 		final SystemObject point_3 = new SystemObject("точка-3");
@@ -333,7 +335,7 @@ public class MaterialPoints {
 		assertEquals(0, systemVariants.length);
 
 		final System final_system = new System();
-		final SystemObject final_object = new SystemObject("материальная точка", object_id);
+		final SystemObject final_object = new SystemObject(OBJECT_MATERIAL_POINT, object_id);
 		final SystemObject final_point_4 = new SystemObject("точка-4", point_4_id);
 		final_system.addObject(final_object);
 		final_system.addObject(final_point_4);
@@ -367,7 +369,7 @@ public class MaterialPoints {
 		// 0 0 1 2 3 4 5 6 7 8 9 A x
 
 		final System initial_system = new System();
-		final SystemObject object = new SystemObject("материальная точка");
+		final SystemObject object = new SystemObject(OBJECT_MATERIAL_POINT);
 		final SystemObject point_15 = new SystemObject("точка-15");
 		final SystemObject point_14 = new SystemObject("точка-14");
 		final SystemObject point_13 = new SystemObject("точка-13");
@@ -571,7 +573,7 @@ public class MaterialPoints {
 		assertEquals(1, systemVariants.length);
 
 		final System final_system = new System();
-		final SystemObject final_object = new SystemObject("материальная точка", object_id);
+		final SystemObject final_object = new SystemObject(OBJECT_MATERIAL_POINT, object_id);
 		final SystemObject final_point_92 = new SystemObject("точка-92", point_92_id);
 		final_system.addObject(final_object);
 		final_system.addObject(final_point_92);
