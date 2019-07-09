@@ -29,13 +29,13 @@ public class System implements Cloneable {
 	}
 
 	@Override
-	public System clone() {
-		System system = new System();
+	public System clone() throws CloneNotSupportedException {
+		System clone = (System) super.clone();
+		clone.objects = new ArrayList<>();
 		for (SystemObject object : objects) {
-			SystemObject cloned = object.clone();
-			system.addObject(cloned);
+			clone.addObject(object.clone());
 		}
-		return system;
+		return clone;
 	}
 
 	@Override

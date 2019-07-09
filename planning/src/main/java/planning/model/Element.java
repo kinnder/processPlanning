@@ -21,7 +21,7 @@ public class Element {
 		return action;
 	}
 
-	public SystemVariant[] applyTo(System system) {
+	public SystemVariant[] applyTo(System system) throws CloneNotSupportedException {
 		IdsMatching[] idsMatchings = template.matchIds(system);
 
 		List<SystemVariant> systemVariants = new ArrayList<>();

@@ -50,7 +50,7 @@ public class ElementTest {
 	}
 
 	@Test
-	public void applyTo() {
+	public void applyTo() throws CloneNotSupportedException {
 		final System system_mock = context.mock(System.class, "system");
 		final System systemClone_mock = context.mock(System.class, "system-clone");
 		final IdsMatching idsMatching_mock = context.mock(IdsMatching.class, "ids-matching");
@@ -82,7 +82,7 @@ public class ElementTest {
 	}
 
 	@Test
-	public void applyTo_actionConditionsFails() {
+	public void applyTo_actionConditionsFails() throws CloneNotSupportedException {
 		final System system_mock = context.mock(System.class, "system");
 		final System systemClone_mock = context.mock(System.class, "system-clone");
 		final IdsMatching idsMatching_mock = context.mock(IdsMatching.class, "ids-matching");

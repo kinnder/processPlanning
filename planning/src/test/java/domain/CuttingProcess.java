@@ -332,7 +332,7 @@ public class CuttingProcess {
 	}
 
 	@Test
-	public void applicationOfElements() {
+	public void applicationOfElements() throws CloneNotSupportedException {
 		final SystemObject workpiece = new SystemObject(OBJECT_WORKPIECE);
 		final SystemObject cylinderSurface = new SystemObject(OBJECT_CYLINDER_SURFACE);
 		final SystemObject requirement_a = new SystemObject(OBJECT_REQUIREMENT_SURFACE_A);
@@ -471,7 +471,7 @@ public class CuttingProcess {
 	}
 
 	@Test
-	public void cuttingProcessForCylindricWorkpiece() {
+	public void cuttingProcessForCylindricWorkpiece() throws CloneNotSupportedException {
 		final SystemObject workpiece = new SystemObject(OBJECT_WORKPIECE);
 		final SystemObject cylinderSurface = new SystemObject(OBJECT_CYLINDER_SURFACE);
 		final SystemObject requirement_a = new SystemObject(OBJECT_REQUIREMENT_SURFACE_A);

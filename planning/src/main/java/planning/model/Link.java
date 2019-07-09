@@ -30,8 +30,11 @@ public class Link implements Cloneable {
 	}
 
 	@Override
-	public Link clone() {
-		return new Link(name, objectId);
+	public Link clone() throws CloneNotSupportedException {
+		Link clone = (Link) super.clone();
+		clone.name = name;
+		clone.objectId = objectId;
+		return clone;
 	}
 
 	public String getName() {

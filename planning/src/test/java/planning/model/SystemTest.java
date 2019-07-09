@@ -40,7 +40,7 @@ public class SystemTest {
 	}
 
 	@Test
-	public void clone_test() {
+	public void clone_test() throws CloneNotSupportedException {
 		final SystemObject object_1_mock = context.mock(SystemObject.class, "object-1");
 		final SystemObject object_2_mock = context.mock(SystemObject.class, "object-2");
 

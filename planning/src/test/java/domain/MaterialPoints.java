@@ -186,7 +186,7 @@ public class MaterialPoints {
 	}
 
 	@Test
-	public void applicationOfElements() {
+	public void applicationOfElements() throws CloneNotSupportedException {
 		final SystemObject object = new SystemObject("материальная точка");
 		final SystemObject point_1 = new SystemObject("точка-1");
 		final SystemObject point_2 = new SystemObject("точка-2");
@@ -277,7 +277,7 @@ public class MaterialPoints {
 	}
 
 	@Test
-	public void movingOnStraightLine() {
+	public void movingOnStraightLine() throws CloneNotSupportedException {
 		final System initial_system = new System();
 		final SystemObject object = new SystemObject("материальная точка");
 		final SystemObject point_1 = new SystemObject("точка-1");
@@ -355,7 +355,7 @@ public class MaterialPoints {
 	}
 
 	@Test
-	public void movingInTheField() {
+	public void movingInTheField() throws CloneNotSupportedException {
 		// y
 		// 6 + - - - - - - - - - +
 		// 5 | . - - + - - - + . |

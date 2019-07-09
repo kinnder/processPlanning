@@ -504,7 +504,7 @@ public class AssemblyLine {
 	}
 
 	@Test
-	public void applicationOfElements() {
+	public void applicationOfElements() throws CloneNotSupportedException {
 		final SystemObject robot = new SystemObject(OBJECT_PICK_AND_PLACE_ROBOT);
 		final SystemObject plane_x_table_1 = new SystemObject(OBJECT_PLANE_X_TABLE_1);
 		final SystemObject plane_x_table_2 = new SystemObject(OBJECT_PLANE_X_TABLE_2);
@@ -680,7 +680,7 @@ public class AssemblyLine {
 	}
 
 	@Test
-	public void movePackageBoxToTable1() {
+	public void movePackageBoxToTable1() throws CloneNotSupportedException {
 		final SystemObject robot = new SystemObject(OBJECT_PICK_AND_PLACE_ROBOT);
 		final SystemObject plane_x_table_1 = new SystemObject(OBJECT_PLANE_X_TABLE_1);
 		final SystemObject plane_x_table_2 = new SystemObject(OBJECT_PLANE_X_TABLE_2);

@@ -49,7 +49,7 @@ public class PlannerTest {
 	}
 
 	@Test
-	public void plan() {
+	public void plan() throws CloneNotSupportedException {
 		final SystemVariant systemVariant_mock = context.mock(SystemVariant.class);
 		final SystemVariant systemVariants[] = new SystemVariant[] { systemVariant_mock };
 		final System system_mock = context.mock(System.class, "system");
@@ -87,7 +87,7 @@ public class PlannerTest {
 	}
 
 	@Test
-	public void plan_no_variants() {
+	public void plan_no_variants() throws CloneNotSupportedException {
 		final SystemVariant systemVariants[] = new SystemVariant[] {};
 
 		context.checking(new Expectations() {
@@ -104,7 +104,7 @@ public class PlannerTest {
 	}
 
 	@Test
-	public void getShortestPath() {
+	public void getShortestPath() throws CloneNotSupportedException {
 		final SystemVariant systemVariant_mock = context.mock(SystemVariant.class);
 		final SystemVariant systemVariants[] = new SystemVariant[] { systemVariant_mock };
 		final System system_mock = context.mock(System.class, "system");

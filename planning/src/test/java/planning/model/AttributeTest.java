@@ -34,25 +34,25 @@ class AttributeTest {
 	}
 
 	@Test
-	public void clone_boolean() {
+	public void clone_boolean() throws CloneNotSupportedException {
 		testable = new Attribute("attribute", true);
 		assertTrue(testable != testable.clone());
 	}
 
 	@Test
-	public void clone_string() {
+	public void clone_string() throws CloneNotSupportedException {
 		testable = new Attribute("attribute", "value");
 		assertTrue(testable != testable.clone());
 	}
 
 	@Test
-	public void clone_object() {
+	public void clone_object() throws CloneNotSupportedException {
 		testable = new Attribute("attribute", new Object());
 		assertTrue(testable != testable.clone());
 	}
 
 	@Test
-	public void equals() {
+	public void equals() throws CloneNotSupportedException {
 		assertTrue(testable.equals(testable.clone()));
 	}
 

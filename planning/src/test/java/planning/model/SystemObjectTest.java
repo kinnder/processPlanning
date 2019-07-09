@@ -43,7 +43,7 @@ public class SystemObjectTest {
 	}
 
 	@Test
-	public void clone_test() {
+	public void clone_test() throws CloneNotSupportedException {
 		final Link link_mock = context.mock(Link.class, "link");
 		final Link clonedLink_mock = context.mock(Link.class, "link-clone");
 		final Attribute attribute_mock = context.mock(Attribute.class, "attribute");

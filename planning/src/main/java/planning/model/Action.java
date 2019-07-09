@@ -18,10 +18,12 @@ public class Action implements Cloneable {
 	}
 
 	@Override
-	public Action clone() {
-		Action clone = new Action(name);
-		clone.parameterUpdaters.addAll(parameterUpdaters);
-		clone.conditionCheckers.addAll(conditionCheckers);
+	public Action clone() throws CloneNotSupportedException {
+		Action clone = (Action) super.clone();
+		clone.name = name;
+		clone.parameterUpdaters = new ArrayList<>(parameterUpdaters);
+		clone.conditionCheckers = new ArrayList<>(conditionCheckers);
+		clone.parameters = new HashMap<>();
 		clone.parameters.putAll(parameters);
 		return clone;
 	}

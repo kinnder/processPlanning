@@ -63,15 +63,19 @@ public class SystemObject implements Cloneable {
 	}
 
 	@Override
-	public SystemObject clone() {
-		SystemObject cloned = new SystemObject(name, id);
+	public SystemObject clone() throws CloneNotSupportedException {
+		SystemObject clone = (SystemObject) super.clone();
+		clone.name = name;
+		clone.id = id;
+		clone.attributes = new HashMap<>();
 		for (Attribute attribute : attributes.values()) {
-			cloned.addAttribute(attribute.clone());
+			clone.addAttribute(attribute.clone());
 		}
+		clone.links = new ArrayList<>();
 		for (Link link : links) {
-			cloned.addLink(link.clone());
+			clone.addLink(link.clone());
 		}
-		return cloned;
+		return clone;
 	}
 
 	public Attribute getAttribute(String attributeName) {

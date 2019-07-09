@@ -80,7 +80,7 @@ public class ActionTest {
 	}
 
 	@Test
-	public void clone_test() {
+	public void clone_test() throws CloneNotSupportedException {
 		final SystemVariant systemVariant_mock = context.mock(SystemVariant.class);
 
 		testable.registerParameterUpdater(new ParameterUpdater() {

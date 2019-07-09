@@ -27,15 +27,12 @@ public class Attribute implements Cloneable {
 	}
 
 	@Override
-	public Attribute clone() {
-		switch (type) {
-		case Boolean:
-			return new Attribute(name, getValueAsBoolean());
-		case String:
-			return new Attribute(name, getValueAsString());
-		default:
-			return new Attribute(name, getValueAsObject());
-		}
+	public Attribute clone() throws CloneNotSupportedException {
+		Attribute clone = (Attribute) super.clone();
+		clone.name = name;
+		clone.value = value;
+		clone.type = type;
+		return clone;
 	}
 
 	public String getValueAsString() {

@@ -45,7 +45,7 @@ public class Planner {
 		this.network = new DefaultDirectedGraph<>(Edge.class);
 	}
 
-	public void plan() {
+	public void plan() throws CloneNotSupportedException {
 		initialNode = new Node(initialSystem);
 		uncheckedNodes.add(initialNode);
 		network.addVertex(initialNode);
@@ -61,7 +61,7 @@ public class Planner {
 		}
 	}
 
-	private void iterate() {
+	private void iterate() throws CloneNotSupportedException {
 		Node sourceNode = uncheckedNodes.get(0);
 		System sourceSystem = sourceNode.getSystem();
 		if (sourceSystem.contains(finalSystem)) {

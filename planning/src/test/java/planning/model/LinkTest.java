@@ -34,12 +34,12 @@ public class LinkTest {
 	}
 
 	@Test
-	public void clone_test() {
+	public void clone_test() throws CloneNotSupportedException {
 		assertTrue(testable != testable.clone());
 	}
 
 	@Test
-	public void equals() {
+	public void equals() throws CloneNotSupportedException {
 		assertTrue(testable.equals(testable.clone()));
 	}
 
