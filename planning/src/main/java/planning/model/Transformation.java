@@ -2,7 +2,7 @@ package planning.model;
 
 public class Transformation {
 
-	protected String objectId;
+	private String objectId;
 
 	public Transformation(String objectId) {
 		this.objectId = objectId;
