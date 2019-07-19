@@ -52,6 +52,12 @@ class AttributeTest {
 	}
 
 	@Test
+	public void clone_integer() throws CloneNotSupportedException {
+		testable = new Attribute("attribute", new Integer(1234567890));
+		assertTrue(testable != testable.clone());
+	}
+
+	@Test
 	public void equals() throws CloneNotSupportedException {
 		assertTrue(testable.equals(testable.clone()));
 	}
@@ -134,6 +140,12 @@ class AttributeTest {
 	@Test
 	public void createTemplate_object() {
 		testable = new Attribute("attribute", new Object());
+		assertNotNull(testable.createTemplate());
+	}
+
+	@Test
+	public void createTemplate_integer() {
+		testable = new Attribute("attribute", new Integer(123));
 		assertNotNull(testable.createTemplate());
 	}
 

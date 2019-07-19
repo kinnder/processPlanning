@@ -31,6 +31,13 @@ public class AttributeTemplate {
 		this.templateType = TemplateType.ConcreteValue;
 	}
 
+	public AttributeTemplate(String name, Integer value) {
+		this.name = name;
+		this.value = value;
+		this.type = AttributeType.Integer;
+		this.templateType = TemplateType.ConcreteValue;
+	}
+
 	public AttributeTemplate(String name) {
 		this.name = name;
 		this.templateType = TemplateType.AnyValue;

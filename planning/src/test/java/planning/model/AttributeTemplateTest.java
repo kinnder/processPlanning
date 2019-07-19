@@ -61,6 +61,13 @@ public class AttributeTemplateTest {
 	}
 
 	@Test
+	public void matches_differentType_Integer() {
+		testable = new AttributeTemplate("attribute", new Integer(345));
+		final Attribute template = new Attribute("attribute", false);
+		assertFalse(testable.matches(template));
+	}
+
+	@Test
 	public void matches_differentValue() {
 		final Attribute template = new Attribute("attribute", "different");
 		assertFalse(testable.matches(template));

@@ -26,6 +26,12 @@ public class Attribute implements Cloneable {
 		this.type = AttributeType.Object;
 	}
 
+	public Attribute(String name, Integer value) {
+		this.name = name;
+		this.value = value;
+		this.type = AttributeType.Integer;
+	}
+
 	@Override
 	public Attribute clone() throws CloneNotSupportedException {
 		Attribute clone = (Attribute) super.clone();
@@ -77,6 +83,8 @@ public class Attribute implements Cloneable {
 			return new AttributeTemplate(name, getValueAsBoolean());
 		case String:
 			return new AttributeTemplate(name, getValueAsString());
+		case Integer:
+			return new AttributeTemplate(name, getValueAsInteger());
 		default:
 			return new AttributeTemplate(name, getValueAsObject());
 		}
