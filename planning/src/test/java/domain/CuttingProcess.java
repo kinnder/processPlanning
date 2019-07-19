@@ -123,7 +123,6 @@ public class CuttingProcess {
 		action.registerConditionChecker(new ConditionChecker() {
 			@Override
 			public boolean invoke(SystemVariant systemVariant, Map<String, String> parameters) {
-				// TODO : перенести общий функционал в базовый класс
 				SystemObject cylinderSurface_actual = systemVariant.getObjectByIdMatch(cylinderSurface_id);
 				Integer diameter = cylinderSurface_actual.getAttribute(ATTRIBUTE_DIAMETER).getValueAsInteger();
 
@@ -137,7 +136,6 @@ public class CuttingProcess {
 		action.registerParameterUpdater(new ParameterUpdater() {
 			@Override
 			public void invoke(SystemVariant systemVariant, Map<String, String> parameters) {
-				// TODO : перенести общий функционал в базовый класс
 				SystemObject cylinderSurface_actual = systemVariant.getObjectByIdMatch(cylinderSurface_id);
 				Integer diameter = cylinderSurface_actual.getAttribute(ATTRIBUTE_DIAMETER).getValueAsInteger();
 
@@ -196,7 +194,6 @@ public class CuttingProcess {
 		action.registerConditionChecker(new ConditionChecker() {
 			@Override
 			public boolean invoke(SystemVariant systemVariant, Map<String, String> parameters) {
-				// TODO : перенести общий функционал в базовый класс
 				SystemObject cylinderSurface_actual = systemVariant.getObjectByIdMatch(cylinderSurface_id);
 				Integer length = cylinderSurface_actual.getAttribute(ATTRIBUTE_LENGTH).getValueAsInteger();
 
@@ -265,7 +262,6 @@ public class CuttingProcess {
 		action.registerConditionChecker(new ConditionChecker() {
 			@Override
 			public boolean invoke(SystemVariant systemVariant, Map<String, String> parameters) {
-				// TODO : перенести общий функционал в базовый класс
 				SystemObject cylinderSurface_actual = systemVariant.getObjectByIdMatch(cylinderSurface_id);
 				Integer diameter = cylinderSurface_actual.getAttribute(ATTRIBUTE_DIAMETER).getValueAsInteger();
 				Integer length = cylinderSurface_actual.getAttribute(ATTRIBUTE_LENGTH).getValueAsInteger();
@@ -284,7 +280,6 @@ public class CuttingProcess {
 		action.registerParameterUpdater(new ParameterUpdater() {
 			@Override
 			public void invoke(SystemVariant systemVariant, Map<String, String> parameters) {
-				// TODO : перенести общий функционал в базовый класс
 				SystemObject cylinderSurface_actual = systemVariant.getObjectByIdMatch(cylinderSurface_id);
 				Integer diameter = cylinderSurface_actual.getAttribute(ATTRIBUTE_DIAMETER).getValueAsInteger();
 				Integer length = cylinderSurface_actual.getAttribute(ATTRIBUTE_LENGTH).getValueAsInteger();
