@@ -6,3 +6,4 @@
 design/planning/target/*
 design/planning.cli/target/*
 design/planning.gui/target/*
+doxygen/
