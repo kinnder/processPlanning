@@ -1,6 +1,9 @@
 package planning.method;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import java.util.Map;
+
 import org.jmock.Expectations;
 import org.jmock.imposters.ByteBuddyClassImposteriser;
 import org.jmock.junit5.JUnit5Mockery;
@@ -54,6 +57,7 @@ public class PlannerTest {
 		final SystemVariant systemVariants[] = new SystemVariant[] { systemVariant_mock };
 		final System system_mock = context.mock(System.class, "system");
 		final Action action_mock = context.mock(Action.class);
+		final Map<?, ?> actionParameters_mock = context.mock(Map.class);
 
 		context.checking(new Expectations() {
 			{
@@ -66,8 +70,11 @@ public class PlannerTest {
 				oneOf(systemVariant_mock).getSystem();
 				will(returnValue(system_mock));
 
-				oneOf(systemVariant_mock).getAction();
+				oneOf(element_mock).getAction();
 				will(returnValue(action_mock));
+
+				oneOf(systemVariant_mock).getActionParameters();
+				will(returnValue(actionParameters_mock));
 
 				oneOf(system_mock).contains(final_system_mock);
 				will(returnValue(true));
@@ -78,8 +85,11 @@ public class PlannerTest {
 				oneOf(systemVariant_mock).getSystem();
 				will(returnValue(system_mock));
 
-				oneOf(systemVariant_mock).getAction();
+				oneOf(element_mock).getAction();
 				will(returnValue(action_mock));
+
+				oneOf(systemVariant_mock).getActionParameters();
+				will(returnValue(actionParameters_mock));
 			}
 		});
 
@@ -109,6 +119,7 @@ public class PlannerTest {
 		final SystemVariant systemVariants[] = new SystemVariant[] { systemVariant_mock };
 		final System system_mock = context.mock(System.class, "system");
 		final Action action_mock = context.mock(Action.class);
+		final Map<?, ?> actionParameters_mock = context.mock(Map.class);
 
 		context.checking(new Expectations() {
 			{
@@ -121,8 +132,11 @@ public class PlannerTest {
 				oneOf(systemVariant_mock).getSystem();
 				will(returnValue(system_mock));
 
-				oneOf(systemVariant_mock).getAction();
+				oneOf(element_mock).getAction();
 				will(returnValue(action_mock));
+
+				oneOf(systemVariant_mock).getActionParameters();
+				will(returnValue(actionParameters_mock));
 
 				oneOf(system_mock).contains(final_system_mock);
 				will(returnValue(true));
@@ -133,12 +147,15 @@ public class PlannerTest {
 				oneOf(systemVariant_mock).getSystem();
 				will(returnValue(system_mock));
 
-				oneOf(systemVariant_mock).getAction();
+				oneOf(element_mock).getAction();
 				will(returnValue(action_mock));
+
+				oneOf(systemVariant_mock).getActionParameters();
+				will(returnValue(actionParameters_mock));
 			}
 		});
 		testable.plan();
 
-		assertEquals(action_mock, testable.getShortestPlan().get(0));
+		assertEquals(1, testable.getShortestPlan().size());
 	}
 }

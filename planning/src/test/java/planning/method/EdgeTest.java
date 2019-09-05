@@ -11,7 +11,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
-import planning.model.Action;
+import planning.model.SystemOperation;
 
 public class EdgeTest {
 
@@ -29,18 +29,18 @@ public class EdgeTest {
 
 	Edge testable;
 
-	Action action_mock;
+	SystemOperation systemOperation_mock;
 
 	@BeforeEach
 	public void setup() {
-		action_mock = context.mock(Action.class, "action");
+		systemOperation_mock = context.mock(SystemOperation.class, "action");
 
-		testable = new Edge(action_mock);
+		testable = new Edge(systemOperation_mock);
 	}
 
 	@Test
 	public void equals() {
-		final Edge edge = new Edge(testable.getId(), testable.getAction());
+		final Edge edge = new Edge(testable.getId(), testable.getSystemOperation());
 		assertTrue(testable.equals(edge));
 	}
 
@@ -56,24 +56,24 @@ public class EdgeTest {
 
 	@Test
 	public void equals_differentId() {
-		final Edge edge = new Edge("differentId", action_mock);
+		final Edge edge = new Edge("differentId", systemOperation_mock);
 		assertFalse(testable.equals(edge));
 	}
 
 	@Test
-	public void getAction() {
-		assertEquals(action_mock, testable.getAction());
+	public void getSystemOperation() {
+		assertEquals(systemOperation_mock, testable.getSystemOperation());
 	}
 
 	@Test
 	public void getId() {
-		testable = new Edge("id", action_mock);
+		testable = new Edge("id", systemOperation_mock);
 		assertEquals("id", testable.getId());
 	}
 
 	@Test
 	public void hashCode_test() {
-		testable = new Edge("id", action_mock);
+		testable = new Edge("id", systemOperation_mock);
 		assertEquals(3355, testable.hashCode());
 	}
 }

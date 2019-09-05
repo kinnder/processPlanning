@@ -5,8 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import java.util.List;
-import java.util.Map;
-
 import org.junit.jupiter.api.Test;
 
 import planning.method.Planner;
@@ -23,6 +21,7 @@ import planning.model.ParameterUpdater;
 import planning.model.System;
 import planning.model.SystemObject;
 import planning.model.SystemObjectTemplate;
+import planning.model.SystemOperation;
 import planning.model.SystemTemplate;
 import planning.model.SystemVariant;
 import planning.model.Transformation;
@@ -122,7 +121,7 @@ public class CuttingProcess {
 		final Action action = new Action(OPERATION_CUT_CYLINDER_SURFACE);
 		action.registerConditionChecker(new ConditionChecker() {
 			@Override
-			public boolean invoke(SystemVariant systemVariant, Map<String, String> parameters) {
+			public boolean invoke(SystemVariant systemVariant) {
 				SystemObject cylinderSurface_actual = systemVariant.getObjectByIdMatch(cylinderSurface_id);
 				Integer diameter = cylinderSurface_actual.getAttribute(ATTRIBUTE_DIAMETER).getValueAsInteger();
 
@@ -135,7 +134,7 @@ public class CuttingProcess {
 		});
 		action.registerParameterUpdater(new ParameterUpdater() {
 			@Override
-			public void invoke(SystemVariant systemVariant, Map<String, String> parameters) {
+			public void invoke(SystemVariant systemVariant) {
 				SystemObject cylinderSurface_actual = systemVariant.getObjectByIdMatch(cylinderSurface_id);
 				Integer diameter = cylinderSurface_actual.getAttribute(ATTRIBUTE_DIAMETER).getValueAsInteger();
 
@@ -144,7 +143,7 @@ public class CuttingProcess {
 						.getValueAsInteger();
 
 				Integer diameterDelta = diameter - diameterRequired;
-				parameters.put(PARAMETER_DIAMETER_DELTA, Integer.toString(diameterDelta));
+				systemVariant.getActionParameters().put(PARAMETER_DIAMETER_DELTA, Integer.toString(diameterDelta));
 
 				cylinderSurface_actual.getAttribute(ATTRIBUTE_DIAMETER).setValue(diameterRequired);
 			}
@@ -193,7 +192,7 @@ public class CuttingProcess {
 		final Action action = new Action(OPERATION_TRIM_CYLINDER_SURFACE);
 		action.registerConditionChecker(new ConditionChecker() {
 			@Override
-			public boolean invoke(SystemVariant systemVariant, Map<String, String> parameters) {
+			public boolean invoke(SystemVariant systemVariant) {
 				SystemObject cylinderSurface_actual = systemVariant.getObjectByIdMatch(cylinderSurface_id);
 				Integer length = cylinderSurface_actual.getAttribute(ATTRIBUTE_LENGTH).getValueAsInteger();
 
@@ -261,7 +260,7 @@ public class CuttingProcess {
 		final Action action = new Action(OPERATION_SPLIT_CYLINDER_SURFACE);
 		action.registerConditionChecker(new ConditionChecker() {
 			@Override
-			public boolean invoke(SystemVariant systemVariant, Map<String, String> parameters) {
+			public boolean invoke(SystemVariant systemVariant) {
 				SystemObject cylinderSurface_actual = systemVariant.getObjectByIdMatch(cylinderSurface_id);
 				Integer diameter = cylinderSurface_actual.getAttribute(ATTRIBUTE_DIAMETER).getValueAsInteger();
 				Integer length = cylinderSurface_actual.getAttribute(ATTRIBUTE_LENGTH).getValueAsInteger();
@@ -279,7 +278,7 @@ public class CuttingProcess {
 		});
 		action.registerParameterUpdater(new ParameterUpdater() {
 			@Override
-			public void invoke(SystemVariant systemVariant, Map<String, String> parameters) {
+			public void invoke(SystemVariant systemVariant) {
 				SystemObject cylinderSurface_actual = systemVariant.getObjectByIdMatch(cylinderSurface_id);
 				Integer diameter = cylinderSurface_actual.getAttribute(ATTRIBUTE_DIAMETER).getValueAsInteger();
 				Integer length = cylinderSurface_actual.getAttribute(ATTRIBUTE_LENGTH).getValueAsInteger();
@@ -295,10 +294,10 @@ public class CuttingProcess {
 				SystemObject workpiece_actual = systemVariant.getObjectByIdMatch(workpiece_id);
 
 				Integer diameterDelta = diameter - diameterRequired;
-				parameters.put(PARAMETER_DIAMETER_DELTA, Integer.toString(diameterDelta));
+				systemVariant.getActionParameters().put(PARAMETER_DIAMETER_DELTA, Integer.toString(diameterDelta));
 
 				Integer lengthDelta = length - lengthRequired;
-				parameters.put(PARAMETER_LENGTH_DELTA, Integer.toString(lengthDelta));
+				systemVariant.getActionParameters().put(PARAMETER_LENGTH_DELTA, Integer.toString(lengthDelta));
 
 				// TODO : добавить трансформацию по добавлению объекта
 				SystemObject cylinderSurface_new = new SystemObject(OBJECT_CYLINDER_SURFACE);
@@ -404,12 +403,12 @@ public class CuttingProcess {
 		assertEquals(3, systemVariants.length);
 		int id;
 		for (id = 0; id < 3; id++) {
-			if (systemVariants[id].getAction().getParameter(PARAMETER_DIAMETER_DELTA).equals("2")) {
+			if (systemVariants[id].getActionParameter(PARAMETER_DIAMETER_DELTA).equals("2")) {
 				break;
 			}
 		}
 		assertNotEquals(3, id);
-		assertEquals("2", systemVariants[id].getAction().getParameter(PARAMETER_DIAMETER_DELTA));
+		assertEquals("2", systemVariants[id].getActionParameter(PARAMETER_DIAMETER_DELTA));
 
 		system = systemVariants[id].getSystem();
 		assertEquals(system.getObjectById(requirement_a_id).getAttribute(ATTRIBUTE_DIAMETER_REQUIREMENT_STATUS)
@@ -423,13 +422,13 @@ public class CuttingProcess {
 		systemVariants = element.applyTo(system);
 		assertEquals(2, systemVariants.length);
 		for (id = 0; id < 2; id++) {
-			if (systemVariants[id].getAction().getParameter(PARAMETER_DIAMETER_DELTA).equals("4")) {
+			if (systemVariants[id].getActionParameter(PARAMETER_DIAMETER_DELTA).equals("4")) {
 				break;
 			}
 		}
 		assertNotEquals(2, id);
-		assertEquals("4", systemVariants[id].getAction().getParameter(PARAMETER_DIAMETER_DELTA));
-		assertEquals("45", systemVariants[id].getAction().getParameter(PARAMETER_LENGTH_DELTA));
+		assertEquals("4", systemVariants[id].getActionParameter(PARAMETER_DIAMETER_DELTA));
+		assertEquals("45", systemVariants[id].getActionParameter(PARAMETER_LENGTH_DELTA));
 
 		system = systemVariants[id].getSystem();
 		assertEquals(system.getObjectById(requirement_a_id).getAttribute(ATTRIBUTE_LENGTH_REQUIREMENT_STATUS)
@@ -446,8 +445,8 @@ public class CuttingProcess {
 		element = splitCylinderSurface();
 		systemVariants = element.applyTo(system);
 		assertEquals(1, systemVariants.length);
-		assertEquals("4", systemVariants[0].getAction().getParameter(PARAMETER_DIAMETER_DELTA));
-		assertEquals("15", systemVariants[0].getAction().getParameter(PARAMETER_LENGTH_DELTA));
+		assertEquals("4", systemVariants[0].getActionParameter(PARAMETER_DIAMETER_DELTA));
+		assertEquals("15", systemVariants[0].getActionParameter(PARAMETER_LENGTH_DELTA));
 
 		system = systemVariants[0].getSystem();
 		assertEquals(system.getObjectById(requirement_b_id).getAttribute(ATTRIBUTE_LENGTH_REQUIREMENT_STATUS)
@@ -571,25 +570,25 @@ public class CuttingProcess {
 		Planner planner = new Planner(system, final_system, elements);
 		planner.plan();
 
-		List<Action> actions = planner.getShortestPlan();
-		assertEquals(4, actions.size());
+		List<SystemOperation> operations = planner.getShortestPlan();
+		assertEquals(4, operations.size());
 
-		Action action;
-		action = actions.get(0);
-		assertEquals(OPERATION_CUT_CYLINDER_SURFACE, action.getName());
-		assertEquals("2", action.getParameter(PARAMETER_DIAMETER_DELTA));
+		SystemOperation operation;
+		operation = operations.get(0);
+		assertEquals(OPERATION_CUT_CYLINDER_SURFACE, operation.getName());
+		assertEquals("2", operation.getParameter(PARAMETER_DIAMETER_DELTA));
 
-		action = actions.get(1);
-		assertEquals(OPERATION_SPLIT_CYLINDER_SURFACE, action.getName());
-		assertEquals("4", action.getParameter(PARAMETER_DIAMETER_DELTA));
-		assertEquals("45", action.getParameter(PARAMETER_LENGTH_DELTA));
+		operation = operations.get(1);
+		assertEquals(OPERATION_SPLIT_CYLINDER_SURFACE, operation.getName());
+		assertEquals("4", operation.getParameter(PARAMETER_DIAMETER_DELTA));
+		assertEquals("45", operation.getParameter(PARAMETER_LENGTH_DELTA));
 
-		action = actions.get(2);
-		assertEquals(OPERATION_SPLIT_CYLINDER_SURFACE, action.getName());
-		assertEquals("4", action.getParameter(PARAMETER_DIAMETER_DELTA));
-		assertEquals("15", action.getParameter(PARAMETER_LENGTH_DELTA));
+		operation = operations.get(2);
+		assertEquals(OPERATION_SPLIT_CYLINDER_SURFACE, operation.getName());
+		assertEquals("4", operation.getParameter(PARAMETER_DIAMETER_DELTA));
+		assertEquals("15", operation.getParameter(PARAMETER_LENGTH_DELTA));
 
-		action = actions.get(3);
-		assertEquals(OPERATION_TRIM_CYLINDER_SURFACE, action.getName());
+		operation = operations.get(3);
+		assertEquals(OPERATION_TRIM_CYLINDER_SURFACE, operation.getName());
 	}
 }

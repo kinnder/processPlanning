@@ -18,6 +18,7 @@ import planning.model.LinkTransformation;
 import planning.model.System;
 import planning.model.SystemObject;
 import planning.model.SystemObjectTemplate;
+import planning.model.SystemOperation;
 import planning.model.SystemTemplate;
 import planning.model.SystemVariant;
 import planning.model.Transformation;
@@ -349,11 +350,11 @@ public class MaterialPoints {
 		Planner planner = new Planner(initial_system, final_system, elements);
 		planner.plan();
 
-		List<Action> actions = planner.getShortestPlan();
-		assertEquals(3, actions.size());
-		assertEquals(OPERATION_MOVE_RIGHT, actions.get(0).getName());
-		assertEquals(OPERATION_MOVE_RIGHT, actions.get(1).getName());
-		assertEquals(OPERATION_MOVE_RIGHT, actions.get(2).getName());
+		List<SystemOperation> operations = planner.getShortestPlan();
+		assertEquals(3, operations.size());
+		assertEquals(OPERATION_MOVE_RIGHT, operations.get(0).getName());
+		assertEquals(OPERATION_MOVE_RIGHT, operations.get(1).getName());
+		assertEquals(OPERATION_MOVE_RIGHT, operations.get(2).getName());
 	}
 
 	@Test
@@ -587,21 +588,21 @@ public class MaterialPoints {
 		Planner planner = new Planner(initial_system, final_system, elements);
 		planner.plan();
 
-		List<Action> actions = planner.getShortestPlan();
-		assertEquals(14, actions.size());
-		assertEquals(OPERATION_MOVE_RIGHT, actions.get(0).getName());
-		assertEquals(OPERATION_MOVE_RIGHT, actions.get(1).getName());
-		assertEquals(OPERATION_MOVE_BOTTOM, actions.get(2).getName());
-		assertEquals(OPERATION_MOVE_BOTTOM, actions.get(3).getName());
-		assertEquals(OPERATION_MOVE_RIGHT, actions.get(4).getName());
-		assertEquals(OPERATION_MOVE_RIGHT, actions.get(5).getName());
-		assertEquals(OPERATION_MOVE_TOP, actions.get(6).getName());
-		assertEquals(OPERATION_MOVE_TOP, actions.get(7).getName());
-		assertEquals(OPERATION_MOVE_RIGHT, actions.get(8).getName());
-		assertEquals(OPERATION_MOVE_RIGHT, actions.get(9).getName());
-		assertEquals(OPERATION_MOVE_BOTTOM, actions.get(10).getName());
-		assertEquals(OPERATION_MOVE_BOTTOM, actions.get(11).getName());
-		assertEquals(OPERATION_MOVE_RIGHT, actions.get(12).getName());
-		assertEquals(OPERATION_MOVE_RIGHT, actions.get(13).getName());
+		List<SystemOperation> operations = planner.getShortestPlan();
+		assertEquals(14, operations.size());
+		assertEquals(OPERATION_MOVE_RIGHT, operations.get(0).getName());
+		assertEquals(OPERATION_MOVE_RIGHT, operations.get(1).getName());
+		assertEquals(OPERATION_MOVE_BOTTOM, operations.get(2).getName());
+		assertEquals(OPERATION_MOVE_BOTTOM, operations.get(3).getName());
+		assertEquals(OPERATION_MOVE_RIGHT, operations.get(4).getName());
+		assertEquals(OPERATION_MOVE_RIGHT, operations.get(5).getName());
+		assertEquals(OPERATION_MOVE_TOP, operations.get(6).getName());
+		assertEquals(OPERATION_MOVE_TOP, operations.get(7).getName());
+		assertEquals(OPERATION_MOVE_RIGHT, operations.get(8).getName());
+		assertEquals(OPERATION_MOVE_RIGHT, operations.get(9).getName());
+		assertEquals(OPERATION_MOVE_BOTTOM, operations.get(10).getName());
+		assertEquals(OPERATION_MOVE_BOTTOM, operations.get(11).getName());
+		assertEquals(OPERATION_MOVE_RIGHT, operations.get(12).getName());
+		assertEquals(OPERATION_MOVE_RIGHT, operations.get(13).getName());
 	}
 }

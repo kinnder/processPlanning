@@ -1,7 +1,8 @@
 package planning.model;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 import org.jmock.Expectations;
 import org.jmock.imposters.ByteBuddyClassImposteriser;
@@ -31,15 +32,12 @@ public class SystemVariantTest {
 
 	IdsMatching idsMatching_mock;
 
-	Action action_mock;
-
 	@BeforeEach
 	public void setup() {
 		system_mock = context.mock(System.class);
 		idsMatching_mock = context.mock(IdsMatching.class);
-		action_mock = context.mock(Action.class);
 
-		testable = new SystemVariant(system_mock, idsMatching_mock, action_mock);
+		testable = new SystemVariant(system_mock, idsMatching_mock);
 	}
 
 	@Test
@@ -82,30 +80,18 @@ public class SystemVariantTest {
 	}
 
 	@Test
-	public void getAction() {
-		assertEquals(action_mock, testable.getAction());
+	public void getActionParameters() {
+		assertNotNull(testable.getActionParameters());
 	}
 
 	@Test
-	public void updateActionParameters() {
-		context.checking(new Expectations() {
-			{
-				oneOf(action_mock).updateParameters(testable);
-			}
-		});
-
-		testable.updateActionParameters();
+	public void getActionParameter_no_parameter() {
+		assertNull(testable.getActionParameter("parameter"));
 	}
 
 	@Test
-	public void actionConditionsPasses() {
-		context.checking(new Expectations() {
-			{
-				oneOf(action_mock).allConditionsPasses(testable);
-				will(returnValue(true));
-			}
-		});
-
-		assertTrue(testable.actionConditionsPasses());
+	public void getActionParameter() {
+		testable.getActionParameters().put("parameter", "value");
+		assertEquals("value", testable.getActionParameter("parameter"));
 	}
 }

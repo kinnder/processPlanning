@@ -26,12 +26,12 @@ public class Element {
 
 		List<SystemVariant> systemVariants = new ArrayList<>();
 		for (IdsMatching idsMatching : idsMatchings) {
-			SystemVariant systemVariant = new SystemVariant(system.clone(), idsMatching, action.clone());
-			if (systemVariant.actionConditionsPasses()) {
+			SystemVariant systemVariant = new SystemVariant(system.clone(), idsMatching);
+			if (action.haveAllConditionsPassed(systemVariant)) {
 				for (Transformation transformation : transformations) {
 					transformation.applyTo(systemVariant);
 				}
-				systemVariant.updateActionParameters();
+				action.updateActionParameters(systemVariant);
 				systemVariants.add(systemVariant);
 			}
 		}

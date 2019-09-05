@@ -2,7 +2,7 @@ package planning.method;
 
 import java.util.UUID;
 
-import planning.model.Action;
+import planning.model.SystemOperation;
 
 public class Edge {
 
@@ -12,13 +12,13 @@ public class Edge {
 		return this.id;
 	}
 
-	public Edge(Action action) {
-		this(UUID.randomUUID().toString(), action);
+	public Edge(SystemOperation systemOperation) {
+		this(UUID.randomUUID().toString(), systemOperation);
 	}
 
-	Edge(String id, Action action) {
+	Edge(String id, SystemOperation systemOperation) {
 		this.id = id;
-		this.action = action;
+		this.systemOperation = systemOperation;
 	}
 
 	@Override
@@ -38,9 +38,9 @@ public class Edge {
 		return id.hashCode();
 	}
 
-	private Action action;
+	private SystemOperation systemOperation;
 
-	public Action getAction() {
-		return action;
+	public SystemOperation getSystemOperation() {
+		return systemOperation;
 	}
 }

@@ -5,8 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.util.List;
-import java.util.Map;
-
 import org.junit.jupiter.api.Test;
 
 import planning.method.Planner;
@@ -21,6 +19,7 @@ import planning.model.ParameterUpdater;
 import planning.model.System;
 import planning.model.SystemObject;
 import planning.model.SystemObjectTemplate;
+import planning.model.SystemOperation;
 import planning.model.SystemTemplate;
 import planning.model.SystemVariant;
 import planning.model.Transformation;
@@ -127,9 +126,9 @@ public class AssemblyLine {
 		final Action action = new Action(OPERATION_ROTATE_WITHOUT_LOAD);
 		action.registerParameterUpdater(new ParameterUpdater() {
 			@Override
-			public void invoke(SystemVariant systemVariant, Map<String, String> parameters) {
+			public void invoke(SystemVariant systemVariant) {
 				SystemObject object = systemVariant.getObjectByIdMatch(plane_y_target_id);
-				parameters.put(PARAMETER_TARGET, object.getName());
+				systemVariant.getActionParameters().put(PARAMETER_TARGET, object.getName());
 			}
 		});
 
@@ -175,9 +174,9 @@ public class AssemblyLine {
 		final Action action = new Action(OPERATION_TURN_WITH_LOAD);
 		action.registerParameterUpdater(new ParameterUpdater() {
 			@Override
-			public void invoke(SystemVariant systemVariant, Map<String, String> parameters) {
+			public void invoke(SystemVariant systemVariant) {
 				SystemObject object = systemVariant.getObjectByIdMatch(plane_y_target_id);
-				parameters.put(PARAMETER_TARGET, object.getName());
+				systemVariant.getActionParameters().put(PARAMETER_TARGET, object.getName());
 			}
 		});
 
@@ -453,9 +452,9 @@ public class AssemblyLine {
 		final Action action = new Action(OPERATION_MOVE_WITH_LOAD);
 		action.registerParameterUpdater(new ParameterUpdater() {
 			@Override
-			public void invoke(SystemVariant systemVariant, Map<String, String> parameters) {
+			public void invoke(SystemVariant systemVariant) {
 				SystemObject object = systemVariant.getObjectByIdMatch(plane_x_target_id);
-				parameters.put(PARAMETER_TARGET, object.getName());
+				systemVariant.getActionParameters().put(PARAMETER_TARGET, object.getName());
 			}
 		});
 
@@ -494,9 +493,9 @@ public class AssemblyLine {
 		final Action action = new Action(OPERATION_MOVE_WITHOUT_LOAD);
 		action.registerParameterUpdater(new ParameterUpdater() {
 			@Override
-			public void invoke(SystemVariant systemVariant, Map<String, String> parameters) {
+			public void invoke(SystemVariant systemVariant) {
 				SystemObject object = systemVariant.getObjectByIdMatch(plane_x_target_id);
-				parameters.put(PARAMETER_TARGET, object.getName());
+				systemVariant.getActionParameters().put(PARAMETER_TARGET, object.getName());
 			}
 		});
 
@@ -603,7 +602,7 @@ public class AssemblyLine {
 		element = turnWithoutLoad();
 		systemVariants = element.applyTo(system);
 		assertEquals(1, systemVariants.length);
-		assertEquals(OBJECT_PLANE_Y_OUTSIDE, systemVariants[0].getAction().getParameter(PARAMETER_TARGET));
+		assertEquals(OBJECT_PLANE_Y_OUTSIDE, systemVariants[0].getActionParameter(PARAMETER_TARGET));
 
 		system = systemVariants[0].getSystem();
 		assertNotNull(system.getObjectById(robot_id).getLink(LINK_ROTARY_DRIVE_POSITION, plane_y_outside_id));
@@ -632,7 +631,7 @@ public class AssemblyLine {
 		element = turnWithLoad();
 		systemVariants = element.applyTo(system);
 		assertEquals(1, systemVariants.length);
-		assertEquals(OBJECT_PLANE_Y_INSIDE, systemVariants[0].getAction().getParameter(PARAMETER_TARGET));
+		assertEquals(OBJECT_PLANE_Y_INSIDE, systemVariants[0].getActionParameter(PARAMETER_TARGET));
 
 		system = systemVariants[0].getSystem();
 		assertNotNull(system.getObjectById(robot_id).getLink(LINK_ROTARY_DRIVE_POSITION, plane_y_inside_id));
@@ -642,7 +641,7 @@ public class AssemblyLine {
 		element = moveWithLoad();
 		systemVariants = element.applyTo(system);
 		assertEquals(1, systemVariants.length);
-		assertEquals(OBJECT_PLANE_X_TABLE_1, systemVariants[0].getAction().getParameter(PARAMETER_TARGET));
+		assertEquals(OBJECT_PLANE_X_TABLE_1, systemVariants[0].getActionParameter(PARAMETER_TARGET));
 
 		system = systemVariants[0].getSystem();
 		assertNotNull(system.getObjectById(robot_id).getLink(LINK_LINEAR_DRIVE_POSITION, plane_x_table_1_id));
@@ -671,7 +670,7 @@ public class AssemblyLine {
 		element = moveWithoutLoad();
 		systemVariants = element.applyTo(system);
 		assertEquals(1, systemVariants.length);
-		assertEquals(OBJECT_PLANE_X_TABLE_2, systemVariants[0].getAction().getParameter(PARAMETER_TARGET));
+		assertEquals(OBJECT_PLANE_X_TABLE_2, systemVariants[0].getActionParameter(PARAMETER_TARGET));
 
 		system = systemVariants[0].getSystem();
 		assertNotNull(system.getObjectById(robot_id).getLink(LINK_LINEAR_DRIVE_POSITION, plane_x_table_2_id));
@@ -801,36 +800,36 @@ public class AssemblyLine {
 		Planner planner = new Planner(system, final_system, elements);
 		planner.plan();
 
-		List<Action> actions = planner.getShortestPlan();
-		assertEquals(8, actions.size());
+		List<SystemOperation> operations = planner.getShortestPlan();
+		assertEquals(8, operations.size());
 
-		Action action;
-		action = actions.get(0);
-		assertEquals(OPERATION_ROTATE_WITHOUT_LOAD, action.getName());
-		assertEquals(OBJECT_PLANE_Y_OUTSIDE, action.getParameter(PARAMETER_TARGET));
+		SystemOperation operation;
+		operation = operations.get(0);
+		assertEquals(OPERATION_ROTATE_WITHOUT_LOAD, operation.getName());
+		assertEquals(OBJECT_PLANE_Y_OUTSIDE, operation.getParameter(PARAMETER_TARGET));
 
-		action = actions.get(1);
-		assertEquals(OPERATION_CLOSE_GRAB, action.getName());
+		operation = operations.get(1);
+		assertEquals(OPERATION_CLOSE_GRAB, operation.getName());
 
-		action = actions.get(2);
-		assertEquals(OPERATION_LIFT_UP, action.getName());
+		operation = operations.get(2);
+		assertEquals(OPERATION_LIFT_UP, operation.getName());
 
-		action = actions.get(3);
-		assertEquals(OPERATION_TURN_WITH_LOAD, action.getName());
-		assertEquals(OBJECT_PLANE_Y_INSIDE, action.getParameter(PARAMETER_TARGET));
+		operation = operations.get(3);
+		assertEquals(OPERATION_TURN_WITH_LOAD, operation.getName());
+		assertEquals(OBJECT_PLANE_Y_INSIDE, operation.getParameter(PARAMETER_TARGET));
 
-		action = actions.get(4);
-		assertEquals(OPERATION_MOVE_WITH_LOAD, action.getName());
-		assertEquals(OBJECT_PLANE_X_TABLE_1, action.getParameter(PARAMETER_TARGET));
+		operation = operations.get(4);
+		assertEquals(OPERATION_MOVE_WITH_LOAD, operation.getName());
+		assertEquals(OBJECT_PLANE_X_TABLE_1, operation.getParameter(PARAMETER_TARGET));
 
-		action = actions.get(5);
-		assertEquals(OPERATION_LOWER_DOWN, action.getName());
+		operation = operations.get(5);
+		assertEquals(OPERATION_LOWER_DOWN, operation.getName());
 
-		action = actions.get(6);
-		assertEquals(OPERATION_OPEN_GRAB, action.getName());
+		operation = operations.get(6);
+		assertEquals(OPERATION_OPEN_GRAB, operation.getName());
 
-		action = actions.get(7);
-		assertEquals(OPERATION_MOVE_WITHOUT_LOAD, action.getName());
-		assertEquals(OBJECT_PLANE_X_TABLE_2, action.getParameter(PARAMETER_TARGET));
+		operation = operations.get(7);
+		assertEquals(OPERATION_MOVE_WITHOUT_LOAD, operation.getName());
+		assertEquals(OBJECT_PLANE_X_TABLE_2, operation.getParameter(PARAMETER_TARGET));
 	}
 }

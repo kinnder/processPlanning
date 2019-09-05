@@ -1,18 +1,15 @@
 package planning.model;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-public class Action implements Cloneable {
+public class Action {
 
 	private String name;
 
 	public Action(String name) {
 		this.name = name;
 		this.parameterUpdaters = new ArrayList<>();
-		this.parameters = new HashMap<>();
 		this.conditionCheckers = new ArrayList<>();
 	}
 
@@ -20,20 +17,9 @@ public class Action implements Cloneable {
 		return name;
 	}
 
-	@Override
-	public Action clone() throws CloneNotSupportedException {
-		Action clone = (Action) super.clone();
-		clone.name = name;
-		clone.parameterUpdaters = new ArrayList<>(parameterUpdaters);
-		clone.conditionCheckers = new ArrayList<>(conditionCheckers);
-		clone.parameters = new HashMap<>();
-		clone.parameters.putAll(parameters);
-		return clone;
-	}
-
-	public void updateParameters(SystemVariant systemVariant) {
+	public void updateActionParameters(SystemVariant systemVariant) {
 		for (ParameterUpdater parameterUpdater : parameterUpdaters) {
-			parameterUpdater.invoke(systemVariant, parameters);
+			parameterUpdater.invoke(systemVariant);
 		}
 	}
 
@@ -43,21 +29,15 @@ public class Action implements Cloneable {
 		parameterUpdaters.add(parameterUpdater);
 	}
 
-	private Map<String, String> parameters;
-
-	public String getParameter(String parameterName) {
-		return parameters.get(parameterName);
-	}
-
 	private List<ConditionChecker> conditionCheckers;
 
 	public void registerConditionChecker(ConditionChecker conditionChecker) {
 		conditionCheckers.add(conditionChecker);
 	}
 
-	public boolean allConditionsPasses(SystemVariant systemVariant) {
+	public boolean haveAllConditionsPassed(SystemVariant systemVariant) {
 		for (ConditionChecker conditionChecker : conditionCheckers) {
-			boolean conditionPasses = conditionChecker.invoke(systemVariant, parameters);
+			boolean conditionPasses = conditionChecker.invoke(systemVariant);
 			if (!conditionPasses) {
 				return false;
 			}

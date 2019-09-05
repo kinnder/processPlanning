@@ -1,17 +1,14 @@
 package planning.model;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class SystemVariant {
 
-	private System system;
-
-	private IdsMatching idsMatching;
-
-	private Action action;
-
-	public SystemVariant(System system, IdsMatching idsMatching, Action action) {
+	public SystemVariant(System system, IdsMatching idsMatching) {
 		this.system = system;
 		this.idsMatching = idsMatching;
-		this.action = action;
+		this.actionParameters = new HashMap<>();
 	}
 
 	public String getObjectIdByIdMatch(String templateId) {
@@ -23,23 +20,25 @@ public class SystemVariant {
 		return system.getObjectById(objectId);
 	}
 
+	private System system;
+
 	public System getSystem() {
 		return system;
 	}
+
+	private IdsMatching idsMatching;
 
 	public IdsMatching getIdsMatching() {
 		return idsMatching;
 	}
 
-	public void updateActionParameters() {
-		action.updateParameters(this);
+	private Map<String, String> actionParameters;
+
+	public Map<String, String> getActionParameters() {
+		return actionParameters;
 	}
 
-	public Action getAction() {
-		return action;
-	}
-
-	public boolean actionConditionsPasses() {
-		return action.allConditionsPasses(this);
+	public String getActionParameter(String parameterName) {
+		return actionParameters.get(parameterName);
 	}
 }
