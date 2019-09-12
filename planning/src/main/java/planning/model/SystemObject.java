@@ -44,6 +44,18 @@ public class SystemObject implements Cloneable {
 		links.add(link);
 	}
 
+	public void addBooleanAttribute(String attributeName, boolean attributeValue) {
+		addAttribute(new Attribute(attributeName, attributeValue));
+	}
+
+	public void addIntegerAttribute(String attributeName, Integer attributeValue) {
+		addAttribute(new Attribute(attributeName, attributeValue));
+	}
+
+	public void addLink(String linkName, String linkValue) {
+		addLink(new Link(linkName, linkValue));
+	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj) {

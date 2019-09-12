@@ -41,4 +41,8 @@ public class SystemVariant {
 	public String getActionParameter(String parameterName) {
 		return actionParameters.get(parameterName);
 	}
+
+	public void setActionParameter(String parameterName, String parameterValue) {
+		actionParameters.put(parameterName, parameterValue);
+	}
 }

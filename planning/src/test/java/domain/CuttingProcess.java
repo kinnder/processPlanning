@@ -6,18 +6,20 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import java.util.List;
 import org.junit.jupiter.api.Test;
+import org.luaj.vm2.Globals;
+import org.luaj.vm2.lib.jse.JsePlatform;
 
 import planning.method.Planner;
 import planning.model.Action;
 import planning.model.Attribute;
 import planning.model.AttributeTemplate;
 import planning.model.AttributeTransformation;
-import planning.model.ConditionChecker;
 import planning.model.Element;
 import planning.model.Link;
 import planning.model.LinkTemplate;
 import planning.model.LinkTransformation;
-import planning.model.ParameterUpdater;
+import planning.model.LuaScriptConditionChecker;
+import planning.model.LuaScriptParameterUpdater;
 import planning.model.System;
 import planning.model.SystemObject;
 import planning.model.SystemObjectTemplate;
@@ -82,6 +84,8 @@ public class CuttingProcess {
 
 	private static final String PARAMETER_LENGTH_DELTA = "разница длин";
 
+	private static Globals globals = JsePlatform.standardGlobals();
+
 	public static Element cutCylinderSurface() {
 		final SystemObjectTemplate workpiece = new SystemObjectTemplate("#WORKPIECE");
 		final SystemObjectTemplate cylinderSurface = new SystemObjectTemplate("#CYLINDER-SURFACE");
@@ -118,36 +122,46 @@ public class CuttingProcess {
 				new LinkTransformation(cylinderSurface_id, LINK_IS_DIAMETER_REQUIREMENT, null, requirement_id),
 				new AttributeTransformation(cylinderSurface_id, ATTRIBUTE_HAS_DIAMETER_REQUIREMENT, true) };
 
+		StringBuilder script = new StringBuilder();
+		script.append("local systemVariant = ...");
+		script.append("\n");
+		script.append("local cylinderSurface_actual = systemVariant:getObjectByIdMatch('" + cylinderSurface_id + "')");
+		script.append("\n");
+		script.append("local diameter = cylinderSurface_actual:getAttribute('" + ATTRIBUTE_DIAMETER
+				+ "'):getValueAsInteger()");
+		script.append("\n");
+		script.append("local requirement_actual = systemVariant:getObjectByIdMatch('" + requirement_id + "')");
+		script.append("\n");
+		script.append("local diameterRequired = requirement_actual:getAttribute('" + ATTRIBUTE_DIAMETER_REQUIREMENT
+				+ "'):getValueAsInteger()");
+		script.append("\n");
+		script.append("return diameter > diameterRequired");
+		script.append("\n");
+
 		final Action action = new Action(OPERATION_CUT_CYLINDER_SURFACE);
-		action.registerConditionChecker(new ConditionChecker() {
-			@Override
-			public boolean invoke(SystemVariant systemVariant) {
-				SystemObject cylinderSurface_actual = systemVariant.getObjectByIdMatch(cylinderSurface_id);
-				Integer diameter = cylinderSurface_actual.getAttribute(ATTRIBUTE_DIAMETER).getValueAsInteger();
+		action.registerConditionChecker(new LuaScriptConditionChecker(globals, script.toString()));
 
-				SystemObject requirement_actual = systemVariant.getObjectByIdMatch(requirement_id);
-				Integer diameterRequired = requirement_actual.getAttribute(ATTRIBUTE_DIAMETER_REQUIREMENT)
-						.getValueAsInteger();
+		script = new StringBuilder();
+		script.append("local systemVariant = ...");
+		script.append("\n");
+		script.append("local cylinderSurface_actual = systemVariant:getObjectByIdMatch('" + cylinderSurface_id + "')");
+		script.append("\n");
+		script.append("local diameter = cylinderSurface_actual:getAttribute('" + ATTRIBUTE_DIAMETER
+				+ "'):getValueAsInteger()");
+		script.append("\n");
+		script.append("local requirement_actual = systemVariant:getObjectByIdMatch('" + requirement_id + "')");
+		script.append("\n");
+		script.append("local diameterRequired = requirement_actual:getAttribute('" + ATTRIBUTE_DIAMETER_REQUIREMENT
+				+ "'):getValueAsInteger()");
+		script.append("\n");
+		script.append("local diameterDelta = diameter - diameterRequired");
+		script.append("\n");
+		script.append("systemVariant:setActionParameter('" + PARAMETER_DIAMETER_DELTA + "', diameterDelta)");
+		script.append("\n");
+		script.append("cylinderSurface_actual:getAttribute('" + ATTRIBUTE_DIAMETER + "'):setValue(diameterRequired)");
+		script.append("\n");
 
-				return diameter > diameterRequired;
-			}
-		});
-		action.registerParameterUpdater(new ParameterUpdater() {
-			@Override
-			public void invoke(SystemVariant systemVariant) {
-				SystemObject cylinderSurface_actual = systemVariant.getObjectByIdMatch(cylinderSurface_id);
-				Integer diameter = cylinderSurface_actual.getAttribute(ATTRIBUTE_DIAMETER).getValueAsInteger();
-
-				SystemObject requirement_actual = systemVariant.getObjectByIdMatch(requirement_id);
-				Integer diameterRequired = requirement_actual.getAttribute(ATTRIBUTE_DIAMETER_REQUIREMENT)
-						.getValueAsInteger();
-
-				Integer diameterDelta = diameter - diameterRequired;
-				systemVariant.getActionParameters().put(PARAMETER_DIAMETER_DELTA, Integer.toString(diameterDelta));
-
-				cylinderSurface_actual.getAttribute(ATTRIBUTE_DIAMETER).setValue(diameterRequired);
-			}
-		});
+		action.registerParameterUpdater(new LuaScriptParameterUpdater(globals, script.toString()));
 
 		return new Element(action, template, transformations);
 	}
@@ -189,20 +203,24 @@ public class CuttingProcess {
 				new LinkTransformation(cylinderSurface_id, LINK_IS_LENGTH_REQUIREMENT, null, requirement_id),
 				new AttributeTransformation(cylinderSurface_id, ATTRIBUTE_HAS_LENGTH_REQUIREMENT, true) };
 
+		StringBuilder script = new StringBuilder();
+		script.append("local systemVariant = ...");
+		script.append("\n");
+		script.append("local cylinderSurface_actual = systemVariant:getObjectByIdMatch('" + cylinderSurface_id + "')");
+		script.append("\n");
+		script.append(
+				"local length = cylinderSurface_actual:getAttribute('" + ATTRIBUTE_LENGTH + "'):getValueAsInteger()");
+		script.append("\n");
+		script.append("local requirement_actual = systemVariant:getObjectByIdMatch('" + requirement_id + "')");
+		script.append("\n");
+		script.append("local lengthRequired = requirement_actual:getAttribute('" + ATTRIBUTE_LENGTH_REQUIREMENT
+				+ "'):getValueAsInteger()");
+		script.append("\n");
+		script.append("return length == lengthRequired");
+		script.append("\n");
+
 		final Action action = new Action(OPERATION_TRIM_CYLINDER_SURFACE);
-		action.registerConditionChecker(new ConditionChecker() {
-			@Override
-			public boolean invoke(SystemVariant systemVariant) {
-				SystemObject cylinderSurface_actual = systemVariant.getObjectByIdMatch(cylinderSurface_id);
-				Integer length = cylinderSurface_actual.getAttribute(ATTRIBUTE_LENGTH).getValueAsInteger();
-
-				SystemObject requirement_actual = systemVariant.getObjectByIdMatch(requirement_id);
-				Integer lengthRequired = requirement_actual.getAttribute(ATTRIBUTE_LENGTH_REQUIREMENT)
-						.getValueAsInteger();
-
-				return length.equals(lengthRequired);
-			}
-		});
+		action.registerConditionChecker(new LuaScriptConditionChecker(globals, script.toString()));
 
 		return new Element(action, template, transformations);
 	}
@@ -257,70 +275,100 @@ public class CuttingProcess {
 				new LinkTransformation(requirement_l_id, LINK_IS_LENGTH_REQUIREMENT, null, cylinderSurface_id),
 				new AttributeTransformation(cylinderSurface_id, ATTRIBUTE_HAS_LENGTH_REQUIREMENT, true) };
 
+		StringBuilder script = new StringBuilder();
+		script.append("local systemVariant = ...");
+		script.append("\n");
+		script.append("local cylinderSurface_actual = systemVariant:getObjectByIdMatch('" + cylinderSurface_id + "')");
+		script.append("\n");
+		script.append("local diameter = cylinderSurface_actual:getAttribute('" + ATTRIBUTE_DIAMETER
+				+ "'):getValueAsInteger()");
+		script.append("\n");
+		script.append(
+				"local length = cylinderSurface_actual:getAttribute('" + ATTRIBUTE_LENGTH + "'):getValueAsInteger()");
+		script.append("\n");
+		script.append("local requirement_l_actual = systemVariant:getObjectByIdMatch('" + requirement_l_id + "')");
+		script.append("\n");
+		script.append("local lengthRequired = requirement_l_actual:getAttribute('" + ATTRIBUTE_LENGTH_REQUIREMENT
+				+ "'):getValueAsInteger()");
+		script.append("\n");
+		script.append("local requirement_r_actual = systemVariant:getObjectByIdMatch('" + requirement_r_id + "')");
+		script.append("\n");
+		script.append("local diameterRequired = requirement_r_actual:getAttribute('" + ATTRIBUTE_DIAMETER_REQUIREMENT
+				+ "'):getValueAsInteger()");
+		script.append("\n");
+		script.append("return (diameter > diameterRequired) and (length > lengthRequired)");
+		script.append("\n");
+
 		final Action action = new Action(OPERATION_SPLIT_CYLINDER_SURFACE);
-		action.registerConditionChecker(new ConditionChecker() {
-			@Override
-			public boolean invoke(SystemVariant systemVariant) {
-				SystemObject cylinderSurface_actual = systemVariant.getObjectByIdMatch(cylinderSurface_id);
-				Integer diameter = cylinderSurface_actual.getAttribute(ATTRIBUTE_DIAMETER).getValueAsInteger();
-				Integer length = cylinderSurface_actual.getAttribute(ATTRIBUTE_LENGTH).getValueAsInteger();
+		action.registerConditionChecker(new LuaScriptConditionChecker(globals, script.toString()));
 
-				SystemObject requirement_l_actual = systemVariant.getObjectByIdMatch(requirement_l_id);
-				Integer lengthRequired = requirement_l_actual.getAttribute(ATTRIBUTE_LENGTH_REQUIREMENT)
-						.getValueAsInteger();
+		script = new StringBuilder();
+		script.append("local systemVariant = ...");
+		script.append("\n");
+		script.append("local cylinderSurface_actual = systemVariant:getObjectByIdMatch('" + cylinderSurface_id + "')");
+		script.append("\n");
+		script.append("local diameter = cylinderSurface_actual:getAttribute('" + ATTRIBUTE_DIAMETER
+				+ "'):getValueAsInteger()");
+		script.append("\n");
+		script.append(
+				"local length = cylinderSurface_actual:getAttribute('" + ATTRIBUTE_LENGTH + "'):getValueAsInteger()");
+		script.append("\n");
+		script.append("local requirement_l_actual = systemVariant:getObjectByIdMatch('" + requirement_l_id + "')");
+		script.append("\n");
+		script.append("local lengthRequired = requirement_l_actual:getAttribute('" + ATTRIBUTE_LENGTH_REQUIREMENT
+				+ "'):getValueAsInteger()");
+		script.append("\n");
+		script.append("local requirement_r_actual = systemVariant:getObjectByIdMatch('" + requirement_r_id + "')");
+		script.append("\n");
+		script.append("local diameterRequired = requirement_r_actual:getAttribute('" + ATTRIBUTE_DIAMETER_REQUIREMENT
+				+ "'):getValueAsInteger()");
+		script.append("\n");
+		script.append("local workpiece_actual = systemVariant:getObjectByIdMatch('" + workpiece_id + "')");
+		script.append("\n");
+		script.append("local diameterDelta = diameter - diameterRequired");
+		script.append("\n");
+		script.append("systemVariant:setActionParameter('" + PARAMETER_DIAMETER_DELTA + "', diameterDelta)");
+		script.append("\n");
+		script.append("local lengthDelta = length - lengthRequired");
+		script.append("\n");
+		script.append("systemVariant:setActionParameter('" + PARAMETER_LENGTH_DELTA + "', lengthDelta)");
+		script.append("\n");
+		// TODO : добавить трансформацию по добавлению объекта
+		script.append("local cylinderSurface_new = luajava.newInstance('planning.model.SystemObject', '"
+				+ OBJECT_CYLINDER_SURFACE + "')");
+		script.append("\n");
+		script.append("cylinderSurface_new:addBooleanAttribute('" + ATTRIBUTE_CYLINDER_SURFACE + "', true)");
+		script.append("\n");
+		script.append("cylinderSurface_new:addIntegerAttribute('" + ATTRIBUTE_DIAMETER + "', diameterRequired)");
+		script.append("\n");
+		script.append("cylinderSurface_new:addIntegerAttribute('" + ATTRIBUTE_LENGTH + "', lengthDelta)");
+		script.append("\n");
+		script.append("cylinderSurface_new:addBooleanAttribute('" + ATTRIBUTE_HAS_DIAMETER_REQUIREMENT + "', true)");
+		script.append("\n");
+		script.append("cylinderSurface_new:addBooleanAttribute('" + ATTRIBUTE_HAS_LENGTH_REQUIREMENT + "', false)");
+		script.append("\n");
+		script.append("cylinderSurface_new:addLink('" + LINK_IS_PART_OF + "', workpiece_actual:getId())");
+		script.append("\n");
+		script.append(
+				"cylinderSurface_new:addLink('" + LINK_IS_DIAMETER_REQUIREMENT + "', requirement_r_actual:getId())");
+		script.append("\n");
+		script.append("cylinderSurface_new:addLink('" + LINK_IS_LENGTH_REQUIREMENT + "', nil)");
+		script.append("\n");
+		script.append("cylinderSurface_new:addLink('" + LINK_SURFACE_SIDE_LEFT + "', cylinderSurface_actual:getId())");
+		script.append("\n");
+		script.append("systemVariant:getSystem():addObject(cylinderSurface_new)");
+		script.append("\n");
+		script.append("cylinderSurface_actual:getAttribute('" + ATTRIBUTE_LENGTH + "'):setValue(lengthRequired)");
+		script.append("\n");
+		script.append("cylinderSurface_new:addLink('" + LINK_SURFACE_SIDE_RIGHT + "', cylinderSurface_new:getId())");
+		script.append("\n");
+		script.append("workpiece_actual:addLink('" + LINK_IS_PART_OF + "', cylinderSurface_new:getId())");
+		script.append("\n");
+		script.append("requirement_r_actual:getLink('" + LINK_IS_DIAMETER_REQUIREMENT
+				+ "', nil):setObjectId(cylinderSurface_new:getId())");
+		script.append("\n");
 
-				SystemObject requirement_r_actual = systemVariant.getObjectByIdMatch(requirement_r_id);
-				Integer diameterRequired = requirement_r_actual.getAttribute(ATTRIBUTE_DIAMETER_REQUIREMENT)
-						.getValueAsInteger();
-
-				return (diameter > diameterRequired) && (length > lengthRequired);
-			}
-		});
-		action.registerParameterUpdater(new ParameterUpdater() {
-			@Override
-			public void invoke(SystemVariant systemVariant) {
-				SystemObject cylinderSurface_actual = systemVariant.getObjectByIdMatch(cylinderSurface_id);
-				Integer diameter = cylinderSurface_actual.getAttribute(ATTRIBUTE_DIAMETER).getValueAsInteger();
-				Integer length = cylinderSurface_actual.getAttribute(ATTRIBUTE_LENGTH).getValueAsInteger();
-
-				SystemObject requirement_l_actual = systemVariant.getObjectByIdMatch(requirement_l_id);
-				Integer lengthRequired = requirement_l_actual.getAttribute(ATTRIBUTE_LENGTH_REQUIREMENT)
-						.getValueAsInteger();
-
-				SystemObject requirement_r_actual = systemVariant.getObjectByIdMatch(requirement_r_id);
-				Integer diameterRequired = requirement_r_actual.getAttribute(ATTRIBUTE_DIAMETER_REQUIREMENT)
-						.getValueAsInteger();
-
-				SystemObject workpiece_actual = systemVariant.getObjectByIdMatch(workpiece_id);
-
-				Integer diameterDelta = diameter - diameterRequired;
-				systemVariant.getActionParameters().put(PARAMETER_DIAMETER_DELTA, Integer.toString(diameterDelta));
-
-				Integer lengthDelta = length - lengthRequired;
-				systemVariant.getActionParameters().put(PARAMETER_LENGTH_DELTA, Integer.toString(lengthDelta));
-
-				// TODO : добавить трансформацию по добавлению объекта
-				SystemObject cylinderSurface_new = new SystemObject(OBJECT_CYLINDER_SURFACE);
-				cylinderSurface_new.addAttribute(new Attribute(ATTRIBUTE_CYLINDER_SURFACE, true));
-				cylinderSurface_new.addAttribute(new Attribute(ATTRIBUTE_DIAMETER, diameterRequired));
-				cylinderSurface_new.addAttribute(new Attribute(ATTRIBUTE_LENGTH, lengthDelta));
-				cylinderSurface_new.addAttribute(new Attribute(ATTRIBUTE_HAS_DIAMETER_REQUIREMENT, true));
-				cylinderSurface_new.addAttribute(new Attribute(ATTRIBUTE_HAS_LENGTH_REQUIREMENT, false));
-				cylinderSurface_new.addLink(new Link(LINK_IS_PART_OF, workpiece_actual.getId()));
-				cylinderSurface_new.addLink(new Link(LINK_IS_DIAMETER_REQUIREMENT, requirement_r_actual.getId()));
-				cylinderSurface_new.addLink(new Link(LINK_IS_LENGTH_REQUIREMENT, null));
-				cylinderSurface_new.addLink(new Link(LINK_SURFACE_SIDE_LEFT, cylinderSurface_actual.getId()));
-				systemVariant.getSystem().addObject(cylinderSurface_new);
-
-				cylinderSurface_actual.getAttribute(ATTRIBUTE_LENGTH).setValue(lengthRequired);
-				cylinderSurface_actual.addLink(new Link(LINK_SURFACE_SIDE_RIGHT, cylinderSurface_new.getId()));
-
-				workpiece_actual.addLink(new Link(LINK_IS_PART_OF, cylinderSurface_new.getId()));
-
-				requirement_r_actual.getLink(LINK_IS_DIAMETER_REQUIREMENT, null)
-						.setObjectId(cylinderSurface_new.getId());
-			}
-		});
+		action.registerParameterUpdater(new LuaScriptParameterUpdater(globals, script.toString()));
 
 		return new Element(action, template, transformations);
 	}

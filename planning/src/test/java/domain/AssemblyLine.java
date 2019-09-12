@@ -6,6 +6,8 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.util.List;
 import org.junit.jupiter.api.Test;
+import org.luaj.vm2.Globals;
+import org.luaj.vm2.lib.jse.JsePlatform;
 
 import planning.method.Planner;
 import planning.model.Action;
@@ -15,7 +17,7 @@ import planning.model.Element;
 import planning.model.Link;
 import planning.model.LinkTemplate;
 import planning.model.LinkTransformation;
-import planning.model.ParameterUpdater;
+import planning.model.LuaScriptParameterUpdater;
 import planning.model.System;
 import planning.model.SystemObject;
 import planning.model.SystemObjectTemplate;
@@ -94,6 +96,8 @@ public class AssemblyLine {
 
 	private static final String OPERATION_MOVE_WITHOUT_LOAD = "Переместить без нагрузки";
 
+	private static Globals globals = JsePlatform.standardGlobals();
+
 	public static Element turnWithoutLoad() {
 		final SystemObjectTemplate robot = new SystemObjectTemplate("#ROBOT");
 		final SystemObjectTemplate plane_y_target = new SystemObjectTemplate("#PLANE-Y-TARGET");
@@ -123,14 +127,16 @@ public class AssemblyLine {
 				new LinkTransformation(plane_y_target_id, LINK_ROTARY_DRIVE_POSITION, null, robot_id),
 				new LinkTransformation(plane_y_source_id, LINK_ROTARY_DRIVE_POSITION, robot_id, null) };
 
+		StringBuilder script = new StringBuilder();
+		script.append("local systemVariant = ...");
+		script.append("\n");
+		script.append("local object = systemVariant:getObjectByIdMatch('" + plane_y_target_id + "')");
+		script.append("\n");
+		script.append("systemVariant:setActionParameter('" + PARAMETER_TARGET + "', object:getName())");
+		script.append("\n");
+
 		final Action action = new Action(OPERATION_ROTATE_WITHOUT_LOAD);
-		action.registerParameterUpdater(new ParameterUpdater() {
-			@Override
-			public void invoke(SystemVariant systemVariant) {
-				SystemObject object = systemVariant.getObjectByIdMatch(plane_y_target_id);
-				systemVariant.getActionParameters().put(PARAMETER_TARGET, object.getName());
-			}
-		});
+		action.registerParameterUpdater(new LuaScriptParameterUpdater(globals, script.toString()));
 
 		return new Element(action, template, transformations);
 	}
@@ -171,14 +177,15 @@ public class AssemblyLine {
 				new LinkTransformation(plane_y_source_id, LINK_ROTARY_DRIVE_POSITION, robot_id, null),
 				new LinkTransformation(plane_y_target_id, LINK_ROTARY_DRIVE_POSITION, null, robot_id) };
 
+		StringBuilder script = new StringBuilder();
+		script.append("local systemVariant = ...");
+		script.append("\n");
+		script.append("local object = systemVariant:getObjectByIdMatch('" + plane_y_target_id + "')");
+		script.append("\n");
+		script.append("systemVariant:setActionParameter('" + PARAMETER_TARGET + "', object:getName())");
+
 		final Action action = new Action(OPERATION_TURN_WITH_LOAD);
-		action.registerParameterUpdater(new ParameterUpdater() {
-			@Override
-			public void invoke(SystemVariant systemVariant) {
-				SystemObject object = systemVariant.getObjectByIdMatch(plane_y_target_id);
-				systemVariant.getActionParameters().put(PARAMETER_TARGET, object.getName());
-			}
-		});
+		action.registerParameterUpdater(new LuaScriptParameterUpdater(globals, script.toString()));
 
 		return new Element(action, template, transformations);
 	}
@@ -449,14 +456,15 @@ public class AssemblyLine {
 				new LinkTransformation(plane_x_target_id, LINK_LINEAR_DRIVE_POSITION, null, robot_id),
 				new LinkTransformation(plane_x_source_id, LINK_LINEAR_DRIVE_POSITION, robot_id, null) };
 
+		StringBuilder script = new StringBuilder();
+		script.append("local systemVariant = ...");
+		script.append("\n");
+		script.append("local object = systemVariant:getObjectByIdMatch('" + plane_x_target_id + "')");
+		script.append("\n");
+		script.append("systemVariant:setActionParameter('" + PARAMETER_TARGET + "', object:getName())");
+
 		final Action action = new Action(OPERATION_MOVE_WITH_LOAD);
-		action.registerParameterUpdater(new ParameterUpdater() {
-			@Override
-			public void invoke(SystemVariant systemVariant) {
-				SystemObject object = systemVariant.getObjectByIdMatch(plane_x_target_id);
-				systemVariant.getActionParameters().put(PARAMETER_TARGET, object.getName());
-			}
-		});
+		action.registerParameterUpdater(new LuaScriptParameterUpdater(globals, script.toString()));
 
 		return new Element(action, template, transformations);
 	}
@@ -490,14 +498,15 @@ public class AssemblyLine {
 				new LinkTransformation(plane_x_source_id, LINK_LINEAR_DRIVE_POSITION, robot_id, null),
 				new LinkTransformation(plane_x_target_id, LINK_LINEAR_DRIVE_POSITION, null, robot_id) };
 
+		StringBuilder script = new StringBuilder();
+		script.append("local systemVariant = ...");
+		script.append("\n");
+		script.append("local object = systemVariant:getObjectByIdMatch('" + plane_x_target_id + "')");
+		script.append("\n");
+		script.append("systemVariant:setActionParameter('" + PARAMETER_TARGET + "', object:getName())");
+
 		final Action action = new Action(OPERATION_MOVE_WITHOUT_LOAD);
-		action.registerParameterUpdater(new ParameterUpdater() {
-			@Override
-			public void invoke(SystemVariant systemVariant) {
-				SystemObject object = systemVariant.getObjectByIdMatch(plane_x_target_id);
-				systemVariant.getActionParameters().put(PARAMETER_TARGET, object.getName());
-			}
-		});
+		action.registerParameterUpdater(new LuaScriptParameterUpdater(globals, script.toString()));
 
 		return new Element(action, template, transformations);
 	}

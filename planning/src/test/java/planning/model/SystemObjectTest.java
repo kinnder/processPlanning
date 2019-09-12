@@ -159,6 +159,11 @@ public class SystemObjectTest {
 	}
 
 	@Test
+	public void addLink_with_string_string() {
+		testable.addLink("linkName", "linkValue");
+	}
+
+	@Test
 	public void addAttribute() {
 		final Attribute attribute_mock = context.mock(Attribute.class, "attribute");
 
@@ -170,6 +175,16 @@ public class SystemObjectTest {
 		});
 
 		testable.addAttribute(attribute_mock);
+	}
+
+	@Test
+	public void addBooleanAttribute() {
+		testable.addBooleanAttribute("attributeName", true);
+	}
+
+	@Test
+	public void addIntegerAttribute() {
+		testable.addIntegerAttribute("attributeName", new Integer(19));
 	}
 
 	@Test

@@ -94,4 +94,10 @@ public class SystemVariantTest {
 		testable.getActionParameters().put("parameter", "value");
 		assertEquals("value", testable.getActionParameter("parameter"));
 	}
+
+	@Test
+	public void setActionParameter() {
+		testable.setActionParameter("parameter", "value");
+		assertEquals("value", testable.getActionParameter("parameter"));
+	}
 }
