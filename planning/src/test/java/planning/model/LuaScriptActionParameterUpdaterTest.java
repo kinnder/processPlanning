@@ -10,7 +10,7 @@ import org.junit.jupiter.api.extension.RegisterExtension;
 import org.luaj.vm2.Globals;
 import org.luaj.vm2.lib.jse.JsePlatform;
 
-public class LuaScriptParameterUpdaterTest {
+public class LuaScriptActionParameterUpdaterTest {
 
 	@RegisterExtension
 	JUnit5Mockery context = new JUnit5Mockery() {
@@ -24,7 +24,7 @@ public class LuaScriptParameterUpdaterTest {
 		context.assertIsSatisfied();
 	}
 
-	LuaScriptParameterUpdater testable;
+	LuaScriptActionParameterUpdater testable;
 
 	Globals globals;
 
@@ -38,7 +38,7 @@ public class LuaScriptParameterUpdaterTest {
 
 	@Test
 	public void invoke() {
-		testable = new LuaScriptParameterUpdater(globals, script.toString());
+		testable = new LuaScriptActionParameterUpdater(globals, script.toString());
 		testable.invoke(null);
 	}
 
@@ -65,7 +65,7 @@ public class LuaScriptParameterUpdaterTest {
 			}
 		});
 
-		testable = new LuaScriptParameterUpdater(globals, script.toString());
+		testable = new LuaScriptActionParameterUpdater(globals, script.toString());
 		testable.invoke(systemVariant_mock);
 	}
 }

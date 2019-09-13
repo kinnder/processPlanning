@@ -64,7 +64,7 @@ public class ElementTest {
 				oneOf(system_mock).clone();
 				will(returnValue(systemClone_mock));
 
-				oneOf(action_mock).haveAllConditionsPassed(with(any(SystemVariant.class)));
+				oneOf(action_mock).haveAllPreConditionsPassed(with(any(SystemVariant.class)));
 				will(returnValue(true));
 
 				oneOf(transformation_mock).applyTo(with(any(SystemVariant.class)));
@@ -92,7 +92,7 @@ public class ElementTest {
 				oneOf(system_mock).clone();
 				will(returnValue(systemClone_mock));
 
-				oneOf(action_mock).haveAllConditionsPassed(with(any(SystemVariant.class)));
+				oneOf(action_mock).haveAllPreConditionsPassed(with(any(SystemVariant.class)));
 				will(returnValue(false));
 			}
 		});

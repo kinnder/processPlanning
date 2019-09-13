@@ -4,13 +4,13 @@ import org.luaj.vm2.Globals;
 import org.luaj.vm2.LuaValue;
 import org.luaj.vm2.lib.jse.CoerceJavaToLua;
 
-public class LuaScriptConditionChecker implements ConditionChecker {
+public class LuaScriptActionPreConditionChecker implements ActionPreConditionChecker {
 
 	private Globals globals;
 
 	private String script;
 
-	public LuaScriptConditionChecker(Globals globals, String script) {
+	public LuaScriptActionPreConditionChecker(Globals globals, String script) {
 		this.globals = globals;
 		this.script = script;
 	}

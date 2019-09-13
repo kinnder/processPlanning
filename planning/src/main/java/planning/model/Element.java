@@ -27,7 +27,7 @@ public class Element {
 		List<SystemVariant> systemVariants = new ArrayList<>();
 		for (IdsMatching idsMatching : idsMatchings) {
 			SystemVariant systemVariant = new SystemVariant(system.clone(), idsMatching);
-			if (action.haveAllConditionsPassed(systemVariant)) {
+			if (action.haveAllPreConditionsPassed(systemVariant)) {
 				for (Transformation transformation : transformations) {
 					transformation.applyTo(systemVariant);
 				}

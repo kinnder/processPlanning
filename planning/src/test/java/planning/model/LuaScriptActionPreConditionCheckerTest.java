@@ -11,7 +11,7 @@ import org.junit.jupiter.api.extension.RegisterExtension;
 import org.luaj.vm2.Globals;
 import org.luaj.vm2.lib.jse.JsePlatform;
 
-public class LuaScriptConditionCheckerTest {
+public class LuaScriptActionPreConditionCheckerTest {
 
 	@RegisterExtension
 	JUnit5Mockery context = new JUnit5Mockery() {
@@ -25,7 +25,7 @@ public class LuaScriptConditionCheckerTest {
 		context.assertIsSatisfied();
 	}
 
-	LuaScriptConditionChecker testable;
+	LuaScriptActionPreConditionChecker testable;
 
 	Globals globals;
 
@@ -46,7 +46,7 @@ public class LuaScriptConditionCheckerTest {
 
 		SystemVariant systemVariant_mock = context.mock(SystemVariant.class);
 
-		testable = new LuaScriptConditionChecker(globals, script.toString());
+		testable = new LuaScriptActionPreConditionChecker(globals, script.toString());
 		assertTrue(testable.invoke(systemVariant_mock));
 	}
 }

@@ -1,6 +1,6 @@
 package planning.model;
 
-public interface ConditionChecker {
+public interface ActionPreConditionChecker {
 
 	boolean invoke(SystemVariant systemVariant);
 }

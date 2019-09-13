@@ -17,7 +17,7 @@ import planning.model.Element;
 import planning.model.Link;
 import planning.model.LinkTemplate;
 import planning.model.LinkTransformation;
-import planning.model.LuaScriptParameterUpdater;
+import planning.model.LuaScriptActionParameterUpdater;
 import planning.model.System;
 import planning.model.SystemObject;
 import planning.model.SystemObjectTemplate;
@@ -136,7 +136,7 @@ public class AssemblyLine {
 		script.append("\n");
 
 		final Action action = new Action(OPERATION_ROTATE_WITHOUT_LOAD);
-		action.registerParameterUpdater(new LuaScriptParameterUpdater(globals, script.toString()));
+		action.registerParameterUpdater(new LuaScriptActionParameterUpdater(globals, script.toString()));
 
 		return new Element(action, template, transformations);
 	}
@@ -185,7 +185,7 @@ public class AssemblyLine {
 		script.append("systemVariant:setActionParameter('" + PARAMETER_TARGET + "', object:getName())");
 
 		final Action action = new Action(OPERATION_TURN_WITH_LOAD);
-		action.registerParameterUpdater(new LuaScriptParameterUpdater(globals, script.toString()));
+		action.registerParameterUpdater(new LuaScriptActionParameterUpdater(globals, script.toString()));
 
 		return new Element(action, template, transformations);
 	}
@@ -464,7 +464,7 @@ public class AssemblyLine {
 		script.append("systemVariant:setActionParameter('" + PARAMETER_TARGET + "', object:getName())");
 
 		final Action action = new Action(OPERATION_MOVE_WITH_LOAD);
-		action.registerParameterUpdater(new LuaScriptParameterUpdater(globals, script.toString()));
+		action.registerParameterUpdater(new LuaScriptActionParameterUpdater(globals, script.toString()));
 
 		return new Element(action, template, transformations);
 	}
@@ -506,7 +506,7 @@ public class AssemblyLine {
 		script.append("systemVariant:setActionParameter('" + PARAMETER_TARGET + "', object:getName())");
 
 		final Action action = new Action(OPERATION_MOVE_WITHOUT_LOAD);
-		action.registerParameterUpdater(new LuaScriptParameterUpdater(globals, script.toString()));
+		action.registerParameterUpdater(new LuaScriptActionParameterUpdater(globals, script.toString()));
 
 		return new Element(action, template, transformations);
 	}

@@ -10,7 +10,7 @@ public class Action {
 	public Action(String name) {
 		this.name = name;
 		this.parameterUpdaters = new ArrayList<>();
-		this.conditionCheckers = new ArrayList<>();
+		this.preConditionCheckers = new ArrayList<>();
 	}
 
 	public String getName() {
@@ -18,25 +18,25 @@ public class Action {
 	}
 
 	public void updateActionParameters(SystemVariant systemVariant) {
-		for (ParameterUpdater parameterUpdater : parameterUpdaters) {
+		for (ActionParameterUpdater parameterUpdater : parameterUpdaters) {
 			parameterUpdater.invoke(systemVariant);
 		}
 	}
 
-	private List<ParameterUpdater> parameterUpdaters;
+	private List<ActionParameterUpdater> parameterUpdaters;
 
-	public void registerParameterUpdater(ParameterUpdater parameterUpdater) {
+	public void registerParameterUpdater(ActionParameterUpdater parameterUpdater) {
 		parameterUpdaters.add(parameterUpdater);
 	}
 
-	private List<ConditionChecker> conditionCheckers;
+	private List<ActionPreConditionChecker> preConditionCheckers;
 
-	public void registerConditionChecker(ConditionChecker conditionChecker) {
-		conditionCheckers.add(conditionChecker);
+	public void registerPreConditionChecker(ActionPreConditionChecker preConditionChecker) {
+		preConditionCheckers.add(preConditionChecker);
 	}
 
-	public boolean haveAllConditionsPassed(SystemVariant systemVariant) {
-		for (ConditionChecker conditionChecker : conditionCheckers) {
+	public boolean haveAllPreConditionsPassed(SystemVariant systemVariant) {
+		for (ActionPreConditionChecker conditionChecker : preConditionCheckers) {
 			boolean conditionPasses = conditionChecker.invoke(systemVariant);
 			if (!conditionPasses) {
 				return false;

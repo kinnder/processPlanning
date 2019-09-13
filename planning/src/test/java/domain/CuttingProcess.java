@@ -18,8 +18,8 @@ import planning.model.Element;
 import planning.model.Link;
 import planning.model.LinkTemplate;
 import planning.model.LinkTransformation;
-import planning.model.LuaScriptConditionChecker;
-import planning.model.LuaScriptParameterUpdater;
+import planning.model.LuaScriptActionPreConditionChecker;
+import planning.model.LuaScriptActionParameterUpdater;
 import planning.model.System;
 import planning.model.SystemObject;
 import planning.model.SystemObjectTemplate;
@@ -139,7 +139,7 @@ public class CuttingProcess {
 		script.append("\n");
 
 		final Action action = new Action(OPERATION_CUT_CYLINDER_SURFACE);
-		action.registerConditionChecker(new LuaScriptConditionChecker(globals, script.toString()));
+		action.registerPreConditionChecker(new LuaScriptActionPreConditionChecker(globals, script.toString()));
 
 		script = new StringBuilder();
 		script.append("local systemVariant = ...");
@@ -161,7 +161,7 @@ public class CuttingProcess {
 		script.append("cylinderSurface_actual:getAttribute('" + ATTRIBUTE_DIAMETER + "'):setValue(diameterRequired)");
 		script.append("\n");
 
-		action.registerParameterUpdater(new LuaScriptParameterUpdater(globals, script.toString()));
+		action.registerParameterUpdater(new LuaScriptActionParameterUpdater(globals, script.toString()));
 
 		return new Element(action, template, transformations);
 	}
@@ -220,7 +220,7 @@ public class CuttingProcess {
 		script.append("\n");
 
 		final Action action = new Action(OPERATION_TRIM_CYLINDER_SURFACE);
-		action.registerConditionChecker(new LuaScriptConditionChecker(globals, script.toString()));
+		action.registerPreConditionChecker(new LuaScriptActionPreConditionChecker(globals, script.toString()));
 
 		return new Element(action, template, transformations);
 	}
@@ -300,7 +300,7 @@ public class CuttingProcess {
 		script.append("\n");
 
 		final Action action = new Action(OPERATION_SPLIT_CYLINDER_SURFACE);
-		action.registerConditionChecker(new LuaScriptConditionChecker(globals, script.toString()));
+		action.registerPreConditionChecker(new LuaScriptActionPreConditionChecker(globals, script.toString()));
 
 		script = new StringBuilder();
 		script.append("local systemVariant = ...");
@@ -368,7 +368,7 @@ public class CuttingProcess {
 				+ "', nil):setObjectId(cylinderSurface_new:getId())");
 		script.append("\n");
 
-		action.registerParameterUpdater(new LuaScriptParameterUpdater(globals, script.toString()));
+		action.registerParameterUpdater(new LuaScriptActionParameterUpdater(globals, script.toString()));
 
 		return new Element(action, template, transformations);
 	}

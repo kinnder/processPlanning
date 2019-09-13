@@ -1,6 +1,6 @@
 package planning.model;
 
-public interface ParameterUpdater {
+public interface ActionParameterUpdater {
 
 	void invoke(SystemVariant systemVariant);
 }

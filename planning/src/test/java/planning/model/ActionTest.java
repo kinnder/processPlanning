@@ -41,7 +41,7 @@ public class ActionTest {
 	public void updateParameters() {
 		final SystemVariant systemVariant_mock = context.mock(SystemVariant.class);
 
-		testable.registerParameterUpdater(new ParameterUpdater() {
+		testable.registerParameterUpdater(new ActionParameterUpdater() {
 			@Override
 			public void invoke(SystemVariant systemVariant) {
 				assertEquals(systemVariant_mock, systemVariant);
@@ -55,7 +55,7 @@ public class ActionTest {
 	public void allConditionsPasses() {
 		final SystemVariant systemVariant_mock = context.mock(SystemVariant.class);
 
-		testable.registerConditionChecker(new ConditionChecker() {
+		testable.registerPreConditionChecker(new ActionPreConditionChecker() {
 			@Override
 			public boolean invoke(SystemVariant systemVariant) {
 				assertEquals(systemVariant_mock, systemVariant);
@@ -63,14 +63,14 @@ public class ActionTest {
 			}
 		});
 
-		assertTrue(testable.haveAllConditionsPassed(systemVariant_mock));
+		assertTrue(testable.haveAllPreConditionsPassed(systemVariant_mock));
 	}
 
 	@Test
 	public void allConditionsPasses_false() {
 		final SystemVariant systemVariant_mock = context.mock(SystemVariant.class);
 
-		testable.registerConditionChecker(new ConditionChecker() {
+		testable.registerPreConditionChecker(new ActionPreConditionChecker() {
 			@Override
 			public boolean invoke(SystemVariant systemVariant) {
 				assertEquals(systemVariant_mock, systemVariant);
@@ -78,6 +78,6 @@ public class ActionTest {
 			}
 		});
 
-		assertFalse(testable.haveAllConditionsPassed(systemVariant_mock));
+		assertFalse(testable.haveAllPreConditionsPassed(systemVariant_mock));
 	}
 }
