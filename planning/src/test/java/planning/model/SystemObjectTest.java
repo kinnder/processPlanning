@@ -178,13 +178,8 @@ public class SystemObjectTest {
 	}
 
 	@Test
-	public void addBooleanAttribute() {
-		testable.addBooleanAttribute("attributeName", true);
-	}
-
-	@Test
-	public void addIntegerAttribute() {
-		testable.addIntegerAttribute("attributeName", new Integer(19));
+	public void addAttribute_with_parameters() {
+		testable.addAttribute("attributeName", true);
 	}
 
 	@Test

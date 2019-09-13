@@ -34,27 +34,12 @@ class AttributeTest {
 	}
 
 	@Test
-	public void clone_boolean() throws CloneNotSupportedException {
-		testable = new Attribute("attribute", true);
-		assertTrue(testable != testable.clone());
-	}
-
-	@Test
-	public void clone_string() throws CloneNotSupportedException {
-		testable = new Attribute("attribute", "value");
-		assertTrue(testable != testable.clone());
-	}
-
-	@Test
-	public void clone_object() throws CloneNotSupportedException {
-		testable = new Attribute("attribute", new Object());
-		assertTrue(testable != testable.clone());
-	}
-
-	@Test
-	public void clone_integer() throws CloneNotSupportedException {
-		testable = new Attribute("attribute", new Integer(1234567890));
-		assertTrue(testable != testable.clone());
+	public void clone_test() throws CloneNotSupportedException {
+		Attribute clone = testable.clone();
+		assertTrue(clone != testable);
+		assertEquals(clone.getName(), testable.getName());
+		assertEquals(clone.getValue(), testable.getValue());
+		assertEquals(clone.getType(), testable.getType());
 	}
 
 	@Test
@@ -102,10 +87,10 @@ class AttributeTest {
 	}
 
 	@Test
-	public void getValueAsObject() {
+	public void getValue() {
 		Object value = new Object();
 		testable = new Attribute("attribute", value);
-		assertEquals(value, testable.getValueAsObject());
+		assertEquals(value, testable.getValue());
 	}
 
 	@Test
@@ -126,26 +111,7 @@ class AttributeTest {
 	}
 
 	@Test
-	public void createTemplate_boolean() {
-		testable = new Attribute("attribute", true);
-		assertNotNull(testable.createTemplate());
-	}
-
-	@Test
-	public void createTemplate_string() {
-		testable = new Attribute("attribute", "value");
-		assertNotNull(testable.createTemplate());
-	}
-
-	@Test
-	public void createTemplate_object() {
-		testable = new Attribute("attribute", new Object());
-		assertNotNull(testable.createTemplate());
-	}
-
-	@Test
-	public void createTemplate_integer() {
-		testable = new Attribute("attribute", new Integer(123));
+	public void createTemplate() {
 		assertNotNull(testable.createTemplate());
 	}
 

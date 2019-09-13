@@ -29,57 +29,35 @@ public class AttributeTemplateTest {
 
 	@Test
 	public void matches() {
-		final Attribute template = new Attribute("attribute", "value");
-		assertTrue(testable.matches(template));
+		final Attribute attribute = new Attribute("attribute", "value");
+		assertTrue(testable.matches(attribute));
 	}
 
 	@Test
 	public void matches_differentName() {
-		final Attribute template = new Attribute("different", "value");
-		assertFalse(testable.matches(template));
+		final Attribute attribute = new Attribute("different", "value");
+		assertFalse(testable.matches(attribute));
 	}
 
 	@Test
-	public void matches_differentType_String() {
-		testable = new AttributeTemplate("attribute", "string");
-		final Attribute template = new Attribute("attribute", false);
-		assertFalse(testable.matches(template));
-	}
-
-	@Test
-	public void matches_differentType_boolean() {
-		testable = new AttributeTemplate("attribute", false);
-		final Attribute template = new Attribute("attribute", "string");
-		assertFalse(testable.matches(template));
-	}
-
-	@Test
-	public void matches_differentType_Object() {
-		testable = new AttributeTemplate("attribute", new Object());
-		final Attribute template = new Attribute("attribute", false);
-		assertFalse(testable.matches(template));
-	}
-
-	@Test
-	public void matches_differentType_Integer() {
-		testable = new AttributeTemplate("attribute", new Integer(345));
-		final Attribute template = new Attribute("attribute", false);
-		assertFalse(testable.matches(template));
+	public void matches_differentType() {
+		final Attribute attribute = new Attribute("attribute", false);
+		assertFalse(testable.matches(attribute));
 	}
 
 	@Test
 	public void matches_differentValue() {
-		final Attribute template = new Attribute("attribute", "different");
-		assertFalse(testable.matches(template));
+		final Attribute attribute = new Attribute("attribute", "different");
+		assertFalse(testable.matches(attribute));
 	}
 
 	@Test
 	public void matches_anyValue() {
-		final Attribute template = new Attribute("attribute", "different");
-		assertFalse(testable.matches(template));
+		final Attribute attribute = new Attribute("attribute", "different");
+		assertFalse(testable.matches(attribute));
 
 		testable = new AttributeTemplate("attribute");
-		assertTrue(testable.matches(template));
+		assertTrue(testable.matches(attribute));
 	}
 
 	@Test

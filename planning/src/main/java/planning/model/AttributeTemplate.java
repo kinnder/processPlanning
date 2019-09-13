@@ -10,37 +10,20 @@ public class AttributeTemplate {
 
 	private TemplateType templateType;
 
-	public AttributeTemplate(String name, boolean value) {
-		this.name = name;
-		this.value = value;
-		this.type = AttributeType.Boolean;
-		this.templateType = TemplateType.ConcreteValue;
-	}
-
-	public AttributeTemplate(String name, String value) {
-		this.name = name;
-		this.value = value;
-		this.type = AttributeType.String;
-		this.templateType = TemplateType.ConcreteValue;
-	}
-
-	public AttributeTemplate(String name, Object value) {
-		this.name = name;
-		this.value = value;
-		this.type = AttributeType.Object;
-		this.templateType = TemplateType.ConcreteValue;
-	}
-
-	public AttributeTemplate(String name, Integer value) {
-		this.name = name;
-		this.value = value;
-		this.type = AttributeType.Integer;
-		this.templateType = TemplateType.ConcreteValue;
-	}
-
 	public AttributeTemplate(String name) {
 		this.name = name;
 		this.templateType = TemplateType.AnyValue;
+	}
+
+	public AttributeTemplate(String name, Object value) {
+		this(name, value, AttributeType.getTypeOf(value));
+	}
+
+	public AttributeTemplate(String name, Object value, AttributeType type) {
+		this.name = name;
+		this.value = value;
+		this.type = type;
+		this.templateType = TemplateType.ConcreteValue;
 	}
 
 	public String getName() {
@@ -61,6 +44,6 @@ public class AttributeTemplate {
 	}
 
 	private boolean matchesValue(Attribute object) {
-		return type.equals(object.getType()) && value.equals(object.getValueAsObject());
+		return type.equals(object.getType()) && value.equals(object.getValue());
 	}
 }

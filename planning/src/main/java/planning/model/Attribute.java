@@ -8,28 +8,10 @@ public class Attribute implements Cloneable {
 
 	private AttributeType type;
 
-	public Attribute(String name, boolean value) {
-		this.name = name;
-		this.value = value;
-		this.type = AttributeType.Boolean;
-	}
-
-	public Attribute(String name, String value) {
-		this.name = name;
-		this.value = value;
-		this.type = AttributeType.String;
-	}
-
 	public Attribute(String name, Object value) {
 		this.name = name;
 		this.value = value;
-		this.type = AttributeType.Object;
-	}
-
-	public Attribute(String name, Integer value) {
-		this.name = name;
-		this.value = value;
-		this.type = AttributeType.Integer;
+		this.type = AttributeType.getTypeOf(value);
 	}
 
 	@Override
@@ -49,7 +31,7 @@ public class Attribute implements Cloneable {
 		return (boolean) (value);
 	}
 
-	public Object getValueAsObject() {
+	public Object getValue() {
 		return value;
 	}
 
@@ -78,16 +60,7 @@ public class Attribute implements Cloneable {
 	}
 
 	public AttributeTemplate createTemplate() {
-		switch (type) {
-		case Boolean:
-			return new AttributeTemplate(name, getValueAsBoolean());
-		case String:
-			return new AttributeTemplate(name, getValueAsString());
-		case Integer:
-			return new AttributeTemplate(name, getValueAsInteger());
-		default:
-			return new AttributeTemplate(name, getValueAsObject());
-		}
+		return new AttributeTemplate(name, value, type);
 	}
 
 	public AttributeType getType() {

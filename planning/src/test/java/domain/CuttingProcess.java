@@ -337,15 +337,15 @@ public class CuttingProcess {
 		script.append("local cylinderSurface_new = luajava.newInstance('planning.model.SystemObject', '"
 				+ OBJECT_CYLINDER_SURFACE + "')");
 		script.append("\n");
-		script.append("cylinderSurface_new:addBooleanAttribute('" + ATTRIBUTE_CYLINDER_SURFACE + "', true)");
+		script.append("cylinderSurface_new:addAttribute('" + ATTRIBUTE_CYLINDER_SURFACE + "', true)");
 		script.append("\n");
-		script.append("cylinderSurface_new:addIntegerAttribute('" + ATTRIBUTE_DIAMETER + "', diameterRequired)");
+		script.append("cylinderSurface_new:addAttribute('" + ATTRIBUTE_DIAMETER + "', diameterRequired)");
 		script.append("\n");
-		script.append("cylinderSurface_new:addIntegerAttribute('" + ATTRIBUTE_LENGTH + "', lengthDelta)");
+		script.append("cylinderSurface_new:addAttribute('" + ATTRIBUTE_LENGTH + "', lengthDelta)");
 		script.append("\n");
-		script.append("cylinderSurface_new:addBooleanAttribute('" + ATTRIBUTE_HAS_DIAMETER_REQUIREMENT + "', true)");
+		script.append("cylinderSurface_new:addAttribute('" + ATTRIBUTE_HAS_DIAMETER_REQUIREMENT + "', true)");
 		script.append("\n");
-		script.append("cylinderSurface_new:addBooleanAttribute('" + ATTRIBUTE_HAS_LENGTH_REQUIREMENT + "', false)");
+		script.append("cylinderSurface_new:addAttribute('" + ATTRIBUTE_HAS_LENGTH_REQUIREMENT + "', false)");
 		script.append("\n");
 		script.append("cylinderSurface_new:addLink('" + LINK_IS_PART_OF + "', workpiece_actual:getId())");
 		script.append("\n");
