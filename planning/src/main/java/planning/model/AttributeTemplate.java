@@ -6,8 +6,6 @@ public class AttributeTemplate {
 
 	private Object value;
 
-	private AttributeType type;
-
 	private TemplateType templateType;
 
 	public AttributeTemplate(String name) {
@@ -16,13 +14,8 @@ public class AttributeTemplate {
 	}
 
 	public AttributeTemplate(String name, Object value) {
-		this(name, value, AttributeType.getTypeOf(value));
-	}
-
-	public AttributeTemplate(String name, Object value, AttributeType type) {
 		this.name = name;
 		this.value = value;
-		this.type = type;
 		this.templateType = TemplateType.ConcreteValue;
 	}
 
@@ -44,6 +37,6 @@ public class AttributeTemplate {
 	}
 
 	private boolean matchesValue(Attribute object) {
-		return type.equals(object.getType()) && value.equals(object.getValue());
+		return value.equals(object.getValue());
 	}
 }

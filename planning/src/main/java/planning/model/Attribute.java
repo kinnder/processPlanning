@@ -6,12 +6,9 @@ public class Attribute implements Cloneable {
 
 	private Object value;
 
-	private AttributeType type;
-
 	public Attribute(String name, Object value) {
 		this.name = name;
 		this.value = value;
-		this.type = AttributeType.getTypeOf(value);
 	}
 
 	@Override
@@ -19,7 +16,6 @@ public class Attribute implements Cloneable {
 		Attribute clone = (Attribute) super.clone();
 		clone.name = name;
 		clone.value = value;
-		clone.type = type;
 		return clone;
 	}
 
@@ -48,7 +44,7 @@ public class Attribute implements Cloneable {
 			return true;
 		}
 		Attribute attribute = (Attribute) obj;
-		return name.equals(attribute.name) && type.equals(attribute.type) && value.equals(attribute.value);
+		return name.equals(attribute.name) && value.equals(attribute.value);
 	}
 
 	public String getName() {
@@ -60,10 +56,6 @@ public class Attribute implements Cloneable {
 	}
 
 	public AttributeTemplate createTemplate() {
-		return new AttributeTemplate(name, value, type);
-	}
-
-	public AttributeType getType() {
-		return type;
+		return new AttributeTemplate(name, value);
 	}
 }

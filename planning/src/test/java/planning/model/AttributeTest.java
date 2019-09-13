@@ -39,7 +39,6 @@ class AttributeTest {
 		assertTrue(clone != testable);
 		assertEquals(clone.getName(), testable.getName());
 		assertEquals(clone.getValue(), testable.getValue());
-		assertEquals(clone.getType(), testable.getType());
 	}
 
 	@Test
@@ -113,10 +112,5 @@ class AttributeTest {
 	@Test
 	public void createTemplate() {
 		assertNotNull(testable.createTemplate());
-	}
-
-	@Test
-	public void getType() {
-		assertEquals(AttributeType.String, testable.getType());
 	}
 }
