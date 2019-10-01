@@ -13,7 +13,7 @@ import planning.method.Planner;
 import planning.model.Action;
 import planning.model.Attribute;
 import planning.model.AttributeTemplate;
-import planning.model.Element;
+import planning.model.SystemTransformation;
 import planning.model.Link;
 import planning.model.LinkTemplate;
 import planning.model.LinkTransformation;
@@ -98,7 +98,7 @@ public class AssemblyLine {
 
 	private static Globals globals = JsePlatform.standardGlobals();
 
-	public static Element turnWithoutLoad() {
+	public static SystemTransformation turnWithoutLoad() {
 		final SystemObjectTemplate robot = new SystemObjectTemplate("#ROBOT");
 		final SystemObjectTemplate plane_y_target = new SystemObjectTemplate("#PLANE-Y-TARGET");
 		final SystemObjectTemplate plane_y_source = new SystemObjectTemplate("#PLANE-Y-SOURCE");
@@ -138,10 +138,10 @@ public class AssemblyLine {
 		final Action action = new Action(OPERATION_ROTATE_WITHOUT_LOAD);
 		action.registerParameterUpdater(new LuaScriptActionParameterUpdater(globals, script.toString()));
 
-		return new Element(action, template, transformations);
+		return new SystemTransformation(action, template, transformations);
 	}
 
-	public static Element turnWithLoad() {
+	public static SystemTransformation turnWithLoad() {
 		final SystemObjectTemplate robot = new SystemObjectTemplate("#ROBOT");
 		final SystemObjectTemplate plane_y_target = new SystemObjectTemplate("#PLANE-Y-TARGET");
 		final SystemObjectTemplate plane_y_source = new SystemObjectTemplate("#PLANE-Y-SOURCE");
@@ -187,10 +187,10 @@ public class AssemblyLine {
 		final Action action = new Action(OPERATION_TURN_WITH_LOAD);
 		action.registerParameterUpdater(new LuaScriptActionParameterUpdater(globals, script.toString()));
 
-		return new Element(action, template, transformations);
+		return new SystemTransformation(action, template, transformations);
 	}
 
-	public static Element openGrab() {
+	public static SystemTransformation openGrab() {
 		final SystemTemplate template = new SystemTemplate();
 		final SystemObjectTemplate robot = new SystemObjectTemplate("#ROBOT");
 		final SystemObjectTemplate plane_y = new SystemObjectTemplate("#PLANE-Y");
@@ -244,10 +244,10 @@ public class AssemblyLine {
 
 		final Action action = new Action(OPERATION_OPEN_GRAB);
 
-		return new Element(action, template, transformations);
+		return new SystemTransformation(action, template, transformations);
 	}
 
-	public static Element closeGrab() {
+	public static SystemTransformation closeGrab() {
 		final SystemTemplate template = new SystemTemplate();
 		final SystemObjectTemplate robot = new SystemObjectTemplate("#ROBOT");
 		final SystemObjectTemplate plane_y = new SystemObjectTemplate("#PLANE-Y");
@@ -301,10 +301,10 @@ public class AssemblyLine {
 
 		final Action action = new Action(OPERATION_CLOSE_GRAB);
 
-		return new Element(action, template, transformations);
+		return new SystemTransformation(action, template, transformations);
 	}
 
-	public static Element liftUp() {
+	public static SystemTransformation liftUp() {
 		final SystemTemplate template = new SystemTemplate();
 		final SystemObjectTemplate robot = new SystemObjectTemplate("#ROBOT");
 		final SystemObjectTemplate plane_z_top = new SystemObjectTemplate("#PLANE-Z-TOP");
@@ -350,10 +350,10 @@ public class AssemblyLine {
 
 		final Action action = new Action(OPERATION_LIFT_UP);
 
-		return new Element(action, template, transformations);
+		return new SystemTransformation(action, template, transformations);
 	}
 
-	public static Element lowerDown() {
+	public static SystemTransformation lowerDown() {
 		final SystemTemplate template = new SystemTemplate();
 		final SystemObjectTemplate robot = new SystemObjectTemplate("#ROBOT");
 		final SystemObjectTemplate plane_y = new SystemObjectTemplate("#PLANE-Y");
@@ -417,10 +417,10 @@ public class AssemblyLine {
 
 		final Action action = new Action(OPERATION_LOWER_DOWN);
 
-		return new Element(action, template, transformations);
+		return new SystemTransformation(action, template, transformations);
 	}
 
-	public static Element moveWithLoad() {
+	public static SystemTransformation moveWithLoad() {
 		final SystemObjectTemplate robot = new SystemObjectTemplate("#ROBOT");
 		final SystemObjectTemplate plane_x_target = new SystemObjectTemplate("#PLANE-X-TARGET");
 		final SystemObjectTemplate plane_x_source = new SystemObjectTemplate("#PLANE-X-SOURCE");
@@ -466,10 +466,10 @@ public class AssemblyLine {
 		final Action action = new Action(OPERATION_MOVE_WITH_LOAD);
 		action.registerParameterUpdater(new LuaScriptActionParameterUpdater(globals, script.toString()));
 
-		return new Element(action, template, transformations);
+		return new SystemTransformation(action, template, transformations);
 	}
 
-	public static Element moveWithoutLoad() {
+	public static SystemTransformation moveWithoutLoad() {
 		final SystemObjectTemplate robot = new SystemObjectTemplate("#ROBOT");
 		final SystemObjectTemplate plane_x_target = new SystemObjectTemplate("#PLANE-X-TARGET");
 		final SystemObjectTemplate plane_x_source = new SystemObjectTemplate("#PLANE-X-SOURCE");
@@ -508,11 +508,11 @@ public class AssemblyLine {
 		final Action action = new Action(OPERATION_MOVE_WITHOUT_LOAD);
 		action.registerParameterUpdater(new LuaScriptActionParameterUpdater(globals, script.toString()));
 
-		return new Element(action, template, transformations);
+		return new SystemTransformation(action, template, transformations);
 	}
 
 	@Test
-	public void applicationOfElements() throws CloneNotSupportedException {
+	public void applicationOfSystemTransformations() throws CloneNotSupportedException {
 		final SystemObject robot = new SystemObject(OBJECT_PICK_AND_PLACE_ROBOT);
 		final SystemObject plane_x_table_1 = new SystemObject(OBJECT_PLANE_X_TABLE_1);
 		final SystemObject plane_x_table_2 = new SystemObject(OBJECT_PLANE_X_TABLE_2);
@@ -605,11 +605,11 @@ public class AssemblyLine {
 		table_2.addLink(new Link(LINK_PLANE_Z_POSITION, plane_z_bottom_id));
 		table_2.addLink(new Link(LINK_PACKAGE_BOX_POSITION, null));
 
-		Element element;
+		SystemTransformation systemTransformation;
 		SystemVariant[] systemVariants;
 
-		element = turnWithoutLoad();
-		systemVariants = element.applyTo(system);
+		systemTransformation = turnWithoutLoad();
+		systemVariants = systemTransformation.applyTo(system);
 		assertEquals(1, systemVariants.length);
 		assertEquals(OBJECT_PLANE_Y_OUTSIDE, systemVariants[0].getActionParameter(PARAMETER_TARGET));
 
@@ -618,16 +618,16 @@ public class AssemblyLine {
 		assertNotNull(system.getObjectById(plane_y_outside_id).getLink(LINK_ROTARY_DRIVE_POSITION, robot_id));
 		assertNotNull(system.getObjectById(plane_y_inside_id).getLink(LINK_ROTARY_DRIVE_POSITION, null));
 
-		element = closeGrab();
-		systemVariants = element.applyTo(system);
+		systemTransformation = closeGrab();
+		systemVariants = systemTransformation.applyTo(system);
 		assertEquals(1, systemVariants.length);
 
 		system = systemVariants[0].getSystem();
 		assertNotNull(system.getObjectById(robot_id).getLink(LINK_GRAB_POSITION, packageBox_id));
 		assertNotNull(system.getObjectById(packageBox_id).getLink(LINK_GRAB_POSITION, robot_id));
 
-		element = liftUp();
-		systemVariants = element.applyTo(system);
+		systemTransformation = liftUp();
+		systemVariants = systemTransformation.applyTo(system);
 		assertEquals(1, systemVariants.length);
 
 		system = systemVariants[0].getSystem();
@@ -637,8 +637,8 @@ public class AssemblyLine {
 		assertNotNull(system.getObjectById(plane_z_top_id).getLink(LINK_VERTICAL_DRIVE_POSITION, robot_id));
 		assertNotNull(system.getObjectById(plane_z_bottom_id).getLink(LINK_VERTICAL_DRIVE_POSITION, null));
 
-		element = turnWithLoad();
-		systemVariants = element.applyTo(system);
+		systemTransformation = turnWithLoad();
+		systemVariants = systemTransformation.applyTo(system);
 		assertEquals(1, systemVariants.length);
 		assertEquals(OBJECT_PLANE_Y_INSIDE, systemVariants[0].getActionParameter(PARAMETER_TARGET));
 
@@ -647,8 +647,8 @@ public class AssemblyLine {
 		assertNotNull(system.getObjectById(plane_y_outside_id).getLink(LINK_ROTARY_DRIVE_POSITION, null));
 		assertNotNull(system.getObjectById(plane_y_inside_id).getLink(LINK_ROTARY_DRIVE_POSITION, robot_id));
 
-		element = moveWithLoad();
-		systemVariants = element.applyTo(system);
+		systemTransformation = moveWithLoad();
+		systemVariants = systemTransformation.applyTo(system);
 		assertEquals(1, systemVariants.length);
 		assertEquals(OBJECT_PLANE_X_TABLE_1, systemVariants[0].getActionParameter(PARAMETER_TARGET));
 
@@ -657,8 +657,8 @@ public class AssemblyLine {
 		assertNotNull(system.getObjectById(plane_x_table_1_id).getLink(LINK_LINEAR_DRIVE_POSITION, robot_id));
 		assertNotNull(system.getObjectById(plane_x_table_2_id).getLink(LINK_LINEAR_DRIVE_POSITION, null));
 
-		element = lowerDown();
-		systemVariants = element.applyTo(system);
+		systemTransformation = lowerDown();
+		systemVariants = systemTransformation.applyTo(system);
 		assertEquals(1, systemVariants.length);
 
 		system = systemVariants[0].getSystem();
@@ -668,16 +668,16 @@ public class AssemblyLine {
 		assertNotNull(system.getObjectById(plane_z_top_id).getLink(LINK_VERTICAL_DRIVE_POSITION, null));
 		assertNotNull(system.getObjectById(plane_z_bottom_id).getLink(LINK_VERTICAL_DRIVE_POSITION, robot_id));
 
-		element = openGrab();
-		systemVariants = element.applyTo(system);
+		systemTransformation = openGrab();
+		systemVariants = systemTransformation.applyTo(system);
 		assertEquals(1, systemVariants.length);
 
 		system = systemVariants[0].getSystem();
 		assertNotNull(system.getObjectById(robot_id).getLink(LINK_GRAB_POSITION, null));
 		assertNotNull(system.getObjectById(packageBox_id).getLink(LINK_GRAB_POSITION, null));
 
-		element = moveWithoutLoad();
-		systemVariants = element.applyTo(system);
+		systemTransformation = moveWithoutLoad();
+		systemVariants = systemTransformation.applyTo(system);
 		assertEquals(1, systemVariants.length);
 		assertEquals(OBJECT_PLANE_X_TABLE_2, systemVariants[0].getActionParameter(PARAMETER_TARGET));
 
@@ -803,10 +803,10 @@ public class AssemblyLine {
 		assertFalse(system.equals(final_system));
 		assertFalse(system.contains(final_system));
 
-		final Element[] elements = new Element[] { turnWithoutLoad(), turnWithLoad(), openGrab(), closeGrab(), liftUp(),
-				lowerDown(), moveWithLoad(), moveWithoutLoad() };
+		final SystemTransformation[] systemTransformations = new SystemTransformation[] { turnWithoutLoad(),
+				turnWithLoad(), openGrab(), closeGrab(), liftUp(), lowerDown(), moveWithLoad(), moveWithoutLoad() };
 
-		Planner planner = new Planner(system, final_system, elements);
+		Planner planner = new Planner(system, final_system, systemTransformations);
 		planner.plan();
 
 		List<SystemOperation> operations = planner.getShortestPlan();

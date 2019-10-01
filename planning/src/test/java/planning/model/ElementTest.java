@@ -24,7 +24,7 @@ public class ElementTest {
 		context.assertIsSatisfied();
 	}
 
-	Element testable;
+	SystemTransformation testable;
 
 	Action action_mock;
 
@@ -41,7 +41,7 @@ public class ElementTest {
 		transformation_mock = context.mock(Transformation.class, "transformation");
 		transformations = new Transformation[] { transformation_mock };
 
-		testable = new Element(action_mock, template_mock, transformations);
+		testable = new SystemTransformation(action_mock, template_mock, transformations);
 	}
 
 	@Test

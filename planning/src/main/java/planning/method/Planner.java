@@ -7,7 +7,7 @@ import org.jgrapht.GraphPath;
 import org.jgrapht.alg.shortestpath.DijkstraShortestPath;
 import org.jgrapht.graph.DefaultDirectedGraph;
 
-import planning.model.Element;
+import planning.model.SystemTransformation;
 import planning.model.System;
 import planning.model.SystemOperation;
 import planning.model.SystemVariant;
@@ -28,14 +28,14 @@ public class Planner {
 
 	private System finalSystem;
 
-	private Element[] elements;
+	private SystemTransformation[] systemTransformations;
 
 	private DefaultDirectedGraph<Node, Edge> network;
 
-	public Planner(System initialSystem, System finalSystem, Element[] elements) {
+	public Planner(System initialSystem, System finalSystem, SystemTransformation[] systemTransformations) {
 		this.initialSystem = initialSystem;
 		this.finalSystem = finalSystem;
-		this.elements = elements;
+		this.systemTransformations = systemTransformations;
 
 		this.checkedNodes = new ArrayList<>();
 		this.uncheckedNodes = new ArrayList<>();
@@ -67,8 +67,8 @@ public class Planner {
 		if (sourceSystem.contains(finalSystem)) {
 			finalNode = sourceNode;
 		}
-		for (Element element : elements) {
-			SystemVariant systemVariants[] = element.applyTo(sourceSystem);
+		for (SystemTransformation systemTransformation : systemTransformations) {
+			SystemVariant systemVariants[] = systemTransformation.applyTo(sourceSystem);
 			for (SystemVariant systemVariant : systemVariants) {
 				System targetSystem = systemVariant.getSystem();
 
@@ -84,7 +84,8 @@ public class Planner {
 					uncheckedNodes.add(targetNode);
 				}
 
-				Edge edge = new Edge(new SystemOperation(element.getAction(), systemVariant.getActionParameters()));
+				Edge edge = new Edge(
+						new SystemOperation(systemTransformation.getAction(), systemVariant.getActionParameters()));
 				edges.add(edge);
 
 				network.addVertex(targetNode);

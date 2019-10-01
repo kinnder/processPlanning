@@ -11,7 +11,7 @@ import planning.method.Planner;
 import planning.model.Action;
 import planning.model.Attribute;
 import planning.model.AttributeTemplate;
-import planning.model.Element;
+import planning.model.SystemTransformation;
 import planning.model.Link;
 import planning.model.LinkTemplate;
 import planning.model.LinkTransformation;
@@ -48,7 +48,7 @@ public class MaterialPoints {
 
 	private static final String OPERATION_MOVE_TOP = "движение вверх";
 
-	public static Element moveRight() {
+	public static SystemTransformation moveRight() {
 		final SystemObjectTemplate object = new SystemObjectTemplate("#OBJECT");
 		final SystemObjectTemplate point_A = new SystemObjectTemplate("#POINT-A");
 		final SystemObjectTemplate point_B = new SystemObjectTemplate("#POINT-B");
@@ -80,10 +80,10 @@ public class MaterialPoints {
 
 		final Action action = new Action(OPERATION_MOVE_RIGHT);
 
-		return new Element(action, template, transformations);
+		return new SystemTransformation(action, template, transformations);
 	}
 
-	public static Element moveLeft() {
+	public static SystemTransformation moveLeft() {
 		final SystemObjectTemplate object = new SystemObjectTemplate("#OBJECT");
 		final SystemObjectTemplate point_A = new SystemObjectTemplate("#POINT-A");
 		final SystemObjectTemplate point_B = new SystemObjectTemplate("#POINT-B");
@@ -115,10 +115,10 @@ public class MaterialPoints {
 
 		final Action action = new Action(OPERATION_MOVE_LEFT);
 
-		return new Element(action, template, transformations);
+		return new SystemTransformation(action, template, transformations);
 	}
 
-	public static Element moveTop() {
+	public static SystemTransformation moveTop() {
 		final SystemObjectTemplate object = new SystemObjectTemplate("#OBJECT");
 		final SystemObjectTemplate point_A = new SystemObjectTemplate("#POINT-A");
 		final SystemObjectTemplate point_B = new SystemObjectTemplate("#POINT-B");
@@ -150,10 +150,10 @@ public class MaterialPoints {
 
 		final Action action = new Action(OPERATION_MOVE_TOP);
 
-		return new Element(action, template, transformations);
+		return new SystemTransformation(action, template, transformations);
 	}
 
-	public static Element moveBottom() {
+	public static SystemTransformation moveBottom() {
 		final SystemObjectTemplate object = new SystemObjectTemplate("#OBJECT");
 		final SystemObjectTemplate point_A = new SystemObjectTemplate("#POINT-A");
 		final SystemObjectTemplate point_B = new SystemObjectTemplate("#POINT-B");
@@ -185,11 +185,11 @@ public class MaterialPoints {
 
 		final Action action = new Action(OPERATION_MOVE_BOTTOM);
 
-		return new Element(action, template, transformations);
+		return new SystemTransformation(action, template, transformations);
 	}
 
 	@Test
-	public void applicationOfElements() throws CloneNotSupportedException {
+	public void applicationOfSystemTransformations() throws CloneNotSupportedException {
 		final SystemObject object = new SystemObject(OBJECT_MATERIAL_POINT);
 		final SystemObject point_1 = new SystemObject("точка-1");
 		final SystemObject point_2 = new SystemObject("точка-2");
@@ -231,11 +231,11 @@ public class MaterialPoints {
 		system.addObject(point_3);
 		system.addObject(point_4);
 
-		Element element;
+		SystemTransformation systemTransformation;
 		SystemVariant[] systemVariants;
 
-		element = moveRight();
-		systemVariants = element.applyTo(system);
+		systemTransformation = moveRight();
+		systemVariants = systemTransformation.applyTo(system);
 		assertEquals(1, systemVariants.length);
 
 		system = systemVariants[0].getSystem();
@@ -245,8 +245,8 @@ public class MaterialPoints {
 		assertEquals(true, system.getObjectById(point_2_id).getAttribute(ATTRIBUTE_OCCUPIED).getValueAsBoolean());
 		assertNotNull(system.getObjectById(point_2_id).getLink(LINK_POSITION, object_id));
 
-		element = moveBottom();
-		systemVariants = element.applyTo(system);
+		systemTransformation = moveBottom();
+		systemVariants = systemTransformation.applyTo(system);
 		assertEquals(1, systemVariants.length);
 
 		system = systemVariants[0].getSystem();
@@ -256,8 +256,8 @@ public class MaterialPoints {
 		assertEquals(true, system.getObjectById(point_4_id).getAttribute(ATTRIBUTE_OCCUPIED).getValueAsBoolean());
 		assertNotNull(system.getObjectById(point_4_id).getLink(LINK_POSITION, object_id));
 
-		element = moveLeft();
-		systemVariants = element.applyTo(system);
+		systemTransformation = moveLeft();
+		systemVariants = systemTransformation.applyTo(system);
 		assertEquals(1, systemVariants.length);
 
 		system = systemVariants[0].getSystem();
@@ -267,8 +267,8 @@ public class MaterialPoints {
 		assertEquals(true, system.getObjectById(point_3_id).getAttribute(ATTRIBUTE_OCCUPIED).getValueAsBoolean());
 		assertNotNull(system.getObjectById(point_3_id).getLink(LINK_POSITION, object_id));
 
-		element = moveTop();
-		systemVariants = element.applyTo(system);
+		systemTransformation = moveTop();
+		systemVariants = systemTransformation.applyTo(system);
 		assertEquals(1, systemVariants.length);
 
 		system = systemVariants[0].getSystem();
@@ -345,9 +345,10 @@ public class MaterialPoints {
 		final_point_4.addLink(new Link(LINK_POSITION, object_id));
 		final_point_4.addAttribute(new Attribute(ATTRIBUTE_OCCUPIED, true));
 
-		final Element[] elements = new Element[] { moveLeft(), moveRight(), moveTop(), moveBottom() };
+		final SystemTransformation[] systemTransformations = new SystemTransformation[] { moveLeft(), moveRight(),
+				moveTop(), moveBottom() };
 
-		Planner planner = new Planner(initial_system, final_system, elements);
+		Planner planner = new Planner(initial_system, final_system, systemTransformations);
 		planner.plan();
 
 		List<SystemOperation> operations = planner.getShortestPlan();
@@ -583,9 +584,10 @@ public class MaterialPoints {
 		final_point_92.addAttribute(new Attribute(ATTRIBUTE_OCCUPIED, true));
 		final_point_92.addLink(new Link(LINK_POSITION, object_id));
 
-		final Element[] elements = new Element[] { moveLeft(), moveRight(), moveTop(), moveBottom() };
+		final SystemTransformation[] systemTransformations = new SystemTransformation[] { moveLeft(), moveRight(), moveTop(),
+				moveBottom() };
 
-		Planner planner = new Planner(initial_system, final_system, elements);
+		Planner planner = new Planner(initial_system, final_system, systemTransformations);
 		planner.plan();
 
 		List<SystemOperation> operations = planner.getShortestPlan();

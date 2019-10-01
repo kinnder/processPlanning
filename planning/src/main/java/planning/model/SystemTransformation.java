@@ -3,7 +3,7 @@ package planning.model;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Element {
+public class SystemTransformation {
 
 	private Action action;
 
@@ -11,7 +11,7 @@ public class Element {
 
 	private Transformation[] transformations;
 
-	public Element(Action action, SystemTemplate template, Transformation[] transformations) {
+	public SystemTransformation(Action action, SystemTemplate template, Transformation[] transformations) {
 		this.action = action;
 		this.template = template;
 		this.transformations = transformations;

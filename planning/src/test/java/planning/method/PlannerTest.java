@@ -13,7 +13,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
 import planning.model.Action;
-import planning.model.Element;
+import planning.model.SystemTransformation;
 import planning.model.System;
 import planning.model.SystemVariant;
 
@@ -37,18 +37,18 @@ public class PlannerTest {
 
 	System final_system_mock;
 
-	Element element_mock;
+	SystemTransformation systemTransformation_mock;
 
-	Element elements[];
+	SystemTransformation systemTransformations[];
 
 	@BeforeEach
 	public void setup() {
 		initial_system_mock = context.mock(System.class, "initial-system");
 		final_system_mock = context.mock(System.class, "final-system");
-		element_mock = context.mock(Element.class, "element");
-		elements = new Element[] { element_mock };
+		systemTransformation_mock = context.mock(SystemTransformation.class, "systemTransformation");
+		systemTransformations = new SystemTransformation[] { systemTransformation_mock };
 
-		testable = new Planner(initial_system_mock, final_system_mock, elements);
+		testable = new Planner(initial_system_mock, final_system_mock, systemTransformations);
 	}
 
 	@Test
@@ -64,13 +64,13 @@ public class PlannerTest {
 				oneOf(initial_system_mock).contains(final_system_mock);
 				will(returnValue(false));
 
-				oneOf(element_mock).applyTo(initial_system_mock);
+				oneOf(systemTransformation_mock).applyTo(initial_system_mock);
 				will(returnValue(systemVariants));
 
 				oneOf(systemVariant_mock).getSystem();
 				will(returnValue(system_mock));
 
-				oneOf(element_mock).getAction();
+				oneOf(systemTransformation_mock).getAction();
 				will(returnValue(action_mock));
 
 				oneOf(systemVariant_mock).getActionParameters();
@@ -79,13 +79,13 @@ public class PlannerTest {
 				oneOf(system_mock).contains(final_system_mock);
 				will(returnValue(true));
 
-				oneOf(element_mock).applyTo(system_mock);
+				oneOf(systemTransformation_mock).applyTo(system_mock);
 				will(returnValue(systemVariants));
 
 				oneOf(systemVariant_mock).getSystem();
 				will(returnValue(system_mock));
 
-				oneOf(element_mock).getAction();
+				oneOf(systemTransformation_mock).getAction();
 				will(returnValue(action_mock));
 
 				oneOf(systemVariant_mock).getActionParameters();
@@ -105,7 +105,7 @@ public class PlannerTest {
 				oneOf(initial_system_mock).contains(final_system_mock);
 				will(returnValue(false));
 
-				oneOf(element_mock).applyTo(initial_system_mock);
+				oneOf(systemTransformation_mock).applyTo(initial_system_mock);
 				will(returnValue(systemVariants));
 			}
 		});
@@ -126,13 +126,13 @@ public class PlannerTest {
 				oneOf(initial_system_mock).contains(final_system_mock);
 				will(returnValue(false));
 
-				oneOf(element_mock).applyTo(initial_system_mock);
+				oneOf(systemTransformation_mock).applyTo(initial_system_mock);
 				will(returnValue(systemVariants));
 
 				oneOf(systemVariant_mock).getSystem();
 				will(returnValue(system_mock));
 
-				oneOf(element_mock).getAction();
+				oneOf(systemTransformation_mock).getAction();
 				will(returnValue(action_mock));
 
 				oneOf(systemVariant_mock).getActionParameters();
@@ -141,13 +141,13 @@ public class PlannerTest {
 				oneOf(system_mock).contains(final_system_mock);
 				will(returnValue(true));
 
-				oneOf(element_mock).applyTo(system_mock);
+				oneOf(systemTransformation_mock).applyTo(system_mock);
 				will(returnValue(systemVariants));
 
 				oneOf(systemVariant_mock).getSystem();
 				will(returnValue(system_mock));
 
-				oneOf(element_mock).getAction();
+				oneOf(systemTransformation_mock).getAction();
 				will(returnValue(action_mock));
 
 				oneOf(systemVariant_mock).getActionParameters();

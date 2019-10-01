@@ -14,7 +14,7 @@ import planning.model.Action;
 import planning.model.Attribute;
 import planning.model.AttributeTemplate;
 import planning.model.AttributeTransformation;
-import planning.model.Element;
+import planning.model.SystemTransformation;
 import planning.model.Link;
 import planning.model.LinkTemplate;
 import planning.model.LinkTransformation;
@@ -86,7 +86,7 @@ public class CuttingProcess {
 
 	private static Globals globals = JsePlatform.standardGlobals();
 
-	public static Element cutCylinderSurface() {
+	public static SystemTransformation cutCylinderSurface() {
 		final SystemObjectTemplate workpiece = new SystemObjectTemplate("#WORKPIECE");
 		final SystemObjectTemplate cylinderSurface = new SystemObjectTemplate("#CYLINDER-SURFACE");
 		final SystemObjectTemplate requirement = new SystemObjectTemplate("#REQUIREMENT");
@@ -163,10 +163,10 @@ public class CuttingProcess {
 
 		action.registerParameterUpdater(new LuaScriptActionParameterUpdater(globals, script.toString()));
 
-		return new Element(action, template, transformations);
+		return new SystemTransformation(action, template, transformations);
 	}
 
-	public static Element trimCylinderSurface() {
+	public static SystemTransformation trimCylinderSurface() {
 		final SystemObjectTemplate workpiece = new SystemObjectTemplate("#WORKPIECE");
 		final SystemObjectTemplate cylinderSurface = new SystemObjectTemplate("#CYLINDER-SURFACE");
 		final SystemObjectTemplate requirement = new SystemObjectTemplate("#REQUIREMENT");
@@ -222,10 +222,10 @@ public class CuttingProcess {
 		final Action action = new Action(OPERATION_TRIM_CYLINDER_SURFACE);
 		action.registerPreConditionChecker(new LuaScriptActionPreConditionChecker(globals, script.toString()));
 
-		return new Element(action, template, transformations);
+		return new SystemTransformation(action, template, transformations);
 	}
 
-	public static Element splitCylinderSurface() {
+	public static SystemTransformation splitCylinderSurface() {
 		final SystemObjectTemplate workpiece = new SystemObjectTemplate("#WORKPIECE");
 		final SystemObjectTemplate cylinderSurface = new SystemObjectTemplate("#CYLINDER-SURFACE");
 		final SystemObjectTemplate requirement_l = new SystemObjectTemplate("#REQUIREMENT-L");
@@ -370,11 +370,11 @@ public class CuttingProcess {
 
 		action.registerParameterUpdater(new LuaScriptActionParameterUpdater(globals, script.toString()));
 
-		return new Element(action, template, transformations);
+		return new SystemTransformation(action, template, transformations);
 	}
 
 	@Test
-	public void applicationOfElements() throws CloneNotSupportedException {
+	public void applicationOfSystemTransformations() throws CloneNotSupportedException {
 		final SystemObject workpiece = new SystemObject(OBJECT_WORKPIECE);
 		final SystemObject cylinderSurface = new SystemObject(OBJECT_CYLINDER_SURFACE);
 		final SystemObject requirement_a = new SystemObject(OBJECT_REQUIREMENT_SURFACE_A);
@@ -442,12 +442,12 @@ public class CuttingProcess {
 		requirement_c.addLink(new Link(LINK_SURFACE_SIDE_LEFT, requirement_b_id));
 		requirement_c.addLink(new Link(LINK_SURFACE_SIDE_RIGHT, null));
 
-		Element element;
+		SystemTransformation systemTransformation;
 		SystemVariant[] systemVariants;
 
 		//
-		element = cutCylinderSurface();
-		systemVariants = element.applyTo(system);
+		systemTransformation = cutCylinderSurface();
+		systemVariants = systemTransformation.applyTo(system);
 		assertEquals(3, systemVariants.length);
 		int id;
 		for (id = 0; id < 3; id++) {
@@ -466,8 +466,8 @@ public class CuttingProcess {
 		assertNotNull(system.getObjectById(cylinderSurface_id).getLink(LINK_IS_DIAMETER_REQUIREMENT, requirement_a_id));
 
 		//
-		element = splitCylinderSurface();
-		systemVariants = element.applyTo(system);
+		systemTransformation = splitCylinderSurface();
+		systemVariants = systemTransformation.applyTo(system);
 		assertEquals(2, systemVariants.length);
 		for (id = 0; id < 2; id++) {
 			if (systemVariants[id].getActionParameter(PARAMETER_DIAMETER_DELTA).equals("4")) {
@@ -490,8 +490,8 @@ public class CuttingProcess {
 		assertEquals(6, system.getObjects().size());
 
 		//
-		element = splitCylinderSurface();
-		systemVariants = element.applyTo(system);
+		systemTransformation = splitCylinderSurface();
+		systemVariants = systemTransformation.applyTo(system);
 		assertEquals(1, systemVariants.length);
 		assertEquals("4", systemVariants[0].getActionParameter(PARAMETER_DIAMETER_DELTA));
 		assertEquals("15", systemVariants[0].getActionParameter(PARAMETER_LENGTH_DELTA));
@@ -503,8 +503,8 @@ public class CuttingProcess {
 				.getValueAsBoolean(), true);
 
 		//
-		element = trimCylinderSurface();
-		systemVariants = element.applyTo(system);
+		systemTransformation = trimCylinderSurface();
+		systemVariants = systemTransformation.applyTo(system);
 		assertEquals(1, systemVariants.length);
 
 		system = systemVariants[0].getSystem();
@@ -612,10 +612,10 @@ public class CuttingProcess {
 		assertFalse(system.equals(final_system));
 		assertFalse(system.contains(final_system));
 
-		final Element[] elements = new Element[] { cutCylinderSurface(), splitCylinderSurface(),
-				trimCylinderSurface() };
+		final SystemTransformation[] systemTransformations = new SystemTransformation[] { cutCylinderSurface(),
+				splitCylinderSurface(), trimCylinderSurface() };
 
-		Planner planner = new Planner(system, final_system, elements);
+		Planner planner = new Planner(system, final_system, systemTransformations);
 		planner.plan();
 
 		List<SystemOperation> operations = planner.getShortestPlan();
