@@ -84,6 +84,12 @@ public class CuttingProcess {
 
 	private static final String PARAMETER_LENGTH_DELTA = "разница длин";
 
+	private static final String ELEMENT_CUT_CYLINDER_SURFACE = "cutCylinderSurface";
+
+	private static final String ELEMENT_TRIM_CYLINDER_SURFACE = "trimCylinderSurface";
+
+	private static final String ELEMENT_SPLIT_CYLINDER_SURFACE = "splitCylinderSurface";
+
 	private static Globals globals = JsePlatform.standardGlobals();
 
 	public static SystemTransformation cutCylinderSurface() {
@@ -163,7 +169,7 @@ public class CuttingProcess {
 
 		action.registerParameterUpdater(new LuaScriptActionParameterUpdater(globals, script.toString()));
 
-		return new SystemTransformation(action, template, transformations);
+		return new SystemTransformation(ELEMENT_CUT_CYLINDER_SURFACE, action, template, transformations);
 	}
 
 	public static SystemTransformation trimCylinderSurface() {
@@ -222,7 +228,7 @@ public class CuttingProcess {
 		final Action action = new Action(OPERATION_TRIM_CYLINDER_SURFACE);
 		action.registerPreConditionChecker(new LuaScriptActionPreConditionChecker(globals, script.toString()));
 
-		return new SystemTransformation(action, template, transformations);
+		return new SystemTransformation(ELEMENT_TRIM_CYLINDER_SURFACE, action, template, transformations);
 	}
 
 	public static SystemTransformation splitCylinderSurface() {
@@ -370,7 +376,7 @@ public class CuttingProcess {
 
 		action.registerParameterUpdater(new LuaScriptActionParameterUpdater(globals, script.toString()));
 
-		return new SystemTransformation(action, template, transformations);
+		return new SystemTransformation(ELEMENT_SPLIT_CYLINDER_SURFACE, action, template, transformations);
 	}
 
 	@Test

@@ -10,7 +10,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
-public class ElementTest {
+public class SystemTransformationTest {
 
 	@RegisterExtension
 	JUnit5Mockery context = new JUnit5Mockery() {
@@ -26,6 +26,8 @@ public class ElementTest {
 
 	SystemTransformation testable;
 
+	String name;
+
 	Action action_mock;
 
 	SystemTemplate template_mock;
@@ -36,12 +38,13 @@ public class ElementTest {
 
 	@BeforeEach
 	public void setup() {
+		name = "system-transformation-name";
 		action_mock = context.mock(Action.class, "action");
 		template_mock = context.mock(SystemTemplate.class, "template");
 		transformation_mock = context.mock(Transformation.class, "transformation");
 		transformations = new Transformation[] { transformation_mock };
 
-		testable = new SystemTransformation(action_mock, template_mock, transformations);
+		testable = new SystemTransformation(name, action_mock, template_mock, transformations);
 	}
 
 	@Test

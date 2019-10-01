@@ -48,6 +48,14 @@ public class MaterialPoints {
 
 	private static final String OPERATION_MOVE_TOP = "движение вверх";
 
+	private static final String ELEMENT_MOVE_RIGHT = "moveRight";
+
+	private static final String ELEMENT_MOVE_LEFT = "moveLeft";
+
+	private static final String ELEMENT_MOVE_TOP = "moveTop";
+
+	private static final String ELEMENT_MOVE_BOTTOM = "moveBottom";
+
 	public static SystemTransformation moveRight() {
 		final SystemObjectTemplate object = new SystemObjectTemplate("#OBJECT");
 		final SystemObjectTemplate point_A = new SystemObjectTemplate("#POINT-A");
@@ -80,7 +88,7 @@ public class MaterialPoints {
 
 		final Action action = new Action(OPERATION_MOVE_RIGHT);
 
-		return new SystemTransformation(action, template, transformations);
+		return new SystemTransformation(ELEMENT_MOVE_RIGHT, action, template, transformations);
 	}
 
 	public static SystemTransformation moveLeft() {
@@ -115,7 +123,7 @@ public class MaterialPoints {
 
 		final Action action = new Action(OPERATION_MOVE_LEFT);
 
-		return new SystemTransformation(action, template, transformations);
+		return new SystemTransformation(ELEMENT_MOVE_LEFT, action, template, transformations);
 	}
 
 	public static SystemTransformation moveTop() {
@@ -150,7 +158,7 @@ public class MaterialPoints {
 
 		final Action action = new Action(OPERATION_MOVE_TOP);
 
-		return new SystemTransformation(action, template, transformations);
+		return new SystemTransformation(ELEMENT_MOVE_TOP, action, template, transformations);
 	}
 
 	public static SystemTransformation moveBottom() {
@@ -185,7 +193,7 @@ public class MaterialPoints {
 
 		final Action action = new Action(OPERATION_MOVE_BOTTOM);
 
-		return new SystemTransformation(action, template, transformations);
+		return new SystemTransformation(ELEMENT_MOVE_BOTTOM, action, template, transformations);
 	}
 
 	@Test
@@ -584,8 +592,8 @@ public class MaterialPoints {
 		final_point_92.addAttribute(new Attribute(ATTRIBUTE_OCCUPIED, true));
 		final_point_92.addLink(new Link(LINK_POSITION, object_id));
 
-		final SystemTransformation[] systemTransformations = new SystemTransformation[] { moveLeft(), moveRight(), moveTop(),
-				moveBottom() };
+		final SystemTransformation[] systemTransformations = new SystemTransformation[] { moveLeft(), moveRight(),
+				moveTop(), moveBottom() };
 
 		Planner planner = new Planner(initial_system, final_system, systemTransformations);
 		planner.plan();

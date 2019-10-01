@@ -5,11 +5,14 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.util.List;
+
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.luaj.vm2.Globals;
 import org.luaj.vm2.lib.jse.JsePlatform;
 
 import planning.method.Planner;
+import planning.method.SystemTransformations;
 import planning.model.Action;
 import planning.model.Attribute;
 import planning.model.AttributeTemplate;
@@ -80,7 +83,7 @@ public class AssemblyLine {
 
 	private static final String LINK_PLANE_Z_POSITION = "положение в плоскости Z";
 
-	private static final String OPERATION_ROTATE_WITHOUT_LOAD = "Повернуть без нагрузки";
+	private static final String OPERATION_TURN_WITHOUT_LOAD = "Повернуть без нагрузки";
 
 	private static final String OPERATION_TURN_WITH_LOAD = "Повернуть c нагрузкой";
 
@@ -95,6 +98,22 @@ public class AssemblyLine {
 	private static final String OPERATION_MOVE_WITH_LOAD = "Переместить с нагрузкой";
 
 	private static final String OPERATION_MOVE_WITHOUT_LOAD = "Переместить без нагрузки";
+
+	private static final String ELEMENT_TURN_WITHOUT_LOAD = "turnWithoutLoad";
+
+	private static final String ELEMENT_TURN_WITH_LOAD = "turnWithLoad";
+
+	private static final String ELEMENT_OPEN_GRAB = "openGrab";
+
+	private static final String ELEMENT_CLOSE_GRAB = "closeGrab";
+
+	private static final String ELEMENT_LIFT_UP = "liftUp";
+
+	private static final String ELEMENT_LOWER_DOWN = "lowerDown";
+
+	private static final String ELEMENT_MOVE_WITH_LOAD = "moveWithLoad";
+
+	private static final String ELEMENT_MOVE_WITHOUT_LOAD = "moveWithoutLoad";
 
 	private static Globals globals = JsePlatform.standardGlobals();
 
@@ -135,10 +154,10 @@ public class AssemblyLine {
 		script.append("systemVariant:setActionParameter('" + PARAMETER_TARGET + "', object:getName())");
 		script.append("\n");
 
-		final Action action = new Action(OPERATION_ROTATE_WITHOUT_LOAD);
+		final Action action = new Action(OPERATION_TURN_WITHOUT_LOAD);
 		action.registerParameterUpdater(new LuaScriptActionParameterUpdater(globals, script.toString()));
 
-		return new SystemTransformation(action, template, transformations);
+		return new SystemTransformation(ELEMENT_TURN_WITHOUT_LOAD, action, template, transformations);
 	}
 
 	public static SystemTransformation turnWithLoad() {
@@ -187,7 +206,7 @@ public class AssemblyLine {
 		final Action action = new Action(OPERATION_TURN_WITH_LOAD);
 		action.registerParameterUpdater(new LuaScriptActionParameterUpdater(globals, script.toString()));
 
-		return new SystemTransformation(action, template, transformations);
+		return new SystemTransformation(ELEMENT_TURN_WITH_LOAD, action, template, transformations);
 	}
 
 	public static SystemTransformation openGrab() {
@@ -244,7 +263,7 @@ public class AssemblyLine {
 
 		final Action action = new Action(OPERATION_OPEN_GRAB);
 
-		return new SystemTransformation(action, template, transformations);
+		return new SystemTransformation(ELEMENT_OPEN_GRAB, action, template, transformations);
 	}
 
 	public static SystemTransformation closeGrab() {
@@ -301,7 +320,7 @@ public class AssemblyLine {
 
 		final Action action = new Action(OPERATION_CLOSE_GRAB);
 
-		return new SystemTransformation(action, template, transformations);
+		return new SystemTransformation(ELEMENT_CLOSE_GRAB, action, template, transformations);
 	}
 
 	public static SystemTransformation liftUp() {
@@ -350,7 +369,7 @@ public class AssemblyLine {
 
 		final Action action = new Action(OPERATION_LIFT_UP);
 
-		return new SystemTransformation(action, template, transformations);
+		return new SystemTransformation(ELEMENT_LIFT_UP, action, template, transformations);
 	}
 
 	public static SystemTransformation lowerDown() {
@@ -417,7 +436,7 @@ public class AssemblyLine {
 
 		final Action action = new Action(OPERATION_LOWER_DOWN);
 
-		return new SystemTransformation(action, template, transformations);
+		return new SystemTransformation(ELEMENT_LOWER_DOWN, action, template, transformations);
 	}
 
 	public static SystemTransformation moveWithLoad() {
@@ -466,7 +485,7 @@ public class AssemblyLine {
 		final Action action = new Action(OPERATION_MOVE_WITH_LOAD);
 		action.registerParameterUpdater(new LuaScriptActionParameterUpdater(globals, script.toString()));
 
-		return new SystemTransformation(action, template, transformations);
+		return new SystemTransformation(ELEMENT_MOVE_WITH_LOAD, action, template, transformations);
 	}
 
 	public static SystemTransformation moveWithoutLoad() {
@@ -508,7 +527,22 @@ public class AssemblyLine {
 		final Action action = new Action(OPERATION_MOVE_WITHOUT_LOAD);
 		action.registerParameterUpdater(new LuaScriptActionParameterUpdater(globals, script.toString()));
 
-		return new SystemTransformation(action, template, transformations);
+		return new SystemTransformation(ELEMENT_MOVE_WITHOUT_LOAD, action, template, transformations);
+	}
+
+	private static SystemTransformations assemblyLineTransformations;
+
+	@BeforeAll
+	public static void setupAll() {
+		assemblyLineTransformations = new SystemTransformations();
+		assemblyLineTransformations.addElement(turnWithoutLoad());
+		assemblyLineTransformations.addElement(turnWithLoad());
+		assemblyLineTransformations.addElement(openGrab());
+		assemblyLineTransformations.addElement(closeGrab());
+		assemblyLineTransformations.addElement(liftUp());
+		assemblyLineTransformations.addElement(lowerDown());
+		assemblyLineTransformations.addElement(moveWithLoad());
+		assemblyLineTransformations.addElement(moveWithoutLoad());
 	}
 
 	@Test
@@ -608,7 +642,7 @@ public class AssemblyLine {
 		SystemTransformation systemTransformation;
 		SystemVariant[] systemVariants;
 
-		systemTransformation = turnWithoutLoad();
+		systemTransformation = assemblyLineTransformations.getElement(ELEMENT_TURN_WITHOUT_LOAD);
 		systemVariants = systemTransformation.applyTo(system);
 		assertEquals(1, systemVariants.length);
 		assertEquals(OBJECT_PLANE_Y_OUTSIDE, systemVariants[0].getActionParameter(PARAMETER_TARGET));
@@ -618,7 +652,7 @@ public class AssemblyLine {
 		assertNotNull(system.getObjectById(plane_y_outside_id).getLink(LINK_ROTARY_DRIVE_POSITION, robot_id));
 		assertNotNull(system.getObjectById(plane_y_inside_id).getLink(LINK_ROTARY_DRIVE_POSITION, null));
 
-		systemTransformation = closeGrab();
+		systemTransformation = assemblyLineTransformations.getElement(ELEMENT_CLOSE_GRAB);
 		systemVariants = systemTransformation.applyTo(system);
 		assertEquals(1, systemVariants.length);
 
@@ -626,7 +660,7 @@ public class AssemblyLine {
 		assertNotNull(system.getObjectById(robot_id).getLink(LINK_GRAB_POSITION, packageBox_id));
 		assertNotNull(system.getObjectById(packageBox_id).getLink(LINK_GRAB_POSITION, robot_id));
 
-		systemTransformation = liftUp();
+		systemTransformation = assemblyLineTransformations.getElement(ELEMENT_LIFT_UP);
 		systemVariants = systemTransformation.applyTo(system);
 		assertEquals(1, systemVariants.length);
 
@@ -637,7 +671,7 @@ public class AssemblyLine {
 		assertNotNull(system.getObjectById(plane_z_top_id).getLink(LINK_VERTICAL_DRIVE_POSITION, robot_id));
 		assertNotNull(system.getObjectById(plane_z_bottom_id).getLink(LINK_VERTICAL_DRIVE_POSITION, null));
 
-		systemTransformation = turnWithLoad();
+		systemTransformation = assemblyLineTransformations.getElement(ELEMENT_TURN_WITH_LOAD);
 		systemVariants = systemTransformation.applyTo(system);
 		assertEquals(1, systemVariants.length);
 		assertEquals(OBJECT_PLANE_Y_INSIDE, systemVariants[0].getActionParameter(PARAMETER_TARGET));
@@ -647,7 +681,7 @@ public class AssemblyLine {
 		assertNotNull(system.getObjectById(plane_y_outside_id).getLink(LINK_ROTARY_DRIVE_POSITION, null));
 		assertNotNull(system.getObjectById(plane_y_inside_id).getLink(LINK_ROTARY_DRIVE_POSITION, robot_id));
 
-		systemTransformation = moveWithLoad();
+		systemTransformation = assemblyLineTransformations.getElement(ELEMENT_MOVE_WITH_LOAD);
 		systemVariants = systemTransformation.applyTo(system);
 		assertEquals(1, systemVariants.length);
 		assertEquals(OBJECT_PLANE_X_TABLE_1, systemVariants[0].getActionParameter(PARAMETER_TARGET));
@@ -657,7 +691,7 @@ public class AssemblyLine {
 		assertNotNull(system.getObjectById(plane_x_table_1_id).getLink(LINK_LINEAR_DRIVE_POSITION, robot_id));
 		assertNotNull(system.getObjectById(plane_x_table_2_id).getLink(LINK_LINEAR_DRIVE_POSITION, null));
 
-		systemTransformation = lowerDown();
+		systemTransformation = assemblyLineTransformations.getElement(ELEMENT_LOWER_DOWN);
 		systemVariants = systemTransformation.applyTo(system);
 		assertEquals(1, systemVariants.length);
 
@@ -668,7 +702,7 @@ public class AssemblyLine {
 		assertNotNull(system.getObjectById(plane_z_top_id).getLink(LINK_VERTICAL_DRIVE_POSITION, null));
 		assertNotNull(system.getObjectById(plane_z_bottom_id).getLink(LINK_VERTICAL_DRIVE_POSITION, robot_id));
 
-		systemTransformation = openGrab();
+		systemTransformation = assemblyLineTransformations.getElement(ELEMENT_OPEN_GRAB);
 		systemVariants = systemTransformation.applyTo(system);
 		assertEquals(1, systemVariants.length);
 
@@ -676,7 +710,7 @@ public class AssemblyLine {
 		assertNotNull(system.getObjectById(robot_id).getLink(LINK_GRAB_POSITION, null));
 		assertNotNull(system.getObjectById(packageBox_id).getLink(LINK_GRAB_POSITION, null));
 
-		systemTransformation = moveWithoutLoad();
+		systemTransformation = assemblyLineTransformations.getElement(ELEMENT_MOVE_WITHOUT_LOAD);
 		systemVariants = systemTransformation.applyTo(system);
 		assertEquals(1, systemVariants.length);
 		assertEquals(OBJECT_PLANE_X_TABLE_2, systemVariants[0].getActionParameter(PARAMETER_TARGET));
@@ -781,7 +815,7 @@ public class AssemblyLine {
 		table_2.addLink(new Link(LINK_PACKAGE_BOX_POSITION, null));
 
 		SystemVariant[] systemVariants;
-		systemVariants = turnWithoutLoad().applyTo(system);
+		systemVariants = assemblyLineTransformations.getElement(ELEMENT_TURN_WITHOUT_LOAD).applyTo(system);
 		assertEquals(1, systemVariants.length);
 
 		final System final_system = new System();
@@ -803,10 +837,7 @@ public class AssemblyLine {
 		assertFalse(system.equals(final_system));
 		assertFalse(system.contains(final_system));
 
-		final SystemTransformation[] systemTransformations = new SystemTransformation[] { turnWithoutLoad(),
-				turnWithLoad(), openGrab(), closeGrab(), liftUp(), lowerDown(), moveWithLoad(), moveWithoutLoad() };
-
-		Planner planner = new Planner(system, final_system, systemTransformations);
+		Planner planner = new Planner(system, final_system, assemblyLineTransformations.getElements());
 		planner.plan();
 
 		List<SystemOperation> operations = planner.getShortestPlan();
@@ -814,7 +845,7 @@ public class AssemblyLine {
 
 		SystemOperation operation;
 		operation = operations.get(0);
-		assertEquals(OPERATION_ROTATE_WITHOUT_LOAD, operation.getName());
+		assertEquals(OPERATION_TURN_WITHOUT_LOAD, operation.getName());
 		assertEquals(OBJECT_PLANE_Y_OUTSIDE, operation.getParameter(PARAMETER_TARGET));
 
 		operation = operations.get(1);

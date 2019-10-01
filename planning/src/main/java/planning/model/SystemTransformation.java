@@ -5,16 +5,23 @@ import java.util.List;
 
 public class SystemTransformation {
 
+	private String name;
+
 	private Action action;
 
 	private SystemTemplate template;
 
 	private Transformation[] transformations;
 
-	public SystemTransformation(Action action, SystemTemplate template, Transformation[] transformations) {
+	public SystemTransformation(String name, Action action, SystemTemplate template, Transformation[] transformations) {
+		this.name = name;
 		this.action = action;
 		this.template = template;
 		this.transformations = transformations;
+	}
+
+	public String getName() {
+		return name;
 	}
 
 	public Action getAction() {
@@ -38,5 +45,4 @@ public class SystemTransformation {
 
 		return systemVariants.toArray(new SystemVariant[] {});
 	}
-
 }
