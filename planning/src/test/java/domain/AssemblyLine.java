@@ -118,6 +118,7 @@ public class AssemblyLine {
 	private static Globals globals = JsePlatform.standardGlobals();
 
 	public static SystemTransformation turnWithoutLoad() {
+		// TODO : заменить на текстовую константу вида ID_ROBOT = #ROBOT
 		final SystemObjectTemplate robot = new SystemObjectTemplate("#ROBOT");
 		final SystemObjectTemplate plane_y_target = new SystemObjectTemplate("#PLANE-Y-TARGET");
 		final SystemObjectTemplate plane_y_source = new SystemObjectTemplate("#PLANE-Y-SOURCE");

@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	elementFormDefault="qualified">
+	<xs:annotation>
+		<xs:documentation>xml.mherman.org</xs:documentation>
+	</xs:annotation>
+	<xs:element name="systemTransformations">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="systemTransformation" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="systemTransformation">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="systemTemplate" />
+				<xs:element ref="transformations" />
+				<xs:element ref="action" />
+			</xs:sequence>
+			<xs:attribute name="name" use="required" type="xs:NCName" />
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="systemTemplate">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="objectTemplates" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="objectTemplates">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element maxOccurs="unbounded" ref="objectTemplate" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="objectTemplate">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="attributeTemplates" />
+				<xs:element ref="linkTemplates" />
+			</xs:sequence>
+			<xs:attribute name="id" use="required" type="xs:NCName" />
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="attributeTemplates">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="attributeTemplate" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="attributeTemplate">
+		<xs:complexType>
+			<xs:attribute name="name" use="required"
+				type="xs:NCName" />
+			<xs:attribute name="value" use="required"
+				type="xs:boolean" />
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="linkTemplates">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element maxOccurs="unbounded" ref="linkTemplate" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="linkTemplate">
+		<xs:complexType>
+			<xs:attribute name="name" use="required"
+				type="xs:NCName" />
+			<xs:attribute name="value" use="required"
+				type="xs:NCName" />
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="transformations">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element maxOccurs="unbounded" ref="transformation" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="transformation">
+		<xs:complexType>
+			<xs:attribute name="linkName" use="required" type="xs:NCName" />
+			<xs:attribute name="linkNewValue" use="required" type="xs:NCName" />
+			<xs:attribute name="linkOldValue" use="required" type="xs:NCName" />
+			<xs:attribute name="objectId" use="required" type="xs:NCName" />
+			<xs:attribute name="type" use="required" type="xs:NCName" />
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="action">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="parameterUpdaters" />
+			</xs:sequence>
+			<xs:attribute name="name" use="required" type="xs:NCName" />
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="parameterUpdaters">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="parameterUpdater" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="parameterUpdater">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="script" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="script">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element maxOccurs="unbounded" ref="line" />
+			</xs:sequence>
+			<xs:attribute name="type" use="required" type="xs:NCName" />
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="line">
+		<xs:complexType mixed="true">
+			<xs:attribute name="n" use="required" type="xs:integer" />
+		</xs:complexType>
+	</xs:element>
+</xs:schema>
