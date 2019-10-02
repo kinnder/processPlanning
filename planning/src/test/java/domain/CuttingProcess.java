@@ -407,8 +407,8 @@ public class CuttingProcess {
 		workpiece.addLink(new Link(LINK_IS_REQUIREMENT_OF, requirement_c_id));
 
 		cylinderSurface.addAttribute(new Attribute(ATTRIBUTE_CYLINDER_SURFACE, true));
-		cylinderSurface.addAttribute(new Attribute(ATTRIBUTE_DIAMETER, new Integer(22)));
-		cylinderSurface.addAttribute(new Attribute(ATTRIBUTE_LENGTH, new Integer(90)));
+		cylinderSurface.addAttribute(new Attribute(ATTRIBUTE_DIAMETER, Integer.valueOf(22)));
+		cylinderSurface.addAttribute(new Attribute(ATTRIBUTE_LENGTH, Integer.valueOf(90)));
 		cylinderSurface.addAttribute(new Attribute(ATTRIBUTE_HAS_DIAMETER_REQUIREMENT, false));
 		cylinderSurface.addAttribute(new Attribute(ATTRIBUTE_HAS_LENGTH_REQUIREMENT, false));
 		cylinderSurface.addLink(new Link(LINK_IS_PART_OF, workpiece_id));
@@ -416,9 +416,9 @@ public class CuttingProcess {
 		cylinderSurface.addLink(new Link(LINK_IS_LENGTH_REQUIREMENT, null));
 
 		requirement_a.addAttribute(new Attribute(ATTRIBUTE_REQUIREMENT, true));
-		requirement_a.addAttribute(new Attribute(ATTRIBUTE_DIAMETER_REQUIREMENT, new Integer(20)));
+		requirement_a.addAttribute(new Attribute(ATTRIBUTE_DIAMETER_REQUIREMENT, Integer.valueOf(20)));
 		requirement_a.addAttribute(new Attribute(ATTRIBUTE_DIAMETER_REQUIREMENT_STATUS, false));
-		requirement_a.addAttribute(new Attribute(ATTRIBUTE_LENGTH_REQUIREMENT, new Integer(45)));
+		requirement_a.addAttribute(new Attribute(ATTRIBUTE_LENGTH_REQUIREMENT, Integer.valueOf(45)));
 		requirement_a.addAttribute(new Attribute(ATTRIBUTE_LENGTH_REQUIREMENT_STATUS, false));
 		requirement_a.addLink(new Link(LINK_IS_REQUIREMENT_OF, workpiece_id));
 		requirement_a.addLink(new Link(LINK_IS_DIAMETER_REQUIREMENT, null));
@@ -427,9 +427,9 @@ public class CuttingProcess {
 		requirement_a.addLink(new Link(LINK_SURFACE_SIDE_RIGHT, requirement_b_id));
 
 		requirement_b.addAttribute(new Attribute(ATTRIBUTE_REQUIREMENT, true));
-		requirement_b.addAttribute(new Attribute(ATTRIBUTE_DIAMETER_REQUIREMENT, new Integer(16)));
+		requirement_b.addAttribute(new Attribute(ATTRIBUTE_DIAMETER_REQUIREMENT, Integer.valueOf(16)));
 		requirement_b.addAttribute(new Attribute(ATTRIBUTE_DIAMETER_REQUIREMENT_STATUS, false));
-		requirement_b.addAttribute(new Attribute(ATTRIBUTE_LENGTH_REQUIREMENT, new Integer(30)));
+		requirement_b.addAttribute(new Attribute(ATTRIBUTE_LENGTH_REQUIREMENT, Integer.valueOf(30)));
 		requirement_b.addAttribute(new Attribute(ATTRIBUTE_LENGTH_REQUIREMENT_STATUS, false));
 		requirement_b.addLink(new Link(LINK_IS_REQUIREMENT_OF, workpiece_id));
 		requirement_b.addLink(new Link(LINK_IS_DIAMETER_REQUIREMENT, null));
@@ -438,9 +438,9 @@ public class CuttingProcess {
 		requirement_b.addLink(new Link(LINK_SURFACE_SIDE_RIGHT, requirement_c_id));
 
 		requirement_c.addAttribute(new Attribute(ATTRIBUTE_REQUIREMENT, true));
-		requirement_c.addAttribute(new Attribute(ATTRIBUTE_DIAMETER_REQUIREMENT, new Integer(12)));
+		requirement_c.addAttribute(new Attribute(ATTRIBUTE_DIAMETER_REQUIREMENT, Integer.valueOf(12)));
 		requirement_c.addAttribute(new Attribute(ATTRIBUTE_DIAMETER_REQUIREMENT_STATUS, false));
-		requirement_c.addAttribute(new Attribute(ATTRIBUTE_LENGTH_REQUIREMENT, new Integer(15)));
+		requirement_c.addAttribute(new Attribute(ATTRIBUTE_LENGTH_REQUIREMENT, Integer.valueOf(15)));
 		requirement_c.addAttribute(new Attribute(ATTRIBUTE_LENGTH_REQUIREMENT_STATUS, false));
 		requirement_c.addLink(new Link(LINK_IS_REQUIREMENT_OF, workpiece_id));
 		requirement_c.addLink(new Link(LINK_IS_DIAMETER_REQUIREMENT, null));
@@ -468,7 +468,7 @@ public class CuttingProcess {
 		assertEquals(system.getObjectById(requirement_a_id).getAttribute(ATTRIBUTE_DIAMETER_REQUIREMENT_STATUS)
 				.getValueAsBoolean(), true);
 		assertEquals(system.getObjectById(cylinderSurface_id).getAttribute(ATTRIBUTE_DIAMETER).getValueAsInteger(),
-				new Integer(20));
+				Integer.valueOf(20));
 		assertNotNull(system.getObjectById(cylinderSurface_id).getLink(LINK_IS_DIAMETER_REQUIREMENT, requirement_a_id));
 
 		//
@@ -488,7 +488,7 @@ public class CuttingProcess {
 		assertEquals(system.getObjectById(requirement_a_id).getAttribute(ATTRIBUTE_LENGTH_REQUIREMENT_STATUS)
 				.getValueAsBoolean(), true);
 		assertEquals(system.getObjectById(cylinderSurface_id).getAttribute(ATTRIBUTE_LENGTH).getValueAsInteger(),
-				new Integer(45));
+				Integer.valueOf(45));
 		assertNotNull(system.getObjectById(cylinderSurface_id).getLink(LINK_IS_LENGTH_REQUIREMENT, requirement_a_id));
 		assertEquals(system.getObjectById(requirement_b_id).getAttribute(ATTRIBUTE_DIAMETER_REQUIREMENT_STATUS)
 				.getValueAsBoolean(), true);
@@ -546,8 +546,8 @@ public class CuttingProcess {
 		workpiece.addLink(new Link(LINK_IS_REQUIREMENT_OF, requirement_c_id));
 
 		cylinderSurface.addAttribute(new Attribute(ATTRIBUTE_CYLINDER_SURFACE, true));
-		cylinderSurface.addAttribute(new Attribute(ATTRIBUTE_DIAMETER, new Integer(22)));
-		cylinderSurface.addAttribute(new Attribute(ATTRIBUTE_LENGTH, new Integer(90)));
+		cylinderSurface.addAttribute(new Attribute(ATTRIBUTE_DIAMETER, Integer.valueOf(22)));
+		cylinderSurface.addAttribute(new Attribute(ATTRIBUTE_LENGTH, Integer.valueOf(90)));
 		cylinderSurface.addAttribute(new Attribute(ATTRIBUTE_HAS_DIAMETER_REQUIREMENT, false));
 		cylinderSurface.addAttribute(new Attribute(ATTRIBUTE_HAS_LENGTH_REQUIREMENT, false));
 		cylinderSurface.addLink(new Link(LINK_IS_PART_OF, workpiece_id));
@@ -555,9 +555,9 @@ public class CuttingProcess {
 		cylinderSurface.addLink(new Link(LINK_IS_LENGTH_REQUIREMENT, null));
 
 		requirement_a.addAttribute(new Attribute(ATTRIBUTE_REQUIREMENT, true));
-		requirement_a.addAttribute(new Attribute(ATTRIBUTE_DIAMETER_REQUIREMENT, new Integer(20)));
+		requirement_a.addAttribute(new Attribute(ATTRIBUTE_DIAMETER_REQUIREMENT, Integer.valueOf(20)));
 		requirement_a.addAttribute(new Attribute(ATTRIBUTE_DIAMETER_REQUIREMENT_STATUS, false));
-		requirement_a.addAttribute(new Attribute(ATTRIBUTE_LENGTH_REQUIREMENT, new Integer(45)));
+		requirement_a.addAttribute(new Attribute(ATTRIBUTE_LENGTH_REQUIREMENT, Integer.valueOf(45)));
 		requirement_a.addAttribute(new Attribute(ATTRIBUTE_LENGTH_REQUIREMENT_STATUS, false));
 		requirement_a.addLink(new Link(LINK_IS_REQUIREMENT_OF, workpiece_id));
 		requirement_a.addLink(new Link(LINK_IS_DIAMETER_REQUIREMENT, null));
@@ -566,9 +566,9 @@ public class CuttingProcess {
 		requirement_a.addLink(new Link(LINK_SURFACE_SIDE_RIGHT, requirement_b_id));
 
 		requirement_b.addAttribute(new Attribute(ATTRIBUTE_REQUIREMENT, true));
-		requirement_b.addAttribute(new Attribute(ATTRIBUTE_DIAMETER_REQUIREMENT, new Integer(16)));
+		requirement_b.addAttribute(new Attribute(ATTRIBUTE_DIAMETER_REQUIREMENT, Integer.valueOf(16)));
 		requirement_b.addAttribute(new Attribute(ATTRIBUTE_DIAMETER_REQUIREMENT_STATUS, false));
-		requirement_b.addAttribute(new Attribute(ATTRIBUTE_LENGTH_REQUIREMENT, new Integer(30)));
+		requirement_b.addAttribute(new Attribute(ATTRIBUTE_LENGTH_REQUIREMENT, Integer.valueOf(30)));
 		requirement_b.addAttribute(new Attribute(ATTRIBUTE_LENGTH_REQUIREMENT_STATUS, false));
 		requirement_b.addLink(new Link(LINK_IS_REQUIREMENT_OF, workpiece_id));
 		requirement_b.addLink(new Link(LINK_IS_DIAMETER_REQUIREMENT, null));
@@ -577,9 +577,9 @@ public class CuttingProcess {
 		requirement_b.addLink(new Link(LINK_SURFACE_SIDE_RIGHT, requirement_c_id));
 
 		requirement_c.addAttribute(new Attribute(ATTRIBUTE_REQUIREMENT, true));
-		requirement_c.addAttribute(new Attribute(ATTRIBUTE_DIAMETER_REQUIREMENT, new Integer(12)));
+		requirement_c.addAttribute(new Attribute(ATTRIBUTE_DIAMETER_REQUIREMENT, Integer.valueOf(12)));
 		requirement_c.addAttribute(new Attribute(ATTRIBUTE_DIAMETER_REQUIREMENT_STATUS, false));
-		requirement_c.addAttribute(new Attribute(ATTRIBUTE_LENGTH_REQUIREMENT, new Integer(15)));
+		requirement_c.addAttribute(new Attribute(ATTRIBUTE_LENGTH_REQUIREMENT, Integer.valueOf(15)));
 		requirement_c.addAttribute(new Attribute(ATTRIBUTE_LENGTH_REQUIREMENT_STATUS, false));
 		requirement_c.addLink(new Link(LINK_IS_REQUIREMENT_OF, workpiece_id));
 		requirement_c.addLink(new Link(LINK_IS_DIAMETER_REQUIREMENT, null));

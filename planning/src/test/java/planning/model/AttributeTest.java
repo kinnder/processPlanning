@@ -94,7 +94,7 @@ class AttributeTest {
 
 	@Test
 	public void getValueAsInteger() {
-		Integer value = new Integer(123);
+		Integer value = Integer.valueOf(123);
 		testable = new Attribute("attribute", value);
 		assertEquals(value, testable.getValueAsInteger());
 	}
