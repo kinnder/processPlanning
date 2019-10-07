@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
-	elementFormDefault="qualified">
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<xs:annotation>
 		<xs:documentation>xml.mherman.org</xs:documentation>
 	</xs:annotation>
+	<xs:import namespace="http://www.w3.org/2001/XMLSchema-instance" schemaLocation="xsi.xsd" />
 	<xs:element name="systemTransformations">
 		<xs:complexType>
 			<xs:sequence>
-				<xs:element ref="systemTransformation" />
+				<xs:element maxOccurs="unbounded" ref="systemTransformation" />
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
@@ -53,10 +53,8 @@
 	</xs:element>
 	<xs:element name="attributeTemplate">
 		<xs:complexType>
-			<xs:attribute name="name" use="required"
-				type="xs:NCName" />
-			<xs:attribute name="value" use="required"
-				type="xs:boolean" />
+			<xs:attribute name="name" use="required" type="xs:NCName" />
+			<xs:attribute name="value" use="required" type="xs:boolean" />
 		</xs:complexType>
 	</xs:element>
 	<xs:element name="linkTemplates">
@@ -68,10 +66,8 @@
 	</xs:element>
 	<xs:element name="linkTemplate">
 		<xs:complexType>
-			<xs:attribute name="name" use="required"
-				type="xs:NCName" />
-			<xs:attribute name="value" use="required"
-				type="xs:NCName" />
+			<xs:attribute name="name" use="required" type="xs:NCName" />
+			<xs:attribute name="value" use="required" type="xs:NCName" />
 		</xs:complexType>
 	</xs:element>
 	<xs:element name="transformations">

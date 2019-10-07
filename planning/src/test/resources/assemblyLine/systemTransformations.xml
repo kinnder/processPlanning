@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<systemTransformations
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:noNamespaceSchemaLocation="../systemTransformations.xsd">
-	<systemTransformation
-		name="ELEMENT-TURN-WITHOUT-LOAD">
+<systemTransformations xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../systemTransformations.xsd">
+	<systemTransformation name="ELEMENT-TURN-WITHOUT-LOAD">
 		<systemTemplate>
 			<objectTemplates>
 				<objectTemplate id="ID-ROBOT">
@@ -15,7 +12,7 @@
 						<linkTemplate name="LINK-GRAB-POSITION" value="null" />
 					</linkTemplates>
 				</objectTemplate>
-				<objectTemplate id="ID-PLANE-Y-TARGET">
+				<objectTemplate id="ID-PLANE-Y-SOURCE">
 					<attributeTemplates>
 						<attributeTemplate name="ATTRIBUTE-PLANE-Y" value="true" />
 					</attributeTemplates>
@@ -23,7 +20,7 @@
 						<linkTemplate name="LINK-ROTARY-DRIVE-POSITION" value="ID-ROBOT" />
 					</linkTemplates>
 				</objectTemplate>
-				<objectTemplate id="ID-PLANE-Y-SOURCE">
+				<objectTemplate id="ID-PLANE-Y-TARGET">
 					<attributeTemplates>
 						<attributeTemplate name="ATTRIBUTE-PLANE-Y" value="true" />
 					</attributeTemplates>
@@ -35,8 +32,8 @@
 		</systemTemplate>
 		<transformations>
 			<transformation type="link" objectId="ID-ROBOT" linkName="LINK-ROTARY-DRIVE-POSITION" linkOldValue="ID-PLANE-Y-SOURCE" linkNewValue="ID-PLANE-Y-TARGET" />
-			<transformation type="link" objectId="ID-PLANE-Y-TARGET" linkName="LINK-ROTARY-DRIVE-POSITION" linkOldValue="null" linkNewValue="ID-ROBOT" />
 			<transformation type="link" objectId="ID-PLANE-Y-SOURCE" linkName="LINK-ROTARY-DRIVE-POSITION" linkOldValue="ID-ROBOT" linkNewValue="null" />
+			<transformation type="link" objectId="ID-PLANE-Y-TARGET" linkName="LINK-ROTARY-DRIVE-POSITION" linkOldValue="null" linkNewValue="ID-ROBOT" />
 		</transformations>
 		<action name="OPERATION-TURN-WITHOUT-LOAD">
 			<parameterUpdaters>
@@ -44,7 +41,63 @@
 					<script type="lua">
 						<line n="1">local systemVariant = ...</line>
 						<line n="2">local object = systemVariant:getObjectByIdMatch('ID-PLANE-Y-TARGET')</line>
-						<line n="3">systemVariant:setActionParameter('PARAMETER_TARGET',object:getName())</line>
+						<line n="3">systemVariant:setActionParameter('PARAMETER_TARGET', object:getName())</line>
+					</script>
+				</parameterUpdater>
+			</parameterUpdaters>
+		</action>
+	</systemTransformation>
+	<systemTransformation name="ELEMENT-TURN-WITH-LOAD">
+		<systemTemplate>
+			<objectTemplates>
+				<objectTemplate id="ID-ROBOT">
+					<attributeTemplates>
+						<attributeTemplate name="ATTRIBUTE-PICK-AND-PLACE-ROBOT" value="true" />
+					</attributeTemplates>
+					<linkTemplates>
+						<linkTemplate name="LINK-ROTARY-DRIVE-POSITION" value="ID-PLANE-Y-SOURCE" />
+						<linkTemplate name="LINK-GRAB-POSITION" value="ID-PACKAGE-BOX" />
+					</linkTemplates>
+				</objectTemplate>
+				<objectTemplate id="ID-PLANE-Y-SOURCE">
+					<attributeTemplates>
+						<attributeTemplate name="ATTRIBUTE-PLANE-Y" value="true" />
+					</attributeTemplates>
+					<linkTemplates>
+						<linkTemplate name="LINK-ROTARY-DRIVE-POSITION" value="ID-ROBOT" />
+					</linkTemplates>
+				</objectTemplate>
+				<objectTemplate id="ID-PLANE-Y-TARGET">
+					<attributeTemplates>
+						<attributeTemplate name="ATTRIBUTE-PLANE-Y" value="true" />
+					</attributeTemplates>
+					<linkTemplates>
+						<linkTemplate name="LINK-ROTARY-DRIVE-POSITION" value="null" />
+					</linkTemplates>
+				</objectTemplate>
+				<objectTemplate id="ID-PACKAGE-BOX">
+					<attributeTemplates>
+						<attributeTemplate name="ATTRIBUTE-PACKAGE" value="true" />
+					</attributeTemplates>
+					<linkTemplates>
+						<linkTemplate name="LINK-GRAB-POSITION" value="ID-ROBOT" />
+						<linkTemplate name="LINK-PACKAGE-BOX-POSITION" value="null" />
+					</linkTemplates>
+				</objectTemplate>
+			</objectTemplates>
+		</systemTemplate>
+		<transformations>
+			<transformation type="link" objectId="ID_ROBOT" linkName="LINK_ROTARY_DRIVE_POSITION" linkOldValue="ID_PLANE_Y_SOURCE" linkNewValue="ID_PLANE_Y_TARGET" />
+			<transformation type="link" objectId="ID-PLANE-Y-SOURCE" linkName="LINK-ROTARY-DRIVE-POSITION" linkOldValue="ID-ROBOT" linkNewValue="null" />
+			<transformation type="link" objectId="ID-PLANE-Y-TARGET" linkName="LINK-ROTARY-DRIVE-POSITION" linkOldValue="null" linkNewValue="ID-ROBOT" />
+		</transformations>
+		<action name="OPERATION-TURN-WITH-LOAD">
+			<parameterUpdaters>
+				<parameterUpdater>
+					<script type="lua">
+						<line n="1">local systemVariant = ...</line>
+						<line n="2">local object = systemVariant:getObjectByIdMatch('ID-PLANE-Y-TARGET')</line>
+						<line n="3">systemVariant:setActionParameter('PARAMETER_TARGET', object:getName())</line>
 					</script>
 				</parameterUpdater>
 			</parameterUpdaters>
