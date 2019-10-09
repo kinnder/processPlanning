@@ -5,9 +5,11 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.util.List;
 
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import planning.method.Planner;
+import planning.method.SystemTransformations;
 import planning.model.Action;
 import planning.model.Attribute;
 import planning.model.AttributeTemplate;
@@ -56,35 +58,37 @@ public class MaterialPoints {
 
 	private static final String ELEMENT_MOVE_BOTTOM = "moveBottom";
 
+	private static final String ID_OBJECT = "#OBJECT";
+
+	private static final String ID_POINT_A = "#POINT-A";
+
+	private static final String ID_POINT_B = "#POINT-B";
+
 	public static SystemTransformation moveRight() {
-		final SystemObjectTemplate object = new SystemObjectTemplate("#OBJECT");
-		final SystemObjectTemplate point_A = new SystemObjectTemplate("#POINT-A");
-		final SystemObjectTemplate point_B = new SystemObjectTemplate("#POINT-B");
+		final SystemObjectTemplate object = new SystemObjectTemplate(ID_OBJECT);
+		final SystemObjectTemplate point_A = new SystemObjectTemplate(ID_POINT_A);
+		final SystemObjectTemplate point_B = new SystemObjectTemplate(ID_POINT_B);
 
 		final SystemTemplate template = new SystemTemplate();
 		template.addObjectTemplate(object);
 		template.addObjectTemplate(point_A);
 		template.addObjectTemplate(point_B);
 
-		final String object_id = object.getId();
-		final String point_A_id = point_A.getId();
-		final String point_B_id = point_B.getId();
-
-		object.addLinkTemplate(new LinkTemplate(LINK_POSITION, point_A_id));
+		object.addLinkTemplate(new LinkTemplate(LINK_POSITION, ID_POINT_A));
 
 		point_A.addAttributeTemplate(new AttributeTemplate(ATTRIBUTE_OCCUPIED, true));
-		point_A.addLinkTemplate(new LinkTemplate(LINK_NEIGHBOR_RIGHT, point_B_id));
-		point_A.addLinkTemplate(new LinkTemplate(LINK_POSITION, object_id));
+		point_A.addLinkTemplate(new LinkTemplate(LINK_NEIGHBOR_RIGHT, ID_POINT_B));
+		point_A.addLinkTemplate(new LinkTemplate(LINK_POSITION, ID_OBJECT));
 
 		point_B.addAttributeTemplate(new AttributeTemplate(ATTRIBUTE_OCCUPIED, false));
-		point_B.addLinkTemplate(new LinkTemplate(LINK_NEIGHBOR_LEFT, point_A_id));
+		point_B.addLinkTemplate(new LinkTemplate(LINK_NEIGHBOR_LEFT, ID_POINT_A));
 
 		final Transformation transformations[] = new Transformation[] {
-				new LinkTransformation(object_id, LINK_POSITION, point_A_id, point_B_id),
-				new LinkTransformation(point_A_id, LINK_POSITION, object_id, null),
-				new LinkTransformation(point_B_id, LINK_POSITION, null, object_id),
-				new AttributeTransformation(point_A_id, ATTRIBUTE_OCCUPIED, false),
-				new AttributeTransformation(point_B_id, ATTRIBUTE_OCCUPIED, true) };
+				new LinkTransformation(ID_OBJECT, LINK_POSITION, ID_POINT_A, ID_POINT_B),
+				new LinkTransformation(ID_POINT_A, LINK_POSITION, ID_OBJECT, null),
+				new LinkTransformation(ID_POINT_B, LINK_POSITION, null, ID_OBJECT),
+				new AttributeTransformation(ID_POINT_A, ATTRIBUTE_OCCUPIED, false),
+				new AttributeTransformation(ID_POINT_B, ATTRIBUTE_OCCUPIED, true) };
 
 		final Action action = new Action(OPERATION_MOVE_RIGHT);
 
@@ -92,34 +96,30 @@ public class MaterialPoints {
 	}
 
 	public static SystemTransformation moveLeft() {
-		final SystemObjectTemplate object = new SystemObjectTemplate("#OBJECT");
-		final SystemObjectTemplate point_A = new SystemObjectTemplate("#POINT-A");
-		final SystemObjectTemplate point_B = new SystemObjectTemplate("#POINT-B");
+		final SystemObjectTemplate object = new SystemObjectTemplate(ID_OBJECT);
+		final SystemObjectTemplate point_A = new SystemObjectTemplate(ID_POINT_A);
+		final SystemObjectTemplate point_B = new SystemObjectTemplate(ID_POINT_B);
 
 		final SystemTemplate template = new SystemTemplate();
 		template.addObjectTemplate(object);
 		template.addObjectTemplate(point_A);
 		template.addObjectTemplate(point_B);
 
-		final String object_id = object.getId();
-		final String point_A_id = point_A.getId();
-		final String point_B_id = point_B.getId();
-
-		object.addLinkTemplate(new LinkTemplate(LINK_POSITION, point_B_id));
+		object.addLinkTemplate(new LinkTemplate(LINK_POSITION, ID_POINT_B));
 
 		point_A.addAttributeTemplate(new AttributeTemplate(ATTRIBUTE_OCCUPIED, false));
-		point_A.addLinkTemplate(new LinkTemplate(LINK_NEIGHBOR_RIGHT, point_B_id));
+		point_A.addLinkTemplate(new LinkTemplate(LINK_NEIGHBOR_RIGHT, ID_POINT_B));
 
 		point_B.addAttributeTemplate(new AttributeTemplate(ATTRIBUTE_OCCUPIED, true));
-		point_B.addLinkTemplate(new LinkTemplate(LINK_NEIGHBOR_LEFT, point_A_id));
-		point_B.addLinkTemplate(new LinkTemplate(LINK_POSITION, object_id));
+		point_B.addLinkTemplate(new LinkTemplate(LINK_NEIGHBOR_LEFT, ID_POINT_A));
+		point_B.addLinkTemplate(new LinkTemplate(LINK_POSITION, ID_OBJECT));
 
 		final Transformation transformations[] = new Transformation[] {
-				new LinkTransformation(object_id, LINK_POSITION, point_B_id, point_A_id),
-				new LinkTransformation(point_A_id, LINK_POSITION, null, object_id),
-				new LinkTransformation(point_B_id, LINK_POSITION, object_id, null),
-				new AttributeTransformation(point_A_id, ATTRIBUTE_OCCUPIED, true),
-				new AttributeTransformation(point_B_id, ATTRIBUTE_OCCUPIED, false) };
+				new LinkTransformation(ID_OBJECT, LINK_POSITION, ID_POINT_B, ID_POINT_A),
+				new LinkTransformation(ID_POINT_A, LINK_POSITION, null, ID_OBJECT),
+				new LinkTransformation(ID_POINT_B, LINK_POSITION, ID_OBJECT, null),
+				new AttributeTransformation(ID_POINT_A, ATTRIBUTE_OCCUPIED, true),
+				new AttributeTransformation(ID_POINT_B, ATTRIBUTE_OCCUPIED, false) };
 
 		final Action action = new Action(OPERATION_MOVE_LEFT);
 
@@ -127,34 +127,30 @@ public class MaterialPoints {
 	}
 
 	public static SystemTransformation moveTop() {
-		final SystemObjectTemplate object = new SystemObjectTemplate("#OBJECT");
-		final SystemObjectTemplate point_A = new SystemObjectTemplate("#POINT-A");
-		final SystemObjectTemplate point_B = new SystemObjectTemplate("#POINT-B");
+		final SystemObjectTemplate object = new SystemObjectTemplate(ID_OBJECT);
+		final SystemObjectTemplate point_A = new SystemObjectTemplate(ID_POINT_A);
+		final SystemObjectTemplate point_B = new SystemObjectTemplate(ID_POINT_B);
 
 		final SystemTemplate template = new SystemTemplate();
 		template.addObjectTemplate(object);
 		template.addObjectTemplate(point_A);
 		template.addObjectTemplate(point_B);
 
-		final String object_id = object.getId();
-		final String point_A_id = point_A.getId();
-		final String point_B_id = point_B.getId();
-
-		object.addLinkTemplate(new LinkTemplate(LINK_POSITION, point_A_id));
+		object.addLinkTemplate(new LinkTemplate(LINK_POSITION, ID_POINT_A));
 
 		point_A.addAttributeTemplate(new AttributeTemplate(ATTRIBUTE_OCCUPIED, true));
-		point_A.addLinkTemplate(new LinkTemplate(LINK_NEIGHBOR_TOP, point_B_id));
-		point_A.addLinkTemplate(new LinkTemplate(LINK_POSITION, object_id));
+		point_A.addLinkTemplate(new LinkTemplate(LINK_NEIGHBOR_TOP, ID_POINT_B));
+		point_A.addLinkTemplate(new LinkTemplate(LINK_POSITION, ID_OBJECT));
 
 		point_B.addAttributeTemplate(new AttributeTemplate(ATTRIBUTE_OCCUPIED, false));
-		point_B.addLinkTemplate(new LinkTemplate(LINK_NEIGHBOR_BOTTOM, point_A_id));
+		point_B.addLinkTemplate(new LinkTemplate(LINK_NEIGHBOR_BOTTOM, ID_POINT_A));
 
 		final Transformation transformations[] = new Transformation[] {
-				new LinkTransformation(object_id, LINK_POSITION, point_A_id, point_B_id),
-				new LinkTransformation(point_A_id, LINK_POSITION, object_id, null),
-				new LinkTransformation(point_B_id, LINK_POSITION, null, object_id),
-				new AttributeTransformation(point_A_id, ATTRIBUTE_OCCUPIED, false),
-				new AttributeTransformation(point_B_id, ATTRIBUTE_OCCUPIED, true) };
+				new LinkTransformation(ID_OBJECT, LINK_POSITION, ID_POINT_A, ID_POINT_B),
+				new LinkTransformation(ID_POINT_A, LINK_POSITION, ID_OBJECT, null),
+				new LinkTransformation(ID_POINT_B, LINK_POSITION, null, ID_OBJECT),
+				new AttributeTransformation(ID_POINT_A, ATTRIBUTE_OCCUPIED, false),
+				new AttributeTransformation(ID_POINT_B, ATTRIBUTE_OCCUPIED, true) };
 
 		final Action action = new Action(OPERATION_MOVE_TOP);
 
@@ -162,38 +158,45 @@ public class MaterialPoints {
 	}
 
 	public static SystemTransformation moveBottom() {
-		final SystemObjectTemplate object = new SystemObjectTemplate("#OBJECT");
-		final SystemObjectTemplate point_A = new SystemObjectTemplate("#POINT-A");
-		final SystemObjectTemplate point_B = new SystemObjectTemplate("#POINT-B");
+		final SystemObjectTemplate object = new SystemObjectTemplate(ID_OBJECT);
+		final SystemObjectTemplate point_A = new SystemObjectTemplate(ID_POINT_A);
+		final SystemObjectTemplate point_B = new SystemObjectTemplate(ID_POINT_B);
 
 		final SystemTemplate template = new SystemTemplate();
 		template.addObjectTemplate(object);
 		template.addObjectTemplate(point_A);
 		template.addObjectTemplate(point_B);
 
-		final String object_id = object.getId();
-		final String point_A_id = point_A.getId();
-		final String point_B_id = point_B.getId();
-
-		object.addLinkTemplate(new LinkTemplate(LINK_POSITION, point_A_id));
+		object.addLinkTemplate(new LinkTemplate(LINK_POSITION, ID_POINT_A));
 
 		point_A.addAttributeTemplate(new AttributeTemplate(ATTRIBUTE_OCCUPIED, true));
-		point_A.addLinkTemplate(new LinkTemplate(LINK_NEIGHBOR_BOTTOM, point_B_id));
-		point_A.addLinkTemplate(new LinkTemplate(LINK_POSITION, object_id));
+		point_A.addLinkTemplate(new LinkTemplate(LINK_NEIGHBOR_BOTTOM, ID_POINT_B));
+		point_A.addLinkTemplate(new LinkTemplate(LINK_POSITION, ID_OBJECT));
 
 		point_B.addAttributeTemplate(new AttributeTemplate(ATTRIBUTE_OCCUPIED, false));
-		point_B.addLinkTemplate(new LinkTemplate(LINK_NEIGHBOR_TOP, point_A_id));
+		point_B.addLinkTemplate(new LinkTemplate(LINK_NEIGHBOR_TOP, ID_POINT_A));
 
 		final Transformation transformations[] = new Transformation[] {
-				new LinkTransformation(object_id, LINK_POSITION, point_A_id, point_B_id),
-				new LinkTransformation(point_A_id, LINK_POSITION, object_id, null),
-				new LinkTransformation(point_B_id, LINK_POSITION, null, object_id),
-				new AttributeTransformation(point_A_id, ATTRIBUTE_OCCUPIED, false),
-				new AttributeTransformation(point_B_id, ATTRIBUTE_OCCUPIED, true) };
+				new LinkTransformation(ID_OBJECT, LINK_POSITION, ID_POINT_A, ID_POINT_B),
+				new LinkTransformation(ID_POINT_A, LINK_POSITION, ID_OBJECT, null),
+				new LinkTransformation(ID_POINT_B, LINK_POSITION, null, ID_OBJECT),
+				new AttributeTransformation(ID_POINT_A, ATTRIBUTE_OCCUPIED, false),
+				new AttributeTransformation(ID_POINT_B, ATTRIBUTE_OCCUPIED, true) };
 
 		final Action action = new Action(OPERATION_MOVE_BOTTOM);
 
 		return new SystemTransformation(ELEMENT_MOVE_BOTTOM, action, template, transformations);
+	}
+
+	private static SystemTransformations materialPointsTransformations;
+
+	@BeforeAll
+	public static void setupAll() {
+		materialPointsTransformations = new SystemTransformations();
+		materialPointsTransformations.addElement(moveRight());
+		materialPointsTransformations.addElement(moveLeft());
+		materialPointsTransformations.addElement(moveTop());
+		materialPointsTransformations.addElement(moveBottom());
 	}
 
 	@Test
@@ -242,7 +245,7 @@ public class MaterialPoints {
 		SystemTransformation systemTransformation;
 		SystemVariant[] systemVariants;
 
-		systemTransformation = moveRight();
+		systemTransformation = materialPointsTransformations.getElement(ELEMENT_MOVE_RIGHT);
 		systemVariants = systemTransformation.applyTo(system);
 		assertEquals(1, systemVariants.length);
 
@@ -253,7 +256,7 @@ public class MaterialPoints {
 		assertEquals(true, system.getObjectById(point_2_id).getAttribute(ATTRIBUTE_OCCUPIED).getValueAsBoolean());
 		assertNotNull(system.getObjectById(point_2_id).getLink(LINK_POSITION, object_id));
 
-		systemTransformation = moveBottom();
+		systemTransformation = materialPointsTransformations.getElement(ELEMENT_MOVE_BOTTOM);
 		systemVariants = systemTransformation.applyTo(system);
 		assertEquals(1, systemVariants.length);
 
@@ -264,7 +267,7 @@ public class MaterialPoints {
 		assertEquals(true, system.getObjectById(point_4_id).getAttribute(ATTRIBUTE_OCCUPIED).getValueAsBoolean());
 		assertNotNull(system.getObjectById(point_4_id).getLink(LINK_POSITION, object_id));
 
-		systemTransformation = moveLeft();
+		systemTransformation = materialPointsTransformations.getElement(ELEMENT_MOVE_LEFT);
 		systemVariants = systemTransformation.applyTo(system);
 		assertEquals(1, systemVariants.length);
 
@@ -275,7 +278,7 @@ public class MaterialPoints {
 		assertEquals(true, system.getObjectById(point_3_id).getAttribute(ATTRIBUTE_OCCUPIED).getValueAsBoolean());
 		assertNotNull(system.getObjectById(point_3_id).getLink(LINK_POSITION, object_id));
 
-		systemTransformation = moveTop();
+		systemTransformation = materialPointsTransformations.getElement(ELEMENT_MOVE_TOP);
 		systemVariants = systemTransformation.applyTo(system);
 		assertEquals(1, systemVariants.length);
 
@@ -331,16 +334,16 @@ public class MaterialPoints {
 		initial_system.addObject(point_4);
 
 		SystemVariant[] systemVariants;
-		systemVariants = moveRight().applyTo(initial_system);
+		systemVariants = materialPointsTransformations.getElement(ELEMENT_MOVE_RIGHT).applyTo(initial_system);
 		assertEquals(1, systemVariants.length);
 
-		systemVariants = moveLeft().applyTo(initial_system);
+		systemVariants = materialPointsTransformations.getElement(ELEMENT_MOVE_LEFT).applyTo(initial_system);
 		assertEquals(0, systemVariants.length);
 
-		systemVariants = moveTop().applyTo(initial_system);
+		systemVariants = materialPointsTransformations.getElement(ELEMENT_MOVE_TOP).applyTo(initial_system);
 		assertEquals(0, systemVariants.length);
 
-		systemVariants = moveBottom().applyTo(initial_system);
+		systemVariants = materialPointsTransformations.getElement(ELEMENT_MOVE_BOTTOM).applyTo(initial_system);
 		assertEquals(0, systemVariants.length);
 
 		final System final_system = new System();
@@ -353,10 +356,7 @@ public class MaterialPoints {
 		final_point_4.addLink(new Link(LINK_POSITION, object_id));
 		final_point_4.addAttribute(new Attribute(ATTRIBUTE_OCCUPIED, true));
 
-		final SystemTransformation[] systemTransformations = new SystemTransformation[] { moveLeft(), moveRight(),
-				moveTop(), moveBottom() };
-
-		Planner planner = new Planner(initial_system, final_system, systemTransformations);
+		Planner planner = new Planner(initial_system, final_system, materialPointsTransformations.getElements());
 		planner.plan();
 
 		List<SystemOperation> operations = planner.getShortestPlan();
@@ -570,16 +570,16 @@ public class MaterialPoints {
 		initial_system.addObject(point_91);
 
 		SystemVariant[] systemVariants;
-		systemVariants = moveRight().applyTo(initial_system);
+		systemVariants = materialPointsTransformations.getElement(ELEMENT_MOVE_RIGHT).applyTo(initial_system);
 		assertEquals(1, systemVariants.length);
 
-		systemVariants = moveLeft().applyTo(initial_system);
+		systemVariants = materialPointsTransformations.getElement(ELEMENT_MOVE_LEFT).applyTo(initial_system);
 		assertEquals(0, systemVariants.length);
 
-		systemVariants = moveTop().applyTo(initial_system);
+		systemVariants = materialPointsTransformations.getElement(ELEMENT_MOVE_TOP).applyTo(initial_system);
 		assertEquals(1, systemVariants.length);
 
-		systemVariants = moveBottom().applyTo(initial_system);
+		systemVariants = materialPointsTransformations.getElement(ELEMENT_MOVE_BOTTOM).applyTo(initial_system);
 		assertEquals(1, systemVariants.length);
 
 		final System final_system = new System();
@@ -592,10 +592,7 @@ public class MaterialPoints {
 		final_point_92.addAttribute(new Attribute(ATTRIBUTE_OCCUPIED, true));
 		final_point_92.addLink(new Link(LINK_POSITION, object_id));
 
-		final SystemTransformation[] systemTransformations = new SystemTransformation[] { moveLeft(), moveRight(),
-				moveTop(), moveBottom() };
-
-		Planner planner = new Planner(initial_system, final_system, systemTransformations);
+		Planner planner = new Planner(initial_system, final_system, materialPointsTransformations.getElements());
 		planner.plan();
 
 		List<SystemOperation> operations = planner.getShortestPlan();
