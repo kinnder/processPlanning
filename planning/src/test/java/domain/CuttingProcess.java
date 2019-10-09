@@ -5,11 +5,14 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import java.util.List;
+
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.luaj.vm2.Globals;
 import org.luaj.vm2.lib.jse.JsePlatform;
 
 import planning.method.Planner;
+import planning.method.SystemTransformations;
 import planning.model.Action;
 import planning.model.Attribute;
 import planning.model.AttributeTemplate;
@@ -90,53 +93,59 @@ public class CuttingProcess {
 
 	private static final String ELEMENT_SPLIT_CYLINDER_SURFACE = "splitCylinderSurface";
 
+	private static final String ID_WORKPIECE = "#WORKPIECE";
+
+	private static final String ID_CYLINDER_SURFACE = "#CYLINDER-SURFACE";
+
+	private static final String ID_REQUIREMENT = "#REQUIREMENT";
+
+	private static final String ID_REQUIREMENT_L = "#REQUIREMENT-L";
+
+	private static final String ID_REQUIREMENT_R = "#REQUIREMENT-R";
+
 	private static Globals globals = JsePlatform.standardGlobals();
 
 	public static SystemTransformation cutCylinderSurface() {
-		final SystemObjectTemplate workpiece = new SystemObjectTemplate("#WORKPIECE");
-		final SystemObjectTemplate cylinderSurface = new SystemObjectTemplate("#CYLINDER-SURFACE");
-		final SystemObjectTemplate requirement = new SystemObjectTemplate("#REQUIREMENT");
+		final SystemObjectTemplate workpiece = new SystemObjectTemplate(ID_WORKPIECE);
+		final SystemObjectTemplate cylinderSurface = new SystemObjectTemplate(ID_CYLINDER_SURFACE);
+		final SystemObjectTemplate requirement = new SystemObjectTemplate(ID_REQUIREMENT);
 
 		final SystemTemplate template = new SystemTemplate();
 		template.addObjectTemplate(workpiece);
 		template.addObjectTemplate(cylinderSurface);
 		template.addObjectTemplate(requirement);
 
-		final String workpiece_id = workpiece.getId();
-		final String cylinderSurface_id = cylinderSurface.getId();
-		final String requirement_id = requirement.getId();
-
 		workpiece.addAttributeTemplate(new AttributeTemplate(ATTRIBUTE_WORKPIECE, true));
-		workpiece.addLinkTemplate(new LinkTemplate(LINK_IS_PART_OF, cylinderSurface_id));
-		workpiece.addLinkTemplate(new LinkTemplate(LINK_IS_REQUIREMENT_OF, requirement_id));
+		workpiece.addLinkTemplate(new LinkTemplate(LINK_IS_PART_OF, ID_CYLINDER_SURFACE));
+		workpiece.addLinkTemplate(new LinkTemplate(LINK_IS_REQUIREMENT_OF, ID_REQUIREMENT));
 
 		cylinderSurface.addAttributeTemplate(new AttributeTemplate(ATTRIBUTE_CYLINDER_SURFACE, true));
 		cylinderSurface.addAttributeTemplate(new AttributeTemplate(ATTRIBUTE_DIAMETER));
 		cylinderSurface.addAttributeTemplate(new AttributeTemplate(ATTRIBUTE_HAS_DIAMETER_REQUIREMENT, false));
-		cylinderSurface.addLinkTemplate(new LinkTemplate(LINK_IS_PART_OF, workpiece_id));
+		cylinderSurface.addLinkTemplate(new LinkTemplate(LINK_IS_PART_OF, ID_WORKPIECE));
 		cylinderSurface.addLinkTemplate(new LinkTemplate(LINK_IS_DIAMETER_REQUIREMENT, null));
 
 		requirement.addAttributeTemplate(new AttributeTemplate(ATTRIBUTE_REQUIREMENT, true));
 		requirement.addAttributeTemplate(new AttributeTemplate(ATTRIBUTE_DIAMETER_REQUIREMENT));
 		requirement.addAttributeTemplate(new AttributeTemplate(ATTRIBUTE_DIAMETER_REQUIREMENT_STATUS, false));
-		requirement.addLinkTemplate(new LinkTemplate(LINK_IS_REQUIREMENT_OF, workpiece_id));
+		requirement.addLinkTemplate(new LinkTemplate(LINK_IS_REQUIREMENT_OF, ID_WORKPIECE));
 		requirement.addLinkTemplate(new LinkTemplate(LINK_IS_DIAMETER_REQUIREMENT, null));
 
 		final Transformation transformations[] = new Transformation[] {
-				new AttributeTransformation(requirement_id, ATTRIBUTE_DIAMETER_REQUIREMENT_STATUS, true),
-				new LinkTransformation(requirement_id, LINK_IS_DIAMETER_REQUIREMENT, null, cylinderSurface_id),
-				new LinkTransformation(cylinderSurface_id, LINK_IS_DIAMETER_REQUIREMENT, null, requirement_id),
-				new AttributeTransformation(cylinderSurface_id, ATTRIBUTE_HAS_DIAMETER_REQUIREMENT, true) };
+				new AttributeTransformation(ID_REQUIREMENT, ATTRIBUTE_DIAMETER_REQUIREMENT_STATUS, true),
+				new LinkTransformation(ID_REQUIREMENT, LINK_IS_DIAMETER_REQUIREMENT, null, ID_CYLINDER_SURFACE),
+				new LinkTransformation(ID_CYLINDER_SURFACE, LINK_IS_DIAMETER_REQUIREMENT, null, ID_REQUIREMENT),
+				new AttributeTransformation(ID_CYLINDER_SURFACE, ATTRIBUTE_HAS_DIAMETER_REQUIREMENT, true) };
 
 		StringBuilder script = new StringBuilder();
 		script.append("local systemVariant = ...");
 		script.append("\n");
-		script.append("local cylinderSurface_actual = systemVariant:getObjectByIdMatch('" + cylinderSurface_id + "')");
+		script.append("local cylinderSurface_actual = systemVariant:getObjectByIdMatch('" + ID_CYLINDER_SURFACE + "')");
 		script.append("\n");
 		script.append("local diameter = cylinderSurface_actual:getAttribute('" + ATTRIBUTE_DIAMETER
 				+ "'):getValueAsInteger()");
 		script.append("\n");
-		script.append("local requirement_actual = systemVariant:getObjectByIdMatch('" + requirement_id + "')");
+		script.append("local requirement_actual = systemVariant:getObjectByIdMatch('" + ID_REQUIREMENT + "')");
 		script.append("\n");
 		script.append("local diameterRequired = requirement_actual:getAttribute('" + ATTRIBUTE_DIAMETER_REQUIREMENT
 				+ "'):getValueAsInteger()");
@@ -150,12 +159,12 @@ public class CuttingProcess {
 		script = new StringBuilder();
 		script.append("local systemVariant = ...");
 		script.append("\n");
-		script.append("local cylinderSurface_actual = systemVariant:getObjectByIdMatch('" + cylinderSurface_id + "')");
+		script.append("local cylinderSurface_actual = systemVariant:getObjectByIdMatch('" + ID_CYLINDER_SURFACE + "')");
 		script.append("\n");
 		script.append("local diameter = cylinderSurface_actual:getAttribute('" + ATTRIBUTE_DIAMETER
 				+ "'):getValueAsInteger()");
 		script.append("\n");
-		script.append("local requirement_actual = systemVariant:getObjectByIdMatch('" + requirement_id + "')");
+		script.append("local requirement_actual = systemVariant:getObjectByIdMatch('" + ID_REQUIREMENT + "')");
 		script.append("\n");
 		script.append("local diameterRequired = requirement_actual:getAttribute('" + ATTRIBUTE_DIAMETER_REQUIREMENT
 				+ "'):getValueAsInteger()");
@@ -173,51 +182,47 @@ public class CuttingProcess {
 	}
 
 	public static SystemTransformation trimCylinderSurface() {
-		final SystemObjectTemplate workpiece = new SystemObjectTemplate("#WORKPIECE");
-		final SystemObjectTemplate cylinderSurface = new SystemObjectTemplate("#CYLINDER-SURFACE");
-		final SystemObjectTemplate requirement = new SystemObjectTemplate("#REQUIREMENT");
+		final SystemObjectTemplate workpiece = new SystemObjectTemplate(ID_WORKPIECE);
+		final SystemObjectTemplate cylinderSurface = new SystemObjectTemplate(ID_CYLINDER_SURFACE);
+		final SystemObjectTemplate requirement = new SystemObjectTemplate(ID_REQUIREMENT);
 
 		final SystemTemplate template = new SystemTemplate();
 		template.addObjectTemplate(workpiece);
 		template.addObjectTemplate(cylinderSurface);
 		template.addObjectTemplate(requirement);
 
-		final String workpiece_id = workpiece.getId();
-		final String cylinderSurface_id = cylinderSurface.getId();
-		final String requirement_id = requirement.getId();
-
 		workpiece.addAttributeTemplate(new AttributeTemplate(ATTRIBUTE_WORKPIECE, true));
-		workpiece.addLinkTemplate(new LinkTemplate(LINK_IS_PART_OF, cylinderSurface_id));
-		workpiece.addLinkTemplate(new LinkTemplate(LINK_IS_REQUIREMENT_OF, requirement_id));
+		workpiece.addLinkTemplate(new LinkTemplate(LINK_IS_PART_OF, ID_CYLINDER_SURFACE));
+		workpiece.addLinkTemplate(new LinkTemplate(LINK_IS_REQUIREMENT_OF, ID_REQUIREMENT));
 
 		cylinderSurface.addAttributeTemplate(new AttributeTemplate(ATTRIBUTE_CYLINDER_SURFACE, true));
 		cylinderSurface.addAttributeTemplate(new AttributeTemplate(ATTRIBUTE_LENGTH));
 		cylinderSurface.addAttributeTemplate(new AttributeTemplate(ATTRIBUTE_HAS_LENGTH_REQUIREMENT, false));
 		cylinderSurface.addAttributeTemplate(new AttributeTemplate(ATTRIBUTE_HAS_DIAMETER_REQUIREMENT, true));
-		cylinderSurface.addLinkTemplate(new LinkTemplate(LINK_IS_PART_OF, workpiece_id));
+		cylinderSurface.addLinkTemplate(new LinkTemplate(LINK_IS_PART_OF, ID_WORKPIECE));
 		cylinderSurface.addLinkTemplate(new LinkTemplate(LINK_IS_LENGTH_REQUIREMENT, null));
 
 		requirement.addAttributeTemplate(new AttributeTemplate(ATTRIBUTE_REQUIREMENT, true));
 		requirement.addAttributeTemplate(new AttributeTemplate(ATTRIBUTE_LENGTH_REQUIREMENT));
 		requirement.addAttributeTemplate(new AttributeTemplate(ATTRIBUTE_LENGTH_REQUIREMENT_STATUS, false));
-		requirement.addLinkTemplate(new LinkTemplate(LINK_IS_REQUIREMENT_OF, workpiece_id));
+		requirement.addLinkTemplate(new LinkTemplate(LINK_IS_REQUIREMENT_OF, ID_WORKPIECE));
 		requirement.addLinkTemplate(new LinkTemplate(LINK_IS_LENGTH_REQUIREMENT, null));
 
 		final Transformation transformations[] = new Transformation[] {
-				new AttributeTransformation(requirement_id, ATTRIBUTE_LENGTH_REQUIREMENT_STATUS, true),
-				new LinkTransformation(requirement_id, LINK_IS_LENGTH_REQUIREMENT, null, cylinderSurface_id),
-				new LinkTransformation(cylinderSurface_id, LINK_IS_LENGTH_REQUIREMENT, null, requirement_id),
-				new AttributeTransformation(cylinderSurface_id, ATTRIBUTE_HAS_LENGTH_REQUIREMENT, true) };
+				new AttributeTransformation(ID_REQUIREMENT, ATTRIBUTE_LENGTH_REQUIREMENT_STATUS, true),
+				new LinkTransformation(ID_REQUIREMENT, LINK_IS_LENGTH_REQUIREMENT, null, ID_CYLINDER_SURFACE),
+				new LinkTransformation(ID_CYLINDER_SURFACE, LINK_IS_LENGTH_REQUIREMENT, null, ID_REQUIREMENT),
+				new AttributeTransformation(ID_CYLINDER_SURFACE, ATTRIBUTE_HAS_LENGTH_REQUIREMENT, true) };
 
 		StringBuilder script = new StringBuilder();
 		script.append("local systemVariant = ...");
 		script.append("\n");
-		script.append("local cylinderSurface_actual = systemVariant:getObjectByIdMatch('" + cylinderSurface_id + "')");
+		script.append("local cylinderSurface_actual = systemVariant:getObjectByIdMatch('" + ID_CYLINDER_SURFACE + "')");
 		script.append("\n");
 		script.append(
 				"local length = cylinderSurface_actual:getAttribute('" + ATTRIBUTE_LENGTH + "'):getValueAsInteger()");
 		script.append("\n");
-		script.append("local requirement_actual = systemVariant:getObjectByIdMatch('" + requirement_id + "')");
+		script.append("local requirement_actual = systemVariant:getObjectByIdMatch('" + ID_REQUIREMENT + "')");
 		script.append("\n");
 		script.append("local lengthRequired = requirement_actual:getAttribute('" + ATTRIBUTE_LENGTH_REQUIREMENT
 				+ "'):getValueAsInteger()");
@@ -232,10 +237,10 @@ public class CuttingProcess {
 	}
 
 	public static SystemTransformation splitCylinderSurface() {
-		final SystemObjectTemplate workpiece = new SystemObjectTemplate("#WORKPIECE");
-		final SystemObjectTemplate cylinderSurface = new SystemObjectTemplate("#CYLINDER-SURFACE");
-		final SystemObjectTemplate requirement_l = new SystemObjectTemplate("#REQUIREMENT-L");
-		final SystemObjectTemplate requirement_r = new SystemObjectTemplate("#REQUIREMENT-R");
+		final SystemObjectTemplate workpiece = new SystemObjectTemplate(ID_WORKPIECE);
+		final SystemObjectTemplate cylinderSurface = new SystemObjectTemplate(ID_CYLINDER_SURFACE);
+		final SystemObjectTemplate requirement_l = new SystemObjectTemplate(ID_REQUIREMENT_L);
+		final SystemObjectTemplate requirement_r = new SystemObjectTemplate(ID_REQUIREMENT_R);
 
 		final SystemTemplate template = new SystemTemplate();
 		template.addObjectTemplate(workpiece);
@@ -243,48 +248,43 @@ public class CuttingProcess {
 		template.addObjectTemplate(requirement_l);
 		template.addObjectTemplate(requirement_r);
 
-		final String workpiece_id = workpiece.getId();
-		final String cylinderSurface_id = cylinderSurface.getId();
-		final String requirement_l_id = requirement_l.getId();
-		final String requirement_r_id = requirement_r.getId();
-
 		workpiece.addAttributeTemplate(new AttributeTemplate(ATTRIBUTE_WORKPIECE, true));
-		workpiece.addLinkTemplate(new LinkTemplate(LINK_IS_PART_OF, cylinderSurface_id));
-		workpiece.addLinkTemplate(new LinkTemplate(LINK_IS_REQUIREMENT_OF, requirement_l_id));
-		workpiece.addLinkTemplate(new LinkTemplate(LINK_IS_REQUIREMENT_OF, requirement_r_id));
+		workpiece.addLinkTemplate(new LinkTemplate(LINK_IS_PART_OF, ID_CYLINDER_SURFACE));
+		workpiece.addLinkTemplate(new LinkTemplate(LINK_IS_REQUIREMENT_OF, ID_REQUIREMENT_L));
+		workpiece.addLinkTemplate(new LinkTemplate(LINK_IS_REQUIREMENT_OF, ID_REQUIREMENT_R));
 
 		cylinderSurface.addAttributeTemplate(new AttributeTemplate(ATTRIBUTE_CYLINDER_SURFACE, true));
 		cylinderSurface.addAttributeTemplate(new AttributeTemplate(ATTRIBUTE_DIAMETER));
 		cylinderSurface.addAttributeTemplate(new AttributeTemplate(ATTRIBUTE_LENGTH));
 		cylinderSurface.addAttributeTemplate(new AttributeTemplate(ATTRIBUTE_HAS_LENGTH_REQUIREMENT, false));
-		cylinderSurface.addLinkTemplate(new LinkTemplate(LINK_IS_PART_OF, workpiece_id));
+		cylinderSurface.addLinkTemplate(new LinkTemplate(LINK_IS_PART_OF, ID_WORKPIECE));
 		cylinderSurface.addLinkTemplate(new LinkTemplate(LINK_IS_LENGTH_REQUIREMENT, null));
 
 		requirement_l.addAttributeTemplate(new AttributeTemplate(ATTRIBUTE_REQUIREMENT, true));
 		requirement_l.addAttributeTemplate(new AttributeTemplate(ATTRIBUTE_LENGTH_REQUIREMENT));
 		requirement_l.addAttributeTemplate(new AttributeTemplate(ATTRIBUTE_LENGTH_REQUIREMENT_STATUS, false));
-		requirement_l.addLinkTemplate(new LinkTemplate(LINK_IS_REQUIREMENT_OF, workpiece_id));
-		requirement_l.addLinkTemplate(new LinkTemplate(LINK_SURFACE_SIDE_RIGHT, requirement_r_id));
+		requirement_l.addLinkTemplate(new LinkTemplate(LINK_IS_REQUIREMENT_OF, ID_WORKPIECE));
+		requirement_l.addLinkTemplate(new LinkTemplate(LINK_SURFACE_SIDE_RIGHT, ID_REQUIREMENT_R));
 		requirement_l.addLinkTemplate(new LinkTemplate(LINK_IS_LENGTH_REQUIREMENT, null));
 
 		requirement_r.addAttributeTemplate(new AttributeTemplate(ATTRIBUTE_REQUIREMENT, true));
 		requirement_r.addAttributeTemplate(new AttributeTemplate(ATTRIBUTE_DIAMETER_REQUIREMENT));
 		requirement_r.addAttributeTemplate(new AttributeTemplate(ATTRIBUTE_DIAMETER_REQUIREMENT_STATUS, false));
-		requirement_r.addLinkTemplate(new LinkTemplate(LINK_IS_REQUIREMENT_OF, workpiece_id));
-		requirement_r.addLinkTemplate(new LinkTemplate(LINK_SURFACE_SIDE_LEFT, requirement_l_id));
+		requirement_r.addLinkTemplate(new LinkTemplate(LINK_IS_REQUIREMENT_OF, ID_WORKPIECE));
+		requirement_r.addLinkTemplate(new LinkTemplate(LINK_SURFACE_SIDE_LEFT, ID_REQUIREMENT_L));
 		requirement_r.addLinkTemplate(new LinkTemplate(LINK_IS_DIAMETER_REQUIREMENT, null));
 
 		final Transformation transformations[] = new Transformation[] {
-				new AttributeTransformation(requirement_l_id, ATTRIBUTE_LENGTH_REQUIREMENT_STATUS, true),
-				new AttributeTransformation(requirement_r_id, ATTRIBUTE_DIAMETER_REQUIREMENT_STATUS, true),
-				new LinkTransformation(cylinderSurface_id, LINK_IS_LENGTH_REQUIREMENT, null, requirement_l_id),
-				new LinkTransformation(requirement_l_id, LINK_IS_LENGTH_REQUIREMENT, null, cylinderSurface_id),
-				new AttributeTransformation(cylinderSurface_id, ATTRIBUTE_HAS_LENGTH_REQUIREMENT, true) };
+				new AttributeTransformation(ID_REQUIREMENT_L, ATTRIBUTE_LENGTH_REQUIREMENT_STATUS, true),
+				new AttributeTransformation(ID_REQUIREMENT_R, ATTRIBUTE_DIAMETER_REQUIREMENT_STATUS, true),
+				new LinkTransformation(ID_CYLINDER_SURFACE, LINK_IS_LENGTH_REQUIREMENT, null, ID_REQUIREMENT_L),
+				new LinkTransformation(ID_REQUIREMENT_L, LINK_IS_LENGTH_REQUIREMENT, null, ID_CYLINDER_SURFACE),
+				new AttributeTransformation(ID_CYLINDER_SURFACE, ATTRIBUTE_HAS_LENGTH_REQUIREMENT, true) };
 
 		StringBuilder script = new StringBuilder();
 		script.append("local systemVariant = ...");
 		script.append("\n");
-		script.append("local cylinderSurface_actual = systemVariant:getObjectByIdMatch('" + cylinderSurface_id + "')");
+		script.append("local cylinderSurface_actual = systemVariant:getObjectByIdMatch('" + ID_CYLINDER_SURFACE + "')");
 		script.append("\n");
 		script.append("local diameter = cylinderSurface_actual:getAttribute('" + ATTRIBUTE_DIAMETER
 				+ "'):getValueAsInteger()");
@@ -292,12 +292,12 @@ public class CuttingProcess {
 		script.append(
 				"local length = cylinderSurface_actual:getAttribute('" + ATTRIBUTE_LENGTH + "'):getValueAsInteger()");
 		script.append("\n");
-		script.append("local requirement_l_actual = systemVariant:getObjectByIdMatch('" + requirement_l_id + "')");
+		script.append("local requirement_l_actual = systemVariant:getObjectByIdMatch('" + ID_REQUIREMENT_L + "')");
 		script.append("\n");
 		script.append("local lengthRequired = requirement_l_actual:getAttribute('" + ATTRIBUTE_LENGTH_REQUIREMENT
 				+ "'):getValueAsInteger()");
 		script.append("\n");
-		script.append("local requirement_r_actual = systemVariant:getObjectByIdMatch('" + requirement_r_id + "')");
+		script.append("local requirement_r_actual = systemVariant:getObjectByIdMatch('" + ID_REQUIREMENT_R + "')");
 		script.append("\n");
 		script.append("local diameterRequired = requirement_r_actual:getAttribute('" + ATTRIBUTE_DIAMETER_REQUIREMENT
 				+ "'):getValueAsInteger()");
@@ -311,7 +311,7 @@ public class CuttingProcess {
 		script = new StringBuilder();
 		script.append("local systemVariant = ...");
 		script.append("\n");
-		script.append("local cylinderSurface_actual = systemVariant:getObjectByIdMatch('" + cylinderSurface_id + "')");
+		script.append("local cylinderSurface_actual = systemVariant:getObjectByIdMatch('" + ID_CYLINDER_SURFACE + "')");
 		script.append("\n");
 		script.append("local diameter = cylinderSurface_actual:getAttribute('" + ATTRIBUTE_DIAMETER
 				+ "'):getValueAsInteger()");
@@ -319,17 +319,17 @@ public class CuttingProcess {
 		script.append(
 				"local length = cylinderSurface_actual:getAttribute('" + ATTRIBUTE_LENGTH + "'):getValueAsInteger()");
 		script.append("\n");
-		script.append("local requirement_l_actual = systemVariant:getObjectByIdMatch('" + requirement_l_id + "')");
+		script.append("local requirement_l_actual = systemVariant:getObjectByIdMatch('" + ID_REQUIREMENT_L + "')");
 		script.append("\n");
 		script.append("local lengthRequired = requirement_l_actual:getAttribute('" + ATTRIBUTE_LENGTH_REQUIREMENT
 				+ "'):getValueAsInteger()");
 		script.append("\n");
-		script.append("local requirement_r_actual = systemVariant:getObjectByIdMatch('" + requirement_r_id + "')");
+		script.append("local requirement_r_actual = systemVariant:getObjectByIdMatch('" + ID_REQUIREMENT_R + "')");
 		script.append("\n");
 		script.append("local diameterRequired = requirement_r_actual:getAttribute('" + ATTRIBUTE_DIAMETER_REQUIREMENT
 				+ "'):getValueAsInteger()");
 		script.append("\n");
-		script.append("local workpiece_actual = systemVariant:getObjectByIdMatch('" + workpiece_id + "')");
+		script.append("local workpiece_actual = systemVariant:getObjectByIdMatch('" + ID_WORKPIECE + "')");
 		script.append("\n");
 		script.append("local diameterDelta = diameter - diameterRequired");
 		script.append("\n");
@@ -377,6 +377,16 @@ public class CuttingProcess {
 		action.registerParameterUpdater(new LuaScriptActionParameterUpdater(globals, script.toString()));
 
 		return new SystemTransformation(ELEMENT_SPLIT_CYLINDER_SURFACE, action, template, transformations);
+	}
+
+	private static SystemTransformations cuttingProcessTransformations;
+
+	@BeforeAll
+	public static void setupAll() {
+		cuttingProcessTransformations = new SystemTransformations();
+		cuttingProcessTransformations.addElement(cutCylinderSurface());
+		cuttingProcessTransformations.addElement(trimCylinderSurface());
+		cuttingProcessTransformations.addElement(splitCylinderSurface());
 	}
 
 	@Test
@@ -452,7 +462,7 @@ public class CuttingProcess {
 		SystemVariant[] systemVariants;
 
 		//
-		systemTransformation = cutCylinderSurface();
+		systemTransformation = cuttingProcessTransformations.getElement(ELEMENT_CUT_CYLINDER_SURFACE);
 		systemVariants = systemTransformation.applyTo(system);
 		assertEquals(3, systemVariants.length);
 		int id;
@@ -472,7 +482,7 @@ public class CuttingProcess {
 		assertNotNull(system.getObjectById(cylinderSurface_id).getLink(LINK_IS_DIAMETER_REQUIREMENT, requirement_a_id));
 
 		//
-		systemTransformation = splitCylinderSurface();
+		systemTransformation = cuttingProcessTransformations.getElement(ELEMENT_SPLIT_CYLINDER_SURFACE);
 		systemVariants = systemTransformation.applyTo(system);
 		assertEquals(2, systemVariants.length);
 		for (id = 0; id < 2; id++) {
@@ -496,7 +506,7 @@ public class CuttingProcess {
 		assertEquals(6, system.getObjects().size());
 
 		//
-		systemTransformation = splitCylinderSurface();
+		systemTransformation = cuttingProcessTransformations.getElement(ELEMENT_SPLIT_CYLINDER_SURFACE);
 		systemVariants = systemTransformation.applyTo(system);
 		assertEquals(1, systemVariants.length);
 		assertEquals("4", systemVariants[0].getActionParameter(PARAMETER_DIAMETER_DELTA));
@@ -509,7 +519,7 @@ public class CuttingProcess {
 				.getValueAsBoolean(), true);
 
 		//
-		systemTransformation = trimCylinderSurface();
+		systemTransformation = cuttingProcessTransformations.getElement(ELEMENT_TRIM_CYLINDER_SURFACE);
 		systemVariants = systemTransformation.applyTo(system);
 		assertEquals(1, systemVariants.length);
 
@@ -618,10 +628,7 @@ public class CuttingProcess {
 		assertFalse(system.equals(final_system));
 		assertFalse(system.contains(final_system));
 
-		final SystemTransformation[] systemTransformations = new SystemTransformation[] { cutCylinderSurface(),
-				splitCylinderSurface(), trimCylinderSurface() };
-
-		Planner planner = new Planner(system, final_system, systemTransformations);
+		Planner planner = new Planner(system, final_system, cuttingProcessTransformations.getElements());
 		planner.plan();
 
 		List<SystemOperation> operations = planner.getShortestPlan();
