@@ -47,14 +47,14 @@
 	<xs:element name="attributeTemplates">
 		<xs:complexType>
 			<xs:sequence>
-				<xs:element ref="attributeTemplate" />
+				<xs:element maxOccurs="unbounded" ref="attributeTemplate" />
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
 	<xs:element name="attributeTemplate">
 		<xs:complexType>
 			<xs:attribute name="name" use="required" type="xs:NCName" />
-			<xs:attribute name="value" use="required" type="xs:boolean" />
+			<xs:attribute name="value" type="xs:boolean" />
 		</xs:complexType>
 	</xs:element>
 	<xs:element name="linkTemplates">
@@ -79,9 +79,11 @@
 	</xs:element>
 	<xs:element name="transformation">
 		<xs:complexType>
-			<xs:attribute name="linkName" use="required" type="xs:NCName" />
-			<xs:attribute name="linkNewValue" use="required" type="xs:NCName" />
-			<xs:attribute name="linkOldValue" use="required" type="xs:NCName" />
+			<xs:attribute name="attributeName" />
+			<xs:attribute name="attributeValue" type="xs:boolean" />
+			<xs:attribute name="linkName" type="xs:NCName" />
+			<xs:attribute name="linkNewValue" type="xs:NCName" />
+			<xs:attribute name="linkOldValue" type="xs:NCName" />
 			<xs:attribute name="objectId" use="required" type="xs:NCName" />
 			<xs:attribute name="type" use="required" type="xs:NCName" />
 		</xs:complexType>
@@ -89,11 +91,20 @@
 	<xs:element name="action">
 		<xs:complexType>
 			<xs:sequence>
+				<xs:element minOccurs="0" ref="preConditionCheckers" />
 				<xs:element minOccurs="0" ref="parameterUpdaters" />
 			</xs:sequence>
 			<xs:attribute name="name" use="required" type="xs:NCName" />
 		</xs:complexType>
 	</xs:element>
+	<xs:element name="preConditionCheckers">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="preConditionChecker" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="preConditionChecker" type="script" />
 	<xs:element name="parameterUpdaters">
 		<xs:complexType>
 			<xs:sequence>
@@ -101,13 +112,12 @@
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
-	<xs:element name="parameterUpdater">
-		<xs:complexType>
-			<xs:sequence>
-				<xs:element ref="script" />
-			</xs:sequence>
-		</xs:complexType>
-	</xs:element>
+	<xs:element name="parameterUpdater" type="script" />
+	<xs:complexType name="script">
+		<xs:sequence>
+			<xs:element ref="script" />
+		</xs:sequence>
+	</xs:complexType>
 	<xs:element name="script">
 		<xs:complexType>
 			<xs:sequence>
