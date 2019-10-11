@@ -38,8 +38,8 @@
 	<xs:element name="objectTemplate">
 		<xs:complexType>
 			<xs:sequence>
-				<xs:element ref="attributeTemplates" />
-				<xs:element ref="linkTemplates" />
+				<xs:element minOccurs="0" ref="attributeTemplates" />
+				<xs:element minOccurs="0" ref="linkTemplates" />
 			</xs:sequence>
 			<xs:attribute name="id" use="required" type="xs:NCName" />
 		</xs:complexType>

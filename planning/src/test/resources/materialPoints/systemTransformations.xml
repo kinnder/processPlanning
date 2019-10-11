@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<systemTransformations xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../systemTransformations.xsd">
+	<systemTransformation name="ELEMENT-MOVE-RIGHT">
+		<systemTemplate>
+			<objectTemplates>
+				<objectTemplate id="ID-OBJECT">
+					<linkTemplates>
+						<linkTemplate name="LINK-POSITION" value="ID-POINT-A" />
+					</linkTemplates>
+				</objectTemplate>
+				<objectTemplate id="ID-POINT-A">
+					<attributeTemplates>
+						<attributeTemplate name="ATTRIBUTE-OCCUPIED" value="true" />
+					</attributeTemplates>
+					<linkTemplates>
+						<linkTemplate name="LINK-NEIGHBOR-RIGHT" value="ID-POINT-B" />
+						<linkTemplate name="LINK-POSITION" value="ID-OBJECT" />
+					</linkTemplates>
+				</objectTemplate>
+				<objectTemplate id="ID-POINT-B">
+					<attributeTemplates>
+						<attributeTemplate name="ATTRIBUTE-OCCUPIED" value="false" />
+					</attributeTemplates>
+					<linkTemplates>
+						<linkTemplate name="LINK-NEIGHBOR-LEFT" value="ID-POINT-A" />
+					</linkTemplates>
+				</objectTemplate>
+			</objectTemplates>
+		</systemTemplate>
+		<transformations>
+			<transformation type="link" objectId="ID-OBJECT" linkName="LINK-POSITION" linkOldValue="ID-POINT-A" linkNewValue="ID-POINT-B" />
+			<transformation type="link" objectId="ID-POINT-A" linkName="LINK-POSITION" linkOldValue="ID-OBJECT" linkNewValue="null" />
+			<transformation type="link" objectId="ID-POINT-B" linkName="LINK-POSITION" linkOldValue="null" linkNewValue="ID-OBJECT" />
+			<transformation type="attribute" objectId="ID-POINT-A" attributeName="ATTRIBUTE-OCCUPIED" attributeValue="false" />
+			<transformation type="attribute" objectId="ID-POINT-B" attributeName="ATTRIBUTE-OCCUPIED" attributeValue="true" />
+		</transformations>
+		<action name="OPERATION-MOVE-RIGHT" />
+	</systemTransformation>
+	<systemTransformation name="ELEMENT-MOVE-LEFT">
+		<systemTemplate>
+			<objectTemplates>
+				<objectTemplate id="ID-OBJECT">
+					<linkTemplates>
+						<linkTemplate name="LINK-POSITION" value="ID-POINT-B" />
+					</linkTemplates>
+				</objectTemplate>
+				<objectTemplate id="ID-POINT-A">
+					<attributeTemplates>
+						<attributeTemplate name="ATTRIBUTE-OCCUPIED" value="false" />
+					</attributeTemplates>
+					<linkTemplates>
+						<linkTemplate name="LINK-NEIGHBOR-RIGHT" value="ID-POINT-B" />
+					</linkTemplates>
+				</objectTemplate>
+				<objectTemplate id="ID-POINT-B">
+					<attributeTemplates>
+						<attributeTemplate name="ATTRIBUTE-OCCUPIED" value="true" />
+					</attributeTemplates>
+					<linkTemplates>
+						<linkTemplate name="LINK-NEIGHBOR-LEFT" value="ID-POINT-A" />
+						<linkTemplate name="LINK-POSITION" value="ID-OBJECT" />
+					</linkTemplates>
+				</objectTemplate>
+			</objectTemplates>
+		</systemTemplate>
+		<transformations>
+			<transformation type="link" objectId="ID-OBJECT" linkName="LINK-POSITION" linkOldValue="ID-POINT-B" linkNewValue="ID-POINT-A" />
+			<transformation type="link" objectId="ID-POINT-A" linkName="LINK-POSITION" linkOldValue="null" linkNewValue="ID-OBJECT" />
+			<transformation type="link" objectId="ID-POINT-B" linkName="LINK-POSITION" linkOldValue="ID-OBJECT" linkNewValue="null" />
+			<transformation type="attribute" objectId="ID-POINT-A" attributeName="ATTRIBUTE-OCCUPIED" attributeValue="true" />
+			<transformation type="attribute" objectId="ID-POINT-B" attributeName="ATTRIBUTE-OCCUPIED" attributeValue="false" />
+		</transformations>
+		<action name="OPERATION-MOVE-LEFT" />
+	</systemTransformation>
+	<systemTransformation name="ELEMENT-MOVE-TOP">
+		<systemTemplate>
+			<objectTemplates>
+				<objectTemplate id="ID-OBJECT">
+					<linkTemplates>
+						<linkTemplate name="LINK-POSITION" value="ID-POINT-A" />
+					</linkTemplates>
+				</objectTemplate>
+				<objectTemplate id="ID-POINT-A">
+					<attributeTemplates>
+						<attributeTemplate name="ATTRIBUTE-OCCUPIED" value="true" />
+					</attributeTemplates>
+					<linkTemplates>
+						<linkTemplate name="LINK-NEIGHBOR-TOP" value="ID-POINT-B" />
+						<linkTemplate name="LINK-POSITION" value="ID-OBJECT" />
+					</linkTemplates>
+				</objectTemplate>
+				<objectTemplate id="ID-POINT-B">
+					<attributeTemplates>
+						<attributeTemplate name="ATTRIBUTE-OCCUPIED" value="false" />
+					</attributeTemplates>
+					<linkTemplates>
+						<linkTemplate name="LINK-NEIGHBOR-BOTTOM" value="ID-POINT-A" />
+					</linkTemplates>
+				</objectTemplate>
+			</objectTemplates>
+		</systemTemplate>
+		<transformations>
+			<transformation type="link" objectId="ID-OBJECT" linkName="LINK-POSITION" linkOldValue="ID-POINT-A" linkNewValue="ID-POINT-B" />
+			<transformation type="link" objectId="ID-POINT-A" linkName="LINK-POSITION" linkOldValue="ID-OBJECT" linkNewValue="null" />
+			<transformation type="link" objectId="ID-POINT-B" linkName="LINK-POSITION" linkOldValue="null" linkNewValue="ID-OBJECT" />
+			<transformation type="attribute" objectId="ID-POINT-A" attributeName="ATTRIBUTE-OCCUPIED" attributeValue="false" />
+			<transformation type="attribute" objectId="ID-POINT-B" attributeName="ATTRIBUTE-OCCUPIED" attributeValue="true" />
+		</transformations>
+		<action name="OPERATION-MOVE-TOP" />
+	</systemTransformation>
+	<systemTransformation name="ELEMENT-MOVE-BOTTOM">
+		<systemTemplate>
+			<objectTemplates>
+				<objectTemplate id="ID-OBJECT">
+					<linkTemplates>
+						<linkTemplate name="LINK-POSITION" value="ID-POINT-B" />
+					</linkTemplates>
+				</objectTemplate>
+				<objectTemplate id="ID-POINT-A">
+					<attributeTemplates>
+						<attributeTemplate name="ATTRIBUTE-OCCUPIED" value="false" />
+					</attributeTemplates>
+					<linkTemplates>
+						<linkTemplate name="LINK-NEIGHBOR-TOP" value="ID-POINT-B" />
+					</linkTemplates>
+				</objectTemplate>
+				<objectTemplate id="ID-POINT-B">
+					<attributeTemplates>
+						<attributeTemplate name="ATTRIBUTE-OCCUPIED" value="true" />
+					</attributeTemplates>
+					<linkTemplates>
+						<linkTemplate name="LINK-NEIGHBOR-BOTTOM" value="ID-POINT-A" />
+						<linkTemplate name="LINK-POSITION" value="ID-OBJECT" />
+					</linkTemplates>
+				</objectTemplate>
+			</objectTemplates>
+		</systemTemplate>
+		<transformations>
+			<transformation type="link" objectId="ID-OBJECT" linkName="LINK-POSITION" linkOldValue="ID-POINT-B" linkNewValue="ID-POINT-A" />
+			<transformation type="link" objectId="ID-POINT-A" linkName="LINK-POSITION" linkOldValue="null" linkNewValue="ID-OBJECT" />
+			<transformation type="link" objectId="ID-POINT-B" linkName="LINK-POSITION" linkOldValue="ID-OBJECT" linkNewValue="null" />
+			<transformation type="attribute" objectId="ID-POINT-A" attributeName="ATTRIBUTE-OCCUPIED" attributeValue="true" />
+			<transformation type="attribute" objectId="ID-POINT-B" attributeName="ATTRIBUTE-OCCUPIED" attributeValue="false" />
+		</transformations>
+		<action name="OPERATION-MOVE-BOTTOM" />
+	</systemTransformation>
+</systemTransformations>
