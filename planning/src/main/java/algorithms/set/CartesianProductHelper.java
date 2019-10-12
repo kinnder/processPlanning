@@ -5,10 +5,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
-public final class CartesianProductHelper {
-
-	private CartesianProductHelper() {
-	}
+public abstract class CartesianProductHelper {
 
 	static public <T> List<List<T>> compute(Collection<List<T>> lists) {
 		List<List<T>> combinations = Arrays.asList(Arrays.asList());
