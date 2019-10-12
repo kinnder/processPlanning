@@ -14,21 +14,14 @@
 	<xs:element name="systemTransformation">
 		<xs:complexType>
 			<xs:sequence>
+				<xs:element name="name" type="xs:string" />
 				<xs:element ref="systemTemplate" />
 				<xs:element ref="transformations" />
 				<xs:element ref="action" />
 			</xs:sequence>
-			<xs:attribute name="name" use="required" type="xs:NCName" />
 		</xs:complexType>
 	</xs:element>
 	<xs:element name="systemTemplate">
-		<xs:complexType>
-			<xs:sequence>
-				<xs:element ref="objectTemplates" />
-			</xs:sequence>
-		</xs:complexType>
-	</xs:element>
-	<xs:element name="objectTemplates">
 		<xs:complexType>
 			<xs:sequence>
 				<xs:element maxOccurs="unbounded" ref="objectTemplate" />
@@ -38,97 +31,85 @@
 	<xs:element name="objectTemplate">
 		<xs:complexType>
 			<xs:sequence>
-				<xs:element minOccurs="0" ref="attributeTemplates" />
-				<xs:element minOccurs="0" ref="linkTemplates" />
-			</xs:sequence>
-			<xs:attribute name="id" use="required" type="xs:NCName" />
-		</xs:complexType>
-	</xs:element>
-	<xs:element name="attributeTemplates">
-		<xs:complexType>
-			<xs:sequence>
-				<xs:element maxOccurs="unbounded" ref="attributeTemplate" />
+				<xs:element name="objectId" type="xs:string" />
+				<xs:element minOccurs="0" maxOccurs="unbounded" ref="attributeTemplate" />
+				<xs:element minOccurs="0" maxOccurs="unbounded" ref="linkTemplate" />
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
 	<xs:element name="attributeTemplate">
 		<xs:complexType>
-			<xs:attribute name="name" use="required" type="xs:NCName" />
-			<xs:attribute name="value" type="xs:boolean" />
-		</xs:complexType>
-	</xs:element>
-	<xs:element name="linkTemplates">
-		<xs:complexType>
 			<xs:sequence>
-				<xs:element maxOccurs="unbounded" ref="linkTemplate" />
+				<xs:element name="name" type="xs:string" />
+				<xs:element minOccurs="0" name="value" type="xs:NCName" />
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
 	<xs:element name="linkTemplate">
 		<xs:complexType>
-			<xs:attribute name="name" use="required" type="xs:NCName" />
-			<xs:attribute name="value" use="required" type="xs:NCName" />
+			<xs:sequence>
+				<xs:element name="name" type="xs:string" />
+				<xs:element minOccurs="0" name="value" type="xs:NCName" />
+			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
 	<xs:element name="transformations">
 		<xs:complexType>
+			<xs:choice maxOccurs="unbounded">
+				<xs:element ref="attributeTransformation" />
+				<xs:element ref="linkTransformation" />
+			</xs:choice>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="linkTransformation">
+		<xs:complexType>
 			<xs:sequence>
-				<xs:element maxOccurs="unbounded" ref="transformation" />
+				<xs:element name="objectId" type="xs:string" />
+				<xs:element name="name" type="xs:string" />
+				<xs:element name="oldValue" type="xs:NCName" />
+				<xs:element name="newValue" type="xs:NCName" />
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
-	<xs:element name="transformation">
+	<xs:element name="attributeTransformation">
 		<xs:complexType>
-			<xs:attribute name="attributeName" />
-			<xs:attribute name="attributeValue" type="xs:boolean" />
-			<xs:attribute name="linkName" type="xs:NCName" />
-			<xs:attribute name="linkNewValue" type="xs:NCName" />
-			<xs:attribute name="linkOldValue" type="xs:NCName" />
-			<xs:attribute name="objectId" use="required" type="xs:NCName" />
-			<xs:attribute name="type" use="required" type="xs:NCName" />
+			<xs:sequence>
+				<xs:element name="objectId" type="xs:string" />
+				<xs:element name="name" type="xs:string" />
+				<xs:element name="value" type="xs:NCName" />
+			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
 	<xs:element name="action">
 		<xs:complexType>
 			<xs:sequence>
-				<xs:element minOccurs="0" ref="preConditionCheckers" />
-				<xs:element minOccurs="0" ref="parameterUpdaters" />
-			</xs:sequence>
-			<xs:attribute name="name" use="required" type="xs:NCName" />
-		</xs:complexType>
-	</xs:element>
-	<xs:element name="preConditionCheckers">
-		<xs:complexType>
-			<xs:sequence>
-				<xs:element ref="preConditionChecker" />
+				<xs:element name="name" type="xs:string" />
+				<xs:element minOccurs="0" maxOccurs="unbounded" ref="preConditionChecker" />
+				<xs:element minOccurs="0" maxOccurs="unbounded" ref="parameterUpdater" />
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
-	<xs:element name="preConditionChecker" type="script" />
-	<xs:element name="parameterUpdaters">
-		<xs:complexType>
-			<xs:sequence>
-				<xs:element ref="parameterUpdater" />
-			</xs:sequence>
-		</xs:complexType>
-	</xs:element>
-	<xs:element name="parameterUpdater" type="script" />
-	<xs:complexType name="script">
-		<xs:sequence>
-			<xs:element ref="script" />
-		</xs:sequence>
-	</xs:complexType>
-	<xs:element name="script">
+	<xs:element name="preConditionChecker">
 		<xs:complexType>
 			<xs:sequence>
 				<xs:element maxOccurs="unbounded" ref="line" />
 			</xs:sequence>
-			<xs:attribute name="type" use="required" type="xs:NCName" />
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="parameterUpdater">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element maxOccurs="unbounded" ref="line" />
+			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
 	<xs:element name="line">
-		<xs:complexType mixed="true">
-			<xs:attribute name="n" use="required" type="xs:integer" />
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="xs:string">
+					<xs:attribute name="n" use="required" type="xs:integer" />
+				</xs:extension>
+			</xs:simpleContent>
 		</xs:complexType>
 	</xs:element>
 </xs:schema>

@@ -1,242 +1,391 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<systemTransformations xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../systemTransformations.xsd">
-	<systemTransformation name="ELEMENT-CUT-CYLINDER-SURFACE">
+<systemTransformations
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="../systemTransformations.xsd">
+	<systemTransformation>
+		<name>ELEMENT-CUT-CYLINDER-SURFACE</name>
 		<systemTemplate>
-			<objectTemplates>
-				<objectTemplate id="ID-WORKPIECE">
-					<attributeTemplates>
-						<attributeTemplate name="ATTRIBUTE-WORKPIECE" value="true" />
-					</attributeTemplates>
-					<linkTemplates>
-						<linkTemplate name="LINK-IS-PART-OF" value="ID-CYLINDER-SURFACE" />
-						<linkTemplate name="LINK-IS-REQUIREMENT-OF" value="ID-REQUIREMENT" />
-					</linkTemplates>
-				</objectTemplate>
-				<objectTemplate id="ID-CYLINDER-SURFACE">
-					<attributeTemplates>
-						<attributeTemplate name="ATTRIBUTE-CYLINDER-SURFACE" value="true" />
-						<attributeTemplate name="ATTRIBUTE-DIAMETER" />
-						<attributeTemplate name="ATTRIBUTE-HAS-DIAMETER-REQUIREMENT" value="false" />
-					</attributeTemplates>
-					<linkTemplates>
-						<linkTemplate name="LINK-IS-PART-OF" value="ID-WORKPIECE" />
-						<linkTemplate name="LINK-IS-DIAMETER-REQUIREMENT" value="null" />
-					</linkTemplates>
-				</objectTemplate>
-				<objectTemplate id="ID-REQUIREMENT">
-					<attributeTemplates>
-						<attributeTemplate name="ATTRIBUTE-REQUIREMENT" value="true"/>
-						<attributeTemplate name="ATTRIBUTE-REQUIREMENT" />
-						<attributeTemplate name="ATTRIBUTE-DIAMETER-REQUIREMENT-STATUS" value="false" />
-					</attributeTemplates>
-					<linkTemplates>
-						<linkTemplate name="LINK-IS-REQUIREMENT-OF" value="ID-WORKPIECE" />
-						<linkTemplate name="LINK-IS-DIAMETER-REQUIREMENT" value="null" />
-					</linkTemplates>
-				</objectTemplate>
-			</objectTemplates>
+			<objectTemplate>
+				<objectId>ID-WORKPIECE</objectId>
+				<attributeTemplate>
+					<name>ATTRIBUTE-WORKPIECE</name>
+					<value>true</value>
+				</attributeTemplate>
+				<linkTemplate>
+					<name>LINK-IS-PART-OF</name>
+					<value>ID-CYLINDER-SURFACE</value>
+				</linkTemplate>
+				<linkTemplate>
+					<name>LINK-IS-REQUIREMENT-OF</name>
+					<value>ID-REQUIREMENT</value>
+				</linkTemplate>
+			</objectTemplate>
+			<objectTemplate>
+				<objectId>ID-CYLINDER-SURFACE</objectId>
+				<attributeTemplate>
+					<name>ATTRIBUTE-CYLINDER-SURFACE</name>
+					<value>true</value>
+				</attributeTemplate>
+				<attributeTemplate>
+					<name>ATTRIBUTE-DIAMETER</name>
+				</attributeTemplate>
+				<attributeTemplate>
+					<name>ATTRIBUTE-HAS-DIAMETER-REQUIREMENT</name>
+					<value>false</value>
+				</attributeTemplate>
+				<linkTemplate>
+					<name>LINK-IS-PART-OF</name>
+					<value>ID-WORKPIECE</value>
+				</linkTemplate>
+				<linkTemplate>
+					<name>LINK-IS-DIAMETER-REQUIREMENT</name>
+					<value>null</value>
+				</linkTemplate>
+			</objectTemplate>
+			<objectTemplate>
+				<objectId>ID-REQUIREMENT</objectId>
+				<attributeTemplate>
+					<name>ATTRIBUTE-REQUIREMENT</name>
+					<value>true</value>
+				</attributeTemplate>
+				<attributeTemplate>
+					<name>ATTRIBUTE-REQUIREMENT</name>
+				</attributeTemplate>
+				<attributeTemplate>
+					<name>ATTRIBUTE-DIAMETER-REQUIREMENT-STATUS</name>
+					<value>false</value>
+				</attributeTemplate>
+				<linkTemplate>
+					<name>LINK-IS-REQUIREMENT-OF</name>
+					<value>ID-WORKPIECE</value>
+				</linkTemplate>
+				<linkTemplate>
+					<name>LINK-IS-DIAMETER-REQUIREMENT</name>
+					<value>null</value>
+				</linkTemplate>
+			</objectTemplate>
 		</systemTemplate>
 		<transformations>
-			<transformation type="attribute" objectId="ID-ROBOT" attributeName="ATTRIBUTE-DIAMETER-REQUIREMENT-STATUS" attributeValue="true" />
-			<transformation type="link" objectId="ID-REQUIREMENT" linkName="LINK-IS-DIAMETER-REQUIREMENT" linkOldValue="null" linkNewValue="ID-CYLINDER-SURFACE" />
-			<transformation type="link" objectId="ID-CYLINDER-SURFACE" linkName="LINK-IS-DIAMETER-REQUIREMENT" linkOldValue="null" linkNewValue="ID-REQUIREMENT" />
-			<transformation type="attribute" objectId="ID-CYLINDER-SURFACE" attributeName="ATTRIBUTE-HAS-DIAMETER-REQUIREMENT" attributeValue="true" />
+			<attributeTransformation>
+				<objectId>ID-ROBOT</objectId>
+				<name>ATTRIBUTE-DIAMETER-REQUIREMENT-STATUS</name>
+				<value>true</value>
+			</attributeTransformation>
+			<linkTransformation>
+				<objectId>ID-REQUIREMENT</objectId>
+				<name>LINK-IS-DIAMETER-REQUIREMENT</name>
+				<oldValue>null</oldValue>
+				<newValue>ID-CYLINDER-SURFACE</newValue>
+			</linkTransformation>
+			<linkTransformation>
+				<objectId>ID-CYLINDER-SURFACE</objectId>
+				<name>LINK-IS-DIAMETER-REQUIREMENT</name>
+				<oldValue>null</oldValue>
+				<newValue>ID-REQUIREMENT</newValue>
+			</linkTransformation>
+			<attributeTransformation>
+				<objectId>ID-CYLINDER-SURFACE</objectId>
+				<name>ATTRIBUTE-HAS-DIAMETER-REQUIREMENT</name>
+				<value>true</value>
+			</attributeTransformation>
 		</transformations>
-			<action name="OPERATION_CUT_CYLINDER_SURFACE">
-				<preConditionCheckers>
-					<preConditionChecker>
-						<script type="lua">
-							<line n="1">local systemVariant = ...</line>
-							<line n="2">local cylinderSurface_actual = systemVariant:getObjectByIdMatch('ID-CYLINDER-SURFACE')</line>
-							<line n="3">local diameter = cylinderSurface_actual:getAttribute('ATTRIBUTE-DIAMETER'):getValueAsInteger()</line>
-							<line n="4">local requirement_actual = systemVariant:getObjectByIdMatch('ID-REQUIREMENT')</line>
-							<line n="5">local diameterRequired = requirement_actual:getAttribute('ATTRIBUTE-DIAMETER-REQUIREMENT'):getValueAsInteger()</line>
-							<line n="6">return diameter > diameterRequired</line>
-						</script>
-					</preConditionChecker>
-				</preConditionCheckers>
-				<parameterUpdaters>
-					<parameterUpdater>
-						<script type="lua">
-							<line n="1">local systemVariant = ...</line>
-							<line n="2">local cylinderSurface_actual = systemVariant:getObjectByIdMatch('ID-CYLINDER-SURFACE')</line>
-							<line n="3">local diameter = cylinderSurface_actual:getAttribute('ATTRIBUTE-DIAMETER'):getValueAsInteger()</line>
-							<line n="4">local requirement_actual = systemVariant:getObjectByIdMatch('ID-REQUIREMENT')</line>
-							<line n="5">local diameterRequired = requirement_actual:getAttribute('ATTRIBUTE-DIAMETER-REQUIREMENT'):getValueAsInteger()</line>
-							<line n="6">local diameterDelta = diameter - diameterRequired</line>
-							<line n="7">systemVariant:setActionParameter('PARAMETER-DIAMETER-DELTA', diameterDelta)</line>
-							<line n="8">cylinderSurface_actual:getAttribute('ATTRIBUTE-DIAMETER'):setValue(diameterRequired)</line>
-						</script>
-					</parameterUpdater>
-				</parameterUpdaters>
-			</action>
-	</systemTransformation>
-	<systemTransformation name="ELEMENT-TRIM-CYLINDER-SURFACE" >
-		<systemTemplate>
-			<objectTemplates>
-				<objectTemplate id="ID-WORKPIECE">
-					<attributeTemplates>
-						<attributeTemplate name="ATTRIBUTE-WORKPIECE" value="true" />
-					</attributeTemplates>
-					<linkTemplates>
-						<linkTemplate name="LINK-IS-PART-OF" value="ID-CYLINDER-SURFACE" />
-						<linkTemplate name="LINK-IS-REQUIREMENET-OF" value="ID-REQUIREMENT" />
-					</linkTemplates>
-				</objectTemplate>
-				<objectTemplate id="ID-CYLINDER-SURFACE">
-					<attributeTemplates>
-						<attributeTemplate name="ATTRIBUTE-CYLINDER-SURFACE" value="true" />
-						<attributeTemplate name="ATTRIBUTE-LENGTH" />
-						<attributeTemplate name="ATTRIBUTE-HAS-LENGTH-REQUIREMENT" value="false" />
-						<attributeTemplate name="ATTRIBUTE-HAS-DIAMETER-REQUIREMENT" value="true" />
-					</attributeTemplates>
-					<linkTemplates>
-						<linkTemplate name="LINK-IS-PART-OF" value="ID-WORKPIECE" />
-						<linkTemplate name="LINK-IS-LENGTH-REQUIREMENT" value="null" />
-					</linkTemplates>
-				</objectTemplate>
-				<objectTemplate id="ID-REQUIREMENT">
-					<attributeTemplates>
-						<attributeTemplate name="ATTRIBUTE-REQUIREMENT" value="true" />
-						<attributeTemplate name="ATTRIBUTE-LENGTH-REQUIREMENT" />
-						<attributeTemplate name="ATTRIBUTE-LENGTH-REQUIREMENT-STATUS" value="false" />
-					</attributeTemplates>
-					<linkTemplates>
-						<linkTemplate name="LINK-IS-REQUIREMENT-OF" value="ID-WORKPIECE" />
-						<linkTemplate name="LINK-IS-LENGTH-REQUIREMENT" value="null" />
-					</linkTemplates>
-				</objectTemplate>
-			</objectTemplates>
-		</systemTemplate>
-		<transformations>
-			<transformation type="attribute" objectId="ID-REQUIREMENT" attributeName="ATTRIBUTE-LENGTH-REQUIREMENT-STATUS" attributeValue="true"/>
-			<transformation type="link" objectId="ID-REQUIREMENT" linkName="LINK-IS-LENGTH-REQUIREMENT" linkOldValue="null" linkNewValue="ID-CYLINDER-SURFACE" />
-			<transformation type="link" objectId="ID-CYLINDER-SURFACE" linkName="LINK-IS-LENGTH-REQUIREMENT" linkOldValue="null" linkNewValue="ID-REQUIREMENT" />
-			<transformation type="attribute" objectId="ID-CYLINDER-SURFACE" attributeName="ATTRIBUTE-HAS-LENGTH-REQUIREMENT" attributeValue="true" />
-		</transformations>
-		<action name="OPERATION-TRIM-CYLINDER-SURFACE">
-			<preConditionCheckers>
-				<preConditionChecker>
-					<script type="lua">
-						<line n="1">local systemVariant = ...</line>
-						<line n="2">local cylinderSurface_actual = systemVariant:getObjectByIdMatch('ID-CYLINDER-SURFACE')</line>
-						<line n="3">local length = cylinderSurface_actual:getAttribute('ATTRIBUTE-LENGTH'):getValueAsInteger()</line>
-						<line n="4">local requirement_actual = systemVariant:getObjectByIdMatch('ID-REQUIREMENT')</line>
-						<line n="5">local lengthRequired = requirement_actual:getAttribute('ATTRIBUTE-LENGTH-REQUIREMENT'):getValueAsInteger()</line>
-						<line n="6">return length == lengthRequired</line>
-					</script>
-				</preConditionChecker>
-			</preConditionCheckers>
+		<action>
+			<name>OPERATION_CUT_CYLINDER_SURFACE</name>
+			<preConditionChecker>
+				<line n="1">local systemVariant = ...</line>
+				<line n="2">local cylinderSurface_actual = systemVariant:getObjectByIdMatch('ID-CYLINDER-SURFACE')</line>
+				<line n="3">local diameter = cylinderSurface_actual:getAttribute('ATTRIBUTE-DIAMETER'):getValueAsInteger()</line>
+				<line n="4">local requirement_actual = systemVariant:getObjectByIdMatch('ID-REQUIREMENT')</line>
+				<line n="5">local diameterRequired = requirement_actual:getAttribute('ATTRIBUTE-DIAMETER-REQUIREMENT'):getValueAsInteger()</line>
+				<line n="6">return diameter > diameterRequired</line>
+			</preConditionChecker>
+			<parameterUpdater>
+				<line n="1">local systemVariant = ...</line>
+				<line n="2">local cylinderSurface_actual = systemVariant:getObjectByIdMatch('ID-CYLINDER-SURFACE')</line>
+				<line n="3">local diameter = cylinderSurface_actual:getAttribute('ATTRIBUTE-DIAMETER'):getValueAsInteger()</line>
+				<line n="4">local requirement_actual = systemVariant:getObjectByIdMatch('ID-REQUIREMENT')</line>
+				<line n="5">local diameterRequired = requirement_actual:getAttribute('ATTRIBUTE-DIAMETER-REQUIREMENT'):getValueAsInteger()</line>
+				<line n="6">local diameterDelta = diameter - diameterRequired</line>
+				<line n="7">systemVariant:setActionParameter('PARAMETER-DIAMETER-DELTA', diameterDelta)</line>
+				<line n="8">cylinderSurface_actual:getAttribute('ATTRIBUTE-DIAMETER'):setValue(diameterRequired)</line>
+			</parameterUpdater>
 		</action>
 	</systemTransformation>
-	<systemTransformation name="ELEMENT-SPLIT-CYLINDER-SURFACE">
+	<systemTransformation>
+		<name>ELEMENT-TRIM-CYLINDER-SURFACE</name>
 		<systemTemplate>
-			<objectTemplates>
-				<objectTemplate id="ID-WORKPIECE">
-					<attributeTemplates>
-						<attributeTemplate name="ATTRIBUTE-WORKPIECE" value="true"/>
-					</attributeTemplates>
-					<linkTemplates>
-						<linkTemplate name="LINK-IS-PART-OF" value="ID-CYLINDER-SURFACE" />
-						<linkTemplate name="LINK-IS-REQUIREMENT-OF" value="ID-REQUIREMENT-L" />
-						<linkTemplate name="LINK-IS-REQUIREMENT-OF" value="ID-REQUIREMENT-R" />
-					</linkTemplates>
-				</objectTemplate>
-				<objectTemplate id="ID-CYLINDER-SURFACE">
-					<attributeTemplates>
-						<attributeTemplate name="ATTRIBUTE-CYLINDER-SURFACE" value="true" />
-						<attributeTemplate name="ATTRIBUTE-DIAMETER" />
-						<attributeTemplate name="ATTRIBUTE-LENGTH" />
-						<attributeTemplate name="ATTRIBUTE-HAS-LENGTH-REQUIREMENT" value="false"/>
-					</attributeTemplates>
-					<linkTemplates>
-						<linkTemplate name="LINK-IS-PART-OF" value="ID-WORKPIECE" />
-						<linkTemplate name="LINK-IS-LENGTH-REQUIREMENT" value="null" />
-					</linkTemplates>
-				</objectTemplate>
-				<objectTemplate id="ID-REQUIREMENT-L">
-					<attributeTemplates>
-						<attributeTemplate name="ATTRIBUTE-REQUIREMENT" value="true" />
-						<attributeTemplate name="ATTRIBUTE-LENGTH-REQUIREMENT" />
-						<attributeTemplate name="ATTRIBUTE-LENGTH-REQUIREMENT-STATUS" value="false" />
-					</attributeTemplates>
-					<linkTemplates>
-						<linkTemplate name="LIST-IS-REQUIREMENT-OF" value="ID-WORKPIECE" />
-						<linkTemplate name="LINK-SURFACE-SIDE-RIGHT" value="ID-REQUIREMENT-R" />
-						<linkTemplate name="LINK-IS-LENGTH-REQUIREMENT" value="null" />
-					</linkTemplates>
-				</objectTemplate>
-				<objectTemplate id="ID-REQUIREMENT-R">
-					<attributeTemplates>
-						<attributeTemplate name="ATTRIBUTE-REQUIREMENT" value="true" />
-						<attributeTemplate name="ATTRIBUTE-DIAMETER-REQUIREMENT" />
-						<attributeTemplate name="ATTRIBUTE-DIAMETER-REQUIREMENT-STATUS" value="false" />
-					</attributeTemplates>
-					<linkTemplates>
-						<linkTemplate name="LINK-IS-REQUIREMENT-OF" value="ID-WORKPIECE" />
-						<linkTemplate name="LINK-SURFACE-SIDE-LEFT" value="ID-REQUIREMENT-L" />
-						<linkTemplate name="LINK-IS-DIAMETER-REQUIREMENT" value="null" />
-					</linkTemplates>
-				</objectTemplate>
-			</objectTemplates>
+			<objectTemplate>
+				<objectId>ID-WORKPIECE</objectId>
+				<attributeTemplate>
+					<name>ATTRIBUTE-WORKPIECE</name>
+					<value>true</value>
+				</attributeTemplate>
+				<linkTemplate>
+					<name>LINK-IS-PART-OF</name>
+					<value>ID-CYLINDER-SURFACE</value>
+				</linkTemplate>
+				<linkTemplate>
+					<name>LINK-IS-REQUIREMENET-OF</name>
+					<value>ID-REQUIREMENT</value>
+				</linkTemplate>
+			</objectTemplate>
+			<objectTemplate>
+				<objectId>ID-CYLINDER-SURFACE</objectId>
+				<attributeTemplate>
+					<name>ATTRIBUTE-CYLINDER-SURFACE</name>
+					<value>true</value>
+				</attributeTemplate>
+				<attributeTemplate>
+					<name>ATTRIBUTE-LENGTH</name>
+				</attributeTemplate>
+				<attributeTemplate>
+					<name>ATTRIBUTE-HAS-LENGTH-REQUIREMENT</name>
+					<value>false</value>
+				</attributeTemplate>
+				<attributeTemplate>
+					<name>ATTRIBUTE-HAS-DIAMETER-REQUIREMENT</name>
+					<value>true</value>
+				</attributeTemplate>
+				<linkTemplate>
+					<name>LINK-IS-PART-OF</name>
+					<value>ID-WORKPIECE</value>
+				</linkTemplate>
+				<linkTemplate>
+					<name>LINK-IS-LENGTH-REQUIREMENT</name>
+					<value>null</value>
+				</linkTemplate>
+			</objectTemplate>
+			<objectTemplate>
+				<objectId>ID-REQUIREMENT</objectId>
+				<attributeTemplate>
+					<name>ATTRIBUTE-REQUIREMENT</name>
+					<value>true</value>
+				</attributeTemplate>
+				<attributeTemplate>
+					<name>ATTRIBUTE-LENGTH-REQUIREMENT</name>
+				</attributeTemplate>
+				<attributeTemplate>
+					<name>ATTRIBUTE-LENGTH-REQUIREMENT-STATUS</name>
+					<value>false</value>
+				</attributeTemplate>
+				<linkTemplate>
+					<name>LINK-IS-REQUIREMENT-OF</name>
+					<value>ID-WORKPIECE</value>
+				</linkTemplate>
+				<linkTemplate>
+					<name>LINK-IS-LENGTH-REQUIREMENT</name>
+					<value>null</value>
+				</linkTemplate>
+			</objectTemplate>
 		</systemTemplate>
 		<transformations>
-			<transformation type="attribute" objectId="ID-REQUIREMENT-L" attributeName="ATTRIBUTE-LENGTH-REQUIREMENT-STATUS" attributeValue="true" />
-			<transformation type="attribute" objectId="ID-REQUIREMENT-R" attributeName="ATTRIBUTE-DIAMETER-REQUIREMENT-STATUS" attributeValue="true" />
-			<transformation type="link" objectId="ID-CYLINDER-SURFACE" linkName="LINK-IS-LENGTH-REQUIREMENT" linkOldValue="null" linkNewValue="ID-REQUIREMENT-L" />
-			<transformation type="link" objectId="ID-REQUIREMENT-L" linkName="LINK-IS-LENGTH-REQUIREMENT" linkOldValue="null" linkNewValue="ID-CYLINDER-SURFACE" />
-			<transformation type="attribute" objectId="ID-CYLINDER-SURFACE" attributeName="ATTRIBUTE-HAS-LENGTH-REQUIREMENT" attributeValue="true" />
+			<attributeTransformation>
+				<objectId>ID-REQUIREMENT</objectId>
+				<name>ATTRIBUTE-LENGTH-REQUIREMENT-STATUS</name>
+				<value>true</value>
+			</attributeTransformation>
+			<linkTransformation>
+				<objectId>ID-REQUIREMENT</objectId>
+				<name>LINK-IS-LENGTH-REQUIREMENT</name>
+				<oldValue>null</oldValue>
+				<newValue>ID-CYLINDER-SURFACE</newValue>
+			</linkTransformation>
+			<linkTransformation>
+				<objectId>ID-CYLINDER-SURFACE</objectId>
+				<name>LINK-IS-LENGTH-REQUIREMENT</name>
+				<oldValue>null</oldValue>
+				<newValue>ID-REQUIREMENT</newValue>
+			</linkTransformation>
+			<attributeTransformation>
+				<objectId>ID-CYLINDER-SURFACE</objectId>
+				<name>ATTRIBUTE-HAS-LENGTH-REQUIREMENT</name>
+				<value>true</value>
+			</attributeTransformation>
 		</transformations>
-		<action name="OPERATION-SPLIT-CYLINDER-SURFACE">
-			<preConditionCheckers>
-				<preConditionChecker>
-					<script type="lua">
-						<line n="1">local systemVariant = ...</line>
-						<line n="2">local cylinderSurface_actual = systemVariant:getObjectByIdMatch('ID-CYLINDER-SURFACE')</line>
-						<line n="3">local diameter = cylinderSurface_actual:getAttribute('ATTRIBUTE-DIAMETER'):getValueAsInteger()</line>
-						<line n="4">local length = cylinderSurface_actual:getAttribute('ATTRIBUTE-LENGTH'):getValueAsInteger()</line>
-						<line n="5">local requirement_l_actual = systemVariant:getObjectByIdMatch('ID-REQUIREMENT-L')</line>
-						<line n="6">local lengthRequired = requirement_l_actual:getAttribute('ATTRIBUTE-LENGTH-REQUIREMENT'):getValueAsInteger()</line>
-						<line n="7">local requirement_r_actual = systemVariant:getObjectByIdMatch('ID-REQUIREMENT-R')</line>
-						<line n="8">local diameterRequired = requirement_r_actual:getAttribute('ATTRIBUTE-DIAMETER-REQUIREMENT'):getValueAsInteger()</line>
-						<line n="9">return (diameter > diameterRequired) and (length > lengthRequired)</line>
-					</script>
-				</preConditionChecker>
-			</preConditionCheckers>
-			<parameterUpdaters>
-				<parameterUpdater>
-					<script type="lua">
-						<line n="1">local systemVariant = ...</line>
-						<line n="2">local cylinderSurface_actual = systemVariant:getObjectByIdMatch('ID-CYLINDER-SURFACE')</line>
-						<line n="3">local diameter = cylinderSurface_actual:getAttribute('ATTRIBUTE-DIAMETER'):getValueAsInteger()</line>
-						<line n="4">local length = cylinderSurface_actual:getAttribute('ATTRIBUTE-LENGTH'):getValueAsInteger()</line>
-						<line n="5">local requirement_l_actual = systemVariant:getObjectByIdMatch('ID-REQUIREMENT-L')</line>
-						<line n="6">local lengthRequired = requirement_l_actual:getAttribute('ATTRIBUTE-LENGTH-REQUIREMENT'):getValueAsInteger()</line>
-						<line n="7">local requirement_r_actual = systemVariant:getObjectByIdMatch('ID-REQUIREMENT-R')</line>
-						<line n="8">local diameterRequired = requirement_r_actual:getAttribute('ATTRIBUTE-DIAMETER-REQUIREMENT'):getValueAsInteger()</line>
-						<line n="9">local workpiece_actual = systemVariant:getObjectByIdMatch('ID-WORKPIECE')</line>
-						<line n="10">local diameterDelta = diameter - diameterRequired</line>
-						<line n="11">systemVariant:setActionParameter('PARAMETER-DIAMETER-DELTA', diameterDelta)</line>
-						<line n="12">local lengthDelta = length - lengthRequired</line>
-						<line n="13">systemVariant:setActionParameter('PARAMETER-LENGTH-DELTA', lengthDelta)</line>
-						<line n="14">local cylinderSurface_new = luajava.newInstance('planning.model.SystemObject', 'OBJECT-CYLINDER-SURFACE')</line>
-						<line n="15">cylinderSurface_new:addAttribute('ATTRIBUTE-CYLINDER-SURFACE', true)</line>
-						<line n="16">cylinderSurface_new:addAttribute('ATTRIBUTE-DIAMETER', diameterRequired)</line>
-						<line n="17">cylinderSurface_new:addAttribute('ATTRIBUTE-LENGTH', lengthDelta)</line>
-						<line n="18">cylinderSurface_new:addAttribute('ATTRIBUTE-HAS-DIAMETER-REQUIREMENT', true)</line>
-						<line n="19">cylinderSurface_new:addAttribute('ATTRIBUTE-HAS-LENGTH-REQUIREMENT', false)</line>
-						<line n="20">cylinderSurface_new:addLink('LINK-IS-PART-OF', workpiece_actual:getId())</line>
-						<line n="21">cylinderSurface_new:addLink('LINK-IS-DIAMETER-REQUIREMENT', requirement_r_actual:getId())</line>
-						<line n="22">cylinderSurface_new:addLink('LINK-IS-LENGTH-REQUIREMENT', nil)</line>
-						<line n="23">cylinderSurface_new:addLink('LINK-SURFACE-SIDE-LEFT', cylinderSurface_actual:getId())</line>
-						<line n="24">systemVariant:getSystem():addObject(cylinderSurface_new)</line>
-						<line n="25">cylinderSurface_actual:getAttribute('ATTRIBUTE-LENGTH'):setValue(lengthRequired)</line>
-						<line n="26">cylinderSurface_new:addLink('LINK-SURFACE-SIDE-RIGHT', cylinderSurface_new:getId())</line>
-						<line n="27">workpiece_actual:addLink('LINK-IS-PART-OF', cylinderSurface_new:getId())</line>
-						<line n="28">requirement_r_actual:getLink('LINK-IS-DIAMETER-REQUIREMENT', nil):setObjectId(cylinderSurface_new:getId())</line>
-					</script>
-				</parameterUpdater>
-			</parameterUpdaters>
+		<action>
+			<name>OPERATION-TRIM-CYLINDER-SURFACE</name>
+			<preConditionChecker>
+				<line n="1">local systemVariant = ...</line>
+				<line n="2">local cylinderSurface_actual = systemVariant:getObjectByIdMatch('ID-CYLINDER-SURFACE')</line>
+				<line n="3">local length = cylinderSurface_actual:getAttribute('ATTRIBUTE-LENGTH'):getValueAsInteger()</line>
+				<line n="4">local requirement_actual = systemVariant:getObjectByIdMatch('ID-REQUIREMENT')</line>
+				<line n="5">local lengthRequired = requirement_actual:getAttribute('ATTRIBUTE-LENGTH-REQUIREMENT'):getValueAsInteger()</line>
+				<line n="6">return length == lengthRequired</line>
+			</preConditionChecker>
+		</action>
+	</systemTransformation>
+	<systemTransformation>
+		<name>ELEMENT-SPLIT-CYLINDER-SURFACE</name>
+		<systemTemplate>
+			<objectTemplate>
+				<objectId>ID-WORKPIECE</objectId>
+				<attributeTemplate>
+					<name>ATTRIBUTE-WORKPIECE</name>
+					<value>true</value>
+				</attributeTemplate>
+				<linkTemplate>
+					<name>LINK-IS-PART-OF</name>
+					<value>ID-CYLINDER-SURFACE</value>
+				</linkTemplate>
+				<linkTemplate>
+					<name>LINK-IS-REQUIREMENT-OF</name>
+					<value>ID-REQUIREMENT-L</value>
+				</linkTemplate>
+				<linkTemplate>
+					<name>LINK-IS-REQUIREMENT-OF</name>
+					<value>ID-REQUIREMENT-R</value>
+				</linkTemplate>
+			</objectTemplate>
+			<objectTemplate>
+				<objectId>ID-CYLINDER-SURFACE</objectId>
+				<attributeTemplate>
+					<name>ATTRIBUTE-CYLINDER-SURFACE</name>
+					<value>true</value>
+				</attributeTemplate>
+				<attributeTemplate>
+					<name>ATTRIBUTE-DIAMETER</name>
+				</attributeTemplate>
+				<attributeTemplate>
+					<name>ATTRIBUTE-LENGTH</name>
+				</attributeTemplate>
+				<attributeTemplate>
+					<name>ATTRIBUTE-HAS-LENGTH-REQUIREMENT</name>
+					<value>false</value>
+				</attributeTemplate>
+				<linkTemplate>
+					<name>LINK-IS-PART-OF</name>
+					<value>ID-WORKPIECE</value>
+				</linkTemplate>
+				<linkTemplate>
+					<name>LINK-IS-LENGTH-REQUIREMENT</name>
+					<value>null</value>
+				</linkTemplate>
+			</objectTemplate>
+			<objectTemplate>
+				<objectId>ID-REQUIREMENT-L</objectId>
+				<attributeTemplate>
+					<name>ATTRIBUTE-REQUIREMENT</name>
+					<value>true</value>
+				</attributeTemplate>
+				<attributeTemplate>
+					<name>ATTRIBUTE-LENGTH-REQUIREMENT</name>
+				</attributeTemplate>
+				<attributeTemplate>
+					<name>ATTRIBUTE-LENGTH-REQUIREMENT-STATUS</name>
+					<value>false</value>
+				</attributeTemplate>
+				<linkTemplate>
+					<name>LIST-IS-REQUIREMENT-OF</name>
+					<value>ID-WORKPIECE</value>
+				</linkTemplate>
+				<linkTemplate>
+					<name>LINK-SURFACE-SIDE-RIGHT</name>
+					<value>ID-REQUIREMENT-R</value>
+				</linkTemplate>
+				<linkTemplate>
+					<name>LINK-IS-LENGTH-REQUIREMENT</name>
+					<value>null</value>
+				</linkTemplate>
+			</objectTemplate>
+			<objectTemplate>
+				<objectId>ID-REQUIREMENT-R</objectId>
+				<attributeTemplate>
+					<name>ATTRIBUTE-REQUIREMENT</name>
+					<value>true</value>
+				</attributeTemplate>
+				<attributeTemplate>
+					<name>ATTRIBUTE-DIAMETER-REQUIREMENT</name>
+				</attributeTemplate>
+				<attributeTemplate>
+					<name>ATTRIBUTE-DIAMETER-REQUIREMENT-STATUS</name>
+					<value>false</value>
+				</attributeTemplate>
+				<linkTemplate>
+					<name>LINK-IS-REQUIREMENT-OF</name>
+					<value>ID-WORKPIECE</value>
+				</linkTemplate>
+				<linkTemplate>
+					<name>LINK-SURFACE-SIDE-LEFT</name>
+					<value>ID-REQUIREMENT-L</value>
+				</linkTemplate>
+				<linkTemplate>
+					<name>LINK-IS-DIAMETER-REQUIREMENT</name>
+					<value>null</value>
+				</linkTemplate>
+			</objectTemplate>
+		</systemTemplate>
+		<transformations>
+			<attributeTransformation>
+				<objectId>ID-REQUIREMENT-L</objectId>
+				<name>ATTRIBUTE-LENGTH-REQUIREMENT-STATUS</name>
+				<value>true</value>
+			</attributeTransformation>
+			<attributeTransformation>
+				<objectId>ID-REQUIREMENT-R</objectId>
+				<name>ATTRIBUTE-DIAMETER-REQUIREMENT-STATUS</name>
+				<value>true</value>
+			</attributeTransformation>
+			<linkTransformation>
+				<objectId>ID-CYLINDER-SURFACE</objectId>
+				<name>LINK-IS-LENGTH-REQUIREMENT</name>
+				<oldValue>null</oldValue>
+				<newValue>ID-REQUIREMENT-L</newValue>
+			</linkTransformation>
+			<linkTransformation>
+				<objectId>ID-REQUIREMENT-L</objectId>
+				<name>LINK-IS-LENGTH-REQUIREMENT</name>
+				<oldValue>null</oldValue>
+				<newValue>ID-CYLINDER-SURFACE</newValue>
+			</linkTransformation>
+			<attributeTransformation>
+				<objectId>ID-CYLINDER-SURFACE</objectId>
+				<name>ATTRIBUTE-HAS-LENGTH-REQUIREMENT</name>
+				<value>true</value>
+			</attributeTransformation>
+		</transformations>
+		<action>
+			<name>OPERATION-SPLIT-CYLINDER-SURFACE</name>
+			<preConditionChecker>
+				<line n="1">local systemVariant = ...</line>
+				<line n="2">local cylinderSurface_actual = systemVariant:getObjectByIdMatch('ID-CYLINDER-SURFACE')</line>
+				<line n="3">local diameter = cylinderSurface_actual:getAttribute('ATTRIBUTE-DIAMETER'):getValueAsInteger()</line>
+				<line n="4">local length = cylinderSurface_actual:getAttribute('ATTRIBUTE-LENGTH'):getValueAsInteger()</line>
+				<line n="5">local requirement_l_actual = systemVariant:getObjectByIdMatch('ID-REQUIREMENT-L')</line>
+				<line n="6">local lengthRequired = requirement_l_actual:getAttribute('ATTRIBUTE-LENGTH-REQUIREMENT'):getValueAsInteger()</line>
+				<line n="7">local requirement_r_actual = systemVariant:getObjectByIdMatch('ID-REQUIREMENT-R')</line>
+				<line n="8">local diameterRequired = requirement_r_actual:getAttribute('ATTRIBUTE-DIAMETER-REQUIREMENT'):getValueAsInteger()</line>
+				<line n="9">return (diameter > diameterRequired) and (length > lengthRequired)</line>
+			</preConditionChecker>
+			<parameterUpdater>
+				<line n="1">local systemVariant = ...</line>
+				<line n="2">local cylinderSurface_actual = systemVariant:getObjectByIdMatch('ID-CYLINDER-SURFACE')</line>
+				<line n="3">local diameter = cylinderSurface_actual:getAttribute('ATTRIBUTE-DIAMETER'):getValueAsInteger()</line>
+				<line n="4">local length = cylinderSurface_actual:getAttribute('ATTRIBUTE-LENGTH'):getValueAsInteger()</line>
+				<line n="5">local requirement_l_actual = systemVariant:getObjectByIdMatch('ID-REQUIREMENT-L')</line>
+				<line n="6">local lengthRequired = requirement_l_actual:getAttribute('ATTRIBUTE-LENGTH-REQUIREMENT'):getValueAsInteger()</line>
+				<line n="7">local requirement_r_actual = systemVariant:getObjectByIdMatch('ID-REQUIREMENT-R')</line>
+				<line n="8">local diameterRequired = requirement_r_actual:getAttribute('ATTRIBUTE-DIAMETER-REQUIREMENT'):getValueAsInteger()</line>
+				<line n="9">local workpiece_actual = systemVariant:getObjectByIdMatch('ID-WORKPIECE')</line>
+				<line n="10">local diameterDelta = diameter - diameterRequired </line>
+				<line n="11">systemVariant:setActionParameter('PARAMETER-DIAMETER-DELTA', diameterDelta)</line>
+				<line n="12">local lengthDelta = length - lengthRequired</line>
+				<line n="13">systemVariant:setActionParameter('PARAMETER-LENGTH-DELTA', lengthDelta)</line>
+				<line n="14">local cylinderSurface_new = luajava.newInstance('planning.model.SystemObject', 'OBJECT-CYLINDER-SURFACE')</line>
+				<line n="15">cylinderSurface_new:addAttribute('ATTRIBUTE-CYLINDER-SURFACE', true)</line>
+				<line n="16">cylinderSurface_new:addAttribute('ATTRIBUTE-DIAMETER', diameterRequired)</line>
+				<line n="17">cylinderSurface_new:addAttribute('ATTRIBUTE-LENGTH', lengthDelta)</line>
+				<line n="18">cylinderSurface_new:addAttribute('ATTRIBUTE-HAS-DIAMETER-REQUIREMENT', true)</line>
+				<line n="19">cylinderSurface_new:addAttribute('ATTRIBUTE-HAS-LENGTH-REQUIREMENT', false)</line>
+				<line n="20">cylinderSurface_new:addLink('LINK-IS-PART-OF', workpiece_actual:getId())</line>
+				<line n="21">cylinderSurface_new:addLink('LINK-IS-DIAMETER-REQUIREMENT', requirement_r_actual:getId())</line>
+				<line n="22">cylinderSurface_new:addLink('LINK-IS-LENGTH-REQUIREMENT', nil)</line>
+				<line n="23">cylinderSurface_new:addLink('LINK-SURFACE-SIDE-LEFT', cylinderSurface_actual:getId())</line>
+				<line n="24">systemVariant:getSystem():addObject(cylinderSurface_new)</line>
+				<line n="25">cylinderSurface_actual:getAttribute('ATTRIBUTE-LENGTH'):setValue(lengthRequired)</line>
+				<line n="26">cylinderSurface_new:addLink('LINK-SURFACE-SIDE-RIGHT', cylinderSurface_new:getId())</line>
+				<line n="27">workpiece_actual:addLink('LINK-IS-PART-OF', cylinderSurface_new:getId())</line>
+				<line n="28">requirement_r_actual:getLink('LINK-IS-DIAMETER-REQUIREMENT', nil):setObjectId(cylinderSurface_new:getId())</line>
+			</parameterUpdater>
 		</action>
 	</systemTransformation>
 </systemTransformations>

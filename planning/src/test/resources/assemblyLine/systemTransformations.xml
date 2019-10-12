@@ -1,475 +1,799 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<systemTransformations xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../systemTransformations.xsd">
-	<systemTransformation name="ELEMENT-TURN-WITHOUT-LOAD">
+<systemTransformations
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="../systemTransformations.xsd">
+	<systemTransformation>
+		<name>ELEMENT-TURN-WITHOUT-LOAD</name>
 		<systemTemplate>
-			<objectTemplates>
-				<objectTemplate id="ID-ROBOT">
-					<attributeTemplates>
-						<attributeTemplate name="ATTRIBUTE-PICK-AND-PLACE-ROBOT" value="true" />
-					</attributeTemplates>
-					<linkTemplates>
-						<linkTemplate name="LINK-ROTARY-DRIVE-POSITION" value="ID-PLANE-Y-SOURCE" />
-						<linkTemplate name="LINK-GRAB-POSITION" value="null" />
-					</linkTemplates>
-				</objectTemplate>
-				<objectTemplate id="ID-PLANE-Y-SOURCE">
-					<attributeTemplates>
-						<attributeTemplate name="ATTRIBUTE-PLANE-Y" value="true" />
-					</attributeTemplates>
-					<linkTemplates>
-						<linkTemplate name="LINK-ROTARY-DRIVE-POSITION" value="ID-ROBOT" />
-					</linkTemplates>
-				</objectTemplate>
-				<objectTemplate id="ID-PLANE-Y-TARGET">
-					<attributeTemplates>
-						<attributeTemplate name="ATTRIBUTE-PLANE-Y" value="true" />
-					</attributeTemplates>
-					<linkTemplates>
-						<linkTemplate name="LINK-ROTARY-DRIVE-POSITION" value="null" />
-					</linkTemplates>
-				</objectTemplate>
-			</objectTemplates>
+			<objectTemplate>
+				<objectId>ID-ROBOT</objectId>
+				<attributeTemplate>
+					<name>ATTRIBUTE-PICK-AND-PLACE-ROBOT</name>
+					<value>true</value>
+				</attributeTemplate>
+				<linkTemplate>
+					<name>LINK-ROTARY-DRIVE-POSITION</name>
+					<value>ID-PLANE-Y-SOURCE</value>
+				</linkTemplate>
+				<linkTemplate>
+					<name>LINK-GRAB-POSITION</name>
+					<value>null</value>
+				</linkTemplate>
+			</objectTemplate>
+			<objectTemplate>
+				<objectId>ID-PLANE-Y-SOURCE</objectId>
+				<attributeTemplate>
+					<name>ATTRIBUTE-PLANE-Y</name>
+					<value>true</value>
+				</attributeTemplate>
+				<linkTemplate>
+					<name>LINK-ROTARY-DRIVE-POSITION</name>
+					<value>ID-ROBOT</value>
+				</linkTemplate>
+			</objectTemplate>
+			<objectTemplate>
+				<objectId>ID-PLANE-Y-TARGET</objectId>
+				<attributeTemplate>
+					<name>ATTRIBUTE-PLANE-Y</name>
+					<value>true</value>
+				</attributeTemplate>
+				<linkTemplate>
+					<name>LINK-ROTARY-DRIVE-POSITION</name>
+					<value>null</value>
+				</linkTemplate>
+			</objectTemplate>
 		</systemTemplate>
 		<transformations>
-			<transformation type="link" objectId="ID-ROBOT" linkName="LINK-ROTARY-DRIVE-POSITION" linkOldValue="ID-PLANE-Y-SOURCE" linkNewValue="ID-PLANE-Y-TARGET" />
-			<transformation type="link" objectId="ID-PLANE-Y-SOURCE" linkName="LINK-ROTARY-DRIVE-POSITION" linkOldValue="ID-ROBOT" linkNewValue="null" />
-			<transformation type="link" objectId="ID-PLANE-Y-TARGET" linkName="LINK-ROTARY-DRIVE-POSITION" linkOldValue="null" linkNewValue="ID-ROBOT" />
+			<linkTransformation>
+				<objectId>ID-ROBOT</objectId>
+				<name>LINK-ROTARY-DRIVE-POSITION</name>
+				<oldValue>ID-PLANE-Y-SOURCE</oldValue>
+				<newValue>ID-PLANE-Y-TARGET</newValue>
+			</linkTransformation>
+			<linkTransformation>
+				<objectId>ID-PLANE-Y-SOURCE</objectId>
+				<name>LINK-ROTARY-DRIVE-POSITION</name>
+				<oldValue>ID-ROBOT</oldValue>
+				<newValue>null</newValue>
+			</linkTransformation>
+			<linkTransformation>
+				<objectId>ID-PLANE-Y-TARGET</objectId>
+				<name>LINK-ROTARY-DRIVE-POSITION</name>
+				<oldValue>null</oldValue>
+				<newValue>ID-ROBOT</newValue>
+			</linkTransformation>
 		</transformations>
-		<action name="OPERATION-TURN-WITHOUT-LOAD">
-			<parameterUpdaters>
-				<parameterUpdater>
-					<script type="lua">
-						<line n="1">local systemVariant = ...</line>
-						<line n="2">local object = systemVariant:getObjectByIdMatch('ID-PLANE-Y-TARGET')</line>
-						<line n="3">systemVariant:setActionParameter('PARAMETER_TARGET', object:getName())</line>
-					</script>
-				</parameterUpdater>
-			</parameterUpdaters>
+		<action>
+			<name>OPERATION-TURN-WITHOUT-LOAD</name>
+			<parameterUpdater>
+				<line n="1">local systemVariant = ...</line>
+				<line n="2">local object = systemVariant:getObjectByIdMatch('ID-PLANE-Y-TARGET')</line>
+				<line n="3">systemVariant:setActionParameter('PARAMETER_TARGET', object:getName())</line>
+			</parameterUpdater>
 		</action>
 	</systemTransformation>
-	<systemTransformation name="ELEMENT-TURN-WITH-LOAD">
+	<systemTransformation>
+		<name>ELEMENT-TURN-WITH-LOAD</name>
 		<systemTemplate>
-			<objectTemplates>
-				<objectTemplate id="ID-ROBOT">
-					<attributeTemplates>
-						<attributeTemplate name="ATTRIBUTE-PICK-AND-PLACE-ROBOT" value="true" />
-					</attributeTemplates>
-					<linkTemplates>
-						<linkTemplate name="LINK-ROTARY-DRIVE-POSITION" value="ID-PLANE-Y-SOURCE" />
-						<linkTemplate name="LINK-GRAB-POSITION" value="ID-PACKAGE-BOX" />
-					</linkTemplates>
-				</objectTemplate>
-				<objectTemplate id="ID-PLANE-Y-SOURCE">
-					<attributeTemplates>
-						<attributeTemplate name="ATTRIBUTE-PLANE-Y" value="true" />
-					</attributeTemplates>
-					<linkTemplates>
-						<linkTemplate name="LINK-ROTARY-DRIVE-POSITION" value="ID-ROBOT" />
-					</linkTemplates>
-				</objectTemplate>
-				<objectTemplate id="ID-PLANE-Y-TARGET">
-					<attributeTemplates>
-						<attributeTemplate name="ATTRIBUTE-PLANE-Y" value="true" />
-					</attributeTemplates>
-					<linkTemplates>
-						<linkTemplate name="LINK-ROTARY-DRIVE-POSITION" value="null" />
-					</linkTemplates>
-				</objectTemplate>
-				<objectTemplate id="ID-PACKAGE-BOX">
-					<attributeTemplates>
-						<attributeTemplate name="ATTRIBUTE-PACKAGE" value="true" />
-					</attributeTemplates>
-					<linkTemplates>
-						<linkTemplate name="LINK-GRAB-POSITION" value="ID-ROBOT" />
-						<linkTemplate name="LINK-PACKAGE-BOX-POSITION" value="null" />
-					</linkTemplates>
-				</objectTemplate>
-			</objectTemplates>
+			<objectTemplate>
+				<objectId>ID-ROBOT</objectId>
+				<attributeTemplate>
+					<name>ATTRIBUTE-PICK-AND-PLACE-ROBOT</name>
+					<value>true</value>
+				</attributeTemplate>
+				<linkTemplate>
+					<name>LINK-ROTARY-DRIVE-POSITION</name>
+					<value>ID-PLANE-Y-SOURCE</value>
+				</linkTemplate>
+				<linkTemplate>
+					<name>LINK-GRAB-POSITION</name>
+					<value>ID-PACKAGE-BOX</value>
+				</linkTemplate>
+			</objectTemplate>
+			<objectTemplate>
+				<objectId>ID-PLANE-Y-SOURCE</objectId>
+				<attributeTemplate>
+					<name>ATTRIBUTE-PLANE-Y</name>
+					<value>true</value>
+				</attributeTemplate>
+				<linkTemplate>
+					<name>LINK-ROTARY-DRIVE-POSITION</name>
+					<value>ID-ROBOT</value>
+				</linkTemplate>
+			</objectTemplate>
+			<objectTemplate>
+				<objectId>ID-PLANE-Y-TARGET</objectId>
+				<attributeTemplate>
+					<name>ATTRIBUTE-PLANE-Y</name>
+					<value>true</value>
+				</attributeTemplate>
+				<linkTemplate>
+					<name>LINK-ROTARY-DRIVE-POSITION</name>
+					<value>null</value>
+				</linkTemplate>
+			</objectTemplate>
+			<objectTemplate>
+				<objectId>ID-PACKAGE-BOX</objectId>
+				<attributeTemplate>
+					<name>ATTRIBUTE-PACKAGE</name>
+					<value>true</value>
+				</attributeTemplate>
+				<linkTemplate>
+					<name>LINK-GRAB-POSITION</name>
+					<value>ID-ROBOT</value>
+				</linkTemplate>
+				<linkTemplate>
+					<name>LINK-PACKAGE-BOX-POSITION</name>
+					<value>null</value>
+				</linkTemplate>
+			</objectTemplate>
 		</systemTemplate>
 		<transformations>
-			<transformation type="link" objectId="ID_ROBOT" linkName="LINK_ROTARY_DRIVE_POSITION" linkOldValue="ID_PLANE_Y_SOURCE" linkNewValue="ID_PLANE_Y_TARGET" />
-			<transformation type="link" objectId="ID-PLANE-Y-SOURCE" linkName="LINK-ROTARY-DRIVE-POSITION" linkOldValue="ID-ROBOT" linkNewValue="null" />
-			<transformation type="link" objectId="ID-PLANE-Y-TARGET" linkName="LINK-ROTARY-DRIVE-POSITION" linkOldValue="null" linkNewValue="ID-ROBOT" />
+			<linkTransformation>
+				<objectId>ID_ROBOT</objectId>
+				<name>LINK_ROTARY_DRIVE_POSITION</name>
+				<oldValue>ID_PLANE_Y_SOURCE</oldValue>
+				<newValue>ID_PLANE_Y_TARGET</newValue>
+			</linkTransformation>
+			<linkTransformation>
+				<objectId>ID-PLANE-Y-SOURCE</objectId>
+				<name>LINK-ROTARY-DRIVE-POSITION</name>
+				<oldValue>ID-ROBOT</oldValue>
+				<newValue>null</newValue>
+			</linkTransformation>
+			<linkTransformation>
+				<objectId>ID-PLANE-Y-TARGET</objectId>
+				<name>LINK-ROTARY-DRIVE-POSITION</name>
+				<oldValue>null</oldValue>
+				<newValue>ID-ROBOT</newValue>
+			</linkTransformation>
 		</transformations>
-		<action name="OPERATION-TURN-WITH-LOAD">
-			<parameterUpdaters>
-				<parameterUpdater>
-					<script type="lua">
-						<line n="1">local systemVariant = ...</line>
-						<line n="2">local object = systemVariant:getObjectByIdMatch('ID-PLANE-Y-TARGET')</line>
-						<line n="3">systemVariant:setActionParameter('PARAMETER_TARGET', object:getName())</line>
-					</script>
-				</parameterUpdater>
-			</parameterUpdaters>
+		<action>
+			<name>OPERATION-TURN-WITH-LOAD</name>
+			<parameterUpdater>
+				<line n="1">local systemVariant = ...</line>
+				<line n="2">local object = systemVariant:getObjectByIdMatch('ID-PLANE-Y-TARGET')</line>
+				<line n="3">systemVariant:setActionParameter('PARAMETER_TARGET', object:getName())</line>
+			</parameterUpdater>
 		</action>
 	</systemTransformation>
-	<systemTransformation name="ELEMENT-OPEN-GRAB">
+	<systemTransformation>
+		<name>ELEMENT-OPEN-GRAB</name>
 		<systemTemplate>
-			<objectTemplates>
-				<objectTemplate id="ID-ROBOT">
-					<attributeTemplates>
-						<attributeTemplate name="ATTRIBUTE-PICK-AND-PLACE-ROBOT" value="true" />
-					</attributeTemplates>
-					<linkTemplates>
-						<linkTemplate name="LINK-GRAB-POSITION" value="ID-PACKAGE-BOX" />
-						<linkTemplate name="LINK-LINEAR-DRIVE-POSITION" value="ID-PLANE-X" />
-						<linkTemplate name="LINK-VERTICL-DRIVE-POSITION" value="ID-PLANE-Z" />
-						<linkTemplate name="LINK-ROTARY-DRIVE-POSITION" value="ID-PLANE-Y" />
-					</linkTemplates>
-				</objectTemplate>
-				<objectTemplate id="ID-PLANE-X">
-					<attributeTemplates>
-						<attributeTemplate name="ATTRIBUTE-PLANE-X" value="true"/>
-					</attributeTemplates>
-					<linkTemplates>
-						<linkTemplate name="LINK-LINEAR-DRIVE-POSITION" value="ID-ROBOT" />
-					</linkTemplates>
-				</objectTemplate>
-				<objectTemplate id="ID-PLANE-Y">
-					<attributeTemplates>
-						<attributeTemplate name="ATTRIBUTE-PLANE-Y" value="true"/>
-					</attributeTemplates>
-					<linkTemplates>
-						<linkTemplate name="LINK-ROTARY-DRIVE-POSITION" value="ID-ROBOT" />
-					</linkTemplates>
-				</objectTemplate>
-				<objectTemplate id="ID-PLANE-Z">
-					<attributeTemplates>
-						<attributeTemplate name="ATTRIBUTE-PLANE-Z" value="true" />
-					</attributeTemplates>
-					<linkTemplates>
-						<linkTemplate name="LINK-VERTICAL-DRIVE-POSITION" value="ID-ROBOT" />
-					</linkTemplates>
-				</objectTemplate>
-				<objectTemplate id="ID-PACKAGE-BOX">
-					<attributeTemplates>
-						<attributeTemplate name="ATTRIBUTE-PACKAGE" value="true" />
-					</attributeTemplates>
-					<linkTemplates>
-						<linkTemplate name="LINK-GRAB-POSITION" value="ID-ROBOT" />
-						<linkTemplate name="LINK-PACKAGE-BOX-POSITION" value="ID-PACKAGE-BOX-POSITION" />
-					</linkTemplates>
-				</objectTemplate>
-				<objectTemplate id="ID-PACKAGE-BOX-POSITION">
-					<attributeTemplates>
-						<attributeTemplate name="ATTRIBUTE-PACKAGE-BOX-POSITION" value="true" />
-					</attributeTemplates>
-					<linkTemplates>
-						<linkTemplate name="LINK-PLANE-X-POSITION" value="ID-PLANE-X" />
-						<linkTemplate name="LINK-PLANE-Y-POSITION" value="ID-PLANE-Y" />
-						<linkTemplate name="LINK-PLANE-Z-POSITION" value="ID-PLANE-Z" />
-						<linkTemplate name="LINK-PACKAGE-BOX-POSITION" value="ID-PACKAGE-BOX" />
-					</linkTemplates>
-				</objectTemplate>
-			</objectTemplates>
+			<objectTemplate>
+				<objectId>ID-ROBOT</objectId>
+				<attributeTemplate>
+					<name>ATTRIBUTE-PICK-AND-PLACE-ROBOT</name>
+					<value>true</value>
+				</attributeTemplate>
+				<linkTemplate>
+					<name>LINK-GRAB-POSITION</name>
+					<value>ID-PACKAGE-BOX</value>
+				</linkTemplate>
+				<linkTemplate>
+					<name>LINK-LINEAR-DRIVE-POSITION</name>
+					<value>ID-PLANE-X</value>
+				</linkTemplate>
+				<linkTemplate>
+					<name>LINK-VERTICAL-DRIVE-POSITION</name>
+					<value>ID-PLANE-Z</value>
+				</linkTemplate>
+				<linkTemplate>
+					<name>LINK-ROTARY-DRIVE-POSITION</name>
+					<value>ID-PLANE-Y</value>
+				</linkTemplate>
+			</objectTemplate>
+			<objectTemplate>
+				<objectId>ID-PLANE-X</objectId>
+				<attributeTemplate>
+					<name>ATTRIBUTE-PLANE-X</name>
+					<value>true</value>
+				</attributeTemplate>
+				<linkTemplate>
+					<name>LINK-LINEAR-DRIVE-POSITION</name>
+					<value>ID-ROBOT</value>
+				</linkTemplate>
+			</objectTemplate>
+			<objectTemplate>
+				<objectId>ID-PLANE-Y</objectId>
+				<attributeTemplate>
+					<name>ATTRIBUTE-PLANE-Y</name>
+					<value>true</value>
+				</attributeTemplate>
+				<linkTemplate>
+					<name>LINK-ROTARY-DRIVE-POSITION</name>
+					<value>ID-ROBOT</value>
+				</linkTemplate>
+			</objectTemplate>
+			<objectTemplate>
+				<objectId>ID-PLANE-Z</objectId>
+				<attributeTemplate>
+					<name>ATTRIBUTE-PLANE-Z</name>
+					<value>true</value>
+				</attributeTemplate>
+				<linkTemplate>
+					<name>LINK-VERTICAL-DRIVE-POSITION</name>
+					<value>ID-ROBOT</value>
+				</linkTemplate>
+			</objectTemplate>
+			<objectTemplate>
+				<objectId>ID-PACKAGE-BOX</objectId>
+				<attributeTemplate>
+					<name>ATTRIBUTE-PACKAGE</name>
+					<value>true</value>
+				</attributeTemplate>
+				<linkTemplate>
+					<name>LINK-GRAB-POSITION</name>
+					<value>ID-ROBOT</value>
+				</linkTemplate>
+				<linkTemplate>
+					<name>LINK-PACKAGE-BOX-POSITION</name>
+					<value>ID-PACKAGE-BOX-POSITION</value>
+				</linkTemplate>
+			</objectTemplate>
+			<objectTemplate>
+				<objectId>ID-PACKAGE-BOX-POSITION</objectId>
+				<attributeTemplate>
+					<name>ATTRIBUTE-PACKAGE-BOX-POSITION</name>
+					<value>true</value>
+				</attributeTemplate>
+				<linkTemplate>
+					<name>LINK-PLANE-X-POSITION</name>
+					<value>ID-PLANE-X</value>
+				</linkTemplate>
+				<linkTemplate>
+					<name>LINK-PLANE-Y-POSITION</name>
+					<value>ID-PLANE-Y</value>
+				</linkTemplate>
+				<linkTemplate>
+					<name>LINK-PLANE-Z-POSITION</name>
+					<value>ID-PLANE-Z</value>
+				</linkTemplate>
+				<linkTemplate>
+					<name>LINK-PACKAGE-BOX-POSITION</name>
+					<value>ID-PACKAGE-BOX</value>
+				</linkTemplate>
+			</objectTemplate>
 		</systemTemplate>
 		<transformations>
-			<transformation type="link" objectId="ID-ROBOT" linkName="LINK-GRAB-POSITION" linkOldValue="ID-PACKAGE-BOX" linkNewValue="null" />
-			<transformation type="link" objectId="ID-PACKAGE-BOX" linkName="LINK-GRAB-POSITION" linkOldValue="ID-ROBOT" linkNewValue="null" />
+			<linkTransformation>
+				<objectId>ID-ROBOT</objectId>
+				<name>LINK-GRAB-POSITION</name>
+				<oldValue>ID-PACKAGE-BOX</oldValue>
+				<newValue>null</newValue>
+			</linkTransformation>
+			<linkTransformation>
+				<objectId>ID-PACKAGE-BOX</objectId>
+				<name>LINK-GRAB-POSITION</name>
+				<oldValue>ID-ROBOT</oldValue>
+				<newValue>null</newValue>
+			</linkTransformation>
 		</transformations>
-		<action name="OPERATION-OPEN-GRAB" />
-	</systemTransformation>
-	<systemTransformation name="ELEMENT-CLOSE-GRAB">
-		<systemTemplate>
-			<objectTemplates>
-				<objectTemplate id="ID-ROBOT">
-					<attributeTemplates>
-						<attributeTemplate name="ATTRIBUTE-PICK-AND-PLACE-ROBOT" value="true" />
-					</attributeTemplates>
-					<linkTemplates>
-						<linkTemplate name="LINK-GRAB-POSITION" value="null" />
-						<linkTemplate name="LINK-LINEAR-DRIVE-POSITION" value="ID-PLANE-X" />
-						<linkTemplate name="LINK-VERTICL-DRIVE-POSITION" value="ID-PLANE-Z" />
-						<linkTemplate name="LINK-ROTARY-DRIVE-POSITION" value="ID-PLANE-Y" />
-					</linkTemplates>
-				</objectTemplate>
-				<objectTemplate id="ID-PLANE-X">
-					<attributeTemplates>
-						<attributeTemplate name="ATTRIBUTE-PLANE-X" value="true"/>
-					</attributeTemplates>
-					<linkTemplates>
-						<linkTemplate name="LINK-LINEAR-DRIVE-POSITION" value="ID-ROBOT" />
-					</linkTemplates>
-				</objectTemplate>
-				<objectTemplate id="ID-PLANE-Y">
-					<attributeTemplates>
-						<attributeTemplate name="ATTRIBUTE-PLANE-Y" value="true"/>
-					</attributeTemplates>
-					<linkTemplates>
-						<linkTemplate name="LINK-ROTARY-DRIVE-POSITION" value="ID-ROBOT" />
-					</linkTemplates>
-				</objectTemplate>
-				<objectTemplate id="ID-PLANE-Z">
-					<attributeTemplates>
-						<attributeTemplate name="ATTRIBUTE-PLANE-Z" value="true" />
-					</attributeTemplates>
-					<linkTemplates>
-						<linkTemplate name="LINK-VERTICAL-DRIVE-POSITION" value="ID-ROBOT" />
-					</linkTemplates>
-				</objectTemplate>
-				<objectTemplate id="ID-PACKAGE-BOX">
-					<attributeTemplates>
-						<attributeTemplate name="ATTRIBUTE-PACKAGE" value="true" />
-					</attributeTemplates>
-					<linkTemplates>
-						<linkTemplate name="LINK-GRAB-POSITION" value="null" />
-						<linkTemplate name="LINK-PACKAGE-BOX-POSITION" value="ID-PACKAGE-BOX-POSITION" />
-					</linkTemplates>
-				</objectTemplate>
-				<objectTemplate id="ID-PACKAGE-BOX-POSITION">
-					<attributeTemplates>
-						<attributeTemplate name="ATTRIBUTE-PACKAGE-BOX-POSITION" value="true" />
-					</attributeTemplates>
-					<linkTemplates>
-						<linkTemplate name="LINK-PLANE-X-POSITION" value="ID-PLANE-X" />
-						<linkTemplate name="LINK-PLANE-Y-POSITION" value="ID-PLANE-Y" />
-						<linkTemplate name="LINK-PLANE-Z-POSITION" value="ID-PLANE-Z" />
-						<linkTemplate name="LINK-PACKAGE-BOX-POSITION" value="ID-PACKAGE-BOX" />
-					</linkTemplates>
-				</objectTemplate>
-			</objectTemplates>
-		</systemTemplate>
-		<transformations>
-			<transformation type="link" objectId="ID-ROBOT" linkName="LINK-GRAB-POSITION" linkOldValue="null" linkNewValue="ID-PACKAGE-BOX" />
-			<transformation type="link" objectId="ID-PACKAGE-BOX" linkName="LINK-GRAB-POSITION" linkOldValue="null" linkNewValue="ID-ROBOT" />
-		</transformations>
-		<action name="OPERATION-CLOSE-GRAB" />
-	</systemTransformation>
-	<systemTransformation name="ELEMENT-LIFT-UP">
-		<systemTemplate>
-			<objectTemplates>
-				<objectTemplate id="ID-ROBOT">
-					<attributeTemplates>
-						<attributeTemplate name="ATTRIBUTE-PICK-AND-PLACE-ROBOT" value="true" />
-					</attributeTemplates>
-					<linkTemplates>
-						<linkTemplate name="LINK-VERTICAL-DRIVE-POSITION" value="ID-PLANE-Z-BOTTOM" />
-						<linkTemplate name="LINK-GRAB-POSITION" value="ID-PACKAGE-BOX" />
-					</linkTemplates>
-				</objectTemplate>
-				<objectTemplate id="ID-PLANE-Z-TOP">
-					<attributeTemplates>
-						<attributeTemplate name="ATTRIBUTE-PLANE-Z" value="true" />
-					</attributeTemplates>
-					<linkTemplates>
-						<linkTemplate name="LINK-VERTICAL-DRIVE-POSITION" value="null" />
-					</linkTemplates>
-				</objectTemplate>
-				<objectTemplate id="ID-PLANE-Z-BOTTOM">
-					<attributeTemplates>
-						<attributeTemplate name="ATTRIBUTE-PLANE-Z" value="true" />
-					</attributeTemplates>
-					<linkTemplates>
-						<linkTemplate name="LINK-VERTICAL-DRIVE-POSITION" value="ID-ROBOT" />
-					</linkTemplates>
-				</objectTemplate>
-				<objectTemplate id="ID-PACKAGE-BOX">
-					<attributeTemplates>
-						<attributeTemplate name="ATTRIBUTE-PACKAGE" value="true" />
-					</attributeTemplates>
-					<linkTemplates>
-						<linkTemplate name="LINK-GRAB-POSITION" value="ID-ROBOT" />
-						<linkTemplate name="LINK-PACKAGE-BOX-POSITION" value="ID-PACKAGE-BOX-POSITION" />
-					</linkTemplates>
-				</objectTemplate>
-				<objectTemplate id="ID-PACKAGE-BOX-POSITION">
-					<attributeTemplates>
-						<attributeTemplate name="ATTRIBUTE-PACKAGE-BOX-POSITION" value="true" />
-					</attributeTemplates>
-					<linkTemplates>
-						<linkTemplate name="LINK-PACKAGE-BOX-POSITION" value="ID-PACKAGE-BOX" />
-					</linkTemplates>
-				</objectTemplate>
-			</objectTemplates>
-		</systemTemplate>
-		<transformations>
-			<transformation type="link" objectId="ID-PACKAGE-BOX" linkName="LINK-PACKAGE-BOX-POSITION" linkOldValue="ID-PACKAGE-BOX-POSITION" linkNewValue="null" />
-			<transformation type="link" objectId="ID-PACKAGE-BOX-POSITION" linkName="LINK-PACKAGE-BOX-POSITION" linkOldValue="ID-PACKAGE-BOX" linkNewValue="null" />
-			<transformation type="link" objectId="ID-ROBOT" linkName="LINK-VERTICAL-DRIVE-POSITION" linkOldValue="ID-PLANE-Z-BOTTOM" linkNewValue="ID-PLANE-Z-TOP" />
-			<transformation type="link" objectId="ID-PLANE-Z-TOP" linkName="LINK-VERTICAL-DRIVE-POSITION" linkOldValue="null" linkNewValue="ID-ROBOT" />
-			<transformation type="link" objectId="ID-PLANE-Z-BOTTOM" linkName="LINK-VERTICAL-DRIVE-POSITION" linkOldValue="ID-ROBOT" linkNewValue="null" />
-		</transformations>
-		<action name="OPERATION-LIFT-UP" />
-	</systemTransformation>
-	<systemTransformation name="ELEMENT-LOWER-DOWN">
-		<systemTemplate>
-			<objectTemplates>
-				<objectTemplate id="ID-ROBOT">
-					<attributeTemplates>
-						<attributeTemplate name="ATTRIBUTE-PICK-AND-PLACE-ROBOT" value="true" />
-					</attributeTemplates>
-					<linkTemplates>
-						<linkTemplate name="LINK-LINEAR-DRIVE-POSITION" value="ID-PLANE-X" />
-						<linkTemplate name="LINK-VERTICAL-DRIVE-POSITION" value="ID-PLANE-Z-TOP" />
-						<linkTemplate name="LINK-ROTARY-DRIVE-POSITION" value="ID-PLANE-Y" />
-						<linkTemplate name="LINK-GRAB-POSITION" value="ID-PACKAGE-BOX" />
-					</linkTemplates>
-				</objectTemplate>
-				<objectTemplate id="ID-PLANE-X">
-					<attributeTemplates>
-						<attributeTemplate name="ATTRIBUTE-PLANE-X" value="true" />
-					</attributeTemplates>
-					<linkTemplates>
-						<linkTemplate name="LINK-LINEAR-DRIVE-POSITION" value="ID-ROBOT" />
-						<linkTemplate name="LINK-PLANE-X-POSITION" value="ID-PACKAGE-BOX-POSITION" />
-					</linkTemplates>
-				</objectTemplate>
-				<objectTemplate id="ID-PLANE-Y">
-					<attributeTemplates>
-						<attributeTemplate name="ATTRIBUTE-PLANE-Y" value="true" />
-					</attributeTemplates>
-					<linkTemplates>
-						<linkTemplate name="LINK-ROTARY-DRIVE-POSITION" value="ID-ROBOT" />
-						<linkTemplate name="LINK-PLANE-Y-POSITION" value="ID-PACKAGE-BOX-POSITION" />
-					</linkTemplates>
-				</objectTemplate>
-				<objectTemplate id="ID-PLANE-Z-TOP">
-					<attributeTemplates>
-						<attributeTemplate name="ATTRIBUTE-PLANE-Z" value="true" />
-					</attributeTemplates>
-					<linkTemplates>
-						<linkTemplate name="LINK-VERTICAL-DRIVE-POSITION" value="ID-ROBOT" />
-					</linkTemplates>
-				</objectTemplate>
-				<objectTemplate id="ID-PLANE-Z-BOTTOM">
-					<attributeTemplates>
-						<attributeTemplate name="ATTRIBUTE-PLANE-Z" value="true" />
-					</attributeTemplates>
-					<linkTemplates>
-						<linkTemplate name="LINK-VERTICAL-DRIVE-POSITION" value="null" />
-					</linkTemplates>
-				</objectTemplate>
-				<objectTemplate id="ID-PACKAGE-BOX">
-					<attributeTemplates>
-						<attributeTemplate name="ATTRIBUTE-PACKAGE" value="true" />
-					</attributeTemplates>
-					<linkTemplates>
-						<linkTemplate name="LINK-GRAB-POSITION" value="ID-ROBOT" />
-						<linkTemplate name="LINK-PACKAGE-BOX-POSITION" value="null" />
-					</linkTemplates>
-				</objectTemplate>
-				<objectTemplate id="ID-PACKAGE-BOX-POSITION">
-					<attributeTemplates>
-						<attributeTemplate name="ATTRIBUTE-PACKAGE-BOX-POSITION" value="true" />
-					</attributeTemplates>
-					<linkTemplates>
-						<linkTemplate name="LINK-PLANE-X-POSITION" value="ID-PLANE-X" />
-						<linkTemplate name="LINK-PLANE-Y-POSITION" value="ID-PLANE-Y" />
-						<linkTemplate name="LINK-PACKAGE-BOX-POSITION" value="null" />
-					</linkTemplates>
-				</objectTemplate>
-			</objectTemplates>
-		</systemTemplate>
-		<transformations>
-			<transformation type="link" objectId="ID-PACKAGE-BOX" linkName="LINK-PACKAGE-BOX-POSITION" linkOldValue="null" linkNewValue="ID-PACKAGE-BOX-POSITION" />
-			<transformation type="link" objectId="ID-PACKAGE-BOX-POSITION" linkName="LINK-PACKAGE-BOX-POSITION" linkOldValue="null" linkNewValue="ID-PACKAGE-BOX" />
-			<transformation type="link" objectId="ID-ROBOT" linkName="LINK-VERTICAL-DRIVE-POSITION" linkOldValue="ID-PLANE-Z-TOP" linkNewValue="ID-PLANE-Z-BOTTOM" />
-			<transformation type="link" objectId="ID-PLANE-Z-TOP" linkName="LINK-VERTICAL-DRIVE-POSITION" linkOldValue="ID-ROBOT" linkNewValue="null" />
-			<transformation type="link" objectId="ID-PLANE-Z-BOTTOM" linkName="LINK-VERTICAL-DRIVE-POSITION" linkOldValue="null" linkNewValue="ID-ROBOT" />
-		</transformations>
-		<action name="OPERATION-LOWER-DOWN" />
-	</systemTransformation>
-	<systemTransformation name="ELEMENT-MOVE-WITH-LOAD">
-		<systemTemplate>
-			<objectTemplates>
-				<objectTemplate id="ID-ROBOT">
-					<attributeTemplates>
-						<attributeTemplate name="ATTRIBUTE-PICK-AND-PLACE-ROBOT" value="true" />
-					</attributeTemplates>
-					<linkTemplates>
-						<linkTemplate name="LINK-LINEAR-DRIVE-POSITION" value="ID-PLANE-X-SOURCE" />
-						<linkTemplate name="LINK-GRAB-POSITION" value="ID-PACKAGE-BOX" />
-					</linkTemplates>
-				</objectTemplate>
-				<objectTemplate id="ID-PLANE-X-SOURCE">
-					<attributeTemplates>
-						<attributeTemplate name="ATTRIBUTE-PLANE-X" value="true" />
-					</attributeTemplates>
-					<linkTemplates>
-						<linkTemplate name="LINK-LINEAR-DRIVE-POSITION" value="ID-ROBOT" />
-					</linkTemplates>
-				</objectTemplate>
-				<objectTemplate id="ID-PLANE-X-TARGET">
-					<attributeTemplates>
-						<attributeTemplate name="ATTRIBUTE-PLANE-X" value="true" />
-					</attributeTemplates>
-					<linkTemplates>
-						<linkTemplate name="LINK-LINEAR-DRIVE-POSITION" value="null" />
-					</linkTemplates>
-				</objectTemplate>
-				<objectTemplate id="ID-PACKAGE-BOX">
-					<attributeTemplates>
-						<attributeTemplate name="ATTRIBUTE-PACKAGE-BOX" value="true" />
-					</attributeTemplates>
-					<linkTemplates>
-						<linkTemplate name="LINK-GRAB-POSITION" value="ID-ROBOT" />
-						<linkTemplate name="LINK-PACKAGE-BOX-POSITION" value="null" />
-					</linkTemplates>
-				</objectTemplate>
-			</objectTemplates>
-		</systemTemplate>
-		<transformations>
-			<transformation type="link" objectId="ID-ROBOT" linkName="LINK-LINEAR-DRIVE-POSITION" linkOldValue="ID-PLANE-X-SOURCE" linkNewValue="ID-PLANE-X-TARGET" />
-			<transformation type="link" objectId="ID-PLANE-X-SOURCE" linkName="LINK-LINEAR-DRIVE-POSITION" linkOldValue="ID-ROBOT" linkNewValue="null" />
-			<transformation type="link" objectId="ID-PLANE-X-TARGET" linkName="LINK-LINERR-DRIVE-POSITION" linkOldValue="null" linkNewValue="ID-ROBOT" />
-		</transformations>
-		<action name="OPERATION-MOVE-WITH-LOAD">
-			<parameterUpdaters>
-				<parameterUpdater>
-					<script type="lua">
-						<line n="1">local systemVariant = ...</line>
-						<line n="2">local object = systemVariant:getObjectByIdMatch('ID-PLANE-X-TARGET')</line>
-						<line n="3">systemVariant:setActionParameter('PARAMETER_TARGET', object:getName())</line>
-					</script>
-				</parameterUpdater>
-			</parameterUpdaters>
+		<action>
+			<name>OPERATION-OPEN-GRAB</name>
 		</action>
 	</systemTransformation>
-	<systemTransformation name="ELEMENT-MOVE-WITHOUT-LOAD">
+	<systemTransformation>
+		<name>ELEMENT-CLOSE-GRAB</name>
 		<systemTemplate>
-			<objectTemplates>
-				<objectTemplate id="ID-ROBOT">
-					<attributeTemplates>
-						<attributeTemplate name="ATTRIBUTE-PICK-AND-PLACE-ROBOT" value="true" />
-					</attributeTemplates>
-					<linkTemplates>
-						<linkTemplate name="LINK-LINEAR-DRIVE-POSITION" value="ID-PLANE-X-SOURCE" />
-						<linkTemplate name="LINK-GRAB-POSITION" value="null" />
-					</linkTemplates>
-				</objectTemplate>
-				<objectTemplate id="ID-PLANE-X-SOURCE">
-					<attributeTemplates>
-						<attributeTemplate name="ATTRIBUTE-PLANE-X" value="true" />
-					</attributeTemplates>
-					<linkTemplates>
-						<linkTemplate name="LINK-LINEAR-DRIVE-POSITION" value="ID-ROBOT" />
-					</linkTemplates>
-				</objectTemplate>
-				<objectTemplate id="ID-PLANE-X-TARGET">
-					<attributeTemplates>
-						<attributeTemplate name="ATTRIBUTE-PLANE-X" value="true" />
-					</attributeTemplates>
-					<linkTemplates>
-						<linkTemplate name="LINK-LINEAR-DRIVE-POSITION" value="null" />
-					</linkTemplates>
-				</objectTemplate>
-			</objectTemplates>
+			<objectTemplate>
+				<objectId>ID-ROBOT</objectId>
+				<attributeTemplate>
+					<name>ATTRIBUTE-PICK-AND-PLACE-ROBOT</name>
+					<value>true</value>
+				</attributeTemplate>
+				<linkTemplate>
+					<name>LINK-GRAB-POSITION</name>
+					<value>null</value>
+				</linkTemplate>
+				<linkTemplate>
+					<name>LINK-LINEAR-DRIVE-POSITION</name>
+					<value>ID-PLANE-X</value>
+				</linkTemplate>
+				<linkTemplate>
+					<name>LINK-VERTICL-DRIVE-POSITION</name>
+					<value>ID-PLANE-Z</value>
+				</linkTemplate>
+				<linkTemplate>
+					<name>LINK-ROTARY-DRIVE-POSITION</name>
+					<value>ID-PLANE-Y</value>
+				</linkTemplate>
+			</objectTemplate>
+			<objectTemplate>
+				<objectId>ID-PLANE-X</objectId>
+				<attributeTemplate>
+					<name>ATTRIBUTE-PLANE-X</name>
+					<value>true</value>
+				</attributeTemplate>
+				<linkTemplate>
+					<name>LINK-LINEAR-DRIVE-POSITION</name>
+					<value>ID-ROBOT</value>
+				</linkTemplate>
+			</objectTemplate>
+			<objectTemplate>
+				<objectId>ID-PLANE-Y</objectId>
+				<attributeTemplate>
+					<name>ATTRIBUTE-PLANE-Y</name>
+					<value>true</value>
+				</attributeTemplate>
+				<linkTemplate>
+					<name>LINK-ROTARY-DRIVE-POSITION</name>
+					<value>ID-ROBOT</value>
+				</linkTemplate>
+			</objectTemplate>
+			<objectTemplate>
+				<objectId>ID-PLANE-Z</objectId>
+				<attributeTemplate>
+					<name>ATTRIBUTE-PLANE-Z</name>
+					<value>true</value>
+				</attributeTemplate>
+				<linkTemplate>
+					<name>LINK-VERTICAL-DRIVE-POSITION</name>
+					<value>ID-ROBOT</value>
+				</linkTemplate>
+			</objectTemplate>
+			<objectTemplate>
+				<objectId>ID-PACKAGE-BOX</objectId>
+				<attributeTemplate>
+					<name>ATTRIBUTE-PACKAGE</name>
+					<value>true</value>
+				</attributeTemplate>
+				<linkTemplate>
+					<name>LINK-GRAB-POSITION</name>
+					<value>null</value>
+				</linkTemplate>
+				<linkTemplate>
+					<name>LINK-PACKAGE-BOX-POSITION</name>
+					<value>ID-PACKAGE-BOX-POSITION</value>
+				</linkTemplate>
+			</objectTemplate>
+			<objectTemplate>
+				<objectId>ID-PACKAGE-BOX-POSITION</objectId>
+				<attributeTemplate>
+					<name>ATTRIBUTE-PACKAGE-BOX-POSITION</name>
+					<value>true</value>
+				</attributeTemplate>
+				<linkTemplate>
+					<name>LINK-PLANE-X-POSITION</name>
+					<value>ID-PLANE-X</value>
+				</linkTemplate>
+				<linkTemplate>
+					<name>LINK-PLANE-Y-POSITION</name>
+					<value>ID-PLANE-Y</value>
+				</linkTemplate>
+				<linkTemplate>
+					<name>LINK-PLANE-Z-POSITION</name>
+					<value>ID-PLANE-Z</value>
+				</linkTemplate>
+				<linkTemplate>
+					<name>LINK-PACKAGE-BOX-POSITION</name>
+					<value>ID-PACKAGE-BOX</value>
+				</linkTemplate>
+			</objectTemplate>
 		</systemTemplate>
 		<transformations>
-			<transformation type="link" objectId="ID-ROBOT" linkName="LINK-LINEAR-DRIVE-POSITION" linkOldValue="ID-PLANE-X-SOURCE" linkNewValue="ID-PLANE-X-TARGET" />
-			<transformation type="link" objectId="ID-PLANE-X-SOURCE" linkName="LINK-LINEAR-DRIVE-POSITION" linkOldValue="ID-ROBOT" linkNewValue="null" />
-			<transformation type="link" objectId="ID-PLANE-X-TARGET" linkName="LINK-LINERR-DRIVE-POSITION" linkOldValue="null" linkNewValue="ID-ROBOT" />
+			<linkTransformation>
+				<objectId>ID-ROBOT</objectId>
+				<name>LINK-GRAB-POSITION</name>
+				<oldValue>null</oldValue>
+				<newValue>ID-PACKAGE-BOX</newValue>
+			</linkTransformation>
+			<linkTransformation>
+				<objectId>ID-PACKAGE-BOX</objectId>
+				<name>LINK-GRAB-POSITION</name>
+				<oldValue>null</oldValue>
+				<newValue>ID-ROBOT</newValue>
+			</linkTransformation>
 		</transformations>
-		<action name="OPERATION-MOVE-WITHOUT-LOAD">
-			<parameterUpdaters>
-				<parameterUpdater>
-					<script type="lua">
-						<line n="1">local systemVariant = ...</line>
-						<line n="2">local object = systemVariant:getObjectByIdMatch('ID-PLANE-X-TARGET')</line>
-						<line n="3">systemVariant:setActionParameter('PARAMETER_TARGET', object:getName())</line>
-					</script>
-				</parameterUpdater>
-			</parameterUpdaters>
+		<action>
+			<name>OPERATION-CLOSE-GRAB</name>
+		</action>
+	</systemTransformation>
+	<systemTransformation>
+		<name>ELEMENT-LIFT-UP</name>
+		<systemTemplate>
+			<objectTemplate>
+				<objectId>ID-ROBOT</objectId>
+				<attributeTemplate>
+					<name>ATTRIBUTE-PICK-AND-PLACE-ROBOT</name>
+					<value>true</value>
+				</attributeTemplate>
+				<linkTemplate>
+					<name>LINK-VERTICAL-DRIVE-POSITION</name>
+					<value>ID-PLANE-Z-BOTTOM</value>
+				</linkTemplate>
+				<linkTemplate>
+					<name>LINK-GRAB-POSITION</name>
+					<value>ID-PACKAGE-BOX</value>
+				</linkTemplate>
+			</objectTemplate>
+			<objectTemplate>
+				<objectId>ID-PLANE-Z-TOP</objectId>
+				<attributeTemplate>
+					<name>ATTRIBUTE-PLANE-Z</name>
+					<value>true</value>
+				</attributeTemplate>
+				<linkTemplate>
+					<name>LINK-VERTICAL-DRIVE-POSITION</name>
+					<value>null</value>
+				</linkTemplate>
+			</objectTemplate>
+			<objectTemplate>
+				<objectId>ID-PLANE-Z-BOTTOM</objectId>
+				<attributeTemplate>
+					<name>ATTRIBUTE-PLANE-Z</name>
+					<value>true</value>
+				</attributeTemplate>
+				<linkTemplate>
+					<name>LINK-VERTICAL-DRIVE-POSITION</name>
+					<value>ID-ROBOT</value>
+				</linkTemplate>
+			</objectTemplate>
+			<objectTemplate>
+				<objectId>ID-PACKAGE-BOX</objectId>
+				<attributeTemplate>
+					<name>ATTRIBUTE-PACKAGE</name>
+					<value>true</value>
+				</attributeTemplate>
+				<linkTemplate>
+					<name>LINK-GRAB-POSITION</name>
+					<value>ID-ROBOT</value>
+				</linkTemplate>
+				<linkTemplate>
+					<name>LINK-PACKAGE-BOX-POSITION</name>
+					<value>ID-PACKAGE-BOX-POSITION</value>
+				</linkTemplate>
+			</objectTemplate>
+			<objectTemplate>
+				<objectId>ID-PACKAGE-BOX-POSITION</objectId>
+				<attributeTemplate>
+					<name>ATTRIBUTE-PACKAGE-BOX-POSITION</name>
+					<value>true</value>
+				</attributeTemplate>
+				<linkTemplate>
+					<name>LINK-PACKAGE-BOX-POSITION</name>
+					<value>ID-PACKAGE-BOX</value>
+				</linkTemplate>
+			</objectTemplate>
+		</systemTemplate>
+		<transformations>
+			<linkTransformation>
+				<objectId>ID-PACKAGE-BOX</objectId>
+				<name>LINK-PACKAGE-BOX-POSITION</name>
+				<oldValue>ID-PACKAGE-BOX-POSITION</oldValue>
+				<newValue>null</newValue>
+			</linkTransformation>
+			<linkTransformation>
+				<objectId>ID-PACKAGE-BOX-POSITION</objectId>
+				<name>LINK-PACKAGE-BOX-POSITION</name>
+				<oldValue>ID-PACKAGE-BOX</oldValue>
+				<newValue>null</newValue>
+			</linkTransformation>
+			<linkTransformation>
+				<objectId>ID-ROBOT</objectId>
+				<name>LINK-VERTICAL-DRIVE-POSITION</name>
+				<oldValue>ID-PLANE-Z-BOTTOM</oldValue>
+				<newValue>ID-PLANE-Z-TOP</newValue>
+			</linkTransformation>
+			<linkTransformation>
+				<objectId>ID-PLANE-Z-TOP</objectId>
+				<name>LINK-VERTICAL-DRIVE-POSITION</name>
+				<oldValue>null</oldValue>
+				<newValue>ID-ROBOT</newValue>
+			</linkTransformation>
+			<linkTransformation>
+				<objectId>ID-PLANE-Z-BOTTOM</objectId>
+				<name>LINK-VERTICAL-DRIVE-POSITION</name>
+				<oldValue>ID-ROBOT</oldValue>
+				<newValue>null</newValue>
+			</linkTransformation>
+		</transformations>
+		<action>
+			<name>OPERATION-LIFT-UP</name>
+		</action>
+	</systemTransformation>
+	<systemTransformation>
+		<name>ELEMENT-LOWER-DOWN</name>
+		<systemTemplate>
+			<objectTemplate>
+				<objectId>ID-ROBOT</objectId>
+				<attributeTemplate>
+					<name>ATTRIBUTE-PICK-AND-PLACE-ROBOT</name>
+					<value>true</value>
+				</attributeTemplate>
+				<linkTemplate>
+					<name>LINK-LINEAR-DRIVE-POSITION</name>
+					<value>ID-PLANE-X</value>
+				</linkTemplate>
+				<linkTemplate>
+					<name>LINK-VERTICAL-DRIVE-POSITION</name>
+					<value>ID-PLANE-Z-TOP</value>
+				</linkTemplate>
+				<linkTemplate>
+					<name>LINK-ROTARY-DRIVE-POSITION</name>
+					<value>ID-PLANE-Y</value>
+				</linkTemplate>
+				<linkTemplate>
+					<name>LINK-GRAB-POSITION</name>
+					<value>ID-PACKAGE-BOX</value>
+				</linkTemplate>
+			</objectTemplate>
+			<objectTemplate>
+				<objectId>ID-PLANE-X</objectId>
+				<attributeTemplate>
+					<name>ATTRIBUTE-PLANE-X</name>
+					<value>true</value>
+				</attributeTemplate>
+				<linkTemplate>
+					<name>LINK-LINEAR-DRIVE-POSITION</name>
+					<value>ID-ROBOT</value>
+				</linkTemplate>
+				<linkTemplate>
+					<name>LINK-PLANE-X-POSITION</name>
+					<value>ID-PACKAGE-BOX-POSITION</value>
+				</linkTemplate>
+			</objectTemplate>
+			<objectTemplate>
+				<objectId>ID-PLANE-Y</objectId>
+				<attributeTemplate>
+					<name>ATTRIBUTE-PLANE-Y</name>
+					<value>true</value>
+				</attributeTemplate>
+				<linkTemplate>
+					<name>LINK-ROTARY-DRIVE-POSITION</name>
+					<value>ID-ROBOT</value>
+				</linkTemplate>
+				<linkTemplate>
+					<name>LINK-PLANE-Y-POSITION</name>
+					<value>ID-PACKAGE-BOX-POSITION</value>
+				</linkTemplate>
+			</objectTemplate>
+			<objectTemplate>
+				<objectId>ID-PLANE-Z-TOP</objectId>
+				<attributeTemplate>
+					<name>ATTRIBUTE-PLANE-Z</name>
+					<value>true</value>
+				</attributeTemplate>
+				<linkTemplate>
+					<name>LINK-VERTICAL-DRIVE-POSITION</name>
+					<value>ID-ROBOT</value>
+				</linkTemplate>
+			</objectTemplate>
+			<objectTemplate>
+				<objectId>ID-PLANE-Z-BOTTOM</objectId>
+				<attributeTemplate>
+					<name>ATTRIBUTE-PLANE-Z</name>
+					<value>true</value>
+				</attributeTemplate>
+				<linkTemplate>
+					<name>LINK-VERTICAL-DRIVE-POSITION</name>
+					<value>null</value>
+				</linkTemplate>
+			</objectTemplate>
+			<objectTemplate>
+				<objectId>ID-PACKAGE-BOX</objectId>
+				<attributeTemplate>
+					<name>ATTRIBUTE-PACKAGE</name>
+					<value>true</value>
+				</attributeTemplate>
+				<linkTemplate>
+					<name>LINK-GRAB-POSITION</name>
+					<value>ID-ROBOT</value>
+				</linkTemplate>
+				<linkTemplate>
+					<name>LINK-PACKAGE-BOX-POSITION</name>
+					<value>null</value>
+				</linkTemplate>
+			</objectTemplate>
+			<objectTemplate>
+				<objectId>ID-PACKAGE-BOX-POSITION</objectId>
+				<attributeTemplate>
+					<name>ATTRIBUTE-PACKAGE-BOX-POSITION</name>
+					<value>true</value>
+				</attributeTemplate>
+				<linkTemplate>
+					<name>LINK-PLANE-X-POSITION</name>
+					<value>ID-PLANE-X</value>
+				</linkTemplate>
+				<linkTemplate>
+					<name>LINK-PLANE-Y-POSITION</name>
+					<value>ID-PLANE-Y</value>
+				</linkTemplate>
+				<linkTemplate>
+					<name>LINK-PACKAGE-BOX-POSITION</name>
+					<value>null</value>
+				</linkTemplate>
+			</objectTemplate>
+		</systemTemplate>
+		<transformations>
+			<linkTransformation>
+				<objectId>ID-PACKAGE-BOX</objectId>
+				<name>LINK-PACKAGE-BOX-POSITION</name>
+				<oldValue>null</oldValue>
+				<newValue>ID-PACKAGE-BOX-POSITION</newValue>
+			</linkTransformation>
+			<linkTransformation>
+				<objectId>ID-PACKAGE-BOX-POSITION</objectId>
+				<name>LINK-PACKAGE-BOX-POSITION</name>
+				<oldValue>null</oldValue>
+				<newValue>ID-PACKAGE-BOX</newValue>
+			</linkTransformation>
+			<linkTransformation>
+				<objectId>ID-ROBOT</objectId>
+				<name>LINK-VERTICAL-DRIVE-POSITION</name>
+				<oldValue>ID-PLANE-Z-TOP</oldValue>
+				<newValue>ID-PLANE-Z-BOTTOM</newValue>
+			</linkTransformation>
+			<linkTransformation>
+				<objectId>ID-PLANE-Z-TOP</objectId>
+				<name>LINK-VERTICAL-DRIVE-POSITION</name>
+				<oldValue>ID-ROBOT</oldValue>
+				<newValue>null</newValue>
+			</linkTransformation>
+			<linkTransformation>
+				<objectId>ID-PLANE-Z-BOTTOM</objectId>
+				<name>LINK-VERTICAL-DRIVE-POSITION</name>
+				<oldValue>null</oldValue>
+				<newValue>ID-ROBOT</newValue>
+			</linkTransformation>
+		</transformations>
+		<action>
+			<name>OPERATION-LOWER-DOWN</name>
+		</action>
+	</systemTransformation>
+	<systemTransformation>
+		<name>ELEMENT-MOVE-WITH-LOAD</name>
+		<systemTemplate>
+			<objectTemplate>
+				<objectId>ID-ROBOT</objectId>
+				<attributeTemplate>
+					<name>ATTRIBUTE-PICK-AND-PLACE-ROBOT</name>
+					<value>true</value>
+				</attributeTemplate>
+				<linkTemplate>
+					<name>LINK-LINEAR-DRIVE-POSITION</name>
+					<value>ID-PLANE-X-SOURCE</value>
+				</linkTemplate>
+				<linkTemplate>
+					<name>LINK-GRAB-POSITION</name>
+					<value>ID-PACKAGE-BOX</value>
+				</linkTemplate>
+			</objectTemplate>
+			<objectTemplate>
+				<objectId>ID-PLANE-X-SOURCE</objectId>
+				<attributeTemplate>
+					<name>ATTRIBUTE-PLANE-X</name>
+					<value>true</value>
+				</attributeTemplate>
+				<linkTemplate>
+					<name>LINK-LINEAR-DRIVE-POSITION</name>
+					<value>ID-ROBOT</value>
+				</linkTemplate>
+			</objectTemplate>
+			<objectTemplate>
+				<objectId>ID-PLANE-X-TARGET</objectId>
+				<attributeTemplate>
+					<name>ATTRIBUTE-PLANE-X</name>
+					<value>true</value>
+				</attributeTemplate>
+				<linkTemplate>
+					<name>LINK-LINEAR-DRIVE-POSITION</name>
+					<value>null</value>
+				</linkTemplate>
+			</objectTemplate>
+			<objectTemplate>
+				<objectId>ID-PACKAGE-BOX</objectId>
+				<attributeTemplate>
+					<name>ATTRIBUTE-PACKAGE-BOX</name>
+					<value>true</value>
+				</attributeTemplate>
+				<linkTemplate>
+					<name>LINK-GRAB-POSITION</name>
+					<value>ID-ROBOT</value>
+				</linkTemplate>
+				<linkTemplate>
+					<name>LINK-PACKAGE-BOX-POSITION</name>
+					<value>null</value>
+				</linkTemplate>
+			</objectTemplate>
+		</systemTemplate>
+		<transformations>
+			<linkTransformation>
+				<objectId>ID-ROBOT</objectId>
+				<name>LINK-LINEAR-DRIVE-POSITION</name>
+				<oldValue>ID-PLANE-X-SOURCE</oldValue>
+				<newValue>ID-PLANE-X-TARGET</newValue>
+			</linkTransformation>
+			<linkTransformation>
+				<objectId>ID-PLANE-X-SOURCE</objectId>
+				<name>LINK-LINEAR-DRIVE-POSITION</name>
+				<oldValue>ID-ROBOT</oldValue>
+				<newValue>null</newValue>
+			</linkTransformation>
+			<linkTransformation>
+				<objectId>ID-PLANE-X-TARGET</objectId>
+				<name>LINK-LINERR-DRIVE-POSITION</name>
+				<oldValue>null</oldValue>
+				<newValue>ID-ROBOT</newValue>
+			</linkTransformation>
+		</transformations>
+		<action>
+			<name>OPERATION-MOVE-WITH-LOAD</name>
+			<parameterUpdater>
+				<line n="1">local systemVariant = ...</line>
+				<line n="2">local object = systemVariant:getObjectByIdMatch('ID-PLANE-X-TARGET')</line>
+				<line n="3">systemVariant:setActionParameter('PARAMETER_TARGET', object:getName())</line>
+			</parameterUpdater>
+		</action>
+	</systemTransformation>
+	<systemTransformation>
+		<name>ELEMENT-MOVE-WITHOUT-LOAD</name>
+		<systemTemplate>
+			<objectTemplate>
+				<objectId>ID-ROBOT</objectId>
+				<attributeTemplate>
+					<name>ATTRIBUTE-PICK-AND-PLACE-ROBOT</name>
+					<value>true</value>
+				</attributeTemplate>
+				<linkTemplate>
+					<name>LINK-LINEAR-DRIVE-POSITION</name>
+					<value>ID-PLANE-X-SOURCE</value>
+				</linkTemplate>
+				<linkTemplate>
+					<name>LINK-GRAB-POSITION</name>
+					<value>null</value>
+				</linkTemplate>
+			</objectTemplate>
+			<objectTemplate>
+				<objectId>ID-PLANE-X-SOURCE</objectId>
+				<attributeTemplate>
+					<name>ATTRIBUTE-PLANE-X</name>
+					<value>true</value>
+				</attributeTemplate>
+				<linkTemplate>
+					<name>LINK-LINEAR-DRIVE-POSITION</name>
+					<value>ID-ROBOT</value>
+				</linkTemplate>
+			</objectTemplate>
+			<objectTemplate>
+				<objectId>ID-PLANE-X-TARGET</objectId>
+				<attributeTemplate>
+					<name>ATTRIBUTE-PLANE-X</name>
+					<value>true</value>
+				</attributeTemplate>
+				<linkTemplate>
+					<name>LINK-LINEAR-DRIVE-POSITION</name>
+					<value>null</value>
+				</linkTemplate>
+			</objectTemplate>
+		</systemTemplate>
+		<transformations>
+			<linkTransformation>
+				<objectId>ID-ROBOT</objectId>
+				<name>LINK-LINEAR-DRIVE-POSITION</name>
+				<oldValue>ID-PLANE-X-SOURCE</oldValue>
+				<newValue>ID-PLANE-X-TARGET</newValue>
+			</linkTransformation>
+			<linkTransformation>
+				<objectId>ID-PLANE-X-SOURCE</objectId>
+				<name>LINK-LINEAR-DRIVE-POSITION</name>
+				<oldValue>ID-ROBOT</oldValue>
+				<newValue>null</newValue>
+			</linkTransformation>
+			<linkTransformation>
+				<objectId>ID-PLANE-X-TARGET</objectId>
+				<name>LINK-LINEAR-DRIVE-POSITION</name>
+				<oldValue>null</oldValue>
+				<newValue>ID-ROBOT</newValue>
+			</linkTransformation>
+		</transformations>
+		<action>
+			<name>OPERATION-MOVE-WITHOUT-LOAD</name>
+			<parameterUpdater>
+				<line n="1">local systemVariant = ...</line>
+				<line n="2">local object = systemVariant:getObjectByIdMatch('ID-PLANE-X-TARGET')</line>
+				<line n="3">systemVariant:setActionParameter('PARAMETER_TARGET', object:getName())</line>
+			</parameterUpdater>
 		</action>
 	</systemTransformation>
 </systemTransformations>
