@@ -13,19 +13,26 @@ public class SystemTransformations {
 		elements = new ArrayList<>();
 	}
 
-	public SystemTransformation[] getElements() {
-		return elements.toArray(new SystemTransformation[0]);
-	}
-
 	public void addElement(SystemTransformation element) {
 		elements.add(element);
 	}
 
 	public SystemTransformation getElement(String name) {
 		for (SystemTransformation element : elements) {
-			if (element.getName().equals(name))
+			if (element.getName().equals(name)) {
 				return element;
+			}
 		}
 		return null;
+	}
+
+	public void addElements(SystemTransformation[] elements) {
+		for (SystemTransformation element : elements) {
+			this.elements.add(element);
+		}
+	}
+
+	public SystemTransformation[] getElements() {
+		return elements.toArray(new SystemTransformation[0]);
 	}
 }

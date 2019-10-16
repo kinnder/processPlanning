@@ -28,6 +28,7 @@ import planning.model.SystemOperation;
 import planning.model.SystemTemplate;
 import planning.model.SystemVariant;
 import planning.model.Transformation;
+import planning.storage.SystemTransformationsXMLFile;
 
 public class AssemblyLine {
 
@@ -512,7 +513,11 @@ public class AssemblyLine {
 
 	@BeforeAll
 	public static void setupAll() {
+		SystemTransformationsXMLFile xmlFile = new SystemTransformationsXMLFile();
+		xmlFile.load(AssemblyLine.class.getResource("/assemblyLine/elements.xml"));
+
 		assemblyLineTransformations = new SystemTransformations();
+		// TODO : удалить + удалить затрагиваемый код
 		assemblyLineTransformations.addElement(turnWithoutLoad());
 		assemblyLineTransformations.addElement(turnWithLoad());
 		assemblyLineTransformations.addElement(openGrab());
@@ -521,6 +526,8 @@ public class AssemblyLine {
 		assemblyLineTransformations.addElement(lowerDown());
 		assemblyLineTransformations.addElement(moveWithLoad());
 		assemblyLineTransformations.addElement(moveWithoutLoad());
+
+		assemblyLineTransformations.addElements(xmlFile.getElements());
 	}
 
 	@Test
