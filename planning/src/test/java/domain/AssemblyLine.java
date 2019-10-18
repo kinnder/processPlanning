@@ -4,8 +4,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+import java.io.IOException;
 import java.util.List;
 
+import org.jdom2.JDOMException;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.luaj.vm2.Globals;
@@ -512,9 +514,9 @@ public class AssemblyLine {
 	private static SystemTransformations assemblyLineTransformations;
 
 	@BeforeAll
-	public static void setupAll() {
+	public static void setupAll() throws JDOMException, IOException {
 		SystemTransformationsXMLFile xmlFile = new SystemTransformationsXMLFile();
-		xmlFile.load(AssemblyLine.class.getResource("/assemblyLine/elements.xml"));
+		xmlFile.load(AssemblyLine.class.getResource("/assemblyLine/systemTransformations.xml"));
 
 		assemblyLineTransformations = new SystemTransformations();
 		// TODO : удалить + удалить затрагиваемый код
@@ -527,7 +529,8 @@ public class AssemblyLine {
 		assemblyLineTransformations.addElement(moveWithLoad());
 		assemblyLineTransformations.addElement(moveWithoutLoad());
 
-		assemblyLineTransformations.addElements(xmlFile.getElements());
+		// TODO : включить
+		// assemblyLineTransformations.addElements(xmlFile.getElements());
 	}
 
 	@Test

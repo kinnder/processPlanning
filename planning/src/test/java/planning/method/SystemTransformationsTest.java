@@ -68,8 +68,7 @@ public class SystemTransformationsTest {
 	public void addElements() {
 		final SystemTransformation element_1_mock = context.mock(SystemTransformation.class, "element-1");
 		final SystemTransformation element_2_mock = context.mock(SystemTransformation.class, "element-2");
-
-		SystemTransformation[] elements = new SystemTransformation[] { element_1_mock, element_2_mock };
+		final SystemTransformation[] elements = new SystemTransformation[] { element_1_mock, element_2_mock };
 
 		testable.addElements(elements);
 		assertEquals(2, testable.getElements().length);
