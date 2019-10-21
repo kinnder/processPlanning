@@ -142,6 +142,7 @@ public class AssemblyLine {
 
 	private static final String ID_PLANE_Z_BOTTOM = "#PLANE-Z-BOTTOM";
 
+	// TODO : пересмотреть положение globals
 	private static Globals globals = JsePlatform.standardGlobals();
 
 	public static SystemTransformation turnWithoutLoad() {
