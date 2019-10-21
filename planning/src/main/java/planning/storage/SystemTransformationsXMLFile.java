@@ -28,155 +28,145 @@ import planning.model.Transformation;
 
 public class SystemTransformationsXMLFile {
 
+	private SystemTransformation[] systemTransformations;
+
+	public SystemTransformation[] getSystemTransformations() {
+		return systemTransformations;
+	}
+
 	public void load(URL resource) throws JDOMException, IOException {
 		Element root = new SAXBuilder().build(resource).getRootElement();
-		parse(root);
+		systemTransformations = parseSystemTransformations(root);
 	}
 
-	public void parse(Element root) throws DataConversionException {
-		List<Element> systemTransformations = root.getChildren("systemTransformation");
-		for (Element systemTransformation : systemTransformations) {
-			SystemTransformation element = parseSystemTransformation(systemTransformation);
-			elements.add(element);
+	public SystemTransformation[] parseSystemTransformations(Element root) throws DataConversionException {
+		List<SystemTransformation> systemTransformations = new ArrayList<>();
+		List<Element> elements = root.getChildren("systemTransformation");
+		for (Element element : elements) {
+			SystemTransformation systemTransformation = parseSystemTransformation(element);
+			systemTransformations.add(systemTransformation);
 		}
+		return systemTransformations.toArray(new SystemTransformation[0]);
 	}
 
-	private SystemTransformation parseSystemTransformation(Element root) throws DataConversionException {
-		Element name = root.getChild("name");
-		Element action = root.getChild("action");
-		Element systemTemplate = root.getChild("systemTemplate");
-		Element transformations = root.getChild("transformations");
-
-		return new SystemTransformation(parseName(name), parseAction(action), parseSystemTemplate(systemTemplate),
-				parseTransformations(transformations));
+	public SystemTransformation parseSystemTransformation(Element root) throws DataConversionException {
+		String name = root.getChildText("name");
+		Action action = parseAction(root.getChild("action"));
+		SystemTemplate systemTemplate = parseSystemTemplate(root.getChild("systemTemplate"));
+		Transformation[] transformations = parseTransformations(root.getChild("transformations"));
+		return new SystemTransformation(name, action, systemTemplate, transformations);
 	}
 
-	private String parseName(Element root) {
-		return root.getText();
-	}
-
-	private Action parseAction(Element root) throws DataConversionException {
-		Element name = root.getChild("name");
-		List<Element> preConditionCheckers = root.getChildren("preConditionChecker");
-		List<Element> parameterUpdaters = root.getChildren("parameterUpdater");
-
-		Action action = new Action(parseName(name));
-		for (Element preConditionChecher : preConditionCheckers) {
-			ActionPreConditionChecker checker = parsePreConditionChecker(preConditionChecher);
-			action.registerPreConditionChecker(checker);
+	public Action parseAction(Element root) throws DataConversionException {
+		String name = root.getChildText("name");
+		Action action = new Action(name);
+		List<Element> elements = root.getChildren("preConditionChecker");
+		for (Element element : elements) {
+			ActionPreConditionChecker preConditionChecher = parsePreConditionChecker(element);
+			action.registerPreConditionChecker(preConditionChecher);
 		}
-		for (Element parameterUpdater : parameterUpdaters) {
-			ActionParameterUpdater updater = parseParameterUpdater(parameterUpdater);
-			action.registerParameterUpdater(updater);
+		elements = root.getChildren("parameterUpdater");
+		for (Element element : elements) {
+			ActionParameterUpdater parameterUpdater = parseParameterUpdater(element);
+			action.registerParameterUpdater(parameterUpdater);
 		}
-
 		return action;
 	}
 
 	// TODO : пересмотреть положение globals
 	private static Globals globals = JsePlatform.standardGlobals();
 
-	private ActionParameterUpdater parseParameterUpdater(Element root) throws DataConversionException {
-		List<Element> lines = root.getChildren("line");
-		String[] codes = new String[lines.size()];
-		for (Element line : lines) {
-			int id = line.getAttribute("n").getIntValue() - 1;
-			codes[id] = line.getText();
+	public ActionParameterUpdater parseParameterUpdater(Element root) throws DataConversionException {
+		List<Element> elements = root.getChildren("line");
+		String[] lines = new String[elements.size()];
+		for (Element element : elements) {
+			int id = element.getAttribute("n").getIntValue() - 1;
+			lines[id] = element.getText();
 		}
 		StringBuilder script = new StringBuilder();
-		for (String code : codes) {
-			script.append(code).append("\n");
+		for (String line : lines) {
+			script.append(line).append("\n");
 		}
 		return new LuaScriptActionParameterUpdater(globals, script.toString());
 	}
 
-	private ActionPreConditionChecker parsePreConditionChecker(Element root) throws DataConversionException {
-		List<Element> lines = root.getChildren("line");
-		String[] codes = new String[lines.size()];
-		for (Element line : lines) {
-			int id = line.getAttribute("n").getIntValue();
-			codes[id] = line.getText();
+	public ActionPreConditionChecker parsePreConditionChecker(Element root) throws DataConversionException {
+		List<Element> elements = root.getChildren("line");
+		String[] lines = new String[elements.size()];
+		for (Element element : elements) {
+			int id = element.getAttribute("n").getIntValue() - 1;
+			lines[id] = element.getText();
 		}
 		StringBuilder script = new StringBuilder();
-		for (String code : codes) {
-			script.append(code).append("\n");
+		for (String line : lines) {
+			script.append(line).append("\n");
 		}
 		return new LuaScriptActionPreConditionChecker(globals, script.toString());
 	}
 
-	private Transformation[] parseTransformations(Element root) {
-		List<Element> linkTransformations = root.getChildren("linkTransformation");
-		List<Element> attributeTransformations = root.getChildren("attributeTransformation");
+	public Transformation[] parseTransformations(Element root) {
 		List<Transformation> transformations = new ArrayList<>();
-		for (Element linkTransformation : linkTransformations) {
-			transformations.add(parseLinkTransformation(linkTransformation));
+		List<Element> elements = root.getChildren("linkTransformation");
+		for (Element element : elements) {
+			transformations.add(parseLinkTransformation(element));
 		}
-		for (Element attributeTransformation : attributeTransformations) {
-			transformations.add(parseAttributeTransformation(attributeTransformation));
+		elements = root.getChildren("attributeTransformation");
+		for (Element element : elements) {
+			transformations.add(parseAttributeTransformation(element));
 		}
 		return transformations.toArray(new Transformation[0]);
 	}
 
-	private AttributeTransformation parseAttributeTransformation(Element root) {
-		String objectId = root.getChild("objectId").getText();
-		String name = root.getChild("name").getText();
-		String value = root.getChild("value").getText();
+	public AttributeTransformation parseAttributeTransformation(Element root) {
+		String objectId = root.getChildText("objectId");
+		String name = root.getChildText("name");
+		String value = root.getChildText("value");
 		return new AttributeTransformation(objectId, name, value);
 	}
 
-	private LinkTransformation parseLinkTransformation(Element root) {
-		String objectId = root.getChild("objectId").getText();
-		String name = root.getChild("name").getText();
-		String oldValue = root.getChild("oldValue").getText();
-		String newValue = root.getChild("newValue").getText();
+	public LinkTransformation parseLinkTransformation(Element root) {
+		String objectId = root.getChildText("objectId");
+		String name = root.getChildText("name");
+		String oldValue = root.getChildText("oldValue");
+		String newValue = root.getChildText("newValue");
 		return new LinkTransformation(objectId, name, oldValue, newValue);
 	}
 
-	private SystemTemplate parseSystemTemplate(Element root) {
-		List<Element> objectTemplates = root.getChildren("objectTemplate");
+	public SystemTemplate parseSystemTemplate(Element root) {
+		List<Element> elements = root.getChildren("objectTemplate");
 		SystemTemplate systemTemplate = new SystemTemplate();
-		for (Element objectTemplate : objectTemplates) {
-			SystemObjectTemplate object = parseSystemObjectTemplate(objectTemplate);
-			systemTemplate.addObjectTemplate(object);
+		for (Element element : elements) {
+			SystemObjectTemplate systemObjectTemplate = parseSystemObjectTemplate(element);
+			systemTemplate.addObjectTemplate(systemObjectTemplate);
 		}
 		return systemTemplate;
 	}
 
-	private SystemObjectTemplate parseSystemObjectTemplate(Element root) {
-		String objectId = root.getChild("objectId").getText();
-		List<Element> attributeTemplates = root.getChildren("attributeTemplate");
-		List<Element> linkTemplates = root.getChildren("linkTemplate");
+	public SystemObjectTemplate parseSystemObjectTemplate(Element root) {
+		String objectId = root.getChildText("objectId");
 		SystemObjectTemplate objectTemplate = new SystemObjectTemplate(objectId);
-		for (Element attributeTemplate : attributeTemplates) {
-			AttributeTemplate attribute = parseAtttributeTemplate(attributeTemplate);
-			objectTemplate.addAttributeTemplate(attribute);
+		List<Element> elements = root.getChildren("attributeTemplate");
+		for (Element element : elements) {
+			AttributeTemplate attributeTemplate = parseAtttributeTemplate(element);
+			objectTemplate.addAttributeTemplate(attributeTemplate);
 		}
-		for (Element linkTemplate : linkTemplates) {
-			LinkTemplate link = parseLinkTemplate(linkTemplate);
-			objectTemplate.addLinkTemplate(link);
+		elements = root.getChildren("linkTemplate");
+		for (Element element : elements) {
+			LinkTemplate linkTemplate = parseLinkTemplate(element);
+			objectTemplate.addLinkTemplate(linkTemplate);
 		}
 		return objectTemplate;
 	}
 
-	private LinkTemplate parseLinkTemplate(Element root) {
-		String name = root.getChild("name").getText();
-		String value = root.getChild("value").getText();
+	public LinkTemplate parseLinkTemplate(Element root) {
+		String name = root.getChildText("name");
+		String value = root.getChildText("value");
 		return new LinkTemplate(name, value);
 	}
 
-	private AttributeTemplate parseAtttributeTemplate(Element root) {
-		String name = root.getChild("name").getText();
-		String value = root.getChild("value").getText();
+	public AttributeTemplate parseAtttributeTemplate(Element root) {
+		String name = root.getChildText("name");
+		String value = root.getChildText("value");
 		return new AttributeTemplate(name, value);
-	}
-
-	public SystemTransformationsXMLFile() {
-		elements = new ArrayList<>();
-	}
-
-	private List<SystemTransformation> elements;
-
-	public SystemTransformation[] getElements() {
-		return elements.toArray(new SystemTransformation[0]);
 	}
 }
