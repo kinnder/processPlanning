@@ -28,14 +28,24 @@ import planning.model.Transformation;
 
 public class SystemTransformationsXMLFile {
 
-	private SystemTransformation[] systemTransformations;
+	private SystemTransformation[] systemTransformations = new SystemTransformation[0];
 
 	public SystemTransformation[] getSystemTransformations() {
 		return systemTransformations;
 	}
 
+	private SAXBuilder builder;
+
+	public SystemTransformationsXMLFile() {
+		this(new SAXBuilder());
+	}
+
+	SystemTransformationsXMLFile(SAXBuilder builder) {
+		this.builder = builder;
+	}
+
 	public void load(URL resource) throws JDOMException, IOException {
-		Element root = new SAXBuilder().build(resource).getRootElement();
+		Element root = builder.build(resource).getRootElement();
 		systemTransformations = parseSystemTransformations(root);
 	}
 
