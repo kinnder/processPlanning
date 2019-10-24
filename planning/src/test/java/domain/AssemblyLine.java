@@ -34,113 +34,147 @@ import planning.storage.SystemTransformationsXMLFile;
 
 public class AssemblyLine {
 
-	private static final String OBJECT_PICK_AND_PLACE_ROBOT = "Робот-перекладчик";
+	/** Робот-перекладчик */
+	private static final String OBJECT_PICK_AND_PLACE_ROBOT = "OBJECT-PICK-AND-PLACE-ROBOT";
 
-	private static final String OBJECT_PACKAGE_BOX = "Тара";
+	/** Тара */
+	private static final String OBJECT_PACKAGE_BOX = "OBJECT-PACKAGE-BOX";
 
-	private static final String OBJECT_SHUTTLE = "Шаттл";
+	/** Шаттл */
+	private static final String OBJECT_SHUTTLE = "OBJECT-SHUTTLE";
 
-	private static final String OBJECT_TABLE_1 = "Стол 1";
+	/** Стол 1 */
+	private static final String OBJECT_TABLE_1 = "OBJECT-TABLE-1";
 
-	private static final String OBJECT_TABLE_2 = "Стол 2";
+	/** Стол 2 */
+	private static final String OBJECT_TABLE_2 = "OBJECT-TABLE-2";
 
-	private static final String OBJECT_PLANE_X_TABLE_1 = "плоскость X стол 1";
+	/** плоскость X стол 1 */
+	private static final String OBJECT_PLANE_X_TABLE_1 = "OBJECT-PLANE-X-TABLE-1";
 
-	private static final String OBJECT_PLANE_X_TABLE_2 = "плоскость X стол 2";
+	/** плоскость X стол 2 */
+	private static final String OBJECT_PLANE_X_TABLE_2 = "OBJECT-PLANE-X-TABLE-2";
 
-	private static final String OBJECT_PLANE_Y_OUTSIDE = "плоскость Y снаружи станции";
+	/** плоскость Y снаружи станции */
+	private static final String OBJECT_PLANE_Y_OUTSIDE = "OBJECT-PLANE-Y-OUTSIDE";
 
-	private static final String OBJECT_PLANE_Y_INSIDE = "плоскоть Y внутри станции";
+	/** плоскоть Y внутри станции */
+	private static final String OBJECT_PLANE_Y_INSIDE = "OBJECT-PLANE-Y-INSIDE";
 
-	private static final String OBJECT_PLANE_Z_TOP = "плоскость Z вверх";
+	/** плоскость Z вверх */
+	private static final String OBJECT_PLANE_Z_TOP = "OBJECT-PLANE-Z-TOP";
 
-	private static final String OBJECT_PLANE_Z_BOTTOM = "плоскость Z низ";
+	/** плоскость Z низ */
+	private static final String OBJECT_PLANE_Z_BOTTOM = "OBJECT-PLANE-Z-BOTTOM";
 
-	private static final String ATTRIBUTE_PICK_AND_PLACE_ROBOT = "Робот-перекладчик";
+	/** Робот-перекладчик */
+	private static final String ATTRIBUTE_PICK_AND_PLACE_ROBOT = "ATTRIBUTE-PICK-AND-PLACE-ROBOT";
 
-	private static final String ATTRIBUTE_PACKAGE = "Тара";
+	/** Тара */
+	private static final String ATTRIBUTE_PACKAGE = "ATTRIBUTE-PACKAGE";
 
-	private static final String ATTRIBUTE_PACKAGE_BOX_POSITION = "Место тары";
+	/** Место тары */
+	private static final String ATTRIBUTE_PACKAGE_BOX_POSITION = "ATTRIBUTE-PACKAGE-BOX-POSITION";
 
-	private static final String ATTRIBUTE_PLANE_X = "Плоскость X";
+	/** Плоскость X */
+	private static final String ATTRIBUTE_PLANE_X = "ATTRIBUTE-PLANE-X";
 
-	private static final String ATTRIBUTE_PLANE_Y = "Плоскость Y";
+	/** Плоскость Y */
+	private static final String ATTRIBUTE_PLANE_Y = "ATTRIBUTE-PLANE-Y";
 
-	private static final String ATTRIBUTE_PLANE_Z = "Плоскость Z";
+	/** Плоскость Z */
+	private static final String ATTRIBUTE_PLANE_Z = "ATTRIBUTE-PLANE-Z";
 
-	private static final String PARAMETER_TARGET = "цель";
+	/** цель */
+	private static final String PARAMETER_TARGET = "PARAMETER-TARGET";
 
-	private static final String LINK_GRAB_POSITION = "положение захвата";
+	/** положение захвата */
+	private static final String LINK_GRAB_POSITION = "LINK-GRAB-POSITION";
 
-	private static final String LINK_ROTARY_DRIVE_POSITION = "положение поворотного привода";
+	/** положение поворотного привода */
+	private static final String LINK_ROTARY_DRIVE_POSITION = "LINK-ROTARY-DRIVE-POSITION";
 
-	private static final String LINK_LINEAR_DRIVE_POSITION = "положение линейного привода";
+	/** положение линейного привода */
+	private static final String LINK_LINEAR_DRIVE_POSITION = "LINK-LINEAR-DRIVE-POSITION";
 
-	private static final String LINK_VERTICAL_DRIVE_POSITION = "положение вертикального привода";
+	/** положение вертикального привода */
+	private static final String LINK_VERTICAL_DRIVE_POSITION = "LINK-VERTICAL-DRIVE-POSITION";
 
-	private static final String LINK_PACKAGE_BOX_POSITION = "место тары";
+	/** место тары */
+	private static final String LINK_PACKAGE_BOX_POSITION = "LINK-PACKAGE-BOX-POSITION";
 
-	private static final String LINK_PLANE_X_POSITION = "положение в плоскости X";
+	/** положение в плоскости X */
+	private static final String LINK_PLANE_X_POSITION = "LINK-PLANE-X-POSITION";
 
-	private static final String LINK_PLANE_Y_POSITION = "положение в плоскости Y";
+	/** положение в плоскости Y */
+	private static final String LINK_PLANE_Y_POSITION = "LINK-PLANE-Y-POSITION";
 
-	private static final String LINK_PLANE_Z_POSITION = "положение в плоскости Z";
+	/** положение в плоскости Z */
+	private static final String LINK_PLANE_Z_POSITION = "LINK-PLANE-Z-POSITION";
 
-	private static final String OPERATION_TURN_WITHOUT_LOAD = "Повернуть без нагрузки";
+	/** Повернуть без нагрузки */
+	private static final String OPERATION_TURN_WITHOUT_LOAD = "OPERATION-TURN-WITHOUT-LOAD";
 
-	private static final String OPERATION_TURN_WITH_LOAD = "Повернуть c нагрузкой";
+	/** Повернуть c нагрузкой */
+	private static final String OPERATION_TURN_WITH_LOAD = "OPERATION-TURN-WITH-LOAD";
 
-	private static final String OPERATION_OPEN_GRAB = "Открыть захват";
+	/** Открыть захват */
+	private static final String OPERATION_OPEN_GRAB = "OPERATION-OPEN-GRAB";
 
-	private static final String OPERATION_CLOSE_GRAB = "Закрыть захват";
+	/** Закрыть захват */
+	private static final String OPERATION_CLOSE_GRAB = "OPERATION-CLOSE-GRAB";
 
-	private static final String OPERATION_LIFT_UP = "Поднять вверх";
+	/** Поднять вверх */
+	private static final String OPERATION_LIFT_UP = "OPERATION-LIFT-UP";
 
-	private static final String OPERATION_LOWER_DOWN = "Опустить вниз";
+	/** Опустить вниз */
+	private static final String OPERATION_LOWER_DOWN = "OPERATION-LOWER-DOWN";
 
-	private static final String OPERATION_MOVE_WITH_LOAD = "Переместить с нагрузкой";
+	/** Переместить с нагрузкой */
+	private static final String OPERATION_MOVE_WITH_LOAD = "OPERATION-MOVE-WITH-LOAD";
 
-	private static final String OPERATION_MOVE_WITHOUT_LOAD = "Переместить без нагрузки";
+	/** Переместить без нагрузки */
+	private static final String OPERATION_MOVE_WITHOUT_LOAD = "OPERATION-MOVE-WITHOUT-LOAD";
 
-	private static final String ELEMENT_TURN_WITHOUT_LOAD = "turnWithoutLoad";
+	private static final String ELEMENT_TURN_WITHOUT_LOAD = "ELEMENT-TURN-WIHOUT-LOAD";
 
-	private static final String ELEMENT_TURN_WITH_LOAD = "turnWithLoad";
+	private static final String ELEMENT_TURN_WITH_LOAD = "ELEMENT-TURN-WITH-LOAD";
 
-	private static final String ELEMENT_OPEN_GRAB = "openGrab";
+	private static final String ELEMENT_OPEN_GRAB = "ELEMENT-OPEN-GRAB";
 
-	private static final String ELEMENT_CLOSE_GRAB = "closeGrab";
+	private static final String ELEMENT_CLOSE_GRAB = "ELEMENT-CLOSE-GRAB";
 
-	private static final String ELEMENT_LIFT_UP = "liftUp";
+	private static final String ELEMENT_LIFT_UP = "ELEMENT-LIFT-UP";
 
-	private static final String ELEMENT_LOWER_DOWN = "lowerDown";
+	private static final String ELEMENT_LOWER_DOWN = "ELEMENT-LOWER-DOWN";
 
-	private static final String ELEMENT_MOVE_WITH_LOAD = "moveWithLoad";
+	private static final String ELEMENT_MOVE_WITH_LOAD = "ELEMENT-MOVE-WITH-LOAD";
 
-	private static final String ELEMENT_MOVE_WITHOUT_LOAD = "moveWithoutLoad";
+	private static final String ELEMENT_MOVE_WITHOUT_LOAD = "ELEMENT-MOVE-WITHOUT-LOAD";
 
-	private static final String ID_ROBOT = "#ROBOT";
+	private static final String ID_ROBOT = "ID-ROBOT";
 
-	private static final String ID_PLANE_X_TARGET = "#PLANE-X-TARGET";
+	private static final String ID_PLANE_X_TARGET = "ID-PLANE-X-TARGET";
 
-	private static final String ID_PLANE_X_SOURCE = "#PLANE-X-SOURCE";
+	private static final String ID_PLANE_X_SOURCE = "ID-PLANE-X-SOURCE";
 
-	private static final String ID_PLANE_Y_TARGET = "#PLANE-Y-TARGET";
+	private static final String ID_PLANE_Y_TARGET = "ID-PLANE-Y-TARGET";
 
-	private static final String ID_PLANE_Y_SOURCE = "#PLANE-Y-SOURCE";
+	private static final String ID_PLANE_Y_SOURCE = "ID-PLANE-Y-SOURCE";
 
-	private static final String ID_PACKAGE_BOX = "#PACKAGE-BOX";
+	private static final String ID_PACKAGE_BOX = "ID-PACKAGE-BOX";
 
-	private static final String ID_PLANE_Y = "#PLANE-Y";
+	private static final String ID_PLANE_Y = "ID-PLANE-Y";
 
-	private static final String ID_PLANE_X = "#PLANE-X";
+	private static final String ID_PLANE_X = "ID-PLANE-X";
 
-	private static final String ID_PLANE_Z = "#PLANE-Z";
+	private static final String ID_PLANE_Z = "ID-PLANE-Z";
 
-	private static final String ID_PACKAGE_BOX_POSITION = "#PACKAGE-BOX-POSITION";
+	private static final String ID_PACKAGE_BOX_POSITION = "ID-PACKAGE-BOX-POSITION";
 
-	private static final String ID_PLANE_Z_TOP = "#PLANE-Z-TOP";
+	private static final String ID_PLANE_Z_TOP = "ID-PLANE-Z-TOP";
 
-	private static final String ID_PLANE_Z_BOTTOM = "#PLANE-Z-BOTTOM";
+	private static final String ID_PLANE_Z_BOTTOM = "ID-PLANE-Z-BOTTOM";
 
 	// TODO : пересмотреть положение globals
 	private static Globals globals = JsePlatform.standardGlobals();
@@ -531,7 +565,7 @@ public class AssemblyLine {
 		assemblyLineTransformations.addElement(moveWithoutLoad());
 
 		// TODO : включить
-		// assemblyLineTransformations.addElements(xmlFile.getElements());
+		assemblyLineTransformations.addElements(xmlFile.getSystemTransformations());
 	}
 
 	@Test
