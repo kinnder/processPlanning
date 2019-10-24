@@ -1,6 +1,8 @@
 package planning.storage;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.IOException;
@@ -293,7 +295,7 @@ public class SystemTransformationsXMLFileTest {
 
 				oneOf(attributeTransformation_mock).getChildText("name");
 
-				oneOf(attributeTransformation_mock).getChildText("value");
+				oneOf(attributeTransformation_mock).getChild("value");
 
 				// parseAttributeTransformation -->
 			}
@@ -305,6 +307,7 @@ public class SystemTransformationsXMLFileTest {
 	@Test
 	public void parseAttributeTransformation() {
 		final Element root_mock = context.mock(Element.class, "root");
+		final Element value_mock = context.mock(Element.class, "value");
 
 		context.checking(new Expectations() {
 			{
@@ -314,8 +317,16 @@ public class SystemTransformationsXMLFileTest {
 				oneOf(root_mock).getChildText("name");
 				will(returnValue("name"));
 
-				oneOf(root_mock).getChildText("value");
-				will(returnValue("value"));
+				oneOf(root_mock).getChild("value");
+				will(returnValue(value_mock));
+
+				// <-- parseValue
+
+				oneOf(value_mock).getAttributeValue("type", "string");
+
+				oneOf(value_mock).getText();
+
+				// parseValue -->
 			}
 		});
 
@@ -394,7 +405,7 @@ public class SystemTransformationsXMLFileTest {
 
 				oneOf(attributeTemplate_mock).getChildText("name");
 
-				oneOf(attributeTemplate_mock).getChildText("value");
+				oneOf(attributeTemplate_mock).getChild("value");
 
 				// parseAttributeTemplate -->
 
@@ -417,17 +428,29 @@ public class SystemTransformationsXMLFileTest {
 	@Test
 	public void parseAttributeTemplate() {
 		final Element root_mock = context.mock(Element.class, "root");
+		final Element value_mock = context.mock(Element.class, "value");
 
 		context.checking(new Expectations() {
 			{
 				oneOf(root_mock).getChildText("name");
 				will(returnValue("name"));
 
-				oneOf(root_mock).getChildText("value");
-				will(returnValue("value"));
+				oneOf(root_mock).getChild("value");
+				will(returnValue(value_mock));
+
+				// <-- parseValue
+
+				oneOf(value_mock).getAttributeValue("type", "string");
+
+				oneOf(value_mock).getText();
+
+				// parseValue -->
 			}
 		});
-		assertTrue(testable.parseAtttributeTemplate(root_mock) instanceof AttributeTemplate);
+		AttributeTemplate result = testable.parseAtttributeTemplate(root_mock);
+		assertNotNull(result);
+		assertEquals("name", result.getName());
+		assertEquals("", result.getValue());
 	}
 
 	@Test
@@ -443,6 +466,91 @@ public class SystemTransformationsXMLFileTest {
 				will(returnValue("value"));
 			}
 		});
-		assertTrue(testable.parseLinkTemplate(root_mock) instanceof LinkTemplate);
+		LinkTemplate result = testable.parseLinkTemplate(root_mock);
+		assertNotNull(result);
+		assertEquals("name", result.getName());
+		assertEquals("value", result.getObjectId());
+	}
+
+	@Test
+	public void parseLinkTemplate_with_null() {
+		final Element root_mock = context.mock(Element.class, "root");
+
+		context.checking(new Expectations() {
+			{
+				oneOf(root_mock).getChildText("name");
+				will(returnValue("name"));
+
+				oneOf(root_mock).getChildText("value");
+				will(returnValue(null));
+			}
+		});
+		LinkTemplate result = testable.parseLinkTemplate(root_mock);
+		assertNotNull(result);
+		assertEquals("name", result.getName());
+		assertEquals(null, result.getObjectId());
+	}
+
+	@Test
+	public void parseValue() {
+		final Element root_mock = context.mock(Element.class, "root");
+
+		context.checking(new Expectations() {
+			{
+				oneOf(root_mock).getAttributeValue("type", "string");
+				will(returnValue("string"));
+
+				oneOf(root_mock).getText();
+				will(returnValue("value"));
+			}
+		});
+
+		Object result = testable.parseValue(root_mock);
+		assertNotNull(result);
+		assertEquals("value", result);
+	}
+
+	@Test
+	public void parseValue_boolean() {
+		final Element root_mock = context.mock(Element.class, "root");
+
+		context.checking(new Expectations() {
+			{
+				oneOf(root_mock).getAttributeValue("type", "string");
+				will(returnValue("boolean"));
+
+				oneOf(root_mock).getText();
+				will(returnValue("true"));
+			}
+		});
+
+		Object result = testable.parseValue(root_mock);
+		assertNotNull(result);
+		assertEquals(true, result);
+	}
+
+	@Test
+	public void parseValue_integer() {
+		final Element root_mock = context.mock(Element.class, "root");
+
+		context.checking(new Expectations() {
+			{
+				oneOf(root_mock).getAttributeValue("type", "string");
+				will(returnValue("integer"));
+
+				oneOf(root_mock).getText();
+				will(returnValue("10"));
+			}
+		});
+
+		Object result = testable.parseValue(root_mock);
+		assertNotNull(result);
+		assertEquals(10, result);
+	}
+
+	@Test
+	public void parseValue_with_null() {
+		Object result = testable.parseValue(null);
+		assertNull(result);
 	}
 }

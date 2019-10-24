@@ -41,8 +41,25 @@
 		<xs:complexType>
 			<xs:sequence>
 				<xs:element name="name" type="xs:string" />
-				<xs:element minOccurs="0" name="value" type="xs:NCName" />
+				<xs:element minOccurs="0" ref="value" />
 			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="value">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="xs:NCName">
+					<xs:attribute name="type">
+						<xs:simpleType>
+							<xs:restriction base="xs:string">
+								<xs:enumeration value="boolean" />
+								<xs:enumeration value="string" />
+								<xs:enumeration value="integer" />
+							</xs:restriction>
+						</xs:simpleType>
+					</xs:attribute>
+				</xs:extension>
+			</xs:simpleContent>
 		</xs:complexType>
 	</xs:element>
 	<xs:element name="linkTemplate">
@@ -66,8 +83,8 @@
 			<xs:sequence>
 				<xs:element name="objectId" type="xs:string" />
 				<xs:element name="name" type="xs:string" />
-				<xs:element name="oldValue" type="xs:NCName" />
-				<xs:element name="newValue" type="xs:NCName" />
+				<xs:element name="oldValue" type="xs:NCName" minOccurs="0" />
+				<xs:element name="newValue" type="xs:NCName" minOccurs="0" />
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
@@ -76,7 +93,7 @@
 			<xs:sequence>
 				<xs:element name="objectId" type="xs:string" />
 				<xs:element name="name" type="xs:string" />
-				<xs:element name="value" type="xs:NCName" />
+				<xs:element ref="value" />
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>

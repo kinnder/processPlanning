@@ -130,7 +130,7 @@ public class SystemTransformationsXMLFile {
 	public AttributeTransformation parseAttributeTransformation(Element root) {
 		String objectId = root.getChildText("objectId");
 		String name = root.getChildText("name");
-		String value = root.getChildText("value");
+		Object value = parseValue(root.getChild("value"));
 		return new AttributeTransformation(objectId, name, value);
 	}
 
@@ -176,7 +176,22 @@ public class SystemTransformationsXMLFile {
 
 	public AttributeTemplate parseAtttributeTemplate(Element root) {
 		String name = root.getChildText("name");
-		String value = root.getChildText("value");
+		Object value = parseValue(root.getChild("value"));
 		return new AttributeTemplate(name, value);
+	}
+
+	public Object parseValue(Element root) {
+		if (root == null) {
+			return null;
+		}
+		String type = root.getAttributeValue("type", "string");
+		String value = root.getText();
+		if ("boolean".equals(type)) {
+			return new Boolean(value);
+		}
+		if ("integer".equals(type)) {
+			return new Integer(value);
+		}
+		return value;
 	}
 }

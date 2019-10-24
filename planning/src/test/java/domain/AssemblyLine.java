@@ -136,7 +136,7 @@ public class AssemblyLine {
 	/** Переместить без нагрузки */
 	private static final String OPERATION_MOVE_WITHOUT_LOAD = "OPERATION-MOVE-WITHOUT-LOAD";
 
-	private static final String ELEMENT_TURN_WITHOUT_LOAD = "ELEMENT-TURN-WIHOUT-LOAD";
+	private static final String ELEMENT_TURN_WITHOUT_LOAD = "ELEMENT-TURN-WITHOUT-LOAD";
 
 	private static final String ELEMENT_TURN_WITH_LOAD = "ELEMENT-TURN-WITH-LOAD";
 
@@ -565,7 +565,7 @@ public class AssemblyLine {
 		assemblyLineTransformations.addElement(moveWithoutLoad());
 
 		// TODO : включить
-		assemblyLineTransformations.addElements(xmlFile.getSystemTransformations());
+		// assemblyLineTransformations.addElements(xmlFile.getSystemTransformations());
 	}
 
 	@Test

@@ -39,4 +39,8 @@ public class AttributeTemplate {
 	private boolean matchesValue(Attribute object) {
 		return value.equals(object.getValue());
 	}
+
+	public Object getValue() {
+		return this.value;
+	}
 }
