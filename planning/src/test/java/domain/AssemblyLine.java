@@ -555,17 +555,17 @@ public class AssemblyLine {
 
 		assemblyLineTransformations = new SystemTransformations();
 		// TODO : удалить + удалить затрагиваемый код
-		assemblyLineTransformations.addElement(turnWithoutLoad());
-		assemblyLineTransformations.addElement(turnWithLoad());
-		assemblyLineTransformations.addElement(openGrab());
-		assemblyLineTransformations.addElement(closeGrab());
-		assemblyLineTransformations.addElement(liftUp());
-		assemblyLineTransformations.addElement(lowerDown());
-		assemblyLineTransformations.addElement(moveWithLoad());
-		assemblyLineTransformations.addElement(moveWithoutLoad());
+//		assemblyLineTransformations.addElement(turnWithoutLoad());
+//		assemblyLineTransformations.addElement(turnWithLoad());
+//		assemblyLineTransformations.addElement(openGrab());
+//		assemblyLineTransformations.addElement(closeGrab());
+//		assemblyLineTransformations.addElement(liftUp());
+//		assemblyLineTransformations.addElement(lowerDown());
+//		assemblyLineTransformations.addElement(moveWithLoad());
+//		assemblyLineTransformations.addElement(moveWithoutLoad());
 
 		// TODO : включить
-		// assemblyLineTransformations.addElements(xmlFile.getSystemTransformations());
+		 assemblyLineTransformations.addElements(xmlFile.getSystemTransformations());
 	}
 
 	@Test

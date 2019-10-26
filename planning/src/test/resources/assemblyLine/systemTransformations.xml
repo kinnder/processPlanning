@@ -124,10 +124,10 @@
 		</systemTemplate>
 		<transformations>
 			<linkTransformation>
-				<objectId>ID_ROBOT</objectId>
-				<name>LINK_ROTARY_DRIVE_POSITION</name>
-				<oldValue>ID_PLANE_Y_SOURCE</oldValue>
-				<newValue>ID_PLANE_Y_TARGET</newValue>
+				<objectId>ID-ROBOT</objectId>
+				<name>LINK-ROTARY-DRIVE-POSITION</name>
+				<oldValue>ID-PLANE-Y-SOURCE</oldValue>
+				<newValue>ID-PLANE-Y-TARGET</newValue>
 			</linkTransformation>
 			<linkTransformation>
 				<objectId>ID-PLANE-Y-SOURCE</objectId>
@@ -280,7 +280,7 @@
 					<value>ID-PLANE-X</value>
 				</linkTemplate>
 				<linkTemplate>
-					<name>LINK-VERTICL-DRIVE-POSITION</name>
+					<name>LINK-VERTICAL-DRIVE-POSITION</name>
 					<value>ID-PLANE-Z</value>
 				</linkTemplate>
 				<linkTemplate>
@@ -657,7 +657,7 @@
 			<objectTemplate>
 				<objectId>ID-PACKAGE-BOX</objectId>
 				<attributeTemplate>
-					<name>ATTRIBUTE-PACKAGE-BOX</name>
+					<name>ATTRIBUTE-PACKAGE</name>
 					<value type="boolean">true</value>
 				</attributeTemplate>
 				<linkTemplate>
@@ -683,7 +683,7 @@
 			</linkTransformation>
 			<linkTransformation>
 				<objectId>ID-PLANE-X-TARGET</objectId>
-				<name>LINK-LINERR-DRIVE-POSITION</name>
+				<name>LINK-LINEAR-DRIVE-POSITION</name>
 				<newValue>ID-ROBOT</newValue>
 			</linkTransformation>
 		</transformations>
