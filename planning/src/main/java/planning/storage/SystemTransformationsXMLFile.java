@@ -1,14 +1,20 @@
 package planning.storage;
 
+import java.io.BufferedOutputStream;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.jdom2.DataConversionException;
+import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.JDOMException;
 import org.jdom2.input.SAXBuilder;
+import org.jdom2.output.XMLOutputter;
 import org.luaj.vm2.Globals;
 import org.luaj.vm2.lib.jse.JsePlatform;
 
@@ -34,6 +40,10 @@ public class SystemTransformationsXMLFile {
 		return systemTransformations;
 	}
 
+	public void setSystemTransformations(SystemTransformation[] systemTransformations) {
+		this.systemTransformations = systemTransformations;
+	}
+
 	private SAXBuilder builder;
 
 	public SystemTransformationsXMLFile() {
@@ -49,6 +59,13 @@ public class SystemTransformationsXMLFile {
 		systemTransformations = parseSystemTransformations(root);
 	}
 
+	public void save(URL resource) throws IOException, URISyntaxException {
+		Element root = combineSystemTransformations(systemTransformations);
+		Document document = new Document(root);
+		XMLOutputter outputter = new XMLOutputter();
+		outputter.output(document, new BufferedOutputStream(Files.newOutputStream(Paths.get(resource.toURI()))));
+	}
+
 	public SystemTransformation[] parseSystemTransformations(Element root) throws DataConversionException {
 		List<SystemTransformation> systemTransformations = new ArrayList<>();
 		List<Element> elements = root.getChildren("systemTransformation");
@@ -57,6 +74,11 @@ public class SystemTransformationsXMLFile {
 			systemTransformations.add(systemTransformation);
 		}
 		return systemTransformations.toArray(new SystemTransformation[0]);
+	}
+
+	public Element combineSystemTransformations(SystemTransformation[] systemTransformations) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	public SystemTransformation parseSystemTransformation(Element root) throws DataConversionException {

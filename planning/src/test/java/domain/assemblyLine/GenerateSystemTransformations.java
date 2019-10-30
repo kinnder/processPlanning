@@ -1,5 +1,8 @@
 package domain.assemblyLine;
 
+import java.io.IOException;
+import java.net.URISyntaxException;
+
 import org.luaj.vm2.Globals;
 import org.luaj.vm2.lib.jse.JsePlatform;
 
@@ -13,6 +16,7 @@ import planning.model.SystemObjectTemplate;
 import planning.model.SystemTemplate;
 import planning.model.SystemTransformation;
 import planning.model.Transformation;
+import planning.storage.SystemTransformationsXMLFile;
 
 public class GenerateSystemTransformations implements AssemblyLine {
 
@@ -400,5 +404,13 @@ public class GenerateSystemTransformations implements AssemblyLine {
 		assemblyLineTransformations.addElement(lowerDown());
 		assemblyLineTransformations.addElement(moveWithLoad());
 		assemblyLineTransformations.addElement(moveWithoutLoad());
+
+		SystemTransformationsXMLFile xmlFile = new SystemTransformationsXMLFile();
+		xmlFile.setSystemTransformations(assemblyLineTransformations.getElements());
+		try {
+			xmlFile.save(GenerateSystemTransformations.class.getResource("/assemblyLine/systemTransformations.xml"));
+		} catch (IOException | URISyntaxException e) {
+			e.printStackTrace();
+		}
 	}
 }
