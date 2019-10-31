@@ -13,7 +13,9 @@ import org.jdom2.DataConversionException;
 import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.JDOMException;
+import org.jdom2.Namespace;
 import org.jdom2.input.SAXBuilder;
+import org.jdom2.output.Format;
 import org.jdom2.output.XMLOutputter;
 import org.luaj.vm2.Globals;
 import org.luaj.vm2.lib.jse.JsePlatform;
@@ -60,9 +62,15 @@ public class SystemTransformationsXMLFile {
 	}
 
 	public void save(URL resource) throws IOException, URISyntaxException {
-		Element root = combineSystemTransformations(systemTransformations);
+		Element root = new Element("systemTransformations");
+		Namespace xsiNamespace = Namespace.getNamespace("xsi", "http://www.w3.org/2001/XMLSchema-instance");
+		root.setAttribute("noNamespaceSchemaLocation", "../systemTransformations.xsd", xsiNamespace);
+
+		List<Element> elements = combineSystemTransformations(systemTransformations);
+		root.addContent(elements);
+
 		Document document = new Document(root);
-		XMLOutputter outputter = new XMLOutputter();
+		XMLOutputter outputter = new XMLOutputter(Format.getPrettyFormat().setIndent("\t"));
 		outputter.output(document, new BufferedOutputStream(Files.newOutputStream(Paths.get(resource.toURI()))));
 	}
 
@@ -76,9 +84,13 @@ public class SystemTransformationsXMLFile {
 		return systemTransformations.toArray(new SystemTransformation[0]);
 	}
 
-	public Element combineSystemTransformations(SystemTransformation[] systemTransformations) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Element> combineSystemTransformations(SystemTransformation[] systemTransformations) {
+		List<Element> elements = new ArrayList<>();
+		for (SystemTransformation systemTransformation : systemTransformations) {
+			Element element = combineSystemTransformation(systemTransformation);
+			elements.add(element);
+		}
+		return elements;
 	}
 
 	public SystemTransformation parseSystemTransformation(Element root) throws DataConversionException {
@@ -87,6 +99,20 @@ public class SystemTransformationsXMLFile {
 		SystemTemplate systemTemplate = parseSystemTemplate(root.getChild("systemTemplate"));
 		Transformation[] transformations = parseTransformations(root.getChild("transformations"));
 		return new SystemTransformation(name, action, systemTemplate, transformations);
+	}
+
+	public Element combineSystemTransformation(SystemTransformation systemTransformation) {
+		Element name = new Element("name");
+		name.setText(systemTransformation.getName());
+		Element action = combineAction(systemTransformation.getAction());
+		Element systemTemplate = combineSystemTemplate(systemTransformation.getSystemTemplate());
+		Element transformations = combineTransformations(systemTransformation.getTransformations());
+		Element root = new Element("systemTransformation");
+		root.addContent(name);
+		root.addContent(action);
+		root.addContent(systemTemplate);
+		root.addContent(transformations);
+		return root;
 	}
 
 	public Action parseAction(Element root) throws DataConversionException {
@@ -103,6 +129,12 @@ public class SystemTransformationsXMLFile {
 			action.registerParameterUpdater(parameterUpdater);
 		}
 		return action;
+	}
+
+	public Element combineAction(Action action) {
+		Element root = new Element("action");
+		// TODO Auto-generated method stub
+		return root;
 	}
 
 	// TODO : пересмотреть положение globals
@@ -149,6 +181,12 @@ public class SystemTransformationsXMLFile {
 		return transformations.toArray(new Transformation[0]);
 	}
 
+	public Element combineTransformations(Transformation[] transformations) {
+		Element root = new Element("transformations");
+		// TODO Auto-generated method stub
+		return root;
+	}
+
 	public AttributeTransformation parseAttributeTransformation(Element root) {
 		String objectId = root.getChildText("objectId");
 		String name = root.getChildText("name");
@@ -172,6 +210,12 @@ public class SystemTransformationsXMLFile {
 			systemTemplate.addObjectTemplate(systemObjectTemplate);
 		}
 		return systemTemplate;
+	}
+
+	public Element combineSystemTemplate(SystemTemplate systemTemplate) {
+		Element root = new Element("systemTemplate");
+		// TODO Auto-generated method stub
+		return root;
 	}
 
 	public SystemObjectTemplate parseSystemObjectTemplate(Element root) {

@@ -28,6 +28,14 @@ public class SystemTransformation {
 		return action;
 	}
 
+	public SystemTemplate getSystemTemplate() {
+		return template;
+	}
+
+	public Transformation[] getTransformations() {
+		return transformations;
+	}
+
 	public SystemVariant[] applyTo(System system) throws CloneNotSupportedException {
 		IdsMatching[] idsMatchings = template.matchIds(system);
 
