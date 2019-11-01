@@ -18,4 +18,8 @@ public class LuaScriptActionParameterUpdater implements ActionParameterUpdater {
 	public void invoke(SystemVariant systemVariant) {
 		globals.load(script).call(CoerceJavaToLua.coerce(systemVariant));
 	}
+
+	public String getScript() {
+		return script;
+	}
 }

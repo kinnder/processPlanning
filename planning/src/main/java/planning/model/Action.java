@@ -25,11 +25,19 @@ public class Action {
 
 	private List<ActionParameterUpdater> parameterUpdaters;
 
+	public List<ActionParameterUpdater> getParameterUpdaters() {
+		return parameterUpdaters;
+	}
+
 	public void registerParameterUpdater(ActionParameterUpdater parameterUpdater) {
 		parameterUpdaters.add(parameterUpdater);
 	}
 
 	private List<ActionPreConditionChecker> preConditionCheckers;
+
+	public List<ActionPreConditionChecker> getPreConditionCheckers() {
+		return preConditionCheckers;
+	}
 
 	public void registerPreConditionChecker(ActionPreConditionChecker preConditionChecker) {
 		preConditionCheckers.add(preConditionChecker);

@@ -132,8 +132,20 @@ public class SystemTransformationsXMLFile {
 	}
 
 	public Element combineAction(Action action) {
+		Element name = new Element("name");
+		name.setText(action.getName());
+		List<Element> elements = new ArrayList<>();
+		for (ActionPreConditionChecker preConditionChecker : action.getPreConditionCheckers()) {
+			Element element = combinePreConditionChecker(preConditionChecker);
+			elements.add(element);
+		}
+		for (ActionParameterUpdater parameterUpdater : action.getParameterUpdaters()) {
+			Element element = combineParameterUpdater(parameterUpdater);
+			elements.add(element);
+		}
 		Element root = new Element("action");
-		// TODO Auto-generated method stub
+		root.addContent(name);
+		root.addContent(elements);
 		return root;
 	}
 
@@ -154,6 +166,19 @@ public class SystemTransformationsXMLFile {
 		return new LuaScriptActionParameterUpdater(globals, script.toString());
 	}
 
+	public Element combineParameterUpdater(ActionParameterUpdater parameterUpdater) {
+		LuaScriptActionParameterUpdater luaParameterUpdater = (LuaScriptActionParameterUpdater) parameterUpdater;
+		String lines[] = luaParameterUpdater.getScript().split("\n");
+		Element root = new Element("parameterUpdater");
+		for (int i = 0; i < lines.length; i++) {
+			Element element = new Element("line");
+			element.setText(lines[i]);
+			element.setAttribute("n", Integer.toString(i + 1));
+			root.addContent(element);
+		}
+		return root;
+	}
+
 	public ActionPreConditionChecker parsePreConditionChecker(Element root) throws DataConversionException {
 		List<Element> elements = root.getChildren("line");
 		String[] lines = new String[elements.size()];
@@ -166,6 +191,19 @@ public class SystemTransformationsXMLFile {
 			script.append(line).append("\n");
 		}
 		return new LuaScriptActionPreConditionChecker(globals, script.toString());
+	}
+
+	public Element combinePreConditionChecker(ActionPreConditionChecker preConditionChecker) {
+		LuaScriptActionPreConditionChecker luaPreConditionChecker = (LuaScriptActionPreConditionChecker) preConditionChecker;
+		String lines[] = luaPreConditionChecker.getScript().split("\n");
+		Element root = new Element("preConditionChecker");
+		for (int i = 0; i < lines.length; i++) {
+			Element element = new Element("line");
+			element.setText(lines[i]);
+			element.setAttribute("n", Integer.toString(i + 1));
+			root.addContent(element);
+		}
+		return root;
 	}
 
 	public Transformation[] parseTransformations(Element root) {

@@ -20,4 +20,8 @@ public class LuaScriptActionPreConditionChecker implements ActionPreConditionChe
 		LuaValue result = globals.load(script).call(CoerceJavaToLua.coerce(systemVariant));
 		return result.toboolean();
 	}
+
+	public String getScript() {
+		return script;
+	}
 }
