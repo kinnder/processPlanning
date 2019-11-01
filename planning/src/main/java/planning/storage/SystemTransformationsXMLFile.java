@@ -357,6 +357,9 @@ public class SystemTransformationsXMLFile {
 	public AttributeTemplate parseAtttributeTemplate(Element root) {
 		String name = root.getChildText("name");
 		Object value = parseValue(root.getChild("value"));
+		if (value == null) {
+			return new AttributeTemplate(name);
+		}
 		return new AttributeTemplate(name, value);
 	}
 
@@ -365,8 +368,10 @@ public class SystemTransformationsXMLFile {
 		Element name = new Element("name");
 		name.setText(attributeTemplate.getName());
 		root.addContent(name);
-		Element value = combineValue(attributeTemplate.getValue());
-		root.addContent(value);
+		if (attributeTemplate.getValue() != null) {
+			Element value = combineValue(attributeTemplate.getValue());
+			root.addContent(value);
+		}
 		return root;
 	}
 
@@ -386,9 +391,6 @@ public class SystemTransformationsXMLFile {
 	}
 
 	public Element combineValue(Object value) {
-		if (value == null) {
-			return null;
-		}
 		Element root = new Element("value");
 		if (value instanceof Boolean) {
 			root.setAttribute("type", "boolean");

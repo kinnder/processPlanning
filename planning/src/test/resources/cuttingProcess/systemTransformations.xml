@@ -7,29 +7,29 @@
 				<objectId>ID-WORKPIECE</objectId>
 				<attributeTemplate>
 					<name>ATTRIBUTE-WORKPIECE</name>
-					<value>true</value>
+					<value type="boolean">true</value>
 				</attributeTemplate>
-				<linkTemplate>
-					<name>LINK-IS-PART-OF</name>
-					<value>ID-CYLINDER-SURFACE</value>
-				</linkTemplate>
 				<linkTemplate>
 					<name>LINK-IS-REQUIREMENT-OF</name>
 					<value>ID-REQUIREMENT</value>
+				</linkTemplate>
+				<linkTemplate>
+					<name>LINK-IS-PART-OF</name>
+					<value>ID-CYLINDER-SURFACE</value>
 				</linkTemplate>
 			</objectTemplate>
 			<objectTemplate>
 				<objectId>ID-CYLINDER-SURFACE</objectId>
 				<attributeTemplate>
-					<name>ATTRIBUTE-CYLINDER-SURFACE</name>
-					<value>true</value>
-				</attributeTemplate>
-				<attributeTemplate>
 					<name>ATTRIBUTE-DIAMETER</name>
 				</attributeTemplate>
 				<attributeTemplate>
+					<name>ATTRIBUTE-CYLINDER-SURFACE</name>
+					<value type="boolean">true</value>
+				</attributeTemplate>
+				<attributeTemplate>
 					<name>ATTRIBUTE-HAS-DIAMETER-REQUIREMENT</name>
-					<value>false</value>
+					<value type="boolean">false</value>
 				</attributeTemplate>
 				<linkTemplate>
 					<name>LINK-IS-PART-OF</name>
@@ -37,21 +37,20 @@
 				</linkTemplate>
 				<linkTemplate>
 					<name>LINK-IS-DIAMETER-REQUIREMENT</name>
-					<value>null</value>
 				</linkTemplate>
 			</objectTemplate>
 			<objectTemplate>
 				<objectId>ID-REQUIREMENT</objectId>
 				<attributeTemplate>
 					<name>ATTRIBUTE-REQUIREMENT</name>
-					<value>true</value>
-				</attributeTemplate>
-				<attributeTemplate>
-					<name>ATTRIBUTE-REQUIREMENT</name>
+					<value type="boolean">true</value>
 				</attributeTemplate>
 				<attributeTemplate>
 					<name>ATTRIBUTE-DIAMETER-REQUIREMENT-STATUS</name>
-					<value>false</value>
+					<value type="boolean">false</value>
+				</attributeTemplate>
+				<attributeTemplate>
+					<name>ATTRIBUTE-DIAMETER-REQUIREMENT</name>
 				</attributeTemplate>
 				<linkTemplate>
 					<name>LINK-IS-REQUIREMENT-OF</name>
@@ -59,36 +58,33 @@
 				</linkTemplate>
 				<linkTemplate>
 					<name>LINK-IS-DIAMETER-REQUIREMENT</name>
-					<value>null</value>
 				</linkTemplate>
 			</objectTemplate>
 		</systemTemplate>
 		<transformations>
 			<attributeTransformation>
-				<objectId>ID-ROBOT</objectId>
+				<objectId>ID-REQUIREMENT</objectId>
 				<name>ATTRIBUTE-DIAMETER-REQUIREMENT-STATUS</name>
-				<value>true</value>
+				<value type="boolean">true</value>
 			</attributeTransformation>
 			<linkTransformation>
 				<objectId>ID-REQUIREMENT</objectId>
 				<name>LINK-IS-DIAMETER-REQUIREMENT</name>
-				<oldValue>null</oldValue>
 				<newValue>ID-CYLINDER-SURFACE</newValue>
 			</linkTransformation>
 			<linkTransformation>
 				<objectId>ID-CYLINDER-SURFACE</objectId>
 				<name>LINK-IS-DIAMETER-REQUIREMENT</name>
-				<oldValue>null</oldValue>
 				<newValue>ID-REQUIREMENT</newValue>
 			</linkTransformation>
 			<attributeTransformation>
 				<objectId>ID-CYLINDER-SURFACE</objectId>
 				<name>ATTRIBUTE-HAS-DIAMETER-REQUIREMENT</name>
-				<value>true</value>
+				<value type="boolean">true</value>
 			</attributeTransformation>
 		</transformations>
 		<action>
-			<name>OPERATION_CUT_CYLINDER_SURFACE</name>
+			<name>OPERATION-CUT-CYLINDER-SURFACE</name>
 			<preConditionChecker>
 				<line n="1">local systemVariant = ...</line>
 				<line n="2">local cylinderSurface_actual = systemVariant:getObjectByIdMatch('ID-CYLINDER-SURFACE')</line>
@@ -116,33 +112,33 @@
 				<objectId>ID-WORKPIECE</objectId>
 				<attributeTemplate>
 					<name>ATTRIBUTE-WORKPIECE</name>
-					<value>true</value>
+					<value type="boolean">true</value>
 				</attributeTemplate>
+				<linkTemplate>
+					<name>LINK-IS-REQUIREMENT-OF</name>
+					<value>ID-REQUIREMENT</value>
+				</linkTemplate>
 				<linkTemplate>
 					<name>LINK-IS-PART-OF</name>
 					<value>ID-CYLINDER-SURFACE</value>
-				</linkTemplate>
-				<linkTemplate>
-					<name>LINK-IS-REQUIREMENET-OF</name>
-					<value>ID-REQUIREMENT</value>
 				</linkTemplate>
 			</objectTemplate>
 			<objectTemplate>
 				<objectId>ID-CYLINDER-SURFACE</objectId>
 				<attributeTemplate>
-					<name>ATTRIBUTE-CYLINDER-SURFACE</name>
-					<value>true</value>
-				</attributeTemplate>
-				<attributeTemplate>
 					<name>ATTRIBUTE-LENGTH</name>
 				</attributeTemplate>
 				<attributeTemplate>
 					<name>ATTRIBUTE-HAS-LENGTH-REQUIREMENT</name>
-					<value>false</value>
+					<value type="boolean">false</value>
+				</attributeTemplate>
+				<attributeTemplate>
+					<name>ATTRIBUTE-CYLINDER-SURFACE</name>
+					<value type="boolean">true</value>
 				</attributeTemplate>
 				<attributeTemplate>
 					<name>ATTRIBUTE-HAS-DIAMETER-REQUIREMENT</name>
-					<value>true</value>
+					<value type="boolean">true</value>
 				</attributeTemplate>
 				<linkTemplate>
 					<name>LINK-IS-PART-OF</name>
@@ -150,21 +146,20 @@
 				</linkTemplate>
 				<linkTemplate>
 					<name>LINK-IS-LENGTH-REQUIREMENT</name>
-					<value>null</value>
 				</linkTemplate>
 			</objectTemplate>
 			<objectTemplate>
 				<objectId>ID-REQUIREMENT</objectId>
 				<attributeTemplate>
 					<name>ATTRIBUTE-REQUIREMENT</name>
-					<value>true</value>
-				</attributeTemplate>
-				<attributeTemplate>
-					<name>ATTRIBUTE-LENGTH-REQUIREMENT</name>
+					<value type="boolean">true</value>
 				</attributeTemplate>
 				<attributeTemplate>
 					<name>ATTRIBUTE-LENGTH-REQUIREMENT-STATUS</name>
-					<value>false</value>
+					<value type="boolean">false</value>
+				</attributeTemplate>
+				<attributeTemplate>
+					<name>ATTRIBUTE-LENGTH-REQUIREMENT</name>
 				</attributeTemplate>
 				<linkTemplate>
 					<name>LINK-IS-REQUIREMENT-OF</name>
@@ -172,7 +167,6 @@
 				</linkTemplate>
 				<linkTemplate>
 					<name>LINK-IS-LENGTH-REQUIREMENT</name>
-					<value>null</value>
 				</linkTemplate>
 			</objectTemplate>
 		</systemTemplate>
@@ -180,24 +174,22 @@
 			<attributeTransformation>
 				<objectId>ID-REQUIREMENT</objectId>
 				<name>ATTRIBUTE-LENGTH-REQUIREMENT-STATUS</name>
-				<value>true</value>
+				<value type="boolean">true</value>
 			</attributeTransformation>
 			<linkTransformation>
 				<objectId>ID-REQUIREMENT</objectId>
 				<name>LINK-IS-LENGTH-REQUIREMENT</name>
-				<oldValue>null</oldValue>
 				<newValue>ID-CYLINDER-SURFACE</newValue>
 			</linkTransformation>
 			<linkTransformation>
 				<objectId>ID-CYLINDER-SURFACE</objectId>
 				<name>LINK-IS-LENGTH-REQUIREMENT</name>
-				<oldValue>null</oldValue>
 				<newValue>ID-REQUIREMENT</newValue>
 			</linkTransformation>
 			<attributeTransformation>
 				<objectId>ID-CYLINDER-SURFACE</objectId>
 				<name>ATTRIBUTE-HAS-LENGTH-REQUIREMENT</name>
-				<value>true</value>
+				<value type="boolean">true</value>
 			</attributeTransformation>
 		</transformations>
 		<action>
@@ -219,36 +211,32 @@
 				<objectId>ID-WORKPIECE</objectId>
 				<attributeTemplate>
 					<name>ATTRIBUTE-WORKPIECE</name>
-					<value>true</value>
+					<value type="boolean">true</value>
 				</attributeTemplate>
-				<linkTemplate>
-					<name>LINK-IS-PART-OF</name>
-					<value>ID-CYLINDER-SURFACE</value>
-				</linkTemplate>
-				<linkTemplate>
-					<name>LINK-IS-REQUIREMENT-OF</name>
-					<value>ID-REQUIREMENT-L</value>
-				</linkTemplate>
 				<linkTemplate>
 					<name>LINK-IS-REQUIREMENT-OF</name>
 					<value>ID-REQUIREMENT-R</value>
+				</linkTemplate>
+				<linkTemplate>
+					<name>LINK-IS-PART-OF</name>
+					<value>ID-CYLINDER-SURFACE</value>
 				</linkTemplate>
 			</objectTemplate>
 			<objectTemplate>
 				<objectId>ID-CYLINDER-SURFACE</objectId>
 				<attributeTemplate>
-					<name>ATTRIBUTE-CYLINDER-SURFACE</name>
-					<value>true</value>
+					<name>ATTRIBUTE-LENGTH</name>
+				</attributeTemplate>
+				<attributeTemplate>
+					<name>ATTRIBUTE-HAS-LENGTH-REQUIREMENT</name>
+					<value type="boolean">false</value>
 				</attributeTemplate>
 				<attributeTemplate>
 					<name>ATTRIBUTE-DIAMETER</name>
 				</attributeTemplate>
 				<attributeTemplate>
-					<name>ATTRIBUTE-LENGTH</name>
-				</attributeTemplate>
-				<attributeTemplate>
-					<name>ATTRIBUTE-HAS-LENGTH-REQUIREMENT</name>
-					<value>false</value>
+					<name>ATTRIBUTE-CYLINDER-SURFACE</name>
+					<value type="boolean">true</value>
 				</attributeTemplate>
 				<linkTemplate>
 					<name>LINK-IS-PART-OF</name>
@@ -256,59 +244,56 @@
 				</linkTemplate>
 				<linkTemplate>
 					<name>LINK-IS-LENGTH-REQUIREMENT</name>
-					<value>null</value>
 				</linkTemplate>
 			</objectTemplate>
 			<objectTemplate>
 				<objectId>ID-REQUIREMENT-L</objectId>
 				<attributeTemplate>
 					<name>ATTRIBUTE-REQUIREMENT</name>
-					<value>true</value>
+					<value type="boolean">true</value>
+				</attributeTemplate>
+				<attributeTemplate>
+					<name>ATTRIBUTE-LENGTH-REQUIREMENT-STATUS</name>
+					<value type="boolean">false</value>
 				</attributeTemplate>
 				<attributeTemplate>
 					<name>ATTRIBUTE-LENGTH-REQUIREMENT</name>
 				</attributeTemplate>
-				<attributeTemplate>
-					<name>ATTRIBUTE-LENGTH-REQUIREMENT-STATUS</name>
-					<value>false</value>
-				</attributeTemplate>
-				<linkTemplate>
-					<name>LIST-IS-REQUIREMENT-OF</name>
-					<value>ID-WORKPIECE</value>
-				</linkTemplate>
 				<linkTemplate>
 					<name>LINK-SURFACE-SIDE-RIGHT</name>
 					<value>ID-REQUIREMENT-R</value>
 				</linkTemplate>
 				<linkTemplate>
+					<name>LINK-IS-REQUIREMENT-OF</name>
+					<value>ID-WORKPIECE</value>
+				</linkTemplate>
+				<linkTemplate>
 					<name>LINK-IS-LENGTH-REQUIREMENT</name>
-					<value>null</value>
 				</linkTemplate>
 			</objectTemplate>
 			<objectTemplate>
 				<objectId>ID-REQUIREMENT-R</objectId>
 				<attributeTemplate>
 					<name>ATTRIBUTE-REQUIREMENT</name>
-					<value>true</value>
+					<value type="boolean">true</value>
+				</attributeTemplate>
+				<attributeTemplate>
+					<name>ATTRIBUTE-DIAMETER-REQUIREMENT-STATUS</name>
+					<value type="boolean">false</value>
 				</attributeTemplate>
 				<attributeTemplate>
 					<name>ATTRIBUTE-DIAMETER-REQUIREMENT</name>
 				</attributeTemplate>
-				<attributeTemplate>
-					<name>ATTRIBUTE-DIAMETER-REQUIREMENT-STATUS</name>
-					<value>false</value>
-				</attributeTemplate>
-				<linkTemplate>
-					<name>LINK-IS-REQUIREMENT-OF</name>
-					<value>ID-WORKPIECE</value>
-				</linkTemplate>
 				<linkTemplate>
 					<name>LINK-SURFACE-SIDE-LEFT</name>
 					<value>ID-REQUIREMENT-L</value>
 				</linkTemplate>
 				<linkTemplate>
+					<name>LINK-IS-REQUIREMENT-OF</name>
+					<value>ID-WORKPIECE</value>
+				</linkTemplate>
+				<linkTemplate>
 					<name>LINK-IS-DIAMETER-REQUIREMENT</name>
-					<value>null</value>
 				</linkTemplate>
 			</objectTemplate>
 		</systemTemplate>
@@ -316,29 +301,27 @@
 			<attributeTransformation>
 				<objectId>ID-REQUIREMENT-L</objectId>
 				<name>ATTRIBUTE-LENGTH-REQUIREMENT-STATUS</name>
-				<value>true</value>
+				<value type="boolean">true</value>
 			</attributeTransformation>
 			<attributeTransformation>
 				<objectId>ID-REQUIREMENT-R</objectId>
 				<name>ATTRIBUTE-DIAMETER-REQUIREMENT-STATUS</name>
-				<value>true</value>
+				<value type="boolean">true</value>
 			</attributeTransformation>
 			<linkTransformation>
 				<objectId>ID-CYLINDER-SURFACE</objectId>
 				<name>LINK-IS-LENGTH-REQUIREMENT</name>
-				<oldValue>null</oldValue>
 				<newValue>ID-REQUIREMENT-L</newValue>
 			</linkTransformation>
 			<linkTransformation>
 				<objectId>ID-REQUIREMENT-L</objectId>
 				<name>LINK-IS-LENGTH-REQUIREMENT</name>
-				<oldValue>null</oldValue>
 				<newValue>ID-CYLINDER-SURFACE</newValue>
 			</linkTransformation>
 			<attributeTransformation>
 				<objectId>ID-CYLINDER-SURFACE</objectId>
 				<name>ATTRIBUTE-HAS-LENGTH-REQUIREMENT</name>
-				<value>true</value>
+				<value type="boolean">true</value>
 			</attributeTransformation>
 		</transformations>
 		<action>
@@ -364,7 +347,7 @@
 				<line n="7">local requirement_r_actual = systemVariant:getObjectByIdMatch('ID-REQUIREMENT-R')</line>
 				<line n="8">local diameterRequired = requirement_r_actual:getAttribute('ATTRIBUTE-DIAMETER-REQUIREMENT'):getValueAsInteger()</line>
 				<line n="9">local workpiece_actual = systemVariant:getObjectByIdMatch('ID-WORKPIECE')</line>
-				<line n="10">local diameterDelta = diameter - diameterRequired </line>
+				<line n="10">local diameterDelta = diameter - diameterRequired</line>
 				<line n="11">systemVariant:setActionParameter('PARAMETER-DIAMETER-DELTA', diameterDelta)</line>
 				<line n="12">local lengthDelta = length - lengthRequired</line>
 				<line n="13">systemVariant:setActionParameter('PARAMETER-LENGTH-DELTA', lengthDelta)</line>
