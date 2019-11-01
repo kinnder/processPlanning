@@ -17,4 +17,12 @@ public class AttributeTransformation extends Transformation {
 		Attribute attribute = object.getAttribute(attributeName);
 		attribute.setValue(attributeValue);
 	}
+
+	public String getAttributeName() {
+		return attributeName;
+	}
+
+	public Object getAttributeValue() {
+		return attributeValue;
+	}
 }

@@ -109,9 +109,9 @@ public class SystemTransformationsXMLFile {
 		Element transformations = combineTransformations(systemTransformation.getTransformations());
 		Element root = new Element("systemTransformation");
 		root.addContent(name);
-		root.addContent(action);
 		root.addContent(systemTemplate);
 		root.addContent(transformations);
+		root.addContent(action);
 		return root;
 	}
 
@@ -221,7 +221,15 @@ public class SystemTransformationsXMLFile {
 
 	public Element combineTransformations(Transformation[] transformations) {
 		Element root = new Element("transformations");
-		// TODO Auto-generated method stub
+		for (Transformation transformation : transformations) {
+			Element element;
+			if (transformation instanceof AttributeTransformation) {
+				element = combineAttributeTransformation((AttributeTransformation) transformation);
+			} else {
+				element = combineLinkTransformation((LinkTransformation) transformation);
+			}
+			root.addContent(element);
+		}
 		return root;
 	}
 
@@ -232,12 +240,46 @@ public class SystemTransformationsXMLFile {
 		return new AttributeTransformation(objectId, name, value);
 	}
 
+	public Element combineAttributeTransformation(AttributeTransformation transformation) {
+		Element objectId = new Element("objectId");
+		objectId.setText(transformation.getObjectId());
+		Element name = new Element("name");
+		name.setText(transformation.getAttributeName());
+		Element value = combineValue(transformation.getAttributeValue());
+		Element root = new Element("attributeTransformation");
+		root.addContent(objectId);
+		root.addContent(name);
+		root.addContent(value);
+		return root;
+	}
+
 	public LinkTransformation parseLinkTransformation(Element root) {
 		String objectId = root.getChildText("objectId");
 		String name = root.getChildText("name");
 		String oldValue = root.getChildText("oldValue");
 		String newValue = root.getChildText("newValue");
 		return new LinkTransformation(objectId, name, oldValue, newValue);
+	}
+
+	public Element combineLinkTransformation(LinkTransformation transformation) {
+		Element root = new Element("linkTransformation");
+		Element objectId = new Element("objectId");
+		objectId.setText(transformation.getObjectId());
+		root.addContent(objectId);
+		Element name = new Element("name");
+		name.setText(transformation.getLinkName());
+		root.addContent(name);
+		if (transformation.getLinkOldValue() != null) {
+			Element oldValue = new Element("oldValue");
+			oldValue.setText(transformation.getLinkOldValue());
+			root.addContent(oldValue);
+		}
+		if (transformation.getLinkNewValue() != null) {
+			Element newValue = new Element("newValue");
+			newValue.setText(transformation.getLinkNewValue());
+			root.addContent(newValue);
+		}
+		return root;
 	}
 
 	public SystemTemplate parseSystemTemplate(Element root) {
@@ -252,7 +294,12 @@ public class SystemTransformationsXMLFile {
 
 	public Element combineSystemTemplate(SystemTemplate systemTemplate) {
 		Element root = new Element("systemTemplate");
-		// TODO Auto-generated method stub
+		List<Element> elements = new ArrayList<>();
+		for (SystemObjectTemplate systemObjectTemplate : systemTemplate.getObjects()) {
+			Element element = combineSystemObjectTemplate(systemObjectTemplate);
+			elements.add(element);
+		}
+		root.addContent(elements);
 		return root;
 	}
 
@@ -272,16 +319,55 @@ public class SystemTransformationsXMLFile {
 		return objectTemplate;
 	}
 
+	public Element combineSystemObjectTemplate(SystemObjectTemplate systemObjectTemplate) {
+		Element root = new Element("objectTemplate");
+		Element objectId = new Element("objectId");
+		objectId.setText(systemObjectTemplate.getId());
+		root.addContent(objectId);
+		for (AttributeTemplate attributeTemplate : systemObjectTemplate.getAttributes()) {
+			Element element = combineAttributeTemplate(attributeTemplate);
+			root.addContent(element);
+		}
+		for (LinkTemplate linkTemplate : systemObjectTemplate.getLinks()) {
+			Element element = combineLinkTemplate(linkTemplate);
+			root.addContent(element);
+		}
+		return root;
+	}
+
 	public LinkTemplate parseLinkTemplate(Element root) {
 		String name = root.getChildText("name");
 		String value = root.getChildText("value");
 		return new LinkTemplate(name, value);
 	}
 
+	public Element combineLinkTemplate(LinkTemplate linkTemplate) {
+		Element root = new Element("linkTemplate");
+		Element name = new Element("name");
+		name.setText(linkTemplate.getName());
+		root.addContent(name);
+		if (linkTemplate.getObjectId() != null) {
+			Element value = new Element("value");
+			value.setText(linkTemplate.getObjectId());
+			root.addContent(value);
+		}
+		return root;
+	}
+
 	public AttributeTemplate parseAtttributeTemplate(Element root) {
 		String name = root.getChildText("name");
 		Object value = parseValue(root.getChild("value"));
 		return new AttributeTemplate(name, value);
+	}
+
+	public Element combineAttributeTemplate(AttributeTemplate attributeTemplate) {
+		Element root = new Element("attributeTemplate");
+		Element name = new Element("name");
+		name.setText(attributeTemplate.getName());
+		root.addContent(name);
+		Element value = combineValue(attributeTemplate.getValue());
+		root.addContent(value);
+		return root;
 	}
 
 	public Object parseValue(Element root) {
@@ -297,5 +383,19 @@ public class SystemTransformationsXMLFile {
 			return Integer.valueOf(value);
 		}
 		return value;
+	}
+
+	public Element combineValue(Object value) {
+		if (value == null) {
+			return null;
+		}
+		Element root = new Element("value");
+		if (value instanceof Boolean) {
+			root.setAttribute("type", "boolean");
+		} else if (value instanceof Integer) {
+			root.setAttribute("type", "integer");
+		}
+		root.setText(value.toString());
+		return root;
 	}
 }

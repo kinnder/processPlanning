@@ -14,4 +14,8 @@ public class Transformation {
 
 	protected void applyTo(SystemObject object, SystemVariant systemVariant) {
 	}
+
+	public String getObjectId() {
+		return objectId;
+	}
 }

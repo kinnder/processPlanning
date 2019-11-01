@@ -8,6 +8,18 @@ public class LinkTransformation extends Transformation {
 
 	private String linkOldValue;
 
+	public String getLinkName() {
+		return linkName;
+	}
+
+	public String getLinkNewValue() {
+		return linkNewValue;
+	}
+
+	public String getLinkOldValue() {
+		return linkOldValue;
+	}
+
 	public LinkTransformation(String objectId, String linkName, String linkOldValue, String linkNewValue) {
 		super(objectId);
 		this.linkName = linkName;
