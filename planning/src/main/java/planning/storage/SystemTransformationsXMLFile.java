@@ -253,10 +253,10 @@ public class SystemTransformationsXMLFile {
 		String type = root.getAttributeValue("type", "string");
 		String value = root.getText();
 		if ("boolean".equals(type)) {
-			return new Boolean(value);
+			return Boolean.valueOf(value);
 		}
 		if ("integer".equals(type)) {
-			return new Integer(value);
+			return Integer.valueOf(value);
 		}
 		return value;
 	}
