@@ -31,9 +31,12 @@ import planning.model.AttributeTemplate;
 import planning.model.AttributeTransformation;
 import planning.model.LinkTemplate;
 import planning.model.LinkTransformation;
+import planning.model.LuaScriptActionParameterUpdater;
+import planning.model.LuaScriptActionPreConditionChecker;
 import planning.model.SystemObjectTemplate;
 import planning.model.SystemTemplate;
 import planning.model.SystemTransformation;
+import planning.model.Transformation;
 
 public class SystemTransformationsXMLFileTest {
 
@@ -59,6 +62,15 @@ public class SystemTransformationsXMLFileTest {
 	@Test
 	public void getSystemTransformations() {
 		assertEquals(0, testable.getSystemTransformations().length);
+	}
+
+	@Test
+	public void setSystemTransformations() {
+		final SystemTransformation systemTransformation_mock = context.mock(SystemTransformation.class);
+		final SystemTransformation systemTransformations[] = new SystemTransformation[] { systemTransformation_mock };
+
+		testable.setSystemTransformations(systemTransformations);
+		assertEquals(1, testable.getSystemTransformations().length);
 	}
 
 	@Test
@@ -89,6 +101,12 @@ public class SystemTransformationsXMLFileTest {
 	}
 
 	@Test
+	public void save() {
+		// TODO : добавить тест
+		// testable.save(url)
+	}
+
+	@Test
 	public void parseSystemTransformations() throws DataConversionException {
 		final Element root_mock = context.mock(Element.class, "root");
 		final List<Element> systemTransformations = new ArrayList<>();
@@ -115,6 +133,29 @@ public class SystemTransformationsXMLFileTest {
 		});
 
 		assertEquals(1, testable.parseSystemTransformations(root_mock).length);
+	}
+
+	@Test
+	public void combineSystemTransformations() {
+		final SystemTransformation systemTransformation_mock = context.mock(SystemTransformation.class);
+		final SystemTransformation systemTransformations[] = new SystemTransformation[] { systemTransformation_mock };
+
+		context.checking(new Expectations() {
+			{
+				// <-- combineSystemTransformation
+				oneOf(systemTransformation_mock).getName();
+
+				oneOf(systemTransformation_mock).getAction();
+
+				oneOf(systemTransformation_mock).getSystemTemplate();
+
+				oneOf(systemTransformation_mock).getTransformations();
+
+				// combineSystemTransformation -->
+			}
+		});
+
+		assertEquals(1, testable.combineSystemTransformations(systemTransformations).size());
 	}
 
 	@Test
@@ -168,6 +209,59 @@ public class SystemTransformationsXMLFileTest {
 	}
 
 	@Test
+	public void combineSystemTransformation() {
+		final SystemTransformation systemTransformation_mock = context.mock(SystemTransformation.class);
+		final Action action_mock = context.mock(Action.class);
+		final SystemTemplate systemTemplate_mock = context.mock(SystemTemplate.class);
+		final Transformation transformation_mock = context.mock(Transformation.class);
+		final Transformation[] transformations = new Transformation[] { transformation_mock };
+
+		context.checking(new Expectations() {
+			{
+				oneOf(systemTransformation_mock).getName();
+				will(returnValue("ELEMENT"));
+
+				oneOf(systemTransformation_mock).getAction();
+				will(returnValue(action_mock));
+
+				// <-- combineAction
+
+				oneOf(action_mock).getName();
+
+				oneOf(action_mock).getPreConditionCheckers();
+
+				oneOf(action_mock).getParameterUpdaters();
+
+				// combineAction -->
+
+				oneOf(systemTransformation_mock).getSystemTemplate();
+				will(returnValue(systemTemplate_mock));
+
+				// <-- combineSystemTemplate
+
+				oneOf(systemTemplate_mock).getObjects();
+
+				// combineSystemTemplate -->
+
+				oneOf(systemTransformation_mock).getTransformations();
+				will(returnValue(transformations));
+
+				// <-- combineTransformation
+
+				oneOf(transformation_mock).getObjectId();
+
+				// combineTransformation -->
+			}
+		});
+
+		Element element = testable.combineSystemTransformation(systemTransformation_mock);
+		assertEquals("ELEMENT", element.getChildText("name"));
+		assertNotNull(element.getChild("systemTemplate"));
+		assertNotNull(element.getChild("transformations"));
+		assertNotNull(element.getChild("action"));
+	}
+
+	@Test
 	public void parseAction() throws DataConversionException {
 		final Element root_mock = context.mock(Element.class, "root");
 		final List<Element> preConditionCheckers = new ArrayList<>();
@@ -206,6 +300,49 @@ public class SystemTransformationsXMLFileTest {
 	}
 
 	@Test
+	public void combineAction() {
+		final Action action_mock = context.mock(Action.class);
+		final LuaScriptActionPreConditionChecker preConditionChecker_mock = context
+				.mock(LuaScriptActionPreConditionChecker.class);
+		final List<ActionPreConditionChecker> preConditionCheckers = new ArrayList<>();
+		preConditionCheckers.add(preConditionChecker_mock);
+		final LuaScriptActionParameterUpdater parameterUpdater_mock = context
+				.mock(LuaScriptActionParameterUpdater.class);
+		final List<ActionParameterUpdater> parameterUpdaters = new ArrayList<>();
+		parameterUpdaters.add(parameterUpdater_mock);
+
+		context.checking(new Expectations() {
+			{
+				oneOf(action_mock).getName();
+				will(returnValue("OPERATION"));
+
+				oneOf(action_mock).getPreConditionCheckers();
+				will(returnValue(preConditionCheckers));
+
+				// <-- combinePreConditionCheckers
+
+				oneOf(preConditionChecker_mock).getScript();
+
+				// combinePreConditionCheckers -->
+
+				oneOf(action_mock).getParameterUpdaters();
+				will(returnValue(parameterUpdaters));
+
+				// <-- combineParameterUpdaters
+
+				oneOf(parameterUpdater_mock).getScript();
+
+				// combineParameterUpdaters -->
+			}
+		});
+
+		Element element = testable.combineAction(action_mock);
+		assertEquals("OPERATION", element.getChildText("name"));
+		assertNotNull(element.getChild("preConditionChecker"));
+		assertNotNull(element.getChild("parameterUpdater"));
+	}
+
+	@Test
 	public void parseParameterUpdater() throws DataConversionException {
 		final Element root_mock = context.mock(Element.class, "root");
 		final List<Element> lines = new ArrayList<>();
@@ -233,6 +370,28 @@ public class SystemTransformationsXMLFileTest {
 	}
 
 	@Test
+	public void combineParameterUpdater() {
+		final LuaScriptActionParameterUpdater parameterUpdater_mock = context
+				.mock(LuaScriptActionParameterUpdater.class);
+
+		context.checking(new Expectations() {
+			{
+				oneOf(parameterUpdater_mock).getScript();
+				will(returnValue(
+						"local systemVariant = ...\nlocal object = systemVariant:getObjectByIdMatch('ID-PLANE-X-TARGET')"));
+			}
+		});
+
+		Element element = testable.combineParameterUpdater(parameterUpdater_mock);
+		List<Element> lines = element.getChildren("line");
+		assertEquals(2, lines.size());
+		assertEquals("local systemVariant = ...", lines.get(0).getText());
+		assertEquals("1", lines.get(0).getAttributeValue("n"));
+		assertEquals("local object = systemVariant:getObjectByIdMatch('ID-PLANE-X-TARGET')", lines.get(1).getText());
+		assertEquals("2", lines.get(1).getAttributeValue("n"));
+	}
+
+	@Test
 	public void parsePreConditionChecker() throws DataConversionException {
 		final Element root_mock = context.mock(Element.class, "root");
 		final List<Element> lines = new ArrayList<>();
@@ -257,6 +416,28 @@ public class SystemTransformationsXMLFileTest {
 		});
 
 		assertTrue(testable.parsePreConditionChecker(root_mock) instanceof ActionPreConditionChecker);
+	}
+
+	@Test
+	public void combinePreConditionChecker() {
+		final LuaScriptActionPreConditionChecker preConditionChecker_mock = context
+				.mock(LuaScriptActionPreConditionChecker.class);
+
+		context.checking(new Expectations() {
+			{
+				oneOf(preConditionChecker_mock).getScript();
+				will(returnValue(
+						"local systemVariant = ...\nlocal object = systemVariant:getObjectByIdMatch('ID-PLANE-X-TARGET')"));
+			}
+		});
+
+		Element element = testable.combinePreConditionChecker(preConditionChecker_mock);
+		List<Element> lines = element.getChildren("line");
+		assertEquals(2, lines.size());
+		assertEquals("local systemVariant = ...", lines.get(0).getText());
+		assertEquals("1", lines.get(0).getAttributeValue("n"));
+		assertEquals("local object = systemVariant:getObjectByIdMatch('ID-PLANE-X-TARGET')", lines.get(1).getText());
+		assertEquals("2", lines.get(1).getAttributeValue("n"));
 	}
 
 	@Test
@@ -305,6 +486,16 @@ public class SystemTransformationsXMLFileTest {
 	}
 
 	@Test
+	public void combineTransformations() {
+		// TODO: добавить код
+	}
+
+	@Test
+	public void combineTransformation() {
+		// TODO: добавить код
+	}
+
+	@Test
 	public void parseAttributeTransformation() {
 		final Element root_mock = context.mock(Element.class, "root");
 		final Element value_mock = context.mock(Element.class, "value");
@@ -334,6 +525,11 @@ public class SystemTransformationsXMLFileTest {
 	}
 
 	@Test
+	public void combineAttributeTransformation() {
+		// TODO: добавить код
+	}
+
+	@Test
 	public void parseLinkTransformation() {
 		final Element root_mock = context.mock(Element.class, "root");
 
@@ -354,6 +550,11 @@ public class SystemTransformationsXMLFileTest {
 		});
 
 		assertTrue(testable.parseLinkTransformation(root_mock) instanceof LinkTransformation);
+	}
+
+	@Test
+	public void combineLinkTransformation() {
+		// TODO: добавить код
 	}
 
 	@Test
@@ -381,6 +582,11 @@ public class SystemTransformationsXMLFileTest {
 		});
 
 		assertTrue(testable.parseSystemTemplate(root_mock) instanceof SystemTemplate);
+	}
+
+	@Test
+	public void combineSystemTemplate() {
+		// TODO : добавить код
 	}
 
 	@Test
@@ -426,6 +632,11 @@ public class SystemTransformationsXMLFileTest {
 	}
 
 	@Test
+	public void combineSystemObjectTemplate() {
+		// TODO : добавить код
+	}
+
+	@Test
 	public void parseAttributeTemplate() {
 		final Element root_mock = context.mock(Element.class, "root");
 		final Element value_mock = context.mock(Element.class, "value");
@@ -454,6 +665,11 @@ public class SystemTransformationsXMLFileTest {
 	}
 
 	@Test
+	public void combineAttributeTemplate() {
+		// TODO : добавить код
+	}
+
+	@Test
 	public void parseLinkTemplate() {
 		final Element root_mock = context.mock(Element.class, "root");
 
@@ -470,6 +686,11 @@ public class SystemTransformationsXMLFileTest {
 		assertNotNull(result);
 		assertEquals("name", result.getName());
 		assertEquals("value", result.getObjectId());
+	}
+
+	@Test
+	public void combineLinkTemplate() {
+		// TODO: добавить код
 	}
 
 	@Test
@@ -552,5 +773,10 @@ public class SystemTransformationsXMLFileTest {
 	public void parseValue_with_null() {
 		Object result = testable.parseValue(null);
 		assertNull(result);
+	}
+
+	@Test
+	public void combineValue() {
+		// TOOD: добавить код
 	}
 }

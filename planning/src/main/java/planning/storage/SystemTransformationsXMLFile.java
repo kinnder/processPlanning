@@ -56,11 +56,13 @@ public class SystemTransformationsXMLFile {
 		this.builder = builder;
 	}
 
+	// TODO : заменить URL на InputStream
 	public void load(URL resource) throws JDOMException, IOException {
 		Element root = builder.build(resource).getRootElement();
 		systemTransformations = parseSystemTransformations(root);
 	}
 
+	// TODO : заменить URL на OutputStream
 	public void save(URL resource) throws IOException, URISyntaxException {
 		Element root = new Element("systemTransformations");
 		Namespace xsiNamespace = Namespace.getNamespace("xsi", "http://www.w3.org/2001/XMLSchema-instance");
@@ -225,11 +227,21 @@ public class SystemTransformationsXMLFile {
 			Element element;
 			if (transformation instanceof AttributeTransformation) {
 				element = combineAttributeTransformation((AttributeTransformation) transformation);
-			} else {
+			} else if (transformation instanceof LinkTransformation) {
 				element = combineLinkTransformation((LinkTransformation) transformation);
+			} else {
+				element = combineTransformation(transformation);
 			}
 			root.addContent(element);
 		}
+		return root;
+	}
+
+	public Element combineTransformation(Transformation transformation) {
+		Element objectId = new Element("objectId");
+		objectId.setText(transformation.getObjectId());
+		Element root = new Element("transformation");
+		root.addContent(objectId);
 		return root;
 	}
 

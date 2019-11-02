@@ -28,8 +28,11 @@ public class CartesianProductHelperTest {
 		context.assertIsSatisfied();
 	}
 
+	CartesianProductHelper testable;
+
 	@BeforeEach
 	public void setup() {
+		testable = new CartesianProductHelper();
 	}
 
 	@Test
