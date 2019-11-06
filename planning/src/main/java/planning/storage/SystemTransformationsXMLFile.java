@@ -281,15 +281,18 @@ public class SystemTransformationsXMLFile {
 		Element name = new Element("name");
 		name.setText(transformation.getLinkName());
 		root.addContent(name);
-		if (transformation.getLinkOldValue() != null) {
-			Element oldValue = new Element("oldValue");
-			oldValue.setText(transformation.getLinkOldValue());
-			root.addContent(oldValue);
+		String value;
+		value = transformation.getLinkOldValue();
+		if (value != null) {
+			Element element = new Element("oldValue");
+			element.setText(value);
+			root.addContent(element);
 		}
-		if (transformation.getLinkNewValue() != null) {
-			Element newValue = new Element("newValue");
-			newValue.setText(transformation.getLinkNewValue());
-			root.addContent(newValue);
+		value = transformation.getLinkNewValue();
+		if (value != null) {
+			Element element = new Element("newValue");
+			element.setText(value);
+			root.addContent(element);
 		}
 		return root;
 	}

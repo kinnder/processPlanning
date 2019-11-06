@@ -487,7 +487,48 @@ public class SystemTransformationsXMLFileTest {
 
 	@Test
 	public void combineTransformations() {
-		// TODO: добавить код
+		final AttributeTransformation attributeTransformation_mock = context.mock(AttributeTransformation.class);
+		final LinkTransformation linkTransformation_mock = context.mock(LinkTransformation.class);
+		final Transformation transformation_mock = context.mock(Transformation.class);
+		final Transformation[] transformations = new Transformation[] { attributeTransformation_mock,
+				linkTransformation_mock, transformation_mock };
+
+		context.checking(new Expectations() {
+			{
+				// <-- combineAttributeTransformation
+
+				oneOf(attributeTransformation_mock).getObjectId();
+
+				oneOf(attributeTransformation_mock).getAttributeName();
+
+				oneOf(attributeTransformation_mock).getAttributeValue();
+
+				// combineAttributeTransformation -->
+
+				// <-- combineLinkTransformation
+
+				oneOf(linkTransformation_mock).getObjectId();
+
+				oneOf(linkTransformation_mock).getLinkName();
+
+				oneOf(linkTransformation_mock).getLinkOldValue();
+
+				oneOf(linkTransformation_mock).getLinkNewValue();
+
+				// combineLinkTransformation -->
+
+				// <-- combineTransformation
+
+				oneOf(transformation_mock).getObjectId();
+
+				// combineTransformation -->
+			}
+		});
+
+		Element element = testable.combineTransformations(transformations);
+		assertNotNull(element.getChild("attributeTransformation"));
+		assertNotNull(element.getChild("linkTransformation"));
+		assertNotNull(element.getChild("transformation"));
 	}
 
 	@Test
