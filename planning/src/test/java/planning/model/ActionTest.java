@@ -80,4 +80,14 @@ public class ActionTest {
 
 		assertFalse(testable.haveAllPreConditionsPassed(systemVariant_mock));
 	}
+
+	@Test
+	public void getParameterUpdaters() {
+		assertEquals(0, testable.getParameterUpdaters().size());
+	}
+
+	@Test
+	public void getPreConditionCheckers() {
+		assertEquals(0, testable.getPreConditionCheckers().size());
+	}
 }

@@ -1,5 +1,6 @@
 package planning.model;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.jmock.imposters.ByteBuddyClassImposteriser;
@@ -48,5 +49,13 @@ public class LuaScriptActionPreConditionCheckerTest {
 
 		testable = new LuaScriptActionPreConditionChecker(globals, script.toString());
 		assertTrue(testable.invoke(systemVariant_mock));
+	}
+
+	@Test
+	public void getScript() {
+		script.append("lua-code");
+		testable = new LuaScriptActionPreConditionChecker(globals, script.toString());
+
+		assertEquals("lua-code", testable.getScript());
 	}
 }

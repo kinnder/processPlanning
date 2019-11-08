@@ -886,6 +886,24 @@ public class SystemTransformationsXMLFileTest {
 	}
 
 	@Test
+	public void parseAttributeTemplate_with_null() {
+		final Element root_mock = context.mock(Element.class, "root");
+
+		context.checking(new Expectations() {
+			{
+				oneOf(root_mock).getChildText("name");
+				will(returnValue("name"));
+
+				oneOf(root_mock).getChild("value");
+				will(returnValue(null));
+			}
+		});
+		AttributeTemplate result = testable.parseAtttributeTemplate(root_mock);
+		assertNotNull(result);
+		assertEquals("name", result.getName());
+	}
+
+	@Test
 	public void combineAttributeTemplate() {
 		final AttributeTemplate attributeTemplate_mock = context.mock(AttributeTemplate.class);
 		final Object value_mock = context.mock(Object.class);

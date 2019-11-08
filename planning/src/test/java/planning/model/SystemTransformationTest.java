@@ -26,11 +26,9 @@ public class SystemTransformationTest {
 
 	SystemTransformation testable;
 
-	String name;
-
 	Action action_mock;
 
-	SystemTemplate template_mock;
+	SystemTemplate systemTemplate_mock;
 
 	Transformation transformation_mock;
 
@@ -38,13 +36,13 @@ public class SystemTransformationTest {
 
 	@BeforeEach
 	public void setup() {
-		name = "system-transformation-name";
 		action_mock = context.mock(Action.class, "action");
-		template_mock = context.mock(SystemTemplate.class, "template");
+		systemTemplate_mock = context.mock(SystemTemplate.class, "template");
 		transformation_mock = context.mock(Transformation.class, "transformation");
 		transformations = new Transformation[] { transformation_mock };
 
-		testable = new SystemTransformation(name, action_mock, template_mock, transformations);
+		testable = new SystemTransformation("system-transformation-name", action_mock, systemTemplate_mock,
+				transformations);
 	}
 
 	@Test
@@ -61,7 +59,7 @@ public class SystemTransformationTest {
 
 		context.checking(new Expectations() {
 			{
-				oneOf(template_mock).matchIds(system_mock);
+				oneOf(systemTemplate_mock).matchIds(system_mock);
 				will(returnValue(idsMatchings));
 
 				oneOf(system_mock).clone();
@@ -89,7 +87,7 @@ public class SystemTransformationTest {
 
 		context.checking(new Expectations() {
 			{
-				oneOf(template_mock).matchIds(system_mock);
+				oneOf(systemTemplate_mock).matchIds(system_mock);
 				will(returnValue(idsMatchings));
 
 				oneOf(system_mock).clone();
@@ -102,5 +100,20 @@ public class SystemTransformationTest {
 
 		SystemVariant systemVariants[] = testable.applyTo(system_mock);
 		assertEquals(0, systemVariants.length);
+	}
+
+	@Test
+	public void getName() {
+		assertEquals("system-transformation-name", testable.getName());
+	}
+
+	@Test
+	public void getSystemTemplate() {
+		assertEquals(systemTemplate_mock, testable.getSystemTemplate());
+	}
+
+	@Test
+	public void getTransformations() {
+		assertEquals(transformations, testable.getTransformations());
 	}
 }
