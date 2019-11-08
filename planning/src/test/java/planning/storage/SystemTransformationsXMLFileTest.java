@@ -533,7 +533,17 @@ public class SystemTransformationsXMLFileTest {
 
 	@Test
 	public void combineTransformation() {
-		// TODO: добавить код
+		final Transformation transformation_mock = context.mock(Transformation.class);
+
+		context.checking(new Expectations() {
+			{
+				oneOf(transformation_mock).getObjectId();
+				will(returnValue("id"));
+			}
+		});
+
+		Element element = testable.combineTransformation(transformation_mock);
+		assertEquals("id", element.getChildText("objectId"));
 	}
 
 	@Test
@@ -567,7 +577,26 @@ public class SystemTransformationsXMLFileTest {
 
 	@Test
 	public void combineAttributeTransformation() {
-		// TODO: добавить код
+		final AttributeTransformation attributeTransformation_mock = context.mock(AttributeTransformation.class);
+		final Object value_mock = context.mock(Object.class);
+
+		context.checking(new Expectations() {
+			{
+				oneOf(attributeTransformation_mock).getObjectId();
+				will(returnValue("id"));
+
+				oneOf(attributeTransformation_mock).getAttributeName();
+				will(returnValue("name"));
+
+				oneOf(attributeTransformation_mock).getAttributeValue();
+				will(returnValue(value_mock));
+			}
+		});
+
+		Element element = testable.combineAttributeTransformation(attributeTransformation_mock);
+		assertEquals("id", element.getChildText("objectId"));
+		assertEquals("name", element.getChildText("name"));
+		assertNotNull(element.getChild("value"));
 	}
 
 	@Test
@@ -595,7 +624,83 @@ public class SystemTransformationsXMLFileTest {
 
 	@Test
 	public void combineLinkTransformation() {
-		// TODO: добавить код
+		final LinkTransformation linkTransformation_mock = context.mock(LinkTransformation.class);
+
+		context.checking(new Expectations() {
+			{
+				oneOf(linkTransformation_mock).getObjectId();
+				will(returnValue("id"));
+
+				oneOf(linkTransformation_mock).getLinkName();
+				will(returnValue("name"));
+
+				oneOf(linkTransformation_mock).getLinkOldValue();
+				will(returnValue("old-link-value"));
+
+				oneOf(linkTransformation_mock).getLinkNewValue();
+				will(returnValue("new-link-value"));
+			}
+		});
+
+		Element element = testable.combineLinkTransformation(linkTransformation_mock);
+		assertEquals("id", element.getChildText("objectId"));
+		assertEquals("name", element.getChildText("name"));
+		assertEquals("old-link-value", element.getChildText("oldValue"));
+		assertEquals("new-link-value", element.getChildText("newValue"));
+	}
+
+	@Test
+	public void combineLinkTransformation_empty_new_link() {
+		final LinkTransformation linkTransformation_mock = context.mock(LinkTransformation.class);
+
+		context.checking(new Expectations() {
+			{
+				oneOf(linkTransformation_mock).getObjectId();
+				will(returnValue("id"));
+
+				oneOf(linkTransformation_mock).getLinkName();
+				will(returnValue("name"));
+
+				oneOf(linkTransformation_mock).getLinkOldValue();
+				will(returnValue("old-link-value"));
+
+				oneOf(linkTransformation_mock).getLinkNewValue();
+				will(returnValue(null));
+			}
+		});
+
+		Element element = testable.combineLinkTransformation(linkTransformation_mock);
+		assertEquals("id", element.getChildText("objectId"));
+		assertEquals("name", element.getChildText("name"));
+		assertEquals("old-link-value", element.getChildText("oldValue"));
+		assertNull(element.getChild("newValue"));
+	}
+
+	@Test
+	public void combineLinkTransformation_empty_old_link() {
+		final LinkTransformation linkTransformation_mock = context.mock(LinkTransformation.class);
+
+		context.checking(new Expectations() {
+			{
+				oneOf(linkTransformation_mock).getObjectId();
+				will(returnValue("id"));
+
+				oneOf(linkTransformation_mock).getLinkName();
+				will(returnValue("name"));
+
+				oneOf(linkTransformation_mock).getLinkOldValue();
+				will(returnValue(null));
+
+				oneOf(linkTransformation_mock).getLinkNewValue();
+				will(returnValue("new-link-value"));
+			}
+		});
+
+		Element element = testable.combineLinkTransformation(linkTransformation_mock);
+		assertEquals("id", element.getChildText("objectId"));
+		assertEquals("name", element.getChildText("name"));
+		assertNull(element.getChild("oldValue"));
+		assertEquals("new-link-value", element.getChildText("newValue"));
 	}
 
 	@Test
@@ -625,8 +730,28 @@ public class SystemTransformationsXMLFileTest {
 		assertTrue(testable.parseSystemTemplate(root_mock) instanceof SystemTemplate);
 	}
 
-	@Test
+	//@Test
 	public void combineSystemTemplate() {
+		final SystemTemplate systemTemplate_mock = context.mock(SystemTemplate.class);
+		final List<SystemObjectTemplate> systemObjectTemplates = new ArrayList<>();
+		final SystemObjectTemplate systemObjectTemplate_mock = context.mock(SystemObjectTemplate.class);
+		systemObjectTemplates.add(systemObjectTemplate_mock);
+
+		context.checking(new Expectations() {
+			{
+				oneOf(systemTemplate_mock).getObjects();
+				will(returnValue(systemObjectTemplates));
+
+				// <-- combineSystemObjectTemplate
+
+				oneOf(systemObjectTemplate_mock).getId();
+
+				// combineSystemObjectTemplate -->
+			}
+		});
+
+		Element element = testable.combineSystemTemplate(systemTemplate_mock);
+		assertNotNull(element.getChild("objectTemplate"));
 		// TODO : добавить код
 	}
 
