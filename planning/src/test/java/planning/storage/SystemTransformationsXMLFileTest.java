@@ -824,8 +824,6 @@ public class SystemTransformationsXMLFileTest {
 
 				oneOf(attributeTemplate_mock).getValue();
 
-				oneOf(attributeTemplate_mock).getValue();
-
 				// combineAttributeTemplate -->
 
 				oneOf(systemObjectTemplate_mock).getLinks();
@@ -834,8 +832,6 @@ public class SystemTransformationsXMLFileTest {
 				// <-- combineLinkTemplate
 
 				oneOf(linkTemplate_mock).getName();
-
-				oneOf(linkTemplate_mock).getObjectId();
 
 				oneOf(linkTemplate_mock).getObjectId();
 
@@ -879,7 +875,41 @@ public class SystemTransformationsXMLFileTest {
 
 	@Test
 	public void combineAttributeTemplate() {
-		// TODO : добавить код
+		final AttributeTemplate attributeTemplate_mock = context.mock(AttributeTemplate.class);
+		final Object value_mock = context.mock(Object.class);
+
+		context.checking(new Expectations() {
+			{
+				oneOf(attributeTemplate_mock).getName();
+				will(returnValue("attribute-name"));
+
+				oneOf(attributeTemplate_mock).getValue();
+				will(returnValue(value_mock));
+			}
+		});
+
+		Element element = testable.combineAttributeTemplate(attributeTemplate_mock);
+		assertEquals("attribute-name", element.getChildText("name"));
+		assertNotNull(element.getChild("value"));
+	}
+
+	@Test
+	public void combineAttributeTemplate_empty_value() {
+		final AttributeTemplate attributeTemplate_mock = context.mock(AttributeTemplate.class);
+
+		context.checking(new Expectations() {
+			{
+				oneOf(attributeTemplate_mock).getName();
+				will(returnValue("attribute-name"));
+
+				oneOf(attributeTemplate_mock).getValue();
+				will(returnValue(null));
+			}
+		});
+
+		Element element = testable.combineAttributeTemplate(attributeTemplate_mock);
+		assertEquals("attribute-name", element.getChildText("name"));
+		assertNull(element.getChild("value"));
 	}
 
 	@Test
@@ -903,7 +933,40 @@ public class SystemTransformationsXMLFileTest {
 
 	@Test
 	public void combineLinkTemplate() {
-		// TODO: добавить код
+		final LinkTemplate linkTemplate_mock = context.mock(LinkTemplate.class);
+
+		context.checking(new Expectations() {
+			{
+				oneOf(linkTemplate_mock).getName();
+				will(returnValue("link-name"));
+
+				oneOf(linkTemplate_mock).getObjectId();
+				will(returnValue("link-value"));
+			}
+		});
+
+		Element element = testable.combineLinkTemplate(linkTemplate_mock);
+		assertEquals("link-name", element.getChildText("name"));
+		assertEquals("link-value", element.getChildText("value"));
+	}
+
+	@Test
+	public void combineLinkTemplate_empty_value() {
+		final LinkTemplate linkTemplate_mock = context.mock(LinkTemplate.class);
+
+		context.checking(new Expectations() {
+			{
+				oneOf(linkTemplate_mock).getName();
+				will(returnValue("link-name"));
+
+				oneOf(linkTemplate_mock).getObjectId();
+				will(returnValue(null));
+			}
+		});
+
+		Element element = testable.combineLinkTemplate(linkTemplate_mock);
+		assertEquals("link-name", element.getChildText("name"));
+		assertNull(element.getChild("value"));
 	}
 
 	@Test
@@ -990,6 +1053,28 @@ public class SystemTransformationsXMLFileTest {
 
 	@Test
 	public void combineValue() {
-		// TOOD: добавить код
+		final Object value = new String("string-value");
+
+		Element element = testable.combineValue(value);
+		assertEquals("string-value", element.getText());
+		assertNull(element.getAttribute("type"));
+	}
+
+	@Test
+	public void combineValue_integer() {
+		final Object value = Integer.valueOf(123);
+
+		Element element = testable.combineValue(value);
+		assertEquals("123", element.getText());
+		assertEquals("integer", element.getAttributeValue("type"));
+	}
+
+	@Test
+	public void combineValue_boolean() {
+		final Object value = Boolean.valueOf(true);
+
+		Element element = testable.combineValue(value);
+		assertEquals("true", element.getText());
+		assertEquals("boolean", element.getAttributeValue("type"));
 	}
 }

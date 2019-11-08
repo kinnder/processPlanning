@@ -361,9 +361,10 @@ public class SystemTransformationsXMLFile {
 		Element name = new Element("name");
 		name.setText(linkTemplate.getName());
 		root.addContent(name);
-		if (linkTemplate.getObjectId() != null) {
+		String linkValue = linkTemplate.getObjectId();
+		if (linkValue != null) {
 			Element value = new Element("value");
-			value.setText(linkTemplate.getObjectId());
+			value.setText(linkValue);
 			root.addContent(value);
 		}
 		return root;
@@ -383,8 +384,9 @@ public class SystemTransformationsXMLFile {
 		Element name = new Element("name");
 		name.setText(attributeTemplate.getName());
 		root.addContent(name);
-		if (attributeTemplate.getValue() != null) {
-			Element value = combineValue(attributeTemplate.getValue());
+		Object attributeValue = attributeTemplate.getValue();
+		if (attributeValue != null) {
+			Element value = combineValue(attributeValue);
 			root.addContent(value);
 		}
 		return root;
