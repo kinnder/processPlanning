@@ -1,7 +1,10 @@
 package planning.storage;
 
+import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.file.Files;
@@ -46,24 +49,33 @@ public class SystemTransformationsXMLFile {
 		this.systemTransformations = systemTransformations;
 	}
 
-	private SAXBuilder builder;
+	private SAXBuilder builder = new SAXBuilder();
+
+	private XMLOutputter outputter = new XMLOutputter(Format.getPrettyFormat().setIndent("\t"));
 
 	public SystemTransformationsXMLFile() {
-		this(new SAXBuilder());
 	}
 
 	SystemTransformationsXMLFile(SAXBuilder builder) {
 		this.builder = builder;
 	}
 
-	// TODO : заменить URL на InputStream
-	public void load(URL resource) throws JDOMException, IOException {
-		Element root = builder.build(resource).getRootElement();
+	public void load(URL resource) throws JDOMException, IOException, URISyntaxException {
+		InputStream inputStream = new BufferedInputStream(Files.newInputStream(Paths.get(resource.toURI())));
+		load(inputStream);
+	}
+
+	public void load(InputStream inputStream) throws JDOMException, IOException {
+		Element root = builder.build(inputStream).getRootElement();
 		systemTransformations = parseSystemTransformations(root);
 	}
 
-	// TODO : заменить URL на OutputStream
 	public void save(URL resource) throws IOException, URISyntaxException {
+		OutputStream outputStream = new BufferedOutputStream(Files.newOutputStream(Paths.get(resource.toURI())));
+		save(outputStream);
+	}
+
+	public void save(OutputStream outputStream) throws IOException {
 		Element root = new Element("systemTransformations");
 		Namespace xsiNamespace = Namespace.getNamespace("xsi", "http://www.w3.org/2001/XMLSchema-instance");
 		root.setAttribute("noNamespaceSchemaLocation", "../systemTransformations.xsd", xsiNamespace);
@@ -72,8 +84,7 @@ public class SystemTransformationsXMLFile {
 		root.addContent(elements);
 
 		Document document = new Document(root);
-		XMLOutputter outputter = new XMLOutputter(Format.getPrettyFormat().setIndent("\t"));
-		outputter.output(document, new BufferedOutputStream(Files.newOutputStream(Paths.get(resource.toURI()))));
+		outputter.output(document, outputStream);
 	}
 
 	public SystemTransformation[] parseSystemTransformations(Element root) throws DataConversionException {

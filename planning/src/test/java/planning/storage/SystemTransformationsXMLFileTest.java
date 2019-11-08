@@ -6,7 +6,8 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.IOException;
-import java.net.URL;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -78,13 +79,13 @@ public class SystemTransformationsXMLFileTest {
 		final SAXBuilder saxBuilder_mock = context.mock(SAXBuilder.class);
 		testable = new SystemTransformationsXMLFile(saxBuilder_mock);
 
-		final URL url = new URL("file:/systemTransformations.xml");
+		final InputStream inputStream_mock = context.mock(InputStream.class);
 		final Document document_mock = context.mock(Document.class);
 		final Element element_mock = context.mock(Element.class);
 
 		context.checking(new Expectations() {
 			{
-				oneOf(saxBuilder_mock).build(url);
+				oneOf(saxBuilder_mock).build(inputStream_mock);
 				will(returnValue(document_mock));
 
 				oneOf(document_mock).getRootElement();
@@ -97,13 +98,24 @@ public class SystemTransformationsXMLFileTest {
 			}
 		});
 
-		testable.load(url);
+		testable.load(inputStream_mock);
 	}
 
 	@Test
-	public void save() {
-		// TODO : добавить тест
-		// testable.save(url)
+	public void save() throws IOException {
+		final OutputStream outputStream_mock = context.mock(OutputStream.class);
+
+		context.checking(new Expectations() {
+			{
+				oneOf(outputStream_mock).write(with(any(byte[].class)), with(any(int.class)), with(any(int.class)));
+
+				oneOf(outputStream_mock).flush();
+
+				oneOf(outputStream_mock).flush();
+			}
+		});
+
+		testable.save(outputStream_mock);
 	}
 
 	@Test

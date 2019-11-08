@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.List;
 
 import org.jdom2.JDOMException;
@@ -26,7 +27,7 @@ public class AcceptanceTests implements MaterialPoints {
 	private static SystemTransformations materialPointsTransformations;
 
 	@BeforeAll
-	public static void setupAll() throws JDOMException, IOException {
+	public static void setupAll() throws JDOMException, IOException, URISyntaxException {
 		SystemTransformationsXMLFile xmlFile = new SystemTransformationsXMLFile();
 		xmlFile.load(AcceptanceTests.class.getResource("/materialPoints/systemTransformations.xml"));
 

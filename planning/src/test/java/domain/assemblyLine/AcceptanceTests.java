@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.List;
 
 import org.jdom2.JDOMException;
@@ -27,7 +28,7 @@ public class AcceptanceTests implements AssemblyLine {
 	private static SystemTransformations assemblyLineTransformations;
 
 	@BeforeAll
-	public static void setupAll() throws JDOMException, IOException {
+	public static void setupAll() throws JDOMException, IOException, URISyntaxException {
 		SystemTransformationsXMLFile xmlFile = new SystemTransformationsXMLFile();
 		xmlFile.load(AcceptanceTests.class.getResource("/assemblyLine/systemTransformations.xml"));
 
