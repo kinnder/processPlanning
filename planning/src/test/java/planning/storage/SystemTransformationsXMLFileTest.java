@@ -730,7 +730,7 @@ public class SystemTransformationsXMLFileTest {
 		assertTrue(testable.parseSystemTemplate(root_mock) instanceof SystemTemplate);
 	}
 
-	//@Test
+	@Test
 	public void combineSystemTemplate() {
 		final SystemTemplate systemTemplate_mock = context.mock(SystemTemplate.class);
 		final List<SystemObjectTemplate> systemObjectTemplates = new ArrayList<>();
@@ -746,13 +746,16 @@ public class SystemTransformationsXMLFileTest {
 
 				oneOf(systemObjectTemplate_mock).getId();
 
+				oneOf(systemObjectTemplate_mock).getAttributes();
+
+				oneOf(systemObjectTemplate_mock).getLinks();
+
 				// combineSystemObjectTemplate -->
 			}
 		});
 
 		Element element = testable.combineSystemTemplate(systemTemplate_mock);
 		assertNotNull(element.getChild("objectTemplate"));
-		// TODO : добавить код
 	}
 
 	@Test
@@ -799,7 +802,51 @@ public class SystemTransformationsXMLFileTest {
 
 	@Test
 	public void combineSystemObjectTemplate() {
-		// TODO : добавить код
+		final SystemObjectTemplate systemObjectTemplate_mock = context.mock(SystemObjectTemplate.class);
+		final AttributeTemplate attributeTemplate_mock = context.mock(AttributeTemplate.class);
+		final LinkTemplate linkTemplate_mock = context.mock(LinkTemplate.class);
+		final List<AttributeTemplate> attributeTemplates = new ArrayList<>();
+		attributeTemplates.add(attributeTemplate_mock);
+		final List<LinkTemplate> linkTemplates = new ArrayList<>();
+		linkTemplates.add(linkTemplate_mock);
+
+		context.checking(new Expectations() {
+			{
+				oneOf(systemObjectTemplate_mock).getId();
+				will(returnValue("id"));
+
+				oneOf(systemObjectTemplate_mock).getAttributes();
+				will(returnValue(attributeTemplates));
+
+				// <-- combineAttributeTemplate
+
+				oneOf(attributeTemplate_mock).getName();
+
+				oneOf(attributeTemplate_mock).getValue();
+
+				oneOf(attributeTemplate_mock).getValue();
+
+				// combineAttributeTemplate -->
+
+				oneOf(systemObjectTemplate_mock).getLinks();
+				will(returnValue(linkTemplates));
+
+				// <-- combineLinkTemplate
+
+				oneOf(linkTemplate_mock).getName();
+
+				oneOf(linkTemplate_mock).getObjectId();
+
+				oneOf(linkTemplate_mock).getObjectId();
+
+				// combineLinkTemplate -->
+			}
+		});
+
+		Element element = testable.combineSystemObjectTemplate(systemObjectTemplate_mock);
+		assertEquals("id", element.getChildText("objectId"));
+		assertNotNull(element.getChild("attributeTemplate"));
+		assertNotNull(element.getChild("linkTemplate"));
 	}
 
 	@Test
