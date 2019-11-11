@@ -14,6 +14,7 @@ import org.junit.jupiter.api.Test;
 
 import planning.method.Planner;
 import planning.method.SystemTransformations;
+import planning.method.TaskDescription;
 import planning.model.Attribute;
 import planning.model.SystemTransformation;
 import planning.model.Link;
@@ -27,6 +28,8 @@ public class AcceptanceTests implements AssemblyLine {
 
 	private static SystemTransformations assemblyLineTransformations;
 
+	private static TaskDescription taskDesription;
+
 	@BeforeAll
 	public static void setupAll() throws JDOMException, IOException, URISyntaxException {
 		SystemTransformationsXMLFile xmlFile = new SystemTransformationsXMLFile();
@@ -34,6 +37,9 @@ public class AcceptanceTests implements AssemblyLine {
 
 		assemblyLineTransformations = new SystemTransformations();
 		assemblyLineTransformations.addElements(xmlFile.getSystemTransformations());
+
+		taskDesription = new TaskDescription();
+		// TODO : добавить считывание из файла
 	}
 
 	@Test
@@ -129,6 +135,8 @@ public class AcceptanceTests implements AssemblyLine {
 		table_2.addLink(new Link(LINK_PLANE_Y_POSITION, plane_y_inside_id));
 		table_2.addLink(new Link(LINK_PLANE_Z_POSITION, plane_z_bottom_id));
 		table_2.addLink(new Link(LINK_PACKAGE_BOX_POSITION, null));
+
+		// TODO : заменить на taskDescription
 
 		SystemTransformation systemTransformation;
 		SystemVariant[] systemVariants;
