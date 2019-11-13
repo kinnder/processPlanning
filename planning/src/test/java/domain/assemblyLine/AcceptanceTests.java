@@ -23,6 +23,7 @@ import planning.model.SystemObject;
 import planning.model.SystemOperation;
 import planning.model.SystemVariant;
 import planning.storage.SystemTransformationsXMLFile;
+import planning.storage.TaskDescriptionXMLFile;
 
 public class AcceptanceTests implements AssemblyLine {
 
@@ -32,14 +33,18 @@ public class AcceptanceTests implements AssemblyLine {
 
 	@BeforeAll
 	public static void setupAll() throws JDOMException, IOException, URISyntaxException {
-		SystemTransformationsXMLFile xmlFile = new SystemTransformationsXMLFile();
-		xmlFile.load(AcceptanceTests.class.getResource("/assemblyLine/systemTransformations.xml"));
+		SystemTransformationsXMLFile transformationsXMLFile = new SystemTransformationsXMLFile();
+		transformationsXMLFile.load(AcceptanceTests.class.getResource("/assemblyLine/systemTransformations.xml"));
 
 		assemblyLineTransformations = new SystemTransformations();
-		assemblyLineTransformations.addElements(xmlFile.getSystemTransformations());
+		assemblyLineTransformations.addElements(transformationsXMLFile.getSystemTransformations());
+
+		TaskDescriptionXMLFile taskXMLFile = new TaskDescriptionXMLFile();
+		transformationsXMLFile.load(AcceptanceTests.class.getResource("/assemblyLine/taskDescription.xml"));
 
 		taskDesription = new TaskDescription();
-		// TODO : добавить считывание из файла
+		taskDesription.setInitialSystem(taskXMLFile.getInitialSystem());
+		taskDesription.setFinalSystem(taskXMLFile.getFinalSystem());
 	}
 
 	@Test

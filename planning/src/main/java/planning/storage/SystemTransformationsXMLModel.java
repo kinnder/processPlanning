@@ -28,7 +28,6 @@ public class SystemTransformationsXMLModel implements XMLModel {
 	@Override
 	public void parse(Element element) throws DataConversionException {
 		systemTransformations = parseSystemTransformations(element);
-
 	}
 
 	@Override
