@@ -1,6 +1,6 @@
 package planning.storage;
 
-import planning.model.System;
+import planning.method.TaskDescription;
 
 public class TaskDescriptionXMLFile extends XMLFile {
 
@@ -13,19 +13,11 @@ public class TaskDescriptionXMLFile extends XMLFile {
 		return (TaskDescriptionXMLModel) super.getXMLModel();
 	}
 
-	public System getInitialSystem() {
-		return getXMLModel().getInitialSystem();
+	public TaskDescription getTaskDescription() {
+		return getXMLModel().getTaskDescription();
 	}
 
-	public void setInitialSystem(System system) {
-		getXMLModel().setInitialSystem(system);
-	}
-
-	public System getFinalSystem() {
-		return getXMLModel().getFinalSystem();
-	}
-
-	public void setFinalSystem(System system) {
-		getXMLModel().setFinalSystem(system);
+	public void setTaskDescription(TaskDescription taskDescription) {
+		getXMLModel().setTaskDescription(taskDescription);
 	}
 }

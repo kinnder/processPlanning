@@ -1,30 +1,54 @@
 package domain.assemblyLine;
 
+import java.util.UUID;
+
 public interface AssemblyLine {
 
-	static final String ID_PLANE_Z_BOTTOM = "ID-PLANE-Z-BOTTOM";
+	static final String ID_OBJECT_PICK_AND_PLACE_ROBOT = UUID.randomUUID().toString();
 
-	static final String ID_PLANE_Z_TOP = "ID-PLANE-Z-TOP";
+	static final String ID_OBJECT_PLANE_X_TABLE_1 = UUID.randomUUID().toString();
 
-	static final String ID_PACKAGE_BOX_POSITION = "ID-PACKAGE-BOX-POSITION";
+	static final String ID_OBJECT_PLANE_X_TABLE_2 = UUID.randomUUID().toString();
 
-	static final String ID_PLANE_Z = "ID-PLANE-Z";
+	static final String ID_OBJECT_PLANE_Y_OUTSIDE = UUID.randomUUID().toString();
 
-	static final String ID_PLANE_X = "ID-PLANE-X";
+	static final String ID_OBJECT_PLANE_Y_INSIDE = UUID.randomUUID().toString();
 
-	static final String ID_PLANE_Y = "ID-PLANE-Y";
+	static final String ID_OBJECT_PLANE_Z_TOP = UUID.randomUUID().toString();
 
-	static final String ID_PACKAGE_BOX = "ID-PACKAGE-BOX";
+	static final String ID_OBJECT_PLANE_Z_BOTTOM = UUID.randomUUID().toString();
 
-	static final String ID_PLANE_Y_SOURCE = "ID-PLANE-Y-SOURCE";
+	static final String ID_OBJECT_PACKAGE_BOX = UUID.randomUUID().toString();
 
-	static final String ID_PLANE_Y_TARGET = "ID-PLANE-Y-TARGET";
+	static final String ID_OBJECT_SHUTTLE = UUID.randomUUID().toString();
 
-	static final String ID_PLANE_X_SOURCE = "ID-PLANE-X-SOURCE";
+	static final String ID_OBJECT_TABLE_1 = UUID.randomUUID().toString();
 
-	static final String ID_PLANE_X_TARGET = "ID-PLANE-X-TARGET";
+	static final String ID_OBJECT_TABLE_2 = UUID.randomUUID().toString();
 
-	static final String ID_ROBOT = "ID-ROBOT";
+	static final String ID_TEMPLATE_PLANE_Z_BOTTOM = "ID-PLANE-Z-BOTTOM";
+
+	static final String ID_TEMPLATE_PLANE_Z_TOP = "ID-PLANE-Z-TOP";
+
+	static final String ID_TEMPLATE_PACKAGE_BOX_POSITION = "ID-PACKAGE-BOX-POSITION";
+
+	static final String ID_TEMPLATE_PLANE_Z = "ID-PLANE-Z";
+
+	static final String ID_TEMPLATE_PLANE_X = "ID-PLANE-X";
+
+	static final String ID_TEMPLATE_PLANE_Y = "ID-PLANE-Y";
+
+	static final String ID_TEMPLATE_PACKAGE_BOX = "ID-PACKAGE-BOX";
+
+	static final String ID_TEMPLATE_PLANE_Y_SOURCE = "ID-PLANE-Y-SOURCE";
+
+	static final String ID_TEMPLATE_PLANE_Y_TARGET = "ID-PLANE-Y-TARGET";
+
+	static final String ID_TEMPLATE_PLANE_X_SOURCE = "ID-PLANE-X-SOURCE";
+
+	static final String ID_TEMPLATE_PLANE_X_TARGET = "ID-PLANE-X-TARGET";
+
+	static final String ID_TEMPLATE_ROBOT = "ID-ROBOT";
 
 	static final String ELEMENT_MOVE_WITHOUT_LOAD = "ELEMENT-MOVE-WITHOUT-LOAD";
 

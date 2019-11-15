@@ -4,7 +4,7 @@ import planning.model.System;
 
 public class TaskDescription {
 
-	public System initialSystem;
+	private System initialSystem;
 
 	public System getInitialSystem() {
 		return this.initialSystem;
@@ -14,7 +14,7 @@ public class TaskDescription {
 		this.initialSystem = initialSystem;
 	}
 
-	public System finalSystem;
+	private System finalSystem;
 
 	public System getFinalSystem() {
 		return this.finalSystem;

@@ -3,7 +3,7 @@ package planning.storage;
 import org.jdom2.DataConversionException;
 import org.jdom2.Element;
 
-import planning.model.System;
+import planning.method.TaskDescription;
 
 public class TaskDescriptionXMLModel implements XMLModel {
 
@@ -18,23 +18,12 @@ public class TaskDescriptionXMLModel implements XMLModel {
 		return null;
 	}
 
-	private System initialSystem = new System();
-
-	public System getInitialSystem() {
-		return this.initialSystem;
+	public TaskDescription getTaskDescription() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
-	public void setInitialSystem(System system) {
-		this.initialSystem = system;
-	}
-
-	private System finalSystem = new System();
-
-	public System getFinalSystem() {
-		return this.finalSystem;
-	}
-
-	public void setFinalSystem(System system) {
-		this.finalSystem = system;
+	public void setTaskDescription(TaskDescription taskDescription) {
+		// TODO Auto-generated method stub
 	}
 }
