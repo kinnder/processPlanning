@@ -23,6 +23,7 @@ import planning.model.SystemTemplate;
 import planning.model.SystemTransformation;
 import planning.model.Transformation;
 
+//TODO : методы combine/parse должны быть зеркальными
 public class SystemTransformationsXMLModel implements XMLModel {
 
 	@Override
@@ -32,6 +33,7 @@ public class SystemTransformationsXMLModel implements XMLModel {
 
 	@Override
 	public Element combine() {
+		// TODO : перенести заполнение элемента в combineSystemTransformations
 		Element root = new Element("systemTransformations");
 		Namespace xsiNamespace = Namespace.getNamespace("xsi", "http://www.w3.org/2001/XMLSchema-instance");
 		root.setAttribute("noNamespaceSchemaLocation", "../systemTransformations.xsd", xsiNamespace);
