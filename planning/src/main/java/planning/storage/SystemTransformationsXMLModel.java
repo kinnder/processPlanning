@@ -295,6 +295,7 @@ public class SystemTransformationsXMLModel implements XMLModel {
 		return root;
 	}
 
+	// TODO : рефакторинг
 	public SystemObjectTemplate parseSystemObjectTemplate(Element root) {
 		String objectId = root.getChildText("objectId");
 		SystemObjectTemplate objectTemplate = new SystemObjectTemplate(objectId);

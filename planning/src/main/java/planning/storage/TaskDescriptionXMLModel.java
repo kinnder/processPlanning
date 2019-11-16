@@ -32,9 +32,16 @@ public class TaskDescriptionXMLModel implements XMLModel {
 		this.taskDescription = taskDescription;
 	}
 
-	public TaskDescription parseTaskDescription(Element element) {
-		// TODO Auto-generated method stub
-		return null;
+	public TaskDescription parseTaskDescription(Element root) {
+		TaskDescription taskDescription = new TaskDescription();
+
+		System initialSystem = parseSystem(root.getChild("initialSystem"));
+		taskDescription.setInitialSystem(initialSystem);
+
+		System finalSystem = parseSystem(root.getChild("finalSystem"));
+		taskDescription.setFinalSystem(finalSystem);
+
+		return taskDescription;
 	}
 
 	public Element combineTaskDescription(TaskDescription taskDescription) {
@@ -53,6 +60,17 @@ public class TaskDescriptionXMLModel implements XMLModel {
 		return root;
 	}
 
+	private System parseSystem(Element root) {
+		System system = new System();
+
+		for (Element element : root.getChildren("systemObject")) {
+			SystemObject object = parseSystemObject(element);
+			system.addObject(object);
+		}
+
+		return system;
+	}
+
 	private Element combineSystem(System system) {
 		Element root = new Element("system");
 		for (SystemObject systemObject : system.getObjects()) {
@@ -61,6 +79,25 @@ public class TaskDescriptionXMLModel implements XMLModel {
 		}
 
 		return root;
+	}
+
+	private SystemObject parseSystemObject(Element root) {
+		String name = root.getChildText("name");
+		String id = root.getChildText("id");
+
+		SystemObject object = new SystemObject(name, id);
+
+		for (Element element : root.getChildren("attribute")) {
+			Attribute attribute = parseAttribute(element);
+			object.addAttribute(attribute);
+		}
+
+		for (Element element : root.getChildren("link")) {
+			Link link = parseLink(element);
+			object.addLink(link);
+		}
+
+		return object;
 	}
 
 	private Element combineSystemObject(SystemObject systemObject) {
@@ -87,6 +124,12 @@ public class TaskDescriptionXMLModel implements XMLModel {
 		return root;
 	}
 
+	private Link parseLink(Element root) {
+		String name = root.getChildText("name");
+		String objectId = root.getChildText("objectId");
+		return new Link(name, objectId);
+	}
+
 	private Element combineLink(Link link) {
 		Element root = new Element("link");
 
@@ -103,6 +146,12 @@ public class TaskDescriptionXMLModel implements XMLModel {
 		return root;
 	}
 
+	private Attribute parseAttribute(Element root) {
+		String name = root.getChildText("name");
+		Object value = parseValue(root.getChild("value"));
+		return new Attribute(name, value);
+	}
+
 	private Element combineAttribute(Attribute attribute) {
 		Element root = new Element("attribute");
 
@@ -116,6 +165,21 @@ public class TaskDescriptionXMLModel implements XMLModel {
 			root.addContent(value);
 		}
 		return root;
+	}
+
+	public Object parseValue(Element root) {
+		if (root == null) {
+			return null;
+		}
+		String type = root.getAttributeValue("type", "string");
+		String value = root.getText();
+		if ("boolean".equals(type)) {
+			return Boolean.valueOf(value);
+		}
+		if ("integer".equals(type)) {
+			return Integer.valueOf(value);
+		}
+		return value;
 	}
 
 	public Element combineValue(Object value) {

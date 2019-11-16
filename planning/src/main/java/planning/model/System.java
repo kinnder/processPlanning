@@ -94,4 +94,13 @@ public class System implements Cloneable {
 		}
 		return template;
 	}
+
+	public SystemObject getObjectByName(String name) {
+		for (SystemObject object : objects) {
+			if (object.getName().equals(name)) {
+				return object;
+			}
+		}
+		return null;
+	}
 }
