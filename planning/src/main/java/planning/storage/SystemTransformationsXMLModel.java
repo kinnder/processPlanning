@@ -24,7 +24,7 @@ import planning.model.SystemTransformation;
 import planning.model.Transformation;
 
 //TODO : методы combine/parse должны быть зеркальными
-public class SystemTransformationsXMLModel implements XMLModel {
+public class SystemTransformationsXMLModel extends ValueXMLModel implements XMLModel {
 
 	@Override
 	public void parse(Element element) throws DataConversionException {
@@ -367,32 +367,6 @@ public class SystemTransformationsXMLModel implements XMLModel {
 			Element value = combineValue(attributeValue);
 			root.addContent(value);
 		}
-		return root;
-	}
-
-	public Object parseValue(Element root) {
-		if (root == null) {
-			return null;
-		}
-		String type = root.getAttributeValue("type", "string");
-		String value = root.getText();
-		if ("boolean".equals(type)) {
-			return Boolean.valueOf(value);
-		}
-		if ("integer".equals(type)) {
-			return Integer.valueOf(value);
-		}
-		return value;
-	}
-
-	public Element combineValue(Object value) {
-		Element root = new Element("value");
-		if (value instanceof Boolean) {
-			root.setAttribute("type", "boolean");
-		} else if (value instanceof Integer) {
-			root.setAttribute("type", "integer");
-		}
-		root.setText(value.toString());
 		return root;
 	}
 }

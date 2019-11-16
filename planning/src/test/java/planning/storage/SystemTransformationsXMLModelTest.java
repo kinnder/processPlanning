@@ -1031,6 +1031,7 @@ public class SystemTransformationsXMLModelTest {
 		assertNull(result);
 	}
 
+	// TODO : перенести тесты combine/parse Value в собственный набор тестов
 	@Test
 	public void combineValue() {
 		final Object value = new String("string-value");
