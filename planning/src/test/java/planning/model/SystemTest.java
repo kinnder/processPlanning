@@ -115,6 +115,21 @@ public class SystemTest {
 	}
 
 	@Test
+	public void getObjectByName() {
+		final SystemObject object_1 = new SystemObject("object-1", "id-1");
+		final SystemObject object_2 = new SystemObject("object-2", "id-2");
+		testable.addObject(object_1);
+		testable.addObject(object_2);
+
+		assertEquals(object_2, testable.getObjectByName("object-2"));
+	}
+
+	@Test
+	public void getObjectByName_notFound() {
+		assertNull(testable.getObjectByName("name"));
+	}
+
+	@Test
 	public void getIds() {
 		final SystemObject object_1_mock = context.mock(SystemObject.class, "object-1");
 		final SystemObject object_2_mock = context.mock(SystemObject.class, "object-2");
