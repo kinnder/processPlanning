@@ -60,7 +60,7 @@ public class TaskDescriptionXMLModel extends ValueXMLModel implements XMLModel {
 		return root;
 	}
 
-	private System parseSystem(Element root) {
+	public System parseSystem(Element root) {
 		System system = new System();
 
 		for (Element element : root.getChildren("systemObject")) {
@@ -71,7 +71,7 @@ public class TaskDescriptionXMLModel extends ValueXMLModel implements XMLModel {
 		return system;
 	}
 
-	private Element combineSystem(System system) {
+	public Element combineSystem(System system) {
 		Element root = new Element("system");
 		for (SystemObject systemObject : system.getObjects()) {
 			Element element = combineSystemObject(systemObject);
@@ -81,7 +81,7 @@ public class TaskDescriptionXMLModel extends ValueXMLModel implements XMLModel {
 		return root;
 	}
 
-	private SystemObject parseSystemObject(Element root) {
+	public SystemObject parseSystemObject(Element root) {
 		String name = root.getChildText("name");
 		String id = root.getChildText("id");
 
@@ -100,7 +100,7 @@ public class TaskDescriptionXMLModel extends ValueXMLModel implements XMLModel {
 		return object;
 	}
 
-	private Element combineSystemObject(SystemObject systemObject) {
+	public Element combineSystemObject(SystemObject systemObject) {
 		Element root = new Element("systemObject");
 
 		Element name = new Element("name");
@@ -124,13 +124,13 @@ public class TaskDescriptionXMLModel extends ValueXMLModel implements XMLModel {
 		return root;
 	}
 
-	private Link parseLink(Element root) {
+	public Link parseLink(Element root) {
 		String name = root.getChildText("name");
 		String objectId = root.getChildText("objectId");
 		return new Link(name, objectId);
 	}
 
-	private Element combineLink(Link link) {
+	public Element combineLink(Link link) {
 		Element root = new Element("link");
 
 		Element name = new Element("name");
@@ -146,13 +146,13 @@ public class TaskDescriptionXMLModel extends ValueXMLModel implements XMLModel {
 		return root;
 	}
 
-	private Attribute parseAttribute(Element root) {
+	public Attribute parseAttribute(Element root) {
 		String name = root.getChildText("name");
 		Object value = parseValue(root.getChild("value"));
 		return new Attribute(name, value);
 	}
 
-	private Element combineAttribute(Attribute attribute) {
+	public Element combineAttribute(Attribute attribute) {
 		Element root = new Element("attribute");
 
 		Element name = new Element("name");

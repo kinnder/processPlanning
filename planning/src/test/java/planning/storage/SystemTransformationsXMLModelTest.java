@@ -11,6 +11,7 @@ import java.util.List;
 import org.jdom2.Attribute;
 import org.jdom2.DataConversionException;
 import org.jdom2.Element;
+import org.jdom2.Namespace;
 import org.jmock.Expectations;
 import org.jmock.imposters.ByteBuddyClassImposteriser;
 import org.jmock.junit5.JUnit5Mockery;
@@ -66,6 +67,38 @@ public class SystemTransformationsXMLModelTest {
 
 		testable.setSystemTransformations(systemTransformations);
 		assertEquals(1, testable.getSystemTransformations().length);
+	}
+
+	@Test
+	public void combine() {
+		final SystemTransformation systemTransformation_mock = context.mock(SystemTransformation.class);
+		final SystemTransformation systemTransformations[] = new SystemTransformation[] { systemTransformation_mock };
+		testable.setSystemTransformations(systemTransformations);
+
+		context.checking(new Expectations() {
+			{
+				// <-- combineSystemTransformations
+
+				// <-- combineSystemTransformation
+				oneOf(systemTransformation_mock).getName();
+
+				oneOf(systemTransformation_mock).getAction();
+
+				oneOf(systemTransformation_mock).getSystemTemplate();
+
+				oneOf(systemTransformation_mock).getTransformations();
+
+				// combineSystemTransformation -->
+
+				// combineSystemTransformations -->
+			}
+		});
+
+		Element element = testable.combine();
+		assertEquals("systemTransformations", element.getName());
+		assertEquals("../systemTransformations.xsd", element.getAttributeValue("noNamespaceSchemaLocation",
+				Namespace.getNamespace("xsi", "http://www.w3.org/2001/XMLSchema-instance")));
+		assertNotNull(element.getChild("systemTransformation"));
 	}
 
 	@Test
@@ -912,6 +945,25 @@ public class SystemTransformationsXMLModelTest {
 	}
 
 	@Test
+	public void parseLinkTemplate_with_null() {
+		final Element root_mock = context.mock(Element.class, "root");
+
+		context.checking(new Expectations() {
+			{
+				oneOf(root_mock).getChildText("name");
+				will(returnValue("name"));
+
+				oneOf(root_mock).getChildText("value");
+				will(returnValue(null));
+			}
+		});
+		LinkTemplate result = testable.parseLinkTemplate(root_mock);
+		assertNotNull(result);
+		assertEquals("name", result.getName());
+		assertEquals(null, result.getObjectId());
+	}
+
+	@Test
 	public void combineLinkTemplate() {
 		final LinkTemplate linkTemplate_mock = context.mock(LinkTemplate.class);
 
@@ -947,24 +999,5 @@ public class SystemTransformationsXMLModelTest {
 		Element element = testable.combineLinkTemplate(linkTemplate_mock);
 		assertEquals("link-name", element.getChildText("name"));
 		assertNull(element.getChild("value"));
-	}
-
-	@Test
-	public void parseLinkTemplate_with_null() {
-		final Element root_mock = context.mock(Element.class, "root");
-
-		context.checking(new Expectations() {
-			{
-				oneOf(root_mock).getChildText("name");
-				will(returnValue("name"));
-
-				oneOf(root_mock).getChildText("value");
-				will(returnValue(null));
-			}
-		});
-		LinkTemplate result = testable.parseLinkTemplate(root_mock);
-		assertNotNull(result);
-		assertEquals("name", result.getName());
-		assertEquals(null, result.getObjectId());
 	}
 }
