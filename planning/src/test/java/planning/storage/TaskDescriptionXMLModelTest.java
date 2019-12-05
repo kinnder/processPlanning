@@ -8,7 +8,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.jdom2.DataConversionException;
 import org.jdom2.Element;
+import org.jdom2.Namespace;
 import org.jmock.Expectations;
 import org.jmock.imposters.ByteBuddyClassImposteriser;
 import org.jmock.junit5.JUnit5Mockery;
@@ -55,6 +57,115 @@ public class TaskDescriptionXMLModelTest {
 
 		testable.setTaskDescription(taskDescription_mock);
 		assertEquals(taskDescription_mock, testable.getTaskDescription());
+	}
+
+	@Test
+	public void parse() throws DataConversionException {
+		final Element root_mock = context.mock(Element.class, "root");
+
+		context.checking(new Expectations() {
+			{
+				// <-- parseTaskDescription
+
+				oneOf(root_mock).getChild("initialSystem");
+
+				oneOf(root_mock).getChild("finalSystem");
+
+				// parseTaskDescription -->
+			}
+		});
+
+		testable.parse(root_mock);
+	}
+
+	@Test
+	public void combine() {
+		final TaskDescription taskDescription_mock = context.mock(TaskDescription.class);
+
+		context.checking(new Expectations() {
+			{
+				// <-- combineTaskDescription
+
+				oneOf(taskDescription_mock).getInitialSystem();
+
+				oneOf(taskDescription_mock).getFinalSystem();
+
+				// combineTaskDescription -->
+			}
+		});
+
+		testable.setTaskDescription(taskDescription_mock);
+		assertNotNull(testable.combine());
+	}
+
+	@Test
+	public void parseTaskDescription() {
+		final Element root_mock = context.mock(Element.class, "root");
+		final Element initialSystem_mock = context.mock(Element.class, "initial-system-element");
+		final Element finalSystem_mock = context.mock(Element.class, "final-system-element");
+
+		context.checking(new Expectations() {
+			{
+				oneOf(root_mock).getChild("initialSystem");
+				will(returnValue(initialSystem_mock));
+
+				// <-- parseSystem
+
+				oneOf(initialSystem_mock).getChildren("systemObject");
+
+				// parseSystem -->
+
+				oneOf(root_mock).getChild("finalSystem");
+				will(returnValue(finalSystem_mock));
+
+				// <-- parseSystem
+
+				oneOf(finalSystem_mock).getChildren("systemObject");
+
+				// parseSystem -->
+			}
+		});
+
+		TaskDescription result = testable.parseTaskDescription(root_mock);
+		assertTrue(result instanceof TaskDescription);
+		assertNotNull(result.getInitialSystem());
+		assertNotNull(result.getFinalSystem());
+	}
+
+	@Test
+	public void combineTaskDescription() {
+		final TaskDescription taskDescription_mock = context.mock(TaskDescription.class);
+		final System initialSystem_mock = context.mock(System.class, "initial-system");
+		final System finalSystem_mock = context.mock(System.class, "final-system");
+
+		context.checking(new Expectations() {
+			{
+				oneOf(taskDescription_mock).getInitialSystem();
+				will(returnValue(initialSystem_mock));
+
+				// <-- combineSystem
+
+				oneOf(initialSystem_mock).getObjects();
+
+				// combineSystem -->
+
+				oneOf(taskDescription_mock).getFinalSystem();
+				will(returnValue(finalSystem_mock));
+
+				// <-- combineSystem
+
+				oneOf(finalSystem_mock).getObjects();
+
+				// combineSystem -->
+			}
+		});
+
+		Element element = testable.combineTaskDescription(taskDescription_mock);
+		assertEquals("taskDescription", element.getName());
+		assertEquals("../taskDescription.xsd", element.getAttributeValue("noNamespaceSchemaLocation",
+				Namespace.getNamespace("xsi", "http://www.w3.org/2001/XMLSchema-instance")));
+		assertNotNull(element.getChild("initialSystem"));
+		assertNotNull(element.getChild("finalSystem"));
 	}
 
 	@Test

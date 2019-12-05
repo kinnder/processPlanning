@@ -70,10 +70,26 @@ public class SystemTransformationsXMLModelTest {
 	}
 
 	@Test
+	public void parse() throws DataConversionException {
+		final Element root_mock = context.mock(Element.class, "root");
+
+		context.checking(new Expectations() {
+			{
+				// <-- parseSystemTransformation
+
+				oneOf(root_mock).getChildren("systemTransformation");
+
+				// parseSystemTransformation -->
+			}
+		});
+
+		testable.parse(root_mock);
+	}
+
+	@Test
 	public void combine() {
 		final SystemTransformation systemTransformation_mock = context.mock(SystemTransformation.class);
 		final SystemTransformation systemTransformations[] = new SystemTransformation[] { systemTransformation_mock };
-		testable.setSystemTransformations(systemTransformations);
 
 		context.checking(new Expectations() {
 			{
@@ -93,6 +109,8 @@ public class SystemTransformationsXMLModelTest {
 				// combineSystemTransformations -->
 			}
 		});
+
+		testable.setSystemTransformations(systemTransformations);
 
 		Element element = testable.combine();
 		assertEquals("systemTransformations", element.getName());
