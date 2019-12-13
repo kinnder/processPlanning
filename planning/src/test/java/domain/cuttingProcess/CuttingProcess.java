@@ -1,6 +1,18 @@
 package domain.cuttingProcess;
 
+import java.util.UUID;
+
 public interface CuttingProcess {
+
+	static final String ID_OBJECT_WORKPIECE = UUID.randomUUID().toString();
+
+	static final String ID_OBJECT_CYLINDER_SURFACE = UUID.randomUUID().toString();
+
+	static final String ID_OBJECT_REQUIREMENT_SURFACE_A = UUID.randomUUID().toString();
+
+	static final String ID_OBJECT_REQUIREMENT_SURFACE_B = UUID.randomUUID().toString();
+
+	static final String ID_OBJECT_REQUIREMENT_SURFACE_C = UUID.randomUUID().toString();
 
 	/** Заготовка */
 	static final String OBJECT_WORKPIECE = "OBJECT-WORKPIECE";

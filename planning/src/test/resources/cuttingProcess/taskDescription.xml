@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<taskDescription xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../taskDescription.xsd">
+	<initialSystem>
+		<systemObject>
+			<name>OBJECT-WORKPIECE</name>
+			<id>4240a8dc-cbe9-423c-983e-b9b01c748237</id>
+			<attribute>
+				<name>ATTRIBUTE-WORKPIECE</name>
+				<value type="boolean">true</value>
+			</attribute>
+			<link>
+				<name>LINK-IS-PART-OF</name>
+				<objectId>9d8b3bc8-fca6-4983-b7c9-b8f37c06cf66</objectId>
+			</link>
+			<link>
+				<name>LINK-IS-REQUIREMENT-OF</name>
+				<objectId>fc643c49-8f27-45c8-a0af-cf8c02141d06</objectId>
+			</link>
+			<link>
+				<name>LINK-IS-REQUIREMENT-OF</name>
+				<objectId>f65fc392-1e84-45e2-9cdd-2f4895bcf668</objectId>
+			</link>
+			<link>
+				<name>LINK-IS-REQUIREMENT-OF</name>
+				<objectId>509695b2-d357-4ef2-a419-53af52eba6db</objectId>
+			</link>
+		</systemObject>
+		<systemObject>
+			<name>OBJECT-CYLINDER-SURFACE</name>
+			<id>9d8b3bc8-fca6-4983-b7c9-b8f37c06cf66</id>
+			<attribute>
+				<name>ATTRIBUTE-LENGTH</name>
+				<value type="integer">90</value>
+			</attribute>
+			<attribute>
+				<name>ATTRIBUTE-HAS-LENGTH-REQUIREMENT</name>
+				<value type="boolean">false</value>
+			</attribute>
+			<attribute>
+				<name>ATTRIBUTE-DIAMETER</name>
+				<value type="integer">22</value>
+			</attribute>
+			<attribute>
+				<name>ATTRIBUTE-CYLINDER-SURFACE</name>
+				<value type="boolean">true</value>
+			</attribute>
+			<attribute>
+				<name>ATTRIBUTE-HAS-DIAMETER-REQUIREMENT</name>
+				<value type="boolean">false</value>
+			</attribute>
+			<link>
+				<name>LINK-IS-PART-OF</name>
+				<objectId>4240a8dc-cbe9-423c-983e-b9b01c748237</objectId>
+			</link>
+			<link>
+				<name>LINK-IS-DIAMETER-REQUIREMENT</name>
+			</link>
+			<link>
+				<name>LINK-IS-LENGTH-REQUIREMENT</name>
+			</link>
+		</systemObject>
+		<systemObject>
+			<name>OBJECT-REQUIREMENT-SURFACE-A</name>
+			<id>fc643c49-8f27-45c8-a0af-cf8c02141d06</id>
+			<attribute>
+				<name>ATTRIBUTE-REQUIREMENT</name>
+				<value type="boolean">true</value>
+			</attribute>
+			<attribute>
+				<name>ATTRIBUTE-DIAMETER-REQUIREMENT-STATUS</name>
+				<value type="boolean">false</value>
+			</attribute>
+			<attribute>
+				<name>ATTRIBUTE-DIAMETER-REQUIREMENT</name>
+				<value type="integer">20</value>
+			</attribute>
+			<attribute>
+				<name>ATTRIBUTE-LENGTH-REQUIREMENT-STATUS</name>
+				<value type="boolean">false</value>
+			</attribute>
+			<attribute>
+				<name>ATTRIBUTE-LENGTH-REQUIREMENT</name>
+				<value type="integer">45</value>
+			</attribute>
+			<link>
+				<name>LINK-IS-REQUIREMENT-OF</name>
+				<objectId>4240a8dc-cbe9-423c-983e-b9b01c748237</objectId>
+			</link>
+			<link>
+				<name>LINK-IS-DIAMETER-REQUIREMENT</name>
+			</link>
+			<link>
+				<name>LINK-IS-LENGTH-REQUIREMENT</name>
+			</link>
+			<link>
+				<name>LINK-SURFACE-SIDE-LEFT</name>
+			</link>
+			<link>
+				<name>LINK-SURFACE-SIDE-RIGHT</name>
+				<objectId>f65fc392-1e84-45e2-9cdd-2f4895bcf668</objectId>
+			</link>
+		</systemObject>
+		<systemObject>
+			<name>OBJECT-REQUIREMENT-SURFACE-B</name>
+			<id>f65fc392-1e84-45e2-9cdd-2f4895bcf668</id>
+			<attribute>
+				<name>ATTRIBUTE-REQUIREMENT</name>
+				<value type="boolean">true</value>
+			</attribute>
+			<attribute>
+				<name>ATTRIBUTE-DIAMETER-REQUIREMENT-STATUS</name>
+				<value type="boolean">false</value>
+			</attribute>
+			<attribute>
+				<name>ATTRIBUTE-DIAMETER-REQUIREMENT</name>
+				<value type="integer">16</value>
+			</attribute>
+			<attribute>
+				<name>ATTRIBUTE-LENGTH-REQUIREMENT-STATUS</name>
+				<value type="boolean">false</value>
+			</attribute>
+			<attribute>
+				<name>ATTRIBUTE-LENGTH-REQUIREMENT</name>
+				<value type="integer">30</value>
+			</attribute>
+			<link>
+				<name>LINK-IS-REQUIREMENT-OF</name>
+				<objectId>4240a8dc-cbe9-423c-983e-b9b01c748237</objectId>
+			</link>
+			<link>
+				<name>LINK-IS-DIAMETER-REQUIREMENT</name>
+			</link>
+			<link>
+				<name>LINK-IS-LENGTH-REQUIREMENT</name>
+			</link>
+			<link>
+				<name>LINK-SURFACE-SIDE-LEFT</name>
+				<objectId>fc643c49-8f27-45c8-a0af-cf8c02141d06</objectId>
+			</link>
+			<link>
+				<name>LINK-SURFACE-SIDE-RIGHT</name>
+				<objectId>509695b2-d357-4ef2-a419-53af52eba6db</objectId>
+			</link>
+		</systemObject>
+		<systemObject>
+			<name>OBJECT-REQUIREMENT-SURFACE-C</name>
+			<id>509695b2-d357-4ef2-a419-53af52eba6db</id>
+			<attribute>
+				<name>ATTRIBUTE-REQUIREMENT</name>
+				<value type="boolean">true</value>
+			</attribute>
+			<attribute>
+				<name>ATTRIBUTE-DIAMETER-REQUIREMENT-STATUS</name>
+				<value type="boolean">false</value>
+			</attribute>
+			<attribute>
+				<name>ATTRIBUTE-DIAMETER-REQUIREMENT</name>
+				<value type="integer">12</value>
+			</attribute>
+			<attribute>
+				<name>ATTRIBUTE-LENGTH-REQUIREMENT-STATUS</name>
+				<value type="boolean">false</value>
+			</attribute>
+			<attribute>
+				<name>ATTRIBUTE-LENGTH-REQUIREMENT</name>
+				<value type="integer">15</value>
+			</attribute>
+			<link>
+				<name>LINK-IS-REQUIREMENT-OF</name>
+				<objectId>4240a8dc-cbe9-423c-983e-b9b01c748237</objectId>
+			</link>
+			<link>
+				<name>LINK-IS-DIAMETER-REQUIREMENT</name>
+			</link>
+			<link>
+				<name>LINK-IS-LENGTH-REQUIREMENT</name>
+			</link>
+			<link>
+				<name>LINK-SURFACE-SIDE-LEFT</name>
+				<objectId>f65fc392-1e84-45e2-9cdd-2f4895bcf668</objectId>
+			</link>
+			<link>
+				<name>LINK-SURFACE-SIDE-RIGHT</name>
+			</link>
+		</systemObject>
+	</initialSystem>
+	<finalSystem>
+		<systemObject>
+			<name>OBJECT-REQUIREMENT-SURFACE-A</name>
+			<id>fc643c49-8f27-45c8-a0af-cf8c02141d06</id>
+			<attribute>
+				<name>ATTRIBUTE-REQUIREMENT</name>
+				<value type="boolean">true</value>
+			</attribute>
+			<attribute>
+				<name>ATTRIBUTE-DIAMETER-REQUIREMENT-STATUS</name>
+				<value type="boolean">true</value>
+			</attribute>
+			<attribute>
+				<name>ATTRIBUTE-LENGTH-REQUIREMENT-STATUS</name>
+				<value type="boolean">true</value>
+			</attribute>
+			<link>
+				<name>LINK-IS-REQUIREMENT-OF</name>
+				<objectId>4240a8dc-cbe9-423c-983e-b9b01c748237</objectId>
+			</link>
+			<link>
+				<name>LINK-SURFACE-SIDE-LEFT</name>
+			</link>
+			<link>
+				<name>LINK-SURFACE-SIDE-RIGHT</name>
+				<objectId>f65fc392-1e84-45e2-9cdd-2f4895bcf668</objectId>
+			</link>
+		</systemObject>
+		<systemObject>
+			<name>OBJECT-REQUIREMENT-SURFACE-B</name>
+			<id>f65fc392-1e84-45e2-9cdd-2f4895bcf668</id>
+			<attribute>
+				<name>ATTRIBUTE-REQUIREMENT</name>
+				<value type="boolean">true</value>
+			</attribute>
+			<attribute>
+				<name>ATTRIBUTE-DIAMETER-REQUIREMENT-STATUS</name>
+				<value type="boolean">true</value>
+			</attribute>
+			<attribute>
+				<name>ATTRIBUTE-LENGTH-REQUIREMENT-STATUS</name>
+				<value type="boolean">true</value>
+			</attribute>
+			<link>
+				<name>LINK-IS-REQUIREMENT-OF</name>
+				<objectId>4240a8dc-cbe9-423c-983e-b9b01c748237</objectId>
+			</link>
+			<link>
+				<name>LINK-SURFACE-SIDE-LEFT</name>
+				<objectId>fc643c49-8f27-45c8-a0af-cf8c02141d06</objectId>
+			</link>
+			<link>
+				<name>LINK-SURFACE-SIDE-RIGHT</name>
+				<objectId>509695b2-d357-4ef2-a419-53af52eba6db</objectId>
+			</link>
+		</systemObject>
+		<systemObject>
+			<name>OBJECT-REQUIREMENT-SURFACE-C</name>
+			<id>509695b2-d357-4ef2-a419-53af52eba6db</id>
+			<attribute>
+				<name>ATTRIBUTE-REQUIREMENT</name>
+				<value type="boolean">true</value>
+			</attribute>
+			<attribute>
+				<name>ATTRIBUTE-DIAMETER-REQUIREMENT-STATUS</name>
+				<value type="boolean">true</value>
+			</attribute>
+			<attribute>
+				<name>ATTRIBUTE-LENGTH-REQUIREMENT-STATUS</name>
+				<value type="boolean">true</value>
+			</attribute>
+			<link>
+				<name>LINK-IS-REQUIREMENT-OF</name>
+				<objectId>4240a8dc-cbe9-423c-983e-b9b01c748237</objectId>
+			</link>
+			<link>
+				<name>LINK-SURFACE-SIDE-LEFT</name>
+				<objectId>f65fc392-1e84-45e2-9cdd-2f4895bcf668</objectId>
+			</link>
+			<link>
+				<name>LINK-SURFACE-SIDE-RIGHT</name>
+			</link>
+		</systemObject>
+	</finalSystem>
+</taskDescription>

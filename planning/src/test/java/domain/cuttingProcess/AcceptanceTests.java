@@ -15,18 +15,23 @@ import org.junit.jupiter.api.Test;
 
 import planning.method.Planner;
 import planning.method.SystemTransformations;
-import planning.model.Attribute;
-import planning.model.Link;
+import planning.method.TaskDescription;
 import planning.model.System;
-import planning.model.SystemObject;
 import planning.model.SystemOperation;
 import planning.model.SystemTransformation;
 import planning.model.SystemVariant;
 import planning.storage.SystemTransformationsXMLFile;
+import planning.storage.TaskDescriptionXMLFile;
 
 public class AcceptanceTests implements CuttingProcess {
 
 	private static SystemTransformations cuttingProcessTransformations;
+
+	private static TaskDescription taskDescription;
+
+	private static System initialSystem;
+
+	private static System finalSystem;
 
 	@BeforeAll
 	public static void setupAll() throws JDOMException, IOException, URISyntaxException {
@@ -35,76 +40,23 @@ public class AcceptanceTests implements CuttingProcess {
 
 		cuttingProcessTransformations = new SystemTransformations();
 		cuttingProcessTransformations.addElements(xmlFile.getSystemTransformations());
+
+		TaskDescriptionXMLFile taskXMLFile = new TaskDescriptionXMLFile();
+		taskXMLFile.load(AcceptanceTests.class.getResource("/cuttingProcess/taskDescription.xml"));
+
+		taskDescription = taskXMLFile.getTaskDescription();
+		initialSystem = taskDescription.getInitialSystem();
+		finalSystem = taskDescription.getFinalSystem();
 	}
 
 	@Test
 	public void applicationOfSystemTransformations() throws CloneNotSupportedException {
-		final SystemObject workpiece = new SystemObject(OBJECT_WORKPIECE);
-		final SystemObject cylinderSurface = new SystemObject(OBJECT_CYLINDER_SURFACE);
-		final SystemObject requirement_a = new SystemObject(OBJECT_REQUIREMENT_SURFACE_A);
-		final SystemObject requirement_b = new SystemObject(OBJECT_REQUIREMENT_SURFACE_B);
-		final SystemObject requirement_c = new SystemObject(OBJECT_REQUIREMENT_SURFACE_C);
+		System system = initialSystem;
 
-		System system = new System();
-		system.addObject(workpiece);
-		system.addObject(cylinderSurface);
-		system.addObject(requirement_a);
-		system.addObject(requirement_b);
-		system.addObject(requirement_c);
-
-		final String workpiece_id = workpiece.getId();
-		final String cylinderSurface_id = cylinderSurface.getId();
-		final String requirement_a_id = requirement_a.getId();
-		final String requirement_b_id = requirement_b.getId();
-		final String requirement_c_id = requirement_c.getId();
-
-		workpiece.addAttribute(new Attribute(ATTRIBUTE_WORKPIECE, true));
-		workpiece.addLink(new Link(LINK_IS_PART_OF, cylinderSurface_id));
-		workpiece.addLink(new Link(LINK_IS_REQUIREMENT_OF, requirement_a_id));
-		workpiece.addLink(new Link(LINK_IS_REQUIREMENT_OF, requirement_b_id));
-		workpiece.addLink(new Link(LINK_IS_REQUIREMENT_OF, requirement_c_id));
-
-		cylinderSurface.addAttribute(new Attribute(ATTRIBUTE_CYLINDER_SURFACE, true));
-		cylinderSurface.addAttribute(new Attribute(ATTRIBUTE_DIAMETER, Integer.valueOf(22)));
-		cylinderSurface.addAttribute(new Attribute(ATTRIBUTE_LENGTH, Integer.valueOf(90)));
-		cylinderSurface.addAttribute(new Attribute(ATTRIBUTE_HAS_DIAMETER_REQUIREMENT, false));
-		cylinderSurface.addAttribute(new Attribute(ATTRIBUTE_HAS_LENGTH_REQUIREMENT, false));
-		cylinderSurface.addLink(new Link(LINK_IS_PART_OF, workpiece_id));
-		cylinderSurface.addLink(new Link(LINK_IS_DIAMETER_REQUIREMENT, null));
-		cylinderSurface.addLink(new Link(LINK_IS_LENGTH_REQUIREMENT, null));
-
-		requirement_a.addAttribute(new Attribute(ATTRIBUTE_REQUIREMENT, true));
-		requirement_a.addAttribute(new Attribute(ATTRIBUTE_DIAMETER_REQUIREMENT, Integer.valueOf(20)));
-		requirement_a.addAttribute(new Attribute(ATTRIBUTE_DIAMETER_REQUIREMENT_STATUS, false));
-		requirement_a.addAttribute(new Attribute(ATTRIBUTE_LENGTH_REQUIREMENT, Integer.valueOf(45)));
-		requirement_a.addAttribute(new Attribute(ATTRIBUTE_LENGTH_REQUIREMENT_STATUS, false));
-		requirement_a.addLink(new Link(LINK_IS_REQUIREMENT_OF, workpiece_id));
-		requirement_a.addLink(new Link(LINK_IS_DIAMETER_REQUIREMENT, null));
-		requirement_a.addLink(new Link(LINK_IS_LENGTH_REQUIREMENT, null));
-		requirement_a.addLink(new Link(LINK_SURFACE_SIDE_LEFT, null));
-		requirement_a.addLink(new Link(LINK_SURFACE_SIDE_RIGHT, requirement_b_id));
-
-		requirement_b.addAttribute(new Attribute(ATTRIBUTE_REQUIREMENT, true));
-		requirement_b.addAttribute(new Attribute(ATTRIBUTE_DIAMETER_REQUIREMENT, Integer.valueOf(16)));
-		requirement_b.addAttribute(new Attribute(ATTRIBUTE_DIAMETER_REQUIREMENT_STATUS, false));
-		requirement_b.addAttribute(new Attribute(ATTRIBUTE_LENGTH_REQUIREMENT, Integer.valueOf(30)));
-		requirement_b.addAttribute(new Attribute(ATTRIBUTE_LENGTH_REQUIREMENT_STATUS, false));
-		requirement_b.addLink(new Link(LINK_IS_REQUIREMENT_OF, workpiece_id));
-		requirement_b.addLink(new Link(LINK_IS_DIAMETER_REQUIREMENT, null));
-		requirement_b.addLink(new Link(LINK_IS_LENGTH_REQUIREMENT, null));
-		requirement_b.addLink(new Link(LINK_SURFACE_SIDE_LEFT, requirement_a_id));
-		requirement_b.addLink(new Link(LINK_SURFACE_SIDE_RIGHT, requirement_c_id));
-
-		requirement_c.addAttribute(new Attribute(ATTRIBUTE_REQUIREMENT, true));
-		requirement_c.addAttribute(new Attribute(ATTRIBUTE_DIAMETER_REQUIREMENT, Integer.valueOf(12)));
-		requirement_c.addAttribute(new Attribute(ATTRIBUTE_DIAMETER_REQUIREMENT_STATUS, false));
-		requirement_c.addAttribute(new Attribute(ATTRIBUTE_LENGTH_REQUIREMENT, Integer.valueOf(15)));
-		requirement_c.addAttribute(new Attribute(ATTRIBUTE_LENGTH_REQUIREMENT_STATUS, false));
-		requirement_c.addLink(new Link(LINK_IS_REQUIREMENT_OF, workpiece_id));
-		requirement_c.addLink(new Link(LINK_IS_DIAMETER_REQUIREMENT, null));
-		requirement_c.addLink(new Link(LINK_IS_LENGTH_REQUIREMENT, null));
-		requirement_c.addLink(new Link(LINK_SURFACE_SIDE_LEFT, requirement_b_id));
-		requirement_c.addLink(new Link(LINK_SURFACE_SIDE_RIGHT, null));
+		final String cylinderSurface_id = system.getObjectByName(OBJECT_CYLINDER_SURFACE).getId();
+		final String requirement_a_id = system.getObjectByName(OBJECT_REQUIREMENT_SURFACE_A).getId();
+		final String requirement_b_id = system.getObjectByName(OBJECT_REQUIREMENT_SURFACE_B).getId();
+		final String requirement_c_id = system.getObjectByName(OBJECT_REQUIREMENT_SURFACE_C).getId();
 
 		SystemTransformation systemTransformation;
 		SystemVariant[] systemVariants;
@@ -177,106 +129,14 @@ public class AcceptanceTests implements CuttingProcess {
 	}
 
 	@Test
+	public void compareInitialAndFinalSystem() {
+		assertFalse(initialSystem.equals(finalSystem));
+		assertFalse(initialSystem.contains(finalSystem));
+	}
+
+	@Test
 	public void cuttingProcessForCylindricWorkpiece() throws CloneNotSupportedException {
-		final SystemObject workpiece = new SystemObject(OBJECT_WORKPIECE);
-		final SystemObject cylinderSurface = new SystemObject(OBJECT_CYLINDER_SURFACE);
-		final SystemObject requirement_a = new SystemObject(OBJECT_REQUIREMENT_SURFACE_A);
-		final SystemObject requirement_b = new SystemObject(OBJECT_REQUIREMENT_SURFACE_B);
-		final SystemObject requirement_c = new SystemObject(OBJECT_REQUIREMENT_SURFACE_C);
-
-		System system = new System();
-		system.addObject(workpiece);
-		system.addObject(cylinderSurface);
-		system.addObject(requirement_a);
-		system.addObject(requirement_b);
-		system.addObject(requirement_c);
-
-		final String workpiece_id = workpiece.getId();
-		final String cylinderSurface_id = cylinderSurface.getId();
-		final String requirement_a_id = requirement_a.getId();
-		final String requirement_b_id = requirement_b.getId();
-		final String requirement_c_id = requirement_c.getId();
-
-		workpiece.addAttribute(new Attribute(ATTRIBUTE_WORKPIECE, true));
-		workpiece.addLink(new Link(LINK_IS_PART_OF, cylinderSurface_id));
-		workpiece.addLink(new Link(LINK_IS_REQUIREMENT_OF, requirement_a_id));
-		workpiece.addLink(new Link(LINK_IS_REQUIREMENT_OF, requirement_b_id));
-		workpiece.addLink(new Link(LINK_IS_REQUIREMENT_OF, requirement_c_id));
-
-		cylinderSurface.addAttribute(new Attribute(ATTRIBUTE_CYLINDER_SURFACE, true));
-		cylinderSurface.addAttribute(new Attribute(ATTRIBUTE_DIAMETER, Integer.valueOf(22)));
-		cylinderSurface.addAttribute(new Attribute(ATTRIBUTE_LENGTH, Integer.valueOf(90)));
-		cylinderSurface.addAttribute(new Attribute(ATTRIBUTE_HAS_DIAMETER_REQUIREMENT, false));
-		cylinderSurface.addAttribute(new Attribute(ATTRIBUTE_HAS_LENGTH_REQUIREMENT, false));
-		cylinderSurface.addLink(new Link(LINK_IS_PART_OF, workpiece_id));
-		cylinderSurface.addLink(new Link(LINK_IS_DIAMETER_REQUIREMENT, null));
-		cylinderSurface.addLink(new Link(LINK_IS_LENGTH_REQUIREMENT, null));
-
-		requirement_a.addAttribute(new Attribute(ATTRIBUTE_REQUIREMENT, true));
-		requirement_a.addAttribute(new Attribute(ATTRIBUTE_DIAMETER_REQUIREMENT, Integer.valueOf(20)));
-		requirement_a.addAttribute(new Attribute(ATTRIBUTE_DIAMETER_REQUIREMENT_STATUS, false));
-		requirement_a.addAttribute(new Attribute(ATTRIBUTE_LENGTH_REQUIREMENT, Integer.valueOf(45)));
-		requirement_a.addAttribute(new Attribute(ATTRIBUTE_LENGTH_REQUIREMENT_STATUS, false));
-		requirement_a.addLink(new Link(LINK_IS_REQUIREMENT_OF, workpiece_id));
-		requirement_a.addLink(new Link(LINK_IS_DIAMETER_REQUIREMENT, null));
-		requirement_a.addLink(new Link(LINK_IS_LENGTH_REQUIREMENT, null));
-		requirement_a.addLink(new Link(LINK_SURFACE_SIDE_LEFT, null));
-		requirement_a.addLink(new Link(LINK_SURFACE_SIDE_RIGHT, requirement_b_id));
-
-		requirement_b.addAttribute(new Attribute(ATTRIBUTE_REQUIREMENT, true));
-		requirement_b.addAttribute(new Attribute(ATTRIBUTE_DIAMETER_REQUIREMENT, Integer.valueOf(16)));
-		requirement_b.addAttribute(new Attribute(ATTRIBUTE_DIAMETER_REQUIREMENT_STATUS, false));
-		requirement_b.addAttribute(new Attribute(ATTRIBUTE_LENGTH_REQUIREMENT, Integer.valueOf(30)));
-		requirement_b.addAttribute(new Attribute(ATTRIBUTE_LENGTH_REQUIREMENT_STATUS, false));
-		requirement_b.addLink(new Link(LINK_IS_REQUIREMENT_OF, workpiece_id));
-		requirement_b.addLink(new Link(LINK_IS_DIAMETER_REQUIREMENT, null));
-		requirement_b.addLink(new Link(LINK_IS_LENGTH_REQUIREMENT, null));
-		requirement_b.addLink(new Link(LINK_SURFACE_SIDE_LEFT, requirement_a_id));
-		requirement_b.addLink(new Link(LINK_SURFACE_SIDE_RIGHT, requirement_c_id));
-
-		requirement_c.addAttribute(new Attribute(ATTRIBUTE_REQUIREMENT, true));
-		requirement_c.addAttribute(new Attribute(ATTRIBUTE_DIAMETER_REQUIREMENT, Integer.valueOf(12)));
-		requirement_c.addAttribute(new Attribute(ATTRIBUTE_DIAMETER_REQUIREMENT_STATUS, false));
-		requirement_c.addAttribute(new Attribute(ATTRIBUTE_LENGTH_REQUIREMENT, Integer.valueOf(15)));
-		requirement_c.addAttribute(new Attribute(ATTRIBUTE_LENGTH_REQUIREMENT_STATUS, false));
-		requirement_c.addLink(new Link(LINK_IS_REQUIREMENT_OF, workpiece_id));
-		requirement_c.addLink(new Link(LINK_IS_DIAMETER_REQUIREMENT, null));
-		requirement_c.addLink(new Link(LINK_IS_LENGTH_REQUIREMENT, null));
-		requirement_c.addLink(new Link(LINK_SURFACE_SIDE_LEFT, requirement_b_id));
-		requirement_c.addLink(new Link(LINK_SURFACE_SIDE_RIGHT, null));
-
-		// TODO : финальный вариант системы необходимо задавать комбинацией Template
-		// классов
-		final System final_system = new System();
-		final SystemObject final_requirement_a = new SystemObject(OBJECT_REQUIREMENT_SURFACE_A, requirement_a_id);
-		final_requirement_a.addAttribute(new Attribute(ATTRIBUTE_REQUIREMENT, true));
-		final_requirement_a.addAttribute(new Attribute(ATTRIBUTE_DIAMETER_REQUIREMENT_STATUS, true));
-		final_requirement_a.addAttribute(new Attribute(ATTRIBUTE_LENGTH_REQUIREMENT_STATUS, true));
-		final_requirement_a.addLink(new Link(LINK_IS_REQUIREMENT_OF, workpiece_id));
-		final_requirement_a.addLink(new Link(LINK_SURFACE_SIDE_LEFT, null));
-		final_requirement_a.addLink(new Link(LINK_SURFACE_SIDE_RIGHT, requirement_b_id));
-		final SystemObject final_requirement_b = new SystemObject(OBJECT_REQUIREMENT_SURFACE_B, requirement_b_id);
-		final_requirement_b.addAttribute(new Attribute(ATTRIBUTE_REQUIREMENT, true));
-		final_requirement_b.addAttribute(new Attribute(ATTRIBUTE_DIAMETER_REQUIREMENT_STATUS, true));
-		final_requirement_b.addAttribute(new Attribute(ATTRIBUTE_LENGTH_REQUIREMENT_STATUS, true));
-		final_requirement_b.addLink(new Link(LINK_IS_REQUIREMENT_OF, workpiece_id));
-		final_requirement_b.addLink(new Link(LINK_SURFACE_SIDE_LEFT, requirement_a_id));
-		final_requirement_b.addLink(new Link(LINK_SURFACE_SIDE_RIGHT, requirement_c_id));
-		final SystemObject final_requirement_c = new SystemObject(OBJECT_REQUIREMENT_SURFACE_C, requirement_c_id);
-		final_requirement_c.addAttribute(new Attribute(ATTRIBUTE_REQUIREMENT, true));
-		final_requirement_c.addAttribute(new Attribute(ATTRIBUTE_DIAMETER_REQUIREMENT_STATUS, true));
-		final_requirement_c.addAttribute(new Attribute(ATTRIBUTE_LENGTH_REQUIREMENT_STATUS, true));
-		final_requirement_c.addLink(new Link(LINK_IS_REQUIREMENT_OF, workpiece_id));
-		final_requirement_c.addLink(new Link(LINK_SURFACE_SIDE_LEFT, requirement_b_id));
-		final_requirement_c.addLink(new Link(LINK_SURFACE_SIDE_RIGHT, null));
-		final_system.addObject(final_requirement_a);
-		final_system.addObject(final_requirement_b);
-		final_system.addObject(final_requirement_c);
-
-		assertFalse(system.equals(final_system));
-		assertFalse(system.contains(final_system));
-
-		Planner planner = new Planner(system, final_system, cuttingProcessTransformations.getElements());
+		Planner planner = new Planner(initialSystem, finalSystem, cuttingProcessTransformations.getElements());
 		planner.plan();
 
 		List<SystemOperation> operations = planner.getShortestPlan();
