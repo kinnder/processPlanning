@@ -13,6 +13,7 @@ import org.junit.jupiter.api.Test;
 
 import planning.method.Planner;
 import planning.method.SystemTransformations;
+import planning.method.TaskDescription;
 import planning.model.Attribute;
 import planning.model.Link;
 import planning.model.System;
@@ -21,10 +22,17 @@ import planning.model.SystemOperation;
 import planning.model.SystemTransformation;
 import planning.model.SystemVariant;
 import planning.storage.SystemTransformationsXMLFile;
+import planning.storage.TaskDescriptionXMLFile;
 
 public class AcceptanceTests implements MaterialPoints {
 
 	private static SystemTransformations materialPointsTransformations;
+
+	private static TaskDescription taskDescription;
+
+	private static System initialSystem;
+
+	private static System finalSystem;
 
 	@BeforeAll
 	public static void setupAll() throws JDOMException, IOException, URISyntaxException {
@@ -33,6 +41,15 @@ public class AcceptanceTests implements MaterialPoints {
 
 		materialPointsTransformations = new SystemTransformations();
 		materialPointsTransformations.addElements(xmlFile.getSystemTransformations());
+		// TODO : uncomment when implemented
+/*
+		TaskDescriptionXMLFile taskXMLFile = new TaskDescriptionXMLFile();
+		taskXMLFile.load(AcceptanceTests.class.getResource("/materialPoints/taskDescription.xml"));
+
+		taskDescription = taskXMLFile.getTaskDescription();
+		initialSystem = taskDescription.getInitialSystem();
+		finalSystem = taskDescription.getFinalSystem();
+		*/
 	}
 
 	@Test
