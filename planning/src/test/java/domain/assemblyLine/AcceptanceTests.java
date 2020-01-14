@@ -66,6 +66,7 @@ public class AcceptanceTests implements AssemblyLine {
 		SystemTransformation systemTransformation;
 		SystemVariant[] systemVariants;
 
+		// 0
 		systemTransformation = assemblyLineTransformations.getElement(ELEMENT_TURN_WITHOUT_LOAD);
 		systemVariants = systemTransformation.applyTo(system);
 		assertEquals(1, systemVariants.length);
@@ -76,6 +77,7 @@ public class AcceptanceTests implements AssemblyLine {
 		assertNotNull(system.getObjectById(plane_y_outside_id).getLink(LINK_ROTARY_DRIVE_POSITION, robot_id));
 		assertNotNull(system.getObjectById(plane_y_inside_id).getLink(LINK_ROTARY_DRIVE_POSITION, null));
 
+		// 1
 		systemTransformation = assemblyLineTransformations.getElement(ELEMENT_CLOSE_GRAB);
 		systemVariants = systemTransformation.applyTo(system);
 		assertEquals(1, systemVariants.length);
@@ -84,6 +86,7 @@ public class AcceptanceTests implements AssemblyLine {
 		assertNotNull(system.getObjectById(robot_id).getLink(LINK_GRAB_POSITION, package_box_id));
 		assertNotNull(system.getObjectById(package_box_id).getLink(LINK_GRAB_POSITION, robot_id));
 
+		// 2
 		systemTransformation = assemblyLineTransformations.getElement(ELEMENT_LIFT_UP);
 		systemVariants = systemTransformation.applyTo(system);
 		assertEquals(1, systemVariants.length);
@@ -95,6 +98,7 @@ public class AcceptanceTests implements AssemblyLine {
 		assertNotNull(system.getObjectById(plane_z_top_id).getLink(LINK_VERTICAL_DRIVE_POSITION, robot_id));
 		assertNotNull(system.getObjectById(plane_z_bottom_id).getLink(LINK_VERTICAL_DRIVE_POSITION, null));
 
+		// 3
 		systemTransformation = assemblyLineTransformations.getElement(ELEMENT_TURN_WITH_LOAD);
 		systemVariants = systemTransformation.applyTo(system);
 		assertEquals(1, systemVariants.length);
@@ -105,6 +109,7 @@ public class AcceptanceTests implements AssemblyLine {
 		assertNotNull(system.getObjectById(plane_y_outside_id).getLink(LINK_ROTARY_DRIVE_POSITION, null));
 		assertNotNull(system.getObjectById(plane_y_inside_id).getLink(LINK_ROTARY_DRIVE_POSITION, robot_id));
 
+		// 4
 		systemTransformation = assemblyLineTransformations.getElement(ELEMENT_MOVE_WITH_LOAD);
 		systemVariants = systemTransformation.applyTo(system);
 		assertEquals(1, systemVariants.length);
@@ -115,6 +120,7 @@ public class AcceptanceTests implements AssemblyLine {
 		assertNotNull(system.getObjectById(plane_x_table_1).getLink(LINK_LINEAR_DRIVE_POSITION, robot_id));
 		assertNotNull(system.getObjectById(plane_x_table_2).getLink(LINK_LINEAR_DRIVE_POSITION, null));
 
+		// 5
 		systemTransformation = assemblyLineTransformations.getElement(ELEMENT_LOWER_DOWN);
 		systemVariants = systemTransformation.applyTo(system);
 		assertEquals(1, systemVariants.length);
@@ -126,6 +132,7 @@ public class AcceptanceTests implements AssemblyLine {
 		assertNotNull(system.getObjectById(plane_z_top_id).getLink(LINK_VERTICAL_DRIVE_POSITION, null));
 		assertNotNull(system.getObjectById(plane_z_bottom_id).getLink(LINK_VERTICAL_DRIVE_POSITION, robot_id));
 
+		// 6
 		systemTransformation = assemblyLineTransformations.getElement(ELEMENT_OPEN_GRAB);
 		systemVariants = systemTransformation.applyTo(system);
 		assertEquals(1, systemVariants.length);
@@ -134,6 +141,7 @@ public class AcceptanceTests implements AssemblyLine {
 		assertNotNull(system.getObjectById(robot_id).getLink(LINK_GRAB_POSITION, null));
 		assertNotNull(system.getObjectById(package_box_id).getLink(LINK_GRAB_POSITION, null));
 
+		// 7
 		systemTransformation = assemblyLineTransformations.getElement(ELEMENT_MOVE_WITHOUT_LOAD);
 		systemVariants = systemTransformation.applyTo(system);
 		assertEquals(1, systemVariants.length);

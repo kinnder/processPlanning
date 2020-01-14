@@ -61,7 +61,7 @@ public class AcceptanceTests implements CuttingProcess {
 		SystemTransformation systemTransformation;
 		SystemVariant[] systemVariants;
 
-		//
+		// 0
 		systemTransformation = cuttingProcessTransformations.getElement(ELEMENT_CUT_CYLINDER_SURFACE);
 		systemVariants = systemTransformation.applyTo(system);
 		assertEquals(3, systemVariants.length);
@@ -81,7 +81,7 @@ public class AcceptanceTests implements CuttingProcess {
 				Integer.valueOf(20));
 		assertNotNull(system.getObjectById(cylinderSurface_id).getLink(LINK_IS_DIAMETER_REQUIREMENT, requirement_a_id));
 
-		//
+		// 1
 		systemTransformation = cuttingProcessTransformations.getElement(ELEMENT_SPLIT_CYLINDER_SURFACE);
 		systemVariants = systemTransformation.applyTo(system);
 		assertEquals(2, systemVariants.length);
@@ -105,7 +105,7 @@ public class AcceptanceTests implements CuttingProcess {
 
 		assertEquals(6, system.getObjects().size());
 
-		//
+		// 2
 		systemTransformation = cuttingProcessTransformations.getElement(ELEMENT_SPLIT_CYLINDER_SURFACE);
 		systemVariants = systemTransformation.applyTo(system);
 		assertEquals(1, systemVariants.length);
@@ -118,7 +118,7 @@ public class AcceptanceTests implements CuttingProcess {
 		assertEquals(system.getObjectById(requirement_c_id).getAttribute(ATTRIBUTE_DIAMETER_REQUIREMENT_STATUS)
 				.getValueAsBoolean(), true);
 
-		//
+		// 3
 		systemTransformation = cuttingProcessTransformations.getElement(ELEMENT_TRIM_CYLINDER_SURFACE);
 		systemVariants = systemTransformation.applyTo(system);
 		assertEquals(1, systemVariants.length);

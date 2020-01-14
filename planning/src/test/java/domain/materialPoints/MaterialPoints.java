@@ -6,32 +6,123 @@ public interface MaterialPoints {
 
 	static final String ID_OBJECT_OBJECT = UUID.randomUUID().toString();
 
-	static final String ID_OBJECT_POINT_1 = UUID.randomUUID().toString();
+	static final String ID_OBJECT_POINT_15 = UUID.randomUUID().toString();
 
-	static final String ID_OBJECT_POINT_2 = UUID.randomUUID().toString();
+	static final String ID_OBJECT_POINT_14 = UUID.randomUUID().toString();
 
-	static final String ID_OBJECT_POINT_3 = UUID.randomUUID().toString();
+	static final String ID_OBJECT_POINT_13 = UUID.randomUUID().toString();
 
-	static final String ID_OBJECT_POINT_4 = UUID.randomUUID().toString();
+	static final String ID_OBJECT_POINT_12 = UUID.randomUUID().toString();
 
-	static final String ID_OBJECT_POINT_A = UUID.randomUUID().toString();
+	static final String ID_OBJECT_POINT_11 = UUID.randomUUID().toString();
 
-	static final String ID_OBJECT_POINT_B = UUID.randomUUID().toString();
+	static final String ID_OBJECT_POINT_24 = UUID.randomUUID().toString();
+
+	static final String ID_OBJECT_POINT_34 = UUID.randomUUID().toString();
+
+	static final String ID_OBJECT_POINT_33 = UUID.randomUUID().toString();
+
+	static final String ID_OBJECT_POINT_32 = UUID.randomUUID().toString();
+
+	static final String ID_OBJECT_POINT_42 = UUID.randomUUID().toString();
+
+	static final String ID_OBJECT_POINT_54 = UUID.randomUUID().toString();
+
+	static final String ID_OBJECT_POINT_53 = UUID.randomUUID().toString();
+
+	static final String ID_OBJECT_POINT_52 = UUID.randomUUID().toString();
+
+	static final String ID_OBJECT_POINT_64 = UUID.randomUUID().toString();
+
+	static final String ID_OBJECT_POINT_72 = UUID.randomUUID().toString();
+
+	static final String ID_OBJECT_POINT_73 = UUID.randomUUID().toString();
+
+	static final String ID_OBJECT_POINT_74 = UUID.randomUUID().toString();
+
+	static final String ID_OBJECT_POINT_82 = UUID.randomUUID().toString();
+
+	static final String ID_OBJECT_POINT_95 = UUID.randomUUID().toString();
+
+	static final String ID_OBJECT_POINT_94 = UUID.randomUUID().toString();
+
+	static final String ID_OBJECT_POINT_93 = UUID.randomUUID().toString();
+
+	static final String ID_OBJECT_POINT_92 = UUID.randomUUID().toString();
+
+	static final String ID_OBJECT_POINT_91 = UUID.randomUUID().toString();
 
 	/** Материальная точка */
 	static final String OBJECT_MATERIAL_POINT = "OBJECT-MATERIAL-POINT";
 
-	/** точка-1 **/
-	static final String OBJECT_POINT_1 = "OBJECT-POINT-1";
+	/** точка-82 **/
+	static final String OBJECT_POINT_82 = "OBJECT-POINT-82";
 
-	/** точка-2 **/
-	static final String OBJECT_POINT_2 = "OBJECT-POINT-2";
+	/** точка-11 **/
+	static final String OBJECT_POINT_11 = "OBJECT-POINT-11";
 
-	/** точка-3 **/
-	static final String OBJECT_POINT_3 = "OBJECT-POINT-3";
+	/** точка-12 **/
+	static final String OBJECT_POINT_12 = "OBJECT-POINT-12";
 
-	/** точка-4 **/
-	static final String OBJECT_POINT_4 = "OBJECT-POINT-4";
+	/** точка-13 **/
+	static final String OBJECT_POINT_13 = "OBJECT-POINT-13";
+
+	/** точка-14 **/
+	static final String OBJECT_POINT_14 = "OBJECT-POINT-14";
+
+	/** точка-15 **/
+	static final String OBJECT_POINT_15 = "OBJECT-POINT-15";
+
+	/** точка-24 **/
+	static final String OBJECT_POINT_24 = "OBJECT-POINT-24";
+
+	/** точка-32 **/
+	static final String OBJECT_POINT_32 = "OBJECT-POINT-32";
+
+	/** точка-33 **/
+	static final String OBJECT_POINT_33 = "OBJECT-POINT-33";
+
+	/** точка-34 **/
+	static final String OBJECT_POINT_34 = "OBJECT-POINT-34";
+
+	/** точка-42 **/
+	static final String OBJECT_POINT_42 = "OBJECT-POINT-42";
+
+	/** точка-52 **/
+	static final String OBJECT_POINT_52 = "OBJECT-POINT-52";
+
+	/** точка-53 **/
+	static final String OBJECT_POINT_53 = "OBJECT-POINT-53";
+
+	/** точка-54 **/
+	static final String OBJECT_POINT_54 = "OBJECT-POINT-54";
+
+	/** точка-64 **/
+	static final String OBJECT_POINT_64 = "OBJECT-POINT-64";
+
+	/** точка-72 **/
+	static final String OBJECT_POINT_72 = "OBJECT-POINT-72";
+
+	/** точка-73 **/
+	static final String OBJECT_POINT_73 = "OBJECT-POINT-73";
+
+	/** точка-74 **/
+	static final String OBJECT_POINT_74 = "OBJECT-POINT-74";
+
+	/** точка-95 **/
+	static final String OBJECT_POINT_95 = "OBJECT-POINT-95";
+
+	/** точка-94 **/
+	static final String OBJECT_POINT_94 = "OBJECT-POINT-94";
+
+	/** точка-93 **/
+	static final String OBJECT_POINT_93 = "OBJECT-POINT-93";
+
+	/** точка-92 **/
+	static final String OBJECT_POINT_92 = "OBJECT-POINT-92";
+
+	/** точка-91 **/
+	static final String OBJECT_POINT_91 = "OBJECT-POINT-91";
 
 	/** Местоположение */
 	static final String LINK_POSITION = "LINK-POSITION";
