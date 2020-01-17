@@ -31,16 +31,16 @@ public class XMLFileTest {
 
 	XMLFile testable;
 
-	XMLModel xmlModel_mock;
+	XMLSchema xmlSchema_mock;
 
 	SAXBuilder saxBuilder_mock;
 
 	@BeforeEach
 	public void setup() {
-		xmlModel_mock = context.mock(XMLModel.class);
+		xmlSchema_mock = context.mock(XMLSchema.class);
 		saxBuilder_mock = context.mock(SAXBuilder.class);
 
-		testable = new XMLFile(xmlModel_mock, saxBuilder_mock);
+		testable = new XMLFile(xmlSchema_mock, saxBuilder_mock);
 	}
 
 	@Test
@@ -57,7 +57,7 @@ public class XMLFileTest {
 				oneOf(document_mock).getRootElement();
 				will(returnValue(element_mock));
 
-				oneOf(xmlModel_mock).parse(element_mock);
+				oneOf(xmlSchema_mock).parse(element_mock);
 			}
 		});
 
@@ -71,7 +71,7 @@ public class XMLFileTest {
 
 		context.checking(new Expectations() {
 			{
-				oneOf(xmlModel_mock).combine();
+				oneOf(xmlSchema_mock).combine();
 				will(returnValue(element));
 
 				oneOf(outputStream_mock).write(with(any(byte[].class)), with(any(int.class)), with(any(int.class)));

@@ -5,19 +5,19 @@ import planning.method.TaskDescription;
 public class TaskDescriptionXMLFile extends XMLFile {
 
 	public TaskDescriptionXMLFile() {
-		super(new TaskDescriptionXMLModel());
+		super(new TaskDescriptionXMLSchema());
 	}
 
 	@Override
-	public TaskDescriptionXMLModel getXMLModel() {
-		return (TaskDescriptionXMLModel) super.getXMLModel();
+	public TaskDescriptionXMLSchema getXMLSchema() {
+		return (TaskDescriptionXMLSchema) super.getXMLSchema();
 	}
 
 	public TaskDescription getTaskDescription() {
-		return getXMLModel().getTaskDescription();
+		return getXMLSchema().getTaskDescription();
 	}
 
 	public void setTaskDescription(TaskDescription taskDescription) {
-		getXMLModel().setTaskDescription(taskDescription);
+		getXMLSchema().setTaskDescription(taskDescription);
 	}
 }

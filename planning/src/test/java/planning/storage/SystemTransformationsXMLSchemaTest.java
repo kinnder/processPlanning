@@ -34,7 +34,7 @@ import planning.model.SystemTemplate;
 import planning.model.SystemTransformation;
 import planning.model.Transformation;
 
-public class SystemTransformationsXMLModelTest {
+public class SystemTransformationsXMLSchemaTest {
 
 	@RegisterExtension
 	JUnit5Mockery context = new JUnit5Mockery() {
@@ -48,11 +48,11 @@ public class SystemTransformationsXMLModelTest {
 		context.assertIsSatisfied();
 	}
 
-	SystemTransformationsXMLModel testable;
+	SystemTransformationsXMLSchema testable;
 
 	@BeforeEach
 	public void setup() {
-		testable = new SystemTransformationsXMLModel();
+		testable = new SystemTransformationsXMLSchema();
 	}
 
 	@Test

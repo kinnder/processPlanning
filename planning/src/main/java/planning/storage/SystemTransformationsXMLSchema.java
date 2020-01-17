@@ -24,7 +24,7 @@ import planning.model.SystemTransformation;
 import planning.model.Transformation;
 
 //TODO : методы combine/parse должны быть зеркальными
-public class SystemTransformationsXMLModel extends ValueXMLModel implements XMLModel {
+public class SystemTransformationsXMLSchema extends ValueXMLSchema implements XMLSchema {
 
 	@Override
 	public void parse(Element element) throws DataConversionException {

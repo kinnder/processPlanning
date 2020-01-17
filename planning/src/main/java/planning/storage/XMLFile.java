@@ -19,18 +19,18 @@ import org.jdom2.output.XMLOutputter;
 
 public class XMLFile {
 
-	private XMLModel xmlModel;
+	private XMLSchema xmlSchema;
 
 	private SAXBuilder builder = new SAXBuilder();
 
 	private XMLOutputter outputter = new XMLOutputter(Format.getPrettyFormat().setIndent("\t"));
 
-	public XMLFile(XMLModel xmlModel) {
-		this.xmlModel = xmlModel;
+	public XMLFile(XMLSchema xmlSchema) {
+		this.xmlSchema = xmlSchema;
 	}
 
-	XMLFile(XMLModel xmlModel, SAXBuilder builder) {
-		this(xmlModel);
+	XMLFile(XMLSchema xmlSchema, SAXBuilder builder) {
+		this(xmlSchema);
 		this.builder = builder;
 	}
 
@@ -41,7 +41,7 @@ public class XMLFile {
 
 	public void load(InputStream inputStream) throws JDOMException, IOException {
 		Element root = builder.build(inputStream).getRootElement();
-		xmlModel.parse(root);
+		xmlSchema.parse(root);
 	}
 
 	public void save(URL resource) throws IOException, URISyntaxException {
@@ -50,12 +50,12 @@ public class XMLFile {
 	}
 
 	public void save(OutputStream outputStream) throws IOException {
-		Element root = xmlModel.combine();
+		Element root = xmlSchema.combine();
 		Document document = new Document(root);
 		outputter.output(document, outputStream);
 	}
 
-	public XMLModel getXMLModel() {
-		return this.xmlModel;
+	public XMLSchema getXMLSchema() {
+		return this.xmlSchema;
 	}
 }

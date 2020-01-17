@@ -5,19 +5,19 @@ import planning.model.SystemTransformation;
 public class SystemTransformationsXMLFile extends XMLFile {
 
 	public SystemTransformationsXMLFile() {
-		super(new SystemTransformationsXMLModel());
+		super(new SystemTransformationsXMLSchema());
 	}
 
 	@Override
-	public SystemTransformationsXMLModel getXMLModel() {
-		return (SystemTransformationsXMLModel) super.getXMLModel();
+	public SystemTransformationsXMLSchema getXMLSchema() {
+		return (SystemTransformationsXMLSchema) super.getXMLSchema();
 	}
 
 	public SystemTransformation[] getSystemTransformations() {
-		return getXMLModel().getSystemTransformations();
+		return getXMLSchema().getSystemTransformations();
 	}
 
 	public void setSystemTransformations(SystemTransformation[] systemTransformations) {
-		getXMLModel().setSystemTransformations(systemTransformations);
+		getXMLSchema().setSystemTransformations(systemTransformations);
 	}
 }

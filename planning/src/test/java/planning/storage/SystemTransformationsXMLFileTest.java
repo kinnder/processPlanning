@@ -48,7 +48,7 @@ public class SystemTransformationsXMLFileTest {
 	}
 
 	@Test
-	public void getXMLModel() {
-		assertTrue(testable.getXMLModel() instanceof SystemTransformationsXMLModel);
+	public void getXMLSchema() {
+		assertTrue(testable.getXMLSchema() instanceof SystemTransformationsXMLSchema);
 	}
 }

@@ -10,7 +10,7 @@ import planning.model.Link;
 import planning.model.System;
 import planning.model.SystemObject;
 
-public class TaskDescriptionXMLModel extends ValueXMLModel implements XMLModel {
+public class TaskDescriptionXMLSchema extends ValueXMLSchema implements XMLSchema {
 
 	@Override
 	public void parse(Element element) throws DataConversionException {

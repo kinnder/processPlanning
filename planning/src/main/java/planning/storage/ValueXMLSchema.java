@@ -2,7 +2,7 @@ package planning.storage;
 
 import org.jdom2.Element;
 
-public class ValueXMLModel {
+public class ValueXMLSchema {
 
 	public Object parseValue(Element root) {
 		if (root == null) {

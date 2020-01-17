@@ -47,7 +47,7 @@ public class TaskDescriptionXMLFileTest {
 	}
 
 	@Test
-	public void getXMLModel() {
-		assertTrue(testable.getXMLModel() instanceof TaskDescriptionXMLModel);
+	public void getXMLSchema() {
+		assertTrue(testable.getXMLSchema() instanceof TaskDescriptionXMLSchema);
 	}
 }

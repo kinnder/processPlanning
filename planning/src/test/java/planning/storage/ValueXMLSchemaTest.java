@@ -13,7 +13,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
-public class ValueXMLModelTest {
+public class ValueXMLSchemaTest {
 
 	@RegisterExtension
 	JUnit5Mockery context = new JUnit5Mockery() {
@@ -27,11 +27,11 @@ public class ValueXMLModelTest {
 		context.assertIsSatisfied();
 	}
 
-	ValueXMLModel testable;
+	ValueXMLSchema testable;
 
 	@BeforeEach
 	public void setup() {
-		testable = new ValueXMLModel();
+		testable = new ValueXMLSchema();
 	}
 
 	@Test

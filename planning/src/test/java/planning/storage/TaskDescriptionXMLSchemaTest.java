@@ -25,7 +25,7 @@ import planning.model.Link;
 import planning.model.System;
 import planning.model.SystemObject;
 
-public class TaskDescriptionXMLModelTest {
+public class TaskDescriptionXMLSchemaTest {
 
 	@RegisterExtension
 	JUnit5Mockery context = new JUnit5Mockery() {
@@ -39,11 +39,11 @@ public class TaskDescriptionXMLModelTest {
 		context.assertIsSatisfied();
 	}
 
-	TaskDescriptionXMLModel testable;
+	TaskDescriptionXMLSchema testable;
 
 	@BeforeEach
 	public void setup() {
-		testable = new TaskDescriptionXMLModel();
+		testable = new TaskDescriptionXMLSchema();
 	}
 
 	@Test
