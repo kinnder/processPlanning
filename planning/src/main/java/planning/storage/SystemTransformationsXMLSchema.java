@@ -295,17 +295,14 @@ public class SystemTransformationsXMLSchema extends ValueXMLSchema implements XM
 		return root;
 	}
 
-	// TODO : рефакторинг
 	public SystemObjectTemplate parseSystemObjectTemplate(Element root) {
 		String objectId = root.getChildText("objectId");
 		SystemObjectTemplate objectTemplate = new SystemObjectTemplate(objectId);
-		List<Element> elements = root.getChildren("attributeTemplate");
-		for (Element element : elements) {
+		for (Element element : root.getChildren("attributeTemplate")) {
 			AttributeTemplate attributeTemplate = parseAtttributeTemplate(element);
 			objectTemplate.addAttributeTemplate(attributeTemplate);
 		}
-		elements = root.getChildren("linkTemplate");
-		for (Element element : elements) {
+		for (Element element : root.getChildren("linkTemplate")) {
 			LinkTemplate linkTemplate = parseLinkTemplate(element);
 			objectTemplate.addLinkTemplate(linkTemplate);
 		}
