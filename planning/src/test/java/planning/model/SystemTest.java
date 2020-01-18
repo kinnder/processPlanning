@@ -244,4 +244,20 @@ public class SystemTest {
 		SystemTemplate template = testable.createTemplate();
 		assertEquals(1, template.getObjects().size());
 	}
+
+	@Test
+	public void addObject() {
+		final SystemObject object_mock = context.mock(SystemObject.class);
+		testable.addObject(object_mock);
+
+		assertEquals(1, testable.getObjects().size());
+	}
+
+	@Test
+	public void addNewObject() {
+		SystemObject object = testable.addNewObject("new-object");
+
+		assertEquals("new-object", object.getName());
+		assertEquals(1, testable.getObjects().size());
+	}
 }

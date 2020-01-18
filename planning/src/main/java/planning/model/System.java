@@ -23,6 +23,13 @@ public class System implements Cloneable {
 		objects.add(object);
 	}
 
+	public SystemObject addNewObject(String name) {
+		SystemObject object = new SystemObject(name);
+		addObject(object);
+		return object;
+
+	}
+
 	public Set<String> getIds() {
 		Set<String> systemIds = new HashSet<>();
 		for (SystemObject object : objects) {

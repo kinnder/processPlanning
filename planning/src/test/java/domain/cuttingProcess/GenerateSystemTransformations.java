@@ -256,9 +256,8 @@ public class GenerateSystemTransformations implements CuttingProcess {
 		script.append("\n");
 		script.append("systemVariant:setActionParameter('" + PARAMETER_LENGTH_DELTA + "', lengthDelta)");
 		script.append("\n");
-		// TODO : добавить трансформацию по добавлению объекта
-		script.append("local cylinderSurface_new = luajava.newInstance('planning.model.SystemObject', '"
-				+ OBJECT_CYLINDER_SURFACE + "')");
+		script.append("local cylinderSurface_new = systemVariant:getSystem():addNewObject('" + OBJECT_CYLINDER_SURFACE
+				+ "')");
 		script.append("\n");
 		script.append("cylinderSurface_new:addAttribute('" + ATTRIBUTE_CYLINDER_SURFACE + "', true)");
 		script.append("\n");
@@ -278,8 +277,6 @@ public class GenerateSystemTransformations implements CuttingProcess {
 		script.append("cylinderSurface_new:addLink('" + LINK_IS_LENGTH_REQUIREMENT + "', nil)");
 		script.append("\n");
 		script.append("cylinderSurface_new:addLink('" + LINK_SURFACE_SIDE_LEFT + "', cylinderSurface_actual:getId())");
-		script.append("\n");
-		script.append("systemVariant:getSystem():addObject(cylinderSurface_new)");
 		script.append("\n");
 		script.append("cylinderSurface_actual:getAttribute('" + ATTRIBUTE_LENGTH + "'):setValue(lengthRequired)");
 		script.append("\n");
