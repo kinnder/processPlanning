@@ -112,11 +112,7 @@ public class SystemTransformationsXMLSchemaTest {
 
 		testable.setSystemTransformations(systemTransformations);
 
-		Element element = testable.combine();
-		assertEquals("systemTransformations", element.getName());
-		assertEquals("../systemTransformations.xsd", element.getAttributeValue("noNamespaceSchemaLocation",
-				Namespace.getNamespace("xsi", "http://www.w3.org/2001/XMLSchema-instance")));
-		assertNotNull(element.getChild("systemTransformation"));
+		assertNotNull(testable.combine());
 	}
 
 	@Test
@@ -168,7 +164,13 @@ public class SystemTransformationsXMLSchemaTest {
 			}
 		});
 
-		assertEquals(1, testable.combineSystemTransformations(systemTransformations).size());
+		Element element = testable.combineSystemTransformations(systemTransformations);
+		assertEquals("systemTransformations", element.getName());
+		assertEquals("../systemTransformations.xsd", element.getAttributeValue("noNamespaceSchemaLocation",
+				Namespace.getNamespace("xsi", "http://www.w3.org/2001/XMLSchema-instance")));
+		assertNotNull(element.getChild("systemTransformation"));
+
+		assertEquals(1, element.getChildren("systemTransformation").size());
 	}
 
 	@Test

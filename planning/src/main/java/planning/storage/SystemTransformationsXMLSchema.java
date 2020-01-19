@@ -33,14 +33,7 @@ public class SystemTransformationsXMLSchema extends ValueXMLSchema implements XM
 
 	@Override
 	public Element combine() {
-		// TODO : перенести заполнение элемента в combineSystemTransformations
-		Element root = new Element("systemTransformations");
-		Namespace xsiNamespace = Namespace.getNamespace("xsi", "http://www.w3.org/2001/XMLSchema-instance");
-		root.setAttribute("noNamespaceSchemaLocation", "../systemTransformations.xsd", xsiNamespace);
-
-		List<Element> elements = combineSystemTransformations(systemTransformations);
-		root.addContent(elements);
-		return root;
+		return combineSystemTransformations(systemTransformations);
 	}
 
 	private SystemTransformation[] systemTransformations = new SystemTransformation[0];
@@ -63,13 +56,17 @@ public class SystemTransformationsXMLSchema extends ValueXMLSchema implements XM
 		return systemTransformations.toArray(new SystemTransformation[0]);
 	}
 
-	public List<Element> combineSystemTransformations(SystemTransformation[] systemTransformations) {
+	public Element combineSystemTransformations(SystemTransformation[] systemTransformations) {
 		List<Element> elements = new ArrayList<>();
 		for (SystemTransformation systemTransformation : systemTransformations) {
 			Element element = combineSystemTransformation(systemTransformation);
 			elements.add(element);
 		}
-		return elements;
+		Element root = new Element("systemTransformations");
+		Namespace xsiNamespace = Namespace.getNamespace("xsi", "http://www.w3.org/2001/XMLSchema-instance");
+		root.setAttribute("noNamespaceSchemaLocation", "../systemTransformations.xsd", xsiNamespace);
+		root.addContent(elements);
+		return root;
 	}
 
 	public SystemTransformation parseSystemTransformation(Element root) throws DataConversionException {
