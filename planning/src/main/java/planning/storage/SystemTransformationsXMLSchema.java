@@ -23,7 +23,6 @@ import planning.model.SystemTemplate;
 import planning.model.SystemTransformation;
 import planning.model.Transformation;
 
-//TODO : методы combine/parse должны быть зеркальными
 public class SystemTransformationsXMLSchema extends ValueXMLSchema implements XMLSchema {
 
 	@Override

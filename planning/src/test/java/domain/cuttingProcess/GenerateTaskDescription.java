@@ -82,8 +82,6 @@ public class GenerateTaskDescription implements CuttingProcess {
 	}
 
 	public static System finalSystem() {
-		// TODO : финальный вариант системы необходимо задавать комбинацией Template
-		// классов
 		final SystemObject requirement_a = new SystemObject(OBJECT_REQUIREMENT_SURFACE_A,
 				ID_OBJECT_REQUIREMENT_SURFACE_A);
 		requirement_a.addAttribute(new Attribute(ATTRIBUTE_REQUIREMENT, true));
