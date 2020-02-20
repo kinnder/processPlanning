@@ -8,6 +8,7 @@ import org.jgrapht.alg.shortestpath.DijkstraShortestPath;
 import org.jgrapht.graph.DefaultDirectedGraph;
 
 import planning.model.SystemTransformation;
+import planning.model.SystemProcess;
 import planning.model.System;
 import planning.model.SystemOperation;
 import planning.model.SystemVariant;
@@ -97,13 +98,13 @@ public class Planner {
 		checkedNodes.add(sourceNode);
 	}
 
-	public List<SystemOperation> getShortestPlan() {
+	public SystemProcess getShortestProcess() {
 		DijkstraShortestPath<Node, Edge> alg = new DijkstraShortestPath<>(network);
 		GraphPath<Node, Edge> path = alg.getPath(initialNode, finalNode);
-		List<SystemOperation> systemOperations = new ArrayList<>();
+		SystemProcess process = new SystemProcess();
 		for (Edge edge : path.getEdgeList()) {
-			systemOperations.add(edge.getSystemOperation());
+			process.add(edge.getSystemOperation());
 		}
-		return systemOperations;
+		return process;
 	}
 }

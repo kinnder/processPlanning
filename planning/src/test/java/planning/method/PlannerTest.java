@@ -114,7 +114,7 @@ public class PlannerTest {
 	}
 
 	@Test
-	public void getShortestPath() throws CloneNotSupportedException {
+	public void getShortestProcess() throws CloneNotSupportedException {
 		final SystemVariant systemVariant_mock = context.mock(SystemVariant.class);
 		final SystemVariant systemVariants[] = new SystemVariant[] { systemVariant_mock };
 		final System system_mock = context.mock(System.class, "system");
@@ -156,6 +156,6 @@ public class PlannerTest {
 		});
 		testable.plan();
 
-		assertEquals(1, testable.getShortestPlan().size());
+		assertEquals(1, testable.getShortestProcess().size());
 	}
 }

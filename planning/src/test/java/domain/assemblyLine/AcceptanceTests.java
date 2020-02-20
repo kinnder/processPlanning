@@ -6,8 +6,6 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.util.List;
-
 import org.jdom2.JDOMException;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -18,6 +16,7 @@ import planning.method.TaskDescription;
 import planning.model.SystemTransformation;
 import planning.model.System;
 import planning.model.SystemOperation;
+import planning.model.SystemProcess;
 import planning.model.SystemVariant;
 import planning.storage.SystemTransformationsXMLFile;
 import planning.storage.TaskDescriptionXMLFile;
@@ -168,7 +167,7 @@ public class AcceptanceTests implements AssemblyLine {
 		Planner planner = new Planner(initialSystem, finalSystem, assemblyLineTransformations.getElements());
 		planner.plan();
 
-		List<SystemOperation> operations = planner.getShortestPlan();
+		SystemProcess operations = planner.getShortestProcess();
 		assertEquals(8, operations.size());
 
 		SystemOperation operation;

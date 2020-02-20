@@ -6,8 +6,6 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.util.List;
-
 import org.jdom2.JDOMException;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -16,7 +14,7 @@ import planning.method.Planner;
 import planning.method.SystemTransformations;
 import planning.method.TaskDescription;
 import planning.model.System;
-import planning.model.SystemOperation;
+import planning.model.SystemProcess;
 import planning.model.SystemTransformation;
 import planning.model.SystemVariant;
 import planning.storage.SystemTransformationsXMLFile;
@@ -108,7 +106,7 @@ public class AcceptanceTests implements MaterialPoints {
 		Planner planner = new Planner(initialSystem, finalSystem, materialPointsTransformations.getElements());
 		planner.plan();
 
-		List<SystemOperation> operations = planner.getShortestPlan();
+		SystemProcess operations = planner.getShortestProcess();
 		assertEquals(14, operations.size());
 		assertEquals(OPERATION_MOVE_RIGHT, operations.get(0).getName());
 		assertEquals(OPERATION_MOVE_RIGHT, operations.get(1).getName());
