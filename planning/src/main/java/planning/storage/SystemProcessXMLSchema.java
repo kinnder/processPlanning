@@ -17,10 +17,10 @@ public class SystemProcessXMLSchema extends ValueXMLSchema implements XMLSchema 
 
 	@Override
 	public Element combine() {
-		return combineProcess();
+		return combineProcess(process);
 	}
 
-	public Element combineProcess() {
+	public Element combineProcess(SystemProcess process) {
 		List<Element> elements = new ArrayList<>();
 		for (SystemOperation systemOperation : process) {
 			Element element = combineSystemOperation(systemOperation);
@@ -43,7 +43,7 @@ public class SystemProcessXMLSchema extends ValueXMLSchema implements XMLSchema 
 		return root;
 	}
 
-	private Element combineActionParameters(Map<String, String> actionParameters) {
+	public Element combineActionParameters(Map<String, String> actionParameters) {
 		Element root = new Element("parameters");
 		for (String key : actionParameters.keySet()) {
 			Element name = new Element("name");
@@ -57,11 +57,11 @@ public class SystemProcessXMLSchema extends ValueXMLSchema implements XMLSchema 
 		return root;
 	}
 
-	public void setProcess(SystemProcess process) {
+	public void setSystemProcess(SystemProcess process) {
 		this.process = process;
 	}
 
-	public SystemProcess getProcess() {
+	public SystemProcess getSystemProcess() {
 		return this.process;
 	}
 

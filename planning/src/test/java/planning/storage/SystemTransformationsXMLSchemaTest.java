@@ -169,7 +169,6 @@ public class SystemTransformationsXMLSchemaTest {
 		assertEquals("../systemTransformations.xsd", element.getAttributeValue("noNamespaceSchemaLocation",
 				Namespace.getNamespace("xsi", "http://www.w3.org/2001/XMLSchema-instance")));
 		assertNotNull(element.getChild("systemTransformation"));
-
 		assertEquals(1, element.getChildren("systemTransformation").size());
 	}
 

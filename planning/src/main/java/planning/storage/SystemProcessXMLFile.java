@@ -13,11 +13,11 @@ public class SystemProcessXMLFile extends XMLFile {
 		return (SystemProcessXMLSchema) super.getXMLSchema();
 	}
 
-	public void setProcess(SystemProcess process) {
-		getXMLSchema().setProcess(process);
+	public void setSystemProcess(SystemProcess process) {
+		getXMLSchema().setSystemProcess(process);
 	}
 
-	public SystemProcess getProcess() {
-		return getXMLSchema().getProcess();
+	public SystemProcess getSystemProcess() {
+		return getXMLSchema().getSystemProcess();
 	}
 }
