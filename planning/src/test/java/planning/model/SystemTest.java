@@ -242,7 +242,7 @@ public class SystemTest {
 		});
 
 		SystemTemplate template = testable.createTemplate();
-		assertEquals(1, template.getObjects().size());
+		assertEquals(1, template.getObjectTemplates().size());
 	}
 
 	@Test

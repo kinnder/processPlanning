@@ -73,11 +73,11 @@ public class SystemObjectTemplate {
 		return notMatchedLinkTemplates.isEmpty();
 	}
 
-	public Collection<AttributeTemplate> getAttributes() {
+	public Collection<AttributeTemplate> getAttributeTemplates() {
 		return Collections.unmodifiableCollection(attributes.values());
 	}
 
-	public Collection<LinkTemplate> getLinks() {
+	public Collection<LinkTemplate> getLinkTemplates() {
 		return Collections.unmodifiableCollection(links.values());
 	}
 }

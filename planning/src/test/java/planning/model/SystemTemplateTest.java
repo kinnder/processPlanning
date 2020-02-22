@@ -200,10 +200,10 @@ public class SystemTemplateTest {
 	}
 
 	@Test
-	public void getObjects() {
+	public void getObjectTemplates() {
 		final SystemObjectTemplate objectTemplate_mock = context.mock(SystemObjectTemplate.class);
 		testable.addObjectTemplate(objectTemplate_mock);
 
-		assertEquals(1, testable.getObjects().size());
+		assertEquals(1, testable.getObjectTemplates().size());
 	}
 }

@@ -253,7 +253,7 @@ public class SystemTransformationsXMLSchemaTest {
 
 				// <-- combineSystemTemplate
 
-				oneOf(systemTemplate_mock).getObjects();
+				oneOf(systemTemplate_mock).getObjectTemplates();
 
 				// combineSystemTemplate -->
 
@@ -753,16 +753,16 @@ public class SystemTransformationsXMLSchemaTest {
 
 		context.checking(new Expectations() {
 			{
-				oneOf(systemTemplate_mock).getObjects();
+				oneOf(systemTemplate_mock).getObjectTemplates();
 				will(returnValue(systemObjectTemplates));
 
 				// <-- combineSystemObjectTemplate
 
 				oneOf(systemObjectTemplate_mock).getId();
 
-				oneOf(systemObjectTemplate_mock).getAttributes();
+				oneOf(systemObjectTemplate_mock).getAttributeTemplates();
 
-				oneOf(systemObjectTemplate_mock).getLinks();
+				oneOf(systemObjectTemplate_mock).getLinkTemplates();
 
 				// combineSystemObjectTemplate -->
 			}
@@ -829,7 +829,7 @@ public class SystemTransformationsXMLSchemaTest {
 				oneOf(systemObjectTemplate_mock).getId();
 				will(returnValue("id"));
 
-				oneOf(systemObjectTemplate_mock).getAttributes();
+				oneOf(systemObjectTemplate_mock).getAttributeTemplates();
 				will(returnValue(attributeTemplates));
 
 				// <-- combineAttributeTemplate
@@ -840,7 +840,7 @@ public class SystemTransformationsXMLSchemaTest {
 
 				// combineAttributeTemplate -->
 
-				oneOf(systemObjectTemplate_mock).getLinks();
+				oneOf(systemObjectTemplate_mock).getLinkTemplates();
 				will(returnValue(linkTemplates));
 
 				// <-- combineLinkTemplate

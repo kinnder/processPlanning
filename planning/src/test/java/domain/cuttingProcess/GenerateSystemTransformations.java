@@ -71,7 +71,7 @@ public class GenerateSystemTransformations implements CuttingProcess {
 		script.append("\n");
 
 		final Action action = new Action(OPERATION_CUT_CYLINDER_SURFACE);
-		action.registerPreConditionChecker(new LuaScriptActionPreConditionChecker(globals, script.toString()));
+		action.registerActionPreConditionChecker(new LuaScriptActionPreConditionChecker(globals, script.toString()));
 
 		script = new StringBuilder();
 		script.append("local systemVariant = ...");
@@ -93,7 +93,7 @@ public class GenerateSystemTransformations implements CuttingProcess {
 		script.append("cylinderSurface_actual:getAttribute('" + ATTRIBUTE_DIAMETER + "'):setValue(diameterRequired)");
 		script.append("\n");
 
-		action.registerParameterUpdater(new LuaScriptActionParameterUpdater(globals, script.toString()));
+		action.registerActionParameterUpdater(new LuaScriptActionParameterUpdater(globals, script.toString()));
 
 		return new SystemTransformation(ELEMENT_CUT_CYLINDER_SURFACE, action, template, transformations);
 	}
@@ -148,7 +148,7 @@ public class GenerateSystemTransformations implements CuttingProcess {
 		script.append("\n");
 
 		final Action action = new Action(OPERATION_TRIM_CYLINDER_SURFACE);
-		action.registerPreConditionChecker(new LuaScriptActionPreConditionChecker(globals, script.toString()));
+		action.registerActionPreConditionChecker(new LuaScriptActionPreConditionChecker(globals, script.toString()));
 
 		return new SystemTransformation(ELEMENT_TRIM_CYLINDER_SURFACE, action, template, transformations);
 	}
@@ -223,7 +223,7 @@ public class GenerateSystemTransformations implements CuttingProcess {
 		script.append("\n");
 
 		final Action action = new Action(OPERATION_SPLIT_CYLINDER_SURFACE);
-		action.registerPreConditionChecker(new LuaScriptActionPreConditionChecker(globals, script.toString()));
+		action.registerActionPreConditionChecker(new LuaScriptActionPreConditionChecker(globals, script.toString()));
 
 		script = new StringBuilder();
 		script.append("local systemVariant = ...");
@@ -288,7 +288,7 @@ public class GenerateSystemTransformations implements CuttingProcess {
 				+ "', nil):setObjectId(cylinderSurface_new:getId())");
 		script.append("\n");
 
-		action.registerParameterUpdater(new LuaScriptActionParameterUpdater(globals, script.toString()));
+		action.registerActionParameterUpdater(new LuaScriptActionParameterUpdater(globals, script.toString()));
 
 		return new SystemTransformation(ELEMENT_SPLIT_CYLINDER_SURFACE, action, template, transformations);
 	}

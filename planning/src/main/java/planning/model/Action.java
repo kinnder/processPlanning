@@ -29,7 +29,7 @@ public class Action {
 		return parameterUpdaters;
 	}
 
-	public void registerParameterUpdater(ActionParameterUpdater parameterUpdater) {
+	public void registerActionParameterUpdater(ActionParameterUpdater parameterUpdater) {
 		parameterUpdaters.add(parameterUpdater);
 	}
 
@@ -39,7 +39,7 @@ public class Action {
 		return preConditionCheckers;
 	}
 
-	public void registerPreConditionChecker(ActionPreConditionChecker preConditionChecker) {
+	public void registerActionPreConditionChecker(ActionPreConditionChecker preConditionChecker) {
 		preConditionCheckers.add(preConditionChecker);
 	}
 

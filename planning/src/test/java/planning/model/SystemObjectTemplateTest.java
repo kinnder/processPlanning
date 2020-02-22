@@ -258,7 +258,7 @@ public class SystemObjectTemplateTest {
 	}
 
 	@Test
-	public void getAttributes() {
+	public void getAttributeTemplates() {
 		final AttributeTemplate attributeTemplate_1_mock = context.mock(AttributeTemplate.class, "attributeTemplate-1");
 		final AttributeTemplate attributeTemplate_2_mock = context.mock(AttributeTemplate.class, "attributeTemplate-2");
 		context.checking(new Expectations() {
@@ -273,12 +273,12 @@ public class SystemObjectTemplateTest {
 		testable.addAttributeTemplate(attributeTemplate_1_mock);
 		testable.addAttributeTemplate(attributeTemplate_2_mock);
 
-		Collection<AttributeTemplate> attributes = testable.getAttributes();
+		Collection<AttributeTemplate> attributes = testable.getAttributeTemplates();
 		assertEquals(2, attributes.size());
 	}
 
 	@Test
-	public void getLinks() {
+	public void getLinkTemplates() {
 		final LinkTemplate linkTemplate_1_mock = context.mock(LinkTemplate.class, "linkTemplate-1");
 		final LinkTemplate linkTemplate_2_mock = context.mock(LinkTemplate.class, "linkTemplate-2");
 		context.checking(new Expectations() {
@@ -293,7 +293,7 @@ public class SystemObjectTemplateTest {
 		testable.addLinkTemplate(linkTemplate_1_mock);
 		testable.addLinkTemplate(linkTemplate_2_mock);
 
-		Collection<LinkTemplate> links = testable.getLinks();
+		Collection<LinkTemplate> links = testable.getLinkTemplates();
 		assertEquals(2, links.size());
 	}
 }

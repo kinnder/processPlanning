@@ -68,7 +68,7 @@ public class SystemTemplate {
 		return idsMatchingsManager.getIdsMatchings();
 	}
 
-	public Collection<SystemObjectTemplate> getObjects() {
+	public Collection<SystemObjectTemplate> getObjectTemplates() {
 		return Collections.unmodifiableCollection(objects);
 	}
 }

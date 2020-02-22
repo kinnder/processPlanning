@@ -54,7 +54,7 @@ public class GenerateSystemTransformations implements AssemblyLine {
 		script.append("\n");
 
 		final Action action = new Action(OPERATION_TURN_WITHOUT_LOAD);
-		action.registerParameterUpdater(
+		action.registerActionParameterUpdater(
 				new LuaScriptActionParameterUpdater(GenerateSystemTransformations.globals, script.toString()));
 
 		return new SystemTransformation(ELEMENT_TURN_WITHOUT_LOAD, action, template, transformations);
@@ -99,7 +99,7 @@ public class GenerateSystemTransformations implements AssemblyLine {
 		script.append("systemVariant:setActionParameter('" + PARAMETER_TARGET + "', object:getName())");
 
 		final Action action = new Action(OPERATION_TURN_WITH_LOAD);
-		action.registerParameterUpdater(
+		action.registerActionParameterUpdater(
 				new LuaScriptActionParameterUpdater(GenerateSystemTransformations.globals, script.toString()));
 
 		return new SystemTransformation(ELEMENT_TURN_WITH_LOAD, action, template, transformations);
@@ -346,7 +346,7 @@ public class GenerateSystemTransformations implements AssemblyLine {
 		script.append("systemVariant:setActionParameter('" + PARAMETER_TARGET + "', object:getName())");
 
 		final Action action = new Action(OPERATION_MOVE_WITH_LOAD);
-		action.registerParameterUpdater(
+		action.registerActionParameterUpdater(
 				new LuaScriptActionParameterUpdater(GenerateSystemTransformations.globals, script.toString()));
 
 		return new SystemTransformation(ELEMENT_MOVE_WITH_LOAD, action, template, transformations);
@@ -385,7 +385,7 @@ public class GenerateSystemTransformations implements AssemblyLine {
 		script.append("systemVariant:setActionParameter('" + PARAMETER_TARGET + "', object:getName())");
 
 		final Action action = new Action(OPERATION_MOVE_WITHOUT_LOAD);
-		action.registerParameterUpdater(
+		action.registerActionParameterUpdater(
 				new LuaScriptActionParameterUpdater(GenerateSystemTransformations.globals, script.toString()));
 
 		return new SystemTransformation(ELEMENT_MOVE_WITHOUT_LOAD, action, template, transformations);

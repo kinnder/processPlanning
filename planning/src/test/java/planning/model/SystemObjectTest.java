@@ -296,7 +296,7 @@ public class SystemObjectTest {
 		});
 
 		SystemObjectTemplate objectTemplate = testable.createTemplate();
-		assertEquals(1, objectTemplate.getAttributes().size());
-		assertEquals(1, objectTemplate.getLinks().size());
+		assertEquals(1, objectTemplate.getAttributeTemplates().size());
+		assertEquals(1, objectTemplate.getLinkTemplates().size());
 	}
 }

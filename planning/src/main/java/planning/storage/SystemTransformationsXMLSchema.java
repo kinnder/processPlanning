@@ -96,12 +96,12 @@ public class SystemTransformationsXMLSchema extends ValueXMLSchema implements XM
 		List<Element> elements = root.getChildren("preConditionChecker");
 		for (Element element : elements) {
 			ActionPreConditionChecker preConditionChecher = parsePreConditionChecker(element);
-			action.registerPreConditionChecker(preConditionChecher);
+			action.registerActionPreConditionChecker(preConditionChecher);
 		}
 		elements = root.getChildren("parameterUpdater");
 		for (Element element : elements) {
 			ActionParameterUpdater parameterUpdater = parseParameterUpdater(element);
-			action.registerParameterUpdater(parameterUpdater);
+			action.registerActionParameterUpdater(parameterUpdater);
 		}
 		return action;
 	}
@@ -283,7 +283,7 @@ public class SystemTransformationsXMLSchema extends ValueXMLSchema implements XM
 	public Element combineSystemTemplate(SystemTemplate systemTemplate) {
 		Element root = new Element("systemTemplate");
 		List<Element> elements = new ArrayList<>();
-		for (SystemObjectTemplate systemObjectTemplate : systemTemplate.getObjects()) {
+		for (SystemObjectTemplate systemObjectTemplate : systemTemplate.getObjectTemplates()) {
 			Element element = combineSystemObjectTemplate(systemObjectTemplate);
 			elements.add(element);
 		}
@@ -310,11 +310,11 @@ public class SystemTransformationsXMLSchema extends ValueXMLSchema implements XM
 		Element objectId = new Element("objectId");
 		objectId.setText(systemObjectTemplate.getId());
 		root.addContent(objectId);
-		for (AttributeTemplate attributeTemplate : systemObjectTemplate.getAttributes()) {
+		for (AttributeTemplate attributeTemplate : systemObjectTemplate.getAttributeTemplates()) {
 			Element element = combineAttributeTemplate(attributeTemplate);
 			root.addContent(element);
 		}
-		for (LinkTemplate linkTemplate : systemObjectTemplate.getLinks()) {
+		for (LinkTemplate linkTemplate : systemObjectTemplate.getLinkTemplates()) {
 			Element element = combineLinkTemplate(linkTemplate);
 			root.addContent(element);
 		}
