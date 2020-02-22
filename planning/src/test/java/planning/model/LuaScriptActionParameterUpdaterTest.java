@@ -1,7 +1,5 @@
 package planning.model;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 import org.jmock.Expectations;
 import org.jmock.imposters.ByteBuddyClassImposteriser;
 import org.jmock.junit5.JUnit5Mockery;
@@ -69,13 +67,5 @@ public class LuaScriptActionParameterUpdaterTest {
 
 		testable = new LuaScriptActionParameterUpdater(globals, script.toString());
 		testable.invoke(systemVariant_mock);
-	}
-
-	@Test
-	public void getScript() {
-		script.append("lua-code");
-		testable = new LuaScriptActionParameterUpdater(globals, script.toString());
-
-		assertEquals("lua-code", testable.getScript());
 	}
 }

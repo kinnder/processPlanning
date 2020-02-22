@@ -1,7 +1,6 @@
 package planning.model;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.jmock.imposters.ByteBuddyClassImposteriser;
 import org.jmock.junit5.JUnit5Mockery;
 import org.junit.jupiter.api.AfterEach;
@@ -9,9 +8,10 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 import org.luaj.vm2.Globals;
+import org.luaj.vm2.LuaValue;
 import org.luaj.vm2.lib.jse.JsePlatform;
 
-public class LuaScriptActionPreConditionCheckerTest {
+public class LuaScriptTest {
 
 	@RegisterExtension
 	JUnit5Mockery context = new JUnit5Mockery() {
@@ -25,7 +25,7 @@ public class LuaScriptActionPreConditionCheckerTest {
 		context.assertIsSatisfied();
 	}
 
-	LuaScriptActionPreConditionChecker testable;
+	LuaScript testable;
 
 	Globals globals;
 
@@ -38,15 +38,21 @@ public class LuaScriptActionPreConditionCheckerTest {
 	}
 
 	@Test
-	public void invoke() {
-		script.append("local systemVariant = ...");
+	public void call() {
+		script.append("local a = ...");
 		script.append("\n");
-		script.append("return true");
+		script.append("return a + 2");
 		script.append("\n");
 
-		SystemVariant systemVariant_mock = context.mock(SystemVariant.class);
+		testable = new LuaScript(globals, script.toString());
+		assertEquals(5, testable.call(LuaValue.valueOf(3)).toint());
+	}
 
+	@Test
+	public void getScript() {
+		script.append("lua-code");
 		testable = new LuaScriptActionPreConditionChecker(globals, script.toString());
-		assertTrue(testable.invoke(systemVariant_mock));
+
+		assertEquals("lua-code", testable.getScript());
 	}
 }
