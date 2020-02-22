@@ -1,24 +1,14 @@
 package planning.method;
 
 import java.util.ArrayList;
-import java.util.List;
-
 import planning.model.SystemTransformation;
 
-public class SystemTransformations {
+public class SystemTransformations extends ArrayList<SystemTransformation> {
 
-	private List<SystemTransformation> elements;
+	private static final long serialVersionUID = -6023577435712637199L;
 
-	public SystemTransformations() {
-		elements = new ArrayList<>();
-	}
-
-	public void addElement(SystemTransformation element) {
-		elements.add(element);
-	}
-
-	public SystemTransformation getElement(String name) {
-		for (SystemTransformation element : elements) {
+	public SystemTransformation get(String name) {
+		for (SystemTransformation element : this) {
 			if (element.getName().equals(name)) {
 				return element;
 			}
@@ -26,13 +16,9 @@ public class SystemTransformations {
 		return null;
 	}
 
-	public void addElements(SystemTransformation[] elements) {
+	public void addAll(SystemTransformation[] elements) {
 		for (SystemTransformation element : elements) {
-			this.elements.add(element);
+			this.add(element);
 		}
-	}
-
-	public SystemTransformation[] getElements() {
-		return elements.toArray(new SystemTransformation[0]);
 	}
 }

@@ -35,17 +35,17 @@ public class SystemTransformationsTest {
 	}
 
 	@Test
-	public void getElement() {
-		assertNull(testable.getElement("not-found"));
+	public void get() {
+		assertNull(testable.get("not-found"));
 	}
 
 	@Test
-	public void addElement() {
+	public void add() {
 		final SystemTransformation element_1_mock = context.mock(SystemTransformation.class, "element-1");
 		final SystemTransformation element_2_mock = context.mock(SystemTransformation.class, "element-2");
 
-		testable.addElement(element_1_mock);
-		testable.addElement(element_2_mock);
+		testable.add(element_1_mock);
+		testable.add(element_2_mock);
 
 		context.checking(new Expectations() {
 			{
@@ -56,21 +56,16 @@ public class SystemTransformationsTest {
 				will(returnValue("element-2"));
 			}
 		});
-		assertEquals(element_2_mock, testable.getElement("element-2"));
+		assertEquals(element_2_mock, testable.get("element-2"));
 	}
 
 	@Test
-	public void getElements() {
-		assertEquals(0, testable.getElements().length);
-	}
-
-	@Test
-	public void addElements() {
+	public void addAll() {
 		final SystemTransformation element_1_mock = context.mock(SystemTransformation.class, "element-1");
 		final SystemTransformation element_2_mock = context.mock(SystemTransformation.class, "element-2");
 		final SystemTransformation[] elements = new SystemTransformation[] { element_1_mock, element_2_mock };
 
-		testable.addElements(elements);
-		assertEquals(2, testable.getElements().length);
+		testable.addAll(elements);
+		assertEquals(2, testable.size());
 	}
 }

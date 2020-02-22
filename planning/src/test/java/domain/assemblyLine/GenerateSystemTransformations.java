@@ -396,17 +396,17 @@ public class GenerateSystemTransformations implements AssemblyLine {
 
 	public static void main(String args[]) {
 		SystemTransformations assemblyLineTransformations = new SystemTransformations();
-		assemblyLineTransformations.addElement(turnWithoutLoad());
-		assemblyLineTransformations.addElement(turnWithLoad());
-		assemblyLineTransformations.addElement(openGrab());
-		assemblyLineTransformations.addElement(closeGrab());
-		assemblyLineTransformations.addElement(liftUp());
-		assemblyLineTransformations.addElement(lowerDown());
-		assemblyLineTransformations.addElement(moveWithLoad());
-		assemblyLineTransformations.addElement(moveWithoutLoad());
+		assemblyLineTransformations.add(turnWithoutLoad());
+		assemblyLineTransformations.add(turnWithLoad());
+		assemblyLineTransformations.add(openGrab());
+		assemblyLineTransformations.add(closeGrab());
+		assemblyLineTransformations.add(liftUp());
+		assemblyLineTransformations.add(lowerDown());
+		assemblyLineTransformations.add(moveWithLoad());
+		assemblyLineTransformations.add(moveWithoutLoad());
 
 		SystemTransformationsXMLFile xmlFile = new SystemTransformationsXMLFile();
-		xmlFile.setSystemTransformations(assemblyLineTransformations.getElements());
+		xmlFile.setSystemTransformations(assemblyLineTransformations);
 		try {
 			xmlFile.save(GenerateSystemTransformations.class.getResource("/assemblyLine/systemTransformations.xml"));
 		} catch (IOException | URISyntaxException e) {

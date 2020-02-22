@@ -20,6 +20,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
+import planning.method.SystemTransformations;
 import planning.model.Action;
 import planning.model.ActionParameterUpdater;
 import planning.model.ActionPreConditionChecker;
@@ -57,16 +58,17 @@ public class SystemTransformationsXMLSchemaTest {
 
 	@Test
 	public void getSystemTransformations() {
-		assertEquals(0, testable.getSystemTransformations().length);
+		assertEquals(0, testable.getSystemTransformations().size());
 	}
 
 	@Test
 	public void setSystemTransformations() {
 		final SystemTransformation systemTransformation_mock = context.mock(SystemTransformation.class);
-		final SystemTransformation systemTransformations[] = new SystemTransformation[] { systemTransformation_mock };
+		final SystemTransformations systemTransformations = new SystemTransformations();
+		systemTransformations.add(systemTransformation_mock);
 
 		testable.setSystemTransformations(systemTransformations);
-		assertEquals(1, testable.getSystemTransformations().length);
+		assertEquals(1, testable.getSystemTransformations().size());
 	}
 
 	@Test
@@ -89,7 +91,8 @@ public class SystemTransformationsXMLSchemaTest {
 	@Test
 	public void combine() {
 		final SystemTransformation systemTransformation_mock = context.mock(SystemTransformation.class);
-		final SystemTransformation systemTransformations[] = new SystemTransformation[] { systemTransformation_mock };
+		final SystemTransformations systemTransformations = new SystemTransformations();
+		systemTransformations.add(systemTransformation_mock);
 
 		context.checking(new Expectations() {
 			{
@@ -141,13 +144,14 @@ public class SystemTransformationsXMLSchemaTest {
 			}
 		});
 
-		assertEquals(1, testable.parseSystemTransformations(root_mock).length);
+		assertEquals(1, testable.parseSystemTransformations(root_mock).size());
 	}
 
 	@Test
 	public void combineSystemTransformations() {
 		final SystemTransformation systemTransformation_mock = context.mock(SystemTransformation.class);
-		final SystemTransformation systemTransformations[] = new SystemTransformation[] { systemTransformation_mock };
+		final SystemTransformations systemTransformations = new SystemTransformations();
+		systemTransformations.add(systemTransformation_mock);
 
 		context.checking(new Expectations() {
 			{

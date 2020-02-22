@@ -38,7 +38,7 @@ public class AcceptanceTests implements CuttingProcess {
 		xmlFile.load(AcceptanceTests.class.getResource("/cuttingProcess/systemTransformations.xml"));
 
 		cuttingProcessTransformations = new SystemTransformations();
-		cuttingProcessTransformations.addElements(xmlFile.getSystemTransformations());
+		cuttingProcessTransformations.addAll(xmlFile.getSystemTransformations());
 
 		TaskDescriptionXMLFile taskXMLFile = new TaskDescriptionXMLFile();
 		taskXMLFile.load(AcceptanceTests.class.getResource("/cuttingProcess/taskDescription.xml"));
@@ -61,7 +61,7 @@ public class AcceptanceTests implements CuttingProcess {
 		SystemVariant[] systemVariants;
 
 		// 0
-		systemTransformation = cuttingProcessTransformations.getElement(ELEMENT_CUT_CYLINDER_SURFACE);
+		systemTransformation = cuttingProcessTransformations.get(ELEMENT_CUT_CYLINDER_SURFACE);
 		systemVariants = systemTransformation.applyTo(system);
 		assertEquals(3, systemVariants.length);
 		int id;
@@ -81,7 +81,7 @@ public class AcceptanceTests implements CuttingProcess {
 		assertNotNull(system.getObjectById(cylinderSurface_id).getLink(LINK_IS_DIAMETER_REQUIREMENT, requirement_a_id));
 
 		// 1
-		systemTransformation = cuttingProcessTransformations.getElement(ELEMENT_SPLIT_CYLINDER_SURFACE);
+		systemTransformation = cuttingProcessTransformations.get(ELEMENT_SPLIT_CYLINDER_SURFACE);
 		systemVariants = systemTransformation.applyTo(system);
 		assertEquals(2, systemVariants.length);
 		for (id = 0; id < 2; id++) {
@@ -105,7 +105,7 @@ public class AcceptanceTests implements CuttingProcess {
 		assertEquals(6, system.getObjects().size());
 
 		// 2
-		systemTransformation = cuttingProcessTransformations.getElement(ELEMENT_SPLIT_CYLINDER_SURFACE);
+		systemTransformation = cuttingProcessTransformations.get(ELEMENT_SPLIT_CYLINDER_SURFACE);
 		systemVariants = systemTransformation.applyTo(system);
 		assertEquals(1, systemVariants.length);
 		assertEquals("4", systemVariants[0].getActionParameter(PARAMETER_DIAMETER_DELTA));
@@ -118,7 +118,7 @@ public class AcceptanceTests implements CuttingProcess {
 				.getValueAsBoolean(), true);
 
 		// 3
-		systemTransformation = cuttingProcessTransformations.getElement(ELEMENT_TRIM_CYLINDER_SURFACE);
+		systemTransformation = cuttingProcessTransformations.get(ELEMENT_TRIM_CYLINDER_SURFACE);
 		systemVariants = systemTransformation.applyTo(system);
 		assertEquals(1, systemVariants.length);
 
@@ -135,7 +135,7 @@ public class AcceptanceTests implements CuttingProcess {
 
 	@Test
 	public void cuttingProcessForCylindricWorkpiece() throws CloneNotSupportedException {
-		Planner planner = new Planner(initialSystem, finalSystem, cuttingProcessTransformations.getElements());
+		Planner planner = new Planner(taskDescription, cuttingProcessTransformations);
 		planner.plan();
 
 		SystemProcess operations = planner.getShortestProcess();

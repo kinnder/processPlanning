@@ -143,13 +143,13 @@ public class GenerateSystemTransformations implements MaterialPoints {
 
 	public static void main(String args[]) {
 		SystemTransformations materialPointsTransformations = new SystemTransformations();
-		materialPointsTransformations.addElement(moveRight());
-		materialPointsTransformations.addElement(moveLeft());
-		materialPointsTransformations.addElement(moveTop());
-		materialPointsTransformations.addElement(moveBottom());
+		materialPointsTransformations.add(moveRight());
+		materialPointsTransformations.add(moveLeft());
+		materialPointsTransformations.add(moveTop());
+		materialPointsTransformations.add(moveBottom());
 
 		SystemTransformationsXMLFile xmlFile = new SystemTransformationsXMLFile();
-		xmlFile.setSystemTransformations(materialPointsTransformations.getElements());
+		xmlFile.setSystemTransformations(materialPointsTransformations);
 		try {
 			xmlFile.save(GenerateSystemTransformations.class.getResource("/materialPoints/systemTransformations.xml"));
 		} catch (IOException | URISyntaxException e) {

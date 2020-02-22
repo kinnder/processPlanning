@@ -1,6 +1,6 @@
 package planning.storage;
 
-import planning.model.SystemTransformation;
+import planning.method.SystemTransformations;
 
 public class SystemTransformationsXMLFile extends XMLFile {
 
@@ -13,11 +13,11 @@ public class SystemTransformationsXMLFile extends XMLFile {
 		return (SystemTransformationsXMLSchema) super.getXMLSchema();
 	}
 
-	public SystemTransformation[] getSystemTransformations() {
+	public SystemTransformations getSystemTransformations() {
 		return getXMLSchema().getSystemTransformations();
 	}
 
-	public void setSystemTransformations(SystemTransformation[] systemTransformations) {
+	public void setSystemTransformations(SystemTransformations systemTransformations) {
 		getXMLSchema().setSystemTransformations(systemTransformations);
 	}
 }

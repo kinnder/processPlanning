@@ -298,12 +298,12 @@ public class GenerateSystemTransformations implements CuttingProcess {
 
 	public static void main(String args[]) {
 		SystemTransformations cuttingProcessTransformations = new SystemTransformations();
-		cuttingProcessTransformations.addElement(cutCylinderSurface());
-		cuttingProcessTransformations.addElement(trimCylinderSurface());
-		cuttingProcessTransformations.addElement(splitCylinderSurface());
+		cuttingProcessTransformations.add(cutCylinderSurface());
+		cuttingProcessTransformations.add(trimCylinderSurface());
+		cuttingProcessTransformations.add(splitCylinderSurface());
 
 		SystemTransformationsXMLFile xmlFile = new SystemTransformationsXMLFile();
-		xmlFile.setSystemTransformations(cuttingProcessTransformations.getElements());
+		xmlFile.setSystemTransformations(cuttingProcessTransformations);
 		try {
 			xmlFile.save(GenerateSystemTransformations.class.getResource("/cuttingProcess/systemTransformations.xml"));
 		} catch (IOException | URISyntaxException e) {

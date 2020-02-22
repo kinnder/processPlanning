@@ -36,7 +36,7 @@ public class AcceptanceTests implements MaterialPoints {
 		xmlFile.load(AcceptanceTests.class.getResource("/materialPoints/systemTransformations.xml"));
 
 		materialPointsTransformations = new SystemTransformations();
-		materialPointsTransformations.addElements(xmlFile.getSystemTransformations());
+		materialPointsTransformations.addAll(xmlFile.getSystemTransformations());
 		TaskDescriptionXMLFile taskXMLFile = new TaskDescriptionXMLFile();
 		taskXMLFile.load(AcceptanceTests.class.getResource("/materialPoints/taskDescription.xml"));
 
@@ -58,7 +58,7 @@ public class AcceptanceTests implements MaterialPoints {
 		SystemVariant[] systemVariants;
 
 		// 0
-		systemTransformation = materialPointsTransformations.getElement(ELEMENT_MOVE_RIGHT);
+		systemTransformation = materialPointsTransformations.get(ELEMENT_MOVE_RIGHT);
 		systemVariants = systemTransformation.applyTo(system);
 		assertEquals(1, systemVariants.length);
 
@@ -70,7 +70,7 @@ public class AcceptanceTests implements MaterialPoints {
 		assertNotNull(system.getObjectById(point_24_id).getLink(LINK_POSITION, object_id));
 
 		// 1
-		systemTransformation = materialPointsTransformations.getElement(ELEMENT_MOVE_RIGHT);
+		systemTransformation = materialPointsTransformations.get(ELEMENT_MOVE_RIGHT);
 		systemVariants = systemTransformation.applyTo(system);
 		assertEquals(1, systemVariants.length);
 
@@ -85,16 +85,16 @@ public class AcceptanceTests implements MaterialPoints {
 	@Test
 	public void compareInitialAndFinalSystem() throws CloneNotSupportedException {
 		SystemVariant[] systemVariants;
-		systemVariants = materialPointsTransformations.getElement(ELEMENT_MOVE_RIGHT).applyTo(initialSystem);
+		systemVariants = materialPointsTransformations.get(ELEMENT_MOVE_RIGHT).applyTo(initialSystem);
 		assertEquals(1, systemVariants.length);
 
-		systemVariants = materialPointsTransformations.getElement(ELEMENT_MOVE_LEFT).applyTo(initialSystem);
+		systemVariants = materialPointsTransformations.get(ELEMENT_MOVE_LEFT).applyTo(initialSystem);
 		assertEquals(0, systemVariants.length);
 
-		systemVariants = materialPointsTransformations.getElement(ELEMENT_MOVE_TOP).applyTo(initialSystem);
+		systemVariants = materialPointsTransformations.get(ELEMENT_MOVE_TOP).applyTo(initialSystem);
 		assertEquals(1, systemVariants.length);
 
-		systemVariants = materialPointsTransformations.getElement(ELEMENT_MOVE_BOTTOM).applyTo(initialSystem);
+		systemVariants = materialPointsTransformations.get(ELEMENT_MOVE_BOTTOM).applyTo(initialSystem);
 		assertEquals(1, systemVariants.length);
 
 		assertFalse(initialSystem.equals(finalSystem));
@@ -103,7 +103,7 @@ public class AcceptanceTests implements MaterialPoints {
 
 	@Test
 	public void movingInTheField() throws CloneNotSupportedException {
-		Planner planner = new Planner(initialSystem, finalSystem, materialPointsTransformations.getElements());
+		Planner planner = new Planner(taskDescription, materialPointsTransformations);
 		planner.plan();
 
 		SystemProcess operations = planner.getShortestProcess();

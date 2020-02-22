@@ -29,13 +29,13 @@ public class Planner {
 
 	private System finalSystem;
 
-	private SystemTransformation[] systemTransformations;
+	private SystemTransformations systemTransformations;
 
 	private DefaultDirectedGraph<Node, Edge> network;
 
-	public Planner(System initialSystem, System finalSystem, SystemTransformation[] systemTransformations) {
-		this.initialSystem = initialSystem;
-		this.finalSystem = finalSystem;
+	public Planner(TaskDescription taskDescription, SystemTransformations systemTransformations) {
+		this.initialSystem = taskDescription.getInitialSystem();
+		this.finalSystem = taskDescription.getFinalSystem();
 		this.systemTransformations = systemTransformations;
 
 		this.checkedNodes = new ArrayList<>();

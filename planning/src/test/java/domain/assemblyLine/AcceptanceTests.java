@@ -37,7 +37,7 @@ public class AcceptanceTests implements AssemblyLine {
 		transformationsXMLFile.load(AcceptanceTests.class.getResource("/assemblyLine/systemTransformations.xml"));
 
 		assemblyLineTransformations = new SystemTransformations();
-		assemblyLineTransformations.addElements(transformationsXMLFile.getSystemTransformations());
+		assemblyLineTransformations.addAll(transformationsXMLFile.getSystemTransformations());
 
 		TaskDescriptionXMLFile taskXMLFile = new TaskDescriptionXMLFile();
 		taskXMLFile.load(AcceptanceTests.class.getResource("/assemblyLine/taskDescription.xml"));
@@ -66,7 +66,7 @@ public class AcceptanceTests implements AssemblyLine {
 		SystemVariant[] systemVariants;
 
 		// 0
-		systemTransformation = assemblyLineTransformations.getElement(ELEMENT_TURN_WITHOUT_LOAD);
+		systemTransformation = assemblyLineTransformations.get(ELEMENT_TURN_WITHOUT_LOAD);
 		systemVariants = systemTransformation.applyTo(system);
 		assertEquals(1, systemVariants.length);
 		assertEquals(OBJECT_PLANE_Y_OUTSIDE, systemVariants[0].getActionParameter(PARAMETER_TARGET));
@@ -77,7 +77,7 @@ public class AcceptanceTests implements AssemblyLine {
 		assertNotNull(system.getObjectById(plane_y_inside_id).getLink(LINK_ROTARY_DRIVE_POSITION, null));
 
 		// 1
-		systemTransformation = assemblyLineTransformations.getElement(ELEMENT_CLOSE_GRAB);
+		systemTransformation = assemblyLineTransformations.get(ELEMENT_CLOSE_GRAB);
 		systemVariants = systemTransformation.applyTo(system);
 		assertEquals(1, systemVariants.length);
 
@@ -86,7 +86,7 @@ public class AcceptanceTests implements AssemblyLine {
 		assertNotNull(system.getObjectById(package_box_id).getLink(LINK_GRAB_POSITION, robot_id));
 
 		// 2
-		systemTransformation = assemblyLineTransformations.getElement(ELEMENT_LIFT_UP);
+		systemTransformation = assemblyLineTransformations.get(ELEMENT_LIFT_UP);
 		systemVariants = systemTransformation.applyTo(system);
 		assertEquals(1, systemVariants.length);
 
@@ -98,7 +98,7 @@ public class AcceptanceTests implements AssemblyLine {
 		assertNotNull(system.getObjectById(plane_z_bottom_id).getLink(LINK_VERTICAL_DRIVE_POSITION, null));
 
 		// 3
-		systemTransformation = assemblyLineTransformations.getElement(ELEMENT_TURN_WITH_LOAD);
+		systemTransformation = assemblyLineTransformations.get(ELEMENT_TURN_WITH_LOAD);
 		systemVariants = systemTransformation.applyTo(system);
 		assertEquals(1, systemVariants.length);
 		assertEquals(OBJECT_PLANE_Y_INSIDE, systemVariants[0].getActionParameter(PARAMETER_TARGET));
@@ -109,7 +109,7 @@ public class AcceptanceTests implements AssemblyLine {
 		assertNotNull(system.getObjectById(plane_y_inside_id).getLink(LINK_ROTARY_DRIVE_POSITION, robot_id));
 
 		// 4
-		systemTransformation = assemblyLineTransformations.getElement(ELEMENT_MOVE_WITH_LOAD);
+		systemTransformation = assemblyLineTransformations.get(ELEMENT_MOVE_WITH_LOAD);
 		systemVariants = systemTransformation.applyTo(system);
 		assertEquals(1, systemVariants.length);
 		assertEquals(OBJECT_PLANE_X_TABLE_1, systemVariants[0].getActionParameter(PARAMETER_TARGET));
@@ -120,7 +120,7 @@ public class AcceptanceTests implements AssemblyLine {
 		assertNotNull(system.getObjectById(plane_x_table_2).getLink(LINK_LINEAR_DRIVE_POSITION, null));
 
 		// 5
-		systemTransformation = assemblyLineTransformations.getElement(ELEMENT_LOWER_DOWN);
+		systemTransformation = assemblyLineTransformations.get(ELEMENT_LOWER_DOWN);
 		systemVariants = systemTransformation.applyTo(system);
 		assertEquals(1, systemVariants.length);
 
@@ -132,7 +132,7 @@ public class AcceptanceTests implements AssemblyLine {
 		assertNotNull(system.getObjectById(plane_z_bottom_id).getLink(LINK_VERTICAL_DRIVE_POSITION, robot_id));
 
 		// 6
-		systemTransformation = assemblyLineTransformations.getElement(ELEMENT_OPEN_GRAB);
+		systemTransformation = assemblyLineTransformations.get(ELEMENT_OPEN_GRAB);
 		systemVariants = systemTransformation.applyTo(system);
 		assertEquals(1, systemVariants.length);
 
@@ -141,7 +141,7 @@ public class AcceptanceTests implements AssemblyLine {
 		assertNotNull(system.getObjectById(package_box_id).getLink(LINK_GRAB_POSITION, null));
 
 		// 7
-		systemTransformation = assemblyLineTransformations.getElement(ELEMENT_MOVE_WITHOUT_LOAD);
+		systemTransformation = assemblyLineTransformations.get(ELEMENT_MOVE_WITHOUT_LOAD);
 		systemVariants = systemTransformation.applyTo(system);
 		assertEquals(1, systemVariants.length);
 		assertEquals(OBJECT_PLANE_X_TABLE_2, systemVariants[0].getActionParameter(PARAMETER_TARGET));
@@ -155,7 +155,7 @@ public class AcceptanceTests implements AssemblyLine {
 	@Test
 	public void compareInitialAndFinalSystem() throws CloneNotSupportedException {
 		SystemVariant[] systemVariants;
-		systemVariants = assemblyLineTransformations.getElement(ELEMENT_TURN_WITHOUT_LOAD).applyTo(initialSystem);
+		systemVariants = assemblyLineTransformations.get(ELEMENT_TURN_WITHOUT_LOAD).applyTo(initialSystem);
 		assertEquals(1, systemVariants.length);
 
 		assertFalse(initialSystem.equals(finalSystem));
@@ -164,7 +164,7 @@ public class AcceptanceTests implements AssemblyLine {
 
 	@Test
 	public void movePackageBoxToTable1() throws CloneNotSupportedException {
-		Planner planner = new Planner(initialSystem, finalSystem, assemblyLineTransformations.getElements());
+		Planner planner = new Planner(taskDescription, assemblyLineTransformations);
 		planner.plan();
 
 		SystemProcess operations = planner.getShortestProcess();

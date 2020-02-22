@@ -10,6 +10,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
+import planning.method.SystemTransformations;
 import planning.model.SystemTransformation;
 
 public class SystemTransformationsXMLFileTest {
@@ -35,16 +36,17 @@ public class SystemTransformationsXMLFileTest {
 
 	@Test
 	public void getSystemTransformations() {
-		assertEquals(0, testable.getSystemTransformations().length);
+		assertEquals(0, testable.getSystemTransformations().size());
 	}
 
 	@Test
 	public void setSystemTransformations() {
 		final SystemTransformation systemTransformation_mock = context.mock(SystemTransformation.class);
-		final SystemTransformation systemTransformations[] = new SystemTransformation[] { systemTransformation_mock };
+		final SystemTransformations systemTransformations = new SystemTransformations();
+		systemTransformations.add(systemTransformation_mock);
 
 		testable.setSystemTransformations(systemTransformations);
-		assertEquals(1, testable.getSystemTransformations().length);
+		assertEquals(1, testable.getSystemTransformations().size());
 	}
 
 	@Test

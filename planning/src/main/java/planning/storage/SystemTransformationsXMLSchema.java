@@ -9,6 +9,7 @@ import org.jdom2.Namespace;
 import org.luaj.vm2.Globals;
 import org.luaj.vm2.lib.jse.JsePlatform;
 
+import planning.method.SystemTransformations;
 import planning.model.Action;
 import planning.model.ActionParameterUpdater;
 import planning.model.ActionPreConditionChecker;
@@ -35,27 +36,27 @@ public class SystemTransformationsXMLSchema extends ValueXMLSchema implements XM
 		return combineSystemTransformations(systemTransformations);
 	}
 
-	private SystemTransformation[] systemTransformations = new SystemTransformation[0];
+	private SystemTransformations systemTransformations = new SystemTransformations();
 
-	public SystemTransformation[] getSystemTransformations() {
+	public SystemTransformations getSystemTransformations() {
 		return systemTransformations;
 	}
 
-	public void setSystemTransformations(SystemTransformation[] systemTransformations) {
+	public void setSystemTransformations(SystemTransformations systemTransformations) {
 		this.systemTransformations = systemTransformations;
 	}
 
-	public SystemTransformation[] parseSystemTransformations(Element root) throws DataConversionException {
-		List<SystemTransformation> systemTransformations = new ArrayList<>();
+	public SystemTransformations parseSystemTransformations(Element root) throws DataConversionException {
+		SystemTransformations systemTransformations = new SystemTransformations();
 		List<Element> elements = root.getChildren("systemTransformation");
 		for (Element element : elements) {
 			SystemTransformation systemTransformation = parseSystemTransformation(element);
 			systemTransformations.add(systemTransformation);
 		}
-		return systemTransformations.toArray(new SystemTransformation[0]);
+		return systemTransformations;
 	}
 
-	public Element combineSystemTransformations(SystemTransformation[] systemTransformations) {
+	public Element combineSystemTransformations(SystemTransformations systemTransformations) {
 		List<Element> elements = new ArrayList<>();
 		for (SystemTransformation systemTransformation : systemTransformations) {
 			Element element = combineSystemTransformation(systemTransformation);

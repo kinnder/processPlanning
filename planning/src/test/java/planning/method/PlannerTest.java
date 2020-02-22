@@ -33,22 +33,36 @@ public class PlannerTest {
 
 	Planner testable;
 
+	TaskDescription taskDescription_mock;
+
 	System initial_system_mock;
 
 	System final_system_mock;
 
 	SystemTransformation systemTransformation_mock;
 
-	SystemTransformation systemTransformations[];
+	SystemTransformations systemTransformations;
 
 	@BeforeEach
 	public void setup() {
+		taskDescription_mock = context.mock(TaskDescription.class);
 		initial_system_mock = context.mock(System.class, "initial-system");
 		final_system_mock = context.mock(System.class, "final-system");
 		systemTransformation_mock = context.mock(SystemTransformation.class, "systemTransformation");
-		systemTransformations = new SystemTransformation[] { systemTransformation_mock };
+		systemTransformations = new SystemTransformations();
+		systemTransformations.add(systemTransformation_mock);
 
-		testable = new Planner(initial_system_mock, final_system_mock, systemTransformations);
+		context.checking(new Expectations() {
+			{
+				oneOf(taskDescription_mock).getInitialSystem();
+				will(returnValue(initial_system_mock));
+
+				oneOf(taskDescription_mock).getFinalSystem();
+				will(returnValue(final_system_mock));
+			}
+		});
+
+		testable = new Planner(taskDescription_mock, systemTransformations);
 	}
 
 	@Test
