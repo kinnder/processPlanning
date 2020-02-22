@@ -42,29 +42,7 @@ public class SystemProcessXMLSchemaTest {
 	}
 
 	@Test
-	public void setSystemProcess() {
-		final SystemProcess systemProcess_mock = context.mock(SystemProcess.class);
-
-		testable.setSystemProcess(systemProcess_mock);
-		assertEquals(systemProcess_mock, testable.getSystemProcess());
-	}
-
-	@Test
-	public void getSystemProcess() {
-		assertNotNull(testable.getSystemProcess());
-	}
-
-	@Test
 	public void combine() {
-		final SystemProcess systemProcess = new SystemProcess();
-
-		testable.setSystemProcess(systemProcess);
-
-		assertNotNull(testable.combine());
-	}
-
-	@Test
-	public void combineProcess() {
 		final SystemOperation systemOperation_mock = context.mock(SystemOperation.class);
 		final SystemProcess systemProcess = new SystemProcess();
 		systemProcess.add(systemOperation_mock);
@@ -81,7 +59,7 @@ public class SystemProcessXMLSchemaTest {
 			}
 		});
 
-		Element element = testable.combineProcess(systemProcess);
+		Element element = testable.combine(systemProcess);
 		assertEquals("process", element.getName());
 		assertEquals("../process.xsd", element.getAttributeValue("noNamespaceSchemaLocation",
 				Namespace.getNamespace("xsi", "http://www.w3.org/2001/XMLSchema-instance")));

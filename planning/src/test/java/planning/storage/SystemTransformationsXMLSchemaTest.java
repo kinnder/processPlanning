@@ -57,69 +57,7 @@ public class SystemTransformationsXMLSchemaTest {
 	}
 
 	@Test
-	public void getSystemTransformations() {
-		assertEquals(0, testable.getSystemTransformations().size());
-	}
-
-	@Test
-	public void setSystemTransformations() {
-		final SystemTransformation systemTransformation_mock = context.mock(SystemTransformation.class);
-		final SystemTransformations systemTransformations = new SystemTransformations();
-		systemTransformations.add(systemTransformation_mock);
-
-		testable.setSystemTransformations(systemTransformations);
-		assertEquals(1, testable.getSystemTransformations().size());
-	}
-
-	@Test
 	public void parse() throws DataConversionException {
-		final Element root_mock = context.mock(Element.class, "root");
-
-		context.checking(new Expectations() {
-			{
-				// <-- parseSystemTransformation
-
-				oneOf(root_mock).getChildren("systemTransformation");
-
-				// parseSystemTransformation -->
-			}
-		});
-
-		testable.parse(root_mock);
-	}
-
-	@Test
-	public void combine() {
-		final SystemTransformation systemTransformation_mock = context.mock(SystemTransformation.class);
-		final SystemTransformations systemTransformations = new SystemTransformations();
-		systemTransformations.add(systemTransformation_mock);
-
-		context.checking(new Expectations() {
-			{
-				// <-- combineSystemTransformations
-
-				// <-- combineSystemTransformation
-				oneOf(systemTransformation_mock).getName();
-
-				oneOf(systemTransformation_mock).getAction();
-
-				oneOf(systemTransformation_mock).getSystemTemplate();
-
-				oneOf(systemTransformation_mock).getTransformations();
-
-				// combineSystemTransformation -->
-
-				// combineSystemTransformations -->
-			}
-		});
-
-		testable.setSystemTransformations(systemTransformations);
-
-		assertNotNull(testable.combine());
-	}
-
-	@Test
-	public void parseSystemTransformations() throws DataConversionException {
 		final Element root_mock = context.mock(Element.class, "root");
 		final List<Element> systemTransformations = new ArrayList<>();
 		final Element systemTransformation_mock = context.mock(Element.class, "systemTransformation");
@@ -144,11 +82,11 @@ public class SystemTransformationsXMLSchemaTest {
 			}
 		});
 
-		assertEquals(1, testable.parseSystemTransformations(root_mock).size());
+		assertEquals(1, ((SystemTransformations) testable.parse(root_mock)).size());
 	}
 
 	@Test
-	public void combineSystemTransformations() {
+	public void combine() {
 		final SystemTransformation systemTransformation_mock = context.mock(SystemTransformation.class);
 		final SystemTransformations systemTransformations = new SystemTransformations();
 		systemTransformations.add(systemTransformation_mock);
@@ -168,7 +106,7 @@ public class SystemTransformationsXMLSchemaTest {
 			}
 		});
 
-		Element element = testable.combineSystemTransformations(systemTransformations);
+		Element element = testable.combine(systemTransformations);
 		assertEquals("systemTransformations", element.getName());
 		assertEquals("../systemTransformations.xsd", element.getAttributeValue("noNamespaceSchemaLocation",
 				Namespace.getNamespace("xsi", "http://www.w3.org/2001/XMLSchema-instance")));
@@ -459,7 +397,7 @@ public class SystemTransformationsXMLSchemaTest {
 	}
 
 	@Test
-	public void parseTransformations() {
+	public void parseTransformations() throws DataConversionException {
 		final Element root_mock = context.mock(Element.class, "root");
 		final List<Element> linkTransformations = new ArrayList<>();
 		final Element linkTransformation_mock = context.mock(Element.class, "linkTransformation");
@@ -565,7 +503,7 @@ public class SystemTransformationsXMLSchemaTest {
 	}
 
 	@Test
-	public void parseAttributeTransformation() {
+	public void parseAttributeTransformation() throws DataConversionException {
 		final Element root_mock = context.mock(Element.class, "root");
 		final Element value_mock = context.mock(Element.class, "value");
 
@@ -722,7 +660,7 @@ public class SystemTransformationsXMLSchemaTest {
 	}
 
 	@Test
-	public void parseSystemTemplate() {
+	public void parseSystemTemplate() throws DataConversionException {
 		final Element root_mock = context.mock(Element.class, "root");
 		final List<Element> objectTemplates = new ArrayList<>();
 		final Element objectTemplate_mock = context.mock(Element.class, "objectTemplate");
@@ -777,7 +715,7 @@ public class SystemTransformationsXMLSchemaTest {
 	}
 
 	@Test
-	public void parseSystemObjectTemplate() {
+	public void parseSystemObjectTemplate() throws DataConversionException {
 		final Element root_mock = context.mock(Element.class, "root");
 		final List<Element> attributeTemplates = new ArrayList<>();
 		final Element attributeTemplate_mock = context.mock(Element.class, "attributeTemplate");
@@ -864,7 +802,7 @@ public class SystemTransformationsXMLSchemaTest {
 	}
 
 	@Test
-	public void parseAttributeTemplate() {
+	public void parseAttributeTemplate() throws DataConversionException {
 		final Element root_mock = context.mock(Element.class, "root");
 		final Element value_mock = context.mock(Element.class, "value");
 
@@ -892,7 +830,7 @@ public class SystemTransformationsXMLSchemaTest {
 	}
 
 	@Test
-	public void parseAttributeTemplate_with_null() {
+	public void parseAttributeTemplate_with_null() throws DataConversionException {
 		final Element root_mock = context.mock(Element.class, "root");
 
 		context.checking(new Expectations() {

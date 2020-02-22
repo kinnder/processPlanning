@@ -17,19 +17,21 @@ import org.jdom2.input.SAXBuilder;
 import org.jdom2.output.Format;
 import org.jdom2.output.XMLOutputter;
 
-public class XMLFile {
+public class XMLFile<T> {
 
-	private XMLSchema xmlSchema;
+	private XMLSchema<T> xmlSchema;
+
+	protected T object;
 
 	private SAXBuilder builder = new SAXBuilder();
 
 	private XMLOutputter outputter = new XMLOutputter(Format.getPrettyFormat().setIndent("\t"));
 
-	public XMLFile(XMLSchema xmlSchema) {
+	public XMLFile(XMLSchema<T> xmlSchema) {
 		this.xmlSchema = xmlSchema;
 	}
 
-	XMLFile(XMLSchema xmlSchema, SAXBuilder builder) {
+	XMLFile(XMLSchema<T> xmlSchema, SAXBuilder builder) {
 		this(xmlSchema);
 		this.builder = builder;
 	}
@@ -41,7 +43,7 @@ public class XMLFile {
 
 	public void load(InputStream inputStream) throws JDOMException, IOException {
 		Element root = builder.build(inputStream).getRootElement();
-		xmlSchema.parse(root);
+		object = xmlSchema.parse(root);
 	}
 
 	public void save(URL resource) throws IOException, URISyntaxException {
@@ -50,12 +52,16 @@ public class XMLFile {
 	}
 
 	public void save(OutputStream outputStream) throws IOException {
-		Element root = xmlSchema.combine();
+		Element root = xmlSchema.combine(object);
 		Document document = new Document(root);
 		outputter.output(document, outputStream);
 	}
 
-	public XMLSchema getXMLSchema() {
-		return this.xmlSchema;
+	public void setObject(T object) {
+		this.object = object;
+	}
+
+	public T getObject() {
+		return this.object;
 	}
 }

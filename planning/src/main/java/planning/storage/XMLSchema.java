@@ -3,9 +3,9 @@ package planning.storage;
 import org.jdom2.DataConversionException;
 import org.jdom2.Element;
 
-public interface XMLSchema {
+public interface XMLSchema<T> {
 
-	public void parse(Element element) throws DataConversionException;
+	public T parse(Element element) throws DataConversionException;
 
-	public Element combine();
+	public Element combine(T object);
 }

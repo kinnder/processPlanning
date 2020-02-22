@@ -406,7 +406,7 @@ public class GenerateSystemTransformations implements AssemblyLine {
 		assemblyLineTransformations.add(moveWithoutLoad());
 
 		SystemTransformationsXMLFile xmlFile = new SystemTransformationsXMLFile();
-		xmlFile.setSystemTransformations(assemblyLineTransformations);
+		xmlFile.setObject(assemblyLineTransformations);
 		try {
 			xmlFile.save(GenerateSystemTransformations.class.getResource("/assemblyLine/systemTransformations.xml"));
 		} catch (IOException | URISyntaxException e) {

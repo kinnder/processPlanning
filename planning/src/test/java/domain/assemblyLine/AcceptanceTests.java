@@ -37,12 +37,12 @@ public class AcceptanceTests implements AssemblyLine {
 		transformationsXMLFile.load(AcceptanceTests.class.getResource("/assemblyLine/systemTransformations.xml"));
 
 		assemblyLineTransformations = new SystemTransformations();
-		assemblyLineTransformations.addAll(transformationsXMLFile.getSystemTransformations());
+		assemblyLineTransformations.addAll(transformationsXMLFile.getObject());
 
 		TaskDescriptionXMLFile taskXMLFile = new TaskDescriptionXMLFile();
 		taskXMLFile.load(AcceptanceTests.class.getResource("/assemblyLine/taskDescription.xml"));
 
-		taskDescription = taskXMLFile.getTaskDescription();
+		taskDescription = taskXMLFile.getObject();
 		initialSystem = taskDescription.getInitialSystem();
 		finalSystem = taskDescription.getFinalSystem();
 	}

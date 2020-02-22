@@ -2,14 +2,15 @@ package planning.storage;
 
 import org.jdom2.Element;
 
-public class ValueXMLSchema {
+public class ValueXMLSchema implements XMLSchema<Object> {
 
-	public Object parseValue(Element root) {
-		if (root == null) {
+	@Override
+	public Object parse(Element element) {
+		if (element == null) {
 			return null;
 		}
-		String type = root.getAttributeValue("type", "string");
-		String value = root.getText();
+		String type = element.getAttributeValue("type", "string");
+		String value = element.getText();
 		if ("boolean".equals(type)) {
 			return Boolean.valueOf(value);
 		}
@@ -19,7 +20,8 @@ public class ValueXMLSchema {
 		return value;
 	}
 
-	public Element combineValue(Object value) {
+	@Override
+	public Element combine(Object value) {
 		Element root = new Element("value");
 		if (value instanceof Boolean) {
 			root.setAttribute("type", "boolean");

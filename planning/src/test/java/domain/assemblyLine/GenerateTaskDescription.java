@@ -130,7 +130,7 @@ public class GenerateTaskDescription implements AssemblyLine {
 		taskDescription.setFinalSystem(finalSystem());
 
 		TaskDescriptionXMLFile xmlFile = new TaskDescriptionXMLFile();
-		xmlFile.setTaskDescription(taskDescription);
+		xmlFile.setObject(taskDescription);
 		try {
 			xmlFile.save(AcceptanceTests.class.getResource("/assemblyLine/taskDescription.xml"));
 		} catch (IOException | URISyntaxException e) {

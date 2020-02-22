@@ -47,59 +47,7 @@ public class TaskDescriptionXMLSchemaTest {
 	}
 
 	@Test
-	public void getTaskDescription() {
-		assertTrue(testable.getTaskDescription() instanceof TaskDescription);
-	}
-
-	@Test
-	public void setTaskDescription() {
-		final TaskDescription taskDescription_mock = context.mock(TaskDescription.class);
-
-		testable.setTaskDescription(taskDescription_mock);
-		assertEquals(taskDescription_mock, testable.getTaskDescription());
-	}
-
-	@Test
 	public void parse() throws DataConversionException {
-		final Element root_mock = context.mock(Element.class, "root");
-
-		context.checking(new Expectations() {
-			{
-				// <-- parseTaskDescription
-
-				oneOf(root_mock).getChild("initialSystem");
-
-				oneOf(root_mock).getChild("finalSystem");
-
-				// parseTaskDescription -->
-			}
-		});
-
-		testable.parse(root_mock);
-	}
-
-	@Test
-	public void combine() {
-		final TaskDescription taskDescription_mock = context.mock(TaskDescription.class);
-
-		context.checking(new Expectations() {
-			{
-				// <-- combineTaskDescription
-
-				oneOf(taskDescription_mock).getInitialSystem();
-
-				oneOf(taskDescription_mock).getFinalSystem();
-
-				// combineTaskDescription -->
-			}
-		});
-
-		testable.setTaskDescription(taskDescription_mock);
-		assertNotNull(testable.combine());
-	}
-
-	@Test
-	public void parseTaskDescription() {
 		final Element root_mock = context.mock(Element.class, "root");
 		final Element initialSystem_mock = context.mock(Element.class, "initial-system-element");
 		final Element finalSystem_mock = context.mock(Element.class, "final-system-element");
@@ -126,14 +74,14 @@ public class TaskDescriptionXMLSchemaTest {
 			}
 		});
 
-		TaskDescription result = testable.parseTaskDescription(root_mock);
+		TaskDescription result = (TaskDescription) testable.parse(root_mock);
 		assertTrue(result instanceof TaskDescription);
 		assertNotNull(result.getInitialSystem());
 		assertNotNull(result.getFinalSystem());
 	}
 
 	@Test
-	public void combineTaskDescription() {
+	public void combine() {
 		final TaskDescription taskDescription_mock = context.mock(TaskDescription.class);
 		final System initialSystem_mock = context.mock(System.class, "initial-system");
 		final System finalSystem_mock = context.mock(System.class, "final-system");
@@ -160,7 +108,7 @@ public class TaskDescriptionXMLSchemaTest {
 			}
 		});
 
-		Element element = testable.combineTaskDescription(taskDescription_mock);
+		Element element = testable.combine(taskDescription_mock);
 		assertEquals("taskDescription", element.getName());
 		assertEquals("../taskDescription.xsd", element.getAttributeValue("noNamespaceSchemaLocation",
 				Namespace.getNamespace("xsi", "http://www.w3.org/2001/XMLSchema-instance")));
@@ -169,7 +117,7 @@ public class TaskDescriptionXMLSchemaTest {
 	}
 
 	@Test
-	public void parseSystem() {
+	public void parseSystem() throws DataConversionException {
 		final Element root_mock = context.mock(Element.class, "root");
 		final List<Element> objects = new ArrayList<>();
 		final Element object_mock = context.mock(Element.class, "object");
@@ -228,7 +176,7 @@ public class TaskDescriptionXMLSchemaTest {
 	}
 
 	@Test
-	public void parseSystemObject() {
+	public void parseSystemObject() throws DataConversionException {
 		final Element root_mock = context.mock(Element.class, "root");
 		final List<Element> attributes = new ArrayList<>();
 		final Element attribute_mock = context.mock(Element.class, "attribute");
@@ -322,7 +270,7 @@ public class TaskDescriptionXMLSchemaTest {
 	}
 
 	@Test
-	public void parseAttribute() {
+	public void parseAttribute() throws DataConversionException {
 		final Element root_mock = context.mock(Element.class, "root");
 		final Element value_mock = context.mock(Element.class, "value");
 

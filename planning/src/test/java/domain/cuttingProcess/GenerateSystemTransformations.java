@@ -303,7 +303,7 @@ public class GenerateSystemTransformations implements CuttingProcess {
 		cuttingProcessTransformations.add(splitCylinderSurface());
 
 		SystemTransformationsXMLFile xmlFile = new SystemTransformationsXMLFile();
-		xmlFile.setSystemTransformations(cuttingProcessTransformations);
+		xmlFile.setObject(cuttingProcessTransformations);
 		try {
 			xmlFile.save(GenerateSystemTransformations.class.getResource("/cuttingProcess/systemTransformations.xml"));
 		} catch (IOException | URISyntaxException e) {

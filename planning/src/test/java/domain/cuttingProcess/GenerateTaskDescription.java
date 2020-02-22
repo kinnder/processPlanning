@@ -123,7 +123,7 @@ public class GenerateTaskDescription implements CuttingProcess {
 		taskDescription.setFinalSystem(finalSystem());
 
 		TaskDescriptionXMLFile xmlFile = new TaskDescriptionXMLFile();
-		xmlFile.setTaskDescription(taskDescription);
+		xmlFile.setObject(taskDescription);
 		try {
 			xmlFile.save(AcceptanceTests.class.getResource("/cuttingProcess/taskDescription.xml"));
 		} catch (IOException | URISyntaxException e) {

@@ -24,39 +24,23 @@ import planning.model.SystemTemplate;
 import planning.model.SystemTransformation;
 import planning.model.Transformation;
 
-public class SystemTransformationsXMLSchema extends ValueXMLSchema implements XMLSchema {
+public class SystemTransformationsXMLSchema implements XMLSchema<SystemTransformations> {
+
+	private ValueXMLSchema valueSchema = new ValueXMLSchema();
 
 	@Override
-	public void parse(Element element) throws DataConversionException {
-		systemTransformations = parseSystemTransformations(element);
-	}
-
-	@Override
-	public Element combine() {
-		return combineSystemTransformations(systemTransformations);
-	}
-
-	private SystemTransformations systemTransformations = new SystemTransformations();
-
-	public SystemTransformations getSystemTransformations() {
-		return systemTransformations;
-	}
-
-	public void setSystemTransformations(SystemTransformations systemTransformations) {
-		this.systemTransformations = systemTransformations;
-	}
-
-	public SystemTransformations parseSystemTransformations(Element root) throws DataConversionException {
+	public SystemTransformations parse(Element element) throws DataConversionException {
 		SystemTransformations systemTransformations = new SystemTransformations();
-		List<Element> elements = root.getChildren("systemTransformation");
-		for (Element element : elements) {
-			SystemTransformation systemTransformation = parseSystemTransformation(element);
+		List<Element> elements = element.getChildren("systemTransformation");
+		for (Element e : elements) {
+			SystemTransformation systemTransformation = parseSystemTransformation(e);
 			systemTransformations.add(systemTransformation);
 		}
 		return systemTransformations;
 	}
 
-	public Element combineSystemTransformations(SystemTransformations systemTransformations) {
+	@Override
+	public Element combine(SystemTransformations systemTransformations) {
 		List<Element> elements = new ArrayList<>();
 		for (SystemTransformation systemTransformation : systemTransformations) {
 			Element element = combineSystemTransformation(systemTransformation);
@@ -222,7 +206,7 @@ public class SystemTransformationsXMLSchema extends ValueXMLSchema implements XM
 	public AttributeTransformation parseAttributeTransformation(Element root) {
 		String objectId = root.getChildText("objectId");
 		String name = root.getChildText("name");
-		Object value = parseValue(root.getChild("value"));
+		Object value = valueSchema.parse(root.getChild("value"));
 		return new AttributeTransformation(objectId, name, value);
 	}
 
@@ -231,7 +215,7 @@ public class SystemTransformationsXMLSchema extends ValueXMLSchema implements XM
 		objectId.setText(transformation.getObjectId());
 		Element name = new Element("name");
 		name.setText(transformation.getAttributeName());
-		Element value = combineValue(transformation.getAttributeValue());
+		Element value = valueSchema.combine(transformation.getAttributeValue());
 		Element root = new Element("attributeTransformation");
 		root.addContent(objectId);
 		root.addContent(name);
@@ -344,7 +328,7 @@ public class SystemTransformationsXMLSchema extends ValueXMLSchema implements XM
 
 	public AttributeTemplate parseAtttributeTemplate(Element root) {
 		String name = root.getChildText("name");
-		Object value = parseValue(root.getChild("value"));
+		Object value = valueSchema.parse(root.getChild("value"));
 		if (value == null) {
 			return new AttributeTemplate(name);
 		}
@@ -358,7 +342,7 @@ public class SystemTransformationsXMLSchema extends ValueXMLSchema implements XM
 		root.addContent(name);
 		Object attributeValue = attributeTemplate.getValue();
 		if (attributeValue != null) {
-			Element value = combineValue(attributeValue);
+			Element value = valueSchema.combine(attributeValue);
 			root.addContent(value);
 		}
 		return root;

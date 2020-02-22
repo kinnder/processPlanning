@@ -149,7 +149,7 @@ public class GenerateSystemTransformations implements MaterialPoints {
 		materialPointsTransformations.add(moveBottom());
 
 		SystemTransformationsXMLFile xmlFile = new SystemTransformationsXMLFile();
-		xmlFile.setSystemTransformations(materialPointsTransformations);
+		xmlFile.setObject(materialPointsTransformations);
 		try {
 			xmlFile.save(GenerateSystemTransformations.class.getResource("/materialPoints/systemTransformations.xml"));
 		} catch (IOException | URISyntaxException e) {

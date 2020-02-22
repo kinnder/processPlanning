@@ -36,11 +36,11 @@ public class AcceptanceTests implements MaterialPoints {
 		xmlFile.load(AcceptanceTests.class.getResource("/materialPoints/systemTransformations.xml"));
 
 		materialPointsTransformations = new SystemTransformations();
-		materialPointsTransformations.addAll(xmlFile.getSystemTransformations());
+		materialPointsTransformations.addAll(xmlFile.getObject());
 		TaskDescriptionXMLFile taskXMLFile = new TaskDescriptionXMLFile();
 		taskXMLFile.load(AcceptanceTests.class.getResource("/materialPoints/taskDescription.xml"));
 
-		taskDescription = taskXMLFile.getTaskDescription();
+		taskDescription = taskXMLFile.getObject();
 		initialSystem = taskDescription.getInitialSystem();
 		finalSystem = taskDescription.getFinalSystem();
 	}

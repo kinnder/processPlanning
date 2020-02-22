@@ -10,41 +10,25 @@ import planning.model.Link;
 import planning.model.System;
 import planning.model.SystemObject;
 
-public class TaskDescriptionXMLSchema extends ValueXMLSchema implements XMLSchema {
+public class TaskDescriptionXMLSchema implements XMLSchema<TaskDescription> {
+
+	private ValueXMLSchema valueSchema = new ValueXMLSchema();
 
 	@Override
-	public void parse(Element element) throws DataConversionException {
-		taskDescription = parseTaskDescription(element);
-	}
-
-	@Override
-	public Element combine() {
-		return combineTaskDescription(taskDescription);
-	}
-
-	private TaskDescription taskDescription = new TaskDescription();
-
-	public TaskDescription getTaskDescription() {
-		return this.taskDescription;
-	}
-
-	public void setTaskDescription(TaskDescription taskDescription) {
-		this.taskDescription = taskDescription;
-	}
-
-	public TaskDescription parseTaskDescription(Element root) {
+	public TaskDescription parse(Element element) throws DataConversionException {
 		TaskDescription taskDescription = new TaskDescription();
 
-		System initialSystem = parseSystem(root.getChild("initialSystem"));
+		System initialSystem = parseSystem(element.getChild("initialSystem"));
 		taskDescription.setInitialSystem(initialSystem);
 
-		System finalSystem = parseSystem(root.getChild("finalSystem"));
+		System finalSystem = parseSystem(element.getChild("finalSystem"));
 		taskDescription.setFinalSystem(finalSystem);
 
 		return taskDescription;
 	}
 
-	public Element combineTaskDescription(TaskDescription taskDescription) {
+	@Override
+	public Element combine(TaskDescription taskDescription) {
 		Element root = new Element("taskDescription");
 		Namespace xsiNamespace = Namespace.getNamespace("xsi", "http://www.w3.org/2001/XMLSchema-instance");
 		root.setAttribute("noNamespaceSchemaLocation", "../taskDescription.xsd", xsiNamespace);
@@ -148,7 +132,7 @@ public class TaskDescriptionXMLSchema extends ValueXMLSchema implements XMLSchem
 
 	public Attribute parseAttribute(Element root) {
 		String name = root.getChildText("name");
-		Object value = parseValue(root.getChild("value"));
+		Object value = valueSchema.parse(root.getChild("value"));
 		return new Attribute(name, value);
 	}
 
@@ -161,7 +145,7 @@ public class TaskDescriptionXMLSchema extends ValueXMLSchema implements XMLSchem
 
 		Object attributeValue = attribute.getValue();
 		if (attributeValue != null) {
-			Element value = combineValue(attributeValue);
+			Element value = valueSchema.combine(attributeValue);
 			root.addContent(value);
 		}
 		return root;

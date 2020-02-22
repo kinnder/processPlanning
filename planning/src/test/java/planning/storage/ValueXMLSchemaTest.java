@@ -35,7 +35,7 @@ public class ValueXMLSchemaTest {
 	}
 
 	@Test
-	public void parseValue() {
+	public void parse() {
 		final Element root_mock = context.mock(Element.class, "root");
 
 		context.checking(new Expectations() {
@@ -48,13 +48,13 @@ public class ValueXMLSchemaTest {
 			}
 		});
 
-		Object result = testable.parseValue(root_mock);
+		Object result = testable.parse(root_mock);
 		assertNotNull(result);
 		assertEquals("value", result);
 	}
 
 	@Test
-	public void parseValue_boolean() {
+	public void parse_boolean() {
 		final Element root_mock = context.mock(Element.class, "root");
 
 		context.checking(new Expectations() {
@@ -67,13 +67,13 @@ public class ValueXMLSchemaTest {
 			}
 		});
 
-		Object result = testable.parseValue(root_mock);
+		Object result = testable.parse(root_mock);
 		assertNotNull(result);
 		assertEquals(true, result);
 	}
 
 	@Test
-	public void parseValue_integer() {
+	public void parse_integer() {
 		final Element root_mock = context.mock(Element.class, "root");
 
 		context.checking(new Expectations() {
@@ -86,40 +86,40 @@ public class ValueXMLSchemaTest {
 			}
 		});
 
-		Object result = testable.parseValue(root_mock);
+		Object result = testable.parse(root_mock);
 		assertNotNull(result);
 		assertEquals(10, result);
 	}
 
 	@Test
-	public void parseValue_with_null() {
-		Object result = testable.parseValue(null);
+	public void parse_with_null() {
+		Object result = testable.parse(null);
 		assertNull(result);
 	}
 
 	@Test
-	public void combineValue() {
+	public void combine() {
 		final Object value = new String("string-value");
 
-		Element element = testable.combineValue(value);
+		Element element = testable.combine(value);
 		assertEquals("string-value", element.getText());
 		assertNull(element.getAttribute("type"));
 	}
 
 	@Test
-	public void combineValue_integer() {
+	public void combine_integer() {
 		final Object value = Integer.valueOf(123);
 
-		Element element = testable.combineValue(value);
+		Element element = testable.combine(value);
 		assertEquals("123", element.getText());
 		assertEquals("integer", element.getAttributeValue("type"));
 	}
 
 	@Test
-	public void combineValue_boolean() {
+	public void combine_boolean() {
 		final Object value = Boolean.valueOf(true);
 
-		Element element = testable.combineValue(value);
+		Element element = testable.combine(value);
 		assertEquals("true", element.getText());
 		assertEquals("boolean", element.getAttributeValue("type"));
 	}

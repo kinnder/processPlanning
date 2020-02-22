@@ -11,16 +11,12 @@ import org.jdom2.Namespace;
 import planning.model.SystemProcess;
 import planning.model.SystemOperation;
 
-public class SystemProcessXMLSchema extends ValueXMLSchema implements XMLSchema {
+public class SystemProcessXMLSchema implements XMLSchema<SystemProcess> {
 
-	private SystemProcess process = new SystemProcess();
+	private ValueXMLSchema valueSchema = new ValueXMLSchema();
 
 	@Override
-	public Element combine() {
-		return combineProcess(process);
-	}
-
-	public Element combineProcess(SystemProcess process) {
+	public Element combine(SystemProcess process) {
 		List<Element> elements = new ArrayList<>();
 		for (SystemOperation systemOperation : process) {
 			Element element = combineSystemOperation(systemOperation);
@@ -48,7 +44,7 @@ public class SystemProcessXMLSchema extends ValueXMLSchema implements XMLSchema 
 		for (String key : actionParameters.keySet()) {
 			Element name = new Element("name");
 			name.setText(key);
-			Element value = combineValue(actionParameters.get(key));
+			Element value = valueSchema.combine(actionParameters.get(key));
 			Element parameter = new Element("parameter");
 			parameter.addContent(name);
 			parameter.addContent(value);
@@ -57,16 +53,8 @@ public class SystemProcessXMLSchema extends ValueXMLSchema implements XMLSchema 
 		return root;
 	}
 
-	public void setSystemProcess(SystemProcess process) {
-		this.process = process;
-	}
-
-	public SystemProcess getSystemProcess() {
-		return this.process;
-	}
-
 	@Override
-	public void parse(Element element) throws DataConversionException {
+	public SystemProcess parse(Element element) throws DataConversionException {
 		throw new UnsupportedOperationException("Parsing xml-files is not supported");
 	}
 }

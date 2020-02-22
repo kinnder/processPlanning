@@ -38,12 +38,12 @@ public class AcceptanceTests implements CuttingProcess {
 		xmlFile.load(AcceptanceTests.class.getResource("/cuttingProcess/systemTransformations.xml"));
 
 		cuttingProcessTransformations = new SystemTransformations();
-		cuttingProcessTransformations.addAll(xmlFile.getSystemTransformations());
+		cuttingProcessTransformations.addAll(xmlFile.getObject());
 
 		TaskDescriptionXMLFile taskXMLFile = new TaskDescriptionXMLFile();
 		taskXMLFile.load(AcceptanceTests.class.getResource("/cuttingProcess/taskDescription.xml"));
 
-		taskDescription = taskXMLFile.getTaskDescription();
+		taskDescription = taskXMLFile.getObject();
 		initialSystem = taskDescription.getInitialSystem();
 		finalSystem = taskDescription.getFinalSystem();
 	}
