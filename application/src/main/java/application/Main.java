@@ -49,17 +49,14 @@ public class Main {
 			String processFile = line.getOptionValue(processOption.getOpt(), "process.xml");
 
 			if (line.hasOption(helpOption.getOpt())) {
-				// TODO : resolve conflict with base class
-				java.lang.System.out.println(
-						"application builds plan for [taskDescription] with [systemTransformations] and puts result in [process]");
-				java.lang.System.out.println("usage:");
+				StringBuilder sb = new StringBuilder();
+				sb.append("application builds plan for [taskDescription] with [systemTransformations] and puts result in [process]\n");
+				sb.append("usage:");
 				for (Option option : options.getOptions()) {
-					StringBuilder sb = new StringBuilder();
-					sb.append(String.format("%2s, %-21s", option.getOpt(), option.getLongOpt()));
-					sb.append(" ");
-					sb.append(option.getDescription());
-					java.lang.System.out.println(sb.toString());
+					sb.append(String.format("%2s, %-21s %s\n", option.getOpt(), option.getLongOpt(), option.getDescription()));
 				}
+				// TODO : resolve conflict with base class
+				java.lang.System.out.println(sb.toString());
 			} else {
 				java.lang.System.out.println("planning...");
 				try {
