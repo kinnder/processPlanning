@@ -3,9 +3,10 @@ package planning.storage;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
+import java.io.BufferedInputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
+import java.nio.file.Path;
+
 import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.JDOMException;
@@ -48,15 +49,17 @@ public class XMLFileTest {
 	}
 
 	@Test
-	public void load() throws JDOMException, IOException {
-		final InputStream inputStream_mock = context.mock(InputStream.class);
+	public void load_path() throws IOException, JDOMException {
+		final Path path_mock = context.mock(Path.class);
 		final Document document_mock = context.mock(Document.class);
 		final Element element_mock = context.mock(Element.class);
 		final Object data_mock = context.mock(Object.class);
 
 		context.checking(new Expectations() {
 			{
-				oneOf(saxBuilder_mock).build(inputStream_mock);
+				oneOf(path_mock).getFileSystem();
+
+				oneOf(saxBuilder_mock).build(with(any(BufferedInputStream.class)));
 				will(returnValue(document_mock));
 
 				oneOf(document_mock).getRootElement();
@@ -67,12 +70,12 @@ public class XMLFileTest {
 			}
 		});
 
-		testable.load(inputStream_mock);
+		testable.load(path_mock);
 	}
 
 	@Test
-	public void save() throws IOException {
-		final OutputStream outputStream_mock = context.mock(OutputStream.class);
+	public void save_path() throws IOException {
+		final Path path_mock = context.mock(Path.class);
 		final Element element = new Element("document");
 
 		context.checking(new Expectations() {
@@ -80,15 +83,11 @@ public class XMLFileTest {
 				oneOf(xmlSchema_mock).combine(null);
 				will(returnValue(element));
 
-				oneOf(outputStream_mock).write(with(any(byte[].class)), with(any(int.class)), with(any(int.class)));
-
-				oneOf(outputStream_mock).flush();
-
-				oneOf(outputStream_mock).flush();
+				oneOf(path_mock).getFileSystem();
 			}
 		});
 
-		testable.save(outputStream_mock);
+		testable.save(path_mock);
 	}
 
 	@Test

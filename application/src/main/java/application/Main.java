@@ -1,11 +1,6 @@
 package application;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.DefaultParser;
@@ -69,12 +64,12 @@ public class Main {
 				java.lang.System.out.println("planning...");
 				try {
 					SystemTransformationsXMLFile transformationsXMLFile = new SystemTransformationsXMLFile();
-					transformationsXMLFile.load(new BufferedInputStream(Files.newInputStream(Paths.get(systemTransformationsFile))));
+					transformationsXMLFile.load(systemTransformationsFile);
 					SystemTransformations systemTransformations = new SystemTransformations();
 					systemTransformations.addAll(transformationsXMLFile.getObject());
 
 					TaskDescriptionXMLFile taskXMLFile = new TaskDescriptionXMLFile();
-					taskXMLFile.load(new BufferedInputStream(Files.newInputStream(Paths.get(taskDescriptionFile))));
+					taskXMLFile.load(taskDescriptionFile);
 					TaskDescription taskDescription = taskXMLFile.getObject();
 
 					Planner planner = new Planner(taskDescription, systemTransformations);
@@ -83,7 +78,7 @@ public class Main {
 					SystemProcess operations = planner.getShortestProcess();
 					SystemProcessXMLFile xmlFile = new SystemProcessXMLFile();
 					xmlFile.setObject(operations);
-					xmlFile.save(new BufferedOutputStream(Files.newOutputStream(Paths.get(processFile))));
+					xmlFile.save(processFile);
 				} catch (JDOMException | CloneNotSupportedException | IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

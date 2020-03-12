@@ -8,6 +8,7 @@ import java.io.OutputStream;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 
 import org.jdom2.Document;
@@ -36,24 +37,32 @@ public class XMLFile<T> {
 		this.builder = builder;
 	}
 
-	public void load(URL resource) throws IOException, URISyntaxException, JDOMException {
-		InputStream inputStream = new BufferedInputStream(Files.newInputStream(Paths.get(resource.toURI())));
-		load(inputStream);
+	public void load(String path) throws IOException, JDOMException {
+		load(Paths.get(path));
 	}
 
-	public void load(InputStream inputStream) throws JDOMException, IOException {
+	public void load(URL resource) throws IOException, URISyntaxException, JDOMException {
+		load(Paths.get(resource.toURI()));
+	}
+
+	public void load(Path path) throws IOException, JDOMException {
+		InputStream inputStream = new BufferedInputStream(Files.newInputStream(path));
 		Element root = builder.build(inputStream).getRootElement();
 		object = xmlSchema.parse(root);
 	}
 
-	public void save(URL resource) throws IOException, URISyntaxException {
-		OutputStream outputStream = new BufferedOutputStream(Files.newOutputStream(Paths.get(resource.toURI())));
-		save(outputStream);
+	public void save(String path) throws IOException {
+		save(Paths.get(path));
 	}
 
-	public void save(OutputStream outputStream) throws IOException {
+	public void save(URL resource) throws IOException, URISyntaxException {
+		save(Paths.get(resource.toURI()));
+	}
+
+	public void save(Path path) throws IOException {
 		Element root = xmlSchema.combine(object);
 		Document document = new Document(root);
+		OutputStream outputStream = new BufferedOutputStream(Files.newOutputStream(path));
 		outputter.output(document, outputStream);
 	}
 
