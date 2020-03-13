@@ -4,13 +4,9 @@ import java.io.PrintStream;
 
 public class UserInterface {
 
-	public UserInterface() {
-		this(System.out);
-	}
-
 	private PrintStream printStream;
 
-	UserInterface(PrintStream printStream) {
+	public UserInterface(PrintStream printStream) {
 		this.printStream = printStream;
 	}
 

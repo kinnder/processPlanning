@@ -24,7 +24,7 @@ public class Application {
 
 	private UserInterface ui;
 
-	public void setUserInterface(UserInterface ui) {
+	public Application(UserInterface ui) {
 		this.ui = ui;
 	}
 
