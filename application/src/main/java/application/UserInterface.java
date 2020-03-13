@@ -1,14 +1,24 @@
 package application;
 
-//TODO : remove this annotation
-@SuppressWarnings("PMD")
+import java.io.PrintStream;
+
 public class UserInterface {
 
+	public UserInterface() {
+		this(System.out);
+	}
+
+	private PrintStream printStream;
+
+	UserInterface(PrintStream printStream) {
+		this.printStream = printStream;
+	}
+
 	public void printHelp(String msg) {
-		System.out.println(msg);
+		printStream.println(msg);
 	}
 
 	public void printCommandStatus(String msg) {
-		System.out.println(msg);
+		printStream.println(msg);
 	}
 }
