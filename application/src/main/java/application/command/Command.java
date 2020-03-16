@@ -1,8 +1,9 @@
-package application;
+package application.command;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import application.UserInterface;
 import application.event.CommandStatusEvent;
 import application.event.HelpMessageEvent;
 

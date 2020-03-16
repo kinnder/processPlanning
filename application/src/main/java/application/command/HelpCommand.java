@@ -1,7 +1,5 @@
 package application.command;
 
-import application.Command;
-import application.CommandData;
 import application.event.HelpMessageEvent;
 
 public class HelpCommand extends Command {

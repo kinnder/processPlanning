@@ -1,7 +1,5 @@
 package application.command;
 
-import application.Command;
-import application.CommandData;
 import application.event.CommandStatusEvent;
 import planning.method.Planner;
 import planning.method.SystemTransformations;

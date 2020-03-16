@@ -9,6 +9,9 @@ import org.apache.commons.cli.DefaultParser;
 import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
+
+import application.command.Command;
+import application.command.CommandData;
 import application.command.HelpCommand;
 import application.command.HelpCommandData;
 import application.command.PlanCommand;
