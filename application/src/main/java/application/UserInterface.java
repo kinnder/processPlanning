@@ -2,6 +2,9 @@ package application;
 
 import java.io.PrintStream;
 
+import application.event.CommandStatusEvent;
+import application.event.HelpMessageEvent;
+
 public class UserInterface {
 
 	private PrintStream printStream;
@@ -10,11 +13,11 @@ public class UserInterface {
 		this.printStream = printStream;
 	}
 
-	public void printHelp(String msg) {
-		printStream.println(msg);
+	public void notifyHelpMessage(HelpMessageEvent event) {
+		printStream.println(event.message);
 	}
 
-	public void printCommandStatus(String msg) {
-		printStream.println(msg);
+	public void notifyCommandStatus(CommandStatusEvent event) {
+		printStream.println(event.message);
 	}
 }

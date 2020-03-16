@@ -1,18 +1,20 @@
 package application.command;
 
 import application.Command;
-import application.UserInterface;
+import application.CommandData;
+import application.event.HelpMessageEvent;
 
-public class HelpCommand implements Command<HelpCommandData> {
+public class HelpCommand extends Command {
 
-	private UserInterface ui;
-
-	public HelpCommand(UserInterface ui) {
-		this.ui = ui;
-	}
+	public static String NAME = "help";
 
 	@Override
-	public void execute(HelpCommandData data) {
-		ui.printHelp(data.usageText);
+	public void execute(CommandData data) throws Exception {
+		execute((HelpCommandData) data);
+	}
+
+	public void execute(HelpCommandData data) throws Exception {
+		HelpMessageEvent event = new HelpMessageEvent(data.usageText);
+		notifyHelpMessage(event);
 	}
 }
