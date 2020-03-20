@@ -7,9 +7,11 @@ import org.jmock.imposters.ByteBuddyClassImposteriser;
 import org.jmock.junit5.JUnit5Mockery;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
+
+import application.event.CommandStatusEvent;
+import application.event.HelpMessageEvent;
 
 public class UserInterfaceTest {
 
@@ -37,32 +39,30 @@ public class UserInterfaceTest {
 	}
 
 	@Test
-	@Disabled
-	public void printHelp() {
-		final String msg = "msg";
+	public void notifyHelpMessage() {
+		final HelpMessageEvent event_mock = context.mock(HelpMessageEvent.class);
+		event_mock.message = "message";
 
 		context.checking(new Expectations() {
 			{
-				oneOf(printStream_mock).println(msg);
+				oneOf(printStream_mock).println("message");
 			}
 		});
 
-		// TODO : fix
-		// testable.printHelp(msg);
+		testable.notifyHelpMessage(event_mock);
 	}
 
 	@Test
-	@Disabled
-	public void printCommandStatus() {
-		final String msg = "msg";
+	public void notifyCommandStatus() {
+		final CommandStatusEvent event_mock = context.mock(CommandStatusEvent.class);
+		event_mock.message = "message";
 
 		context.checking(new Expectations() {
 			{
-				oneOf(printStream_mock).println(msg);
+				oneOf(printStream_mock).println("message");
 			}
 		});
 
-		// TODO : fix
-		// testable.printCommandStatus(msg);
+		testable.notifyCommandStatus(event_mock);
 	}
 }
