@@ -2,8 +2,6 @@ package application;
 
 import org.slf4j.LoggerFactory;
 
-//TODO : remove this annotation
-@SuppressWarnings("PMD")
 public class Main {
 
 	public static void main(String[] args) {

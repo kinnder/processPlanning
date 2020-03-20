@@ -19,8 +19,6 @@ import application.command.HelpCommandData;
 import application.command.PlanCommand;
 import application.command.PlanCommandData;
 
-//TODO : remove this annotation
-@SuppressWarnings("PMD")
 public class Application {
 
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
