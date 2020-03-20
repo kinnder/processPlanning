@@ -9,6 +9,8 @@ import org.apache.commons.cli.DefaultParser;
 import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import application.command.Command;
 import application.command.CommandData;
@@ -20,6 +22,8 @@ import application.command.PlanCommandData;
 //TODO : remove this annotation
 @SuppressWarnings("PMD")
 public class Application {
+
+	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	private Map<String, Command> commands = new HashMap<>();
 
@@ -77,8 +81,7 @@ public class Application {
 		try {
 			commands.get(name).execute(data);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logger.error("", e);
 		}
 	}
 }
