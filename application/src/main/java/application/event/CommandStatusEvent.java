@@ -1,10 +1,8 @@
 package application.event;
 
-public class CommandStatusEvent {
+public class CommandStatusEvent extends Event {
 
 	public CommandStatusEvent(String message) {
-		this.message = message;
+		super(message);
 	}
-
-	public String message;
 }

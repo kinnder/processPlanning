@@ -1,10 +1,8 @@
 package application.event;
 
-public class HelpMessageEvent {
+public class HelpMessageEvent extends Event {
 
 	public HelpMessageEvent(String message) {
-		this.message = message;
+		super(message);
 	}
-
-	public String message;
 }
