@@ -11,9 +11,9 @@ import java.util.Set;
 
 public class SystemObjectTemplate {
 
-	private Map<String, AttributeTemplate> attributes;
+	private Map<String, AttributeTemplate> attributes = new HashMap<>();
 
-	private Map<String, LinkTemplate> links;
+	private Map<String, LinkTemplate> links = new HashMap<>();
 
 	private String objectId;
 
@@ -35,8 +35,6 @@ public class SystemObjectTemplate {
 
 	public SystemObjectTemplate(String objectId) {
 		this.objectId = objectId;
-		this.attributes = new HashMap<>();
-		this.links = new HashMap<>();
 	}
 
 	public void addAttributeTemplate(AttributeTemplate attribute) {

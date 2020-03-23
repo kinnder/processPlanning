@@ -15,15 +15,15 @@ import planning.model.SystemVariant;
 
 public class Planner {
 
-	private List<Node> checkedNodes;
+	private List<Node> checkedNodes = new ArrayList<>();
 
-	private List<Node> uncheckedNodes;
+	private List<Node> uncheckedNodes = new ArrayList<>();
 
 	private Node initialNode;
 
 	private Node finalNode;
 
-	private List<Edge> edges;
+	private List<Edge> edges = new ArrayList<>();
 
 	private System initialSystem;
 
@@ -31,19 +31,12 @@ public class Planner {
 
 	private SystemTransformations systemTransformations;
 
-	private DefaultDirectedGraph<Node, Edge> network;
+	private DefaultDirectedGraph<Node, Edge> network = new DefaultDirectedGraph<>(Edge.class);
 
 	public Planner(TaskDescription taskDescription, SystemTransformations systemTransformations) {
 		this.initialSystem = taskDescription.getInitialSystem();
 		this.finalSystem = taskDescription.getFinalSystem();
 		this.systemTransformations = systemTransformations;
-
-		this.checkedNodes = new ArrayList<>();
-		this.uncheckedNodes = new ArrayList<>();
-
-		this.edges = new ArrayList<>();
-
-		this.network = new DefaultDirectedGraph<>(Edge.class);
 	}
 
 	public void plan() throws CloneNotSupportedException {

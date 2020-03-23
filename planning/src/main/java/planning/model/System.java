@@ -9,11 +9,7 @@ import java.util.Set;
 
 public class System implements Cloneable {
 
-	private List<SystemObject> objects;
-
-	public System() {
-		this.objects = new ArrayList<>();
-	}
+	private List<SystemObject> objects = new ArrayList<>();
 
 	public Collection<SystemObject> getObjects() {
 		return Collections.unmodifiableCollection(objects);

@@ -5,11 +5,7 @@ import java.util.Map;
 
 public class IdsMatching {
 
-	private Map<String, String> matchings;
-
-	public IdsMatching() {
-		this.matchings = new HashMap<>();
-	}
+	private Map<String, String> matchings = new HashMap<>();
 
 	public String get(String templateId) {
 		return matchings.get(templateId);

@@ -9,8 +9,6 @@ public class Action {
 
 	public Action(String name) {
 		this.name = name;
-		this.parameterUpdaters = new ArrayList<>();
-		this.preConditionCheckers = new ArrayList<>();
 	}
 
 	public String getName() {
@@ -23,7 +21,7 @@ public class Action {
 		}
 	}
 
-	private List<ActionParameterUpdater> parameterUpdaters;
+	private List<ActionParameterUpdater> parameterUpdaters = new ArrayList<>();
 
 	public List<ActionParameterUpdater> getParameterUpdaters() {
 		return parameterUpdaters;
@@ -33,7 +31,7 @@ public class Action {
 		parameterUpdaters.add(parameterUpdater);
 	}
 
-	private List<ActionPreConditionChecker> preConditionCheckers;
+	private List<ActionPreConditionChecker> preConditionCheckers = new ArrayList<>();
 
 	public List<ActionPreConditionChecker> getPreConditionCheckers() {
 		return preConditionCheckers;

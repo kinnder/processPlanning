@@ -18,7 +18,6 @@ public class PlanCommand extends Command {
 		execute((PlanCommandData) data);
 	}
 
-	// TODO : replace with constructor
 	SystemTransformationsXMLFile transformationsXMLFile = new SystemTransformationsXMLFile();
 
 	TaskDescriptionXMLFile taskXMLFile = new TaskDescriptionXMLFile();
