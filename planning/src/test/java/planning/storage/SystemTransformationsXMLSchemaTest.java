@@ -503,59 +503,6 @@ public class SystemTransformationsXMLSchemaTest {
 	}
 
 	@Test
-	public void parseAttributeTransformation() throws DataConversionException {
-		final Element root_mock = context.mock(Element.class, "root");
-		final Element value_mock = context.mock(Element.class, "value");
-
-		context.checking(new Expectations() {
-			{
-				oneOf(root_mock).getChildText("objectId");
-				will(returnValue("objectId"));
-
-				oneOf(root_mock).getChildText("name");
-				will(returnValue("name"));
-
-				oneOf(root_mock).getChild("value");
-				will(returnValue(value_mock));
-
-				// <-- parseValue
-
-				oneOf(value_mock).getAttributeValue("type", "string");
-
-				oneOf(value_mock).getText();
-
-				// parseValue -->
-			}
-		});
-
-		assertTrue(testable.parseAttributeTransformation(root_mock) instanceof AttributeTransformation);
-	}
-
-	@Test
-	public void combineAttributeTransformation() {
-		final AttributeTransformation attributeTransformation_mock = context.mock(AttributeTransformation.class);
-		final Object value_mock = context.mock(Object.class);
-
-		context.checking(new Expectations() {
-			{
-				oneOf(attributeTransformation_mock).getObjectId();
-				will(returnValue("id"));
-
-				oneOf(attributeTransformation_mock).getAttributeName();
-				will(returnValue("name"));
-
-				oneOf(attributeTransformation_mock).getAttributeValue();
-				will(returnValue(value_mock));
-			}
-		});
-
-		Element element = testable.combineAttributeTransformation(attributeTransformation_mock);
-		assertEquals("id", element.getChildText("objectId"));
-		assertEquals("name", element.getChildText("name"));
-		assertNotNull(element.getChild("value"));
-	}
-
-	@Test
 	public void parseLinkTransformation() {
 		final Element root_mock = context.mock(Element.class, "root");
 

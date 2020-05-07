@@ -166,7 +166,7 @@ public class SystemTransformationsXMLSchema implements XMLSchema<SystemTransform
 		return root;
 	}
 
-	public Transformation[] parseTransformations(Element root) {
+	public Transformation[] parseTransformations(Element root) throws DataConversionException {
 		List<Transformation> transformations = new ArrayList<>();
 		List<Element> elements = root.getChildren("linkTransformation");
 		for (Element element : elements) {
@@ -174,7 +174,7 @@ public class SystemTransformationsXMLSchema implements XMLSchema<SystemTransform
 		}
 		elements = root.getChildren("attributeTransformation");
 		for (Element element : elements) {
-			transformations.add(parseAttributeTransformation(element));
+			transformations.add(attributeTransformationSchema.parse(element));
 		}
 		return transformations.toArray(new Transformation[0]);
 	}
@@ -184,7 +184,7 @@ public class SystemTransformationsXMLSchema implements XMLSchema<SystemTransform
 		for (Transformation transformation : transformations) {
 			Element element;
 			if (transformation instanceof AttributeTransformation) {
-				element = combineAttributeTransformation((AttributeTransformation) transformation);
+				element = attributeTransformationSchema.combine((AttributeTransformation) transformation);
 			} else if (transformation instanceof LinkTransformation) {
 				element = combineLinkTransformation((LinkTransformation) transformation);
 			} else {
@@ -203,25 +203,7 @@ public class SystemTransformationsXMLSchema implements XMLSchema<SystemTransform
 		return root;
 	}
 
-	public AttributeTransformation parseAttributeTransformation(Element root) {
-		String objectId = root.getChildText("objectId");
-		String name = root.getChildText("name");
-		Object value = valueSchema.parse(root.getChild("value"));
-		return new AttributeTransformation(objectId, name, value);
-	}
-
-	public Element combineAttributeTransformation(AttributeTransformation transformation) {
-		Element objectId = new Element("objectId");
-		objectId.setText(transformation.getObjectId());
-		Element name = new Element("name");
-		name.setText(transformation.getAttributeName());
-		Element value = valueSchema.combine(transformation.getAttributeValue());
-		Element root = new Element("attributeTransformation");
-		root.addContent(objectId);
-		root.addContent(name);
-		root.addContent(value);
-		return root;
-	}
+	private AttributeTransformationXMLSchema attributeTransformationSchema = new AttributeTransformationXMLSchema();
 
 	public LinkTransformation parseLinkTransformation(Element root) {
 		String objectId = root.getChildText("objectId");
