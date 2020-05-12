@@ -13,9 +13,7 @@ import planning.method.SystemTransformations;
 import planning.model.Action;
 import planning.model.ActionParameterUpdater;
 import planning.model.ActionPreConditionChecker;
-import planning.model.AttributeTemplate;
 import planning.model.AttributeTransformation;
-import planning.model.LinkTemplate;
 import planning.model.LinkTransformation;
 import planning.model.LuaScriptActionParameterUpdater;
 import planning.model.LuaScriptActionPreConditionChecker;
@@ -209,7 +207,7 @@ public class SystemTransformationsXMLSchema implements XMLSchema<SystemTransform
 		List<Element> elements = root.getChildren("objectTemplate");
 		SystemTemplate systemTemplate = new SystemTemplate();
 		for (Element element : elements) {
-			SystemObjectTemplate systemObjectTemplate = parseSystemObjectTemplate(element);
+			SystemObjectTemplate systemObjectTemplate = systemObjectTemplateSchema.parse(element);
 			systemTemplate.addObjectTemplate(systemObjectTemplate);
 		}
 		return systemTemplate;
@@ -219,44 +217,12 @@ public class SystemTransformationsXMLSchema implements XMLSchema<SystemTransform
 		Element root = new Element("systemTemplate");
 		List<Element> elements = new ArrayList<>();
 		for (SystemObjectTemplate systemObjectTemplate : systemTemplate.getObjectTemplates()) {
-			Element element = combineSystemObjectTemplate(systemObjectTemplate);
+			Element element = systemObjectTemplateSchema.combine(systemObjectTemplate);
 			elements.add(element);
 		}
 		root.addContent(elements);
 		return root;
 	}
 
-	public SystemObjectTemplate parseSystemObjectTemplate(Element root) throws DataConversionException {
-		String objectId = root.getChildText("objectId");
-		SystemObjectTemplate objectTemplate = new SystemObjectTemplate(objectId);
-		for (Element element : root.getChildren("attributeTemplate")) {
-			AttributeTemplate attributeTemplate = attributeTemplateSchema.parse(element);
-			objectTemplate.addAttributeTemplate(attributeTemplate);
-		}
-		for (Element element : root.getChildren("linkTemplate")) {
-			LinkTemplate linkTemplate = linkTemplateSchema.parse(element);
-			objectTemplate.addLinkTemplate(linkTemplate);
-		}
-		return objectTemplate;
-	}
-
-	public Element combineSystemObjectTemplate(SystemObjectTemplate systemObjectTemplate) {
-		Element root = new Element("objectTemplate");
-		Element objectId = new Element("objectId");
-		objectId.setText(systemObjectTemplate.getId());
-		root.addContent(objectId);
-		for (AttributeTemplate attributeTemplate : systemObjectTemplate.getAttributeTemplates()) {
-			Element element = attributeTemplateSchema.combine(attributeTemplate);
-			root.addContent(element);
-		}
-		for (LinkTemplate linkTemplate : systemObjectTemplate.getLinkTemplates()) {
-			Element element = linkTemplateSchema.combine(linkTemplate);
-			root.addContent(element);
-		}
-		return root;
-	}
-
-	private LinkTemplateXMLSchema linkTemplateSchema = new LinkTemplateXMLSchema();
-
-	private AttributeTemplateXMLSchema attributeTemplateSchema = new AttributeTemplateXMLSchema();
+	private SystemObjectTemplateXMLSchema systemObjectTemplateSchema = new SystemObjectTemplateXMLSchema();
 }
