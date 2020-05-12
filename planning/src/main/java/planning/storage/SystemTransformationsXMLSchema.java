@@ -264,7 +264,7 @@ public class SystemTransformationsXMLSchema implements XMLSchema<SystemTransform
 			objectTemplate.addAttributeTemplate(attributeTemplate);
 		}
 		for (Element element : root.getChildren("linkTemplate")) {
-			LinkTemplate linkTemplate = parseLinkTemplate(element);
+			LinkTemplate linkTemplate = linkTemplateSchema.parse(element);
 			objectTemplate.addLinkTemplate(linkTemplate);
 		}
 		return objectTemplate;
@@ -280,31 +280,13 @@ public class SystemTransformationsXMLSchema implements XMLSchema<SystemTransform
 			root.addContent(element);
 		}
 		for (LinkTemplate linkTemplate : systemObjectTemplate.getLinkTemplates()) {
-			Element element = combineLinkTemplate(linkTemplate);
+			Element element = linkTemplateSchema.combine(linkTemplate);
 			root.addContent(element);
 		}
 		return root;
 	}
 
-	public LinkTemplate parseLinkTemplate(Element root) {
-		String name = root.getChildText("name");
-		String value = root.getChildText("value");
-		return new LinkTemplate(name, value);
-	}
-
-	public Element combineLinkTemplate(LinkTemplate linkTemplate) {
-		Element root = new Element("linkTemplate");
-		Element name = new Element("name");
-		name.setText(linkTemplate.getName());
-		root.addContent(name);
-		String linkValue = linkTemplate.getObjectId();
-		if (linkValue != null) {
-			Element value = new Element("value");
-			value.setText(linkValue);
-			root.addContent(value);
-		}
-		return root;
-	}
+	private LinkTemplateXMLSchema linkTemplateSchema = new LinkTemplateXMLSchema();
 
 	private AttributeTemplateXMLSchema attributeTemplateSchema = new AttributeTemplateXMLSchema();
 }
