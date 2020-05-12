@@ -26,8 +26,6 @@ import planning.model.Transformation;
 
 public class SystemTransformationsXMLSchema implements XMLSchema<SystemTransformations> {
 
-	private ValueXMLSchema valueSchema = new ValueXMLSchema();
-
 	@Override
 	public SystemTransformations parse(Element element) throws DataConversionException {
 		SystemTransformations systemTransformations = new SystemTransformations();
@@ -237,7 +235,7 @@ public class SystemTransformationsXMLSchema implements XMLSchema<SystemTransform
 		return root;
 	}
 
-	public SystemTemplate parseSystemTemplate(Element root) {
+	public SystemTemplate parseSystemTemplate(Element root) throws DataConversionException {
 		List<Element> elements = root.getChildren("objectTemplate");
 		SystemTemplate systemTemplate = new SystemTemplate();
 		for (Element element : elements) {
@@ -258,11 +256,11 @@ public class SystemTransformationsXMLSchema implements XMLSchema<SystemTransform
 		return root;
 	}
 
-	public SystemObjectTemplate parseSystemObjectTemplate(Element root) {
+	public SystemObjectTemplate parseSystemObjectTemplate(Element root) throws DataConversionException {
 		String objectId = root.getChildText("objectId");
 		SystemObjectTemplate objectTemplate = new SystemObjectTemplate(objectId);
 		for (Element element : root.getChildren("attributeTemplate")) {
-			AttributeTemplate attributeTemplate = parseAtttributeTemplate(element);
+			AttributeTemplate attributeTemplate = attributeTemplateSchema.parse(element);
 			objectTemplate.addAttributeTemplate(attributeTemplate);
 		}
 		for (Element element : root.getChildren("linkTemplate")) {
@@ -278,7 +276,7 @@ public class SystemTransformationsXMLSchema implements XMLSchema<SystemTransform
 		objectId.setText(systemObjectTemplate.getId());
 		root.addContent(objectId);
 		for (AttributeTemplate attributeTemplate : systemObjectTemplate.getAttributeTemplates()) {
-			Element element = combineAttributeTemplate(attributeTemplate);
+			Element element = attributeTemplateSchema.combine(attributeTemplate);
 			root.addContent(element);
 		}
 		for (LinkTemplate linkTemplate : systemObjectTemplate.getLinkTemplates()) {
@@ -308,25 +306,5 @@ public class SystemTransformationsXMLSchema implements XMLSchema<SystemTransform
 		return root;
 	}
 
-	public AttributeTemplate parseAtttributeTemplate(Element root) {
-		String name = root.getChildText("name");
-		Object value = valueSchema.parse(root.getChild("value"));
-		if (value == null) {
-			return new AttributeTemplate(name);
-		}
-		return new AttributeTemplate(name, value);
-	}
-
-	public Element combineAttributeTemplate(AttributeTemplate attributeTemplate) {
-		Element root = new Element("attributeTemplate");
-		Element name = new Element("name");
-		name.setText(attributeTemplate.getName());
-		root.addContent(name);
-		Object attributeValue = attributeTemplate.getValue();
-		if (attributeValue != null) {
-			Element value = valueSchema.combine(attributeValue);
-			root.addContent(value);
-		}
-		return root;
-	}
+	private AttributeTemplateXMLSchema attributeTemplateSchema = new AttributeTemplateXMLSchema();
 }
