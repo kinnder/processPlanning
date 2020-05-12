@@ -168,7 +168,7 @@ public class SystemTransformationsXMLSchema implements XMLSchema<SystemTransform
 		List<Transformation> transformations = new ArrayList<>();
 		List<Element> elements = root.getChildren("linkTransformation");
 		for (Element element : elements) {
-			transformations.add(parseLinkTransformation(element));
+			transformations.add(linkTransformationSchema.parse(element));
 		}
 		elements = root.getChildren("attributeTransformation");
 		for (Element element : elements) {
@@ -184,7 +184,7 @@ public class SystemTransformationsXMLSchema implements XMLSchema<SystemTransform
 			if (transformation instanceof AttributeTransformation) {
 				element = attributeTransformationSchema.combine((AttributeTransformation) transformation);
 			} else if (transformation instanceof LinkTransformation) {
-				element = combineLinkTransformation((LinkTransformation) transformation);
+				element = linkTransformationSchema.combine((LinkTransformation) transformation);
 			} else {
 				element = combineTransformation(transformation);
 			}
@@ -203,37 +203,7 @@ public class SystemTransformationsXMLSchema implements XMLSchema<SystemTransform
 
 	private AttributeTransformationXMLSchema attributeTransformationSchema = new AttributeTransformationXMLSchema();
 
-	public LinkTransformation parseLinkTransformation(Element root) {
-		String objectId = root.getChildText("objectId");
-		String name = root.getChildText("name");
-		String oldValue = root.getChildText("oldValue");
-		String newValue = root.getChildText("newValue");
-		return new LinkTransformation(objectId, name, oldValue, newValue);
-	}
-
-	public Element combineLinkTransformation(LinkTransformation transformation) {
-		Element root = new Element("linkTransformation");
-		Element objectId = new Element("objectId");
-		objectId.setText(transformation.getObjectId());
-		root.addContent(objectId);
-		Element name = new Element("name");
-		name.setText(transformation.getLinkName());
-		root.addContent(name);
-		String value;
-		value = transformation.getLinkOldValue();
-		if (value != null) {
-			Element element = new Element("oldValue");
-			element.setText(value);
-			root.addContent(element);
-		}
-		value = transformation.getLinkNewValue();
-		if (value != null) {
-			Element element = new Element("newValue");
-			element.setText(value);
-			root.addContent(element);
-		}
-		return root;
-	}
+	private LinkTransformationXMLSchema linkTransformationSchema = new LinkTransformationXMLSchema();
 
 	public SystemTemplate parseSystemTemplate(Element root) throws DataConversionException {
 		List<Element> elements = root.getChildren("objectTemplate");

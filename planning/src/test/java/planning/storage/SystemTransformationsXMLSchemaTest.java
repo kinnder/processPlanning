@@ -2,7 +2,6 @@ package planning.storage;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
@@ -500,110 +499,6 @@ public class SystemTransformationsXMLSchemaTest {
 
 		Element element = testable.combineTransformation(transformation_mock);
 		assertEquals("id", element.getChildText("objectId"));
-	}
-
-	@Test
-	public void parseLinkTransformation() {
-		final Element root_mock = context.mock(Element.class, "root");
-
-		context.checking(new Expectations() {
-			{
-				oneOf(root_mock).getChildText("objectId");
-				will(returnValue("objectId"));
-
-				oneOf(root_mock).getChildText("name");
-				will(returnValue("name"));
-
-				oneOf(root_mock).getChildText("oldValue");
-				will(returnValue("oldValue"));
-
-				oneOf(root_mock).getChildText("newValue");
-				will(returnValue("newValue"));
-			}
-		});
-
-		assertTrue(testable.parseLinkTransformation(root_mock) instanceof LinkTransformation);
-	}
-
-	@Test
-	public void combineLinkTransformation() {
-		final LinkTransformation linkTransformation_mock = context.mock(LinkTransformation.class);
-
-		context.checking(new Expectations() {
-			{
-				oneOf(linkTransformation_mock).getObjectId();
-				will(returnValue("id"));
-
-				oneOf(linkTransformation_mock).getLinkName();
-				will(returnValue("name"));
-
-				oneOf(linkTransformation_mock).getLinkOldValue();
-				will(returnValue("old-link-value"));
-
-				oneOf(linkTransformation_mock).getLinkNewValue();
-				will(returnValue("new-link-value"));
-			}
-		});
-
-		Element element = testable.combineLinkTransformation(linkTransformation_mock);
-		assertEquals("id", element.getChildText("objectId"));
-		assertEquals("name", element.getChildText("name"));
-		assertEquals("old-link-value", element.getChildText("oldValue"));
-		assertEquals("new-link-value", element.getChildText("newValue"));
-	}
-
-	@Test
-	public void combineLinkTransformation_empty_new_link() {
-		final LinkTransformation linkTransformation_mock = context.mock(LinkTransformation.class);
-
-		context.checking(new Expectations() {
-			{
-				oneOf(linkTransformation_mock).getObjectId();
-				will(returnValue("id"));
-
-				oneOf(linkTransformation_mock).getLinkName();
-				will(returnValue("name"));
-
-				oneOf(linkTransformation_mock).getLinkOldValue();
-				will(returnValue("old-link-value"));
-
-				oneOf(linkTransformation_mock).getLinkNewValue();
-				will(returnValue(null));
-			}
-		});
-
-		Element element = testable.combineLinkTransformation(linkTransformation_mock);
-		assertEquals("id", element.getChildText("objectId"));
-		assertEquals("name", element.getChildText("name"));
-		assertEquals("old-link-value", element.getChildText("oldValue"));
-		assertNull(element.getChild("newValue"));
-	}
-
-	@Test
-	public void combineLinkTransformation_empty_old_link() {
-		final LinkTransformation linkTransformation_mock = context.mock(LinkTransformation.class);
-
-		context.checking(new Expectations() {
-			{
-				oneOf(linkTransformation_mock).getObjectId();
-				will(returnValue("id"));
-
-				oneOf(linkTransformation_mock).getLinkName();
-				will(returnValue("name"));
-
-				oneOf(linkTransformation_mock).getLinkOldValue();
-				will(returnValue(null));
-
-				oneOf(linkTransformation_mock).getLinkNewValue();
-				will(returnValue("new-link-value"));
-			}
-		});
-
-		Element element = testable.combineLinkTransformation(linkTransformation_mock);
-		assertEquals("id", element.getChildText("objectId"));
-		assertEquals("name", element.getChildText("name"));
-		assertNull(element.getChild("oldValue"));
-		assertEquals("new-link-value", element.getChildText("newValue"));
 	}
 
 	@Test
