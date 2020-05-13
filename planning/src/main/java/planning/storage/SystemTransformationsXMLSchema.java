@@ -14,7 +14,6 @@ import planning.model.Action;
 import planning.model.ActionParameterUpdater;
 import planning.model.ActionPreConditionChecker;
 import planning.model.LuaScriptActionParameterUpdater;
-import planning.model.LuaScriptActionPreConditionChecker;
 import planning.model.SystemTemplate;
 import planning.model.SystemTransformation;
 import planning.model.Transformation;
@@ -73,7 +72,7 @@ public class SystemTransformationsXMLSchema implements XMLSchema<SystemTransform
 		Action action = new Action(name);
 		List<Element> elements = root.getChildren("preConditionChecker");
 		for (Element element : elements) {
-			ActionPreConditionChecker preConditionChecher = parsePreConditionChecker(element);
+			ActionPreConditionChecker preConditionChecher = preConditionCheckerSchema.parse(element);
 			action.registerActionPreConditionChecker(preConditionChecher);
 		}
 		elements = root.getChildren("parameterUpdater");
@@ -89,7 +88,7 @@ public class SystemTransformationsXMLSchema implements XMLSchema<SystemTransform
 		name.setText(action.getName());
 		List<Element> elements = new ArrayList<>();
 		for (ActionPreConditionChecker preConditionChecker : action.getPreConditionCheckers()) {
-			Element element = combinePreConditionChecker(preConditionChecker);
+			Element element = preConditionCheckerSchema.combine(preConditionChecker);
 			elements.add(element);
 		}
 		for (ActionParameterUpdater parameterUpdater : action.getParameterUpdaters()) {
@@ -132,32 +131,7 @@ public class SystemTransformationsXMLSchema implements XMLSchema<SystemTransform
 		return root;
 	}
 
-	public ActionPreConditionChecker parsePreConditionChecker(Element root) throws DataConversionException {
-		List<Element> elements = root.getChildren("line");
-		String[] lines = new String[elements.size()];
-		for (Element element : elements) {
-			int id = element.getAttribute("n").getIntValue() - 1;
-			lines[id] = element.getText();
-		}
-		StringBuilder script = new StringBuilder();
-		for (String line : lines) {
-			script.append(line).append("\n");
-		}
-		return new LuaScriptActionPreConditionChecker(globals, script.toString());
-	}
-
-	public Element combinePreConditionChecker(ActionPreConditionChecker preConditionChecker) {
-		LuaScriptActionPreConditionChecker luaPreConditionChecker = (LuaScriptActionPreConditionChecker) preConditionChecker;
-		String lines[] = luaPreConditionChecker.getScript().split("\n");
-		Element root = new Element("preConditionChecker");
-		for (int i = 0; i < lines.length; i++) {
-			Element element = new Element("line");
-			element.setText(lines[i]);
-			element.setAttribute("n", Integer.toString(i + 1));
-			root.addContent(element);
-		}
-		return root;
-	}
+	private PreConditionCheckerXMLSchema preConditionCheckerSchema = new PreConditionCheckerXMLSchema();
 
 	private TransformationsXMLSchema transformationsSchema = new TransformationsXMLSchema();
 
