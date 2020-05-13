@@ -6,14 +6,10 @@ import java.util.List;
 import org.jdom2.DataConversionException;
 import org.jdom2.Element;
 import org.jdom2.Namespace;
-import org.luaj.vm2.Globals;
-import org.luaj.vm2.lib.jse.JsePlatform;
-
 import planning.method.SystemTransformations;
 import planning.model.Action;
 import planning.model.ActionParameterUpdater;
 import planning.model.ActionPreConditionChecker;
-import planning.model.LuaScriptActionParameterUpdater;
 import planning.model.SystemTemplate;
 import planning.model.SystemTransformation;
 import planning.model.Transformation;
@@ -77,7 +73,7 @@ public class SystemTransformationsXMLSchema implements XMLSchema<SystemTransform
 		}
 		elements = root.getChildren("parameterUpdater");
 		for (Element element : elements) {
-			ActionParameterUpdater parameterUpdater = parseParameterUpdater(element);
+			ActionParameterUpdater parameterUpdater = parameterUpdaterSchema.parse(element);
 			action.registerActionParameterUpdater(parameterUpdater);
 		}
 		return action;
@@ -92,7 +88,7 @@ public class SystemTransformationsXMLSchema implements XMLSchema<SystemTransform
 			elements.add(element);
 		}
 		for (ActionParameterUpdater parameterUpdater : action.getParameterUpdaters()) {
-			Element element = combineParameterUpdater(parameterUpdater);
+			Element element = parameterUpdaterSchema.combine(parameterUpdater);
 			elements.add(element);
 		}
 		Element root = new Element("action");
@@ -101,35 +97,7 @@ public class SystemTransformationsXMLSchema implements XMLSchema<SystemTransform
 		return root;
 	}
 
-	// TODO : пересмотреть положение globals
-	private static Globals globals = JsePlatform.standardGlobals();
-
-	public ActionParameterUpdater parseParameterUpdater(Element root) throws DataConversionException {
-		List<Element> elements = root.getChildren("line");
-		String[] lines = new String[elements.size()];
-		for (Element element : elements) {
-			int id = element.getAttribute("n").getIntValue() - 1;
-			lines[id] = element.getText();
-		}
-		StringBuilder script = new StringBuilder();
-		for (String line : lines) {
-			script.append(line).append("\n");
-		}
-		return new LuaScriptActionParameterUpdater(globals, script.toString());
-	}
-
-	public Element combineParameterUpdater(ActionParameterUpdater parameterUpdater) {
-		LuaScriptActionParameterUpdater luaParameterUpdater = (LuaScriptActionParameterUpdater) parameterUpdater;
-		String lines[] = luaParameterUpdater.getScript().split("\n");
-		Element root = new Element("parameterUpdater");
-		for (int i = 0; i < lines.length; i++) {
-			Element element = new Element("line");
-			element.setText(lines[i]);
-			element.setAttribute("n", Integer.toString(i + 1));
-			root.addContent(element);
-		}
-		return root;
-	}
+	private ParameterUpdaterXMLSchema parameterUpdaterSchema = new ParameterUpdaterXMLSchema();
 
 	private PreConditionCheckerXMLSchema preConditionCheckerSchema = new PreConditionCheckerXMLSchema();
 

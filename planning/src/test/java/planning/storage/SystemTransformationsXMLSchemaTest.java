@@ -7,7 +7,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.jdom2.Attribute;
 import org.jdom2.DataConversionException;
 import org.jdom2.Element;
 import org.jdom2.Namespace;
@@ -290,54 +289,5 @@ public class SystemTransformationsXMLSchemaTest {
 		assertEquals("OPERATION", element.getChildText("name"));
 		assertNotNull(element.getChild("preConditionChecker"));
 		assertNotNull(element.getChild("parameterUpdater"));
-	}
-
-	@Test
-	public void parseParameterUpdater() throws DataConversionException {
-		final Element root_mock = context.mock(Element.class, "root");
-		final List<Element> lines = new ArrayList<>();
-		final Element line_mock = context.mock(Element.class, "line");
-		lines.add(line_mock);
-		final Attribute attribute_mock = context.mock(Attribute.class);
-
-		context.checking(new Expectations() {
-			{
-				oneOf(root_mock).getChildren("line");
-				will(returnValue(lines));
-
-				oneOf(line_mock).getAttribute("n");
-				will(returnValue(attribute_mock));
-
-				oneOf(attribute_mock).getIntValue();
-				will(returnValue(1));
-
-				oneOf(line_mock).getText();
-				will(returnValue("local systemVariant = ..."));
-			}
-		});
-
-		assertTrue(testable.parseParameterUpdater(root_mock) instanceof ActionParameterUpdater);
-	}
-
-	@Test
-	public void combineParameterUpdater() {
-		final LuaScriptActionParameterUpdater parameterUpdater_mock = context
-				.mock(LuaScriptActionParameterUpdater.class);
-
-		context.checking(new Expectations() {
-			{
-				oneOf(parameterUpdater_mock).getScript();
-				will(returnValue(
-						"local systemVariant = ...\nlocal object = systemVariant:getObjectByIdMatch('ID-PLANE-X-TARGET')"));
-			}
-		});
-
-		Element element = testable.combineParameterUpdater(parameterUpdater_mock);
-		List<Element> lines = element.getChildren("line");
-		assertEquals(2, lines.size());
-		assertEquals("local systemVariant = ...", lines.get(0).getText());
-		assertEquals("1", lines.get(0).getAttributeValue("n"));
-		assertEquals("local object = systemVariant:getObjectByIdMatch('ID-PLANE-X-TARGET')", lines.get(1).getText());
-		assertEquals("2", lines.get(1).getAttributeValue("n"));
 	}
 }
