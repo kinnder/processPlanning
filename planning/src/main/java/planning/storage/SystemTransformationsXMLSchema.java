@@ -13,8 +13,6 @@ import planning.method.SystemTransformations;
 import planning.model.Action;
 import planning.model.ActionParameterUpdater;
 import planning.model.ActionPreConditionChecker;
-import planning.model.AttributeTransformation;
-import planning.model.LinkTransformation;
 import planning.model.LuaScriptActionParameterUpdater;
 import planning.model.LuaScriptActionPreConditionChecker;
 import planning.model.SystemTemplate;
@@ -52,7 +50,7 @@ public class SystemTransformationsXMLSchema implements XMLSchema<SystemTransform
 		String name = root.getChildText("name");
 		Action action = parseAction(root.getChild("action"));
 		SystemTemplate systemTemplate = systemTemplateSchema.parse(root.getChild("systemTemplate"));
-		Transformation[] transformations = parseTransformations(root.getChild("transformations"));
+		Transformation[] transformations = transformationsSchema.parse(root.getChild("transformations"));
 		return new SystemTransformation(name, action, systemTemplate, transformations);
 	}
 
@@ -61,7 +59,7 @@ public class SystemTransformationsXMLSchema implements XMLSchema<SystemTransform
 		name.setText(systemTransformation.getName());
 		Element action = combineAction(systemTransformation.getAction());
 		Element systemTemplate = systemTemplateSchema.combine(systemTransformation.getSystemTemplate());
-		Element transformations = combineTransformations(systemTransformation.getTransformations());
+		Element transformations = transformationsSchema.combine(systemTransformation.getTransformations());
 		Element root = new Element("systemTransformation");
 		root.addContent(name);
 		root.addContent(systemTemplate);
@@ -161,46 +159,7 @@ public class SystemTransformationsXMLSchema implements XMLSchema<SystemTransform
 		return root;
 	}
 
-	public Transformation[] parseTransformations(Element root) throws DataConversionException {
-		List<Transformation> transformations = new ArrayList<>();
-		List<Element> elements = root.getChildren("linkTransformation");
-		for (Element element : elements) {
-			transformations.add(linkTransformationSchema.parse(element));
-		}
-		elements = root.getChildren("attributeTransformation");
-		for (Element element : elements) {
-			transformations.add(attributeTransformationSchema.parse(element));
-		}
-		return transformations.toArray(new Transformation[0]);
-	}
-
-	public Element combineTransformations(Transformation[] transformations) {
-		Element root = new Element("transformations");
-		for (Transformation transformation : transformations) {
-			Element element;
-			if (transformation instanceof AttributeTransformation) {
-				element = attributeTransformationSchema.combine((AttributeTransformation) transformation);
-			} else if (transformation instanceof LinkTransformation) {
-				element = linkTransformationSchema.combine((LinkTransformation) transformation);
-			} else {
-				element = combineTransformation(transformation);
-			}
-			root.addContent(element);
-		}
-		return root;
-	}
-
-	public Element combineTransformation(Transformation transformation) {
-		Element objectId = new Element("objectId");
-		objectId.setText(transformation.getObjectId());
-		Element root = new Element("transformation");
-		root.addContent(objectId);
-		return root;
-	}
-
-	private AttributeTransformationXMLSchema attributeTransformationSchema = new AttributeTransformationXMLSchema();
-
-	private LinkTransformationXMLSchema linkTransformationSchema = new LinkTransformationXMLSchema();
+	private TransformationsXMLSchema transformationsSchema = new TransformationsXMLSchema();
 
 	private SystemTemplateXMLSchema systemTemplateSchema = new SystemTemplateXMLSchema();
 }
