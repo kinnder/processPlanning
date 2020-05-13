@@ -17,7 +17,6 @@ import planning.model.AttributeTransformation;
 import planning.model.LinkTransformation;
 import planning.model.LuaScriptActionParameterUpdater;
 import planning.model.LuaScriptActionPreConditionChecker;
-import planning.model.SystemObjectTemplate;
 import planning.model.SystemTemplate;
 import planning.model.SystemTransformation;
 import planning.model.Transformation;
@@ -52,7 +51,7 @@ public class SystemTransformationsXMLSchema implements XMLSchema<SystemTransform
 	public SystemTransformation parseSystemTransformation(Element root) throws DataConversionException {
 		String name = root.getChildText("name");
 		Action action = parseAction(root.getChild("action"));
-		SystemTemplate systemTemplate = parseSystemTemplate(root.getChild("systemTemplate"));
+		SystemTemplate systemTemplate = systemTemplateSchema.parse(root.getChild("systemTemplate"));
 		Transformation[] transformations = parseTransformations(root.getChild("transformations"));
 		return new SystemTransformation(name, action, systemTemplate, transformations);
 	}
@@ -61,7 +60,7 @@ public class SystemTransformationsXMLSchema implements XMLSchema<SystemTransform
 		Element name = new Element("name");
 		name.setText(systemTransformation.getName());
 		Element action = combineAction(systemTransformation.getAction());
-		Element systemTemplate = combineSystemTemplate(systemTransformation.getSystemTemplate());
+		Element systemTemplate = systemTemplateSchema.combine(systemTransformation.getSystemTemplate());
 		Element transformations = combineTransformations(systemTransformation.getTransformations());
 		Element root = new Element("systemTransformation");
 		root.addContent(name);
@@ -203,26 +202,5 @@ public class SystemTransformationsXMLSchema implements XMLSchema<SystemTransform
 
 	private LinkTransformationXMLSchema linkTransformationSchema = new LinkTransformationXMLSchema();
 
-	public SystemTemplate parseSystemTemplate(Element root) throws DataConversionException {
-		List<Element> elements = root.getChildren("objectTemplate");
-		SystemTemplate systemTemplate = new SystemTemplate();
-		for (Element element : elements) {
-			SystemObjectTemplate systemObjectTemplate = systemObjectTemplateSchema.parse(element);
-			systemTemplate.addObjectTemplate(systemObjectTemplate);
-		}
-		return systemTemplate;
-	}
-
-	public Element combineSystemTemplate(SystemTemplate systemTemplate) {
-		Element root = new Element("systemTemplate");
-		List<Element> elements = new ArrayList<>();
-		for (SystemObjectTemplate systemObjectTemplate : systemTemplate.getObjectTemplates()) {
-			Element element = systemObjectTemplateSchema.combine(systemObjectTemplate);
-			elements.add(element);
-		}
-		root.addContent(elements);
-		return root;
-	}
-
-	private SystemObjectTemplateXMLSchema systemObjectTemplateSchema = new SystemObjectTemplateXMLSchema();
+	private SystemTemplateXMLSchema systemTemplateSchema = new SystemTemplateXMLSchema();
 }

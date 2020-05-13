@@ -27,7 +27,6 @@ import planning.model.AttributeTransformation;
 import planning.model.LinkTransformation;
 import planning.model.LuaScriptActionParameterUpdater;
 import planning.model.LuaScriptActionPreConditionChecker;
-import planning.model.SystemObjectTemplate;
 import planning.model.SystemTemplate;
 import planning.model.SystemTransformation;
 import planning.model.Transformation;
@@ -497,60 +496,5 @@ public class SystemTransformationsXMLSchemaTest {
 
 		Element element = testable.combineTransformation(transformation_mock);
 		assertEquals("id", element.getChildText("objectId"));
-	}
-
-	@Test
-	public void parseSystemTemplate() throws DataConversionException {
-		final Element root_mock = context.mock(Element.class, "root");
-		final List<Element> objectTemplates = new ArrayList<>();
-		final Element objectTemplate_mock = context.mock(Element.class, "objectTemplate");
-		objectTemplates.add(objectTemplate_mock);
-
-		context.checking(new Expectations() {
-			{
-				oneOf(root_mock).getChildren("objectTemplate");
-				will(returnValue(objectTemplates));
-
-				// <-- parseObjectTemplate
-
-				oneOf(objectTemplate_mock).getChildText("objectId");
-
-				oneOf(objectTemplate_mock).getChildren("attributeTemplate");
-
-				oneOf(objectTemplate_mock).getChildren("linkTemplate");
-
-				// parseObjectTemplate -->
-			}
-		});
-
-		assertTrue(testable.parseSystemTemplate(root_mock) instanceof SystemTemplate);
-	}
-
-	@Test
-	public void combineSystemTemplate() {
-		final SystemTemplate systemTemplate_mock = context.mock(SystemTemplate.class);
-		final List<SystemObjectTemplate> systemObjectTemplates = new ArrayList<>();
-		final SystemObjectTemplate systemObjectTemplate_mock = context.mock(SystemObjectTemplate.class);
-		systemObjectTemplates.add(systemObjectTemplate_mock);
-
-		context.checking(new Expectations() {
-			{
-				oneOf(systemTemplate_mock).getObjectTemplates();
-				will(returnValue(systemObjectTemplates));
-
-				// <-- combineSystemObjectTemplate
-
-				oneOf(systemObjectTemplate_mock).getId();
-
-				oneOf(systemObjectTemplate_mock).getAttributeTemplates();
-
-				oneOf(systemObjectTemplate_mock).getLinkTemplates();
-
-				// combineSystemObjectTemplate -->
-			}
-		});
-
-		Element element = testable.combineSystemTemplate(systemTemplate_mock);
-		assertNotNull(element.getChild("objectTemplate"));
 	}
 }
