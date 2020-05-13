@@ -20,10 +20,6 @@ import org.junit.jupiter.api.extension.RegisterExtension;
 
 import planning.method.SystemTransformations;
 import planning.model.Action;
-import planning.model.ActionParameterUpdater;
-import planning.model.ActionPreConditionChecker;
-import planning.model.LuaScriptActionParameterUpdater;
-import planning.model.LuaScriptActionPreConditionChecker;
 import planning.model.SystemTemplate;
 import planning.model.SystemTransformation;
 import planning.model.Transformation;
@@ -208,86 +204,5 @@ public class SystemTransformationsXMLSchemaTest {
 		assertNotNull(element.getChild("systemTemplate"));
 		assertNotNull(element.getChild("transformations"));
 		assertNotNull(element.getChild("action"));
-	}
-
-	@Test
-	public void parseAction() throws DataConversionException {
-		final Element root_mock = context.mock(Element.class, "root");
-		final List<Element> preConditionCheckers = new ArrayList<>();
-		final Element preConditionChecker_mock = context.mock(Element.class, "preConditionChecker");
-		preConditionCheckers.add(preConditionChecker_mock);
-		final List<Element> parameterUpdaters = new ArrayList<>();
-		final Element parameterUpdater_mock = context.mock(Element.class, "parameterUpdater");
-		parameterUpdaters.add(parameterUpdater_mock);
-
-		context.checking(new Expectations() {
-			{
-				oneOf(root_mock).getChildText("name");
-				will(returnValue("action-name"));
-
-				oneOf(root_mock).getChildren("preConditionChecker");
-				will(returnValue(preConditionCheckers));
-
-				// <-- parsePreConditionChecker
-
-				oneOf(preConditionChecker_mock).getChildren("line");
-
-				// parsePreConditionChecker -->
-
-				oneOf(root_mock).getChildren("parameterUpdater");
-				will(returnValue(parameterUpdaters));
-
-				// <-- parseParameterUpdater
-
-				oneOf(parameterUpdater_mock).getChildren("line");
-
-				// parseParameterUpdater -->
-			}
-		});
-
-		assertTrue(testable.parseAction(root_mock) instanceof Action);
-	}
-
-	@Test
-	public void combineAction() {
-		final Action action_mock = context.mock(Action.class);
-		final LuaScriptActionPreConditionChecker preConditionChecker_mock = context
-				.mock(LuaScriptActionPreConditionChecker.class);
-		final List<ActionPreConditionChecker> preConditionCheckers = new ArrayList<>();
-		preConditionCheckers.add(preConditionChecker_mock);
-		final LuaScriptActionParameterUpdater parameterUpdater_mock = context
-				.mock(LuaScriptActionParameterUpdater.class);
-		final List<ActionParameterUpdater> parameterUpdaters = new ArrayList<>();
-		parameterUpdaters.add(parameterUpdater_mock);
-
-		context.checking(new Expectations() {
-			{
-				oneOf(action_mock).getName();
-				will(returnValue("OPERATION"));
-
-				oneOf(action_mock).getPreConditionCheckers();
-				will(returnValue(preConditionCheckers));
-
-				// <-- combinePreConditionCheckers
-
-				oneOf(preConditionChecker_mock).getScript();
-
-				// combinePreConditionCheckers -->
-
-				oneOf(action_mock).getParameterUpdaters();
-				will(returnValue(parameterUpdaters));
-
-				// <-- combineParameterUpdaters
-
-				oneOf(parameterUpdater_mock).getScript();
-
-				// combineParameterUpdaters -->
-			}
-		});
-
-		Element element = testable.combineAction(action_mock);
-		assertEquals("OPERATION", element.getChildText("name"));
-		assertNotNull(element.getChild("preConditionChecker"));
-		assertNotNull(element.getChild("parameterUpdater"));
 	}
 }
