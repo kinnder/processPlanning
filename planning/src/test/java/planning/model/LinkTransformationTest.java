@@ -51,7 +51,7 @@ public class LinkTransformationTest {
 				oneOf(object_mock).getLink("link-name", "link-old-value-actual");
 				will(returnValue(link_mock));
 
-				oneOf(link_mock).setObjectId("link-new-value-actual");
+				oneOf(link_mock).setObjectId1("link-new-value-actual");
 			}
 		});
 

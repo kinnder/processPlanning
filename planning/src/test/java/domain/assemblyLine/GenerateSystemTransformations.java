@@ -26,14 +26,14 @@ public class GenerateSystemTransformations implements AssemblyLine {
 		final SystemObjectTemplate plane_y_source = new SystemObjectTemplate(ID_TEMPLATE_PLANE_Y_SOURCE);
 
 		robot.addAttributeTemplate(new AttributeTemplate(ATTRIBUTE_PICK_AND_PLACE_ROBOT, true));
-		robot.addLinkTemplate(new LinkTemplate(LINK_ROTARY_DRIVE_POSITION, ID_TEMPLATE_PLANE_Y_SOURCE));
-		robot.addLinkTemplate(new LinkTemplate(LINK_GRAB_POSITION, null));
+		robot.addLinkTemplate(new LinkTemplate(LINK_ROTARY_DRIVE_POSITION, ID_TEMPLATE_PLANE_Y_SOURCE, null));
+		robot.addLinkTemplate(new LinkTemplate(LINK_GRAB_POSITION, null, null));
 
 		plane_y_source.addAttributeTemplate(new AttributeTemplate(ATTRIBUTE_PLANE_Y, true));
-		plane_y_source.addLinkTemplate(new LinkTemplate(LINK_ROTARY_DRIVE_POSITION, ID_TEMPLATE_ROBOT));
+		plane_y_source.addLinkTemplate(new LinkTemplate(LINK_ROTARY_DRIVE_POSITION, ID_TEMPLATE_ROBOT, null));
 
 		plane_y_target.addAttributeTemplate(new AttributeTemplate(ATTRIBUTE_PLANE_Y, true));
-		plane_y_target.addLinkTemplate(new LinkTemplate(LINK_ROTARY_DRIVE_POSITION, null));
+		plane_y_target.addLinkTemplate(new LinkTemplate(LINK_ROTARY_DRIVE_POSITION, null, null));
 
 		final SystemTemplate template = new SystemTemplate();
 		template.addObjectTemplate(robot);
@@ -67,18 +67,18 @@ public class GenerateSystemTransformations implements AssemblyLine {
 		final SystemObjectTemplate packageBox = new SystemObjectTemplate(ID_TEMPLATE_PACKAGE_BOX);
 
 		robot.addAttributeTemplate(new AttributeTemplate(ATTRIBUTE_PICK_AND_PLACE_ROBOT, true));
-		robot.addLinkTemplate(new LinkTemplate(LINK_ROTARY_DRIVE_POSITION, ID_TEMPLATE_PLANE_Y_SOURCE));
-		robot.addLinkTemplate(new LinkTemplate(LINK_GRAB_POSITION, ID_TEMPLATE_PACKAGE_BOX));
+		robot.addLinkTemplate(new LinkTemplate(LINK_ROTARY_DRIVE_POSITION, ID_TEMPLATE_PLANE_Y_SOURCE, null));
+		robot.addLinkTemplate(new LinkTemplate(LINK_GRAB_POSITION, ID_TEMPLATE_PACKAGE_BOX, null));
 
 		plane_y_source.addAttributeTemplate(new AttributeTemplate(ATTRIBUTE_PLANE_Y, true));
-		plane_y_source.addLinkTemplate(new LinkTemplate(LINK_ROTARY_DRIVE_POSITION, ID_TEMPLATE_ROBOT));
+		plane_y_source.addLinkTemplate(new LinkTemplate(LINK_ROTARY_DRIVE_POSITION, ID_TEMPLATE_ROBOT, null));
 
 		plane_y_target.addAttributeTemplate(new AttributeTemplate(ATTRIBUTE_PLANE_Y, true));
-		plane_y_target.addLinkTemplate(new LinkTemplate(LINK_ROTARY_DRIVE_POSITION, null));
+		plane_y_target.addLinkTemplate(new LinkTemplate(LINK_ROTARY_DRIVE_POSITION, null, null));
 
 		packageBox.addAttributeTemplate(new AttributeTemplate(ATTRIBUTE_PACKAGE, true));
-		packageBox.addLinkTemplate(new LinkTemplate(LINK_GRAB_POSITION, ID_TEMPLATE_ROBOT));
-		packageBox.addLinkTemplate(new LinkTemplate(LINK_PACKAGE_BOX_POSITION, null));
+		packageBox.addLinkTemplate(new LinkTemplate(LINK_GRAB_POSITION, ID_TEMPLATE_ROBOT, null));
+		packageBox.addLinkTemplate(new LinkTemplate(LINK_PACKAGE_BOX_POSITION, null, null));
 
 		final SystemTemplate template = new SystemTemplate();
 		template.addObjectTemplate(robot);
@@ -122,29 +122,29 @@ public class GenerateSystemTransformations implements AssemblyLine {
 		template.addObjectTemplate(packageBoxPosition);
 
 		robot.addAttributeTemplate(new AttributeTemplate(ATTRIBUTE_PICK_AND_PLACE_ROBOT, true));
-		robot.addLinkTemplate(new LinkTemplate(LINK_GRAB_POSITION, ID_TEMPLATE_PACKAGE_BOX));
-		robot.addLinkTemplate(new LinkTemplate(LINK_LINEAR_DRIVE_POSITION, ID_TEMPLATE_PLANE_X));
-		robot.addLinkTemplate(new LinkTemplate(LINK_VERTICAL_DRIVE_POSITION, ID_TEMPLATE_PLANE_Z));
-		robot.addLinkTemplate(new LinkTemplate(LINK_ROTARY_DRIVE_POSITION, ID_TEMPLATE_PLANE_Y));
+		robot.addLinkTemplate(new LinkTemplate(LINK_GRAB_POSITION, ID_TEMPLATE_PACKAGE_BOX, null));
+		robot.addLinkTemplate(new LinkTemplate(LINK_LINEAR_DRIVE_POSITION, ID_TEMPLATE_PLANE_X, null));
+		robot.addLinkTemplate(new LinkTemplate(LINK_VERTICAL_DRIVE_POSITION, ID_TEMPLATE_PLANE_Z, null));
+		robot.addLinkTemplate(new LinkTemplate(LINK_ROTARY_DRIVE_POSITION, ID_TEMPLATE_PLANE_Y, null));
 
 		plane_x.addAttributeTemplate(new AttributeTemplate(ATTRIBUTE_PLANE_X, true));
-		plane_x.addLinkTemplate(new LinkTemplate(LINK_LINEAR_DRIVE_POSITION, ID_TEMPLATE_ROBOT));
+		plane_x.addLinkTemplate(new LinkTemplate(LINK_LINEAR_DRIVE_POSITION, ID_TEMPLATE_ROBOT, null));
 
 		plane_y.addAttributeTemplate(new AttributeTemplate(ATTRIBUTE_PLANE_Y, true));
-		plane_y.addLinkTemplate(new LinkTemplate(LINK_ROTARY_DRIVE_POSITION, ID_TEMPLATE_ROBOT));
+		plane_y.addLinkTemplate(new LinkTemplate(LINK_ROTARY_DRIVE_POSITION, ID_TEMPLATE_ROBOT, null));
 
 		plane_z.addAttributeTemplate(new AttributeTemplate(ATTRIBUTE_PLANE_Z, true));
-		plane_z.addLinkTemplate(new LinkTemplate(LINK_VERTICAL_DRIVE_POSITION, ID_TEMPLATE_ROBOT));
+		plane_z.addLinkTemplate(new LinkTemplate(LINK_VERTICAL_DRIVE_POSITION, ID_TEMPLATE_ROBOT, null));
 
 		packageBox.addAttributeTemplate(new AttributeTemplate(ATTRIBUTE_PACKAGE, true));
-		packageBox.addLinkTemplate(new LinkTemplate(LINK_GRAB_POSITION, ID_TEMPLATE_ROBOT));
-		packageBox.addLinkTemplate(new LinkTemplate(LINK_PACKAGE_BOX_POSITION, ID_TEMPLATE_PACKAGE_BOX_POSITION));
+		packageBox.addLinkTemplate(new LinkTemplate(LINK_GRAB_POSITION, ID_TEMPLATE_ROBOT, null));
+		packageBox.addLinkTemplate(new LinkTemplate(LINK_PACKAGE_BOX_POSITION, ID_TEMPLATE_PACKAGE_BOX_POSITION, null));
 
 		packageBoxPosition.addAttributeTemplate(new AttributeTemplate(ATTRIBUTE_PACKAGE_BOX_POSITION, true));
-		packageBoxPosition.addLinkTemplate(new LinkTemplate(LINK_PLANE_X_POSITION, ID_TEMPLATE_PLANE_X));
-		packageBoxPosition.addLinkTemplate(new LinkTemplate(LINK_PLANE_Y_POSITION, ID_TEMPLATE_PLANE_Y));
-		packageBoxPosition.addLinkTemplate(new LinkTemplate(LINK_PLANE_Z_POSITION, ID_TEMPLATE_PLANE_Z));
-		packageBoxPosition.addLinkTemplate(new LinkTemplate(LINK_PACKAGE_BOX_POSITION, ID_TEMPLATE_PACKAGE_BOX));
+		packageBoxPosition.addLinkTemplate(new LinkTemplate(LINK_PLANE_X_POSITION, ID_TEMPLATE_PLANE_X, null));
+		packageBoxPosition.addLinkTemplate(new LinkTemplate(LINK_PLANE_Y_POSITION, ID_TEMPLATE_PLANE_Y, null));
+		packageBoxPosition.addLinkTemplate(new LinkTemplate(LINK_PLANE_Z_POSITION, ID_TEMPLATE_PLANE_Z, null));
+		packageBoxPosition.addLinkTemplate(new LinkTemplate(LINK_PACKAGE_BOX_POSITION, ID_TEMPLATE_PACKAGE_BOX, null));
 
 		final Transformation transformations[] = new Transformation[] {
 				new LinkTransformation(ID_TEMPLATE_ROBOT, LINK_GRAB_POSITION, ID_TEMPLATE_PACKAGE_BOX, null),
@@ -172,29 +172,29 @@ public class GenerateSystemTransformations implements AssemblyLine {
 		template.addObjectTemplate(packageBoxPosition);
 
 		robot.addAttributeTemplate(new AttributeTemplate(ATTRIBUTE_PICK_AND_PLACE_ROBOT, true));
-		robot.addLinkTemplate(new LinkTemplate(LINK_GRAB_POSITION, null));
-		robot.addLinkTemplate(new LinkTemplate(LINK_LINEAR_DRIVE_POSITION, ID_TEMPLATE_PLANE_X));
-		robot.addLinkTemplate(new LinkTemplate(LINK_VERTICAL_DRIVE_POSITION, ID_TEMPLATE_PLANE_Z));
-		robot.addLinkTemplate(new LinkTemplate(LINK_ROTARY_DRIVE_POSITION, ID_TEMPLATE_PLANE_Y));
+		robot.addLinkTemplate(new LinkTemplate(LINK_GRAB_POSITION, null, null));
+		robot.addLinkTemplate(new LinkTemplate(LINK_LINEAR_DRIVE_POSITION, ID_TEMPLATE_PLANE_X, null));
+		robot.addLinkTemplate(new LinkTemplate(LINK_VERTICAL_DRIVE_POSITION, ID_TEMPLATE_PLANE_Z, null));
+		robot.addLinkTemplate(new LinkTemplate(LINK_ROTARY_DRIVE_POSITION, ID_TEMPLATE_PLANE_Y, null));
 
 		plane_x.addAttributeTemplate(new AttributeTemplate(ATTRIBUTE_PLANE_X, true));
-		plane_x.addLinkTemplate(new LinkTemplate(LINK_LINEAR_DRIVE_POSITION, ID_TEMPLATE_ROBOT));
+		plane_x.addLinkTemplate(new LinkTemplate(LINK_LINEAR_DRIVE_POSITION, ID_TEMPLATE_ROBOT, null));
 
 		plane_y.addAttributeTemplate(new AttributeTemplate(ATTRIBUTE_PLANE_Y, true));
-		plane_y.addLinkTemplate(new LinkTemplate(LINK_ROTARY_DRIVE_POSITION, ID_TEMPLATE_ROBOT));
+		plane_y.addLinkTemplate(new LinkTemplate(LINK_ROTARY_DRIVE_POSITION, ID_TEMPLATE_ROBOT, null));
 
 		plane_z.addAttributeTemplate(new AttributeTemplate(ATTRIBUTE_PLANE_Z, true));
-		plane_z.addLinkTemplate(new LinkTemplate(LINK_VERTICAL_DRIVE_POSITION, ID_TEMPLATE_ROBOT));
+		plane_z.addLinkTemplate(new LinkTemplate(LINK_VERTICAL_DRIVE_POSITION, ID_TEMPLATE_ROBOT, null));
 
 		packageBox.addAttributeTemplate(new AttributeTemplate(ATTRIBUTE_PACKAGE, true));
-		packageBox.addLinkTemplate(new LinkTemplate(LINK_GRAB_POSITION, null));
-		packageBox.addLinkTemplate(new LinkTemplate(LINK_PACKAGE_BOX_POSITION, ID_TEMPLATE_PACKAGE_BOX_POSITION));
+		packageBox.addLinkTemplate(new LinkTemplate(LINK_GRAB_POSITION, null, null));
+		packageBox.addLinkTemplate(new LinkTemplate(LINK_PACKAGE_BOX_POSITION, ID_TEMPLATE_PACKAGE_BOX_POSITION, null));
 
 		packageBoxPosition.addAttributeTemplate(new AttributeTemplate(ATTRIBUTE_PACKAGE_BOX_POSITION, true));
-		packageBoxPosition.addLinkTemplate(new LinkTemplate(LINK_PLANE_X_POSITION, ID_TEMPLATE_PLANE_X));
-		packageBoxPosition.addLinkTemplate(new LinkTemplate(LINK_PLANE_Y_POSITION, ID_TEMPLATE_PLANE_Y));
-		packageBoxPosition.addLinkTemplate(new LinkTemplate(LINK_PLANE_Z_POSITION, ID_TEMPLATE_PLANE_Z));
-		packageBoxPosition.addLinkTemplate(new LinkTemplate(LINK_PACKAGE_BOX_POSITION, ID_TEMPLATE_PACKAGE_BOX));
+		packageBoxPosition.addLinkTemplate(new LinkTemplate(LINK_PLANE_X_POSITION, ID_TEMPLATE_PLANE_X, null));
+		packageBoxPosition.addLinkTemplate(new LinkTemplate(LINK_PLANE_Y_POSITION, ID_TEMPLATE_PLANE_Y, null));
+		packageBoxPosition.addLinkTemplate(new LinkTemplate(LINK_PLANE_Z_POSITION, ID_TEMPLATE_PLANE_Z, null));
+		packageBoxPosition.addLinkTemplate(new LinkTemplate(LINK_PACKAGE_BOX_POSITION, ID_TEMPLATE_PACKAGE_BOX, null));
 
 		final Transformation transformations[] = new Transformation[] {
 				new LinkTransformation(ID_TEMPLATE_ROBOT, LINK_GRAB_POSITION, null, ID_TEMPLATE_PACKAGE_BOX),
@@ -220,21 +220,21 @@ public class GenerateSystemTransformations implements AssemblyLine {
 		template.addObjectTemplate(packageBoxPosition);
 
 		robot.addAttributeTemplate(new AttributeTemplate(ATTRIBUTE_PICK_AND_PLACE_ROBOT, true));
-		robot.addLinkTemplate(new LinkTemplate(LINK_VERTICAL_DRIVE_POSITION, ID_TEMPLATE_PLANE_Z_BOTTOM));
-		robot.addLinkTemplate(new LinkTemplate(LINK_GRAB_POSITION, ID_TEMPLATE_PACKAGE_BOX));
+		robot.addLinkTemplate(new LinkTemplate(LINK_VERTICAL_DRIVE_POSITION, ID_TEMPLATE_PLANE_Z_BOTTOM, null));
+		robot.addLinkTemplate(new LinkTemplate(LINK_GRAB_POSITION, ID_TEMPLATE_PACKAGE_BOX, null));
 
 		plane_z_top.addAttributeTemplate(new AttributeTemplate(ATTRIBUTE_PLANE_Z, true));
-		plane_z_top.addLinkTemplate(new LinkTemplate(LINK_VERTICAL_DRIVE_POSITION, null));
+		plane_z_top.addLinkTemplate(new LinkTemplate(LINK_VERTICAL_DRIVE_POSITION, null, null));
 
 		plane_z_bottom.addAttributeTemplate(new AttributeTemplate(ATTRIBUTE_PLANE_Z, true));
-		plane_z_bottom.addLinkTemplate(new LinkTemplate(LINK_VERTICAL_DRIVE_POSITION, ID_TEMPLATE_ROBOT));
+		plane_z_bottom.addLinkTemplate(new LinkTemplate(LINK_VERTICAL_DRIVE_POSITION, ID_TEMPLATE_ROBOT, null));
 
 		packageBox.addAttributeTemplate(new AttributeTemplate(ATTRIBUTE_PACKAGE, true));
-		packageBox.addLinkTemplate(new LinkTemplate(LINK_GRAB_POSITION, ID_TEMPLATE_ROBOT));
-		packageBox.addLinkTemplate(new LinkTemplate(LINK_PACKAGE_BOX_POSITION, ID_TEMPLATE_PACKAGE_BOX_POSITION));
+		packageBox.addLinkTemplate(new LinkTemplate(LINK_GRAB_POSITION, ID_TEMPLATE_ROBOT, null));
+		packageBox.addLinkTemplate(new LinkTemplate(LINK_PACKAGE_BOX_POSITION, ID_TEMPLATE_PACKAGE_BOX_POSITION, null));
 
 		packageBoxPosition.addAttributeTemplate(new AttributeTemplate(ATTRIBUTE_PACKAGE_BOX_POSITION, true));
-		packageBoxPosition.addLinkTemplate(new LinkTemplate(LINK_PACKAGE_BOX_POSITION, ID_TEMPLATE_PACKAGE_BOX));
+		packageBoxPosition.addLinkTemplate(new LinkTemplate(LINK_PACKAGE_BOX_POSITION, ID_TEMPLATE_PACKAGE_BOX, null));
 
 		final Transformation transformations[] = new Transformation[] {
 				new LinkTransformation(ID_TEMPLATE_PACKAGE_BOX, LINK_PACKAGE_BOX_POSITION, ID_TEMPLATE_PACKAGE_BOX_POSITION, null),
@@ -267,33 +267,33 @@ public class GenerateSystemTransformations implements AssemblyLine {
 		template.addObjectTemplate(packageBoxPosition);
 
 		robot.addAttributeTemplate(new AttributeTemplate(ATTRIBUTE_PICK_AND_PLACE_ROBOT, true));
-		robot.addLinkTemplate(new LinkTemplate(LINK_LINEAR_DRIVE_POSITION, ID_TEMPLATE_PLANE_X));
-		robot.addLinkTemplate(new LinkTemplate(LINK_VERTICAL_DRIVE_POSITION, ID_TEMPLATE_PLANE_Z_TOP));
-		robot.addLinkTemplate(new LinkTemplate(LINK_ROTARY_DRIVE_POSITION, ID_TEMPLATE_PLANE_Y));
-		robot.addLinkTemplate(new LinkTemplate(LINK_GRAB_POSITION, ID_TEMPLATE_PACKAGE_BOX));
+		robot.addLinkTemplate(new LinkTemplate(LINK_LINEAR_DRIVE_POSITION, ID_TEMPLATE_PLANE_X, null));
+		robot.addLinkTemplate(new LinkTemplate(LINK_VERTICAL_DRIVE_POSITION, ID_TEMPLATE_PLANE_Z_TOP, null));
+		robot.addLinkTemplate(new LinkTemplate(LINK_ROTARY_DRIVE_POSITION, ID_TEMPLATE_PLANE_Y, null));
+		robot.addLinkTemplate(new LinkTemplate(LINK_GRAB_POSITION, ID_TEMPLATE_PACKAGE_BOX, null));
 
 		plane_x.addAttributeTemplate(new AttributeTemplate(ATTRIBUTE_PLANE_X, true));
-		plane_x.addLinkTemplate(new LinkTemplate(LINK_LINEAR_DRIVE_POSITION, ID_TEMPLATE_ROBOT));
-		plane_x.addLinkTemplate(new LinkTemplate(LINK_PLANE_X_POSITION, ID_TEMPLATE_PACKAGE_BOX_POSITION));
+		plane_x.addLinkTemplate(new LinkTemplate(LINK_LINEAR_DRIVE_POSITION, ID_TEMPLATE_ROBOT, null));
+		plane_x.addLinkTemplate(new LinkTemplate(LINK_PLANE_X_POSITION, ID_TEMPLATE_PACKAGE_BOX_POSITION, null));
 
 		plane_y.addAttributeTemplate(new AttributeTemplate(ATTRIBUTE_PLANE_Y, true));
-		plane_y.addLinkTemplate(new LinkTemplate(LINK_ROTARY_DRIVE_POSITION, ID_TEMPLATE_ROBOT));
-		plane_y.addLinkTemplate(new LinkTemplate(LINK_PLANE_Y_POSITION, ID_TEMPLATE_PACKAGE_BOX_POSITION));
+		plane_y.addLinkTemplate(new LinkTemplate(LINK_ROTARY_DRIVE_POSITION, ID_TEMPLATE_ROBOT, null));
+		plane_y.addLinkTemplate(new LinkTemplate(LINK_PLANE_Y_POSITION, ID_TEMPLATE_PACKAGE_BOX_POSITION, null));
 
 		plane_z_top.addAttributeTemplate(new AttributeTemplate(ATTRIBUTE_PLANE_Z, true));
-		plane_z_top.addLinkTemplate(new LinkTemplate(LINK_VERTICAL_DRIVE_POSITION, ID_TEMPLATE_ROBOT));
+		plane_z_top.addLinkTemplate(new LinkTemplate(LINK_VERTICAL_DRIVE_POSITION, ID_TEMPLATE_ROBOT, null));
 
 		plane_z_bottom.addAttributeTemplate(new AttributeTemplate(ATTRIBUTE_PLANE_Z, true));
-		plane_z_bottom.addLinkTemplate(new LinkTemplate(LINK_VERTICAL_DRIVE_POSITION, null));
+		plane_z_bottom.addLinkTemplate(new LinkTemplate(LINK_VERTICAL_DRIVE_POSITION, null, null));
 
 		packageBox.addAttributeTemplate(new AttributeTemplate(ATTRIBUTE_PACKAGE, true));
-		packageBox.addLinkTemplate(new LinkTemplate(LINK_GRAB_POSITION, ID_TEMPLATE_ROBOT));
-		packageBox.addLinkTemplate(new LinkTemplate(LINK_PACKAGE_BOX_POSITION, null));
+		packageBox.addLinkTemplate(new LinkTemplate(LINK_GRAB_POSITION, ID_TEMPLATE_ROBOT, null));
+		packageBox.addLinkTemplate(new LinkTemplate(LINK_PACKAGE_BOX_POSITION, null, null));
 
 		packageBoxPosition.addAttributeTemplate(new AttributeTemplate(ATTRIBUTE_PACKAGE_BOX_POSITION, true));
-		packageBoxPosition.addLinkTemplate(new LinkTemplate(LINK_PLANE_X_POSITION, ID_TEMPLATE_PLANE_X));
-		packageBoxPosition.addLinkTemplate(new LinkTemplate(LINK_PLANE_Y_POSITION, ID_TEMPLATE_PLANE_Y));
-		packageBoxPosition.addLinkTemplate(new LinkTemplate(LINK_PACKAGE_BOX_POSITION, null));
+		packageBoxPosition.addLinkTemplate(new LinkTemplate(LINK_PLANE_X_POSITION, ID_TEMPLATE_PLANE_X, null));
+		packageBoxPosition.addLinkTemplate(new LinkTemplate(LINK_PLANE_Y_POSITION, ID_TEMPLATE_PLANE_Y, null));
+		packageBoxPosition.addLinkTemplate(new LinkTemplate(LINK_PACKAGE_BOX_POSITION, null, null));
 
 		final Transformation transformations[] = new Transformation[] {
 				new LinkTransformation(ID_TEMPLATE_PACKAGE_BOX, LINK_PACKAGE_BOX_POSITION, null, ID_TEMPLATE_PACKAGE_BOX_POSITION),
@@ -314,18 +314,18 @@ public class GenerateSystemTransformations implements AssemblyLine {
 		final SystemObjectTemplate packageBox = new SystemObjectTemplate(ID_TEMPLATE_PACKAGE_BOX);
 
 		robot.addAttributeTemplate(new AttributeTemplate(ATTRIBUTE_PICK_AND_PLACE_ROBOT, true));
-		robot.addLinkTemplate(new LinkTemplate(LINK_LINEAR_DRIVE_POSITION, ID_TEMPLATE_PLANE_X_SOURCE));
-		robot.addLinkTemplate(new LinkTemplate(LINK_GRAB_POSITION, ID_TEMPLATE_PACKAGE_BOX));
+		robot.addLinkTemplate(new LinkTemplate(LINK_LINEAR_DRIVE_POSITION, ID_TEMPLATE_PLANE_X_SOURCE, null));
+		robot.addLinkTemplate(new LinkTemplate(LINK_GRAB_POSITION, ID_TEMPLATE_PACKAGE_BOX, null));
 
 		plane_x_target.addAttributeTemplate(new AttributeTemplate(ATTRIBUTE_PLANE_X, true));
-		plane_x_target.addLinkTemplate(new LinkTemplate(LINK_LINEAR_DRIVE_POSITION, null));
+		plane_x_target.addLinkTemplate(new LinkTemplate(LINK_LINEAR_DRIVE_POSITION, null, null));
 
 		plane_x_source.addAttributeTemplate(new AttributeTemplate(ATTRIBUTE_PLANE_X, true));
-		plane_x_source.addLinkTemplate(new LinkTemplate(LINK_LINEAR_DRIVE_POSITION, ID_TEMPLATE_ROBOT));
+		plane_x_source.addLinkTemplate(new LinkTemplate(LINK_LINEAR_DRIVE_POSITION, ID_TEMPLATE_ROBOT, null));
 
 		packageBox.addAttributeTemplate(new AttributeTemplate(ATTRIBUTE_PACKAGE, true));
-		packageBox.addLinkTemplate(new LinkTemplate(LINK_GRAB_POSITION, ID_TEMPLATE_ROBOT));
-		packageBox.addLinkTemplate(new LinkTemplate(LINK_PACKAGE_BOX_POSITION, null));
+		packageBox.addLinkTemplate(new LinkTemplate(LINK_GRAB_POSITION, ID_TEMPLATE_ROBOT, null));
+		packageBox.addLinkTemplate(new LinkTemplate(LINK_PACKAGE_BOX_POSITION, null, null));
 
 		final SystemTemplate template = new SystemTemplate();
 		template.addObjectTemplate(robot);
@@ -358,14 +358,14 @@ public class GenerateSystemTransformations implements AssemblyLine {
 		final SystemObjectTemplate plane_x_source = new SystemObjectTemplate(ID_TEMPLATE_PLANE_X_SOURCE);
 
 		robot.addAttributeTemplate(new AttributeTemplate(ATTRIBUTE_PICK_AND_PLACE_ROBOT, true));
-		robot.addLinkTemplate(new LinkTemplate(LINK_LINEAR_DRIVE_POSITION, ID_TEMPLATE_PLANE_X_SOURCE));
-		robot.addLinkTemplate(new LinkTemplate(LINK_GRAB_POSITION, null));
+		robot.addLinkTemplate(new LinkTemplate(LINK_LINEAR_DRIVE_POSITION, ID_TEMPLATE_PLANE_X_SOURCE, null));
+		robot.addLinkTemplate(new LinkTemplate(LINK_GRAB_POSITION, null, null));
 
 		plane_x_target.addAttributeTemplate(new AttributeTemplate(ATTRIBUTE_PLANE_X, true));
-		plane_x_target.addLinkTemplate(new LinkTemplate(LINK_LINEAR_DRIVE_POSITION, null));
+		plane_x_target.addLinkTemplate(new LinkTemplate(LINK_LINEAR_DRIVE_POSITION, null, null));
 
 		plane_x_source.addAttributeTemplate(new AttributeTemplate(ATTRIBUTE_PLANE_X, true));
-		plane_x_source.addLinkTemplate(new LinkTemplate(LINK_LINEAR_DRIVE_POSITION, ID_TEMPLATE_ROBOT));
+		plane_x_source.addLinkTemplate(new LinkTemplate(LINK_LINEAR_DRIVE_POSITION, ID_TEMPLATE_ROBOT, null));
 
 		final SystemTemplate template = new SystemTemplate();
 		template.addObjectTemplate(robot);

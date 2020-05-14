@@ -4,13 +4,16 @@ import java.util.Objects;
 
 public class Link implements Cloneable {
 
-	private String objectId;
+	private String objectId1;
+
+	private String objectId2;
 
 	private String name;
 
-	public Link(String name, String objectId) {
+	public Link(String name, String objectId1, String objectId2) {
 		this.name = name;
-		this.objectId = objectId;
+		this.objectId1 = objectId1;
+		this.objectId2 = objectId2;
 	}
 
 	@Override
@@ -23,14 +26,16 @@ public class Link implements Cloneable {
 		}
 		Link link = (Link) obj;
 
-		return name.equals(link.name) && Objects.equals(objectId, link.objectId);
+		return name.equals(link.name) && Objects.equals(objectId1, link.objectId1)
+				&& Objects.equals(objectId2, link.objectId2);
 	}
 
 	@Override
 	public Link clone() throws CloneNotSupportedException {
 		Link clone = (Link) super.clone();
 		clone.name = name;
-		clone.objectId = objectId;
+		clone.objectId1 = objectId1;
+		clone.objectId2 = objectId2;
 		return clone;
 	}
 
@@ -38,15 +43,23 @@ public class Link implements Cloneable {
 		return name;
 	}
 
-	public String getObjectId() {
-		return objectId;
+	public String getObjectId1() {
+		return objectId1;
 	}
 
-	public void setObjectId(String objectId) {
-		this.objectId = objectId;
+	public void setObjectId1(String objectId1) {
+		this.objectId1 = objectId1;
+	}
+
+	public String getObjectId2() {
+		return objectId2;
+	}
+
+	public void setObjectId2(String objectId2) {
+		this.objectId2 = objectId2;
 	}
 
 	public LinkTemplate createTemplate() {
-		return new LinkTemplate(name, objectId);
+		return new LinkTemplate(name, objectId1, objectId2);
 	}
 }

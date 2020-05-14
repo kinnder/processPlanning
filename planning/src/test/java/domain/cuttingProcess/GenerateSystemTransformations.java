@@ -33,20 +33,20 @@ public class GenerateSystemTransformations implements CuttingProcess {
 		template.addObjectTemplate(requirement);
 
 		workpiece.addAttributeTemplate(new AttributeTemplate(ATTRIBUTE_WORKPIECE, true));
-		workpiece.addLinkTemplate(new LinkTemplate(LINK_IS_PART_OF, ID_CYLINDER_SURFACE));
-		workpiece.addLinkTemplate(new LinkTemplate(LINK_IS_REQUIREMENT_OF, ID_REQUIREMENT));
+		workpiece.addLinkTemplate(new LinkTemplate(LINK_IS_PART_OF, ID_CYLINDER_SURFACE, null));
+		workpiece.addLinkTemplate(new LinkTemplate(LINK_IS_REQUIREMENT_OF, ID_REQUIREMENT, null));
 
 		cylinderSurface.addAttributeTemplate(new AttributeTemplate(ATTRIBUTE_CYLINDER_SURFACE, true));
 		cylinderSurface.addAttributeTemplate(new AttributeTemplate(ATTRIBUTE_DIAMETER));
 		cylinderSurface.addAttributeTemplate(new AttributeTemplate(ATTRIBUTE_HAS_DIAMETER_REQUIREMENT, false));
-		cylinderSurface.addLinkTemplate(new LinkTemplate(LINK_IS_PART_OF, ID_WORKPIECE));
-		cylinderSurface.addLinkTemplate(new LinkTemplate(LINK_IS_DIAMETER_REQUIREMENT, null));
+		cylinderSurface.addLinkTemplate(new LinkTemplate(LINK_IS_PART_OF, ID_WORKPIECE, null));
+		cylinderSurface.addLinkTemplate(new LinkTemplate(LINK_IS_DIAMETER_REQUIREMENT, null, null));
 
 		requirement.addAttributeTemplate(new AttributeTemplate(ATTRIBUTE_REQUIREMENT, true));
 		requirement.addAttributeTemplate(new AttributeTemplate(ATTRIBUTE_DIAMETER_REQUIREMENT));
 		requirement.addAttributeTemplate(new AttributeTemplate(ATTRIBUTE_DIAMETER_REQUIREMENT_STATUS, false));
-		requirement.addLinkTemplate(new LinkTemplate(LINK_IS_REQUIREMENT_OF, ID_WORKPIECE));
-		requirement.addLinkTemplate(new LinkTemplate(LINK_IS_DIAMETER_REQUIREMENT, null));
+		requirement.addLinkTemplate(new LinkTemplate(LINK_IS_REQUIREMENT_OF, ID_WORKPIECE, null));
+		requirement.addLinkTemplate(new LinkTemplate(LINK_IS_DIAMETER_REQUIREMENT, null, null));
 
 		final Transformation transformations[] = new Transformation[] {
 				new AttributeTransformation(ID_REQUIREMENT, ATTRIBUTE_DIAMETER_REQUIREMENT_STATUS, true),
@@ -109,21 +109,21 @@ public class GenerateSystemTransformations implements CuttingProcess {
 		template.addObjectTemplate(requirement);
 
 		workpiece.addAttributeTemplate(new AttributeTemplate(ATTRIBUTE_WORKPIECE, true));
-		workpiece.addLinkTemplate(new LinkTemplate(LINK_IS_PART_OF, ID_CYLINDER_SURFACE));
-		workpiece.addLinkTemplate(new LinkTemplate(LINK_IS_REQUIREMENT_OF, ID_REQUIREMENT));
+		workpiece.addLinkTemplate(new LinkTemplate(LINK_IS_PART_OF, ID_CYLINDER_SURFACE, null));
+		workpiece.addLinkTemplate(new LinkTemplate(LINK_IS_REQUIREMENT_OF, ID_REQUIREMENT, null));
 
 		cylinderSurface.addAttributeTemplate(new AttributeTemplate(ATTRIBUTE_CYLINDER_SURFACE, true));
 		cylinderSurface.addAttributeTemplate(new AttributeTemplate(ATTRIBUTE_LENGTH));
 		cylinderSurface.addAttributeTemplate(new AttributeTemplate(ATTRIBUTE_HAS_LENGTH_REQUIREMENT, false));
 		cylinderSurface.addAttributeTemplate(new AttributeTemplate(ATTRIBUTE_HAS_DIAMETER_REQUIREMENT, true));
-		cylinderSurface.addLinkTemplate(new LinkTemplate(LINK_IS_PART_OF, ID_WORKPIECE));
-		cylinderSurface.addLinkTemplate(new LinkTemplate(LINK_IS_LENGTH_REQUIREMENT, null));
+		cylinderSurface.addLinkTemplate(new LinkTemplate(LINK_IS_PART_OF, ID_WORKPIECE, null));
+		cylinderSurface.addLinkTemplate(new LinkTemplate(LINK_IS_LENGTH_REQUIREMENT, null, null));
 
 		requirement.addAttributeTemplate(new AttributeTemplate(ATTRIBUTE_REQUIREMENT, true));
 		requirement.addAttributeTemplate(new AttributeTemplate(ATTRIBUTE_LENGTH_REQUIREMENT));
 		requirement.addAttributeTemplate(new AttributeTemplate(ATTRIBUTE_LENGTH_REQUIREMENT_STATUS, false));
-		requirement.addLinkTemplate(new LinkTemplate(LINK_IS_REQUIREMENT_OF, ID_WORKPIECE));
-		requirement.addLinkTemplate(new LinkTemplate(LINK_IS_LENGTH_REQUIREMENT, null));
+		requirement.addLinkTemplate(new LinkTemplate(LINK_IS_REQUIREMENT_OF, ID_WORKPIECE, null));
+		requirement.addLinkTemplate(new LinkTemplate(LINK_IS_LENGTH_REQUIREMENT, null, null));
 
 		final Transformation transformations[] = new Transformation[] {
 				new AttributeTransformation(ID_REQUIREMENT, ATTRIBUTE_LENGTH_REQUIREMENT_STATUS, true),
@@ -166,30 +166,30 @@ public class GenerateSystemTransformations implements CuttingProcess {
 		template.addObjectTemplate(requirement_r);
 
 		workpiece.addAttributeTemplate(new AttributeTemplate(ATTRIBUTE_WORKPIECE, true));
-		workpiece.addLinkTemplate(new LinkTemplate(LINK_IS_PART_OF, ID_CYLINDER_SURFACE));
-		workpiece.addLinkTemplate(new LinkTemplate(LINK_IS_REQUIREMENT_OF, ID_REQUIREMENT_L));
-		workpiece.addLinkTemplate(new LinkTemplate(LINK_IS_REQUIREMENT_OF, ID_REQUIREMENT_R));
+		workpiece.addLinkTemplate(new LinkTemplate(LINK_IS_PART_OF, ID_CYLINDER_SURFACE, null));
+		workpiece.addLinkTemplate(new LinkTemplate(LINK_IS_REQUIREMENT_OF, ID_REQUIREMENT_L, null));
+		workpiece.addLinkTemplate(new LinkTemplate(LINK_IS_REQUIREMENT_OF, ID_REQUIREMENT_R, null));
 
 		cylinderSurface.addAttributeTemplate(new AttributeTemplate(ATTRIBUTE_CYLINDER_SURFACE, true));
 		cylinderSurface.addAttributeTemplate(new AttributeTemplate(ATTRIBUTE_DIAMETER));
 		cylinderSurface.addAttributeTemplate(new AttributeTemplate(ATTRIBUTE_LENGTH));
 		cylinderSurface.addAttributeTemplate(new AttributeTemplate(ATTRIBUTE_HAS_LENGTH_REQUIREMENT, false));
-		cylinderSurface.addLinkTemplate(new LinkTemplate(LINK_IS_PART_OF, ID_WORKPIECE));
-		cylinderSurface.addLinkTemplate(new LinkTemplate(LINK_IS_LENGTH_REQUIREMENT, null));
+		cylinderSurface.addLinkTemplate(new LinkTemplate(LINK_IS_PART_OF, ID_WORKPIECE, null));
+		cylinderSurface.addLinkTemplate(new LinkTemplate(LINK_IS_LENGTH_REQUIREMENT, null, null));
 
 		requirement_l.addAttributeTemplate(new AttributeTemplate(ATTRIBUTE_REQUIREMENT, true));
 		requirement_l.addAttributeTemplate(new AttributeTemplate(ATTRIBUTE_LENGTH_REQUIREMENT));
 		requirement_l.addAttributeTemplate(new AttributeTemplate(ATTRIBUTE_LENGTH_REQUIREMENT_STATUS, false));
-		requirement_l.addLinkTemplate(new LinkTemplate(LINK_IS_REQUIREMENT_OF, ID_WORKPIECE));
-		requirement_l.addLinkTemplate(new LinkTemplate(LINK_SURFACE_SIDE_RIGHT, ID_REQUIREMENT_R));
-		requirement_l.addLinkTemplate(new LinkTemplate(LINK_IS_LENGTH_REQUIREMENT, null));
+		requirement_l.addLinkTemplate(new LinkTemplate(LINK_IS_REQUIREMENT_OF, ID_WORKPIECE, null));
+		requirement_l.addLinkTemplate(new LinkTemplate(LINK_SURFACE_SIDE_RIGHT, ID_REQUIREMENT_R, null));
+		requirement_l.addLinkTemplate(new LinkTemplate(LINK_IS_LENGTH_REQUIREMENT, null, null));
 
 		requirement_r.addAttributeTemplate(new AttributeTemplate(ATTRIBUTE_REQUIREMENT, true));
 		requirement_r.addAttributeTemplate(new AttributeTemplate(ATTRIBUTE_DIAMETER_REQUIREMENT));
 		requirement_r.addAttributeTemplate(new AttributeTemplate(ATTRIBUTE_DIAMETER_REQUIREMENT_STATUS, false));
-		requirement_r.addLinkTemplate(new LinkTemplate(LINK_IS_REQUIREMENT_OF, ID_WORKPIECE));
-		requirement_r.addLinkTemplate(new LinkTemplate(LINK_SURFACE_SIDE_LEFT, ID_REQUIREMENT_L));
-		requirement_r.addLinkTemplate(new LinkTemplate(LINK_IS_DIAMETER_REQUIREMENT, null));
+		requirement_r.addLinkTemplate(new LinkTemplate(LINK_IS_REQUIREMENT_OF, ID_WORKPIECE, null));
+		requirement_r.addLinkTemplate(new LinkTemplate(LINK_SURFACE_SIDE_LEFT, ID_REQUIREMENT_L, null));
+		requirement_r.addLinkTemplate(new LinkTemplate(LINK_IS_DIAMETER_REQUIREMENT, null, null));
 
 		final Transformation transformations[] = new Transformation[] {
 				new AttributeTransformation(ID_REQUIREMENT_L, ATTRIBUTE_LENGTH_REQUIREMENT_STATUS, true),
@@ -285,7 +285,7 @@ public class GenerateSystemTransformations implements CuttingProcess {
 		script.append("workpiece_actual:addLink('" + LINK_IS_PART_OF + "', cylinderSurface_new:getId())");
 		script.append("\n");
 		script.append("requirement_r_actual:getLink('" + LINK_IS_DIAMETER_REQUIREMENT
-				+ "', nil):setObjectId(cylinderSurface_new:getId())");
+				+ "', nil):setObjectId1(cylinderSurface_new:getId())");
 		script.append("\n");
 
 		action.registerActionParameterUpdater(new LuaScriptActionParameterUpdater(globals, script.toString()));

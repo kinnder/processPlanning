@@ -364,7 +364,7 @@
 				<line n="24">cylinderSurface_actual:getAttribute('ATTRIBUTE-LENGTH'):setValue(lengthRequired)</line>
 				<line n="25">cylinderSurface_new:addLink('LINK-SURFACE-SIDE-RIGHT', cylinderSurface_new:getId())</line>
 				<line n="26">workpiece_actual:addLink('LINK-IS-PART-OF', cylinderSurface_new:getId())</line>
-				<line n="27">requirement_r_actual:getLink('LINK-IS-DIAMETER-REQUIREMENT', nil):setObjectId(cylinderSurface_new:getId())</line>
+				<line n="27">requirement_r_actual:getLink('LINK-IS-DIAMETER-REQUIREMENT', nil):setObjectId1(cylinderSurface_new:getId())</line>
 			</parameterUpdater>
 		</action>
 	</systemTransformation>

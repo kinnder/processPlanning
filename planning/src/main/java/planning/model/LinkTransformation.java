@@ -33,6 +33,6 @@ public class LinkTransformation extends Transformation {
 		String linkOldValueActual = systemVariant.getObjectIdByIdMatch(linkOldValue);
 
 		Link link = object.getLink(linkName, linkOldValueActual);
-		link.setObjectId(linkNewValueActual);
+		link.setObjectId1(linkNewValueActual);
 	}
 }

@@ -39,59 +39,59 @@ public class GenerateTaskDescription implements AssemblyLine {
 		system.addObject(table_2);
 
 		robot.addAttribute(new Attribute(ATTRIBUTE_PICK_AND_PLACE_ROBOT, true));
-		robot.addLink(new Link(LINK_LINEAR_DRIVE_POSITION, ID_OBJECT_PLANE_X_TABLE_2));
-		robot.addLink(new Link(LINK_ROTARY_DRIVE_POSITION, ID_OBJECT_PLANE_Y_INSIDE));
-		robot.addLink(new Link(LINK_VERTICAL_DRIVE_POSITION, ID_OBJECT_PLANE_Z_BOTTOM));
-		robot.addLink(new Link(LINK_GRAB_POSITION, null));
+		robot.addLink(new Link(LINK_LINEAR_DRIVE_POSITION, ID_OBJECT_PLANE_X_TABLE_2, null));
+		robot.addLink(new Link(LINK_ROTARY_DRIVE_POSITION, ID_OBJECT_PLANE_Y_INSIDE, null));
+		robot.addLink(new Link(LINK_VERTICAL_DRIVE_POSITION, ID_OBJECT_PLANE_Z_BOTTOM, null));
+		robot.addLink(new Link(LINK_GRAB_POSITION, null, null));
 
 		plane_x_table_1.addAttribute(new Attribute(ATTRIBUTE_PLANE_X, true));
-		plane_x_table_1.addLink(new Link(LINK_LINEAR_DRIVE_POSITION, null));
-		plane_x_table_1.addLink(new Link(LINK_PLANE_X_POSITION, ID_OBJECT_TABLE_1));
+		plane_x_table_1.addLink(new Link(LINK_LINEAR_DRIVE_POSITION, null, null));
+		plane_x_table_1.addLink(new Link(LINK_PLANE_X_POSITION, ID_OBJECT_TABLE_1, null));
 
 		plane_x_table_2.addAttribute(new Attribute(ATTRIBUTE_PLANE_X, true));
-		plane_x_table_2.addLink(new Link(LINK_LINEAR_DRIVE_POSITION, ID_OBJECT_PICK_AND_PLACE_ROBOT));
-		plane_x_table_2.addLink(new Link(LINK_PLANE_X_POSITION, ID_OBJECT_TABLE_2));
-		plane_x_table_2.addLink(new Link(LINK_PLANE_X_POSITION, ID_OBJECT_SHUTTLE));
+		plane_x_table_2.addLink(new Link(LINK_LINEAR_DRIVE_POSITION, ID_OBJECT_PICK_AND_PLACE_ROBOT, null));
+		plane_x_table_2.addLink(new Link(LINK_PLANE_X_POSITION, ID_OBJECT_TABLE_2, null));
+		plane_x_table_2.addLink(new Link(LINK_PLANE_X_POSITION, ID_OBJECT_SHUTTLE, null));
 
 		plane_y_inside.addAttribute(new Attribute(ATTRIBUTE_PLANE_Y, true));
-		plane_y_inside.addLink(new Link(LINK_ROTARY_DRIVE_POSITION, ID_OBJECT_PICK_AND_PLACE_ROBOT));
-		plane_y_inside.addLink(new Link(LINK_PLANE_Y_POSITION, ID_OBJECT_TABLE_1));
-		plane_y_inside.addLink(new Link(LINK_PLANE_Y_POSITION, ID_OBJECT_TABLE_2));
+		plane_y_inside.addLink(new Link(LINK_ROTARY_DRIVE_POSITION, ID_OBJECT_PICK_AND_PLACE_ROBOT, null));
+		plane_y_inside.addLink(new Link(LINK_PLANE_Y_POSITION, ID_OBJECT_TABLE_1, null));
+		plane_y_inside.addLink(new Link(LINK_PLANE_Y_POSITION, ID_OBJECT_TABLE_2, null));
 
 		plane_y_outside.addAttribute(new Attribute(ATTRIBUTE_PLANE_Y, true));
-		plane_y_outside.addLink(new Link(LINK_ROTARY_DRIVE_POSITION, null));
-		plane_y_outside.addLink(new Link(LINK_PLANE_Y_POSITION, ID_OBJECT_SHUTTLE));
+		plane_y_outside.addLink(new Link(LINK_ROTARY_DRIVE_POSITION, null, null));
+		plane_y_outside.addLink(new Link(LINK_PLANE_Y_POSITION, ID_OBJECT_SHUTTLE, null));
 
 		plane_z_top.addAttribute(new Attribute(ATTRIBUTE_PLANE_Z, true));
-		plane_z_top.addLink(new Link(LINK_VERTICAL_DRIVE_POSITION, null));
+		plane_z_top.addLink(new Link(LINK_VERTICAL_DRIVE_POSITION, null, null));
 
 		plane_z_bottom.addAttribute(new Attribute(ATTRIBUTE_PLANE_Z, true));
-		plane_z_bottom.addLink(new Link(LINK_VERTICAL_DRIVE_POSITION, ID_OBJECT_PICK_AND_PLACE_ROBOT));
-		plane_z_bottom.addLink(new Link(LINK_PLANE_Z_POSITION, ID_OBJECT_TABLE_1));
-		plane_z_bottom.addLink(new Link(LINK_PLANE_Z_POSITION, ID_OBJECT_TABLE_2));
-		plane_z_bottom.addLink(new Link(LINK_PLANE_Z_POSITION, ID_OBJECT_SHUTTLE));
+		plane_z_bottom.addLink(new Link(LINK_VERTICAL_DRIVE_POSITION, ID_OBJECT_PICK_AND_PLACE_ROBOT, null));
+		plane_z_bottom.addLink(new Link(LINK_PLANE_Z_POSITION, ID_OBJECT_TABLE_1, null));
+		plane_z_bottom.addLink(new Link(LINK_PLANE_Z_POSITION, ID_OBJECT_TABLE_2, null));
+		plane_z_bottom.addLink(new Link(LINK_PLANE_Z_POSITION, ID_OBJECT_SHUTTLE, null));
 
 		packageBox.addAttribute(new Attribute(ATTRIBUTE_PACKAGE, true));
-		packageBox.addLink(new Link(LINK_GRAB_POSITION, null));
-		packageBox.addLink(new Link(LINK_PACKAGE_BOX_POSITION, ID_OBJECT_SHUTTLE));
+		packageBox.addLink(new Link(LINK_GRAB_POSITION, null, null));
+		packageBox.addLink(new Link(LINK_PACKAGE_BOX_POSITION, ID_OBJECT_SHUTTLE, null));
 
 		shuttle.addAttribute(new Attribute(ATTRIBUTE_PACKAGE_BOX_POSITION, true));
-		shuttle.addLink(new Link(LINK_PLANE_X_POSITION, ID_OBJECT_PLANE_X_TABLE_2));
-		shuttle.addLink(new Link(LINK_PLANE_Y_POSITION, ID_OBJECT_PLANE_Y_OUTSIDE));
-		shuttle.addLink(new Link(LINK_PLANE_Z_POSITION, ID_OBJECT_PLANE_Z_BOTTOM));
-		shuttle.addLink(new Link(LINK_PACKAGE_BOX_POSITION, ID_OBJECT_PACKAGE_BOX));
+		shuttle.addLink(new Link(LINK_PLANE_X_POSITION, ID_OBJECT_PLANE_X_TABLE_2, null));
+		shuttle.addLink(new Link(LINK_PLANE_Y_POSITION, ID_OBJECT_PLANE_Y_OUTSIDE, null));
+		shuttle.addLink(new Link(LINK_PLANE_Z_POSITION, ID_OBJECT_PLANE_Z_BOTTOM, null));
+		shuttle.addLink(new Link(LINK_PACKAGE_BOX_POSITION, ID_OBJECT_PACKAGE_BOX, null));
 
 		table_1.addAttribute(new Attribute(ATTRIBUTE_PACKAGE_BOX_POSITION, true));
-		table_1.addLink(new Link(LINK_PLANE_X_POSITION, ID_OBJECT_PLANE_X_TABLE_1));
-		table_1.addLink(new Link(LINK_PLANE_Y_POSITION, ID_OBJECT_PLANE_Y_INSIDE));
-		table_1.addLink(new Link(LINK_PLANE_Z_POSITION, ID_OBJECT_PLANE_Z_BOTTOM));
-		table_1.addLink(new Link(LINK_PACKAGE_BOX_POSITION, null));
+		table_1.addLink(new Link(LINK_PLANE_X_POSITION, ID_OBJECT_PLANE_X_TABLE_1, null));
+		table_1.addLink(new Link(LINK_PLANE_Y_POSITION, ID_OBJECT_PLANE_Y_INSIDE, null));
+		table_1.addLink(new Link(LINK_PLANE_Z_POSITION, ID_OBJECT_PLANE_Z_BOTTOM, null));
+		table_1.addLink(new Link(LINK_PACKAGE_BOX_POSITION, null, null));
 
 		table_2.addAttribute(new Attribute(ATTRIBUTE_PACKAGE_BOX_POSITION, true));
-		table_2.addLink(new Link(LINK_PLANE_X_POSITION, ID_OBJECT_PLANE_X_TABLE_2));
-		table_2.addLink(new Link(LINK_PLANE_Y_POSITION, ID_OBJECT_PLANE_Y_INSIDE));
-		table_2.addLink(new Link(LINK_PLANE_Z_POSITION, ID_OBJECT_PLANE_Z_BOTTOM));
-		table_2.addLink(new Link(LINK_PACKAGE_BOX_POSITION, null));
+		table_2.addLink(new Link(LINK_PLANE_X_POSITION, ID_OBJECT_PLANE_X_TABLE_2, null));
+		table_2.addLink(new Link(LINK_PLANE_Y_POSITION, ID_OBJECT_PLANE_Y_INSIDE, null));
+		table_2.addLink(new Link(LINK_PLANE_Z_POSITION, ID_OBJECT_PLANE_Z_BOTTOM, null));
+		table_2.addLink(new Link(LINK_PACKAGE_BOX_POSITION, null, null));
 
 		return system;
 	}
@@ -99,22 +99,22 @@ public class GenerateTaskDescription implements AssemblyLine {
 	public static System finalSystem() {
 		final SystemObject packageBox = new SystemObject(OBJECT_PACKAGE_BOX, ID_OBJECT_PACKAGE_BOX);
 		packageBox.addAttribute(new Attribute(ATTRIBUTE_PACKAGE, true));
-		packageBox.addLink(new Link(LINK_GRAB_POSITION, null));
-		packageBox.addLink(new Link(LINK_PACKAGE_BOX_POSITION, ID_OBJECT_TABLE_1));
+		packageBox.addLink(new Link(LINK_GRAB_POSITION, null, null));
+		packageBox.addLink(new Link(LINK_PACKAGE_BOX_POSITION, ID_OBJECT_TABLE_1, null));
 
 		final SystemObject robot = new SystemObject(OBJECT_PICK_AND_PLACE_ROBOT, ID_OBJECT_PICK_AND_PLACE_ROBOT);
 		robot.addAttribute(new Attribute(ATTRIBUTE_PICK_AND_PLACE_ROBOT, true));
-		robot.addLink(new Link(LINK_LINEAR_DRIVE_POSITION, ID_OBJECT_PLANE_X_TABLE_2));
-		robot.addLink(new Link(LINK_ROTARY_DRIVE_POSITION, ID_OBJECT_PLANE_Y_INSIDE));
-		robot.addLink(new Link(LINK_VERTICAL_DRIVE_POSITION, ID_OBJECT_PLANE_Z_BOTTOM));
-		robot.addLink(new Link(LINK_GRAB_POSITION, null));
+		robot.addLink(new Link(LINK_LINEAR_DRIVE_POSITION, ID_OBJECT_PLANE_X_TABLE_2, null));
+		robot.addLink(new Link(LINK_ROTARY_DRIVE_POSITION, ID_OBJECT_PLANE_Y_INSIDE, null));
+		robot.addLink(new Link(LINK_VERTICAL_DRIVE_POSITION, ID_OBJECT_PLANE_Z_BOTTOM, null));
+		robot.addLink(new Link(LINK_GRAB_POSITION, null, null));
 
 		final SystemObject table_1 = new SystemObject(OBJECT_TABLE_1, ID_OBJECT_TABLE_1);
 		table_1.addAttribute(new Attribute(ATTRIBUTE_PACKAGE_BOX_POSITION, true));
-		table_1.addLink(new Link(LINK_PLANE_X_POSITION, ID_OBJECT_PLANE_X_TABLE_1));
-		table_1.addLink(new Link(LINK_PLANE_Y_POSITION, ID_OBJECT_PLANE_Y_INSIDE));
-		table_1.addLink(new Link(LINK_PLANE_Z_POSITION, ID_OBJECT_PLANE_Z_BOTTOM));
-		table_1.addLink(new Link(LINK_PACKAGE_BOX_POSITION, ID_OBJECT_PACKAGE_BOX));
+		table_1.addLink(new Link(LINK_PLANE_X_POSITION, ID_OBJECT_PLANE_X_TABLE_1, null));
+		table_1.addLink(new Link(LINK_PLANE_Y_POSITION, ID_OBJECT_PLANE_Y_INSIDE, null));
+		table_1.addLink(new Link(LINK_PLANE_Z_POSITION, ID_OBJECT_PLANE_Z_BOTTOM, null));
+		table_1.addLink(new Link(LINK_PACKAGE_BOX_POSITION, ID_OBJECT_PACKAGE_BOX, null));
 
 		final System system = new System();
 		system.addObject(packageBox);

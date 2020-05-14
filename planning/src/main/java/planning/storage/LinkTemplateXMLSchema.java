@@ -11,7 +11,7 @@ public class LinkTemplateXMLSchema implements XMLSchema<LinkTemplate> {
 	public LinkTemplate parse(Element root) throws DataConversionException {
 		String name = root.getChildText("name");
 		String value = root.getChildText("value");
-		return new LinkTemplate(name, value);
+		return new LinkTemplate(name, value, null);
 	}
 
 	@Override

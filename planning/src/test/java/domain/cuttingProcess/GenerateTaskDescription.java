@@ -31,52 +31,52 @@ public class GenerateTaskDescription implements CuttingProcess {
 		system.addObject(requirement_c);
 
 		workpiece.addAttribute(new Attribute(ATTRIBUTE_WORKPIECE, true));
-		workpiece.addLink(new Link(LINK_IS_PART_OF, ID_OBJECT_CYLINDER_SURFACE));
-		workpiece.addLink(new Link(LINK_IS_REQUIREMENT_OF, ID_OBJECT_REQUIREMENT_SURFACE_A));
-		workpiece.addLink(new Link(LINK_IS_REQUIREMENT_OF, ID_OBJECT_REQUIREMENT_SURFACE_B));
-		workpiece.addLink(new Link(LINK_IS_REQUIREMENT_OF, ID_OBJECT_REQUIREMENT_SURFACE_C));
+		workpiece.addLink(new Link(LINK_IS_PART_OF, ID_OBJECT_CYLINDER_SURFACE, null));
+		workpiece.addLink(new Link(LINK_IS_REQUIREMENT_OF, ID_OBJECT_REQUIREMENT_SURFACE_A, null));
+		workpiece.addLink(new Link(LINK_IS_REQUIREMENT_OF, ID_OBJECT_REQUIREMENT_SURFACE_B, null));
+		workpiece.addLink(new Link(LINK_IS_REQUIREMENT_OF, ID_OBJECT_REQUIREMENT_SURFACE_C, null));
 
 		cylinderSurface.addAttribute(new Attribute(ATTRIBUTE_CYLINDER_SURFACE, true));
 		cylinderSurface.addAttribute(new Attribute(ATTRIBUTE_DIAMETER, Integer.valueOf(22)));
 		cylinderSurface.addAttribute(new Attribute(ATTRIBUTE_LENGTH, Integer.valueOf(90)));
 		cylinderSurface.addAttribute(new Attribute(ATTRIBUTE_HAS_DIAMETER_REQUIREMENT, false));
 		cylinderSurface.addAttribute(new Attribute(ATTRIBUTE_HAS_LENGTH_REQUIREMENT, false));
-		cylinderSurface.addLink(new Link(LINK_IS_PART_OF, ID_OBJECT_WORKPIECE));
-		cylinderSurface.addLink(new Link(LINK_IS_DIAMETER_REQUIREMENT, null));
-		cylinderSurface.addLink(new Link(LINK_IS_LENGTH_REQUIREMENT, null));
+		cylinderSurface.addLink(new Link(LINK_IS_PART_OF, ID_OBJECT_WORKPIECE, null));
+		cylinderSurface.addLink(new Link(LINK_IS_DIAMETER_REQUIREMENT, null, null));
+		cylinderSurface.addLink(new Link(LINK_IS_LENGTH_REQUIREMENT, null, null));
 
 		requirement_a.addAttribute(new Attribute(ATTRIBUTE_REQUIREMENT, true));
 		requirement_a.addAttribute(new Attribute(ATTRIBUTE_DIAMETER_REQUIREMENT, Integer.valueOf(20)));
 		requirement_a.addAttribute(new Attribute(ATTRIBUTE_DIAMETER_REQUIREMENT_STATUS, false));
 		requirement_a.addAttribute(new Attribute(ATTRIBUTE_LENGTH_REQUIREMENT, Integer.valueOf(45)));
 		requirement_a.addAttribute(new Attribute(ATTRIBUTE_LENGTH_REQUIREMENT_STATUS, false));
-		requirement_a.addLink(new Link(LINK_IS_REQUIREMENT_OF, ID_OBJECT_WORKPIECE));
-		requirement_a.addLink(new Link(LINK_IS_DIAMETER_REQUIREMENT, null));
-		requirement_a.addLink(new Link(LINK_IS_LENGTH_REQUIREMENT, null));
-		requirement_a.addLink(new Link(LINK_SURFACE_SIDE_LEFT, null));
-		requirement_a.addLink(new Link(LINK_SURFACE_SIDE_RIGHT, ID_OBJECT_REQUIREMENT_SURFACE_B));
+		requirement_a.addLink(new Link(LINK_IS_REQUIREMENT_OF, ID_OBJECT_WORKPIECE, null));
+		requirement_a.addLink(new Link(LINK_IS_DIAMETER_REQUIREMENT, null, null));
+		requirement_a.addLink(new Link(LINK_IS_LENGTH_REQUIREMENT, null, null));
+		requirement_a.addLink(new Link(LINK_SURFACE_SIDE_LEFT, null, null));
+		requirement_a.addLink(new Link(LINK_SURFACE_SIDE_RIGHT, ID_OBJECT_REQUIREMENT_SURFACE_B, null));
 
 		requirement_b.addAttribute(new Attribute(ATTRIBUTE_REQUIREMENT, true));
 		requirement_b.addAttribute(new Attribute(ATTRIBUTE_DIAMETER_REQUIREMENT, Integer.valueOf(16)));
 		requirement_b.addAttribute(new Attribute(ATTRIBUTE_DIAMETER_REQUIREMENT_STATUS, false));
 		requirement_b.addAttribute(new Attribute(ATTRIBUTE_LENGTH_REQUIREMENT, Integer.valueOf(30)));
 		requirement_b.addAttribute(new Attribute(ATTRIBUTE_LENGTH_REQUIREMENT_STATUS, false));
-		requirement_b.addLink(new Link(LINK_IS_REQUIREMENT_OF, ID_OBJECT_WORKPIECE));
-		requirement_b.addLink(new Link(LINK_IS_DIAMETER_REQUIREMENT, null));
-		requirement_b.addLink(new Link(LINK_IS_LENGTH_REQUIREMENT, null));
-		requirement_b.addLink(new Link(LINK_SURFACE_SIDE_LEFT, ID_OBJECT_REQUIREMENT_SURFACE_A));
-		requirement_b.addLink(new Link(LINK_SURFACE_SIDE_RIGHT, ID_OBJECT_REQUIREMENT_SURFACE_C));
+		requirement_b.addLink(new Link(LINK_IS_REQUIREMENT_OF, ID_OBJECT_WORKPIECE, null));
+		requirement_b.addLink(new Link(LINK_IS_DIAMETER_REQUIREMENT, null, null));
+		requirement_b.addLink(new Link(LINK_IS_LENGTH_REQUIREMENT, null, null));
+		requirement_b.addLink(new Link(LINK_SURFACE_SIDE_LEFT, ID_OBJECT_REQUIREMENT_SURFACE_A, null));
+		requirement_b.addLink(new Link(LINK_SURFACE_SIDE_RIGHT, ID_OBJECT_REQUIREMENT_SURFACE_C, null));
 
 		requirement_c.addAttribute(new Attribute(ATTRIBUTE_REQUIREMENT, true));
 		requirement_c.addAttribute(new Attribute(ATTRIBUTE_DIAMETER_REQUIREMENT, Integer.valueOf(12)));
 		requirement_c.addAttribute(new Attribute(ATTRIBUTE_DIAMETER_REQUIREMENT_STATUS, false));
 		requirement_c.addAttribute(new Attribute(ATTRIBUTE_LENGTH_REQUIREMENT, Integer.valueOf(15)));
 		requirement_c.addAttribute(new Attribute(ATTRIBUTE_LENGTH_REQUIREMENT_STATUS, false));
-		requirement_c.addLink(new Link(LINK_IS_REQUIREMENT_OF, ID_OBJECT_WORKPIECE));
-		requirement_c.addLink(new Link(LINK_IS_DIAMETER_REQUIREMENT, null));
-		requirement_c.addLink(new Link(LINK_IS_LENGTH_REQUIREMENT, null));
-		requirement_c.addLink(new Link(LINK_SURFACE_SIDE_LEFT, ID_OBJECT_REQUIREMENT_SURFACE_B));
-		requirement_c.addLink(new Link(LINK_SURFACE_SIDE_RIGHT, null));
+		requirement_c.addLink(new Link(LINK_IS_REQUIREMENT_OF, ID_OBJECT_WORKPIECE, null));
+		requirement_c.addLink(new Link(LINK_IS_DIAMETER_REQUIREMENT, null, null));
+		requirement_c.addLink(new Link(LINK_IS_LENGTH_REQUIREMENT, null, null));
+		requirement_c.addLink(new Link(LINK_SURFACE_SIDE_LEFT, ID_OBJECT_REQUIREMENT_SURFACE_B, null));
+		requirement_c.addLink(new Link(LINK_SURFACE_SIDE_RIGHT, null, null));
 
 		return system;
 	}
@@ -87,27 +87,27 @@ public class GenerateTaskDescription implements CuttingProcess {
 		requirement_a.addAttribute(new Attribute(ATTRIBUTE_REQUIREMENT, true));
 		requirement_a.addAttribute(new Attribute(ATTRIBUTE_DIAMETER_REQUIREMENT_STATUS, true));
 		requirement_a.addAttribute(new Attribute(ATTRIBUTE_LENGTH_REQUIREMENT_STATUS, true));
-		requirement_a.addLink(new Link(LINK_IS_REQUIREMENT_OF, ID_OBJECT_WORKPIECE));
-		requirement_a.addLink(new Link(LINK_SURFACE_SIDE_LEFT, null));
-		requirement_a.addLink(new Link(LINK_SURFACE_SIDE_RIGHT, ID_OBJECT_REQUIREMENT_SURFACE_B));
+		requirement_a.addLink(new Link(LINK_IS_REQUIREMENT_OF, ID_OBJECT_WORKPIECE, null));
+		requirement_a.addLink(new Link(LINK_SURFACE_SIDE_LEFT, null, null));
+		requirement_a.addLink(new Link(LINK_SURFACE_SIDE_RIGHT, ID_OBJECT_REQUIREMENT_SURFACE_B, null));
 
 		final SystemObject requirement_b = new SystemObject(OBJECT_REQUIREMENT_SURFACE_B,
 				ID_OBJECT_REQUIREMENT_SURFACE_B);
 		requirement_b.addAttribute(new Attribute(ATTRIBUTE_REQUIREMENT, true));
 		requirement_b.addAttribute(new Attribute(ATTRIBUTE_DIAMETER_REQUIREMENT_STATUS, true));
 		requirement_b.addAttribute(new Attribute(ATTRIBUTE_LENGTH_REQUIREMENT_STATUS, true));
-		requirement_b.addLink(new Link(LINK_IS_REQUIREMENT_OF, ID_OBJECT_WORKPIECE));
-		requirement_b.addLink(new Link(LINK_SURFACE_SIDE_LEFT, ID_OBJECT_REQUIREMENT_SURFACE_A));
-		requirement_b.addLink(new Link(LINK_SURFACE_SIDE_RIGHT, ID_OBJECT_REQUIREMENT_SURFACE_C));
+		requirement_b.addLink(new Link(LINK_IS_REQUIREMENT_OF, ID_OBJECT_WORKPIECE, null));
+		requirement_b.addLink(new Link(LINK_SURFACE_SIDE_LEFT, ID_OBJECT_REQUIREMENT_SURFACE_A, null));
+		requirement_b.addLink(new Link(LINK_SURFACE_SIDE_RIGHT, ID_OBJECT_REQUIREMENT_SURFACE_C, null));
 
 		final SystemObject requirement_c = new SystemObject(OBJECT_REQUIREMENT_SURFACE_C,
 				ID_OBJECT_REQUIREMENT_SURFACE_C);
 		requirement_c.addAttribute(new Attribute(ATTRIBUTE_REQUIREMENT, true));
 		requirement_c.addAttribute(new Attribute(ATTRIBUTE_DIAMETER_REQUIREMENT_STATUS, true));
 		requirement_c.addAttribute(new Attribute(ATTRIBUTE_LENGTH_REQUIREMENT_STATUS, true));
-		requirement_c.addLink(new Link(LINK_IS_REQUIREMENT_OF, ID_OBJECT_WORKPIECE));
-		requirement_c.addLink(new Link(LINK_SURFACE_SIDE_LEFT, ID_OBJECT_REQUIREMENT_SURFACE_B));
-		requirement_c.addLink(new Link(LINK_SURFACE_SIDE_RIGHT, null));
+		requirement_c.addLink(new Link(LINK_IS_REQUIREMENT_OF, ID_OBJECT_WORKPIECE, null));
+		requirement_c.addLink(new Link(LINK_SURFACE_SIDE_LEFT, ID_OBJECT_REQUIREMENT_SURFACE_B, null));
+		requirement_c.addLink(new Link(LINK_SURFACE_SIDE_RIGHT, null, null));
 
 		final System system = new System();
 		system.addObject(requirement_a);

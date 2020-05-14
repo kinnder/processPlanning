@@ -30,7 +30,7 @@ public class LinkTemplateTest {
 
 	@BeforeEach
 	public void setup() {
-		testable = new LinkTemplate("link", "id-template");
+		testable = new LinkTemplate("link", "id-template", null);
 	}
 
 	@Test
@@ -44,14 +44,14 @@ public class LinkTemplateTest {
 			}
 		});
 
-		assertTrue(testable.matches(new Link("link", "id"), idsMatching_mock));
+		assertTrue(testable.matches(new Link("link", "id", null), idsMatching_mock));
 	}
 
 	@Test
 	public void matches_differentName() {
 		final IdsMatching idsMatching_mock = context.mock(IdsMatching.class);
 
-		assertFalse(testable.matches(new Link("different", "id"), idsMatching_mock));
+		assertFalse(testable.matches(new Link("different", "id", null), idsMatching_mock));
 	}
 
 	@Test
@@ -65,22 +65,22 @@ public class LinkTemplateTest {
 			}
 		});
 
-		assertFalse(testable.matches(new Link("link", "another-id-template"), idsMatching_mock));
+		assertFalse(testable.matches(new Link("link", "another-id-template", null), idsMatching_mock));
 	}
 
 	@Test
 	public void matches_ids_null() {
-		testable = new LinkTemplate("link", null);
+		testable = new LinkTemplate("link", null, null);
 		final IdsMatching idsMatching_mock = context.mock(IdsMatching.class);
 
-		assertTrue(testable.matches(new Link("link", null), idsMatching_mock));
+		assertTrue(testable.matches(new Link("link", null, null), idsMatching_mock));
 	}
 
 	@Test
 	public void matches_objectId_null() {
 		final IdsMatching idsMatching_mock = context.mock(IdsMatching.class);
 
-		assertFalse(testable.matches(new Link("link", null), idsMatching_mock));
+		assertFalse(testable.matches(new Link("link", null, null), idsMatching_mock));
 	}
 
 	@Test

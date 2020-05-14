@@ -47,7 +47,7 @@ public class SystemObject implements Cloneable {
 	}
 
 	public void addLink(String linkName, String linkValue) {
-		addLink(new Link(linkName, linkValue));
+		addLink(new Link(linkName, linkValue, null));
 	}
 
 	@Override
@@ -91,7 +91,7 @@ public class SystemObject implements Cloneable {
 	}
 
 	public Link getLink(String linkName, String linkValue) {
-		Link template = new Link(linkName, linkValue);
+		Link template = new Link(linkName, linkValue, null);
 		for (Link link : links) {
 			if (link.equals(template)) {
 				return link;
@@ -104,7 +104,7 @@ public class SystemObject implements Cloneable {
 		Set<String> objectIds = new HashSet<>();
 		objectIds.add(id);
 		for (Link link : links) {
-			String linkValue = link.getObjectId();
+			String linkValue = link.getObjectId1();
 			if (linkValue != null) {
 				objectIds.add(linkValue);
 			}

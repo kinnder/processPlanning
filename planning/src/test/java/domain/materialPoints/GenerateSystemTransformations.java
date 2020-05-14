@@ -27,14 +27,14 @@ public class GenerateSystemTransformations implements MaterialPoints {
 		template.addObjectTemplate(point_A);
 		template.addObjectTemplate(point_B);
 
-		object.addLinkTemplate(new LinkTemplate(LINK_POSITION, ID_TEMPLATE_POINT_A));
+		object.addLinkTemplate(new LinkTemplate(LINK_POSITION, ID_TEMPLATE_POINT_A, null));
 
 		point_A.addAttributeTemplate(new AttributeTemplate(ATTRIBUTE_OCCUPIED, true));
-		point_A.addLinkTemplate(new LinkTemplate(LINK_NEIGHBOR_RIGHT, ID_TEMPLATE_POINT_B));
-		point_A.addLinkTemplate(new LinkTemplate(LINK_POSITION, ID_TEMPLATE_OBJECT));
+		point_A.addLinkTemplate(new LinkTemplate(LINK_NEIGHBOR_RIGHT, ID_TEMPLATE_POINT_B, null));
+		point_A.addLinkTemplate(new LinkTemplate(LINK_POSITION, ID_TEMPLATE_OBJECT, null));
 
 		point_B.addAttributeTemplate(new AttributeTemplate(ATTRIBUTE_OCCUPIED, false));
-		point_B.addLinkTemplate(new LinkTemplate(LINK_NEIGHBOR_LEFT, ID_TEMPLATE_POINT_A));
+		point_B.addLinkTemplate(new LinkTemplate(LINK_NEIGHBOR_LEFT, ID_TEMPLATE_POINT_A, null));
 
 		final Transformation transformations[] = new Transformation[] {
 				new LinkTransformation(ID_TEMPLATE_OBJECT, LINK_POSITION, ID_TEMPLATE_POINT_A, ID_TEMPLATE_POINT_B),
@@ -58,14 +58,14 @@ public class GenerateSystemTransformations implements MaterialPoints {
 		template.addObjectTemplate(point_A);
 		template.addObjectTemplate(point_B);
 
-		object.addLinkTemplate(new LinkTemplate(LINK_POSITION, ID_TEMPLATE_POINT_B));
+		object.addLinkTemplate(new LinkTemplate(LINK_POSITION, ID_TEMPLATE_POINT_B, null));
 
 		point_A.addAttributeTemplate(new AttributeTemplate(ATTRIBUTE_OCCUPIED, false));
-		point_A.addLinkTemplate(new LinkTemplate(LINK_NEIGHBOR_RIGHT, ID_TEMPLATE_POINT_B));
+		point_A.addLinkTemplate(new LinkTemplate(LINK_NEIGHBOR_RIGHT, ID_TEMPLATE_POINT_B, null));
 
 		point_B.addAttributeTemplate(new AttributeTemplate(ATTRIBUTE_OCCUPIED, true));
-		point_B.addLinkTemplate(new LinkTemplate(LINK_NEIGHBOR_LEFT, ID_TEMPLATE_POINT_A));
-		point_B.addLinkTemplate(new LinkTemplate(LINK_POSITION, ID_TEMPLATE_OBJECT));
+		point_B.addLinkTemplate(new LinkTemplate(LINK_NEIGHBOR_LEFT, ID_TEMPLATE_POINT_A, null));
+		point_B.addLinkTemplate(new LinkTemplate(LINK_POSITION, ID_TEMPLATE_OBJECT, null));
 
 		final Transformation transformations[] = new Transformation[] {
 				new LinkTransformation(ID_TEMPLATE_OBJECT, LINK_POSITION, ID_TEMPLATE_POINT_B, ID_TEMPLATE_POINT_A),
@@ -89,14 +89,14 @@ public class GenerateSystemTransformations implements MaterialPoints {
 		template.addObjectTemplate(point_A);
 		template.addObjectTemplate(point_B);
 
-		object.addLinkTemplate(new LinkTemplate(LINK_POSITION, ID_TEMPLATE_POINT_A));
+		object.addLinkTemplate(new LinkTemplate(LINK_POSITION, ID_TEMPLATE_POINT_A, null));
 
 		point_A.addAttributeTemplate(new AttributeTemplate(ATTRIBUTE_OCCUPIED, true));
-		point_A.addLinkTemplate(new LinkTemplate(LINK_NEIGHBOR_TOP, ID_TEMPLATE_POINT_B));
-		point_A.addLinkTemplate(new LinkTemplate(LINK_POSITION, ID_TEMPLATE_OBJECT));
+		point_A.addLinkTemplate(new LinkTemplate(LINK_NEIGHBOR_TOP, ID_TEMPLATE_POINT_B, null));
+		point_A.addLinkTemplate(new LinkTemplate(LINK_POSITION, ID_TEMPLATE_OBJECT, null));
 
 		point_B.addAttributeTemplate(new AttributeTemplate(ATTRIBUTE_OCCUPIED, false));
-		point_B.addLinkTemplate(new LinkTemplate(LINK_NEIGHBOR_BOTTOM, ID_TEMPLATE_POINT_A));
+		point_B.addLinkTemplate(new LinkTemplate(LINK_NEIGHBOR_BOTTOM, ID_TEMPLATE_POINT_A, null));
 
 		final Transformation transformations[] = new Transformation[] {
 				new LinkTransformation(ID_TEMPLATE_OBJECT, LINK_POSITION, ID_TEMPLATE_POINT_A, ID_TEMPLATE_POINT_B),
@@ -120,14 +120,14 @@ public class GenerateSystemTransformations implements MaterialPoints {
 		template.addObjectTemplate(point_A);
 		template.addObjectTemplate(point_B);
 
-		object.addLinkTemplate(new LinkTemplate(LINK_POSITION, ID_TEMPLATE_POINT_A));
+		object.addLinkTemplate(new LinkTemplate(LINK_POSITION, ID_TEMPLATE_POINT_A, null));
 
 		point_A.addAttributeTemplate(new AttributeTemplate(ATTRIBUTE_OCCUPIED, true));
-		point_A.addLinkTemplate(new LinkTemplate(LINK_NEIGHBOR_BOTTOM, ID_TEMPLATE_POINT_B));
-		point_A.addLinkTemplate(new LinkTemplate(LINK_POSITION, ID_TEMPLATE_OBJECT));
+		point_A.addLinkTemplate(new LinkTemplate(LINK_NEIGHBOR_BOTTOM, ID_TEMPLATE_POINT_B, null));
+		point_A.addLinkTemplate(new LinkTemplate(LINK_POSITION, ID_TEMPLATE_OBJECT, null));
 
 		point_B.addAttributeTemplate(new AttributeTemplate(ATTRIBUTE_OCCUPIED, false));
-		point_B.addLinkTemplate(new LinkTemplate(LINK_NEIGHBOR_TOP, ID_TEMPLATE_POINT_A));
+		point_B.addLinkTemplate(new LinkTemplate(LINK_NEIGHBOR_TOP, ID_TEMPLATE_POINT_A, null));
 
 		final Transformation transformations[] = new Transformation[] {
 				new LinkTransformation(ID_TEMPLATE_OBJECT, LINK_POSITION, ID_TEMPLATE_POINT_A, ID_TEMPLATE_POINT_B),

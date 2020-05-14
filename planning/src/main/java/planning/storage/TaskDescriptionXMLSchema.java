@@ -111,7 +111,7 @@ public class TaskDescriptionXMLSchema implements XMLSchema<TaskDescription> {
 	public Link parseLink(Element root) {
 		String name = root.getChildText("name");
 		String objectId = root.getChildText("objectId");
-		return new Link(name, objectId);
+		return new Link(name, objectId, null);
 	}
 
 	public Element combineLink(Link link) {
@@ -121,7 +121,7 @@ public class TaskDescriptionXMLSchema implements XMLSchema<TaskDescription> {
 		name.setText(link.getName());
 		root.addContent(name);
 
-		String linkObjectId = link.getObjectId();
+		String linkObjectId = link.getObjectId1();
 		if (linkObjectId != null) {
 			Element objectId = new Element("objectId");
 			objectId.setText(linkObjectId);

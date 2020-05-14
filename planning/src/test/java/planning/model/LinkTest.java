@@ -30,7 +30,7 @@ public class LinkTest {
 
 	@BeforeEach
 	public void setup() {
-		testable = new Link("link", "id");
+		testable = new Link("link", "id-1", "id-2");
 	}
 
 	@Test
@@ -54,31 +54,18 @@ public class LinkTest {
 	}
 
 	@Test
-	public void equals_differentName() {
-		assertFalse(testable.equals(new Link("different", "value")));
+	public void equals_different_name() {
+		assertFalse(testable.equals(new Link("different", "id-1", "id-2")));
 	}
 
 	@Test
-	public void equals_differentId() {
-		assertFalse(testable.equals(new Link("link", "different")));
+	public void equals_different_objectId1() {
+		assertFalse(testable.equals(new Link("link", "another", "id-2")));
 	}
 
 	@Test
-	public void equals_objectId_null() {
-		testable = new Link("link", null);
-		assertFalse(testable.equals(new Link("link", "value")));
-	}
-
-	@Test
-	public void equals_ids_null() {
-		testable = new Link("link", null);
-		assertTrue(testable.equals(new Link("link", null)));
-	}
-
-	@Test
-	public void equals_differentName_ids_null() {
-		testable = new Link("link", null);
-		assertFalse(testable.equals(new Link("different", null)));
+	public void equals_different_objectId2() {
+		assertFalse(testable.equals(new Link("link", "id-1", "another")));
 	}
 
 	@Test
@@ -87,13 +74,25 @@ public class LinkTest {
 	}
 
 	@Test
-	public void getObjectId() {
-		assertEquals("id", testable.getObjectId());
+	public void getObjectId1() {
+		assertEquals("id-1", testable.getObjectId1());
 	}
 
 	@Test
-	public void setObjectId() {
-		testable.setObjectId("new id");
+	public void setObjectId1() {
+		testable.setObjectId1("new-id-1");
+		assertEquals("new-id-1", testable.getObjectId1());
+	}
+
+	@Test
+	public void getObjectId2() {
+		assertEquals("id-2", testable.getObjectId2());
+	}
+
+	@Test
+	public void setObjectId2() {
+		testable.setObjectId2("new-id-2");
+		assertEquals("new-id-2", testable.getObjectId2());
 	}
 
 	@Test

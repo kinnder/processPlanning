@@ -256,7 +256,7 @@ public class TaskDescriptionXMLSchemaTest {
 
 				oneOf(link_mock).getName();
 
-				oneOf(link_mock).getObjectId();
+				oneOf(link_mock).getObjectId1();
 
 				// combineLink -->
 			}
@@ -353,7 +353,7 @@ public class TaskDescriptionXMLSchemaTest {
 		Link result = testable.parseLink(root_mock);
 		assertNotNull(result);
 		assertEquals("name", result.getName());
-		assertEquals("value", result.getObjectId());
+		assertEquals("value", result.getObjectId1());
 	}
 
 	@Test
@@ -372,7 +372,7 @@ public class TaskDescriptionXMLSchemaTest {
 		Link result = testable.parseLink(root_mock);
 		assertNotNull(result);
 		assertEquals("name", result.getName());
-		assertEquals(null, result.getObjectId());
+		assertEquals(null, result.getObjectId1());
 	}
 
 	@Test
@@ -384,7 +384,7 @@ public class TaskDescriptionXMLSchemaTest {
 				oneOf(link_mock).getName();
 				will(returnValue("link-name"));
 
-				oneOf(link_mock).getObjectId();
+				oneOf(link_mock).getObjectId1();
 				will(returnValue("link-value"));
 			}
 		});
@@ -403,7 +403,7 @@ public class TaskDescriptionXMLSchemaTest {
 				oneOf(link_mock).getName();
 				will(returnValue("link-name"));
 
-				oneOf(link_mock).getObjectId();
+				oneOf(link_mock).getObjectId1();
 				will(returnValue(null));
 			}
 		});

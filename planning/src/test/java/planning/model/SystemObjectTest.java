@@ -205,7 +205,7 @@ public class SystemObjectTest {
 
 	@Test
 	public void getLink() {
-		final Link link = new Link("link-name", "link-value");
+		final Link link = new Link("link-name", "link-value", null);
 		testable.addLink(link);
 
 		assertEquals(link, testable.getLink("link-name", "link-value"));
@@ -213,7 +213,7 @@ public class SystemObjectTest {
 
 	@Test
 	public void getLink_notFound() {
-		final Link link = new Link("link-name", "link-value");
+		final Link link = new Link("link-name", "link-value", null);
 		testable.addLink(link);
 
 		assertNull(testable.getLink("link-name-1", "link-value-2"));
@@ -226,7 +226,7 @@ public class SystemObjectTest {
 
 		context.checking(new Expectations() {
 			{
-				oneOf(link_mock).getObjectId();
+				oneOf(link_mock).getObjectId1();
 				will(returnValue("id-2"));
 			}
 		});
@@ -243,7 +243,7 @@ public class SystemObjectTest {
 
 		context.checking(new Expectations() {
 			{
-				oneOf(link_mock).getObjectId();
+				oneOf(link_mock).getObjectId1();
 				will(returnValue(null));
 			}
 		});

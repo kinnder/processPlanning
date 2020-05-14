@@ -50,120 +50,120 @@ public class GenerateTaskDescription implements MaterialPoints {
 		final SystemObject point_92 = new SystemObject(OBJECT_POINT_92, ID_OBJECT_POINT_92);
 		final SystemObject point_91 = new SystemObject(OBJECT_POINT_91, ID_OBJECT_POINT_91);
 
-		object.addLink(new Link(LINK_POSITION, ID_OBJECT_POINT_14));
+		object.addLink(new Link(LINK_POSITION, ID_OBJECT_POINT_14, null));
 
 		point_15.addAttribute(new Attribute(ATTRIBUTE_OCCUPIED, false));
-		point_15.addLink(new Link(LINK_NEIGHBOR_BOTTOM, ID_OBJECT_POINT_14));
-		point_15.addLink(new Link(LINK_POSITION, null));
+		point_15.addLink(new Link(LINK_NEIGHBOR_BOTTOM, ID_OBJECT_POINT_14, null));
+		point_15.addLink(new Link(LINK_POSITION, null, null));
 
 		point_14.addAttribute(new Attribute(ATTRIBUTE_OCCUPIED, true));
-		point_14.addLink(new Link(LINK_NEIGHBOR_TOP, ID_OBJECT_POINT_15));
-		point_14.addLink(new Link(LINK_NEIGHBOR_RIGHT, ID_OBJECT_POINT_24));
-		point_14.addLink(new Link(LINK_NEIGHBOR_BOTTOM, ID_OBJECT_POINT_13));
-		point_14.addLink(new Link(LINK_POSITION, ID_OBJECT_OBJECT));
+		point_14.addLink(new Link(LINK_NEIGHBOR_TOP, ID_OBJECT_POINT_15, null));
+		point_14.addLink(new Link(LINK_NEIGHBOR_RIGHT, ID_OBJECT_POINT_24, null));
+		point_14.addLink(new Link(LINK_NEIGHBOR_BOTTOM, ID_OBJECT_POINT_13, null));
+		point_14.addLink(new Link(LINK_POSITION, ID_OBJECT_OBJECT, null));
 
 		point_13.addAttribute(new Attribute(ATTRIBUTE_OCCUPIED, false));
-		point_13.addLink(new Link(LINK_NEIGHBOR_TOP, ID_OBJECT_POINT_14));
-		point_13.addLink(new Link(LINK_NEIGHBOR_BOTTOM, ID_OBJECT_POINT_12));
-		point_13.addLink(new Link(LINK_POSITION, null));
+		point_13.addLink(new Link(LINK_NEIGHBOR_TOP, ID_OBJECT_POINT_14, null));
+		point_13.addLink(new Link(LINK_NEIGHBOR_BOTTOM, ID_OBJECT_POINT_12, null));
+		point_13.addLink(new Link(LINK_POSITION, null, null));
 
 		point_12.addAttribute(new Attribute(ATTRIBUTE_OCCUPIED, false));
-		point_12.addLink(new Link(LINK_NEIGHBOR_TOP, ID_OBJECT_POINT_13));
-		point_12.addLink(new Link(LINK_NEIGHBOR_BOTTOM, ID_OBJECT_POINT_11));
-		point_12.addLink(new Link(LINK_POSITION, null));
+		point_12.addLink(new Link(LINK_NEIGHBOR_TOP, ID_OBJECT_POINT_13, null));
+		point_12.addLink(new Link(LINK_NEIGHBOR_BOTTOM, ID_OBJECT_POINT_11, null));
+		point_12.addLink(new Link(LINK_POSITION, null, null));
 
 		point_11.addAttribute(new Attribute(ATTRIBUTE_OCCUPIED, false));
-		point_11.addLink(new Link(LINK_NEIGHBOR_TOP, ID_OBJECT_POINT_12));
-		point_11.addLink(new Link(LINK_POSITION, null));
+		point_11.addLink(new Link(LINK_NEIGHBOR_TOP, ID_OBJECT_POINT_12, null));
+		point_11.addLink(new Link(LINK_POSITION, null, null));
 
 		point_24.addAttribute(new Attribute(ATTRIBUTE_OCCUPIED, false));
-		point_24.addLink(new Link(LINK_NEIGHBOR_LEFT, ID_OBJECT_POINT_14));
-		point_24.addLink(new Link(LINK_NEIGHBOR_RIGHT, ID_OBJECT_POINT_34));
-		point_24.addLink(new Link(LINK_POSITION, null));
+		point_24.addLink(new Link(LINK_NEIGHBOR_LEFT, ID_OBJECT_POINT_14, null));
+		point_24.addLink(new Link(LINK_NEIGHBOR_RIGHT, ID_OBJECT_POINT_34, null));
+		point_24.addLink(new Link(LINK_POSITION, null, null));
 
 		point_34.addAttribute(new Attribute(ATTRIBUTE_OCCUPIED, false));
-		point_34.addLink(new Link(LINK_NEIGHBOR_LEFT, ID_OBJECT_POINT_24));
-		point_34.addLink(new Link(LINK_NEIGHBOR_BOTTOM, ID_OBJECT_POINT_33));
-		point_34.addLink(new Link(LINK_POSITION, null));
+		point_34.addLink(new Link(LINK_NEIGHBOR_LEFT, ID_OBJECT_POINT_24, null));
+		point_34.addLink(new Link(LINK_NEIGHBOR_BOTTOM, ID_OBJECT_POINT_33, null));
+		point_34.addLink(new Link(LINK_POSITION, null, null));
 
 		point_33.addAttribute(new Attribute(ATTRIBUTE_OCCUPIED, false));
-		point_33.addLink(new Link(LINK_NEIGHBOR_TOP, ID_OBJECT_POINT_34));
-		point_33.addLink(new Link(LINK_NEIGHBOR_BOTTOM, ID_OBJECT_POINT_32));
-		point_33.addLink(new Link(LINK_POSITION, null));
+		point_33.addLink(new Link(LINK_NEIGHBOR_TOP, ID_OBJECT_POINT_34, null));
+		point_33.addLink(new Link(LINK_NEIGHBOR_BOTTOM, ID_OBJECT_POINT_32, null));
+		point_33.addLink(new Link(LINK_POSITION, null, null));
 
 		point_32.addAttribute(new Attribute(ATTRIBUTE_OCCUPIED, false));
-		point_32.addLink(new Link(LINK_NEIGHBOR_TOP, ID_OBJECT_POINT_33));
-		point_32.addLink(new Link(LINK_NEIGHBOR_RIGHT, ID_OBJECT_POINT_42));
-		point_32.addLink(new Link(LINK_POSITION, null));
+		point_32.addLink(new Link(LINK_NEIGHBOR_TOP, ID_OBJECT_POINT_33, null));
+		point_32.addLink(new Link(LINK_NEIGHBOR_RIGHT, ID_OBJECT_POINT_42, null));
+		point_32.addLink(new Link(LINK_POSITION, null, null));
 
 		point_42.addAttribute(new Attribute(ATTRIBUTE_OCCUPIED, false));
-		point_42.addLink(new Link(LINK_NEIGHBOR_LEFT, ID_OBJECT_POINT_32));
-		point_42.addLink(new Link(LINK_NEIGHBOR_RIGHT, ID_OBJECT_POINT_52));
-		point_42.addLink(new Link(LINK_POSITION, null));
+		point_42.addLink(new Link(LINK_NEIGHBOR_LEFT, ID_OBJECT_POINT_32, null));
+		point_42.addLink(new Link(LINK_NEIGHBOR_RIGHT, ID_OBJECT_POINT_52, null));
+		point_42.addLink(new Link(LINK_POSITION, null, null));
 
 		point_52.addAttribute(new Attribute(ATTRIBUTE_OCCUPIED, false));
-		point_52.addLink(new Link(LINK_NEIGHBOR_TOP, ID_OBJECT_POINT_53));
-		point_52.addLink(new Link(LINK_NEIGHBOR_LEFT, ID_OBJECT_POINT_42));
-		point_52.addLink(new Link(LINK_POSITION, null));
+		point_52.addLink(new Link(LINK_NEIGHBOR_TOP, ID_OBJECT_POINT_53, null));
+		point_52.addLink(new Link(LINK_NEIGHBOR_LEFT, ID_OBJECT_POINT_42, null));
+		point_52.addLink(new Link(LINK_POSITION, null, null));
 
 		point_53.addAttribute(new Attribute(ATTRIBUTE_OCCUPIED, false));
-		point_53.addLink(new Link(LINK_NEIGHBOR_TOP, ID_OBJECT_POINT_54));
-		point_53.addLink(new Link(LINK_NEIGHBOR_BOTTOM, ID_OBJECT_POINT_52));
-		point_53.addLink(new Link(LINK_POSITION, null));
+		point_53.addLink(new Link(LINK_NEIGHBOR_TOP, ID_OBJECT_POINT_54, null));
+		point_53.addLink(new Link(LINK_NEIGHBOR_BOTTOM, ID_OBJECT_POINT_52, null));
+		point_53.addLink(new Link(LINK_POSITION, null, null));
 
 		point_54.addAttribute(new Attribute(ATTRIBUTE_OCCUPIED, false));
-		point_54.addLink(new Link(LINK_NEIGHBOR_RIGHT, ID_OBJECT_POINT_64));
-		point_54.addLink(new Link(LINK_NEIGHBOR_BOTTOM, ID_OBJECT_POINT_53));
-		point_54.addLink(new Link(LINK_POSITION, null));
+		point_54.addLink(new Link(LINK_NEIGHBOR_RIGHT, ID_OBJECT_POINT_64, null));
+		point_54.addLink(new Link(LINK_NEIGHBOR_BOTTOM, ID_OBJECT_POINT_53, null));
+		point_54.addLink(new Link(LINK_POSITION, null, null));
 
 		point_64.addAttribute(new Attribute(ATTRIBUTE_OCCUPIED, false));
-		point_64.addLink(new Link(LINK_NEIGHBOR_LEFT, ID_OBJECT_POINT_54));
-		point_64.addLink(new Link(LINK_NEIGHBOR_RIGHT, ID_OBJECT_POINT_74));
-		point_64.addLink(new Link(LINK_POSITION, null));
+		point_64.addLink(new Link(LINK_NEIGHBOR_LEFT, ID_OBJECT_POINT_54, null));
+		point_64.addLink(new Link(LINK_NEIGHBOR_RIGHT, ID_OBJECT_POINT_74, null));
+		point_64.addLink(new Link(LINK_POSITION, null, null));
 
 		point_74.addAttribute(new Attribute(ATTRIBUTE_OCCUPIED, false));
-		point_74.addLink(new Link(LINK_NEIGHBOR_LEFT, ID_OBJECT_POINT_64));
-		point_74.addLink(new Link(LINK_NEIGHBOR_BOTTOM, ID_OBJECT_POINT_73));
-		point_74.addLink(new Link(LINK_POSITION, null));
+		point_74.addLink(new Link(LINK_NEIGHBOR_LEFT, ID_OBJECT_POINT_64, null));
+		point_74.addLink(new Link(LINK_NEIGHBOR_BOTTOM, ID_OBJECT_POINT_73, null));
+		point_74.addLink(new Link(LINK_POSITION, null, null));
 
 		point_73.addAttribute(new Attribute(ATTRIBUTE_OCCUPIED, false));
-		point_73.addLink(new Link(LINK_NEIGHBOR_TOP, ID_OBJECT_POINT_74));
-		point_73.addLink(new Link(LINK_NEIGHBOR_BOTTOM, ID_OBJECT_POINT_72));
-		point_73.addLink(new Link(LINK_POSITION, null));
+		point_73.addLink(new Link(LINK_NEIGHBOR_TOP, ID_OBJECT_POINT_74, null));
+		point_73.addLink(new Link(LINK_NEIGHBOR_BOTTOM, ID_OBJECT_POINT_72, null));
+		point_73.addLink(new Link(LINK_POSITION, null, null));
 
 		point_72.addAttribute(new Attribute(ATTRIBUTE_OCCUPIED, false));
-		point_72.addLink(new Link(LINK_NEIGHBOR_TOP, ID_OBJECT_POINT_73));
-		point_72.addLink(new Link(LINK_NEIGHBOR_RIGHT, ID_OBJECT_POINT_82));
-		point_72.addLink(new Link(LINK_POSITION, null));
+		point_72.addLink(new Link(LINK_NEIGHBOR_TOP, ID_OBJECT_POINT_73, null));
+		point_72.addLink(new Link(LINK_NEIGHBOR_RIGHT, ID_OBJECT_POINT_82, null));
+		point_72.addLink(new Link(LINK_POSITION, null, null));
 
 		point_82.addAttribute(new Attribute(ATTRIBUTE_OCCUPIED, false));
-		point_82.addLink(new Link(LINK_NEIGHBOR_LEFT, ID_OBJECT_POINT_72));
-		point_82.addLink(new Link(LINK_NEIGHBOR_RIGHT, ID_OBJECT_POINT_92));
-		point_82.addLink(new Link(LINK_POSITION, null));
+		point_82.addLink(new Link(LINK_NEIGHBOR_LEFT, ID_OBJECT_POINT_72, null));
+		point_82.addLink(new Link(LINK_NEIGHBOR_RIGHT, ID_OBJECT_POINT_92, null));
+		point_82.addLink(new Link(LINK_POSITION, null, null));
 
 		point_95.addAttribute(new Attribute(ATTRIBUTE_OCCUPIED, false));
-		point_95.addLink(new Link(LINK_NEIGHBOR_BOTTOM, ID_OBJECT_POINT_94));
-		point_95.addLink(new Link(LINK_POSITION, null));
+		point_95.addLink(new Link(LINK_NEIGHBOR_BOTTOM, ID_OBJECT_POINT_94, null));
+		point_95.addLink(new Link(LINK_POSITION, null, null));
 
 		point_94.addAttribute(new Attribute(ATTRIBUTE_OCCUPIED, false));
-		point_94.addLink(new Link(LINK_NEIGHBOR_TOP, ID_OBJECT_POINT_95));
-		point_94.addLink(new Link(LINK_NEIGHBOR_BOTTOM, ID_OBJECT_POINT_93));
-		point_94.addLink(new Link(LINK_POSITION, null));
+		point_94.addLink(new Link(LINK_NEIGHBOR_TOP, ID_OBJECT_POINT_95, null));
+		point_94.addLink(new Link(LINK_NEIGHBOR_BOTTOM, ID_OBJECT_POINT_93, null));
+		point_94.addLink(new Link(LINK_POSITION, null, null));
 
 		point_93.addAttribute(new Attribute(ATTRIBUTE_OCCUPIED, false));
-		point_93.addLink(new Link(LINK_NEIGHBOR_TOP, ID_OBJECT_POINT_94));
-		point_93.addLink(new Link(LINK_NEIGHBOR_BOTTOM, ID_OBJECT_POINT_92));
-		point_93.addLink(new Link(LINK_POSITION, null));
+		point_93.addLink(new Link(LINK_NEIGHBOR_TOP, ID_OBJECT_POINT_94, null));
+		point_93.addLink(new Link(LINK_NEIGHBOR_BOTTOM, ID_OBJECT_POINT_92, null));
+		point_93.addLink(new Link(LINK_POSITION, null, null));
 
 		point_92.addAttribute(new Attribute(ATTRIBUTE_OCCUPIED, false));
-		point_92.addLink(new Link(LINK_NEIGHBOR_TOP, ID_OBJECT_POINT_93));
-		point_92.addLink(new Link(LINK_NEIGHBOR_LEFT, ID_OBJECT_POINT_82));
-		point_92.addLink(new Link(LINK_NEIGHBOR_BOTTOM, ID_OBJECT_POINT_91));
-		point_92.addLink(new Link(LINK_POSITION, null));
+		point_92.addLink(new Link(LINK_NEIGHBOR_TOP, ID_OBJECT_POINT_93, null));
+		point_92.addLink(new Link(LINK_NEIGHBOR_LEFT, ID_OBJECT_POINT_82, null));
+		point_92.addLink(new Link(LINK_NEIGHBOR_BOTTOM, ID_OBJECT_POINT_91, null));
+		point_92.addLink(new Link(LINK_POSITION, null, null));
 
 		point_91.addAttribute(new Attribute(ATTRIBUTE_OCCUPIED, false));
-		point_91.addLink(new Link(LINK_NEIGHBOR_TOP, ID_OBJECT_POINT_92));
-		point_91.addLink(new Link(LINK_POSITION, null));
+		point_91.addLink(new Link(LINK_NEIGHBOR_TOP, ID_OBJECT_POINT_92, null));
+		point_91.addLink(new Link(LINK_POSITION, null, null));
 
 		system.addObject(object);
 		system.addObject(point_15);
@@ -195,11 +195,11 @@ public class GenerateTaskDescription implements MaterialPoints {
 
 	public static System finalSystem() {
 		final SystemObject object = new SystemObject(OBJECT_MATERIAL_POINT, ID_OBJECT_OBJECT);
-		object.addLink(new Link(LINK_POSITION, ID_OBJECT_POINT_92));
+		object.addLink(new Link(LINK_POSITION, ID_OBJECT_POINT_92, null));
 
 		final SystemObject point_92 = new SystemObject(OBJECT_POINT_92, ID_OBJECT_POINT_92);
 		point_92.addAttribute(new Attribute(ATTRIBUTE_OCCUPIED, true));
-		point_92.addLink(new Link(LINK_POSITION, ID_OBJECT_OBJECT));
+		point_92.addLink(new Link(LINK_POSITION, ID_OBJECT_OBJECT, null));
 
 		final System system = new System();
 		system.addObject(object);
