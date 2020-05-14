@@ -1,5 +1,7 @@
 package planning.model;
 
+import java.util.Objects;
+
 public class Link implements Cloneable {
 
 	private String objectId;
@@ -20,13 +22,8 @@ public class Link implements Cloneable {
 			return true;
 		}
 		Link link = (Link) obj;
-		if (name.equals(link.name)) {
-			if (objectId == null) {
-				return link.objectId == null;
-			}
-			return objectId.equals(link.objectId);
-		}
-		return false;
+
+		return name.equals(link.name) && Objects.equals(objectId, link.objectId);
 	}
 
 	@Override
