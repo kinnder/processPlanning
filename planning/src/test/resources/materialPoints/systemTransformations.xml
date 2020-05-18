@@ -7,7 +7,7 @@
 				<objectId>ID-OBJECT</objectId>
 				<linkTemplate>
 					<name>LINK-POSITION</name>
-					<value>ID-POINT-A</value>
+					<objectId1>ID-POINT-A</objectId1>
 				</linkTemplate>
 			</objectTemplate>
 			<objectTemplate>
@@ -18,11 +18,11 @@
 				</attributeTemplate>
 				<linkTemplate>
 					<name>LINK-NEIGHBOR-RIGHT</name>
-					<value>ID-POINT-B</value>
+					<objectId1>ID-POINT-B</objectId1>
 				</linkTemplate>
 				<linkTemplate>
 					<name>LINK-POSITION</name>
-					<value>ID-OBJECT</value>
+					<objectId1>ID-OBJECT</objectId1>
 				</linkTemplate>
 			</objectTemplate>
 			<objectTemplate>
@@ -33,7 +33,7 @@
 				</attributeTemplate>
 				<linkTemplate>
 					<name>LINK-NEIGHBOR-LEFT</name>
-					<value>ID-POINT-A</value>
+					<objectId1>ID-POINT-A</objectId1>
 				</linkTemplate>
 			</objectTemplate>
 		</systemTemplate>
@@ -76,7 +76,7 @@
 				<objectId>ID-OBJECT</objectId>
 				<linkTemplate>
 					<name>LINK-POSITION</name>
-					<value>ID-POINT-B</value>
+					<objectId1>ID-POINT-B</objectId1>
 				</linkTemplate>
 			</objectTemplate>
 			<objectTemplate>
@@ -87,7 +87,7 @@
 				</attributeTemplate>
 				<linkTemplate>
 					<name>LINK-NEIGHBOR-RIGHT</name>
-					<value>ID-POINT-B</value>
+					<objectId1>ID-POINT-B</objectId1>
 				</linkTemplate>
 			</objectTemplate>
 			<objectTemplate>
@@ -98,11 +98,11 @@
 				</attributeTemplate>
 				<linkTemplate>
 					<name>LINK-NEIGHBOR-LEFT</name>
-					<value>ID-POINT-A</value>
+					<objectId1>ID-POINT-A</objectId1>
 				</linkTemplate>
 				<linkTemplate>
 					<name>LINK-POSITION</name>
-					<value>ID-OBJECT</value>
+					<objectId1>ID-OBJECT</objectId1>
 				</linkTemplate>
 			</objectTemplate>
 		</systemTemplate>
@@ -145,7 +145,7 @@
 				<objectId>ID-OBJECT</objectId>
 				<linkTemplate>
 					<name>LINK-POSITION</name>
-					<value>ID-POINT-A</value>
+					<objectId1>ID-POINT-A</objectId1>
 				</linkTemplate>
 			</objectTemplate>
 			<objectTemplate>
@@ -156,11 +156,11 @@
 				</attributeTemplate>
 				<linkTemplate>
 					<name>LINK-NEIGHBOR-TOP</name>
-					<value>ID-POINT-B</value>
+					<objectId1>ID-POINT-B</objectId1>
 				</linkTemplate>
 				<linkTemplate>
 					<name>LINK-POSITION</name>
-					<value>ID-OBJECT</value>
+					<objectId1>ID-OBJECT</objectId1>
 				</linkTemplate>
 			</objectTemplate>
 			<objectTemplate>
@@ -171,7 +171,7 @@
 				</attributeTemplate>
 				<linkTemplate>
 					<name>LINK-NEIGHBOR-BOTTOM</name>
-					<value>ID-POINT-A</value>
+					<objectId1>ID-POINT-A</objectId1>
 				</linkTemplate>
 			</objectTemplate>
 		</systemTemplate>
@@ -214,7 +214,7 @@
 				<objectId>ID-OBJECT</objectId>
 				<linkTemplate>
 					<name>LINK-POSITION</name>
-					<value>ID-POINT-A</value>
+					<objectId1>ID-POINT-A</objectId1>
 				</linkTemplate>
 			</objectTemplate>
 			<objectTemplate>
@@ -225,11 +225,11 @@
 				</attributeTemplate>
 				<linkTemplate>
 					<name>LINK-NEIGHBOR-BOTTOM</name>
-					<value>ID-POINT-B</value>
+					<objectId1>ID-POINT-B</objectId1>
 				</linkTemplate>
 				<linkTemplate>
 					<name>LINK-POSITION</name>
-					<value>ID-OBJECT</value>
+					<objectId1>ID-OBJECT</objectId1>
 				</linkTemplate>
 			</objectTemplate>
 			<objectTemplate>
@@ -240,7 +240,7 @@
 				</attributeTemplate>
 				<linkTemplate>
 					<name>LINK-NEIGHBOR-TOP</name>
-					<value>ID-POINT-A</value>
+					<objectId1>ID-POINT-A</objectId1>
 				</linkTemplate>
 			</objectTemplate>
 		</systemTemplate>

@@ -11,11 +11,11 @@
 				</attributeTemplate>
 				<linkTemplate>
 					<name>LINK-IS-REQUIREMENT-OF</name>
-					<value>ID-REQUIREMENT</value>
+					<objectId1>ID-REQUIREMENT</objectId1>
 				</linkTemplate>
 				<linkTemplate>
 					<name>LINK-IS-PART-OF</name>
-					<value>ID-CYLINDER-SURFACE</value>
+					<objectId1>ID-CYLINDER-SURFACE</objectId1>
 				</linkTemplate>
 			</objectTemplate>
 			<objectTemplate>
@@ -33,7 +33,7 @@
 				</attributeTemplate>
 				<linkTemplate>
 					<name>LINK-IS-PART-OF</name>
-					<value>ID-WORKPIECE</value>
+					<objectId1>ID-WORKPIECE</objectId1>
 				</linkTemplate>
 				<linkTemplate>
 					<name>LINK-IS-DIAMETER-REQUIREMENT</name>
@@ -54,7 +54,7 @@
 				</attributeTemplate>
 				<linkTemplate>
 					<name>LINK-IS-REQUIREMENT-OF</name>
-					<value>ID-WORKPIECE</value>
+					<objectId1>ID-WORKPIECE</objectId1>
 				</linkTemplate>
 				<linkTemplate>
 					<name>LINK-IS-DIAMETER-REQUIREMENT</name>
@@ -116,11 +116,11 @@
 				</attributeTemplate>
 				<linkTemplate>
 					<name>LINK-IS-REQUIREMENT-OF</name>
-					<value>ID-REQUIREMENT</value>
+					<objectId1>ID-REQUIREMENT</objectId1>
 				</linkTemplate>
 				<linkTemplate>
 					<name>LINK-IS-PART-OF</name>
-					<value>ID-CYLINDER-SURFACE</value>
+					<objectId1>ID-CYLINDER-SURFACE</objectId1>
 				</linkTemplate>
 			</objectTemplate>
 			<objectTemplate>
@@ -142,7 +142,7 @@
 				</attributeTemplate>
 				<linkTemplate>
 					<name>LINK-IS-PART-OF</name>
-					<value>ID-WORKPIECE</value>
+					<objectId1>ID-WORKPIECE</objectId1>
 				</linkTemplate>
 				<linkTemplate>
 					<name>LINK-IS-LENGTH-REQUIREMENT</name>
@@ -163,7 +163,7 @@
 				</attributeTemplate>
 				<linkTemplate>
 					<name>LINK-IS-REQUIREMENT-OF</name>
-					<value>ID-WORKPIECE</value>
+					<objectId1>ID-WORKPIECE</objectId1>
 				</linkTemplate>
 				<linkTemplate>
 					<name>LINK-IS-LENGTH-REQUIREMENT</name>
@@ -215,11 +215,11 @@
 				</attributeTemplate>
 				<linkTemplate>
 					<name>LINK-IS-REQUIREMENT-OF</name>
-					<value>ID-REQUIREMENT-R</value>
+					<objectId1>ID-REQUIREMENT-R</objectId1>
 				</linkTemplate>
 				<linkTemplate>
 					<name>LINK-IS-PART-OF</name>
-					<value>ID-CYLINDER-SURFACE</value>
+					<objectId1>ID-CYLINDER-SURFACE</objectId1>
 				</linkTemplate>
 			</objectTemplate>
 			<objectTemplate>
@@ -240,7 +240,7 @@
 				</attributeTemplate>
 				<linkTemplate>
 					<name>LINK-IS-PART-OF</name>
-					<value>ID-WORKPIECE</value>
+					<objectId1>ID-WORKPIECE</objectId1>
 				</linkTemplate>
 				<linkTemplate>
 					<name>LINK-IS-LENGTH-REQUIREMENT</name>
@@ -261,11 +261,11 @@
 				</attributeTemplate>
 				<linkTemplate>
 					<name>LINK-SURFACE-SIDE-RIGHT</name>
-					<value>ID-REQUIREMENT-R</value>
+					<objectId1>ID-REQUIREMENT-R</objectId1>
 				</linkTemplate>
 				<linkTemplate>
 					<name>LINK-IS-REQUIREMENT-OF</name>
-					<value>ID-WORKPIECE</value>
+					<objectId1>ID-WORKPIECE</objectId1>
 				</linkTemplate>
 				<linkTemplate>
 					<name>LINK-IS-LENGTH-REQUIREMENT</name>
@@ -286,11 +286,11 @@
 				</attributeTemplate>
 				<linkTemplate>
 					<name>LINK-SURFACE-SIDE-LEFT</name>
-					<value>ID-REQUIREMENT-L</value>
+					<objectId1>ID-REQUIREMENT-L</objectId1>
 				</linkTemplate>
 				<linkTemplate>
 					<name>LINK-IS-REQUIREMENT-OF</name>
-					<value>ID-WORKPIECE</value>
+					<objectId1>ID-WORKPIECE</objectId1>
 				</linkTemplate>
 				<linkTemplate>
 					<name>LINK-IS-DIAMETER-REQUIREMENT</name>

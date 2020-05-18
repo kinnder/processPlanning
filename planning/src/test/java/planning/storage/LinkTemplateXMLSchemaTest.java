@@ -44,16 +44,20 @@ public class LinkTemplateXMLSchemaTest {
 		context.checking(new Expectations() {
 			{
 				oneOf(root_mock).getChildText("name");
-				will(returnValue("name"));
+				will(returnValue("template-name"));
 
-				oneOf(root_mock).getChildText("value");
-				will(returnValue("value"));
+				oneOf(root_mock).getChildText("objectId1");
+				will(returnValue("template-id-1"));
+
+				oneOf(root_mock).getChildText("objectId2");
+				will(returnValue("template-id-2"));
 			}
 		});
 		LinkTemplate result = testable.parse(root_mock);
 		assertNotNull(result);
-		assertEquals("name", result.getName());
-		assertEquals("value", result.getObjectId1());
+		assertEquals("template-name", result.getName());
+		assertEquals("template-id-1", result.getObjectId1());
+		assertEquals("template-id-2", result.getObjectId2());
 	}
 
 	@Test
@@ -63,16 +67,20 @@ public class LinkTemplateXMLSchemaTest {
 		context.checking(new Expectations() {
 			{
 				oneOf(root_mock).getChildText("name");
-				will(returnValue("name"));
+				will(returnValue("template-name"));
 
-				oneOf(root_mock).getChildText("value");
+				oneOf(root_mock).getChildText("objectId1");
+				will(returnValue("template-id-1"));
+
+				oneOf(root_mock).getChildText("objectId2");
 				will(returnValue(null));
 			}
 		});
 		LinkTemplate result = testable.parse(root_mock);
 		assertNotNull(result);
-		assertEquals("name", result.getName());
-		assertEquals(null, result.getObjectId1());
+		assertEquals("template-name", result.getName());
+		assertEquals("template-id-1", result.getObjectId1());
+		assertEquals(null, result.getObjectId2());
 	}
 
 	@Test
@@ -82,34 +90,42 @@ public class LinkTemplateXMLSchemaTest {
 		context.checking(new Expectations() {
 			{
 				oneOf(linkTemplate_mock).getName();
-				will(returnValue("link-name"));
+				will(returnValue("template-name"));
 
 				oneOf(linkTemplate_mock).getObjectId1();
-				will(returnValue("link-value"));
+				will(returnValue("template-id-1"));
+
+				oneOf(linkTemplate_mock).getObjectId2();
+				will(returnValue("template-id-2"));
 			}
 		});
 
 		Element element = testable.combine(linkTemplate_mock);
-		assertEquals("link-name", element.getChildText("name"));
-		assertEquals("link-value", element.getChildText("value"));
+		assertEquals("template-name", element.getChildText("name"));
+		assertEquals("template-id-1", element.getChildText("objectId1"));
+		assertEquals("template-id-2", element.getChildText("objectId2"));
 	}
 
 	@Test
-	public void combine_empty_value() {
+	public void combine_with_null() {
 		final LinkTemplate linkTemplate_mock = context.mock(LinkTemplate.class);
 
 		context.checking(new Expectations() {
 			{
 				oneOf(linkTemplate_mock).getName();
-				will(returnValue("link-name"));
+				will(returnValue("template-name"));
 
 				oneOf(linkTemplate_mock).getObjectId1();
 				will(returnValue(null));
+
+				oneOf(linkTemplate_mock).getObjectId2();
+				will(returnValue("template-id-2"));
 			}
 		});
 
 		Element element = testable.combine(linkTemplate_mock);
-		assertEquals("link-name", element.getChildText("name"));
+		assertEquals("template-name", element.getChildText("name"));
 		assertNull(element.getChild("value"));
+		assertEquals("template-id-2", element.getChildText("objectId2"));
 	}
 }
