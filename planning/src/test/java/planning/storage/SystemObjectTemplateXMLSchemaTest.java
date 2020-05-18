@@ -117,7 +117,7 @@ public class SystemObjectTemplateXMLSchemaTest {
 
 				oneOf(linkTemplate_mock).getName();
 
-				oneOf(linkTemplate_mock).getObjectId();
+				oneOf(linkTemplate_mock).getObjectId1();
 
 				// combineLinkTemplate -->
 			}

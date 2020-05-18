@@ -225,7 +225,7 @@ public class SystemObjectTemplateTest {
 
 		context.checking(new Expectations() {
 			{
-				oneOf(link_mock).getObjectId();
+				oneOf(link_mock).getObjectId1();
 				will(returnValue("id-2"));
 			}
 		});
@@ -248,7 +248,7 @@ public class SystemObjectTemplateTest {
 
 		context.checking(new Expectations() {
 			{
-				oneOf(link_mock).getObjectId();
+				oneOf(link_mock).getObjectId1();
 				will(returnValue(null));
 			}
 		});

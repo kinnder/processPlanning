@@ -53,7 +53,7 @@ public class LinkTemplateXMLSchemaTest {
 		LinkTemplate result = testable.parse(root_mock);
 		assertNotNull(result);
 		assertEquals("name", result.getName());
-		assertEquals("value", result.getObjectId());
+		assertEquals("value", result.getObjectId1());
 	}
 
 	@Test
@@ -72,7 +72,7 @@ public class LinkTemplateXMLSchemaTest {
 		LinkTemplate result = testable.parse(root_mock);
 		assertNotNull(result);
 		assertEquals("name", result.getName());
-		assertEquals(null, result.getObjectId());
+		assertEquals(null, result.getObjectId1());
 	}
 
 	@Test
@@ -84,7 +84,7 @@ public class LinkTemplateXMLSchemaTest {
 				oneOf(linkTemplate_mock).getName();
 				will(returnValue("link-name"));
 
-				oneOf(linkTemplate_mock).getObjectId();
+				oneOf(linkTemplate_mock).getObjectId1();
 				will(returnValue("link-value"));
 			}
 		});
@@ -103,7 +103,7 @@ public class LinkTemplateXMLSchemaTest {
 				oneOf(linkTemplate_mock).getName();
 				will(returnValue("link-name"));
 
-				oneOf(linkTemplate_mock).getObjectId();
+				oneOf(linkTemplate_mock).getObjectId1();
 				will(returnValue(null));
 			}
 		});

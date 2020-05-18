@@ -20,7 +20,7 @@ public class LinkTemplateXMLSchema implements XMLSchema<LinkTemplate> {
 		Element name = new Element("name");
 		name.setText(linkTemplate.getName());
 		root.addContent(name);
-		String linkValue = linkTemplate.getObjectId();
+		String linkValue = linkTemplate.getObjectId1();
 		if (linkValue != null) {
 			Element value = new Element("value");
 			value.setText(linkValue);

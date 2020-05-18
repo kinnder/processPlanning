@@ -1,26 +1,27 @@
 package planning.model;
 
+import java.util.Objects;
+
 public class LinkTemplate {
 
-	private String objectId;
+	private String objectId1;
 
-	private String objectId_2;
+	private String objectId2;
 
 	private String name;
 
-	// TODO : добавить поддержку второго поля
-	public LinkTemplate(String name, String objectId, String objectId_2) {
+	public LinkTemplate(String name, String objectId1, String objectId2) {
 		this.name = name;
-		this.objectId = objectId;
-		this.objectId_2 = objectId_2;
+		this.objectId1 = objectId1;
+		this.objectId2 = objectId2;
 	}
 
-	public String getObjectId() {
-		return objectId;
+	public String getObjectId1() {
+		return objectId1;
 	}
 
-	public String getObjectId_2() {
-		return objectId_2;
+	public String getObjectId2() {
+		return objectId2;
 	}
 
 	public String getName() {
@@ -28,12 +29,7 @@ public class LinkTemplate {
 	}
 
 	public boolean matches(Link link, IdsMatching matching) {
-		if (link.getName().equals(name)) {
-			if (link.getObjectId1() == null) {
-				return objectId == null;
-			}
-			return link.getObjectId1().equals(matching.get(objectId));
-		}
-		return false;
+		return link.getName().equals(name) && Objects.equals(matching.get(objectId1), link.getObjectId1())
+				&& Objects.equals(matching.get(objectId2), link.getObjectId2());
 	}
 }

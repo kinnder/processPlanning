@@ -25,7 +25,7 @@ public class SystemObjectTemplate {
 		Set<String> objectIds = new HashSet<>();
 		objectIds.add(objectId);
 		for (LinkTemplate link : links.values()) {
-			String linkValue = link.getObjectId();
+			String linkValue = link.getObjectId1();
 			if (linkValue != null) {
 				objectIds.add(linkValue);
 			}
