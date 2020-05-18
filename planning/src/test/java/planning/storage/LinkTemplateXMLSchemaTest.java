@@ -70,7 +70,7 @@ public class LinkTemplateXMLSchemaTest {
 				will(returnValue("template-name"));
 
 				oneOf(root_mock).getChildText("objectId1");
-				will(returnValue("template-id-1"));
+				will(returnValue(null));
 
 				oneOf(root_mock).getChildText("objectId2");
 				will(returnValue(null));
@@ -79,7 +79,7 @@ public class LinkTemplateXMLSchemaTest {
 		LinkTemplate result = testable.parse(root_mock);
 		assertNotNull(result);
 		assertEquals("template-name", result.getName());
-		assertEquals("template-id-1", result.getObjectId1());
+		assertEquals(null, result.getObjectId1());
 		assertEquals(null, result.getObjectId2());
 	}
 
@@ -119,13 +119,13 @@ public class LinkTemplateXMLSchemaTest {
 				will(returnValue(null));
 
 				oneOf(linkTemplate_mock).getObjectId2();
-				will(returnValue("template-id-2"));
+				will(returnValue(null));
 			}
 		});
 
 		Element element = testable.combine(linkTemplate_mock);
 		assertEquals("template-name", element.getChildText("name"));
-		assertNull(element.getChild("value"));
-		assertEquals("template-id-2", element.getChildText("objectId2"));
+		assertNull(element.getChildText("objectId1"));
+		assertNull(element.getChildText("objectId2"));
 	}
 }
