@@ -19,8 +19,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
 import planning.method.TaskDescription;
-import planning.model.Attribute;
-import planning.model.Link;
 import planning.model.System;
 import planning.model.SystemObject;
 
@@ -172,103 +170,5 @@ public class TaskDescriptionXMLSchemaTest {
 
 		Element element = testable.combineSystem(system_mock);
 		assertNotNull(element.getChild("systemObject"));
-	}
-
-	@Test
-	public void parseSystemObject() throws DataConversionException {
-		final Element root_mock = context.mock(Element.class, "root");
-		final List<Element> attributes = new ArrayList<>();
-		final Element attribute_mock = context.mock(Element.class, "attribute");
-		attributes.add(attribute_mock);
-		final List<Element> links = new ArrayList<>();
-		final Element link_mock = context.mock(Element.class, "link");
-		links.add(link_mock);
-
-		context.checking(new Expectations() {
-			{
-				oneOf(root_mock).getChildText("name");
-				will(returnValue("object-name"));
-
-				oneOf(root_mock).getChildText("id");
-				will(returnValue("object-id"));
-
-				oneOf(root_mock).getChildren("attribute");
-				will(returnValue(attributes));
-
-				// <-- parseAttribute
-
-				oneOf(attribute_mock).getChildText("name");
-
-				oneOf(attribute_mock).getChild("value");
-
-				// parseAttribute -->
-
-				oneOf(root_mock).getChildren("link");
-				will(returnValue(links));
-
-				// <-- parseLink
-
-				oneOf(link_mock).getChildText("name");
-
-				oneOf(link_mock).getChildText("objectId1");
-
-				oneOf(link_mock).getChildText("objectId2");
-
-				// parseLink -->
-			}
-		});
-
-		assertTrue(testable.parseSystemObject(root_mock) instanceof SystemObject);
-	}
-
-	@Test
-	public void combineSystemObjectTemplate() {
-		final SystemObject systemObject_mock = context.mock(SystemObject.class);
-		final Attribute attribute_mock = context.mock(Attribute.class);
-		final Link link_mock = context.mock(Link.class);
-		final List<Attribute> attributes = new ArrayList<>();
-		attributes.add(attribute_mock);
-		final List<Link> links = new ArrayList<>();
-		links.add(link_mock);
-
-		context.checking(new Expectations() {
-			{
-				oneOf(systemObject_mock).getName();
-				will(returnValue("object-name"));
-
-				oneOf(systemObject_mock).getId();
-				will(returnValue("object-id"));
-
-				oneOf(systemObject_mock).getAttributes();
-				will(returnValue(attributes));
-
-				// <-- combineAttribute
-
-				oneOf(attribute_mock).getName();
-
-				oneOf(attribute_mock).getValue();
-
-				// combineAttribute -->
-
-				oneOf(systemObject_mock).getLinks();
-				will(returnValue(links));
-
-				// <-- combineLink
-
-				oneOf(link_mock).getName();
-
-				oneOf(link_mock).getObjectId1();
-
-				oneOf(link_mock).getObjectId2();
-
-				// combineLink -->
-			}
-		});
-
-		Element element = testable.combineSystemObject(systemObject_mock);
-		assertEquals("object-name", element.getChildText("name"));
-		assertEquals("object-id", element.getChildText("id"));
-		assertNotNull(element.getChild("attribute"));
-		assertNotNull(element.getChild("link"));
 	}
 }
