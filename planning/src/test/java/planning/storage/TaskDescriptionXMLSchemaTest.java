@@ -2,7 +2,6 @@ package planning.storage;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
@@ -271,73 +270,5 @@ public class TaskDescriptionXMLSchemaTest {
 		assertEquals("object-id", element.getChildText("id"));
 		assertNotNull(element.getChild("attribute"));
 		assertNotNull(element.getChild("link"));
-	}
-
-	@Test
-	public void parseAttribute() throws DataConversionException {
-		final Element root_mock = context.mock(Element.class, "root");
-		final Element value_mock = context.mock(Element.class, "value");
-
-		context.checking(new Expectations() {
-			{
-				oneOf(root_mock).getChildText("name");
-				will(returnValue("name"));
-
-				oneOf(root_mock).getChild("value");
-				will(returnValue(value_mock));
-
-				// <-- parseValue
-
-				oneOf(value_mock).getAttributeValue("type", "string");
-
-				oneOf(value_mock).getText();
-
-				// parseValue -->
-			}
-		});
-
-		Attribute result = testable.parseAttribute(root_mock);
-		assertNotNull(result);
-		assertEquals("name", result.getName());
-		assertEquals("", result.getValue());
-	}
-
-	@Test
-	public void combineAttribute() {
-		final Attribute attribute_mock = context.mock(Attribute.class);
-		final Object value_mock = context.mock(Object.class);
-
-		context.checking(new Expectations() {
-			{
-				oneOf(attribute_mock).getName();
-				will(returnValue("attribute-name"));
-
-				oneOf(attribute_mock).getValue();
-				will(returnValue(value_mock));
-			}
-		});
-
-		Element element = testable.combineAttribute(attribute_mock);
-		assertEquals("attribute-name", element.getChildText("name"));
-		assertNotNull(element.getChild("value"));
-	}
-
-	@Test
-	public void combineAttribute_empty_value() {
-		final Attribute attribute_mock = context.mock(Attribute.class);
-
-		context.checking(new Expectations() {
-			{
-				oneOf(attribute_mock).getName();
-				will(returnValue("attribute-name"));
-
-				oneOf(attribute_mock).getValue();
-				will(returnValue(null));
-			}
-		});
-
-		Element element = testable.combineAttribute(attribute_mock);
-		assertEquals("attribute-name", element.getChildText("name"));
-		assertNull(element.getChild("value"));
 	}
 }

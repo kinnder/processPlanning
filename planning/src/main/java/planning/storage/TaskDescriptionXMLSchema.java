@@ -12,8 +12,6 @@ import planning.model.SystemObject;
 
 public class TaskDescriptionXMLSchema implements XMLSchema<TaskDescription> {
 
-	private ValueXMLSchema valueSchema = new ValueXMLSchema();
-
 	@Override
 	public TaskDescription parse(Element element) throws DataConversionException {
 		TaskDescription taskDescription = new TaskDescription();
@@ -72,7 +70,7 @@ public class TaskDescriptionXMLSchema implements XMLSchema<TaskDescription> {
 		SystemObject object = new SystemObject(name, id);
 
 		for (Element element : root.getChildren("attribute")) {
-			Attribute attribute = parseAttribute(element);
+			Attribute attribute = attributeSchema.parse(element);
 			object.addAttribute(attribute);
 		}
 
@@ -96,7 +94,7 @@ public class TaskDescriptionXMLSchema implements XMLSchema<TaskDescription> {
 		root.addContent(id);
 
 		for (Attribute attribute : systemObject.getAttributes()) {
-			Element element = combineAttribute(attribute);
+			Element element = attributeSchema.combine(attribute);
 			root.addContent(element);
 		}
 
@@ -110,24 +108,5 @@ public class TaskDescriptionXMLSchema implements XMLSchema<TaskDescription> {
 
 	private LinkXMLSchema linkSchema = new LinkXMLSchema();
 
-	public Attribute parseAttribute(Element root) {
-		String name = root.getChildText("name");
-		Object value = valueSchema.parse(root.getChild("value"));
-		return new Attribute(name, value);
-	}
-
-	public Element combineAttribute(Attribute attribute) {
-		Element root = new Element("attribute");
-
-		Element name = new Element("name");
-		name.setText(attribute.getName());
-		root.addContent(name);
-
-		Object attributeValue = attribute.getValue();
-		if (attributeValue != null) {
-			Element value = valueSchema.combine(attributeValue);
-			root.addContent(value);
-		}
-		return root;
-	}
+	private AttributeXMLSchema attributeSchema = new AttributeXMLSchema();
 }
