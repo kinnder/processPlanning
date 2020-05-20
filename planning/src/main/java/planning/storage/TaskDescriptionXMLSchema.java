@@ -6,18 +6,19 @@ import org.jdom2.Namespace;
 
 import planning.method.TaskDescription;
 import planning.model.System;
-import planning.model.SystemObject;
 
 public class TaskDescriptionXMLSchema implements XMLSchema<TaskDescription> {
+
+	private SystemXMLSchema systemSchema = new SystemXMLSchema();
 
 	@Override
 	public TaskDescription parse(Element element) throws DataConversionException {
 		TaskDescription taskDescription = new TaskDescription();
 
-		System initialSystem = parseSystem(element.getChild("initialSystem"));
+		System initialSystem = systemSchema.parse(element.getChild("initialSystem"));
 		taskDescription.setInitialSystem(initialSystem);
 
-		System finalSystem = parseSystem(element.getChild("finalSystem"));
+		System finalSystem = systemSchema.parse(element.getChild("finalSystem"));
 		taskDescription.setFinalSystem(finalSystem);
 
 		return taskDescription;
@@ -29,37 +30,14 @@ public class TaskDescriptionXMLSchema implements XMLSchema<TaskDescription> {
 		Namespace xsiNamespace = Namespace.getNamespace("xsi", "http://www.w3.org/2001/XMLSchema-instance");
 		root.setAttribute("noNamespaceSchemaLocation", "../taskDescription.xsd", xsiNamespace);
 
-		Element initialSystem = combineSystem(taskDescription.getInitialSystem());
+		Element initialSystem = systemSchema.combine(taskDescription.getInitialSystem());
 		initialSystem.setName("initialSystem");
 		root.addContent(initialSystem);
 
-		Element finalSystem = combineSystem(taskDescription.getFinalSystem());
+		Element finalSystem = systemSchema.combine(taskDescription.getFinalSystem());
 		finalSystem.setName("finalSystem");
 		root.addContent(finalSystem);
 
 		return root;
 	}
-
-	public System parseSystem(Element root) throws DataConversionException {
-		System system = new System();
-
-		for (Element element : root.getChildren("systemObject")) {
-			SystemObject object = systemObjectSchema.parse(element);
-			system.addObject(object);
-		}
-
-		return system;
-	}
-
-	public Element combineSystem(System system) {
-		Element root = new Element("system");
-		for (SystemObject systemObject : system.getObjects()) {
-			Element element = systemObjectSchema.combine(systemObject);
-			root.addContent(element);
-		}
-
-		return root;
-	}
-
-	private SystemObjectXMLSchema systemObjectSchema = new SystemObjectXMLSchema();
 }

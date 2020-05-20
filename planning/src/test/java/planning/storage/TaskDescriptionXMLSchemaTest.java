@@ -4,9 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.jdom2.DataConversionException;
 import org.jdom2.Element;
 import org.jdom2.Namespace;
@@ -20,7 +17,6 @@ import org.junit.jupiter.api.extension.RegisterExtension;
 
 import planning.method.TaskDescription;
 import planning.model.System;
-import planning.model.SystemObject;
 
 public class TaskDescriptionXMLSchemaTest {
 
@@ -111,64 +107,5 @@ public class TaskDescriptionXMLSchemaTest {
 				Namespace.getNamespace("xsi", "http://www.w3.org/2001/XMLSchema-instance")));
 		assertNotNull(element.getChild("initialSystem"));
 		assertNotNull(element.getChild("finalSystem"));
-	}
-
-	@Test
-	public void parseSystem() throws DataConversionException {
-		final Element root_mock = context.mock(Element.class, "root");
-		final List<Element> objects = new ArrayList<>();
-		final Element object_mock = context.mock(Element.class, "object");
-		objects.add(object_mock);
-
-		context.checking(new Expectations() {
-			{
-				oneOf(root_mock).getChildren("systemObject");
-				will(returnValue(objects));
-
-				// <-- parseSystemObject
-
-				oneOf(object_mock).getChildText("name");
-
-				oneOf(object_mock).getChildText("id");
-
-				oneOf(object_mock).getChildren("attribute");
-
-				oneOf(object_mock).getChildren("link");
-
-				// parseSystemObject -->
-			}
-		});
-
-		assertTrue(testable.parseSystem(root_mock) instanceof System);
-	}
-
-	@Test
-	public void combineSystem() {
-		final System system_mock = context.mock(System.class);
-		final List<SystemObject> systemObjects = new ArrayList<>();
-		final SystemObject systemObject_mock = context.mock(SystemObject.class);
-		systemObjects.add(systemObject_mock);
-
-		context.checking(new Expectations() {
-			{
-				oneOf(system_mock).getObjects();
-				will(returnValue(systemObjects));
-
-				// <-- combineSystemObject
-
-				oneOf(systemObject_mock).getName();
-
-				oneOf(systemObject_mock).getId();
-
-				oneOf(systemObject_mock).getAttributes();
-
-				oneOf(systemObject_mock).getLinks();
-
-				// combineSystemObject -->
-			}
-		});
-
-		Element element = testable.combineSystem(system_mock);
-		assertNotNull(element.getChild("systemObject"));
 	}
 }
