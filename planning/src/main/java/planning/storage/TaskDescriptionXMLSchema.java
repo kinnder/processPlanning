@@ -44,7 +44,7 @@ public class TaskDescriptionXMLSchema implements XMLSchema<TaskDescription> {
 		return root;
 	}
 
-	public System parseSystem(Element root) {
+	public System parseSystem(Element root) throws DataConversionException {
 		System system = new System();
 
 		for (Element element : root.getChildren("systemObject")) {
@@ -65,7 +65,7 @@ public class TaskDescriptionXMLSchema implements XMLSchema<TaskDescription> {
 		return root;
 	}
 
-	public SystemObject parseSystemObject(Element root) {
+	public SystemObject parseSystemObject(Element root) throws DataConversionException {
 		String name = root.getChildText("name");
 		String id = root.getChildText("id");
 
@@ -77,7 +77,7 @@ public class TaskDescriptionXMLSchema implements XMLSchema<TaskDescription> {
 		}
 
 		for (Element element : root.getChildren("link")) {
-			Link link = parseLink(element);
+			Link link = linkSchema.parse(element);
 			object.addLink(link);
 		}
 
@@ -101,34 +101,14 @@ public class TaskDescriptionXMLSchema implements XMLSchema<TaskDescription> {
 		}
 
 		for (Link link : systemObject.getLinks()) {
-			Element element = combineLink(link);
+			Element element = linkSchema.combine(link);
 			root.addContent(element);
 		}
 
 		return root;
 	}
 
-	public Link parseLink(Element root) {
-		String name = root.getChildText("name");
-		String objectId = root.getChildText("objectId");
-		return new Link(name, objectId, null);
-	}
-
-	public Element combineLink(Link link) {
-		Element root = new Element("link");
-
-		Element name = new Element("name");
-		name.setText(link.getName());
-		root.addContent(name);
-
-		String linkObjectId = link.getObjectId1();
-		if (linkObjectId != null) {
-			Element objectId = new Element("objectId");
-			objectId.setText(linkObjectId);
-			root.addContent(objectId);
-		}
-		return root;
-	}
+	private LinkXMLSchema linkSchema = new LinkXMLSchema();
 
 	public Attribute parseAttribute(Element root) {
 		String name = root.getChildText("name");

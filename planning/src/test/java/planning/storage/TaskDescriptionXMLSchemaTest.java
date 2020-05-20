@@ -211,7 +211,9 @@ public class TaskDescriptionXMLSchemaTest {
 
 				oneOf(link_mock).getChildText("name");
 
-				oneOf(link_mock).getChildText("objectId");
+				oneOf(link_mock).getChildText("objectId1");
+
+				oneOf(link_mock).getChildText("objectId2");
 
 				// parseLink -->
 			}
@@ -257,6 +259,8 @@ public class TaskDescriptionXMLSchemaTest {
 				oneOf(link_mock).getName();
 
 				oneOf(link_mock).getObjectId1();
+
+				oneOf(link_mock).getObjectId2();
 
 				// combineLink -->
 			}
@@ -335,81 +339,5 @@ public class TaskDescriptionXMLSchemaTest {
 		Element element = testable.combineAttribute(attribute_mock);
 		assertEquals("attribute-name", element.getChildText("name"));
 		assertNull(element.getChild("value"));
-	}
-
-	@Test
-	public void parseLink() {
-		final Element root_mock = context.mock(Element.class, "root");
-
-		context.checking(new Expectations() {
-			{
-				oneOf(root_mock).getChildText("name");
-				will(returnValue("name"));
-
-				oneOf(root_mock).getChildText("objectId");
-				will(returnValue("value"));
-			}
-		});
-		Link result = testable.parseLink(root_mock);
-		assertNotNull(result);
-		assertEquals("name", result.getName());
-		assertEquals("value", result.getObjectId1());
-	}
-
-	@Test
-	public void parseLinkTemplate_with_null() {
-		final Element root_mock = context.mock(Element.class, "root");
-
-		context.checking(new Expectations() {
-			{
-				oneOf(root_mock).getChildText("name");
-				will(returnValue("name"));
-
-				oneOf(root_mock).getChildText("objectId");
-				will(returnValue(null));
-			}
-		});
-		Link result = testable.parseLink(root_mock);
-		assertNotNull(result);
-		assertEquals("name", result.getName());
-		assertEquals(null, result.getObjectId1());
-	}
-
-	@Test
-	public void combineLink() {
-		final Link link_mock = context.mock(Link.class);
-
-		context.checking(new Expectations() {
-			{
-				oneOf(link_mock).getName();
-				will(returnValue("link-name"));
-
-				oneOf(link_mock).getObjectId1();
-				will(returnValue("link-value"));
-			}
-		});
-
-		Element element = testable.combineLink(link_mock);
-		assertEquals("link-name", element.getChildText("name"));
-		assertEquals("link-value", element.getChildText("objectId"));
-	}
-
-	@Test
-	public void combineLink_empty_value() {
-		final Link link_mock = context.mock(Link.class);
-
-		context.checking(new Expectations() {
-			{
-				oneOf(link_mock).getName();
-				will(returnValue("link-name"));
-
-				oneOf(link_mock).getObjectId1();
-				will(returnValue(null));
-			}
-		});
-
-		Element element = testable.combineLink(link_mock);
-		assertEquals("link-name", element.getChildText("name"));
-		assertNull(element.getChild("objectId"));
 	}
 }

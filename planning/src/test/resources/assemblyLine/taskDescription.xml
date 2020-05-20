@@ -3,22 +3,22 @@
 	<initialSystem>
 		<systemObject>
 			<name>OBJECT-PICK-AND-PLACE-ROBOT</name>
-			<id>f4292b21-052f-444d-94ea-6c03cbe53f50</id>
+			<id>d18eb40e-5a89-481e-b96a-9240490c9f00</id>
 			<attribute>
 				<name>ATTRIBUTE-PICK-AND-PLACE-ROBOT</name>
 				<value type="boolean">true</value>
 			</attribute>
 			<link>
 				<name>LINK-LINEAR-DRIVE-POSITION</name>
-				<objectId>97ea9319-f3f8-4e6c-a6ad-8cdcf1c3c859</objectId>
+				<objectId1>7c9930f5-def7-4ba3-ae4b-b99357679808</objectId1>
 			</link>
 			<link>
 				<name>LINK-ROTARY-DRIVE-POSITION</name>
-				<objectId>dfadf856-1c1c-4634-8209-da7619527fee</objectId>
+				<objectId1>efdbd1fc-3736-4c26-bbb6-a8aa3ad447e3</objectId1>
 			</link>
 			<link>
 				<name>LINK-VERTICAL-DRIVE-POSITION</name>
-				<objectId>0d2dc70c-5dba-4bda-a256-b044a9773b97</objectId>
+				<objectId1>08aa185a-badd-496a-bdc3-5872f63e4e72</objectId1>
 			</link>
 			<link>
 				<name>LINK-GRAB-POSITION</name>
@@ -26,7 +26,7 @@
 		</systemObject>
 		<systemObject>
 			<name>OBJECT-PLANE-X-TABLE-1</name>
-			<id>7e80b90a-a0fc-4abb-beab-38cae9ce2215</id>
+			<id>473d8462-2d63-4d5a-b4dd-174c5f79aa49</id>
 			<attribute>
 				<name>ATTRIBUTE-PLANE-X</name>
 				<value type="boolean">true</value>
@@ -36,32 +36,32 @@
 			</link>
 			<link>
 				<name>LINK-PLANE-X-POSITION</name>
-				<objectId>58890f35-442e-434d-bdb9-db173a9b3bc1</objectId>
+				<objectId1>97eb8180-007b-4d17-a7b9-452a86381a5c</objectId1>
 			</link>
 		</systemObject>
 		<systemObject>
 			<name>OBJECT-PLANE-X-TABLE-2</name>
-			<id>97ea9319-f3f8-4e6c-a6ad-8cdcf1c3c859</id>
+			<id>7c9930f5-def7-4ba3-ae4b-b99357679808</id>
 			<attribute>
 				<name>ATTRIBUTE-PLANE-X</name>
 				<value type="boolean">true</value>
 			</attribute>
 			<link>
 				<name>LINK-LINEAR-DRIVE-POSITION</name>
-				<objectId>f4292b21-052f-444d-94ea-6c03cbe53f50</objectId>
+				<objectId1>d18eb40e-5a89-481e-b96a-9240490c9f00</objectId1>
 			</link>
 			<link>
 				<name>LINK-PLANE-X-POSITION</name>
-				<objectId>b7f6756c-eb56-44c0-a835-8a06d1fff601</objectId>
+				<objectId1>10b7217d-19bb-41bd-9c52-1e47f2deeba7</objectId1>
 			</link>
 			<link>
 				<name>LINK-PLANE-X-POSITION</name>
-				<objectId>a15cdd8d-0b35-45cc-a496-581fae69b302</objectId>
+				<objectId1>2fa6f937-1eec-47c0-9da8-19ef039e5835</objectId1>
 			</link>
 		</systemObject>
 		<systemObject>
 			<name>OBJECT-PLANE-Y-OUTSIDE</name>
-			<id>7d2bf25f-87c1-4f6b-ad32-bdf15592c1dd</id>
+			<id>1366df41-a0e9-4bdc-be15-ce2147bb2607</id>
 			<attribute>
 				<name>ATTRIBUTE-PLANE-Y</name>
 				<value type="boolean">true</value>
@@ -71,32 +71,32 @@
 			</link>
 			<link>
 				<name>LINK-PLANE-Y-POSITION</name>
-				<objectId>a15cdd8d-0b35-45cc-a496-581fae69b302</objectId>
+				<objectId1>2fa6f937-1eec-47c0-9da8-19ef039e5835</objectId1>
 			</link>
 		</systemObject>
 		<systemObject>
 			<name>OBJECT-PLANE-Y-INSIDE</name>
-			<id>dfadf856-1c1c-4634-8209-da7619527fee</id>
+			<id>efdbd1fc-3736-4c26-bbb6-a8aa3ad447e3</id>
 			<attribute>
 				<name>ATTRIBUTE-PLANE-Y</name>
 				<value type="boolean">true</value>
 			</attribute>
 			<link>
 				<name>LINK-ROTARY-DRIVE-POSITION</name>
-				<objectId>f4292b21-052f-444d-94ea-6c03cbe53f50</objectId>
+				<objectId1>d18eb40e-5a89-481e-b96a-9240490c9f00</objectId1>
 			</link>
 			<link>
 				<name>LINK-PLANE-Y-POSITION</name>
-				<objectId>58890f35-442e-434d-bdb9-db173a9b3bc1</objectId>
+				<objectId1>97eb8180-007b-4d17-a7b9-452a86381a5c</objectId1>
 			</link>
 			<link>
 				<name>LINK-PLANE-Y-POSITION</name>
-				<objectId>b7f6756c-eb56-44c0-a835-8a06d1fff601</objectId>
+				<objectId1>10b7217d-19bb-41bd-9c52-1e47f2deeba7</objectId1>
 			</link>
 		</systemObject>
 		<systemObject>
 			<name>OBJECT-PLANE-Z-TOP</name>
-			<id>c1649316-d739-49c7-ac5f-ac39d14dff05</id>
+			<id>24f4529c-a649-482c-add7-5db93dec2873</id>
 			<attribute>
 				<name>ATTRIBUTE-PLANE-Z</name>
 				<value type="boolean">true</value>
@@ -107,31 +107,31 @@
 		</systemObject>
 		<systemObject>
 			<name>OBJECT-PLANE-Z-BOTTOM</name>
-			<id>0d2dc70c-5dba-4bda-a256-b044a9773b97</id>
+			<id>08aa185a-badd-496a-bdc3-5872f63e4e72</id>
 			<attribute>
 				<name>ATTRIBUTE-PLANE-Z</name>
 				<value type="boolean">true</value>
 			</attribute>
 			<link>
 				<name>LINK-VERTICAL-DRIVE-POSITION</name>
-				<objectId>f4292b21-052f-444d-94ea-6c03cbe53f50</objectId>
+				<objectId1>d18eb40e-5a89-481e-b96a-9240490c9f00</objectId1>
 			</link>
 			<link>
 				<name>LINK-PLANE-Z-POSITION</name>
-				<objectId>58890f35-442e-434d-bdb9-db173a9b3bc1</objectId>
+				<objectId1>97eb8180-007b-4d17-a7b9-452a86381a5c</objectId1>
 			</link>
 			<link>
 				<name>LINK-PLANE-Z-POSITION</name>
-				<objectId>b7f6756c-eb56-44c0-a835-8a06d1fff601</objectId>
+				<objectId1>10b7217d-19bb-41bd-9c52-1e47f2deeba7</objectId1>
 			</link>
 			<link>
 				<name>LINK-PLANE-Z-POSITION</name>
-				<objectId>a15cdd8d-0b35-45cc-a496-581fae69b302</objectId>
+				<objectId1>2fa6f937-1eec-47c0-9da8-19ef039e5835</objectId1>
 			</link>
 		</systemObject>
 		<systemObject>
 			<name>OBJECT-PACKAGE-BOX</name>
-			<id>69bfc5dc-1cf6-4d67-8bbc-159e0a640f49</id>
+			<id>e36e01c2-3f70-4ec1-8de9-5e2401598073</id>
 			<attribute>
 				<name>ATTRIBUTE-PACKAGE</name>
 				<value type="boolean">true</value>
@@ -141,51 +141,51 @@
 			</link>
 			<link>
 				<name>LINK-PACKAGE-BOX-POSITION</name>
-				<objectId>a15cdd8d-0b35-45cc-a496-581fae69b302</objectId>
+				<objectId1>2fa6f937-1eec-47c0-9da8-19ef039e5835</objectId1>
 			</link>
 		</systemObject>
 		<systemObject>
 			<name>OBJECT-SHUTTLE</name>
-			<id>a15cdd8d-0b35-45cc-a496-581fae69b302</id>
+			<id>2fa6f937-1eec-47c0-9da8-19ef039e5835</id>
 			<attribute>
 				<name>ATTRIBUTE-PACKAGE-BOX-POSITION</name>
 				<value type="boolean">true</value>
 			</attribute>
 			<link>
 				<name>LINK-PLANE-X-POSITION</name>
-				<objectId>97ea9319-f3f8-4e6c-a6ad-8cdcf1c3c859</objectId>
+				<objectId1>7c9930f5-def7-4ba3-ae4b-b99357679808</objectId1>
 			</link>
 			<link>
 				<name>LINK-PLANE-Y-POSITION</name>
-				<objectId>7d2bf25f-87c1-4f6b-ad32-bdf15592c1dd</objectId>
+				<objectId1>1366df41-a0e9-4bdc-be15-ce2147bb2607</objectId1>
 			</link>
 			<link>
 				<name>LINK-PLANE-Z-POSITION</name>
-				<objectId>0d2dc70c-5dba-4bda-a256-b044a9773b97</objectId>
+				<objectId1>08aa185a-badd-496a-bdc3-5872f63e4e72</objectId1>
 			</link>
 			<link>
 				<name>LINK-PACKAGE-BOX-POSITION</name>
-				<objectId>69bfc5dc-1cf6-4d67-8bbc-159e0a640f49</objectId>
+				<objectId1>e36e01c2-3f70-4ec1-8de9-5e2401598073</objectId1>
 			</link>
 		</systemObject>
 		<systemObject>
 			<name>OBJECT-TABLE-1</name>
-			<id>58890f35-442e-434d-bdb9-db173a9b3bc1</id>
+			<id>97eb8180-007b-4d17-a7b9-452a86381a5c</id>
 			<attribute>
 				<name>ATTRIBUTE-PACKAGE-BOX-POSITION</name>
 				<value type="boolean">true</value>
 			</attribute>
 			<link>
 				<name>LINK-PLANE-X-POSITION</name>
-				<objectId>7e80b90a-a0fc-4abb-beab-38cae9ce2215</objectId>
+				<objectId1>473d8462-2d63-4d5a-b4dd-174c5f79aa49</objectId1>
 			</link>
 			<link>
 				<name>LINK-PLANE-Y-POSITION</name>
-				<objectId>dfadf856-1c1c-4634-8209-da7619527fee</objectId>
+				<objectId1>efdbd1fc-3736-4c26-bbb6-a8aa3ad447e3</objectId1>
 			</link>
 			<link>
 				<name>LINK-PLANE-Z-POSITION</name>
-				<objectId>0d2dc70c-5dba-4bda-a256-b044a9773b97</objectId>
+				<objectId1>08aa185a-badd-496a-bdc3-5872f63e4e72</objectId1>
 			</link>
 			<link>
 				<name>LINK-PACKAGE-BOX-POSITION</name>
@@ -193,22 +193,22 @@
 		</systemObject>
 		<systemObject>
 			<name>OBJECT-TABLE-2</name>
-			<id>b7f6756c-eb56-44c0-a835-8a06d1fff601</id>
+			<id>10b7217d-19bb-41bd-9c52-1e47f2deeba7</id>
 			<attribute>
 				<name>ATTRIBUTE-PACKAGE-BOX-POSITION</name>
 				<value type="boolean">true</value>
 			</attribute>
 			<link>
 				<name>LINK-PLANE-X-POSITION</name>
-				<objectId>97ea9319-f3f8-4e6c-a6ad-8cdcf1c3c859</objectId>
+				<objectId1>7c9930f5-def7-4ba3-ae4b-b99357679808</objectId1>
 			</link>
 			<link>
 				<name>LINK-PLANE-Y-POSITION</name>
-				<objectId>dfadf856-1c1c-4634-8209-da7619527fee</objectId>
+				<objectId1>efdbd1fc-3736-4c26-bbb6-a8aa3ad447e3</objectId1>
 			</link>
 			<link>
 				<name>LINK-PLANE-Z-POSITION</name>
-				<objectId>0d2dc70c-5dba-4bda-a256-b044a9773b97</objectId>
+				<objectId1>08aa185a-badd-496a-bdc3-5872f63e4e72</objectId1>
 			</link>
 			<link>
 				<name>LINK-PACKAGE-BOX-POSITION</name>
@@ -218,7 +218,7 @@
 	<finalSystem>
 		<systemObject>
 			<name>OBJECT-PACKAGE-BOX</name>
-			<id>69bfc5dc-1cf6-4d67-8bbc-159e0a640f49</id>
+			<id>e36e01c2-3f70-4ec1-8de9-5e2401598073</id>
 			<attribute>
 				<name>ATTRIBUTE-PACKAGE</name>
 				<value type="boolean">true</value>
@@ -228,27 +228,27 @@
 			</link>
 			<link>
 				<name>LINK-PACKAGE-BOX-POSITION</name>
-				<objectId>58890f35-442e-434d-bdb9-db173a9b3bc1</objectId>
+				<objectId1>97eb8180-007b-4d17-a7b9-452a86381a5c</objectId1>
 			</link>
 		</systemObject>
 		<systemObject>
 			<name>OBJECT-PICK-AND-PLACE-ROBOT</name>
-			<id>f4292b21-052f-444d-94ea-6c03cbe53f50</id>
+			<id>d18eb40e-5a89-481e-b96a-9240490c9f00</id>
 			<attribute>
 				<name>ATTRIBUTE-PICK-AND-PLACE-ROBOT</name>
 				<value type="boolean">true</value>
 			</attribute>
 			<link>
 				<name>LINK-LINEAR-DRIVE-POSITION</name>
-				<objectId>97ea9319-f3f8-4e6c-a6ad-8cdcf1c3c859</objectId>
+				<objectId1>7c9930f5-def7-4ba3-ae4b-b99357679808</objectId1>
 			</link>
 			<link>
 				<name>LINK-ROTARY-DRIVE-POSITION</name>
-				<objectId>dfadf856-1c1c-4634-8209-da7619527fee</objectId>
+				<objectId1>efdbd1fc-3736-4c26-bbb6-a8aa3ad447e3</objectId1>
 			</link>
 			<link>
 				<name>LINK-VERTICAL-DRIVE-POSITION</name>
-				<objectId>0d2dc70c-5dba-4bda-a256-b044a9773b97</objectId>
+				<objectId1>08aa185a-badd-496a-bdc3-5872f63e4e72</objectId1>
 			</link>
 			<link>
 				<name>LINK-GRAB-POSITION</name>
@@ -256,26 +256,26 @@
 		</systemObject>
 		<systemObject>
 			<name>OBJECT-TABLE-1</name>
-			<id>58890f35-442e-434d-bdb9-db173a9b3bc1</id>
+			<id>97eb8180-007b-4d17-a7b9-452a86381a5c</id>
 			<attribute>
 				<name>ATTRIBUTE-PACKAGE-BOX-POSITION</name>
 				<value type="boolean">true</value>
 			</attribute>
 			<link>
 				<name>LINK-PLANE-X-POSITION</name>
-				<objectId>7e80b90a-a0fc-4abb-beab-38cae9ce2215</objectId>
+				<objectId1>473d8462-2d63-4d5a-b4dd-174c5f79aa49</objectId1>
 			</link>
 			<link>
 				<name>LINK-PLANE-Y-POSITION</name>
-				<objectId>dfadf856-1c1c-4634-8209-da7619527fee</objectId>
+				<objectId1>efdbd1fc-3736-4c26-bbb6-a8aa3ad447e3</objectId1>
 			</link>
 			<link>
 				<name>LINK-PLANE-Z-POSITION</name>
-				<objectId>0d2dc70c-5dba-4bda-a256-b044a9773b97</objectId>
+				<objectId1>08aa185a-badd-496a-bdc3-5872f63e4e72</objectId1>
 			</link>
 			<link>
 				<name>LINK-PACKAGE-BOX-POSITION</name>
-				<objectId>69bfc5dc-1cf6-4d67-8bbc-159e0a640f49</objectId>
+				<objectId1>e36e01c2-3f70-4ec1-8de9-5e2401598073</objectId1>
 			</link>
 		</systemObject>
 	</finalSystem>
