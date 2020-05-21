@@ -12,7 +12,7 @@ import planning.storage.TaskDescriptionXMLFile;
 public class GenerateTaskDescription implements AssemblyLine {
 
 	public static System initialSystem() {
-		System system = new System();
+		final System system = new System();
 
 		final SystemObject robot = new SystemObject(OBJECT_PICK_AND_PLACE_ROBOT, ID_OBJECT_PICK_AND_PLACE_ROBOT);
 		robot.addAttribute(new Attribute(ATTRIBUTE_PICK_AND_PLACE_ROBOT, true));
