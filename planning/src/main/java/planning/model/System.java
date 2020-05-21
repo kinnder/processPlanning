@@ -106,4 +106,22 @@ public class System implements Cloneable {
 		}
 		return null;
 	}
+
+	public void addLink(SystemObject object1, String linkName, SystemObject object2) {
+		if (object1 != null) {
+			if (object2 != null) {
+				object1.addLink(linkName, object2.getId());
+			} else {
+				object1.addLink(linkName, null);
+			}
+		}
+		if (object2 != null) {
+			if (object1 != null) {
+				object2.addLink(linkName, object1.getId());
+			} else {
+				object2.addLink(linkName, null);
+			}
+
+		}
+	}
 }
