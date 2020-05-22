@@ -38,6 +38,7 @@ public class SystemObject implements Cloneable {
 		attributes.put(attribute.getName(), attribute);
 	}
 
+	@Deprecated
 	public void addLink(Link link) {
 		links.add(link);
 	}
@@ -46,6 +47,7 @@ public class SystemObject implements Cloneable {
 		addAttribute(new Attribute(attributeName, attributeValue));
 	}
 
+	@Deprecated
 	public void addLink(String linkName, String linkValue) {
 		addLink(new Link(linkName, linkValue, null));
 	}

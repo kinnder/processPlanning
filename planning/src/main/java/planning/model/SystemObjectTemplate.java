@@ -41,10 +41,12 @@ public class SystemObjectTemplate {
 		attributes.put(attribute.getName(), attribute);
 	}
 
+	@Deprecated
 	public void addLinkTemplate(LinkTemplate link) {
 		links.put(link.getName(), link);
 	}
 
+	@Deprecated
 	public void addLinkTemplate(String linkTemplateName, String linkTemplateValue) {
 		addLinkTemplate(new LinkTemplate(linkTemplateName, linkTemplateValue, null));
 	}
