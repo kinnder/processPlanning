@@ -45,6 +45,10 @@ public class SystemObjectTemplate {
 		links.put(link.getName(), link);
 	}
 
+	public void addLinkTemplate(String linkTemplateName, String linkTemplateValue) {
+		addLinkTemplate(new LinkTemplate(linkTemplateName, linkTemplateValue, null));
+	}
+
 	public boolean matchesAttributes(SystemObject object) {
 		List<AttributeTemplate> notMatchedAttributeTemplates = new ArrayList<>(attributes.values());
 		for (Attribute attribute : object.getAttributes()) {

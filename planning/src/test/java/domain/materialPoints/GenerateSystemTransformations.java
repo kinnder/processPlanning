@@ -7,7 +7,6 @@ import planning.method.SystemTransformations;
 import planning.model.Action;
 import planning.model.AttributeTemplate;
 import planning.model.AttributeTransformation;
-import planning.model.LinkTemplate;
 import planning.model.LinkTransformation;
 import planning.model.SystemObjectTemplate;
 import planning.model.SystemTemplate;
@@ -18,23 +17,22 @@ import planning.storage.SystemTransformationsXMLFile;
 public class GenerateSystemTransformations implements MaterialPoints {
 
 	public static SystemTransformation moveRight() {
+		final SystemTemplate systemTemplate = new SystemTemplate();
+
 		final SystemObjectTemplate object = new SystemObjectTemplate(ID_TEMPLATE_OBJECT);
+		systemTemplate.addObjectTemplate(object);
+
 		final SystemObjectTemplate point_A = new SystemObjectTemplate(ID_TEMPLATE_POINT_A);
-		final SystemObjectTemplate point_B = new SystemObjectTemplate(ID_TEMPLATE_POINT_B);
-
-		final SystemTemplate template = new SystemTemplate();
-		template.addObjectTemplate(object);
-		template.addObjectTemplate(point_A);
-		template.addObjectTemplate(point_B);
-
-		object.addLinkTemplate(new LinkTemplate(LINK_POSITION, ID_TEMPLATE_POINT_A, null));
-
 		point_A.addAttributeTemplate(new AttributeTemplate(ATTRIBUTE_OCCUPIED, true));
-		point_A.addLinkTemplate(new LinkTemplate(LINK_NEIGHBOR_RIGHT, ID_TEMPLATE_POINT_B, null));
-		point_A.addLinkTemplate(new LinkTemplate(LINK_POSITION, ID_TEMPLATE_OBJECT, null));
+		systemTemplate.addObjectTemplate(point_A);
 
+		final SystemObjectTemplate point_B = new SystemObjectTemplate(ID_TEMPLATE_POINT_B);
 		point_B.addAttributeTemplate(new AttributeTemplate(ATTRIBUTE_OCCUPIED, false));
-		point_B.addLinkTemplate(new LinkTemplate(LINK_NEIGHBOR_LEFT, ID_TEMPLATE_POINT_A, null));
+		systemTemplate.addObjectTemplate(point_B);
+
+		systemTemplate.addLinkTemplate(object, LINK_POSITION, point_A);
+
+		systemTemplate.addLinkTemplate(point_A, LINK_NEIGHBOR_RIGHT, LINK_NEIGHBOR_LEFT, point_B);
 
 		final Transformation transformations[] = new Transformation[] {
 				new LinkTransformation(ID_TEMPLATE_OBJECT, LINK_POSITION, ID_TEMPLATE_POINT_A, ID_TEMPLATE_POINT_B),
@@ -45,27 +43,26 @@ public class GenerateSystemTransformations implements MaterialPoints {
 
 		final Action action = new Action(OPERATION_MOVE_RIGHT);
 
-		return new SystemTransformation(ELEMENT_MOVE_RIGHT, action, template, transformations);
+		return new SystemTransformation(ELEMENT_MOVE_RIGHT, action, systemTemplate, transformations);
 	}
 
 	public static SystemTransformation moveLeft() {
+		final SystemTemplate systemTemplate = new SystemTemplate();
+
 		final SystemObjectTemplate object = new SystemObjectTemplate(ID_TEMPLATE_OBJECT);
+		systemTemplate.addObjectTemplate(object);
+
 		final SystemObjectTemplate point_A = new SystemObjectTemplate(ID_TEMPLATE_POINT_A);
-		final SystemObjectTemplate point_B = new SystemObjectTemplate(ID_TEMPLATE_POINT_B);
-
-		final SystemTemplate template = new SystemTemplate();
-		template.addObjectTemplate(object);
-		template.addObjectTemplate(point_A);
-		template.addObjectTemplate(point_B);
-
-		object.addLinkTemplate(new LinkTemplate(LINK_POSITION, ID_TEMPLATE_POINT_B, null));
-
 		point_A.addAttributeTemplate(new AttributeTemplate(ATTRIBUTE_OCCUPIED, false));
-		point_A.addLinkTemplate(new LinkTemplate(LINK_NEIGHBOR_RIGHT, ID_TEMPLATE_POINT_B, null));
+		systemTemplate.addObjectTemplate(point_A);
 
+		final SystemObjectTemplate point_B = new SystemObjectTemplate(ID_TEMPLATE_POINT_B);
 		point_B.addAttributeTemplate(new AttributeTemplate(ATTRIBUTE_OCCUPIED, true));
-		point_B.addLinkTemplate(new LinkTemplate(LINK_NEIGHBOR_LEFT, ID_TEMPLATE_POINT_A, null));
-		point_B.addLinkTemplate(new LinkTemplate(LINK_POSITION, ID_TEMPLATE_OBJECT, null));
+		systemTemplate.addObjectTemplate(point_B);
+
+		systemTemplate.addLinkTemplate(object, LINK_POSITION, point_B);
+
+		systemTemplate.addLinkTemplate(point_A, LINK_NEIGHBOR_RIGHT, LINK_NEIGHBOR_LEFT, point_B);
 
 		final Transformation transformations[] = new Transformation[] {
 				new LinkTransformation(ID_TEMPLATE_OBJECT, LINK_POSITION, ID_TEMPLATE_POINT_B, ID_TEMPLATE_POINT_A),
@@ -76,27 +73,26 @@ public class GenerateSystemTransformations implements MaterialPoints {
 
 		final Action action = new Action(OPERATION_MOVE_LEFT);
 
-		return new SystemTransformation(ELEMENT_MOVE_LEFT, action, template, transformations);
+		return new SystemTransformation(ELEMENT_MOVE_LEFT, action, systemTemplate, transformations);
 	}
 
 	public static SystemTransformation moveTop() {
+		final SystemTemplate systemTemplate = new SystemTemplate();
+
 		final SystemObjectTemplate object = new SystemObjectTemplate(ID_TEMPLATE_OBJECT);
+		systemTemplate.addObjectTemplate(object);
+
 		final SystemObjectTemplate point_A = new SystemObjectTemplate(ID_TEMPLATE_POINT_A);
-		final SystemObjectTemplate point_B = new SystemObjectTemplate(ID_TEMPLATE_POINT_B);
-
-		final SystemTemplate template = new SystemTemplate();
-		template.addObjectTemplate(object);
-		template.addObjectTemplate(point_A);
-		template.addObjectTemplate(point_B);
-
-		object.addLinkTemplate(new LinkTemplate(LINK_POSITION, ID_TEMPLATE_POINT_A, null));
-
 		point_A.addAttributeTemplate(new AttributeTemplate(ATTRIBUTE_OCCUPIED, true));
-		point_A.addLinkTemplate(new LinkTemplate(LINK_NEIGHBOR_TOP, ID_TEMPLATE_POINT_B, null));
-		point_A.addLinkTemplate(new LinkTemplate(LINK_POSITION, ID_TEMPLATE_OBJECT, null));
+		systemTemplate.addObjectTemplate(point_A);
 
+		final SystemObjectTemplate point_B = new SystemObjectTemplate(ID_TEMPLATE_POINT_B);
 		point_B.addAttributeTemplate(new AttributeTemplate(ATTRIBUTE_OCCUPIED, false));
-		point_B.addLinkTemplate(new LinkTemplate(LINK_NEIGHBOR_BOTTOM, ID_TEMPLATE_POINT_A, null));
+		systemTemplate.addObjectTemplate(point_B);
+
+		systemTemplate.addLinkTemplate(object, LINK_POSITION, point_A);
+
+		systemTemplate.addLinkTemplate(point_A, LINK_NEIGHBOR_TOP, LINK_NEIGHBOR_BOTTOM, point_B);
 
 		final Transformation transformations[] = new Transformation[] {
 				new LinkTransformation(ID_TEMPLATE_OBJECT, LINK_POSITION, ID_TEMPLATE_POINT_A, ID_TEMPLATE_POINT_B),
@@ -107,27 +103,26 @@ public class GenerateSystemTransformations implements MaterialPoints {
 
 		final Action action = new Action(OPERATION_MOVE_TOP);
 
-		return new SystemTransformation(ELEMENT_MOVE_TOP, action, template, transformations);
+		return new SystemTransformation(ELEMENT_MOVE_TOP, action, systemTemplate, transformations);
 	}
 
 	public static SystemTransformation moveBottom() {
+		final SystemTemplate systemTemplate = new SystemTemplate();
+
 		final SystemObjectTemplate object = new SystemObjectTemplate(ID_TEMPLATE_OBJECT);
+		systemTemplate.addObjectTemplate(object);
+
 		final SystemObjectTemplate point_A = new SystemObjectTemplate(ID_TEMPLATE_POINT_A);
-		final SystemObjectTemplate point_B = new SystemObjectTemplate(ID_TEMPLATE_POINT_B);
-
-		final SystemTemplate template = new SystemTemplate();
-		template.addObjectTemplate(object);
-		template.addObjectTemplate(point_A);
-		template.addObjectTemplate(point_B);
-
-		object.addLinkTemplate(new LinkTemplate(LINK_POSITION, ID_TEMPLATE_POINT_A, null));
-
 		point_A.addAttributeTemplate(new AttributeTemplate(ATTRIBUTE_OCCUPIED, true));
-		point_A.addLinkTemplate(new LinkTemplate(LINK_NEIGHBOR_BOTTOM, ID_TEMPLATE_POINT_B, null));
-		point_A.addLinkTemplate(new LinkTemplate(LINK_POSITION, ID_TEMPLATE_OBJECT, null));
+		systemTemplate.addObjectTemplate(point_A);
 
+		final SystemObjectTemplate point_B = new SystemObjectTemplate(ID_TEMPLATE_POINT_B);
 		point_B.addAttributeTemplate(new AttributeTemplate(ATTRIBUTE_OCCUPIED, false));
-		point_B.addLinkTemplate(new LinkTemplate(LINK_NEIGHBOR_TOP, ID_TEMPLATE_POINT_A, null));
+		systemTemplate.addObjectTemplate(point_B);
+
+		systemTemplate.addLinkTemplate(object, LINK_POSITION, point_A);
+
+		systemTemplate.addLinkTemplate(point_A, LINK_NEIGHBOR_BOTTOM, LINK_NEIGHBOR_TOP, point_B);
 
 		final Transformation transformations[] = new Transformation[] {
 				new LinkTransformation(ID_TEMPLATE_OBJECT, LINK_POSITION, ID_TEMPLATE_POINT_A, ID_TEMPLATE_POINT_B),
@@ -138,7 +133,7 @@ public class GenerateSystemTransformations implements MaterialPoints {
 
 		final Action action = new Action(OPERATION_MOVE_BOTTOM);
 
-		return new SystemTransformation(ELEMENT_MOVE_BOTTOM, action, template, transformations);
+		return new SystemTransformation(ELEMENT_MOVE_BOTTOM, action, systemTemplate, transformations);
 	}
 
 	public static void main(String args[]) {

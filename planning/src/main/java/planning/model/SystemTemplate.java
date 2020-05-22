@@ -71,4 +71,27 @@ public class SystemTemplate {
 	public Collection<SystemObjectTemplate> getObjectTemplates() {
 		return Collections.unmodifiableCollection(objects);
 	}
+
+	public void addLinkTemplate(SystemObjectTemplate object1, String linkName, SystemObjectTemplate object2) {
+		addLinkTemplate(object1, linkName, linkName, object2);
+	}
+
+	public void addLinkTemplate(SystemObjectTemplate object1, String linkName_o1_o2, String linkName_o2_o1,
+			SystemObjectTemplate object2) {
+		if (object1 != null) {
+			if (object2 != null) {
+				object1.addLinkTemplate(linkName_o1_o2, object2.getId());
+			} else {
+				object1.addLinkTemplate(linkName_o1_o2, null);
+			}
+		}
+		if (object2 != null) {
+			if (object1 != null) {
+				object2.addLinkTemplate(linkName_o2_o1, object1.getId());
+			} else {
+				object2.addLinkTemplate(linkName_o2_o1, null);
+			}
+		}
+	}
+
 }
