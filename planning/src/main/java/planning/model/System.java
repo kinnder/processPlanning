@@ -107,24 +107,27 @@ public class System implements Cloneable {
 		return null;
 	}
 
+	private List<Link> links = new ArrayList<>();
+
 	public void addLink(SystemObject object1, String linkName, SystemObject object2) {
 		addLink(object1, linkName, linkName, object2);
 	}
 
 	public void addLink(SystemObject object1, String linkName_o1_o2, String linkName_o2_o1, SystemObject object2) {
-		if (object1 != null) {
-			if (object2 != null) {
-				object1.addLink(linkName_o1_o2, object2.getId());
-			} else {
-				object1.addLink(linkName_o1_o2, null);
-			}
+		String object1Id = (object1 == null) ? null : object1.getId();
+		String object2Id = (object2 == null) ? null : object2.getId();
+
+		if (object1Id != null) {
+			object1.addLink(linkName_o1_o2, object2Id);
+			links.add(new Link(linkName_o1_o2, object1Id, object2Id));
 		}
-		if (object2 != null) {
-			if (object1 != null) {
-				object2.addLink(linkName_o2_o1, object1.getId());
-			} else {
-				object2.addLink(linkName_o2_o1, null);
-			}
+		if (object2Id != null) {
+			object2.addLink(linkName_o2_o1, object1Id);
+			links.add(new Link(linkName_o2_o1, object2Id, object1Id));
 		}
+	}
+
+	public Collection<Link> getLinks() {
+		return Collections.unmodifiableCollection(links);
 	}
 }

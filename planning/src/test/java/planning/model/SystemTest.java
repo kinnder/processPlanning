@@ -255,9 +255,81 @@ public class SystemTest {
 
 	@Test
 	public void addNewObject() {
-		SystemObject object = testable.addNewObject("new-object");
+		final SystemObject object = testable.addNewObject("new-object");
 
 		assertEquals("new-object", object.getName());
 		assertEquals(1, testable.getObjects().size());
+	}
+
+	@Test
+	public void addLink() {
+		final SystemObject object1_mock = context.mock(SystemObject.class, "object-1");
+		final SystemObject object2_mock = context.mock(SystemObject.class, "object-2");
+
+		context.checking(new Expectations() {
+			{
+				oneOf(object1_mock).getId();
+				will(returnValue("object-1-id"));
+
+				oneOf(object2_mock).getId();
+				will(returnValue("object-2-id"));
+
+				oneOf(object1_mock).addLink("link-name-1", "object-2-id");
+
+				oneOf(object2_mock).addLink("link-name-2", "object-1-id");
+			}
+		});
+
+		testable.addLink(object1_mock, "link-name-1", "link-name-2", object2_mock);
+
+		Collection<Link> links = testable.getLinks();
+		assertEquals(2, links.size());
+		assertTrue(links.contains(new Link("link-name-1", "object-1-id", "object-2-id")));
+		assertTrue(links.contains(new Link("link-name-2", "object-2-id", "object-1-id")));
+	}
+
+	@Test
+	public void addLink_null_object1() {
+		final SystemObject object2_mock = context.mock(SystemObject.class, "object-2");
+
+		context.checking(new Expectations() {
+			{
+				oneOf(object2_mock).getId();
+				will(returnValue("object-2-id"));
+
+				oneOf(object2_mock).addLink("link-name", null);
+			}
+		});
+
+		testable.addLink(null, "link-name", object2_mock);
+
+		Collection<Link> links = testable.getLinks();
+		assertEquals(1, links.size());
+		assertTrue(links.contains(new Link("link-name", "object-2-id", null)));
+	}
+
+	@Test
+	public void addLink_null_object2() {
+		final SystemObject object1_mock = context.mock(SystemObject.class, "object-1");
+
+		context.checking(new Expectations() {
+			{
+				oneOf(object1_mock).getId();
+				will(returnValue("object-1-id"));
+
+				oneOf(object1_mock).addLink("link-name", null);
+			}
+		});
+
+		testable.addLink(object1_mock, "link-name", null);
+
+		Collection<Link> links = testable.getLinks();
+		assertEquals(1, links.size());
+		assertTrue(links.contains(new Link("link-name", "object-1-id", null)));
+	}
+
+	@Test
+	public void getLinks() {
+		assertTrue(testable.getLinks() instanceof Collection);
 	}
 }
