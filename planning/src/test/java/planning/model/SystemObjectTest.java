@@ -289,9 +289,6 @@ public class SystemObjectTest {
 
 				oneOf(attributeTemplate_mock).getName();
 				will(returnValue("attribute-name"));
-
-				oneOf(linkTemplate_mock).getName();
-				will(returnValue("link-name"));
 			}
 		});
 

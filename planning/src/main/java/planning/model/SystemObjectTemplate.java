@@ -13,7 +13,7 @@ public class SystemObjectTemplate {
 
 	private Map<String, AttributeTemplate> attributes = new HashMap<>();
 
-	private Map<String, LinkTemplate> links = new HashMap<>();
+	private List<LinkTemplate> links = new ArrayList<>();
 
 	private String objectId;
 
@@ -24,7 +24,7 @@ public class SystemObjectTemplate {
 	public Set<String> getIds() {
 		Set<String> objectIds = new HashSet<>();
 		objectIds.add(objectId);
-		for (LinkTemplate link : links.values()) {
+		for (LinkTemplate link : links) {
 			String linkValue = link.getObjectId1();
 			if (linkValue != null) {
 				objectIds.add(linkValue);
@@ -43,7 +43,7 @@ public class SystemObjectTemplate {
 
 	@Deprecated
 	public void addLinkTemplate(LinkTemplate link) {
-		links.put(link.getName(), link);
+		links.add(link);
 	}
 
 	@Deprecated
@@ -65,7 +65,7 @@ public class SystemObjectTemplate {
 	}
 
 	public boolean matchesLinks(SystemObject object, IdsMatching matching) {
-		List<LinkTemplate> notMatchedLinkTemplates = new ArrayList<>(links.values());
+		List<LinkTemplate> notMatchedLinkTemplates = new ArrayList<>(links);
 		for (Link link : object.getLinks()) {
 			for (LinkTemplate linkTemplate : notMatchedLinkTemplates) {
 				if (linkTemplate.matches(link, matching)) {
@@ -82,6 +82,6 @@ public class SystemObjectTemplate {
 	}
 
 	public Collection<LinkTemplate> getLinkTemplates() {
-		return Collections.unmodifiableCollection(links.values());
+		return Collections.unmodifiableCollection(links);
 	}
 }

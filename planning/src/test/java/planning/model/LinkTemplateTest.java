@@ -134,4 +134,39 @@ public class LinkTemplateTest {
 	public void getObjectId2() {
 		assertEquals("id-template-2", testable.getObjectId2());
 	}
+
+	@Test
+	public void clone_test() throws CloneNotSupportedException {
+		assertTrue(testable != testable.clone());
+	}
+
+	@Test
+	public void equals() throws CloneNotSupportedException {
+		assertTrue(testable.equals(testable.clone()));
+	}
+
+	@Test
+	public void equals_null() {
+		assertFalse(testable.equals(null));
+	}
+
+	@Test
+	public void equals_self() {
+		assertTrue(testable.equals(testable));
+	}
+
+	@Test
+	public void equals_different_name() {
+		assertFalse(testable.equals(new LinkTemplate("different", "id-1", "id-2")));
+	}
+
+	@Test
+	public void equals_different_objectId1() {
+		assertFalse(testable.equals(new LinkTemplate("link", "another", "id-2")));
+	}
+
+	@Test
+	public void equals_different_objectId2() {
+		assertFalse(testable.equals(new LinkTemplate("link", "id-1", "another")));
+	}
 }

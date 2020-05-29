@@ -142,15 +142,7 @@ public class SystemObjectTemplateTest {
 	public void matchesLinks() {
 		final LinkTemplate linkTemplate_1_mock = context.mock(LinkTemplate.class, "linkTemplate-1");
 		final LinkTemplate linkTemplate_2_mock = context.mock(LinkTemplate.class, "linkTemplate-2");
-		context.checking(new Expectations() {
-			{
-				oneOf(linkTemplate_1_mock).getName();
-				will(returnValue("link-1-template"));
 
-				oneOf(linkTemplate_2_mock).getName();
-				will(returnValue("link-2-template"));
-			}
-		});
 		testable.addLinkTemplate(linkTemplate_1_mock);
 		testable.addLinkTemplate(linkTemplate_2_mock);
 
@@ -179,15 +171,7 @@ public class SystemObjectTemplateTest {
 	public void matechsLinks_differentLink() {
 		final LinkTemplate linkTemplate_1_mock = context.mock(LinkTemplate.class, "linkTemplate-1");
 		final LinkTemplate linkTemplate_3_mock = context.mock(LinkTemplate.class, "linkTemplate-3");
-		context.checking(new Expectations() {
-			{
-				oneOf(linkTemplate_1_mock).getName();
-				will(returnValue("link-1-template"));
 
-				oneOf(linkTemplate_3_mock).getName();
-				will(returnValue("link-3-template"));
-			}
-		});
 		testable.addLinkTemplate(linkTemplate_1_mock);
 		testable.addLinkTemplate(linkTemplate_3_mock);
 
@@ -215,12 +199,7 @@ public class SystemObjectTemplateTest {
 	@Test
 	public void getIds() {
 		final LinkTemplate link_mock = context.mock(LinkTemplate.class, "link");
-		context.checking(new Expectations() {
-			{
-				oneOf(link_mock).getName();
-				will(returnValue("link"));
-			}
-		});
+
 		testable.addLinkTemplate(link_mock);
 
 		context.checking(new Expectations() {
@@ -238,12 +217,7 @@ public class SystemObjectTemplateTest {
 	@Test
 	public void getIds_nullValuedLink() {
 		final LinkTemplate link_mock = context.mock(LinkTemplate.class, "link");
-		context.checking(new Expectations() {
-			{
-				oneOf(link_mock).getName();
-				will(returnValue("link"));
-			}
-		});
+
 		testable.addLinkTemplate(link_mock);
 
 		context.checking(new Expectations() {
@@ -281,15 +255,7 @@ public class SystemObjectTemplateTest {
 	public void getLinkTemplates() {
 		final LinkTemplate linkTemplate_1_mock = context.mock(LinkTemplate.class, "linkTemplate-1");
 		final LinkTemplate linkTemplate_2_mock = context.mock(LinkTemplate.class, "linkTemplate-2");
-		context.checking(new Expectations() {
-			{
-				oneOf(linkTemplate_1_mock).getName();
-				will(returnValue("link-1-template"));
 
-				oneOf(linkTemplate_2_mock).getName();
-				will(returnValue("link-2-template"));
-			}
-		});
 		testable.addLinkTemplate(linkTemplate_1_mock);
 		testable.addLinkTemplate(linkTemplate_2_mock);
 

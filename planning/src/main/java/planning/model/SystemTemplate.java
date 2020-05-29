@@ -72,26 +72,27 @@ public class SystemTemplate {
 		return Collections.unmodifiableCollection(objects);
 	}
 
+	private List<LinkTemplate> linkTemplates = new ArrayList<>();
+
 	public void addLinkTemplate(SystemObjectTemplate object1, String linkName, SystemObjectTemplate object2) {
 		addLinkTemplate(object1, linkName, linkName, object2);
 	}
 
-	public void addLinkTemplate(SystemObjectTemplate object1, String linkName_o1_o2, String linkName_o2_o1,
-			SystemObjectTemplate object2) {
-		if (object1 != null) {
-			if (object2 != null) {
-				object1.addLinkTemplate(linkName_o1_o2, object2.getId());
-			} else {
-				object1.addLinkTemplate(linkName_o1_o2, null);
-			}
+	public void addLinkTemplate(SystemObjectTemplate objectTemplate1, String linkName_o1_o2, String linkName_o2_o1, SystemObjectTemplate objectTempate2) {
+		String objectTemplate1Id = (objectTemplate1 == null) ? null : objectTemplate1.getId();
+		String objectTemplate2Id = (objectTempate2 == null) ? null : objectTempate2.getId();
+
+		if (objectTemplate1Id != null) {
+			objectTemplate1.addLinkTemplate(linkName_o1_o2, objectTemplate2Id);
+			linkTemplates.add(new LinkTemplate(linkName_o1_o2, objectTemplate1Id, objectTemplate2Id));
 		}
-		if (object2 != null) {
-			if (object1 != null) {
-				object2.addLinkTemplate(linkName_o2_o1, object1.getId());
-			} else {
-				object2.addLinkTemplate(linkName_o2_o1, null);
-			}
+		if (objectTemplate2Id != null) {
+			objectTempate2.addLinkTemplate(linkName_o2_o1, objectTemplate1Id);
+			linkTemplates.add(new LinkTemplate(linkName_o2_o1, objectTemplate2Id, objectTemplate1Id));
 		}
 	}
 
+	public Collection<LinkTemplate> getLinkTemplates() {
+		return Collections.unmodifiableCollection(linkTemplates);
+	}
 }
