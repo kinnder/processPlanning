@@ -16,6 +16,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
+import planning.model.Link;
 import planning.model.System;
 import planning.model.SystemObject;
 
@@ -46,6 +47,9 @@ public class SystemXMLSchemaTest {
 		final List<Element> objects = new ArrayList<>();
 		final Element object_mock = context.mock(Element.class, "object");
 		objects.add(object_mock);
+		final List<Element> links = new ArrayList<>();
+		final Element link_mock = context.mock(Element.class, "link");
+		links.add(link_mock);
 
 		context.checking(new Expectations() {
 			{
@@ -63,6 +67,19 @@ public class SystemXMLSchemaTest {
 				oneOf(object_mock).getChildren("link");
 
 				// parseSystemObject -->
+
+				oneOf(root_mock).getChildren("link");
+				will(returnValue(links));
+
+				// <-- parseLink
+
+				oneOf(link_mock).getChildText("name");
+
+				oneOf(link_mock).getChildText("objectId1");
+
+				oneOf(link_mock).getChildText("objectId2");
+
+				// parseLink -->
 			}
 		});
 
@@ -75,6 +92,9 @@ public class SystemXMLSchemaTest {
 		final List<SystemObject> systemObjects = new ArrayList<>();
 		final SystemObject systemObject_mock = context.mock(SystemObject.class);
 		systemObjects.add(systemObject_mock);
+		final List<Link> links = new ArrayList<>();
+		final Link link_mock = context.mock(Link.class);
+		links.add(link_mock);
 
 		context.checking(new Expectations() {
 			{
@@ -92,6 +112,19 @@ public class SystemXMLSchemaTest {
 				oneOf(systemObject_mock).getLinks();
 
 				// combineSystemObject -->
+
+				oneOf(system_mock).getLinks();
+				will(returnValue(links));
+
+				// <-- combineLink
+
+				oneOf(link_mock).getName();
+
+				oneOf(link_mock).getObjectId1();
+
+				oneOf(link_mock).getObjectId2();
+
+				// combineLink -->
 			}
 		});
 

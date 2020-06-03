@@ -72,6 +72,8 @@ public class SystemTransformationXMLSchemaTest {
 
 				oneOf(systemTemplateElement_mock).getChildren("objectTemplate");
 
+				oneOf(systemTemplateElement_mock).getChildren("linkTemplate");
+
 				// parseSystemTemplate -->
 
 				oneOf(root_mock).getChild("transformations");
@@ -122,6 +124,8 @@ public class SystemTransformationXMLSchemaTest {
 				// <-- combineSystemTemplate
 
 				oneOf(systemTemplate_mock).getObjectTemplates();
+
+				oneOf(systemTemplate_mock).getLinkTemplates();
 
 				// combineSystemTemplate -->
 

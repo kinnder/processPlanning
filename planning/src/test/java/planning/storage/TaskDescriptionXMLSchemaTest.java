@@ -54,6 +54,8 @@ public class TaskDescriptionXMLSchemaTest {
 
 				oneOf(initialSystem_mock).getChildren("systemObject");
 
+				oneOf(initialSystem_mock).getChildren("link");
+
 				// parseSystem -->
 
 				oneOf(root_mock).getChild("finalSystem");
@@ -62,6 +64,8 @@ public class TaskDescriptionXMLSchemaTest {
 				// <-- parseSystem
 
 				oneOf(finalSystem_mock).getChildren("systemObject");
+
+				oneOf(finalSystem_mock).getChildren("link");
 
 				// parseSystem -->
 			}
@@ -88,6 +92,8 @@ public class TaskDescriptionXMLSchemaTest {
 
 				oneOf(initialSystem_mock).getObjects();
 
+				oneOf(initialSystem_mock).getLinks();
+
 				// combineSystem -->
 
 				oneOf(taskDescription_mock).getFinalSystem();
@@ -96,6 +102,8 @@ public class TaskDescriptionXMLSchemaTest {
 				// <-- combineSystem
 
 				oneOf(finalSystem_mock).getObjects();
+
+				oneOf(finalSystem_mock).getLinks();
 
 				// combineSystem -->
 			}

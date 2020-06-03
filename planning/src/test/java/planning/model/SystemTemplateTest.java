@@ -242,7 +242,7 @@ public class SystemTemplateTest {
 	}
 
 	@Test
-	public void addLink_null_object1() {
+	public void addLinkTemplate_null_object1() {
 		final SystemObjectTemplate objectTemplate2_mock = context.mock(SystemObjectTemplate.class, "object-template-2");
 
 		context.checking(new Expectations() {
@@ -262,7 +262,7 @@ public class SystemTemplateTest {
 	}
 
 	@Test
-	public void addLink_null_object2() {
+	public void addLinkTemplate_null_object2() {
 		final SystemObjectTemplate object1_mock = context.mock(SystemObjectTemplate.class, "object-1");
 
 		context.checking(new Expectations() {
@@ -275,6 +275,15 @@ public class SystemTemplateTest {
 		});
 
 		testable.addLinkTemplate(object1_mock, "link-name", null);
+
+		Collection<LinkTemplate> linkTemplates = testable.getLinkTemplates();
+		assertEquals(1, linkTemplates.size());
+		assertTrue(linkTemplates.contains(new LinkTemplate("link-name", "object-1-id", null)));
+	}
+
+	@Test
+	public void addLinkTemplate_object() {
+		testable.addLinkTemplate(new LinkTemplate("link-name", "object-1-id", null));
 
 		Collection<LinkTemplate> linkTemplates = testable.getLinkTemplates();
 		assertEquals(1, linkTemplates.size());

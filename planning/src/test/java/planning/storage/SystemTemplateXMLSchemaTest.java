@@ -16,6 +16,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
+import planning.model.LinkTemplate;
 import planning.model.SystemObjectTemplate;
 import planning.model.SystemTemplate;
 
@@ -46,6 +47,9 @@ public class SystemTemplateXMLSchemaTest {
 		final List<Element> objectTemplates = new ArrayList<>();
 		final Element objectTemplate_mock = context.mock(Element.class, "objectTemplate");
 		objectTemplates.add(objectTemplate_mock);
+		final List<Element> linkTemplates = new ArrayList<>();
+		final Element linkTemplate_mock = context.mock(Element.class, "linkTemplate");
+		linkTemplates.add(linkTemplate_mock);
 
 		context.checking(new Expectations() {
 			{
@@ -61,6 +65,19 @@ public class SystemTemplateXMLSchemaTest {
 				oneOf(objectTemplate_mock).getChildren("linkTemplate");
 
 				// parseObjectTemplate -->
+
+				oneOf(root_mock).getChildren("linkTemplate");
+				will(returnValue(linkTemplates));
+
+				// <-- parseLinkTemplate
+
+				oneOf(linkTemplate_mock).getChildText("name");
+
+				oneOf(linkTemplate_mock).getChildText("objectId1");
+
+				oneOf(linkTemplate_mock).getChildText("objectId2");
+
+				// parseLinkTemplate -->
 			}
 		});
 
@@ -73,6 +90,9 @@ public class SystemTemplateXMLSchemaTest {
 		final List<SystemObjectTemplate> systemObjectTemplates = new ArrayList<>();
 		final SystemObjectTemplate systemObjectTemplate_mock = context.mock(SystemObjectTemplate.class);
 		systemObjectTemplates.add(systemObjectTemplate_mock);
+		final List<LinkTemplate> linkTemplates = new ArrayList<>();
+		final LinkTemplate linkTemplate_mock = context.mock(LinkTemplate.class);
+		linkTemplates.add(linkTemplate_mock);
 
 		context.checking(new Expectations() {
 			{
@@ -88,6 +108,19 @@ public class SystemTemplateXMLSchemaTest {
 				oneOf(systemObjectTemplate_mock).getLinkTemplates();
 
 				// combineSystemObjectTemplate -->
+
+				oneOf(systemTemplate_mock).getLinkTemplates();
+				will(returnValue(linkTemplates));
+
+				// <-- combineLinkTemplate
+
+				oneOf(linkTemplate_mock).getName();
+
+				oneOf(linkTemplate_mock).getObjectId1();
+
+				oneOf(linkTemplate_mock).getObjectId2();
+
+				// combineLinkTemplate -->
 			}
 		});
 

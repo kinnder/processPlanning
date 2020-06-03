@@ -3,12 +3,17 @@ package planning.storage;
 import org.jdom2.DataConversionException;
 import org.jdom2.Element;
 
+import planning.model.Link;
 import planning.model.System;
 import planning.model.SystemObject;
 
 public class SystemXMLSchema implements XMLSchema<System> {
 
 	private SystemObjectXMLSchema systemObjectSchema = new SystemObjectXMLSchema();
+
+	private LinkXMLSchema linkSchema = new LinkXMLSchema();
+
+	// TODO : Добавить тэги
 
 	@Override
 	public System parse(Element root) throws DataConversionException {
@@ -19,14 +24,25 @@ public class SystemXMLSchema implements XMLSchema<System> {
 			system.addObject(object);
 		}
 
+		for (Element element : root.getChildren("link")) {
+			Link link = linkSchema.parse(element);
+			system.addLink(link);
+		}
+
 		return system;
 	}
 
 	@Override
 	public Element combine(System system) {
 		Element root = new Element("system");
+
 		for (SystemObject systemObject : system.getObjects()) {
 			Element element = systemObjectSchema.combine(systemObject);
+			root.addContent(element);
+		}
+
+		for (Link link : system.getLinks()) {
+			Element element = linkSchema.combine(link);
 			root.addContent(element);
 		}
 

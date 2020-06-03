@@ -95,4 +95,8 @@ public class SystemTemplate {
 	public Collection<LinkTemplate> getLinkTemplates() {
 		return Collections.unmodifiableCollection(linkTemplates);
 	}
+
+	public void addLinkTemplate(LinkTemplate linkTemplate) {
+		linkTemplates.add(linkTemplate);
+	}
 }

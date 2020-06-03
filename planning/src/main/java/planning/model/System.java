@@ -130,4 +130,8 @@ public class System implements Cloneable {
 	public Collection<Link> getLinks() {
 		return Collections.unmodifiableCollection(links);
 	}
+
+	public void addLink(Link link) {
+		links.add(link);
+	}
 }

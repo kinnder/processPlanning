@@ -1,11 +1,9 @@
 package planning.storage;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.jdom2.DataConversionException;
 import org.jdom2.Element;
 
+import planning.model.LinkTemplate;
 import planning.model.SystemObjectTemplate;
 import planning.model.SystemTemplate;
 
@@ -13,26 +11,41 @@ public class SystemTemplateXMLSchema implements XMLSchema<SystemTemplate> {
 
 	private SystemObjectTemplateXMLSchema systemObjectTemplateSchema = new SystemObjectTemplateXMLSchema();
 
+	private LinkTemplateXMLSchema linkTemplateSchema = new LinkTemplateXMLSchema();
+
+	// TODO : Добавить тэги
+
 	@Override
 	public SystemTemplate parse(Element root) throws DataConversionException {
-		List<Element> elements = root.getChildren("objectTemplate");
 		SystemTemplate systemTemplate = new SystemTemplate();
-		for (Element element : elements) {
+
+		for (Element element : root.getChildren("objectTemplate")) {
 			SystemObjectTemplate systemObjectTemplate = systemObjectTemplateSchema.parse(element);
 			systemTemplate.addObjectTemplate(systemObjectTemplate);
 		}
+
+		for (Element element : root.getChildren("linkTemplate")) {
+			LinkTemplate linkTemplate = linkTemplateSchema.parse(element);
+			systemTemplate.addLinkTemplate(linkTemplate);
+		}
+
 		return systemTemplate;
 	}
 
 	@Override
 	public Element combine(SystemTemplate systemTemplate) {
 		Element root = new Element("systemTemplate");
-		List<Element> elements = new ArrayList<>();
+
 		for (SystemObjectTemplate systemObjectTemplate : systemTemplate.getObjectTemplates()) {
 			Element element = systemObjectTemplateSchema.combine(systemObjectTemplate);
-			elements.add(element);
+			root.addContent(element);
 		}
-		root.addContent(elements);
+
+		for (LinkTemplate linkTemplate : systemTemplate.getLinkTemplates()) {
+			Element element = linkTemplateSchema.combine(linkTemplate);
+			root.addContent(element);
+		}
+
 		return root;
 	}
 }

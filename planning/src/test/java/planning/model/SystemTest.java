@@ -332,4 +332,13 @@ public class SystemTest {
 	public void getLinks() {
 		assertTrue(testable.getLinks() instanceof Collection);
 	}
+
+	@Test
+	public void addLink_object() {
+		testable.addLink(new Link("link-name", "object-1-id", null));
+
+		Collection<Link> links = testable.getLinks();
+		assertEquals(1, links.size());
+		assertTrue(links.contains(new Link("link-name", "object-1-id", null)));
+	}
 }
