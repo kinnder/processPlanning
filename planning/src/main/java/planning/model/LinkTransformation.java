@@ -4,35 +4,37 @@ public class LinkTransformation extends Transformation {
 
 	private String linkName;
 
-	private String linkNewValue;
+	private String linkObjectId2New;
 
-	private String linkOldValue;
+	private String linkObjectId2Old;
 
 	public String getLinkName() {
 		return linkName;
 	}
 
-	public String getLinkNewValue() {
-		return linkNewValue;
+	public String getLinkObjectId1New() {
+		return linkObjectId2New;
 	}
 
-	public String getLinkOldValue() {
-		return linkOldValue;
+	public String getLinkObject1Old() {
+		return linkObjectId2Old;
 	}
 
-	public LinkTransformation(String objectId, String linkName, String linkOldValue, String linkNewValue) {
+	public LinkTransformation(String objectId, String linkName, String linkObjectId2Old, String linkObjectId2New) {
 		super(objectId);
 		this.linkName = linkName;
-		this.linkOldValue = linkOldValue;
-		this.linkNewValue = linkNewValue;
+		this.linkObjectId2Old = linkObjectId2Old;
+		this.linkObjectId2New = linkObjectId2New;
 	}
 
 	@Override
-	protected void applyTo(SystemObject object, SystemVariant systemVariant) {
-		String linkNewValueActual = systemVariant.getObjectIdByIdMatch(linkNewValue);
-		String linkOldValueActual = systemVariant.getObjectIdByIdMatch(linkOldValue);
+	public void applyTo(SystemVariant systemVariant) {
+		SystemObject object = systemVariant.getObjectByIdMatch(getObjectId());
+		String objectIdActual = object.getId();
+		String linkObjectId2NewActual = systemVariant.getObjectIdByIdMatch(linkObjectId2New);
+		String linkObjectId2OldActual = systemVariant.getObjectIdByIdMatch(linkObjectId2Old);
 
-		Link link = object.getLink(linkName, linkOldValueActual);
-		link.setObjectId1(linkNewValueActual);
+		Link link = systemVariant.getSystem().getLink(linkName, objectIdActual, linkObjectId2OldActual);
+		link.setObjectId2(linkObjectId2NewActual);
 	}
 }

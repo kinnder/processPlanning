@@ -1,7 +1,7 @@
 package planning.model;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -44,8 +44,6 @@ public class SystemObjectTest {
 
 	@Test
 	public void clone_test() throws CloneNotSupportedException {
-		final Link link_mock = context.mock(Link.class, "link");
-		final Link clonedLink_mock = context.mock(Link.class, "link-clone");
 		final Attribute attribute_mock = context.mock(Attribute.class, "attribute");
 		final Attribute clonedAttribute_mock = context.mock(Attribute.class, "attribute-clone");
 
@@ -59,21 +57,16 @@ public class SystemObjectTest {
 
 				oneOf(clonedAttribute_mock).getName();
 				will(returnValue("attribute-name"));
-
-				oneOf(link_mock).clone();
-				will(returnValue(clonedLink_mock));
 			}
 		});
 
-		testable.addLink(link_mock);
 		testable.addAttribute(attribute_mock);
 
-		assertTrue(testable != testable.clone());
+		assertNotEquals(testable, testable.clone());
 	}
 
 	@Test
 	public void equals() {
-		final Link link_mock = context.mock(Link.class, "link");
 		final Attribute attribute_mock = context.mock(Attribute.class, "attribute");
 
 		context.checking(new Expectations() {
@@ -82,7 +75,6 @@ public class SystemObjectTest {
 				will(returnValue("attribute-name"));
 			}
 		});
-		testable.addLink(link_mock);
 		testable.addAttribute(attribute_mock);
 
 		context.checking(new Expectations() {
@@ -92,7 +84,6 @@ public class SystemObjectTest {
 			}
 		});
 		final SystemObject systemObject = new SystemObject("object");
-		systemObject.addLink(link_mock);
 		systemObject.addAttribute(attribute_mock);
 
 		assertTrue(testable.equals(systemObject));
@@ -139,31 +130,6 @@ public class SystemObjectTest {
 	}
 
 	@Test
-	public void equals_differentLink() {
-		final Link link_1_mock = context.mock(Link.class, "link-1");
-		final Link link_2_mock = context.mock(Link.class, "link-2");
-
-		testable.addLink(link_1_mock);
-
-		final SystemObject systemObject = new SystemObject("object");
-		systemObject.addLink(link_2_mock);
-
-		assertFalse(testable.equals(systemObject));
-	}
-
-	@Test
-	public void addLink() {
-		final Link link_mock = context.mock(Link.class, "link");
-
-		testable.addLink(link_mock);
-	}
-
-	@Test
-	public void addLink_with_string_string() {
-		testable.addLink("linkName", "linkValue");
-	}
-
-	@Test
 	public void addAttribute() {
 		final Attribute attribute_mock = context.mock(Attribute.class, "attribute");
 
@@ -204,50 +170,7 @@ public class SystemObjectTest {
 	}
 
 	@Test
-	public void getLink() {
-		final Link link = new Link("link-name", "link-value", null);
-		testable.addLink(link);
-
-		assertEquals(link, testable.getLink("link-name", "link-value"));
-	}
-
-	@Test
-	public void getLink_notFound() {
-		final Link link = new Link("link-name", "link-value", null);
-		testable.addLink(link);
-
-		assertNull(testable.getLink("link-name-1", "link-value-2"));
-	}
-
-	@Test
 	public void getIds() {
-		final Link link_mock = context.mock(Link.class, "link");
-		testable.addLink(link_mock);
-
-		context.checking(new Expectations() {
-			{
-				oneOf(link_mock).getObjectId1();
-				will(returnValue("id-2"));
-			}
-		});
-
-		Set<String> ids = testable.getIds();
-		assertEquals(2, ids.size());
-		assertTrue(ids.contains("id-2"));
-	}
-
-	@Test
-	public void getIds_nullValuedLink() {
-		final Link link_mock = context.mock(Link.class, "link");
-		testable.addLink(link_mock);
-
-		context.checking(new Expectations() {
-			{
-				oneOf(link_mock).getObjectId1();
-				will(returnValue(null));
-			}
-		});
-
 		Set<String> ids = testable.getIds();
 		assertEquals(1, ids.size());
 	}
@@ -258,13 +181,10 @@ public class SystemObjectTest {
 	}
 
 	@Test
-	public void getLinks() {
-		assertTrue(testable.getLinks() instanceof Collection);
-	}
-
-	@Test
 	public void createTemplate() {
 		final Attribute attribute_mock = context.mock(Attribute.class);
+		final AttributeTemplate attributeTemplate_mock = context.mock(AttributeTemplate.class);
+
 		context.checking(new Expectations() {
 			{
 				oneOf(attribute_mock).getName();
@@ -273,19 +193,10 @@ public class SystemObjectTest {
 		});
 		testable.addAttribute(attribute_mock);
 
-		final Link link_mock = context.mock(Link.class);
-		testable.addLink(link_mock);
-
-		final AttributeTemplate attributeTemplate_mock = context.mock(AttributeTemplate.class);
-		final LinkTemplate linkTemplate_mock = context.mock(LinkTemplate.class);
-
 		context.checking(new Expectations() {
 			{
 				oneOf(attribute_mock).createTemplate();
 				will(returnValue(attributeTemplate_mock));
-
-				oneOf(link_mock).createTemplate();
-				will(returnValue(linkTemplate_mock));
 
 				oneOf(attributeTemplate_mock).getName();
 				will(returnValue("attribute-name"));
@@ -294,6 +205,5 @@ public class SystemObjectTest {
 
 		SystemObjectTemplate objectTemplate = testable.createTemplate();
 		assertEquals(1, objectTemplate.getAttributeTemplates().size());
-		assertEquals(1, objectTemplate.getLinkTemplates().size());
 	}
 }

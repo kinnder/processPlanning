@@ -78,7 +78,7 @@ public class AcceptanceTests implements CuttingProcess {
 				.getValueAsBoolean(), true);
 		assertEquals(system.getObjectById(cylinderSurface_id).getAttribute(ATTRIBUTE_DIAMETER).getValueAsInteger(),
 				Integer.valueOf(20));
-		assertNotNull(system.getObjectById(cylinderSurface_id).getLink(LINK_IS_DIAMETER_REQUIREMENT, requirement_a_id));
+		assertNotNull(system.getLink(LINK_IS_DIAMETER_REQUIREMENT, cylinderSurface_id, requirement_a_id));
 
 		// 1
 		systemTransformation = cuttingProcessTransformations.get(ELEMENT_SPLIT_CYLINDER_SURFACE);
@@ -98,7 +98,7 @@ public class AcceptanceTests implements CuttingProcess {
 				.getValueAsBoolean(), true);
 		assertEquals(system.getObjectById(cylinderSurface_id).getAttribute(ATTRIBUTE_LENGTH).getValueAsInteger(),
 				Integer.valueOf(45));
-		assertNotNull(system.getObjectById(cylinderSurface_id).getLink(LINK_IS_LENGTH_REQUIREMENT, requirement_a_id));
+		assertNotNull(system.getLink(LINK_IS_LENGTH_REQUIREMENT, cylinderSurface_id, requirement_a_id));
 		assertEquals(system.getObjectById(requirement_b_id).getAttribute(ATTRIBUTE_DIAMETER_REQUIREMENT_STATUS)
 				.getValueAsBoolean(), true);
 

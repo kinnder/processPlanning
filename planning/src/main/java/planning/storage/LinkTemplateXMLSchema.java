@@ -13,6 +13,13 @@ public class LinkTemplateXMLSchema implements XMLSchema<LinkTemplate> {
 
 	final private static String TAG_objectId2 = "objectId2";
 
+	final private static String TAG_schema = "linkTemplate";
+
+	@Override
+	public String getSchemaName() {
+		return TAG_schema;
+	}
+
 	@Override
 	public LinkTemplate parse(Element root) throws DataConversionException {
 		String name = root.getChildText(TAG_name);

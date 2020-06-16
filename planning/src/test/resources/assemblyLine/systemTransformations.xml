@@ -9,13 +9,6 @@
 					<name>ATTRIBUTE-PICK-AND-PLACE-ROBOT</name>
 					<value type="boolean">true</value>
 				</attributeTemplate>
-				<linkTemplate>
-					<name>LINK-GRAB-POSITION</name>
-				</linkTemplate>
-				<linkTemplate>
-					<name>LINK-ROTARY-DRIVE-POSITION</name>
-					<objectId1>ID-PLANE-Y-SOURCE</objectId1>
-				</linkTemplate>
 			</objectTemplate>
 			<objectTemplate>
 				<objectId>ID-PLANE-Y-TARGET</objectId>
@@ -23,9 +16,6 @@
 					<name>ATTRIBUTE-PLANE-Y</name>
 					<value type="boolean">true</value>
 				</attributeTemplate>
-				<linkTemplate>
-					<name>LINK-ROTARY-DRIVE-POSITION</name>
-				</linkTemplate>
 			</objectTemplate>
 			<objectTemplate>
 				<objectId>ID-PLANE-Y-SOURCE</objectId>
@@ -33,11 +23,25 @@
 					<name>ATTRIBUTE-PLANE-Y</name>
 					<value type="boolean">true</value>
 				</attributeTemplate>
-				<linkTemplate>
-					<name>LINK-ROTARY-DRIVE-POSITION</name>
-					<objectId1>ID-ROBOT</objectId1>
-				</linkTemplate>
 			</objectTemplate>
+			<linkTemplate>
+				<name>LINK-ROTARY-DRIVE-POSITION</name>
+				<objectId1>ID-ROBOT</objectId1>
+				<objectId2>ID-PLANE-Y-SOURCE</objectId2>
+			</linkTemplate>
+			<linkTemplate>
+				<name>LINK-ROTARY-DRIVE-POSITION</name>
+				<objectId1>ID-PLANE-Y-SOURCE</objectId1>
+				<objectId2>ID-ROBOT</objectId2>
+			</linkTemplate>
+			<linkTemplate>
+				<name>LINK-GRAB-POSITION</name>
+				<objectId1>ID-ROBOT</objectId1>
+			</linkTemplate>
+			<linkTemplate>
+				<name>LINK-ROTARY-DRIVE-POSITION</name>
+				<objectId1>ID-PLANE-Y-TARGET</objectId1>
+			</linkTemplate>
 		</systemTemplate>
 		<transformations>
 			<linkTransformation>
@@ -75,14 +79,6 @@
 					<name>ATTRIBUTE-PICK-AND-PLACE-ROBOT</name>
 					<value type="boolean">true</value>
 				</attributeTemplate>
-				<linkTemplate>
-					<name>LINK-GRAB-POSITION</name>
-					<objectId1>ID-PACKAGE-BOX</objectId1>
-				</linkTemplate>
-				<linkTemplate>
-					<name>LINK-ROTARY-DRIVE-POSITION</name>
-					<objectId1>ID-PLANE-Y-SOURCE</objectId1>
-				</linkTemplate>
 			</objectTemplate>
 			<objectTemplate>
 				<objectId>ID-PLANE-Y-TARGET</objectId>
@@ -90,9 +86,6 @@
 					<name>ATTRIBUTE-PLANE-Y</name>
 					<value type="boolean">true</value>
 				</attributeTemplate>
-				<linkTemplate>
-					<name>LINK-ROTARY-DRIVE-POSITION</name>
-				</linkTemplate>
 			</objectTemplate>
 			<objectTemplate>
 				<objectId>ID-PLANE-Y-SOURCE</objectId>
@@ -100,10 +93,6 @@
 					<name>ATTRIBUTE-PLANE-Y</name>
 					<value type="boolean">true</value>
 				</attributeTemplate>
-				<linkTemplate>
-					<name>LINK-ROTARY-DRIVE-POSITION</name>
-					<objectId1>ID-ROBOT</objectId1>
-				</linkTemplate>
 			</objectTemplate>
 			<objectTemplate>
 				<objectId>ID-PACKAGE-BOX</objectId>
@@ -111,14 +100,35 @@
 					<name>ATTRIBUTE-PACKAGE</name>
 					<value type="boolean">true</value>
 				</attributeTemplate>
-				<linkTemplate>
-					<name>LINK-GRAB-POSITION</name>
-					<objectId1>ID-ROBOT</objectId1>
-				</linkTemplate>
-				<linkTemplate>
-					<name>LINK-PACKAGE-BOX-POSITION</name>
-				</linkTemplate>
 			</objectTemplate>
+			<linkTemplate>
+				<name>LINK-ROTARY-DRIVE-POSITION</name>
+				<objectId1>ID-ROBOT</objectId1>
+				<objectId2>ID-PLANE-Y-SOURCE</objectId2>
+			</linkTemplate>
+			<linkTemplate>
+				<name>LINK-ROTARY-DRIVE-POSITION</name>
+				<objectId1>ID-PLANE-Y-SOURCE</objectId1>
+				<objectId2>ID-ROBOT</objectId2>
+			</linkTemplate>
+			<linkTemplate>
+				<name>LINK-GRAB-POSITION</name>
+				<objectId1>ID-ROBOT</objectId1>
+				<objectId2>ID-PACKAGE-BOX</objectId2>
+			</linkTemplate>
+			<linkTemplate>
+				<name>LINK-GRAB-POSITION</name>
+				<objectId1>ID-PACKAGE-BOX</objectId1>
+				<objectId2>ID-ROBOT</objectId2>
+			</linkTemplate>
+			<linkTemplate>
+				<name>LINK-ROTARY-DRIVE-POSITION</name>
+				<objectId1>ID-PLANE-Y-TARGET</objectId1>
+			</linkTemplate>
+			<linkTemplate>
+				<name>LINK-PACKAGE-BOX-POSITION</name>
+				<objectId1>ID-PACKAGE-BOX</objectId1>
+			</linkTemplate>
 		</systemTemplate>
 		<transformations>
 			<linkTransformation>
@@ -156,22 +166,6 @@
 					<name>ATTRIBUTE-PICK-AND-PLACE-ROBOT</name>
 					<value type="boolean">true</value>
 				</attributeTemplate>
-				<linkTemplate>
-					<name>LINK-GRAB-POSITION</name>
-					<objectId1>ID-PACKAGE-BOX</objectId1>
-				</linkTemplate>
-				<linkTemplate>
-					<name>LINK-VERTICAL-DRIVE-POSITION</name>
-					<objectId1>ID-PLANE-Z</objectId1>
-				</linkTemplate>
-				<linkTemplate>
-					<name>LINK-LINEAR-DRIVE-POSITION</name>
-					<objectId1>ID-PLANE-X</objectId1>
-				</linkTemplate>
-				<linkTemplate>
-					<name>LINK-ROTARY-DRIVE-POSITION</name>
-					<objectId1>ID-PLANE-Y</objectId1>
-				</linkTemplate>
 			</objectTemplate>
 			<objectTemplate>
 				<objectId>ID-PLANE-Y</objectId>
@@ -179,10 +173,6 @@
 					<name>ATTRIBUTE-PLANE-Y</name>
 					<value type="boolean">true</value>
 				</attributeTemplate>
-				<linkTemplate>
-					<name>LINK-ROTARY-DRIVE-POSITION</name>
-					<objectId1>ID-ROBOT</objectId1>
-				</linkTemplate>
 			</objectTemplate>
 			<objectTemplate>
 				<objectId>ID-PLANE-X</objectId>
@@ -190,10 +180,6 @@
 					<name>ATTRIBUTE-PLANE-X</name>
 					<value type="boolean">true</value>
 				</attributeTemplate>
-				<linkTemplate>
-					<name>LINK-LINEAR-DRIVE-POSITION</name>
-					<objectId1>ID-ROBOT</objectId1>
-				</linkTemplate>
 			</objectTemplate>
 			<objectTemplate>
 				<objectId>ID-PLANE-Z</objectId>
@@ -201,10 +187,6 @@
 					<name>ATTRIBUTE-PLANE-Z</name>
 					<value type="boolean">true</value>
 				</attributeTemplate>
-				<linkTemplate>
-					<name>LINK-VERTICAL-DRIVE-POSITION</name>
-					<objectId1>ID-ROBOT</objectId1>
-				</linkTemplate>
 			</objectTemplate>
 			<objectTemplate>
 				<objectId>ID-PACKAGE-BOX</objectId>
@@ -212,14 +194,6 @@
 					<name>ATTRIBUTE-PACKAGE</name>
 					<value type="boolean">true</value>
 				</attributeTemplate>
-				<linkTemplate>
-					<name>LINK-GRAB-POSITION</name>
-					<objectId1>ID-ROBOT</objectId1>
-				</linkTemplate>
-				<linkTemplate>
-					<name>LINK-PACKAGE-BOX-POSITION</name>
-					<objectId1>ID-PACKAGE-BOX-POSITION</objectId1>
-				</linkTemplate>
 			</objectTemplate>
 			<objectTemplate>
 				<objectId>ID-PACKAGE-BOX-POSITION</objectId>
@@ -227,23 +201,87 @@
 					<name>ATTRIBUTE-PACKAGE-BOX-POSITION</name>
 					<value type="boolean">true</value>
 				</attributeTemplate>
-				<linkTemplate>
-					<name>LINK-PLANE-Y-POSITION</name>
-					<objectId1>ID-PLANE-Y</objectId1>
-				</linkTemplate>
-				<linkTemplate>
-					<name>LINK-PACKAGE-BOX-POSITION</name>
-					<objectId1>ID-PACKAGE-BOX</objectId1>
-				</linkTemplate>
-				<linkTemplate>
-					<name>LINK-PLANE-X-POSITION</name>
-					<objectId1>ID-PLANE-X</objectId1>
-				</linkTemplate>
-				<linkTemplate>
-					<name>LINK-PLANE-Z-POSITION</name>
-					<objectId1>ID-PLANE-Z</objectId1>
-				</linkTemplate>
 			</objectTemplate>
+			<linkTemplate>
+				<name>LINK-GRAB-POSITION</name>
+				<objectId1>ID-ROBOT</objectId1>
+				<objectId2>ID-PACKAGE-BOX</objectId2>
+			</linkTemplate>
+			<linkTemplate>
+				<name>LINK-GRAB-POSITION</name>
+				<objectId1>ID-PACKAGE-BOX</objectId1>
+				<objectId2>ID-ROBOT</objectId2>
+			</linkTemplate>
+			<linkTemplate>
+				<name>LINK-LINEAR-DRIVE-POSITION</name>
+				<objectId1>ID-ROBOT</objectId1>
+				<objectId2>ID-PLANE-X</objectId2>
+			</linkTemplate>
+			<linkTemplate>
+				<name>LINK-LINEAR-DRIVE-POSITION</name>
+				<objectId1>ID-PLANE-X</objectId1>
+				<objectId2>ID-ROBOT</objectId2>
+			</linkTemplate>
+			<linkTemplate>
+				<name>LINK-ROTARY-DRIVE-POSITION</name>
+				<objectId1>ID-ROBOT</objectId1>
+				<objectId2>ID-PLANE-Y</objectId2>
+			</linkTemplate>
+			<linkTemplate>
+				<name>LINK-ROTARY-DRIVE-POSITION</name>
+				<objectId1>ID-PLANE-Y</objectId1>
+				<objectId2>ID-ROBOT</objectId2>
+			</linkTemplate>
+			<linkTemplate>
+				<name>LINK-VERTICAL-DRIVE-POSITION</name>
+				<objectId1>ID-ROBOT</objectId1>
+				<objectId2>ID-PLANE-Z</objectId2>
+			</linkTemplate>
+			<linkTemplate>
+				<name>LINK-VERTICAL-DRIVE-POSITION</name>
+				<objectId1>ID-PLANE-Z</objectId1>
+				<objectId2>ID-ROBOT</objectId2>
+			</linkTemplate>
+			<linkTemplate>
+				<name>LINK-PACKAGE-BOX-POSITION</name>
+				<objectId1>ID-PACKAGE-BOX</objectId1>
+				<objectId2>ID-PACKAGE-BOX-POSITION</objectId2>
+			</linkTemplate>
+			<linkTemplate>
+				<name>LINK-PACKAGE-BOX-POSITION</name>
+				<objectId1>ID-PACKAGE-BOX-POSITION</objectId1>
+				<objectId2>ID-PACKAGE-BOX</objectId2>
+			</linkTemplate>
+			<linkTemplate>
+				<name>LINK-PLANE-X-POSITION</name>
+				<objectId1>ID-PACKAGE-BOX-POSITION</objectId1>
+				<objectId2>ID-PLANE-X</objectId2>
+			</linkTemplate>
+			<linkTemplate>
+				<name>LINK-PLANE-X-POSITION</name>
+				<objectId1>ID-PLANE-X</objectId1>
+				<objectId2>ID-PACKAGE-BOX-POSITION</objectId2>
+			</linkTemplate>
+			<linkTemplate>
+				<name>LINK-PLANE-Y-POSITION</name>
+				<objectId1>ID-PACKAGE-BOX-POSITION</objectId1>
+				<objectId2>ID-PLANE-Y</objectId2>
+			</linkTemplate>
+			<linkTemplate>
+				<name>LINK-PLANE-Y-POSITION</name>
+				<objectId1>ID-PLANE-Y</objectId1>
+				<objectId2>ID-PACKAGE-BOX-POSITION</objectId2>
+			</linkTemplate>
+			<linkTemplate>
+				<name>LINK-PLANE-Z-POSITION</name>
+				<objectId1>ID-PACKAGE-BOX-POSITION</objectId1>
+				<objectId2>ID-PLANE-Z</objectId2>
+			</linkTemplate>
+			<linkTemplate>
+				<name>LINK-PLANE-Z-POSITION</name>
+				<objectId1>ID-PLANE-Z</objectId1>
+				<objectId2>ID-PACKAGE-BOX-POSITION</objectId2>
+			</linkTemplate>
 		</systemTemplate>
 		<transformations>
 			<linkTransformation>
@@ -270,21 +308,6 @@
 					<name>ATTRIBUTE-PICK-AND-PLACE-ROBOT</name>
 					<value type="boolean">true</value>
 				</attributeTemplate>
-				<linkTemplate>
-					<name>LINK-GRAB-POSITION</name>
-				</linkTemplate>
-				<linkTemplate>
-					<name>LINK-VERTICAL-DRIVE-POSITION</name>
-					<objectId1>ID-PLANE-Z</objectId1>
-				</linkTemplate>
-				<linkTemplate>
-					<name>LINK-LINEAR-DRIVE-POSITION</name>
-					<objectId1>ID-PLANE-X</objectId1>
-				</linkTemplate>
-				<linkTemplate>
-					<name>LINK-ROTARY-DRIVE-POSITION</name>
-					<objectId1>ID-PLANE-Y</objectId1>
-				</linkTemplate>
 			</objectTemplate>
 			<objectTemplate>
 				<objectId>ID-PLANE-Y</objectId>
@@ -292,10 +315,6 @@
 					<name>ATTRIBUTE-PLANE-Y</name>
 					<value type="boolean">true</value>
 				</attributeTemplate>
-				<linkTemplate>
-					<name>LINK-ROTARY-DRIVE-POSITION</name>
-					<objectId1>ID-ROBOT</objectId1>
-				</linkTemplate>
 			</objectTemplate>
 			<objectTemplate>
 				<objectId>ID-PLANE-X</objectId>
@@ -303,10 +322,6 @@
 					<name>ATTRIBUTE-PLANE-X</name>
 					<value type="boolean">true</value>
 				</attributeTemplate>
-				<linkTemplate>
-					<name>LINK-LINEAR-DRIVE-POSITION</name>
-					<objectId1>ID-ROBOT</objectId1>
-				</linkTemplate>
 			</objectTemplate>
 			<objectTemplate>
 				<objectId>ID-PLANE-Z</objectId>
@@ -314,10 +329,6 @@
 					<name>ATTRIBUTE-PLANE-Z</name>
 					<value type="boolean">true</value>
 				</attributeTemplate>
-				<linkTemplate>
-					<name>LINK-VERTICAL-DRIVE-POSITION</name>
-					<objectId1>ID-ROBOT</objectId1>
-				</linkTemplate>
 			</objectTemplate>
 			<objectTemplate>
 				<objectId>ID-PACKAGE-BOX</objectId>
@@ -325,13 +336,6 @@
 					<name>ATTRIBUTE-PACKAGE</name>
 					<value type="boolean">true</value>
 				</attributeTemplate>
-				<linkTemplate>
-					<name>LINK-GRAB-POSITION</name>
-				</linkTemplate>
-				<linkTemplate>
-					<name>LINK-PACKAGE-BOX-POSITION</name>
-					<objectId1>ID-PACKAGE-BOX-POSITION</objectId1>
-				</linkTemplate>
 			</objectTemplate>
 			<objectTemplate>
 				<objectId>ID-PACKAGE-BOX-POSITION</objectId>
@@ -339,23 +343,85 @@
 					<name>ATTRIBUTE-PACKAGE-BOX-POSITION</name>
 					<value type="boolean">true</value>
 				</attributeTemplate>
-				<linkTemplate>
-					<name>LINK-PLANE-Y-POSITION</name>
-					<objectId1>ID-PLANE-Y</objectId1>
-				</linkTemplate>
-				<linkTemplate>
-					<name>LINK-PACKAGE-BOX-POSITION</name>
-					<objectId1>ID-PACKAGE-BOX</objectId1>
-				</linkTemplate>
-				<linkTemplate>
-					<name>LINK-PLANE-X-POSITION</name>
-					<objectId1>ID-PLANE-X</objectId1>
-				</linkTemplate>
-				<linkTemplate>
-					<name>LINK-PLANE-Z-POSITION</name>
-					<objectId1>ID-PLANE-Z</objectId1>
-				</linkTemplate>
 			</objectTemplate>
+			<linkTemplate>
+				<name>LINK-GRAB-POSITION</name>
+				<objectId1>ID-ROBOT</objectId1>
+			</linkTemplate>
+			<linkTemplate>
+				<name>LINK-LINEAR-DRIVE-POSITION</name>
+				<objectId1>ID-ROBOT</objectId1>
+				<objectId2>ID-PLANE-X</objectId2>
+			</linkTemplate>
+			<linkTemplate>
+				<name>LINK-LINEAR-DRIVE-POSITION</name>
+				<objectId1>ID-PLANE-X</objectId1>
+				<objectId2>ID-ROBOT</objectId2>
+			</linkTemplate>
+			<linkTemplate>
+				<name>LINK-ROTARY-DRIVE-POSITION</name>
+				<objectId1>ID-ROBOT</objectId1>
+				<objectId2>ID-PLANE-Y</objectId2>
+			</linkTemplate>
+			<linkTemplate>
+				<name>LINK-ROTARY-DRIVE-POSITION</name>
+				<objectId1>ID-PLANE-Y</objectId1>
+				<objectId2>ID-ROBOT</objectId2>
+			</linkTemplate>
+			<linkTemplate>
+				<name>LINK-VERTICAL-DRIVE-POSITION</name>
+				<objectId1>ID-ROBOT</objectId1>
+				<objectId2>ID-PLANE-Z</objectId2>
+			</linkTemplate>
+			<linkTemplate>
+				<name>LINK-VERTICAL-DRIVE-POSITION</name>
+				<objectId1>ID-PLANE-Z</objectId1>
+				<objectId2>ID-ROBOT</objectId2>
+			</linkTemplate>
+			<linkTemplate>
+				<name>LINK-GRAB-POSITION</name>
+				<objectId1>ID-PACKAGE-BOX</objectId1>
+			</linkTemplate>
+			<linkTemplate>
+				<name>LINK-PACKAGE-BOX-POSITION</name>
+				<objectId1>ID-PACKAGE-BOX</objectId1>
+				<objectId2>ID-PACKAGE-BOX-POSITION</objectId2>
+			</linkTemplate>
+			<linkTemplate>
+				<name>LINK-PACKAGE-BOX-POSITION</name>
+				<objectId1>ID-PACKAGE-BOX-POSITION</objectId1>
+				<objectId2>ID-PACKAGE-BOX</objectId2>
+			</linkTemplate>
+			<linkTemplate>
+				<name>LINK-PLANE-X-POSITION</name>
+				<objectId1>ID-PACKAGE-BOX-POSITION</objectId1>
+				<objectId2>ID-PLANE-X</objectId2>
+			</linkTemplate>
+			<linkTemplate>
+				<name>LINK-PLANE-X-POSITION</name>
+				<objectId1>ID-PLANE-X</objectId1>
+				<objectId2>ID-PACKAGE-BOX-POSITION</objectId2>
+			</linkTemplate>
+			<linkTemplate>
+				<name>LINK-PLANE-Y-POSITION</name>
+				<objectId1>ID-PACKAGE-BOX-POSITION</objectId1>
+				<objectId2>ID-PLANE-Y</objectId2>
+			</linkTemplate>
+			<linkTemplate>
+				<name>LINK-PLANE-Y-POSITION</name>
+				<objectId1>ID-PLANE-Y</objectId1>
+				<objectId2>ID-PACKAGE-BOX-POSITION</objectId2>
+			</linkTemplate>
+			<linkTemplate>
+				<name>LINK-PLANE-Z-POSITION</name>
+				<objectId1>ID-PACKAGE-BOX-POSITION</objectId1>
+				<objectId2>ID-PLANE-Z</objectId2>
+			</linkTemplate>
+			<linkTemplate>
+				<name>LINK-PLANE-Z-POSITION</name>
+				<objectId1>ID-PLANE-Z</objectId1>
+				<objectId2>ID-PACKAGE-BOX-POSITION</objectId2>
+			</linkTemplate>
 		</systemTemplate>
 		<transformations>
 			<linkTransformation>
@@ -382,14 +448,6 @@
 					<name>ATTRIBUTE-PICK-AND-PLACE-ROBOT</name>
 					<value type="boolean">true</value>
 				</attributeTemplate>
-				<linkTemplate>
-					<name>LINK-GRAB-POSITION</name>
-					<objectId1>ID-PACKAGE-BOX</objectId1>
-				</linkTemplate>
-				<linkTemplate>
-					<name>LINK-VERTICAL-DRIVE-POSITION</name>
-					<objectId1>ID-PLANE-Z-BOTTOM</objectId1>
-				</linkTemplate>
 			</objectTemplate>
 			<objectTemplate>
 				<objectId>ID-PLANE-Z-TOP</objectId>
@@ -397,9 +455,6 @@
 					<name>ATTRIBUTE-PLANE-Z</name>
 					<value type="boolean">true</value>
 				</attributeTemplate>
-				<linkTemplate>
-					<name>LINK-VERTICAL-DRIVE-POSITION</name>
-				</linkTemplate>
 			</objectTemplate>
 			<objectTemplate>
 				<objectId>ID-PLANE-Z-BOTTOM</objectId>
@@ -407,10 +462,6 @@
 					<name>ATTRIBUTE-PLANE-Z</name>
 					<value type="boolean">true</value>
 				</attributeTemplate>
-				<linkTemplate>
-					<name>LINK-VERTICAL-DRIVE-POSITION</name>
-					<objectId1>ID-ROBOT</objectId1>
-				</linkTemplate>
 			</objectTemplate>
 			<objectTemplate>
 				<objectId>ID-PACKAGE-BOX</objectId>
@@ -418,14 +469,6 @@
 					<name>ATTRIBUTE-PACKAGE</name>
 					<value type="boolean">true</value>
 				</attributeTemplate>
-				<linkTemplate>
-					<name>LINK-GRAB-POSITION</name>
-					<objectId1>ID-ROBOT</objectId1>
-				</linkTemplate>
-				<linkTemplate>
-					<name>LINK-PACKAGE-BOX-POSITION</name>
-					<objectId1>ID-PACKAGE-BOX-POSITION</objectId1>
-				</linkTemplate>
 			</objectTemplate>
 			<objectTemplate>
 				<objectId>ID-PACKAGE-BOX-POSITION</objectId>
@@ -433,11 +476,41 @@
 					<name>ATTRIBUTE-PACKAGE-BOX-POSITION</name>
 					<value type="boolean">true</value>
 				</attributeTemplate>
-				<linkTemplate>
-					<name>LINK-PACKAGE-BOX-POSITION</name>
-					<objectId1>ID-PACKAGE-BOX</objectId1>
-				</linkTemplate>
 			</objectTemplate>
+			<linkTemplate>
+				<name>LINK-VERTICAL-DRIVE-POSITION</name>
+				<objectId1>ID-ROBOT</objectId1>
+				<objectId2>ID-PLANE-Z-BOTTOM</objectId2>
+			</linkTemplate>
+			<linkTemplate>
+				<name>LINK-VERTICAL-DRIVE-POSITION</name>
+				<objectId1>ID-PLANE-Z-BOTTOM</objectId1>
+				<objectId2>ID-ROBOT</objectId2>
+			</linkTemplate>
+			<linkTemplate>
+				<name>LINK-GRAB-POSITION</name>
+				<objectId1>ID-ROBOT</objectId1>
+				<objectId2>ID-PACKAGE-BOX</objectId2>
+			</linkTemplate>
+			<linkTemplate>
+				<name>LINK-GRAB-POSITION</name>
+				<objectId1>ID-PACKAGE-BOX</objectId1>
+				<objectId2>ID-ROBOT</objectId2>
+			</linkTemplate>
+			<linkTemplate>
+				<name>LINK-VERTICAL-DRIVE-POSITION</name>
+				<objectId1>ID-PLANE-Z-TOP</objectId1>
+			</linkTemplate>
+			<linkTemplate>
+				<name>LINK-PACKAGE-BOX-POSITION</name>
+				<objectId1>ID-PACKAGE-BOX</objectId1>
+				<objectId2>ID-PACKAGE-BOX-POSITION</objectId2>
+			</linkTemplate>
+			<linkTemplate>
+				<name>LINK-PACKAGE-BOX-POSITION</name>
+				<objectId1>ID-PACKAGE-BOX-POSITION</objectId1>
+				<objectId2>ID-PACKAGE-BOX</objectId2>
+			</linkTemplate>
 		</systemTemplate>
 		<transformations>
 			<linkTransformation>
@@ -480,37 +553,6 @@
 					<name>ATTRIBUTE-PICK-AND-PLACE-ROBOT</name>
 					<value type="boolean">true</value>
 				</attributeTemplate>
-				<linkTemplate>
-					<name>LINK-GRAB-POSITION</name>
-					<objectId1>ID-PACKAGE-BOX</objectId1>
-				</linkTemplate>
-				<linkTemplate>
-					<name>LINK-VERTICAL-DRIVE-POSITION</name>
-					<objectId1>ID-PLANE-Z-TOP</objectId1>
-				</linkTemplate>
-				<linkTemplate>
-					<name>LINK-LINEAR-DRIVE-POSITION</name>
-					<objectId1>ID-PLANE-X</objectId1>
-				</linkTemplate>
-				<linkTemplate>
-					<name>LINK-ROTARY-DRIVE-POSITION</name>
-					<objectId1>ID-PLANE-Y</objectId1>
-				</linkTemplate>
-			</objectTemplate>
-			<objectTemplate>
-				<objectId>ID-PLANE-X</objectId>
-				<attributeTemplate>
-					<name>ATTRIBUTE-PLANE-X</name>
-					<value type="boolean">true</value>
-				</attributeTemplate>
-				<linkTemplate>
-					<name>LINK-PLANE-X-POSITION</name>
-					<objectId1>ID-PACKAGE-BOX-POSITION</objectId1>
-				</linkTemplate>
-				<linkTemplate>
-					<name>LINK-LINEAR-DRIVE-POSITION</name>
-					<objectId1>ID-ROBOT</objectId1>
-				</linkTemplate>
 			</objectTemplate>
 			<objectTemplate>
 				<objectId>ID-PLANE-Y</objectId>
@@ -518,14 +560,13 @@
 					<name>ATTRIBUTE-PLANE-Y</name>
 					<value type="boolean">true</value>
 				</attributeTemplate>
-				<linkTemplate>
-					<name>LINK-PLANE-Y-POSITION</name>
-					<objectId1>ID-PACKAGE-BOX-POSITION</objectId1>
-				</linkTemplate>
-				<linkTemplate>
-					<name>LINK-ROTARY-DRIVE-POSITION</name>
-					<objectId1>ID-ROBOT</objectId1>
-				</linkTemplate>
+			</objectTemplate>
+			<objectTemplate>
+				<objectId>ID-PLANE-X</objectId>
+				<attributeTemplate>
+					<name>ATTRIBUTE-PLANE-X</name>
+					<value type="boolean">true</value>
+				</attributeTemplate>
 			</objectTemplate>
 			<objectTemplate>
 				<objectId>ID-PLANE-Z-TOP</objectId>
@@ -533,10 +574,6 @@
 					<name>ATTRIBUTE-PLANE-Z</name>
 					<value type="boolean">true</value>
 				</attributeTemplate>
-				<linkTemplate>
-					<name>LINK-VERTICAL-DRIVE-POSITION</name>
-					<objectId1>ID-ROBOT</objectId1>
-				</linkTemplate>
 			</objectTemplate>
 			<objectTemplate>
 				<objectId>ID-PLANE-Z-BOTTOM</objectId>
@@ -544,9 +581,6 @@
 					<name>ATTRIBUTE-PLANE-Z</name>
 					<value type="boolean">true</value>
 				</attributeTemplate>
-				<linkTemplate>
-					<name>LINK-VERTICAL-DRIVE-POSITION</name>
-				</linkTemplate>
 			</objectTemplate>
 			<objectTemplate>
 				<objectId>ID-PACKAGE-BOX</objectId>
@@ -554,13 +588,6 @@
 					<name>ATTRIBUTE-PACKAGE</name>
 					<value type="boolean">true</value>
 				</attributeTemplate>
-				<linkTemplate>
-					<name>LINK-GRAB-POSITION</name>
-					<objectId1>ID-ROBOT</objectId1>
-				</linkTemplate>
-				<linkTemplate>
-					<name>LINK-PACKAGE-BOX-POSITION</name>
-				</linkTemplate>
 			</objectTemplate>
 			<objectTemplate>
 				<objectId>ID-PACKAGE-BOX-POSITION</objectId>
@@ -568,18 +595,79 @@
 					<name>ATTRIBUTE-PACKAGE-BOX-POSITION</name>
 					<value type="boolean">true</value>
 				</attributeTemplate>
-				<linkTemplate>
-					<name>LINK-PLANE-Y-POSITION</name>
-					<objectId1>ID-PLANE-Y</objectId1>
-				</linkTemplate>
-				<linkTemplate>
-					<name>LINK-PACKAGE-BOX-POSITION</name>
-				</linkTemplate>
-				<linkTemplate>
-					<name>LINK-PLANE-X-POSITION</name>
-					<objectId1>ID-PLANE-X</objectId1>
-				</linkTemplate>
 			</objectTemplate>
+			<linkTemplate>
+				<name>LINK-GRAB-POSITION</name>
+				<objectId1>ID-ROBOT</objectId1>
+				<objectId2>ID-PACKAGE-BOX</objectId2>
+			</linkTemplate>
+			<linkTemplate>
+				<name>LINK-GRAB-POSITION</name>
+				<objectId1>ID-PACKAGE-BOX</objectId1>
+				<objectId2>ID-ROBOT</objectId2>
+			</linkTemplate>
+			<linkTemplate>
+				<name>LINK-LINEAR-DRIVE-POSITION</name>
+				<objectId1>ID-ROBOT</objectId1>
+				<objectId2>ID-PLANE-X</objectId2>
+			</linkTemplate>
+			<linkTemplate>
+				<name>LINK-LINEAR-DRIVE-POSITION</name>
+				<objectId1>ID-PLANE-X</objectId1>
+				<objectId2>ID-ROBOT</objectId2>
+			</linkTemplate>
+			<linkTemplate>
+				<name>LINK-ROTARY-DRIVE-POSITION</name>
+				<objectId1>ID-ROBOT</objectId1>
+				<objectId2>ID-PLANE-Y</objectId2>
+			</linkTemplate>
+			<linkTemplate>
+				<name>LINK-ROTARY-DRIVE-POSITION</name>
+				<objectId1>ID-PLANE-Y</objectId1>
+				<objectId2>ID-ROBOT</objectId2>
+			</linkTemplate>
+			<linkTemplate>
+				<name>LINK-VERTICAL-DRIVE-POSITION</name>
+				<objectId1>ID-ROBOT</objectId1>
+				<objectId2>ID-PLANE-Z-TOP</objectId2>
+			</linkTemplate>
+			<linkTemplate>
+				<name>LINK-VERTICAL-DRIVE-POSITION</name>
+				<objectId1>ID-PLANE-Z-TOP</objectId1>
+				<objectId2>ID-ROBOT</objectId2>
+			</linkTemplate>
+			<linkTemplate>
+				<name>LINK-VERTICAL-DRIVE-POSITION</name>
+				<objectId1>ID-PLANE-Z-BOTTOM</objectId1>
+			</linkTemplate>
+			<linkTemplate>
+				<name>LINK-PACKAGE-BOX-POSITION</name>
+				<objectId1>ID-PACKAGE-BOX</objectId1>
+			</linkTemplate>
+			<linkTemplate>
+				<name>LINK-PLANE-X-POSITION</name>
+				<objectId1>ID-PACKAGE-BOX-POSITION</objectId1>
+				<objectId2>ID-PLANE-X</objectId2>
+			</linkTemplate>
+			<linkTemplate>
+				<name>LINK-PLANE-X-POSITION</name>
+				<objectId1>ID-PLANE-X</objectId1>
+				<objectId2>ID-PACKAGE-BOX-POSITION</objectId2>
+			</linkTemplate>
+			<linkTemplate>
+				<name>LINK-PLANE-Y-POSITION</name>
+				<objectId1>ID-PACKAGE-BOX-POSITION</objectId1>
+				<objectId2>ID-PLANE-Y</objectId2>
+			</linkTemplate>
+			<linkTemplate>
+				<name>LINK-PLANE-Y-POSITION</name>
+				<objectId1>ID-PLANE-Y</objectId1>
+				<objectId2>ID-PACKAGE-BOX-POSITION</objectId2>
+			</linkTemplate>
+			<linkTemplate>
+				<name>LINK-PACKAGE-BOX-POSITION</name>
+				<objectId1>ID-PACKAGE-BOX-POSITION</objectId1>
+			</linkTemplate>
 		</systemTemplate>
 		<transformations>
 			<linkTransformation>
@@ -622,14 +710,6 @@
 					<name>ATTRIBUTE-PICK-AND-PLACE-ROBOT</name>
 					<value type="boolean">true</value>
 				</attributeTemplate>
-				<linkTemplate>
-					<name>LINK-GRAB-POSITION</name>
-					<objectId1>ID-PACKAGE-BOX</objectId1>
-				</linkTemplate>
-				<linkTemplate>
-					<name>LINK-LINEAR-DRIVE-POSITION</name>
-					<objectId1>ID-PLANE-X-SOURCE</objectId1>
-				</linkTemplate>
 			</objectTemplate>
 			<objectTemplate>
 				<objectId>ID-PLANE-X-TARGET</objectId>
@@ -637,9 +717,6 @@
 					<name>ATTRIBUTE-PLANE-X</name>
 					<value type="boolean">true</value>
 				</attributeTemplate>
-				<linkTemplate>
-					<name>LINK-LINEAR-DRIVE-POSITION</name>
-				</linkTemplate>
 			</objectTemplate>
 			<objectTemplate>
 				<objectId>ID-PLANE-X-SOURCE</objectId>
@@ -647,10 +724,6 @@
 					<name>ATTRIBUTE-PLANE-X</name>
 					<value type="boolean">true</value>
 				</attributeTemplate>
-				<linkTemplate>
-					<name>LINK-LINEAR-DRIVE-POSITION</name>
-					<objectId1>ID-ROBOT</objectId1>
-				</linkTemplate>
 			</objectTemplate>
 			<objectTemplate>
 				<objectId>ID-PACKAGE-BOX</objectId>
@@ -658,14 +731,35 @@
 					<name>ATTRIBUTE-PACKAGE</name>
 					<value type="boolean">true</value>
 				</attributeTemplate>
-				<linkTemplate>
-					<name>LINK-GRAB-POSITION</name>
-					<objectId1>ID-ROBOT</objectId1>
-				</linkTemplate>
-				<linkTemplate>
-					<name>LINK-PACKAGE-BOX-POSITION</name>
-				</linkTemplate>
 			</objectTemplate>
+			<linkTemplate>
+				<name>LINK-LINEAR-DRIVE-POSITION</name>
+				<objectId1>ID-ROBOT</objectId1>
+				<objectId2>ID-PLANE-X-SOURCE</objectId2>
+			</linkTemplate>
+			<linkTemplate>
+				<name>LINK-LINEAR-DRIVE-POSITION</name>
+				<objectId1>ID-PLANE-X-SOURCE</objectId1>
+				<objectId2>ID-ROBOT</objectId2>
+			</linkTemplate>
+			<linkTemplate>
+				<name>LINK-GRAB-POSITION</name>
+				<objectId1>ID-ROBOT</objectId1>
+				<objectId2>ID-PACKAGE-BOX</objectId2>
+			</linkTemplate>
+			<linkTemplate>
+				<name>LINK-GRAB-POSITION</name>
+				<objectId1>ID-PACKAGE-BOX</objectId1>
+				<objectId2>ID-ROBOT</objectId2>
+			</linkTemplate>
+			<linkTemplate>
+				<name>LINK-LINEAR-DRIVE-POSITION</name>
+				<objectId1>ID-PLANE-X-TARGET</objectId1>
+			</linkTemplate>
+			<linkTemplate>
+				<name>LINK-PACKAGE-BOX-POSITION</name>
+				<objectId1>ID-PACKAGE-BOX</objectId1>
+			</linkTemplate>
 		</systemTemplate>
 		<transformations>
 			<linkTransformation>
@@ -703,13 +797,6 @@
 					<name>ATTRIBUTE-PICK-AND-PLACE-ROBOT</name>
 					<value type="boolean">true</value>
 				</attributeTemplate>
-				<linkTemplate>
-					<name>LINK-GRAB-POSITION</name>
-				</linkTemplate>
-				<linkTemplate>
-					<name>LINK-LINEAR-DRIVE-POSITION</name>
-					<objectId1>ID-PLANE-X-SOURCE</objectId1>
-				</linkTemplate>
 			</objectTemplate>
 			<objectTemplate>
 				<objectId>ID-PLANE-X-TARGET</objectId>
@@ -717,9 +804,6 @@
 					<name>ATTRIBUTE-PLANE-X</name>
 					<value type="boolean">true</value>
 				</attributeTemplate>
-				<linkTemplate>
-					<name>LINK-LINEAR-DRIVE-POSITION</name>
-				</linkTemplate>
 			</objectTemplate>
 			<objectTemplate>
 				<objectId>ID-PLANE-X-SOURCE</objectId>
@@ -727,11 +811,25 @@
 					<name>ATTRIBUTE-PLANE-X</name>
 					<value type="boolean">true</value>
 				</attributeTemplate>
-				<linkTemplate>
-					<name>LINK-LINEAR-DRIVE-POSITION</name>
-					<objectId1>ID-ROBOT</objectId1>
-				</linkTemplate>
 			</objectTemplate>
+			<linkTemplate>
+				<name>LINK-LINEAR-DRIVE-POSITION</name>
+				<objectId1>ID-ROBOT</objectId1>
+				<objectId2>ID-PLANE-X-SOURCE</objectId2>
+			</linkTemplate>
+			<linkTemplate>
+				<name>LINK-LINEAR-DRIVE-POSITION</name>
+				<objectId1>ID-PLANE-X-SOURCE</objectId1>
+				<objectId2>ID-ROBOT</objectId2>
+			</linkTemplate>
+			<linkTemplate>
+				<name>LINK-GRAB-POSITION</name>
+				<objectId1>ID-ROBOT</objectId1>
+			</linkTemplate>
+			<linkTemplate>
+				<name>LINK-LINEAR-DRIVE-POSITION</name>
+				<objectId1>ID-PLANE-X-TARGET</objectId1>
+			</linkTemplate>
 		</systemTemplate>
 		<transformations>
 			<linkTransformation>

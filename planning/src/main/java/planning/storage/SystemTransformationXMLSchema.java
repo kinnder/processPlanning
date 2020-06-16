@@ -10,6 +10,13 @@ import planning.model.Transformation;
 
 public class SystemTransformationXMLSchema implements XMLSchema<SystemTransformation> {
 
+	final private static String TAG_schema = "systemTransformation";
+
+	@Override
+	public String getSchemaName() {
+		return TAG_schema;
+	}
+
 	private ActionXMLSchema actionSchema = new ActionXMLSchema();
 
 	private TransformationsXMLSchema transformationsSchema = new TransformationsXMLSchema();

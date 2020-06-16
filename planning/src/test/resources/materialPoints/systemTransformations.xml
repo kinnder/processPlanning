@@ -5,10 +5,6 @@
 		<systemTemplate>
 			<objectTemplate>
 				<objectId>ID-OBJECT</objectId>
-				<linkTemplate>
-					<name>LINK-POSITION</name>
-					<objectId1>ID-POINT-A</objectId1>
-				</linkTemplate>
 			</objectTemplate>
 			<objectTemplate>
 				<objectId>ID-POINT-A</objectId>
@@ -16,14 +12,6 @@
 					<name>ATTRIBUTE-OCCUPIED</name>
 					<value type="boolean">true</value>
 				</attributeTemplate>
-				<linkTemplate>
-					<name>LINK-NEIGHBOR-RIGHT</name>
-					<objectId1>ID-POINT-B</objectId1>
-				</linkTemplate>
-				<linkTemplate>
-					<name>LINK-POSITION</name>
-					<objectId1>ID-OBJECT</objectId1>
-				</linkTemplate>
 			</objectTemplate>
 			<objectTemplate>
 				<objectId>ID-POINT-B</objectId>
@@ -31,11 +19,27 @@
 					<name>ATTRIBUTE-OCCUPIED</name>
 					<value type="boolean">false</value>
 				</attributeTemplate>
-				<linkTemplate>
-					<name>LINK-NEIGHBOR-LEFT</name>
-					<objectId1>ID-POINT-A</objectId1>
-				</linkTemplate>
 			</objectTemplate>
+			<linkTemplate>
+				<name>LINK-POSITION</name>
+				<objectId1>ID-OBJECT</objectId1>
+				<objectId2>ID-POINT-A</objectId2>
+			</linkTemplate>
+			<linkTemplate>
+				<name>LINK-POSITION</name>
+				<objectId1>ID-POINT-A</objectId1>
+				<objectId2>ID-OBJECT</objectId2>
+			</linkTemplate>
+			<linkTemplate>
+				<name>LINK-NEIGHBOR-RIGHT</name>
+				<objectId1>ID-POINT-A</objectId1>
+				<objectId2>ID-POINT-B</objectId2>
+			</linkTemplate>
+			<linkTemplate>
+				<name>LINK-NEIGHBOR-LEFT</name>
+				<objectId1>ID-POINT-B</objectId1>
+				<objectId2>ID-POINT-A</objectId2>
+			</linkTemplate>
 		</systemTemplate>
 		<transformations>
 			<linkTransformation>
@@ -74,10 +78,6 @@
 		<systemTemplate>
 			<objectTemplate>
 				<objectId>ID-OBJECT</objectId>
-				<linkTemplate>
-					<name>LINK-POSITION</name>
-					<objectId1>ID-POINT-B</objectId1>
-				</linkTemplate>
 			</objectTemplate>
 			<objectTemplate>
 				<objectId>ID-POINT-A</objectId>
@@ -85,10 +85,6 @@
 					<name>ATTRIBUTE-OCCUPIED</name>
 					<value type="boolean">false</value>
 				</attributeTemplate>
-				<linkTemplate>
-					<name>LINK-NEIGHBOR-RIGHT</name>
-					<objectId1>ID-POINT-B</objectId1>
-				</linkTemplate>
 			</objectTemplate>
 			<objectTemplate>
 				<objectId>ID-POINT-B</objectId>
@@ -96,15 +92,27 @@
 					<name>ATTRIBUTE-OCCUPIED</name>
 					<value type="boolean">true</value>
 				</attributeTemplate>
-				<linkTemplate>
-					<name>LINK-NEIGHBOR-LEFT</name>
-					<objectId1>ID-POINT-A</objectId1>
-				</linkTemplate>
-				<linkTemplate>
-					<name>LINK-POSITION</name>
-					<objectId1>ID-OBJECT</objectId1>
-				</linkTemplate>
 			</objectTemplate>
+			<linkTemplate>
+				<name>LINK-POSITION</name>
+				<objectId1>ID-OBJECT</objectId1>
+				<objectId2>ID-POINT-B</objectId2>
+			</linkTemplate>
+			<linkTemplate>
+				<name>LINK-POSITION</name>
+				<objectId1>ID-POINT-B</objectId1>
+				<objectId2>ID-OBJECT</objectId2>
+			</linkTemplate>
+			<linkTemplate>
+				<name>LINK-NEIGHBOR-RIGHT</name>
+				<objectId1>ID-POINT-A</objectId1>
+				<objectId2>ID-POINT-B</objectId2>
+			</linkTemplate>
+			<linkTemplate>
+				<name>LINK-NEIGHBOR-LEFT</name>
+				<objectId1>ID-POINT-B</objectId1>
+				<objectId2>ID-POINT-A</objectId2>
+			</linkTemplate>
 		</systemTemplate>
 		<transformations>
 			<linkTransformation>
@@ -143,10 +151,6 @@
 		<systemTemplate>
 			<objectTemplate>
 				<objectId>ID-OBJECT</objectId>
-				<linkTemplate>
-					<name>LINK-POSITION</name>
-					<objectId1>ID-POINT-A</objectId1>
-				</linkTemplate>
 			</objectTemplate>
 			<objectTemplate>
 				<objectId>ID-POINT-A</objectId>
@@ -154,14 +158,6 @@
 					<name>ATTRIBUTE-OCCUPIED</name>
 					<value type="boolean">true</value>
 				</attributeTemplate>
-				<linkTemplate>
-					<name>LINK-NEIGHBOR-TOP</name>
-					<objectId1>ID-POINT-B</objectId1>
-				</linkTemplate>
-				<linkTemplate>
-					<name>LINK-POSITION</name>
-					<objectId1>ID-OBJECT</objectId1>
-				</linkTemplate>
 			</objectTemplate>
 			<objectTemplate>
 				<objectId>ID-POINT-B</objectId>
@@ -169,11 +165,27 @@
 					<name>ATTRIBUTE-OCCUPIED</name>
 					<value type="boolean">false</value>
 				</attributeTemplate>
-				<linkTemplate>
-					<name>LINK-NEIGHBOR-BOTTOM</name>
-					<objectId1>ID-POINT-A</objectId1>
-				</linkTemplate>
 			</objectTemplate>
+			<linkTemplate>
+				<name>LINK-POSITION</name>
+				<objectId1>ID-OBJECT</objectId1>
+				<objectId2>ID-POINT-A</objectId2>
+			</linkTemplate>
+			<linkTemplate>
+				<name>LINK-POSITION</name>
+				<objectId1>ID-POINT-A</objectId1>
+				<objectId2>ID-OBJECT</objectId2>
+			</linkTemplate>
+			<linkTemplate>
+				<name>LINK-NEIGHBOR-TOP</name>
+				<objectId1>ID-POINT-A</objectId1>
+				<objectId2>ID-POINT-B</objectId2>
+			</linkTemplate>
+			<linkTemplate>
+				<name>LINK-NEIGHBOR-BOTTOM</name>
+				<objectId1>ID-POINT-B</objectId1>
+				<objectId2>ID-POINT-A</objectId2>
+			</linkTemplate>
 		</systemTemplate>
 		<transformations>
 			<linkTransformation>
@@ -212,10 +224,6 @@
 		<systemTemplate>
 			<objectTemplate>
 				<objectId>ID-OBJECT</objectId>
-				<linkTemplate>
-					<name>LINK-POSITION</name>
-					<objectId1>ID-POINT-A</objectId1>
-				</linkTemplate>
 			</objectTemplate>
 			<objectTemplate>
 				<objectId>ID-POINT-A</objectId>
@@ -223,14 +231,6 @@
 					<name>ATTRIBUTE-OCCUPIED</name>
 					<value type="boolean">true</value>
 				</attributeTemplate>
-				<linkTemplate>
-					<name>LINK-NEIGHBOR-BOTTOM</name>
-					<objectId1>ID-POINT-B</objectId1>
-				</linkTemplate>
-				<linkTemplate>
-					<name>LINK-POSITION</name>
-					<objectId1>ID-OBJECT</objectId1>
-				</linkTemplate>
 			</objectTemplate>
 			<objectTemplate>
 				<objectId>ID-POINT-B</objectId>
@@ -238,11 +238,27 @@
 					<name>ATTRIBUTE-OCCUPIED</name>
 					<value type="boolean">false</value>
 				</attributeTemplate>
-				<linkTemplate>
-					<name>LINK-NEIGHBOR-TOP</name>
-					<objectId1>ID-POINT-A</objectId1>
-				</linkTemplate>
 			</objectTemplate>
+			<linkTemplate>
+				<name>LINK-POSITION</name>
+				<objectId1>ID-OBJECT</objectId1>
+				<objectId2>ID-POINT-A</objectId2>
+			</linkTemplate>
+			<linkTemplate>
+				<name>LINK-POSITION</name>
+				<objectId1>ID-POINT-A</objectId1>
+				<objectId2>ID-OBJECT</objectId2>
+			</linkTemplate>
+			<linkTemplate>
+				<name>LINK-NEIGHBOR-BOTTOM</name>
+				<objectId1>ID-POINT-A</objectId1>
+				<objectId2>ID-POINT-B</objectId2>
+			</linkTemplate>
+			<linkTemplate>
+				<name>LINK-NEIGHBOR-TOP</name>
+				<objectId1>ID-POINT-B</objectId1>
+				<objectId2>ID-POINT-A</objectId2>
+			</linkTemplate>
 		</systemTemplate>
 		<transformations>
 			<linkTransformation>

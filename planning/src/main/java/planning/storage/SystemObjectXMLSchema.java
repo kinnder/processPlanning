@@ -4,12 +4,16 @@ import org.jdom2.DataConversionException;
 import org.jdom2.Element;
 
 import planning.model.Attribute;
-import planning.model.Link;
 import planning.model.SystemObject;
 
 public class SystemObjectXMLSchema implements XMLSchema<SystemObject> {
 
-	private LinkXMLSchema linkSchema = new LinkXMLSchema();
+	final private static String TAG_schema = "systemObject";
+
+	@Override
+	public String getSchemaName() {
+		return TAG_schema;
+	}
 
 	private AttributeXMLSchema attributeSchema = new AttributeXMLSchema();
 
@@ -23,11 +27,6 @@ public class SystemObjectXMLSchema implements XMLSchema<SystemObject> {
 		for (Element element : root.getChildren("attribute")) {
 			Attribute attribute = attributeSchema.parse(element);
 			object.addAttribute(attribute);
-		}
-
-		for (Element element : root.getChildren("link")) {
-			Link link = linkSchema.parse(element);
-			object.addLink(link);
 		}
 
 		return object;
@@ -47,11 +46,6 @@ public class SystemObjectXMLSchema implements XMLSchema<SystemObject> {
 
 		for (Attribute attribute : systemObject.getAttributes()) {
 			Element element = attributeSchema.combine(attribute);
-			root.addContent(element);
-		}
-
-		for (Link link : systemObject.getLinks()) {
-			Element element = linkSchema.combine(link);
 			root.addContent(element);
 		}
 

@@ -64,8 +64,6 @@ public class SystemXMLSchemaTest {
 
 				oneOf(object_mock).getChildren("attribute");
 
-				oneOf(object_mock).getChildren("link");
-
 				// parseSystemObject -->
 
 				oneOf(root_mock).getChildren("link");
@@ -108,8 +106,6 @@ public class SystemXMLSchemaTest {
 				oneOf(systemObject_mock).getId();
 
 				oneOf(systemObject_mock).getAttributes();
-
-				oneOf(systemObject_mock).getLinks();
 
 				// combineSystemObject -->
 

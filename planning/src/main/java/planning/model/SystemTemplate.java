@@ -9,19 +9,23 @@ import java.util.Set;
 
 public class SystemTemplate {
 
-	private List<SystemObjectTemplate> objects;
+	private List<SystemObjectTemplate> objectTemplates;
 
 	public Set<String> getIds() {
 		Set<String> systemIds = new HashSet<>();
-		for (SystemObjectTemplate object : objects) {
-			Set<String> objectIds = object.getIds();
+		for (SystemObjectTemplate objectTemplate : objectTemplates) {
+			Set<String> objectIds = objectTemplate.getIds();
 			systemIds.addAll(objectIds);
+		}
+		for (LinkTemplate linkTemplate : linkTemplates) {
+			Set<String> linkTemplateIds = linkTemplate.getIds();
+			systemIds.addAll(linkTemplateIds);
 		}
 		return systemIds;
 	}
 
 	public void addObjectTemplate(SystemObjectTemplate object) {
-		objects.add(object);
+		objectTemplates.add(object);
 	}
 
 	public SystemTemplate() {
@@ -30,7 +34,7 @@ public class SystemTemplate {
 
 	SystemTemplate(IdsMatchingManager idsMatchingManager) {
 		this.idsMatchingsManager = idsMatchingManager;
-		this.objects = new ArrayList<>();
+		this.objectTemplates = new ArrayList<>();
 	}
 
 	private IdsMatchingManager idsMatchingsManager;
@@ -39,7 +43,7 @@ public class SystemTemplate {
 		idsMatchingsManager.prepareMatchingsCandidates(getIds(), system.getIds());
 
 		for (SystemObject object : system.getObjects()) {
-			for (SystemObjectTemplate templateObject : objects) {
+			for (SystemObjectTemplate templateObject : objectTemplates) {
 				if (!templateObject.matchesAttributes(object)) {
 					idsMatchingsManager.removeMatchingsCandidate(templateObject.getId(), object.getId());
 				}
@@ -50,11 +54,17 @@ public class SystemTemplate {
 
 		while (idsMatchingsManager.haveUncheckedMatching()) {
 			IdsMatching matching = idsMatchingsManager.getUncheckedMatching();
-			List<SystemObjectTemplate> objectTemplatesToMatch = new ArrayList<>(objects);
+
+			if (!matchesLinks(system, matching)) {
+				idsMatchingsManager.removeMatching(matching);
+				continue;
+			}
+
+			List<SystemObjectTemplate> objectTemplatesToMatch = new ArrayList<>(objectTemplates);
 
 			for (SystemObject object : system.getObjects()) {
 				for (SystemObjectTemplate objectTemplate : objectTemplatesToMatch) {
-					if (objectTemplate.matchesAttributes(object) && objectTemplate.matchesLinks(object, matching)) {
+					if (objectTemplate.matchesAttributes(object)) {
 						objectTemplatesToMatch.remove(objectTemplate);
 						break;
 					}
@@ -68,26 +78,42 @@ public class SystemTemplate {
 		return idsMatchingsManager.getIdsMatchings();
 	}
 
+	public boolean matchesLinks(System system, IdsMatching matching) {
+		List<LinkTemplate> notMatchedLinkTemplates = new ArrayList<>(linkTemplates);
+		for (Link link : system.getLinks()) {
+			for (LinkTemplate linkTemplate : notMatchedLinkTemplates) {
+				if (linkTemplate.matches(link, matching)) {
+					notMatchedLinkTemplates.remove(linkTemplate);
+					break;
+				}
+			}
+		}
+		return notMatchedLinkTemplates.isEmpty();
+	}
+
 	public Collection<SystemObjectTemplate> getObjectTemplates() {
-		return Collections.unmodifiableCollection(objects);
+		return Collections.unmodifiableCollection(objectTemplates);
 	}
 
 	private List<LinkTemplate> linkTemplates = new ArrayList<>();
+
+	public void addLinkTemplate(String objectTemplate1Id, String linkTemplateName, String objectTemplate2Id) {
+		addLinkTemplate(new LinkTemplate(linkTemplateName, objectTemplate1Id, objectTemplate2Id));
+	}
 
 	public void addLinkTemplate(SystemObjectTemplate object1, String linkName, SystemObjectTemplate object2) {
 		addLinkTemplate(object1, linkName, linkName, object2);
 	}
 
-	public void addLinkTemplate(SystemObjectTemplate objectTemplate1, String linkName_o1_o2, String linkName_o2_o1, SystemObjectTemplate objectTempate2) {
+	public void addLinkTemplate(SystemObjectTemplate objectTemplate1, String linkName_o1_o2, String linkName_o2_o1,
+			SystemObjectTemplate objectTempate2) {
 		String objectTemplate1Id = (objectTemplate1 == null) ? null : objectTemplate1.getId();
 		String objectTemplate2Id = (objectTempate2 == null) ? null : objectTempate2.getId();
 
 		if (objectTemplate1Id != null) {
-			objectTemplate1.addLinkTemplate(linkName_o1_o2, objectTemplate2Id);
 			linkTemplates.add(new LinkTemplate(linkName_o1_o2, objectTemplate1Id, objectTemplate2Id));
 		}
 		if (objectTemplate2Id != null) {
-			objectTempate2.addLinkTemplate(linkName_o2_o1, objectTemplate1Id);
 			linkTemplates.add(new LinkTemplate(linkName_o2_o1, objectTemplate2Id, objectTemplate1Id));
 		}
 	}

@@ -13,6 +13,8 @@ import planning.model.LuaScriptActionParameterUpdater;
 //TODO : rename schema to match generic class
 public class ParameterUpdaterXMLSchema implements XMLSchema<ActionParameterUpdater> {
 
+	final private static String TAG_schema = "parameterUpdater";
+
 	// TODO : пересмотреть положение globals
 	private static Globals globals = JsePlatform.standardGlobals();
 
@@ -45,5 +47,10 @@ public class ParameterUpdaterXMLSchema implements XMLSchema<ActionParameterUpdat
 			root.addContent(element);
 		}
 		return root;
+	}
+
+	@Override
+	public String getSchemaName() {
+		return TAG_schema;
 	}
 }

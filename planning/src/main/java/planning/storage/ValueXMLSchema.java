@@ -4,6 +4,13 @@ import org.jdom2.Element;
 
 public class ValueXMLSchema implements XMLSchema<Object> {
 
+	final private static String TAG_schema = "value";
+
+	@Override
+	public String getSchemaName() {
+		return TAG_schema;
+	}
+
 	@Override
 	public Object parse(Element element) {
 		if (element == null) {

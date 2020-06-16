@@ -62,8 +62,6 @@ public class SystemTemplateXMLSchemaTest {
 
 				oneOf(objectTemplate_mock).getChildren("attributeTemplate");
 
-				oneOf(objectTemplate_mock).getChildren("linkTemplate");
-
 				// parseObjectTemplate -->
 
 				oneOf(root_mock).getChildren("linkTemplate");
@@ -105,8 +103,6 @@ public class SystemTemplateXMLSchemaTest {
 
 				oneOf(systemObjectTemplate_mock).getAttributeTemplates();
 
-				oneOf(systemObjectTemplate_mock).getLinkTemplates();
-
 				// combineSystemObjectTemplate -->
 
 				oneOf(systemTemplate_mock).getLinkTemplates();
@@ -121,6 +117,7 @@ public class SystemTemplateXMLSchemaTest {
 				oneOf(linkTemplate_mock).getObjectId2();
 
 				// combineLinkTemplate -->
+
 			}
 		});
 

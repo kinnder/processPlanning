@@ -7,6 +7,13 @@ import planning.model.LinkTransformation;
 
 public class LinkTransformationXMLSchema implements XMLSchema<LinkTransformation> {
 
+	final private static String TAG_schema = "linkTransformation";
+
+	@Override
+	public String getSchemaName() {
+		return TAG_schema;
+	}
+
 	@Override
 	public LinkTransformation parse(Element root) throws DataConversionException {
 		String objectId = root.getChildText("objectId");
@@ -26,13 +33,13 @@ public class LinkTransformationXMLSchema implements XMLSchema<LinkTransformation
 		name.setText(transformation.getLinkName());
 		root.addContent(name);
 		String value;
-		value = transformation.getLinkOldValue();
+		value = transformation.getLinkObject1Old();
 		if (value != null) {
 			Element element = new Element("oldValue");
 			element.setText(value);
 			root.addContent(element);
 		}
-		value = transformation.getLinkNewValue();
+		value = transformation.getLinkObjectId1New();
 		if (value != null) {
 			Element element = new Element("newValue");
 			element.setText(value);

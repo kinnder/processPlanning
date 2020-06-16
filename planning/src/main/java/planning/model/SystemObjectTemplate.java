@@ -11,9 +11,7 @@ import java.util.Set;
 
 public class SystemObjectTemplate {
 
-	private Map<String, AttributeTemplate> attributes = new HashMap<>();
-
-	private List<LinkTemplate> links = new ArrayList<>();
+	private Map<String, AttributeTemplate> attributeTemplates = new HashMap<>();
 
 	private String objectId;
 
@@ -24,12 +22,6 @@ public class SystemObjectTemplate {
 	public Set<String> getIds() {
 		Set<String> objectIds = new HashSet<>();
 		objectIds.add(objectId);
-		for (LinkTemplate link : links) {
-			String linkValue = link.getObjectId1();
-			if (linkValue != null) {
-				objectIds.add(linkValue);
-			}
-		}
 		return objectIds;
 	}
 
@@ -37,22 +29,12 @@ public class SystemObjectTemplate {
 		this.objectId = objectId;
 	}
 
-	public void addAttributeTemplate(AttributeTemplate attribute) {
-		attributes.put(attribute.getName(), attribute);
-	}
-
-	@Deprecated
-	public void addLinkTemplate(LinkTemplate link) {
-		links.add(link);
-	}
-
-	@Deprecated
-	public void addLinkTemplate(String linkTemplateName, String linkTemplateValue) {
-		addLinkTemplate(new LinkTemplate(linkTemplateName, linkTemplateValue, null));
+	public void addAttributeTemplate(AttributeTemplate attributeTemplate) {
+		attributeTemplates.put(attributeTemplate.getName(), attributeTemplate);
 	}
 
 	public boolean matchesAttributes(SystemObject object) {
-		List<AttributeTemplate> notMatchedAttributeTemplates = new ArrayList<>(attributes.values());
+		List<AttributeTemplate> notMatchedAttributeTemplates = new ArrayList<>(attributeTemplates.values());
 		for (Attribute attribute : object.getAttributes()) {
 			for (AttributeTemplate attributeTemplate : notMatchedAttributeTemplates) {
 				if (attributeTemplate.matches(attribute)) {
@@ -64,24 +46,7 @@ public class SystemObjectTemplate {
 		return notMatchedAttributeTemplates.isEmpty();
 	}
 
-	public boolean matchesLinks(SystemObject object, IdsMatching matching) {
-		List<LinkTemplate> notMatchedLinkTemplates = new ArrayList<>(links);
-		for (Link link : object.getLinks()) {
-			for (LinkTemplate linkTemplate : notMatchedLinkTemplates) {
-				if (linkTemplate.matches(link, matching)) {
-					notMatchedLinkTemplates.remove(linkTemplate);
-					break;
-				}
-			}
-		}
-		return notMatchedLinkTemplates.isEmpty();
-	}
-
 	public Collection<AttributeTemplate> getAttributeTemplates() {
-		return Collections.unmodifiableCollection(attributes.values());
-	}
-
-	public Collection<LinkTemplate> getLinkTemplates() {
-		return Collections.unmodifiableCollection(links);
+		return Collections.unmodifiableCollection(attributeTemplates.values());
 	}
 }

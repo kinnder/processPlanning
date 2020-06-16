@@ -7,6 +7,13 @@ import planning.model.AttributeTransformation;
 
 public class AttributeTransformationXMLSchema implements XMLSchema<AttributeTransformation> {
 
+	final private static String TAG_schema = "attributeTransformation";
+
+	@Override
+	public String getSchemaName() {
+		return TAG_schema;
+	}
+
 	private ValueXMLSchema valueSchema = new ValueXMLSchema();
 
 	@Override
@@ -30,4 +37,5 @@ public class AttributeTransformationXMLSchema implements XMLSchema<AttributeTran
 		root.addContent(value);
 		return root;
 	}
+
 }

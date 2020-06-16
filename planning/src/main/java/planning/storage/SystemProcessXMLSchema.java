@@ -13,6 +13,13 @@ import planning.model.SystemOperation;
 
 public class SystemProcessXMLSchema implements XMLSchema<SystemProcess> {
 
+	final private static String TAG_schema = "process";
+
+	@Override
+	public String getSchemaName() {
+		return TAG_schema;
+	}
+
 	private ValueXMLSchema valueSchema = new ValueXMLSchema();
 
 	@Override

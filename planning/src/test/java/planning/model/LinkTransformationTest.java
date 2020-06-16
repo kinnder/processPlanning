@@ -34,13 +34,17 @@ public class LinkTransformationTest {
 	@Test
 	public void applyTo() {
 		final SystemObject object_mock = context.mock(SystemObject.class);
-		final Link link_mock = context.mock(Link.class);
+		final Link link_in_system_mock = context.mock(Link.class, "link-in-system");
 		final SystemVariant systemVariant_mock = context.mock(SystemVariant.class);
+		final System system_mock = context.mock(System.class);
 
 		context.checking(new Expectations() {
 			{
 				oneOf(systemVariant_mock).getObjectByIdMatch("id-template");
 				will(returnValue(object_mock));
+
+				oneOf(object_mock).getId();
+				will(returnValue("id-actual"));
 
 				oneOf(systemVariant_mock).getObjectIdByIdMatch("link-new-value");
 				will(returnValue("link-new-value-actual"));
@@ -48,10 +52,13 @@ public class LinkTransformationTest {
 				oneOf(systemVariant_mock).getObjectIdByIdMatch("link-old-value");
 				will(returnValue("link-old-value-actual"));
 
-				oneOf(object_mock).getLink("link-name", "link-old-value-actual");
-				will(returnValue(link_mock));
+				oneOf(systemVariant_mock).getSystem();
+				will(returnValue(system_mock));
 
-				oneOf(link_mock).setObjectId1("link-new-value-actual");
+				oneOf(system_mock).getLink("link-name", "id-actual", "link-old-value-actual");
+				will(returnValue(link_in_system_mock));
+
+				oneOf(link_in_system_mock).setObjectId2("link-new-value-actual");
 			}
 		});
 
@@ -65,11 +72,11 @@ public class LinkTransformationTest {
 
 	@Test
 	public void getLinkNewValue() {
-		assertEquals("link-new-value", testable.getLinkNewValue());
+		assertEquals("link-new-value", testable.getLinkObjectId1New());
 	}
 
 	@Test
 	public void getLinkOldValue() {
-		assertEquals("link-old-value", testable.getLinkOldValue());
+		assertEquals("link-old-value", testable.getLinkObject1Old());
 	}
 }

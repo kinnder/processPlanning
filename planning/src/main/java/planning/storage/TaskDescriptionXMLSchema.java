@@ -9,6 +9,13 @@ import planning.model.System;
 
 public class TaskDescriptionXMLSchema implements XMLSchema<TaskDescription> {
 
+	final private static String TAG_schema = "taskDescription";
+
+	@Override
+	public String getSchemaName() {
+		return TAG_schema;
+	}
+
 	private SystemXMLSchema systemSchema = new SystemXMLSchema();
 
 	@Override

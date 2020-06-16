@@ -112,9 +112,9 @@ public class TransformationsXMLSchemaTest {
 
 				oneOf(linkTransformation_mock).getLinkName();
 
-				oneOf(linkTransformation_mock).getLinkOldValue();
+				oneOf(linkTransformation_mock).getLinkObject1Old();
 
-				oneOf(linkTransformation_mock).getLinkNewValue();
+				oneOf(linkTransformation_mock).getLinkObjectId1New();
 
 				// combineLinkTransformation -->
 

@@ -41,28 +41,38 @@ public class SystemTest {
 
 	@Test
 	public void clone_test() throws CloneNotSupportedException {
-		final SystemObject object_1_mock = context.mock(SystemObject.class, "object-1");
-		final SystemObject object_2_mock = context.mock(SystemObject.class, "object-2");
+		final SystemObject object_mock = context.mock(SystemObject.class, "object");
+		final SystemObject clonedObject_mock = context.mock(SystemObject.class, "object-clone");
+		final Link link_mock = context.mock(Link.class, "link");
+		final Link clonedLink_mock = context.mock(Link.class, "link-clone");
 
 		context.checking(new Expectations() {
 			{
-				oneOf(object_1_mock).clone();
-				will(returnValue(object_2_mock));
+				oneOf(object_mock).clone();
+				will(returnValue(clonedObject_mock));
+
+				oneOf(link_mock).clone();
+				will(returnValue(clonedLink_mock));
 			}
 		});
 
-		testable.addObject(object_1_mock);
+		testable.addObject(object_mock);
+		testable.addLink(link_mock);
 
 		assertNotEquals(testable, testable.clone());
 	}
 
 	@Test
 	public void equals() {
+		final System system = new System();
+
 		final SystemObject object_mock = context.mock(SystemObject.class, "object");
 		testable.addObject(object_mock);
-
-		final System system = new System();
 		system.addObject(object_mock);
+
+		final Link link_mock = context.mock(Link.class, "link");
+		testable.addLink(link_mock);
+		system.addLink(link_mock);
 
 		assertTrue(testable.equals(system));
 	}
@@ -100,6 +110,29 @@ public class SystemTest {
 	}
 
 	@Test
+	public void equals_differentLinkAmount() {
+		final Link link_mock = context.mock(Link.class, "link");
+
+		final System system = new System();
+		system.addLink(link_mock);
+
+		assertFalse(testable.equals(system));
+	}
+
+	@Test
+	public void equals_differentLink() {
+		final Link link_1_mock = context.mock(Link.class, "link-1");
+		final Link link_2_mock = context.mock(Link.class, "link-2");
+
+		testable.addLink(link_1_mock);
+
+		final System system = new System();
+		system.addLink(link_2_mock);
+
+		assertFalse(testable.equals(system));
+	}
+
+	@Test
 	public void getObjectById() {
 		final SystemObject object_1 = new SystemObject("object-1", "id-1");
 		final SystemObject object_2 = new SystemObject("object-2", "id-2");
@@ -131,31 +164,35 @@ public class SystemTest {
 
 	@Test
 	public void getIds() {
-		final SystemObject object_1_mock = context.mock(SystemObject.class, "object-1");
-		final SystemObject object_2_mock = context.mock(SystemObject.class, "object-2");
-		testable.addObject(object_1_mock);
-		testable.addObject(object_2_mock);
+		final SystemObject object_mock = context.mock(SystemObject.class);
+		testable.addObject(object_mock);
 
-		final Set<String> object_1_ids = new HashSet<String>();
-		object_1_ids.add("id-1");
-		final Set<String> object_2_ids = new HashSet<String>();
-		object_2_ids.add("id-2");
-		object_2_ids.add("id-1");
+		final Link link_mock = context.mock(Link.class);
+		testable.addLink(link_mock);
+
+		final Set<String> objectIds = new HashSet<>();
+		objectIds.add("id-1");
+		objectIds.add("id-2");
+
+		final Set<String> linkIds = new HashSet<>();
+		linkIds.add("id-2");
+		linkIds.add("id-3");
 
 		context.checking(new Expectations() {
 			{
-				oneOf(object_1_mock).getIds();
-				will(returnValue(object_1_ids));
+				oneOf(object_mock).getIds();
+				will(returnValue(objectIds));
 
-				oneOf(object_2_mock).getIds();
-				will(returnValue(object_2_ids));
+				oneOf(link_mock).getIds();
+				will(returnValue(linkIds));
 			}
 		});
 
 		Set<String> systemIds = testable.getIds();
-		assertEquals(2, systemIds.size());
+		assertEquals(3, systemIds.size());
 		assertTrue(systemIds.contains("id-1"));
 		assertTrue(systemIds.contains("id-2"));
+		assertTrue(systemIds.contains("id-3"));
 	}
 
 	@Test
@@ -232,17 +269,24 @@ public class SystemTest {
 	public void createTemplate() {
 		final SystemObject object_mock = context.mock(SystemObject.class);
 		testable.addObject(object_mock);
-		final SystemObjectTemplate template_mock = context.mock(SystemObjectTemplate.class);
+		final SystemObjectTemplate objectTemplate_mock = context.mock(SystemObjectTemplate.class);
+		final Link link_mock = context.mock(Link.class);
+		testable.addLink(link_mock);
+		final LinkTemplate linkTemplate_mock = context.mock(LinkTemplate.class);
 
 		context.checking(new Expectations() {
 			{
 				oneOf(object_mock).createTemplate();
-				will(returnValue(template_mock));
+				will(returnValue(objectTemplate_mock));
+
+				oneOf(link_mock).createTemplate();
+				will(returnValue(linkTemplate_mock));
 			}
 		});
 
 		SystemTemplate template = testable.createTemplate();
 		assertEquals(1, template.getObjectTemplates().size());
+		assertEquals(1, template.getLinkTemplates().size());
 	}
 
 	@Test
@@ -273,10 +317,6 @@ public class SystemTest {
 
 				oneOf(object2_mock).getId();
 				will(returnValue("object-2-id"));
-
-				oneOf(object1_mock).addLink("link-name-1", "object-2-id");
-
-				oneOf(object2_mock).addLink("link-name-2", "object-1-id");
 			}
 		});
 
@@ -296,8 +336,6 @@ public class SystemTest {
 			{
 				oneOf(object2_mock).getId();
 				will(returnValue("object-2-id"));
-
-				oneOf(object2_mock).addLink("link-name", null);
 			}
 		});
 
@@ -316,8 +354,6 @@ public class SystemTest {
 			{
 				oneOf(object1_mock).getId();
 				will(returnValue("object-1-id"));
-
-				oneOf(object1_mock).addLink("link-name", null);
 			}
 		});
 
@@ -340,5 +376,21 @@ public class SystemTest {
 		Collection<Link> links = testable.getLinks();
 		assertEquals(1, links.size());
 		assertTrue(links.contains(new Link("link-name", "object-1-id", null)));
+	}
+
+	@Test
+	public void getLink() {
+		final Link link = new Link("link-name", "object-1-id", "object-2-id");
+		testable.addLink(link);
+
+		assertEquals(link, testable.getLink("link-name", "object-1-id", "object-2-id"));
+	}
+
+	@Test
+	public void getLink_notFound() {
+		final Link link = new Link("link-name", "object-1-id", "object-2-id");
+		testable.addLink(link);
+
+		assertNull(testable.getLink("link-name", null, null));
 	}
 }

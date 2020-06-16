@@ -12,6 +12,13 @@ import planning.model.Transformation;
 
 public class TransformationsXMLSchema implements XMLSchema<Transformation[]> {
 
+	final private static String TAG_schema = "transformations";
+
+	@Override
+	public String getSchemaName() {
+		return TAG_schema;
+	}
+
 	private AttributeTransformationXMLSchema attributeTransformationSchema = new AttributeTransformationXMLSchema();
 
 	private LinkTransformationXMLSchema linkTransformationSchema = new LinkTransformationXMLSchema();

@@ -3,31 +3,15 @@
 	<initialSystem>
 		<systemObject>
 			<name>OBJECT-WORKPIECE</name>
-			<id>5aede79b-ea03-4785-9173-42c7fcafc2ca</id>
+			<id>b7c1dbc2-c785-426f-84dd-66bac1a0d7e8</id>
 			<attribute>
 				<name>ATTRIBUTE-WORKPIECE</name>
 				<value type="boolean">true</value>
 			</attribute>
-			<link>
-				<name>LINK-IS-PART-OF</name>
-				<objectId1>7492e4eb-1417-4d51-befc-b1ddf0d312a2</objectId1>
-			</link>
-			<link>
-				<name>LINK-IS-REQUIREMENT-OF</name>
-				<objectId1>95450425-7a47-4d0b-910e-4f0eb56a4fab</objectId1>
-			</link>
-			<link>
-				<name>LINK-IS-REQUIREMENT-OF</name>
-				<objectId1>5adc3980-e565-42a2-8bc0-bcc1e79d37a5</objectId1>
-			</link>
-			<link>
-				<name>LINK-IS-REQUIREMENT-OF</name>
-				<objectId1>ead2c426-1edb-4dbe-93c3-ba8192cefd68</objectId1>
-			</link>
 		</systemObject>
 		<systemObject>
 			<name>OBJECT-CYLINDER-SURFACE</name>
-			<id>7492e4eb-1417-4d51-befc-b1ddf0d312a2</id>
+			<id>bec2f5a7-f1aa-4ec4-a422-8f1c209f8299</id>
 			<attribute>
 				<name>ATTRIBUTE-LENGTH</name>
 				<value type="integer">90</value>
@@ -48,20 +32,10 @@
 				<name>ATTRIBUTE-HAS-DIAMETER-REQUIREMENT</name>
 				<value type="boolean">false</value>
 			</attribute>
-			<link>
-				<name>LINK-IS-PART-OF</name>
-				<objectId1>5aede79b-ea03-4785-9173-42c7fcafc2ca</objectId1>
-			</link>
-			<link>
-				<name>LINK-IS-DIAMETER-REQUIREMENT</name>
-			</link>
-			<link>
-				<name>LINK-IS-LENGTH-REQUIREMENT</name>
-			</link>
 		</systemObject>
 		<systemObject>
 			<name>OBJECT-REQUIREMENT-SURFACE-A</name>
-			<id>95450425-7a47-4d0b-910e-4f0eb56a4fab</id>
+			<id>c6f26c59-bf9f-4231-8bba-35ad4d7ff525</id>
 			<attribute>
 				<name>ATTRIBUTE-REQUIREMENT</name>
 				<value type="boolean">true</value>
@@ -82,27 +56,10 @@
 				<name>ATTRIBUTE-LENGTH-REQUIREMENT</name>
 				<value type="integer">45</value>
 			</attribute>
-			<link>
-				<name>LINK-IS-REQUIREMENT-OF</name>
-				<objectId1>5aede79b-ea03-4785-9173-42c7fcafc2ca</objectId1>
-			</link>
-			<link>
-				<name>LINK-IS-DIAMETER-REQUIREMENT</name>
-			</link>
-			<link>
-				<name>LINK-IS-LENGTH-REQUIREMENT</name>
-			</link>
-			<link>
-				<name>LINK-SURFACE-SIDE-LEFT</name>
-			</link>
-			<link>
-				<name>LINK-SURFACE-SIDE-RIGHT</name>
-				<objectId1>5adc3980-e565-42a2-8bc0-bcc1e79d37a5</objectId1>
-			</link>
 		</systemObject>
 		<systemObject>
 			<name>OBJECT-REQUIREMENT-SURFACE-B</name>
-			<id>5adc3980-e565-42a2-8bc0-bcc1e79d37a5</id>
+			<id>97ab23ca-0248-4a12-807f-304b438a1206</id>
 			<attribute>
 				<name>ATTRIBUTE-REQUIREMENT</name>
 				<value type="boolean">true</value>
@@ -123,28 +80,10 @@
 				<name>ATTRIBUTE-LENGTH-REQUIREMENT</name>
 				<value type="integer">30</value>
 			</attribute>
-			<link>
-				<name>LINK-IS-REQUIREMENT-OF</name>
-				<objectId1>5aede79b-ea03-4785-9173-42c7fcafc2ca</objectId1>
-			</link>
-			<link>
-				<name>LINK-IS-DIAMETER-REQUIREMENT</name>
-			</link>
-			<link>
-				<name>LINK-IS-LENGTH-REQUIREMENT</name>
-			</link>
-			<link>
-				<name>LINK-SURFACE-SIDE-LEFT</name>
-				<objectId1>95450425-7a47-4d0b-910e-4f0eb56a4fab</objectId1>
-			</link>
-			<link>
-				<name>LINK-SURFACE-SIDE-RIGHT</name>
-				<objectId1>ead2c426-1edb-4dbe-93c3-ba8192cefd68</objectId1>
-			</link>
 		</systemObject>
 		<systemObject>
 			<name>OBJECT-REQUIREMENT-SURFACE-C</name>
-			<id>ead2c426-1edb-4dbe-93c3-ba8192cefd68</id>
+			<id>2370337d-d9f3-4cb1-95bf-e54df10abfe8</id>
 			<attribute>
 				<name>ATTRIBUTE-REQUIREMENT</name>
 				<value type="boolean">true</value>
@@ -165,29 +104,120 @@
 				<name>ATTRIBUTE-LENGTH-REQUIREMENT</name>
 				<value type="integer">15</value>
 			</attribute>
-			<link>
-				<name>LINK-IS-REQUIREMENT-OF</name>
-				<objectId1>5aede79b-ea03-4785-9173-42c7fcafc2ca</objectId1>
-			</link>
-			<link>
-				<name>LINK-IS-DIAMETER-REQUIREMENT</name>
-			</link>
-			<link>
-				<name>LINK-IS-LENGTH-REQUIREMENT</name>
-			</link>
-			<link>
-				<name>LINK-SURFACE-SIDE-LEFT</name>
-				<objectId1>5adc3980-e565-42a2-8bc0-bcc1e79d37a5</objectId1>
-			</link>
-			<link>
-				<name>LINK-SURFACE-SIDE-RIGHT</name>
-			</link>
 		</systemObject>
+		<link>
+			<name>LINK-IS-PART-OF</name>
+			<objectId1>b7c1dbc2-c785-426f-84dd-66bac1a0d7e8</objectId1>
+			<objectId2>bec2f5a7-f1aa-4ec4-a422-8f1c209f8299</objectId2>
+		</link>
+		<link>
+			<name>LINK-IS-PART-OF</name>
+			<objectId1>bec2f5a7-f1aa-4ec4-a422-8f1c209f8299</objectId1>
+			<objectId2>b7c1dbc2-c785-426f-84dd-66bac1a0d7e8</objectId2>
+		</link>
+		<link>
+			<name>LINK-IS-REQUIREMENT-OF</name>
+			<objectId1>b7c1dbc2-c785-426f-84dd-66bac1a0d7e8</objectId1>
+			<objectId2>c6f26c59-bf9f-4231-8bba-35ad4d7ff525</objectId2>
+		</link>
+		<link>
+			<name>LINK-IS-REQUIREMENT-OF</name>
+			<objectId1>c6f26c59-bf9f-4231-8bba-35ad4d7ff525</objectId1>
+			<objectId2>b7c1dbc2-c785-426f-84dd-66bac1a0d7e8</objectId2>
+		</link>
+		<link>
+			<name>LINK-IS-REQUIREMENT-OF</name>
+			<objectId1>b7c1dbc2-c785-426f-84dd-66bac1a0d7e8</objectId1>
+			<objectId2>97ab23ca-0248-4a12-807f-304b438a1206</objectId2>
+		</link>
+		<link>
+			<name>LINK-IS-REQUIREMENT-OF</name>
+			<objectId1>97ab23ca-0248-4a12-807f-304b438a1206</objectId1>
+			<objectId2>b7c1dbc2-c785-426f-84dd-66bac1a0d7e8</objectId2>
+		</link>
+		<link>
+			<name>LINK-IS-REQUIREMENT-OF</name>
+			<objectId1>b7c1dbc2-c785-426f-84dd-66bac1a0d7e8</objectId1>
+			<objectId2>2370337d-d9f3-4cb1-95bf-e54df10abfe8</objectId2>
+		</link>
+		<link>
+			<name>LINK-IS-REQUIREMENT-OF</name>
+			<objectId1>2370337d-d9f3-4cb1-95bf-e54df10abfe8</objectId1>
+			<objectId2>b7c1dbc2-c785-426f-84dd-66bac1a0d7e8</objectId2>
+		</link>
+		<link>
+			<name>LINK-IS-DIAMETER-REQUIREMENT</name>
+			<objectId1>bec2f5a7-f1aa-4ec4-a422-8f1c209f8299</objectId1>
+		</link>
+		<link>
+			<name>LINK-IS-LENGTH-REQUIREMENT</name>
+			<objectId1>bec2f5a7-f1aa-4ec4-a422-8f1c209f8299</objectId1>
+		</link>
+		<link>
+			<name>LINK-IS-DIAMETER-REQUIREMENT</name>
+			<objectId1>c6f26c59-bf9f-4231-8bba-35ad4d7ff525</objectId1>
+		</link>
+		<link>
+			<name>LINK-IS-LENGTH-REQUIREMENT</name>
+			<objectId1>c6f26c59-bf9f-4231-8bba-35ad4d7ff525</objectId1>
+		</link>
+		<link>
+			<name>LINK-SURFACE-SIDE-LEFT</name>
+			<objectId1>c6f26c59-bf9f-4231-8bba-35ad4d7ff525</objectId1>
+		</link>
+		<link>
+			<name>LINK-SURFACE-SIDE-RIGHT</name>
+			<objectId1>c6f26c59-bf9f-4231-8bba-35ad4d7ff525</objectId1>
+			<objectId2>97ab23ca-0248-4a12-807f-304b438a1206</objectId2>
+		</link>
+		<link>
+			<name>LINK-SURFACE-SIDE-LEFT</name>
+			<objectId1>97ab23ca-0248-4a12-807f-304b438a1206</objectId1>
+			<objectId2>c6f26c59-bf9f-4231-8bba-35ad4d7ff525</objectId2>
+		</link>
+		<link>
+			<name>LINK-IS-DIAMETER-REQUIREMENT</name>
+			<objectId1>97ab23ca-0248-4a12-807f-304b438a1206</objectId1>
+		</link>
+		<link>
+			<name>LINK-IS-LENGTH-REQUIREMENT</name>
+			<objectId1>97ab23ca-0248-4a12-807f-304b438a1206</objectId1>
+		</link>
+		<link>
+			<name>LINK-SURFACE-SIDE-RIGHT</name>
+			<objectId1>97ab23ca-0248-4a12-807f-304b438a1206</objectId1>
+			<objectId2>2370337d-d9f3-4cb1-95bf-e54df10abfe8</objectId2>
+		</link>
+		<link>
+			<name>LINK-SURFACE-SIDE-LEFT</name>
+			<objectId1>2370337d-d9f3-4cb1-95bf-e54df10abfe8</objectId1>
+			<objectId2>97ab23ca-0248-4a12-807f-304b438a1206</objectId2>
+		</link>
+		<link>
+			<name>LINK-IS-DIAMETER-REQUIREMENT</name>
+			<objectId1>2370337d-d9f3-4cb1-95bf-e54df10abfe8</objectId1>
+		</link>
+		<link>
+			<name>LINK-IS-LENGTH-REQUIREMENT</name>
+			<objectId1>2370337d-d9f3-4cb1-95bf-e54df10abfe8</objectId1>
+		</link>
+		<link>
+			<name>LINK-SURFACE-SIDE-RIGHT</name>
+			<objectId1>2370337d-d9f3-4cb1-95bf-e54df10abfe8</objectId1>
+		</link>
 	</initialSystem>
 	<finalSystem>
 		<systemObject>
+			<name>OBJECT-WORKPIECE</name>
+			<id>b7c1dbc2-c785-426f-84dd-66bac1a0d7e8</id>
+			<attribute>
+				<name>ATTRIBUTE-WORKPIECE</name>
+				<value type="boolean">true</value>
+			</attribute>
+		</systemObject>
+		<systemObject>
 			<name>OBJECT-REQUIREMENT-SURFACE-A</name>
-			<id>95450425-7a47-4d0b-910e-4f0eb56a4fab</id>
+			<id>c6f26c59-bf9f-4231-8bba-35ad4d7ff525</id>
 			<attribute>
 				<name>ATTRIBUTE-REQUIREMENT</name>
 				<value type="boolean">true</value>
@@ -200,21 +230,10 @@
 				<name>ATTRIBUTE-LENGTH-REQUIREMENT-STATUS</name>
 				<value type="boolean">true</value>
 			</attribute>
-			<link>
-				<name>LINK-IS-REQUIREMENT-OF</name>
-				<objectId1>5aede79b-ea03-4785-9173-42c7fcafc2ca</objectId1>
-			</link>
-			<link>
-				<name>LINK-SURFACE-SIDE-LEFT</name>
-			</link>
-			<link>
-				<name>LINK-SURFACE-SIDE-RIGHT</name>
-				<objectId1>5adc3980-e565-42a2-8bc0-bcc1e79d37a5</objectId1>
-			</link>
 		</systemObject>
 		<systemObject>
 			<name>OBJECT-REQUIREMENT-SURFACE-B</name>
-			<id>5adc3980-e565-42a2-8bc0-bcc1e79d37a5</id>
+			<id>97ab23ca-0248-4a12-807f-304b438a1206</id>
 			<attribute>
 				<name>ATTRIBUTE-REQUIREMENT</name>
 				<value type="boolean">true</value>
@@ -227,22 +246,10 @@
 				<name>ATTRIBUTE-LENGTH-REQUIREMENT-STATUS</name>
 				<value type="boolean">true</value>
 			</attribute>
-			<link>
-				<name>LINK-IS-REQUIREMENT-OF</name>
-				<objectId1>5aede79b-ea03-4785-9173-42c7fcafc2ca</objectId1>
-			</link>
-			<link>
-				<name>LINK-SURFACE-SIDE-LEFT</name>
-				<objectId1>95450425-7a47-4d0b-910e-4f0eb56a4fab</objectId1>
-			</link>
-			<link>
-				<name>LINK-SURFACE-SIDE-RIGHT</name>
-				<objectId1>ead2c426-1edb-4dbe-93c3-ba8192cefd68</objectId1>
-			</link>
 		</systemObject>
 		<systemObject>
 			<name>OBJECT-REQUIREMENT-SURFACE-C</name>
-			<id>ead2c426-1edb-4dbe-93c3-ba8192cefd68</id>
+			<id>2370337d-d9f3-4cb1-95bf-e54df10abfe8</id>
 			<attribute>
 				<name>ATTRIBUTE-REQUIREMENT</name>
 				<value type="boolean">true</value>
@@ -255,17 +262,64 @@
 				<name>ATTRIBUTE-LENGTH-REQUIREMENT-STATUS</name>
 				<value type="boolean">true</value>
 			</attribute>
-			<link>
-				<name>LINK-IS-REQUIREMENT-OF</name>
-				<objectId1>5aede79b-ea03-4785-9173-42c7fcafc2ca</objectId1>
-			</link>
-			<link>
-				<name>LINK-SURFACE-SIDE-LEFT</name>
-				<objectId1>5adc3980-e565-42a2-8bc0-bcc1e79d37a5</objectId1>
-			</link>
-			<link>
-				<name>LINK-SURFACE-SIDE-RIGHT</name>
-			</link>
 		</systemObject>
+		<link>
+			<name>LINK-IS-REQUIREMENT-OF</name>
+			<objectId1>c6f26c59-bf9f-4231-8bba-35ad4d7ff525</objectId1>
+			<objectId2>b7c1dbc2-c785-426f-84dd-66bac1a0d7e8</objectId2>
+		</link>
+		<link>
+			<name>LINK-IS-REQUIREMENT-OF</name>
+			<objectId1>b7c1dbc2-c785-426f-84dd-66bac1a0d7e8</objectId1>
+			<objectId2>c6f26c59-bf9f-4231-8bba-35ad4d7ff525</objectId2>
+		</link>
+		<link>
+			<name>LINK-SURFACE-SIDE-LEFT</name>
+			<objectId1>c6f26c59-bf9f-4231-8bba-35ad4d7ff525</objectId1>
+		</link>
+		<link>
+			<name>LINK-SURFACE-SIDE-RIGHT</name>
+			<objectId1>c6f26c59-bf9f-4231-8bba-35ad4d7ff525</objectId1>
+			<objectId2>97ab23ca-0248-4a12-807f-304b438a1206</objectId2>
+		</link>
+		<link>
+			<name>LINK-SURFACE-SIDE-LEFT</name>
+			<objectId1>97ab23ca-0248-4a12-807f-304b438a1206</objectId1>
+			<objectId2>c6f26c59-bf9f-4231-8bba-35ad4d7ff525</objectId2>
+		</link>
+		<link>
+			<name>LINK-IS-REQUIREMENT-OF</name>
+			<objectId1>97ab23ca-0248-4a12-807f-304b438a1206</objectId1>
+			<objectId2>b7c1dbc2-c785-426f-84dd-66bac1a0d7e8</objectId2>
+		</link>
+		<link>
+			<name>LINK-IS-REQUIREMENT-OF</name>
+			<objectId1>b7c1dbc2-c785-426f-84dd-66bac1a0d7e8</objectId1>
+			<objectId2>97ab23ca-0248-4a12-807f-304b438a1206</objectId2>
+		</link>
+		<link>
+			<name>LINK-SURFACE-SIDE-RIGHT</name>
+			<objectId1>97ab23ca-0248-4a12-807f-304b438a1206</objectId1>
+			<objectId2>2370337d-d9f3-4cb1-95bf-e54df10abfe8</objectId2>
+		</link>
+		<link>
+			<name>LINK-SURFACE-SIDE-LEFT</name>
+			<objectId1>2370337d-d9f3-4cb1-95bf-e54df10abfe8</objectId1>
+			<objectId2>97ab23ca-0248-4a12-807f-304b438a1206</objectId2>
+		</link>
+		<link>
+			<name>LINK-IS-REQUIREMENT-OF</name>
+			<objectId1>2370337d-d9f3-4cb1-95bf-e54df10abfe8</objectId1>
+			<objectId2>b7c1dbc2-c785-426f-84dd-66bac1a0d7e8</objectId2>
+		</link>
+		<link>
+			<name>LINK-IS-REQUIREMENT-OF</name>
+			<objectId1>b7c1dbc2-c785-426f-84dd-66bac1a0d7e8</objectId1>
+			<objectId2>2370337d-d9f3-4cb1-95bf-e54df10abfe8</objectId2>
+		</link>
+		<link>
+			<name>LINK-SURFACE-SIDE-RIGHT</name>
+			<objectId1>2370337d-d9f3-4cb1-95bf-e54df10abfe8</objectId1>
+		</link>
 	</finalSystem>
 </taskDescription>

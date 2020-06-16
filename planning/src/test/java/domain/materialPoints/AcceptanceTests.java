@@ -63,11 +63,11 @@ public class AcceptanceTests implements MaterialPoints {
 		assertEquals(1, systemVariants.length);
 
 		system = systemVariants[0].getSystem();
-		assertNotNull(system.getObjectById(object_id).getLink(LINK_POSITION, point_24_id));
+		assertNotNull(system.getLink(LINK_POSITION, object_id, point_24_id));
 		assertEquals(false, system.getObjectById(point_14_id).getAttribute(ATTRIBUTE_OCCUPIED).getValueAsBoolean());
-		assertNotNull(system.getObjectById(point_14_id).getLink(LINK_POSITION, null));
+		assertNotNull(system.getLink(LINK_POSITION, point_14_id, null));
 		assertEquals(true, system.getObjectById(point_24_id).getAttribute(ATTRIBUTE_OCCUPIED).getValueAsBoolean());
-		assertNotNull(system.getObjectById(point_24_id).getLink(LINK_POSITION, object_id));
+		assertNotNull(system.getLink(LINK_POSITION, point_24_id, object_id));
 
 		// 1
 		systemTransformation = materialPointsTransformations.get(ELEMENT_MOVE_RIGHT);
@@ -75,11 +75,11 @@ public class AcceptanceTests implements MaterialPoints {
 		assertEquals(1, systemVariants.length);
 
 		system = systemVariants[0].getSystem();
-		assertNotNull(system.getObjectById(object_id).getLink(LINK_POSITION, point_34_id));
+		assertNotNull(system.getLink(LINK_POSITION, object_id, point_34_id));
 		assertEquals(false, system.getObjectById(point_24_id).getAttribute(ATTRIBUTE_OCCUPIED).getValueAsBoolean());
-		assertNotNull(system.getObjectById(point_24_id).getLink(LINK_POSITION, null));
+		assertNotNull(system.getLink(LINK_POSITION, point_24_id, null));
 		assertEquals(true, system.getObjectById(point_34_id).getAttribute(ATTRIBUTE_OCCUPIED).getValueAsBoolean());
-		assertNotNull(system.getObjectById(point_34_id).getLink(LINK_POSITION, object_id));
+		assertNotNull(system.getLink(LINK_POSITION, point_34_id, object_id));
 	}
 
 	@Test

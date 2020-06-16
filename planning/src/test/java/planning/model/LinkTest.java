@@ -3,6 +3,9 @@ package planning.model;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.util.Set;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.jmock.imposters.ByteBuddyClassImposteriser;
@@ -98,5 +101,22 @@ public class LinkTest {
 	@Test
 	public void createTemplate() {
 		assertNotNull(testable.createTemplate());
+	}
+
+	@Test
+	public void getIds() {
+		Set<String> ids = testable.getIds();
+		assertEquals(2, ids.size());
+		assertTrue(ids.contains("id-1"));
+		assertTrue(ids.contains("id-2"));
+	}
+
+	@Test
+	public void getIds_null_id() {
+		testable = new Link("name", "id-1", null);
+
+		Set<String> ids = testable.getIds();
+		assertEquals(1, ids.size());
+		assertTrue(ids.contains("id-1"));
 	}
 }

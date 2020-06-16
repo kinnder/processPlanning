@@ -13,7 +13,8 @@ public class AttributeTransformation extends Transformation {
 	}
 
 	@Override
-	protected void applyTo(SystemObject object, SystemVariant systemVariant) {
+	public void applyTo(SystemVariant systemVariant) {
+		SystemObject object = systemVariant.getObjectByIdMatch(getObjectId());
 		Attribute attribute = object.getAttribute(attributeName);
 		attribute.setValue(attributeValue);
 	}

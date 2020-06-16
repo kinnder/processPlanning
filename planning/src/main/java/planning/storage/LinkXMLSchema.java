@@ -13,6 +13,13 @@ public class LinkXMLSchema implements XMLSchema<Link> {
 
 	final private static String TAG_objectId2 = "objectId2";
 
+	final private static String TAG_schema = "link";
+
+	@Override
+	public String getSchemaName() {
+		return TAG_schema;
+	}
+
 	@Override
 	public Link parse(Element root) throws DataConversionException {
 		String name = root.getChildText(TAG_name);
@@ -23,7 +30,7 @@ public class LinkXMLSchema implements XMLSchema<Link> {
 
 	@Override
 	public Element combine(Link link) {
-		Element root = new Element("link");
+		Element root = new Element(TAG_schema);
 		{
 			Element child = new Element(TAG_name);
 			child.setText(link.getName());

@@ -4,6 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.Set;
+
 import org.jmock.Expectations;
 import org.jmock.imposters.ByteBuddyClassImposteriser;
 import org.jmock.junit5.JUnit5Mockery;
@@ -168,5 +170,22 @@ public class LinkTemplateTest {
 	@Test
 	public void equals_different_objectId2() {
 		assertFalse(testable.equals(new LinkTemplate("link", "id-1", "another")));
+	}
+
+	@Test
+	public void getIds() {
+		Set<String> ids = testable.getIds();
+		assertEquals(2, ids.size());
+		assertTrue(ids.contains("id-template-1"));
+		assertTrue(ids.contains("id-template-2"));
+	}
+
+	@Test
+	public void getIds_null_id() {
+		testable = new LinkTemplate("name", "id-template-1", null);
+
+		Set<String> ids = testable.getIds();
+		assertEquals(1, ids.size());
+		assertTrue(ids.contains("id-template-1"));
 	}
 }

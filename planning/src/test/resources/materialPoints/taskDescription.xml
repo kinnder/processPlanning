@@ -3,463 +3,533 @@
 	<initialSystem>
 		<systemObject>
 			<name>OBJECT-MATERIAL-POINT</name>
-			<id>4abbe612-76f5-499d-b700-70a8ee83afbd</id>
-			<link>
-				<name>LINK-POSITION</name>
-				<objectId1>c4c03528-498d-4d23-a809-eba9639b5b33</objectId1>
-			</link>
+			<id>ce7315d4-f456-4877-99c6-fac653778a77</id>
 		</systemObject>
 		<systemObject>
 			<name>OBJECT-POINT-15</name>
-			<id>2bebf949-9d33-404f-8d4a-03f4ce4bbb7b</id>
+			<id>f25f54f6-8f74-49c8-b7bc-52822b71a176</id>
 			<attribute>
 				<name>ATTRIBUTE-OCCUPIED</name>
 				<value type="boolean">false</value>
 			</attribute>
-			<link>
-				<name>LINK-NEIGHBOR-BOTTOM</name>
-				<objectId1>c4c03528-498d-4d23-a809-eba9639b5b33</objectId1>
-			</link>
-			<link>
-				<name>LINK-POSITION</name>
-			</link>
 		</systemObject>
 		<systemObject>
 			<name>OBJECT-POINT-14</name>
-			<id>c4c03528-498d-4d23-a809-eba9639b5b33</id>
+			<id>efa70e50-e5ee-4a5c-88f4-7aaf44bb6338</id>
 			<attribute>
 				<name>ATTRIBUTE-OCCUPIED</name>
 				<value type="boolean">true</value>
 			</attribute>
-			<link>
-				<name>LINK-NEIGHBOR-TOP</name>
-				<objectId1>2bebf949-9d33-404f-8d4a-03f4ce4bbb7b</objectId1>
-			</link>
-			<link>
-				<name>LINK-NEIGHBOR-RIGHT</name>
-				<objectId1>a16f1f5c-7772-400f-b38f-05a358749ce5</objectId1>
-			</link>
-			<link>
-				<name>LINK-NEIGHBOR-BOTTOM</name>
-				<objectId1>99fddaec-a40b-41e2-ad0e-052bbe3af9e8</objectId1>
-			</link>
-			<link>
-				<name>LINK-POSITION</name>
-				<objectId1>4abbe612-76f5-499d-b700-70a8ee83afbd</objectId1>
-			</link>
 		</systemObject>
 		<systemObject>
 			<name>OBJECT-POINT-13</name>
-			<id>99fddaec-a40b-41e2-ad0e-052bbe3af9e8</id>
+			<id>0f6fcc37-12ff-4e81-acf3-3db65811074a</id>
 			<attribute>
 				<name>ATTRIBUTE-OCCUPIED</name>
 				<value type="boolean">false</value>
 			</attribute>
-			<link>
-				<name>LINK-NEIGHBOR-TOP</name>
-				<objectId1>c4c03528-498d-4d23-a809-eba9639b5b33</objectId1>
-			</link>
-			<link>
-				<name>LINK-NEIGHBOR-BOTTOM</name>
-				<objectId1>1856eecb-ae37-4a8a-bbc2-0c11723b600a</objectId1>
-			</link>
-			<link>
-				<name>LINK-POSITION</name>
-			</link>
 		</systemObject>
 		<systemObject>
 			<name>OBJECT-POINT-12</name>
-			<id>1856eecb-ae37-4a8a-bbc2-0c11723b600a</id>
+			<id>e55941c3-0663-4e73-8c5f-d4f41a6c0f3b</id>
 			<attribute>
 				<name>ATTRIBUTE-OCCUPIED</name>
 				<value type="boolean">false</value>
 			</attribute>
-			<link>
-				<name>LINK-NEIGHBOR-TOP</name>
-				<objectId1>99fddaec-a40b-41e2-ad0e-052bbe3af9e8</objectId1>
-			</link>
-			<link>
-				<name>LINK-NEIGHBOR-BOTTOM</name>
-				<objectId1>163b852a-8fd8-41eb-a18d-f65747b573b9</objectId1>
-			</link>
-			<link>
-				<name>LINK-POSITION</name>
-			</link>
 		</systemObject>
 		<systemObject>
 			<name>OBJECT-POINT-11</name>
-			<id>163b852a-8fd8-41eb-a18d-f65747b573b9</id>
+			<id>a1b27b13-6fd7-4abf-958e-ebfbdf085ef4</id>
 			<attribute>
 				<name>ATTRIBUTE-OCCUPIED</name>
 				<value type="boolean">false</value>
 			</attribute>
-			<link>
-				<name>LINK-NEIGHBOR-TOP</name>
-				<objectId1>1856eecb-ae37-4a8a-bbc2-0c11723b600a</objectId1>
-			</link>
-			<link>
-				<name>LINK-POSITION</name>
-			</link>
 		</systemObject>
 		<systemObject>
 			<name>OBJECT-POINT-24</name>
-			<id>a16f1f5c-7772-400f-b38f-05a358749ce5</id>
+			<id>015c4d34-9783-4b97-ad83-8fb4948b8064</id>
 			<attribute>
 				<name>ATTRIBUTE-OCCUPIED</name>
 				<value type="boolean">false</value>
 			</attribute>
-			<link>
-				<name>LINK-NEIGHBOR-LEFT</name>
-				<objectId1>c4c03528-498d-4d23-a809-eba9639b5b33</objectId1>
-			</link>
-			<link>
-				<name>LINK-NEIGHBOR-RIGHT</name>
-				<objectId1>ccb9ac6d-8604-4a4f-993b-f1dfb84c0a2f</objectId1>
-			</link>
-			<link>
-				<name>LINK-POSITION</name>
-			</link>
 		</systemObject>
 		<systemObject>
 			<name>OBJECT-POINT-34</name>
-			<id>ccb9ac6d-8604-4a4f-993b-f1dfb84c0a2f</id>
+			<id>b084e59a-df7b-4611-aedb-c82a11953ad3</id>
 			<attribute>
 				<name>ATTRIBUTE-OCCUPIED</name>
 				<value type="boolean">false</value>
 			</attribute>
-			<link>
-				<name>LINK-NEIGHBOR-LEFT</name>
-				<objectId1>a16f1f5c-7772-400f-b38f-05a358749ce5</objectId1>
-			</link>
-			<link>
-				<name>LINK-NEIGHBOR-BOTTOM</name>
-				<objectId1>78dddd1b-7556-4020-a1ee-f780828b1dfb</objectId1>
-			</link>
-			<link>
-				<name>LINK-POSITION</name>
-			</link>
 		</systemObject>
 		<systemObject>
 			<name>OBJECT-POINT-33</name>
-			<id>78dddd1b-7556-4020-a1ee-f780828b1dfb</id>
+			<id>95e39ef2-b107-4784-a168-a8832c84d726</id>
 			<attribute>
 				<name>ATTRIBUTE-OCCUPIED</name>
 				<value type="boolean">false</value>
 			</attribute>
-			<link>
-				<name>LINK-NEIGHBOR-TOP</name>
-				<objectId1>ccb9ac6d-8604-4a4f-993b-f1dfb84c0a2f</objectId1>
-			</link>
-			<link>
-				<name>LINK-NEIGHBOR-BOTTOM</name>
-				<objectId1>1a52be0a-6650-43f9-ab6b-bd48d2b1ddd5</objectId1>
-			</link>
-			<link>
-				<name>LINK-POSITION</name>
-			</link>
 		</systemObject>
 		<systemObject>
 			<name>OBJECT-POINT-32</name>
-			<id>1a52be0a-6650-43f9-ab6b-bd48d2b1ddd5</id>
+			<id>d53b4dcd-75ab-474b-af91-fa784e19e179</id>
 			<attribute>
 				<name>ATTRIBUTE-OCCUPIED</name>
 				<value type="boolean">false</value>
 			</attribute>
-			<link>
-				<name>LINK-NEIGHBOR-TOP</name>
-				<objectId1>78dddd1b-7556-4020-a1ee-f780828b1dfb</objectId1>
-			</link>
-			<link>
-				<name>LINK-NEIGHBOR-RIGHT</name>
-				<objectId1>72a9eb7a-34ce-4314-b645-b8663c87f30a</objectId1>
-			</link>
-			<link>
-				<name>LINK-POSITION</name>
-			</link>
 		</systemObject>
 		<systemObject>
 			<name>OBJECT-POINT-42</name>
-			<id>72a9eb7a-34ce-4314-b645-b8663c87f30a</id>
+			<id>f43defb5-0575-40e5-b80a-c6fb6526132c</id>
 			<attribute>
 				<name>ATTRIBUTE-OCCUPIED</name>
 				<value type="boolean">false</value>
 			</attribute>
-			<link>
-				<name>LINK-NEIGHBOR-LEFT</name>
-				<objectId1>1a52be0a-6650-43f9-ab6b-bd48d2b1ddd5</objectId1>
-			</link>
-			<link>
-				<name>LINK-NEIGHBOR-RIGHT</name>
-				<objectId1>bd39989c-1392-47c6-a59e-24d7716a2c0c</objectId1>
-			</link>
-			<link>
-				<name>LINK-POSITION</name>
-			</link>
 		</systemObject>
 		<systemObject>
 			<name>OBJECT-POINT-54</name>
-			<id>494f21b8-e073-452b-806d-1726e2cf25d9</id>
+			<id>0f72a318-b5b7-4ee2-a074-5972c61be4fb</id>
 			<attribute>
 				<name>ATTRIBUTE-OCCUPIED</name>
 				<value type="boolean">false</value>
 			</attribute>
-			<link>
-				<name>LINK-NEIGHBOR-RIGHT</name>
-				<objectId1>dd815121-f09f-4a61-a769-eb516fa2fedb</objectId1>
-			</link>
-			<link>
-				<name>LINK-NEIGHBOR-BOTTOM</name>
-				<objectId1>b181afe2-44dc-4b7f-b2d9-5f68fe209b90</objectId1>
-			</link>
-			<link>
-				<name>LINK-POSITION</name>
-			</link>
 		</systemObject>
 		<systemObject>
 			<name>OBJECT-POINT-53</name>
-			<id>b181afe2-44dc-4b7f-b2d9-5f68fe209b90</id>
+			<id>a96ac6c9-d355-4d6d-8acd-52419a771f2c</id>
 			<attribute>
 				<name>ATTRIBUTE-OCCUPIED</name>
 				<value type="boolean">false</value>
 			</attribute>
-			<link>
-				<name>LINK-NEIGHBOR-TOP</name>
-				<objectId1>494f21b8-e073-452b-806d-1726e2cf25d9</objectId1>
-			</link>
-			<link>
-				<name>LINK-NEIGHBOR-BOTTOM</name>
-				<objectId1>bd39989c-1392-47c6-a59e-24d7716a2c0c</objectId1>
-			</link>
-			<link>
-				<name>LINK-POSITION</name>
-			</link>
 		</systemObject>
 		<systemObject>
 			<name>OBJECT-POINT-52</name>
-			<id>bd39989c-1392-47c6-a59e-24d7716a2c0c</id>
+			<id>1afbed4f-370a-4532-98fb-03840811b9e5</id>
 			<attribute>
 				<name>ATTRIBUTE-OCCUPIED</name>
 				<value type="boolean">false</value>
 			</attribute>
-			<link>
-				<name>LINK-NEIGHBOR-TOP</name>
-				<objectId1>b181afe2-44dc-4b7f-b2d9-5f68fe209b90</objectId1>
-			</link>
-			<link>
-				<name>LINK-NEIGHBOR-LEFT</name>
-				<objectId1>72a9eb7a-34ce-4314-b645-b8663c87f30a</objectId1>
-			</link>
-			<link>
-				<name>LINK-POSITION</name>
-			</link>
 		</systemObject>
 		<systemObject>
 			<name>OBJECT-POINT-64</name>
-			<id>dd815121-f09f-4a61-a769-eb516fa2fedb</id>
+			<id>24d91ab4-65d4-4b23-b0bb-2b591046feba</id>
 			<attribute>
 				<name>ATTRIBUTE-OCCUPIED</name>
 				<value type="boolean">false</value>
 			</attribute>
-			<link>
-				<name>LINK-NEIGHBOR-LEFT</name>
-				<objectId1>494f21b8-e073-452b-806d-1726e2cf25d9</objectId1>
-			</link>
-			<link>
-				<name>LINK-NEIGHBOR-RIGHT</name>
-				<objectId1>16122353-5d5f-40cc-842e-a8a5089a978f</objectId1>
-			</link>
-			<link>
-				<name>LINK-POSITION</name>
-			</link>
 		</systemObject>
 		<systemObject>
 			<name>OBJECT-POINT-74</name>
-			<id>16122353-5d5f-40cc-842e-a8a5089a978f</id>
+			<id>f650c9fb-3d7a-4a54-9d83-48e0cd1ca983</id>
 			<attribute>
 				<name>ATTRIBUTE-OCCUPIED</name>
 				<value type="boolean">false</value>
 			</attribute>
-			<link>
-				<name>LINK-NEIGHBOR-LEFT</name>
-				<objectId1>dd815121-f09f-4a61-a769-eb516fa2fedb</objectId1>
-			</link>
-			<link>
-				<name>LINK-NEIGHBOR-BOTTOM</name>
-				<objectId1>aaa4c4cd-aa6c-4430-9a5d-88f672d6f96e</objectId1>
-			</link>
-			<link>
-				<name>LINK-POSITION</name>
-			</link>
 		</systemObject>
 		<systemObject>
 			<name>OBJECT-POINT-73</name>
-			<id>aaa4c4cd-aa6c-4430-9a5d-88f672d6f96e</id>
+			<id>7f40374a-69a8-4237-ba09-3484e9595846</id>
 			<attribute>
 				<name>ATTRIBUTE-OCCUPIED</name>
 				<value type="boolean">false</value>
 			</attribute>
-			<link>
-				<name>LINK-NEIGHBOR-TOP</name>
-				<objectId1>16122353-5d5f-40cc-842e-a8a5089a978f</objectId1>
-			</link>
-			<link>
-				<name>LINK-NEIGHBOR-BOTTOM</name>
-				<objectId1>f82053e3-87bb-44e5-a54a-008d4bab0c91</objectId1>
-			</link>
-			<link>
-				<name>LINK-POSITION</name>
-			</link>
 		</systemObject>
 		<systemObject>
 			<name>OBJECT-POINT-72</name>
-			<id>f82053e3-87bb-44e5-a54a-008d4bab0c91</id>
+			<id>540bc28e-9c92-413e-af9d-3dc8716a4153</id>
 			<attribute>
 				<name>ATTRIBUTE-OCCUPIED</name>
 				<value type="boolean">false</value>
 			</attribute>
-			<link>
-				<name>LINK-NEIGHBOR-TOP</name>
-				<objectId1>aaa4c4cd-aa6c-4430-9a5d-88f672d6f96e</objectId1>
-			</link>
-			<link>
-				<name>LINK-NEIGHBOR-RIGHT</name>
-				<objectId1>058efca9-6055-48d6-a264-c6b8c04f757c</objectId1>
-			</link>
-			<link>
-				<name>LINK-POSITION</name>
-			</link>
 		</systemObject>
 		<systemObject>
 			<name>OBJECT-POINT-82</name>
-			<id>058efca9-6055-48d6-a264-c6b8c04f757c</id>
+			<id>dc4251ed-2dc6-41ca-ad68-8c0c2ec1e6f6</id>
 			<attribute>
 				<name>ATTRIBUTE-OCCUPIED</name>
 				<value type="boolean">false</value>
 			</attribute>
-			<link>
-				<name>LINK-NEIGHBOR-LEFT</name>
-				<objectId1>f82053e3-87bb-44e5-a54a-008d4bab0c91</objectId1>
-			</link>
-			<link>
-				<name>LINK-NEIGHBOR-RIGHT</name>
-				<objectId1>d7fd2a84-4e16-4993-bdb5-92e79af09cdd</objectId1>
-			</link>
-			<link>
-				<name>LINK-POSITION</name>
-			</link>
 		</systemObject>
 		<systemObject>
 			<name>OBJECT-POINT-95</name>
-			<id>b9cc4402-9708-43e4-84cb-0bae1443ea5b</id>
+			<id>100c987e-2ac9-4781-9892-eee801c32f0c</id>
 			<attribute>
 				<name>ATTRIBUTE-OCCUPIED</name>
 				<value type="boolean">false</value>
 			</attribute>
-			<link>
-				<name>LINK-NEIGHBOR-BOTTOM</name>
-				<objectId1>f38c317b-ec83-4f7d-8216-970535dcb340</objectId1>
-			</link>
-			<link>
-				<name>LINK-POSITION</name>
-			</link>
 		</systemObject>
 		<systemObject>
 			<name>OBJECT-POINT-94</name>
-			<id>f38c317b-ec83-4f7d-8216-970535dcb340</id>
+			<id>711cd4f8-98ba-48d1-a54f-106c9441ac16</id>
 			<attribute>
 				<name>ATTRIBUTE-OCCUPIED</name>
 				<value type="boolean">false</value>
 			</attribute>
-			<link>
-				<name>LINK-NEIGHBOR-TOP</name>
-				<objectId1>b9cc4402-9708-43e4-84cb-0bae1443ea5b</objectId1>
-			</link>
-			<link>
-				<name>LINK-NEIGHBOR-BOTTOM</name>
-				<objectId1>a12194f0-ce90-4198-91de-f5c1646e4043</objectId1>
-			</link>
-			<link>
-				<name>LINK-POSITION</name>
-			</link>
 		</systemObject>
 		<systemObject>
 			<name>OBJECT-POINT-93</name>
-			<id>a12194f0-ce90-4198-91de-f5c1646e4043</id>
+			<id>e49f7134-5489-4d13-8711-c552567009e3</id>
 			<attribute>
 				<name>ATTRIBUTE-OCCUPIED</name>
 				<value type="boolean">false</value>
 			</attribute>
-			<link>
-				<name>LINK-NEIGHBOR-TOP</name>
-				<objectId1>f38c317b-ec83-4f7d-8216-970535dcb340</objectId1>
-			</link>
-			<link>
-				<name>LINK-NEIGHBOR-BOTTOM</name>
-				<objectId1>d7fd2a84-4e16-4993-bdb5-92e79af09cdd</objectId1>
-			</link>
-			<link>
-				<name>LINK-POSITION</name>
-			</link>
 		</systemObject>
 		<systemObject>
 			<name>OBJECT-POINT-92</name>
-			<id>d7fd2a84-4e16-4993-bdb5-92e79af09cdd</id>
+			<id>49dd27a9-99af-474f-99ff-b04652dad07d</id>
 			<attribute>
 				<name>ATTRIBUTE-OCCUPIED</name>
 				<value type="boolean">false</value>
 			</attribute>
-			<link>
-				<name>LINK-NEIGHBOR-TOP</name>
-				<objectId1>a12194f0-ce90-4198-91de-f5c1646e4043</objectId1>
-			</link>
-			<link>
-				<name>LINK-NEIGHBOR-LEFT</name>
-				<objectId1>058efca9-6055-48d6-a264-c6b8c04f757c</objectId1>
-			</link>
-			<link>
-				<name>LINK-NEIGHBOR-BOTTOM</name>
-				<objectId1>81e71555-cbfe-4850-b552-e8cf2e288e4e</objectId1>
-			</link>
-			<link>
-				<name>LINK-POSITION</name>
-			</link>
 		</systemObject>
 		<systemObject>
 			<name>OBJECT-POINT-91</name>
-			<id>81e71555-cbfe-4850-b552-e8cf2e288e4e</id>
+			<id>27d760e1-27d2-483e-a246-705c9411c849</id>
 			<attribute>
 				<name>ATTRIBUTE-OCCUPIED</name>
 				<value type="boolean">false</value>
 			</attribute>
-			<link>
-				<name>LINK-NEIGHBOR-TOP</name>
-				<objectId1>d7fd2a84-4e16-4993-bdb5-92e79af09cdd</objectId1>
-			</link>
-			<link>
-				<name>LINK-POSITION</name>
-			</link>
 		</systemObject>
+		<link>
+			<name>LINK-POSITION</name>
+			<objectId1>ce7315d4-f456-4877-99c6-fac653778a77</objectId1>
+			<objectId2>efa70e50-e5ee-4a5c-88f4-7aaf44bb6338</objectId2>
+		</link>
+		<link>
+			<name>LINK-POSITION</name>
+			<objectId1>efa70e50-e5ee-4a5c-88f4-7aaf44bb6338</objectId1>
+			<objectId2>ce7315d4-f456-4877-99c6-fac653778a77</objectId2>
+		</link>
+		<link>
+			<name>LINK-NEIGHBOR-BOTTOM</name>
+			<objectId1>f25f54f6-8f74-49c8-b7bc-52822b71a176</objectId1>
+			<objectId2>efa70e50-e5ee-4a5c-88f4-7aaf44bb6338</objectId2>
+		</link>
+		<link>
+			<name>LINK-NEIGHBOR-TOP</name>
+			<objectId1>efa70e50-e5ee-4a5c-88f4-7aaf44bb6338</objectId1>
+			<objectId2>f25f54f6-8f74-49c8-b7bc-52822b71a176</objectId2>
+		</link>
+		<link>
+			<name>LINK-POSITION</name>
+			<objectId1>f25f54f6-8f74-49c8-b7bc-52822b71a176</objectId1>
+		</link>
+		<link>
+			<name>LINK-NEIGHBOR-RIGHT</name>
+			<objectId1>efa70e50-e5ee-4a5c-88f4-7aaf44bb6338</objectId1>
+			<objectId2>015c4d34-9783-4b97-ad83-8fb4948b8064</objectId2>
+		</link>
+		<link>
+			<name>LINK-NEIGHBOR-LEFT</name>
+			<objectId1>015c4d34-9783-4b97-ad83-8fb4948b8064</objectId1>
+			<objectId2>efa70e50-e5ee-4a5c-88f4-7aaf44bb6338</objectId2>
+		</link>
+		<link>
+			<name>LINK-NEIGHBOR-BOTTOM</name>
+			<objectId1>efa70e50-e5ee-4a5c-88f4-7aaf44bb6338</objectId1>
+			<objectId2>0f6fcc37-12ff-4e81-acf3-3db65811074a</objectId2>
+		</link>
+		<link>
+			<name>LINK-NEIGHBOR-TOP</name>
+			<objectId1>0f6fcc37-12ff-4e81-acf3-3db65811074a</objectId1>
+			<objectId2>efa70e50-e5ee-4a5c-88f4-7aaf44bb6338</objectId2>
+		</link>
+		<link>
+			<name>LINK-NEIGHBOR-BOTTOM</name>
+			<objectId1>0f6fcc37-12ff-4e81-acf3-3db65811074a</objectId1>
+			<objectId2>e55941c3-0663-4e73-8c5f-d4f41a6c0f3b</objectId2>
+		</link>
+		<link>
+			<name>LINK-NEIGHBOR-TOP</name>
+			<objectId1>e55941c3-0663-4e73-8c5f-d4f41a6c0f3b</objectId1>
+			<objectId2>0f6fcc37-12ff-4e81-acf3-3db65811074a</objectId2>
+		</link>
+		<link>
+			<name>LINK-POSITION</name>
+			<objectId1>0f6fcc37-12ff-4e81-acf3-3db65811074a</objectId1>
+		</link>
+		<link>
+			<name>LINK-NEIGHBOR-BOTTOM</name>
+			<objectId1>e55941c3-0663-4e73-8c5f-d4f41a6c0f3b</objectId1>
+			<objectId2>a1b27b13-6fd7-4abf-958e-ebfbdf085ef4</objectId2>
+		</link>
+		<link>
+			<name>LINK-NEIGHBOR-TOP</name>
+			<objectId1>a1b27b13-6fd7-4abf-958e-ebfbdf085ef4</objectId1>
+			<objectId2>e55941c3-0663-4e73-8c5f-d4f41a6c0f3b</objectId2>
+		</link>
+		<link>
+			<name>LINK-POSITION</name>
+			<objectId1>e55941c3-0663-4e73-8c5f-d4f41a6c0f3b</objectId1>
+		</link>
+		<link>
+			<name>LINK-POSITION</name>
+			<objectId1>a1b27b13-6fd7-4abf-958e-ebfbdf085ef4</objectId1>
+		</link>
+		<link>
+			<name>LINK-NEIGHBOR-RIGHT</name>
+			<objectId1>015c4d34-9783-4b97-ad83-8fb4948b8064</objectId1>
+			<objectId2>b084e59a-df7b-4611-aedb-c82a11953ad3</objectId2>
+		</link>
+		<link>
+			<name>LINK-NEIGHBOR-LEFT</name>
+			<objectId1>b084e59a-df7b-4611-aedb-c82a11953ad3</objectId1>
+			<objectId2>015c4d34-9783-4b97-ad83-8fb4948b8064</objectId2>
+		</link>
+		<link>
+			<name>LINK-POSITION</name>
+			<objectId1>015c4d34-9783-4b97-ad83-8fb4948b8064</objectId1>
+		</link>
+		<link>
+			<name>LINK-NEIGHBOR-BOTTOM</name>
+			<objectId1>b084e59a-df7b-4611-aedb-c82a11953ad3</objectId1>
+			<objectId2>95e39ef2-b107-4784-a168-a8832c84d726</objectId2>
+		</link>
+		<link>
+			<name>LINK-NEIGHBOR-TOP</name>
+			<objectId1>95e39ef2-b107-4784-a168-a8832c84d726</objectId1>
+			<objectId2>b084e59a-df7b-4611-aedb-c82a11953ad3</objectId2>
+		</link>
+		<link>
+			<name>LINK-POSITION</name>
+			<objectId1>b084e59a-df7b-4611-aedb-c82a11953ad3</objectId1>
+		</link>
+		<link>
+			<name>LINK-NEIGHBOR-BOTTOM</name>
+			<objectId1>95e39ef2-b107-4784-a168-a8832c84d726</objectId1>
+			<objectId2>d53b4dcd-75ab-474b-af91-fa784e19e179</objectId2>
+		</link>
+		<link>
+			<name>LINK-NEIGHBOR-TOP</name>
+			<objectId1>d53b4dcd-75ab-474b-af91-fa784e19e179</objectId1>
+			<objectId2>95e39ef2-b107-4784-a168-a8832c84d726</objectId2>
+		</link>
+		<link>
+			<name>LINK-POSITION</name>
+			<objectId1>95e39ef2-b107-4784-a168-a8832c84d726</objectId1>
+		</link>
+		<link>
+			<name>LINK-NEIGHBOR-RIGHT</name>
+			<objectId1>d53b4dcd-75ab-474b-af91-fa784e19e179</objectId1>
+			<objectId2>f43defb5-0575-40e5-b80a-c6fb6526132c</objectId2>
+		</link>
+		<link>
+			<name>LINK-NEIGHBOR-LEFT</name>
+			<objectId1>f43defb5-0575-40e5-b80a-c6fb6526132c</objectId1>
+			<objectId2>d53b4dcd-75ab-474b-af91-fa784e19e179</objectId2>
+		</link>
+		<link>
+			<name>LINK-POSITION</name>
+			<objectId1>d53b4dcd-75ab-474b-af91-fa784e19e179</objectId1>
+		</link>
+		<link>
+			<name>LINK-NEIGHBOR-RIGHT</name>
+			<objectId1>f43defb5-0575-40e5-b80a-c6fb6526132c</objectId1>
+			<objectId2>1afbed4f-370a-4532-98fb-03840811b9e5</objectId2>
+		</link>
+		<link>
+			<name>LINK-NEIGHBOR-LEFT</name>
+			<objectId1>1afbed4f-370a-4532-98fb-03840811b9e5</objectId1>
+			<objectId2>f43defb5-0575-40e5-b80a-c6fb6526132c</objectId2>
+		</link>
+		<link>
+			<name>LINK-POSITION</name>
+			<objectId1>f43defb5-0575-40e5-b80a-c6fb6526132c</objectId1>
+		</link>
+		<link>
+			<name>LINK-NEIGHBOR-TOP</name>
+			<objectId1>1afbed4f-370a-4532-98fb-03840811b9e5</objectId1>
+			<objectId2>a96ac6c9-d355-4d6d-8acd-52419a771f2c</objectId2>
+		</link>
+		<link>
+			<name>LINK-NEIGHBOR-BOTTOM</name>
+			<objectId1>a96ac6c9-d355-4d6d-8acd-52419a771f2c</objectId1>
+			<objectId2>1afbed4f-370a-4532-98fb-03840811b9e5</objectId2>
+		</link>
+		<link>
+			<name>LINK-POSITION</name>
+			<objectId1>1afbed4f-370a-4532-98fb-03840811b9e5</objectId1>
+		</link>
+		<link>
+			<name>LINK-NEIGHBOR-TOP</name>
+			<objectId1>a96ac6c9-d355-4d6d-8acd-52419a771f2c</objectId1>
+			<objectId2>0f72a318-b5b7-4ee2-a074-5972c61be4fb</objectId2>
+		</link>
+		<link>
+			<name>LINK-NEIGHBOR-BOTTOM</name>
+			<objectId1>0f72a318-b5b7-4ee2-a074-5972c61be4fb</objectId1>
+			<objectId2>a96ac6c9-d355-4d6d-8acd-52419a771f2c</objectId2>
+		</link>
+		<link>
+			<name>LINK-POSITION</name>
+			<objectId1>a96ac6c9-d355-4d6d-8acd-52419a771f2c</objectId1>
+		</link>
+		<link>
+			<name>LINK-NEIGHBOR-RIGHT</name>
+			<objectId1>0f72a318-b5b7-4ee2-a074-5972c61be4fb</objectId1>
+			<objectId2>24d91ab4-65d4-4b23-b0bb-2b591046feba</objectId2>
+		</link>
+		<link>
+			<name>LINK-NEIGHBOR-LEFT</name>
+			<objectId1>24d91ab4-65d4-4b23-b0bb-2b591046feba</objectId1>
+			<objectId2>0f72a318-b5b7-4ee2-a074-5972c61be4fb</objectId2>
+		</link>
+		<link>
+			<name>LINK-POSITION</name>
+			<objectId1>0f72a318-b5b7-4ee2-a074-5972c61be4fb</objectId1>
+		</link>
+		<link>
+			<name>LINK-NEIGHBOR-RIGHT</name>
+			<objectId1>24d91ab4-65d4-4b23-b0bb-2b591046feba</objectId1>
+			<objectId2>f650c9fb-3d7a-4a54-9d83-48e0cd1ca983</objectId2>
+		</link>
+		<link>
+			<name>LINK-NEIGHBOR-LEFT</name>
+			<objectId1>f650c9fb-3d7a-4a54-9d83-48e0cd1ca983</objectId1>
+			<objectId2>24d91ab4-65d4-4b23-b0bb-2b591046feba</objectId2>
+		</link>
+		<link>
+			<name>LINK-POSITION</name>
+			<objectId1>24d91ab4-65d4-4b23-b0bb-2b591046feba</objectId1>
+		</link>
+		<link>
+			<name>LINK-NEIGHBOR-BOTTOM</name>
+			<objectId1>f650c9fb-3d7a-4a54-9d83-48e0cd1ca983</objectId1>
+			<objectId2>7f40374a-69a8-4237-ba09-3484e9595846</objectId2>
+		</link>
+		<link>
+			<name>LINK-NEIGHBOR-TOP</name>
+			<objectId1>7f40374a-69a8-4237-ba09-3484e9595846</objectId1>
+			<objectId2>f650c9fb-3d7a-4a54-9d83-48e0cd1ca983</objectId2>
+		</link>
+		<link>
+			<name>LINK-POSITION</name>
+			<objectId1>f650c9fb-3d7a-4a54-9d83-48e0cd1ca983</objectId1>
+		</link>
+		<link>
+			<name>LINK-NEIGHBOR-BOTTOM</name>
+			<objectId1>7f40374a-69a8-4237-ba09-3484e9595846</objectId1>
+			<objectId2>540bc28e-9c92-413e-af9d-3dc8716a4153</objectId2>
+		</link>
+		<link>
+			<name>LINK-NEIGHBOR-TOP</name>
+			<objectId1>540bc28e-9c92-413e-af9d-3dc8716a4153</objectId1>
+			<objectId2>7f40374a-69a8-4237-ba09-3484e9595846</objectId2>
+		</link>
+		<link>
+			<name>LINK-POSITION</name>
+			<objectId1>7f40374a-69a8-4237-ba09-3484e9595846</objectId1>
+		</link>
+		<link>
+			<name>LINK-NEIGHBOR-RIGHT</name>
+			<objectId1>540bc28e-9c92-413e-af9d-3dc8716a4153</objectId1>
+			<objectId2>dc4251ed-2dc6-41ca-ad68-8c0c2ec1e6f6</objectId2>
+		</link>
+		<link>
+			<name>LINK-NEIGHBOR-LEFT</name>
+			<objectId1>dc4251ed-2dc6-41ca-ad68-8c0c2ec1e6f6</objectId1>
+			<objectId2>540bc28e-9c92-413e-af9d-3dc8716a4153</objectId2>
+		</link>
+		<link>
+			<name>LINK-POSITION</name>
+			<objectId1>540bc28e-9c92-413e-af9d-3dc8716a4153</objectId1>
+		</link>
+		<link>
+			<name>LINK-NEIGHBOR-RIGHT</name>
+			<objectId1>dc4251ed-2dc6-41ca-ad68-8c0c2ec1e6f6</objectId1>
+			<objectId2>49dd27a9-99af-474f-99ff-b04652dad07d</objectId2>
+		</link>
+		<link>
+			<name>LINK-NEIGHBOR-LEFT</name>
+			<objectId1>49dd27a9-99af-474f-99ff-b04652dad07d</objectId1>
+			<objectId2>dc4251ed-2dc6-41ca-ad68-8c0c2ec1e6f6</objectId2>
+		</link>
+		<link>
+			<name>LINK-POSITION</name>
+			<objectId1>dc4251ed-2dc6-41ca-ad68-8c0c2ec1e6f6</objectId1>
+		</link>
+		<link>
+			<name>LINK-NEIGHBOR-BOTTOM</name>
+			<objectId1>100c987e-2ac9-4781-9892-eee801c32f0c</objectId1>
+			<objectId2>711cd4f8-98ba-48d1-a54f-106c9441ac16</objectId2>
+		</link>
+		<link>
+			<name>LINK-NEIGHBOR-TOP</name>
+			<objectId1>711cd4f8-98ba-48d1-a54f-106c9441ac16</objectId1>
+			<objectId2>100c987e-2ac9-4781-9892-eee801c32f0c</objectId2>
+		</link>
+		<link>
+			<name>LINK-POSITION</name>
+			<objectId1>100c987e-2ac9-4781-9892-eee801c32f0c</objectId1>
+		</link>
+		<link>
+			<name>LINK-NEIGHBOR-BOTTOM</name>
+			<objectId1>711cd4f8-98ba-48d1-a54f-106c9441ac16</objectId1>
+			<objectId2>e49f7134-5489-4d13-8711-c552567009e3</objectId2>
+		</link>
+		<link>
+			<name>LINK-NEIGHBOR-TOP</name>
+			<objectId1>e49f7134-5489-4d13-8711-c552567009e3</objectId1>
+			<objectId2>711cd4f8-98ba-48d1-a54f-106c9441ac16</objectId2>
+		</link>
+		<link>
+			<name>LINK-POSITION</name>
+			<objectId1>711cd4f8-98ba-48d1-a54f-106c9441ac16</objectId1>
+		</link>
+		<link>
+			<name>LINK-NEIGHBOR-BOTTOM</name>
+			<objectId1>e49f7134-5489-4d13-8711-c552567009e3</objectId1>
+			<objectId2>49dd27a9-99af-474f-99ff-b04652dad07d</objectId2>
+		</link>
+		<link>
+			<name>LINK-NEIGHBOR-TOP</name>
+			<objectId1>49dd27a9-99af-474f-99ff-b04652dad07d</objectId1>
+			<objectId2>e49f7134-5489-4d13-8711-c552567009e3</objectId2>
+		</link>
+		<link>
+			<name>LINK-POSITION</name>
+			<objectId1>e49f7134-5489-4d13-8711-c552567009e3</objectId1>
+		</link>
+		<link>
+			<name>LINK-NEIGHBOR-BOTTOM</name>
+			<objectId1>49dd27a9-99af-474f-99ff-b04652dad07d</objectId1>
+			<objectId2>27d760e1-27d2-483e-a246-705c9411c849</objectId2>
+		</link>
+		<link>
+			<name>LINK-NEIGHBOR-TOP</name>
+			<objectId1>27d760e1-27d2-483e-a246-705c9411c849</objectId1>
+			<objectId2>49dd27a9-99af-474f-99ff-b04652dad07d</objectId2>
+		</link>
+		<link>
+			<name>LINK-POSITION</name>
+			<objectId1>49dd27a9-99af-474f-99ff-b04652dad07d</objectId1>
+		</link>
+		<link>
+			<name>LINK-POSITION</name>
+			<objectId1>27d760e1-27d2-483e-a246-705c9411c849</objectId1>
+		</link>
 	</initialSystem>
 	<finalSystem>
 		<systemObject>
 			<name>OBJECT-MATERIAL-POINT</name>
-			<id>4abbe612-76f5-499d-b700-70a8ee83afbd</id>
-			<link>
-				<name>LINK-POSITION</name>
-				<objectId1>d7fd2a84-4e16-4993-bdb5-92e79af09cdd</objectId1>
-			</link>
+			<id>ce7315d4-f456-4877-99c6-fac653778a77</id>
 		</systemObject>
 		<systemObject>
 			<name>OBJECT-POINT-92</name>
-			<id>d7fd2a84-4e16-4993-bdb5-92e79af09cdd</id>
+			<id>49dd27a9-99af-474f-99ff-b04652dad07d</id>
 			<attribute>
 				<name>ATTRIBUTE-OCCUPIED</name>
 				<value type="boolean">true</value>
 			</attribute>
-			<link>
-				<name>LINK-POSITION</name>
-				<objectId1>4abbe612-76f5-499d-b700-70a8ee83afbd</objectId1>
-			</link>
 		</systemObject>
+		<link>
+			<name>LINK-POSITION</name>
+			<objectId1>ce7315d4-f456-4877-99c6-fac653778a77</objectId1>
+			<objectId2>49dd27a9-99af-474f-99ff-b04652dad07d</objectId2>
+		</link>
+		<link>
+			<name>LINK-POSITION</name>
+			<objectId1>49dd27a9-99af-474f-99ff-b04652dad07d</objectId1>
+			<objectId2>ce7315d4-f456-4877-99c6-fac653778a77</objectId2>
+		</link>
 	</finalSystem>
 </taskDescription>

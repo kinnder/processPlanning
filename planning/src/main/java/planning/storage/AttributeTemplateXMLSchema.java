@@ -7,6 +7,13 @@ import planning.model.AttributeTemplate;
 
 public class AttributeTemplateXMLSchema implements XMLSchema<AttributeTemplate> {
 
+	final public static String TAG_schema = "attributeTemplate";
+
+	@Override
+	public String getSchemaName() {
+		return TAG_schema;
+	}
+
 	private ValueXMLSchema valueSchema = new ValueXMLSchema();
 
 	@Override

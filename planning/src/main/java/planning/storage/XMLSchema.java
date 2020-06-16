@@ -5,7 +5,7 @@ import org.jdom2.Element;
 
 public interface XMLSchema<T> {
 
-	// TODO : добавить метод для получения имени схемы
+	public String getSchemaName();
 
 	public T parse(Element element) throws DataConversionException;
 

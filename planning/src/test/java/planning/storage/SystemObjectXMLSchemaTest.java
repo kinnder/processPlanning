@@ -18,7 +18,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
 import planning.model.Attribute;
-import planning.model.Link;
 import planning.model.SystemObject;
 
 public class SystemObjectXMLSchemaTest {
@@ -70,19 +69,6 @@ public class SystemObjectXMLSchemaTest {
 				oneOf(attribute_mock).getChild("value");
 
 				// parseAttribute -->
-
-				oneOf(root_mock).getChildren("link");
-				will(returnValue(links));
-
-				// <-- parseLink
-
-				oneOf(link_mock).getChildText("name");
-
-				oneOf(link_mock).getChildText("objectId1");
-
-				oneOf(link_mock).getChildText("objectId2");
-
-				// parseLink -->
 			}
 		});
 
@@ -93,11 +79,8 @@ public class SystemObjectXMLSchemaTest {
 	public void combine() {
 		final SystemObject systemObject_mock = context.mock(SystemObject.class);
 		final Attribute attribute_mock = context.mock(Attribute.class);
-		final Link link_mock = context.mock(Link.class);
 		final List<Attribute> attributes = new ArrayList<>();
 		attributes.add(attribute_mock);
-		final List<Link> links = new ArrayList<>();
-		links.add(link_mock);
 
 		context.checking(new Expectations() {
 			{
@@ -117,19 +100,6 @@ public class SystemObjectXMLSchemaTest {
 				oneOf(attribute_mock).getValue();
 
 				// combineAttribute -->
-
-				oneOf(systemObject_mock).getLinks();
-				will(returnValue(links));
-
-				// <-- combineLink
-
-				oneOf(link_mock).getName();
-
-				oneOf(link_mock).getObjectId1();
-
-				oneOf(link_mock).getObjectId2();
-
-				// combineLink -->
 			}
 		});
 
@@ -137,6 +107,5 @@ public class SystemObjectXMLSchemaTest {
 		assertEquals("object-name", element.getChildText("name"));
 		assertEquals("object-id", element.getChildText("id"));
 		assertNotNull(element.getChild("attribute"));
-		assertNotNull(element.getChild("link"));
 	}
 }

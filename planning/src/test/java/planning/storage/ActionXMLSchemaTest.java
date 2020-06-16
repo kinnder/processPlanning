@@ -39,8 +39,20 @@ public class ActionXMLSchemaTest {
 
 	ActionXMLSchema testable;
 
+	ParameterUpdaterXMLSchema parameterUpdaterXMLSchema_mock;
+
+	PreConditionCheckerXMLSchema preConditionCheckerXMLSchema_mock;
+
 	@BeforeEach
 	public void setup() {
+		parameterUpdaterXMLSchema_mock = context.mock(ParameterUpdaterXMLSchema.class);
+		preConditionCheckerXMLSchema_mock = context.mock(PreConditionCheckerXMLSchema.class);
+
+		testable = new ActionXMLSchema(parameterUpdaterXMLSchema_mock, preConditionCheckerXMLSchema_mock);
+	}
+
+	@Test
+	public void newInstance() {
 		testable = new ActionXMLSchema();
 	}
 
@@ -48,34 +60,36 @@ public class ActionXMLSchemaTest {
 	public void parse() throws DataConversionException {
 		final Element root_mock = context.mock(Element.class, "root");
 		final List<Element> preConditionCheckers = new ArrayList<>();
-		final Element preConditionChecker_mock = context.mock(Element.class, "preConditionChecker");
+		final Element preConditionChecker_mock = context.mock(Element.class, "preConditionChecker-element");
 		preConditionCheckers.add(preConditionChecker_mock);
+		final ActionPreConditionChecker actionPreConditionChecker_mock = context.mock(ActionPreConditionChecker.class);
 		final List<Element> parameterUpdaters = new ArrayList<>();
-		final Element parameterUpdater_mock = context.mock(Element.class, "parameterUpdater");
+		final Element parameterUpdater_mock = context.mock(Element.class, "parameterUpdater-element");
 		parameterUpdaters.add(parameterUpdater_mock);
+		final ActionParameterUpdater actionParameterUpdater_mock = context.mock(ActionParameterUpdater.class);
 
 		context.checking(new Expectations() {
 			{
 				oneOf(root_mock).getChildText("name");
 				will(returnValue("action-name"));
 
+				oneOf(preConditionCheckerXMLSchema_mock).getSchemaName();
+				will(returnValue("preConditionChecker"));
+
 				oneOf(root_mock).getChildren("preConditionChecker");
 				will(returnValue(preConditionCheckers));
 
-				// <-- parsePreConditionChecker
+				oneOf(preConditionCheckerXMLSchema_mock).parse(preConditionChecker_mock);
+				will(returnValue(actionPreConditionChecker_mock));
 
-				oneOf(preConditionChecker_mock).getChildren("line");
-
-				// parsePreConditionChecker -->
+				oneOf(parameterUpdaterXMLSchema_mock).getSchemaName();
+				will(returnValue("parameterUpdater"));
 
 				oneOf(root_mock).getChildren("parameterUpdater");
 				will(returnValue(parameterUpdaters));
 
-				// <-- parseParameterUpdater
-
-				oneOf(parameterUpdater_mock).getChildren("line");
-
-				// parseParameterUpdater -->
+				oneOf(parameterUpdaterXMLSchema_mock).parse(parameterUpdater_mock);
+				will(returnValue(actionParameterUpdater_mock));
 			}
 		});
 
@@ -93,6 +107,8 @@ public class ActionXMLSchemaTest {
 				.mock(LuaScriptActionParameterUpdater.class);
 		final List<ActionParameterUpdater> parameterUpdaters = new ArrayList<>();
 		parameterUpdaters.add(parameterUpdater_mock);
+		final Element preConditionChecker = new Element("preConditionChecker");
+		final Element parameterUpdater = new Element("parameterUpdater");
 
 		context.checking(new Expectations() {
 			{
@@ -102,20 +118,14 @@ public class ActionXMLSchemaTest {
 				oneOf(action_mock).getPreConditionCheckers();
 				will(returnValue(preConditionCheckers));
 
-				// <-- combinePreConditionCheckers
-
-				oneOf(preConditionChecker_mock).getScript();
-
-				// combinePreConditionCheckers -->
+				oneOf(preConditionCheckerXMLSchema_mock).combine(preConditionChecker_mock);
+				will(returnValue(preConditionChecker));
 
 				oneOf(action_mock).getParameterUpdaters();
 				will(returnValue(parameterUpdaters));
 
-				// <-- combineParameterUpdaters
-
-				oneOf(parameterUpdater_mock).getScript();
-
-				// combineParameterUpdaters -->
+				oneOf(parameterUpdaterXMLSchema_mock).combine(parameterUpdater_mock);
+				will(returnValue(parameterUpdater));
 			}
 		});
 

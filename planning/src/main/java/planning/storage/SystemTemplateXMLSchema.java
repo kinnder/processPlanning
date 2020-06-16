@@ -9,11 +9,16 @@ import planning.model.SystemTemplate;
 
 public class SystemTemplateXMLSchema implements XMLSchema<SystemTemplate> {
 
+	final private static String TAG_schema = "systemTemplate";
+
+	@Override
+	public String getSchemaName() {
+		return TAG_schema;
+	}
+
 	private SystemObjectTemplateXMLSchema systemObjectTemplateSchema = new SystemObjectTemplateXMLSchema();
 
 	private LinkTemplateXMLSchema linkTemplateSchema = new LinkTemplateXMLSchema();
-
-	// TODO : Добавить тэги
 
 	@Override
 	public SystemTemplate parse(Element root) throws DataConversionException {

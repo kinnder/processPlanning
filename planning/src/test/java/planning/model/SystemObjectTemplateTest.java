@@ -139,94 +139,7 @@ public class SystemObjectTemplateTest {
 	}
 
 	@Test
-	public void matchesLinks() {
-		final LinkTemplate linkTemplate_1_mock = context.mock(LinkTemplate.class, "linkTemplate-1");
-		final LinkTemplate linkTemplate_2_mock = context.mock(LinkTemplate.class, "linkTemplate-2");
-
-		testable.addLinkTemplate(linkTemplate_1_mock);
-		testable.addLinkTemplate(linkTemplate_2_mock);
-
-		final SystemObject object = new SystemObject("object");
-		final Link link_1_mock = context.mock(Link.class, "link-1");
-		final Link link_2_mock = context.mock(Link.class, "link-2");
-		object.addLink(link_1_mock);
-		object.addLink(link_2_mock);
-
-		final IdsMatching idsMatching_mock = context.mock(IdsMatching.class);
-
-		context.checking(new Expectations() {
-			{
-				oneOf(linkTemplate_1_mock).matches(link_1_mock, idsMatching_mock);
-				will(returnValue(true));
-
-				oneOf(linkTemplate_2_mock).matches(link_2_mock, idsMatching_mock);
-				will(returnValue(true));
-			}
-		});
-
-		assertTrue(testable.matchesLinks(object, idsMatching_mock));
-	}
-
-	@Test
-	public void matechsLinks_differentLink() {
-		final LinkTemplate linkTemplate_1_mock = context.mock(LinkTemplate.class, "linkTemplate-1");
-		final LinkTemplate linkTemplate_3_mock = context.mock(LinkTemplate.class, "linkTemplate-3");
-
-		testable.addLinkTemplate(linkTemplate_1_mock);
-		testable.addLinkTemplate(linkTemplate_3_mock);
-
-		final SystemObject object = new SystemObject("object");
-		final Link link_1_mock = context.mock(Link.class, "link-1");
-		final Link link_2_mock = context.mock(Link.class, "link-2");
-		object.addLink(link_1_mock);
-		object.addLink(link_2_mock);
-
-		final IdsMatching idsMatching_mock = context.mock(IdsMatching.class);
-
-		context.checking(new Expectations() {
-			{
-				oneOf(linkTemplate_1_mock).matches(link_1_mock, idsMatching_mock);
-				will(returnValue(true));
-
-				oneOf(linkTemplate_3_mock).matches(link_2_mock, idsMatching_mock);
-				will(returnValue(false));
-			}
-		});
-
-		assertFalse(testable.matchesLinks(object, idsMatching_mock));
-	}
-
-	@Test
 	public void getIds() {
-		final LinkTemplate link_mock = context.mock(LinkTemplate.class, "link");
-
-		testable.addLinkTemplate(link_mock);
-
-		context.checking(new Expectations() {
-			{
-				oneOf(link_mock).getObjectId1();
-				will(returnValue("id-2"));
-			}
-		});
-
-		Set<String> ids = testable.getIds();
-		assertEquals(2, ids.size());
-		assertTrue(ids.contains("id-2"));
-	}
-
-	@Test
-	public void getIds_nullValuedLink() {
-		final LinkTemplate link_mock = context.mock(LinkTemplate.class, "link");
-
-		testable.addLinkTemplate(link_mock);
-
-		context.checking(new Expectations() {
-			{
-				oneOf(link_mock).getObjectId1();
-				will(returnValue(null));
-			}
-		});
-
 		Set<String> ids = testable.getIds();
 		assertEquals(1, ids.size());
 	}
@@ -249,17 +162,5 @@ public class SystemObjectTemplateTest {
 
 		Collection<AttributeTemplate> attributes = testable.getAttributeTemplates();
 		assertEquals(2, attributes.size());
-	}
-
-	@Test
-	public void getLinkTemplates() {
-		final LinkTemplate linkTemplate_1_mock = context.mock(LinkTemplate.class, "linkTemplate-1");
-		final LinkTemplate linkTemplate_2_mock = context.mock(LinkTemplate.class, "linkTemplate-2");
-
-		testable.addLinkTemplate(linkTemplate_1_mock);
-		testable.addLinkTemplate(linkTemplate_2_mock);
-
-		Collection<LinkTemplate> links = testable.getLinkTemplates();
-		assertEquals(2, links.size());
 	}
 }

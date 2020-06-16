@@ -18,7 +18,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
 import planning.model.AttributeTemplate;
-import planning.model.LinkTemplate;
 import planning.model.SystemObjectTemplate;
 
 public class SystemObjectTemplateXMLSchemaTest {
@@ -37,49 +36,41 @@ public class SystemObjectTemplateXMLSchemaTest {
 
 	SystemObjectTemplateXMLSchema testable;
 
+	AttributeTemplateXMLSchema attributeTemplateXMLSchema_mock;
+
 	@BeforeEach
 	public void setup() {
+		attributeTemplateXMLSchema_mock = context.mock(AttributeTemplateXMLSchema.class);
+
+		testable = new SystemObjectTemplateXMLSchema(attributeTemplateXMLSchema_mock);
+	}
+
+	@Test
+	public void newInstance() {
 		testable = new SystemObjectTemplateXMLSchema();
 	}
 
 	@Test
 	public void parse() throws DataConversionException {
 		final Element root_mock = context.mock(Element.class, "root");
-		final List<Element> attributeTemplates = new ArrayList<>();
-		final Element attributeTemplate_mock = context.mock(Element.class, "attributeTemplate");
-		attributeTemplates.add(attributeTemplate_mock);
-		final List<Element> linkTemplates = new ArrayList<>();
-		final Element linkTemplate_mock = context.mock(Element.class, "linkTemplate");
-		linkTemplates.add(linkTemplate_mock);
+		final List<Element> attributeTemplateElements = new ArrayList<>();
+		final Element attributeTemplateElement_mock = context.mock(Element.class, "attributeTemplate-element");
+		attributeTemplateElements.add(attributeTemplateElement_mock);
+		final AttributeTemplate attributeTemplate = new AttributeTemplate("attributeTemplate");
 
 		context.checking(new Expectations() {
 			{
 				oneOf(root_mock).getChildText("objectId");
 				will(returnValue("objectId"));
 
+				oneOf(attributeTemplateXMLSchema_mock).getSchemaName();
+				will(returnValue("attributeTemplate"));
+
 				oneOf(root_mock).getChildren("attributeTemplate");
-				will(returnValue(attributeTemplates));
+				will(returnValue(attributeTemplateElements));
 
-				// <-- parseAttributeTemplate
-
-				oneOf(attributeTemplate_mock).getChildText("name");
-
-				oneOf(attributeTemplate_mock).getChild("value");
-
-				// parseAttributeTemplate -->
-
-				oneOf(root_mock).getChildren("linkTemplate");
-				will(returnValue(linkTemplates));
-
-				// <-- parseLinkTemplate
-
-				oneOf(linkTemplate_mock).getChildText("name");
-
-				oneOf(linkTemplate_mock).getChildText("objectId1");
-
-				oneOf(linkTemplate_mock).getChildText("objectId2");
-
-				// parseLinkTemplate -->
+				oneOf(attributeTemplateXMLSchema_mock).parse(attributeTemplateElement_mock);
+				will(returnValue(attributeTemplate));
 			}
 		});
 
@@ -90,11 +81,9 @@ public class SystemObjectTemplateXMLSchemaTest {
 	public void combine() {
 		final SystemObjectTemplate systemObjectTemplate_mock = context.mock(SystemObjectTemplate.class);
 		final AttributeTemplate attributeTemplate_mock = context.mock(AttributeTemplate.class);
-		final LinkTemplate linkTemplate_mock = context.mock(LinkTemplate.class);
 		final List<AttributeTemplate> attributeTemplates = new ArrayList<>();
 		attributeTemplates.add(attributeTemplate_mock);
-		final List<LinkTemplate> linkTemplates = new ArrayList<>();
-		linkTemplates.add(linkTemplate_mock);
+		final Element attributeTemplateElement = new Element("attributeTemplate");
 
 		context.checking(new Expectations() {
 			{
@@ -104,32 +93,13 @@ public class SystemObjectTemplateXMLSchemaTest {
 				oneOf(systemObjectTemplate_mock).getAttributeTemplates();
 				will(returnValue(attributeTemplates));
 
-				// <-- combineAttributeTemplate
-
-				oneOf(attributeTemplate_mock).getName();
-
-				oneOf(attributeTemplate_mock).getValue();
-
-				// combineAttributeTemplate -->
-
-				oneOf(systemObjectTemplate_mock).getLinkTemplates();
-				will(returnValue(linkTemplates));
-
-				// <-- combineLinkTemplate
-
-				oneOf(linkTemplate_mock).getName();
-
-				oneOf(linkTemplate_mock).getObjectId1();
-
-				oneOf(linkTemplate_mock).getObjectId2();
-
-				// combineLinkTemplate -->
+				oneOf(attributeTemplateXMLSchema_mock).combine(attributeTemplate_mock);
+				will(returnValue(attributeTemplateElement));
 			}
 		});
 
 		Element element = testable.combine(systemObjectTemplate_mock);
 		assertEquals("id", element.getChildText("objectId"));
 		assertNotNull(element.getChild("attributeTemplate"));
-		assertNotNull(element.getChild("linkTemplate"));
 	}
 }

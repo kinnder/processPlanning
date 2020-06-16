@@ -1,6 +1,8 @@
 package planning.model;
 
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 public class LinkTemplate implements Cloneable {
 
@@ -54,5 +56,16 @@ public class LinkTemplate implements Cloneable {
 		clone.objectId1 = objectId1;
 		clone.objectId2 = objectId2;
 		return clone;
+	}
+
+	public Set<String> getIds() {
+		Set<String> linkIds = new HashSet<>();
+		if (objectId1 != null) {
+			linkIds.add(objectId1);
+		}
+		if (objectId2 != null) {
+			linkIds.add(objectId2);
+		}
+		return linkIds;
 	}
 }
