@@ -159,17 +159,17 @@ public class LinkTemplateTest {
 
 	@Test
 	public void equals_different_name() {
-		assertFalse(testable.equals(new LinkTemplate("different", "id-1", "id-2")));
+		assertFalse(testable.equals(new LinkTemplate("different", "id-template-1", "id-template-2")));
 	}
 
 	@Test
 	public void equals_different_objectId1() {
-		assertFalse(testable.equals(new LinkTemplate("link", "another", "id-2")));
+		assertFalse(testable.equals(new LinkTemplate("link", "different", "id-template-2")));
 	}
 
 	@Test
 	public void equals_different_objectId2() {
-		assertFalse(testable.equals(new LinkTemplate("link", "id-1", "another")));
+		assertFalse(testable.equals(new LinkTemplate("link", "id-template-1", "different")));
 	}
 
 	@Test
@@ -181,11 +181,10 @@ public class LinkTemplateTest {
 	}
 
 	@Test
-	public void getIds_null_id() {
-		testable = new LinkTemplate("name", "id-template-1", null);
+	public void getIds_null_ids() {
+		testable = new LinkTemplate("name", null, null);
 
 		Set<String> ids = testable.getIds();
-		assertEquals(1, ids.size());
-		assertTrue(ids.contains("id-template-1"));
+		assertEquals(0, ids.size());
 	}
 }

@@ -112,11 +112,10 @@ public class LinkTest {
 	}
 
 	@Test
-	public void getIds_null_id() {
-		testable = new Link("name", "id-1", null);
+	public void getIds_null_ids() {
+		testable = new Link("name", null, null);
 
 		Set<String> ids = testable.getIds();
-		assertEquals(1, ids.size());
-		assertTrue(ids.contains("id-1"));
+		assertEquals(0, ids.size());
 	}
 }

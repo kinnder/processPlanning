@@ -43,6 +43,11 @@ public class SystemTemplateTest {
 		testable = new SystemTemplate(idsMatchingManager_mock);
 	}
 
+	@Test
+	public void newInstance() {
+		testable = new SystemTemplate();
+	}
+
 	@SuppressWarnings("unchecked")
 	@Test
 	public void matchIds() {
@@ -307,6 +312,15 @@ public class SystemTemplateTest {
 		assertEquals(2, linkTemplates.size());
 		assertTrue(linkTemplates.contains(new LinkTemplate("link-name-1", "object-1-id", "object-2-id")));
 		assertTrue(linkTemplates.contains(new LinkTemplate("link-name-2", "object-2-id", "object-1-id")));
+	}
+
+	@Test
+	public void addLinkTemplate_one_direction() {
+		testable.addLinkTemplate("link-name", "object-1-id", "object-2-id");
+
+		Collection<LinkTemplate> linkTemplates = testable.getLinkTemplates();
+		assertEquals(1, linkTemplates.size());
+		assertTrue(linkTemplates.contains(new LinkTemplate("link-name", "object-1-id", "object-2-id")));
 	}
 
 	@Test

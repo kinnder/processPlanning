@@ -97,7 +97,7 @@ public class SystemTemplate {
 
 	private List<LinkTemplate> linkTemplates = new ArrayList<>();
 
-	public void addLinkTemplate(String objectTemplate1Id, String linkTemplateName, String objectTemplate2Id) {
+	public void addLinkTemplate(String linkTemplateName, String objectTemplate1Id, String objectTemplate2Id) {
 		addLinkTemplate(new LinkTemplate(linkTemplateName, objectTemplate1Id, objectTemplate2Id));
 	}
 
