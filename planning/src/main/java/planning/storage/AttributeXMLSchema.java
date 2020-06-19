@@ -7,27 +7,37 @@ import planning.model.Attribute;
 
 public class AttributeXMLSchema implements XMLSchema<Attribute> {
 
-	final private static String TAG_schema = "attribute";
+	final private static String TAG_attribute = "attribute";
+
+	final private static String TAG_name = "name";
 
 	@Override
 	public String getSchemaName() {
-		return TAG_schema;
+		return TAG_attribute;
 	}
 
-	private ValueXMLSchema valueSchema = new ValueXMLSchema();
+	public AttributeXMLSchema() {
+		this(new ValueXMLSchema());
+	}
+
+	AttributeXMLSchema(ValueXMLSchema valueXMLSchema) {
+		this.valueSchema = valueXMLSchema;
+	}
+
+	private ValueXMLSchema valueSchema;
 
 	@Override
 	public Attribute parse(Element root) throws DataConversionException {
 		String name = root.getChildText("name");
-		Object value = valueSchema.parse(root.getChild("value"));
+		Object value = valueSchema.parse(root.getChild(valueSchema.getSchemaName()));
 		return new Attribute(name, value);
 	}
 
 	@Override
 	public Element combine(Attribute attribute) {
-		Element root = new Element("attribute");
+		Element root = new Element(TAG_attribute);
 
-		Element name = new Element("name");
+		Element name = new Element(TAG_name);
 		name.setText(attribute.getName());
 		root.addContent(name);
 

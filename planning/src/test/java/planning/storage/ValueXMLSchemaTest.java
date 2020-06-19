@@ -123,4 +123,9 @@ public class ValueXMLSchemaTest {
 		assertEquals("true", element.getText());
 		assertEquals("boolean", element.getAttributeValue("type"));
 	}
+
+	@Test
+	public void getSchemaName() {
+		assertEquals("value", testable.getSchemaName());
+	}
 }

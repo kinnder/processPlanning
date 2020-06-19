@@ -128,4 +128,9 @@ public class LinkTemplateXMLSchemaTest {
 		assertNull(element.getChildText("objectId1"));
 		assertNull(element.getChildText("objectId2"));
 	}
+
+	@Test
+	public void getSchemaName() {
+		assertEquals("linkTemplate", testable.getSchemaName());
+	}
 }

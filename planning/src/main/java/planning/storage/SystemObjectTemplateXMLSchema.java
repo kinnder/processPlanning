@@ -8,13 +8,13 @@ import planning.model.SystemObjectTemplate;
 
 public class SystemObjectTemplateXMLSchema implements XMLSchema<SystemObjectTemplate> {
 
-	final private static String TAG_schema = "objectTemplate";
+	final private static String TAG_objectTemplate = "objectTemplate";
 
 	final private static String TAG_objectId = "objectId";
 
 	@Override
 	public String getSchemaName() {
-		return TAG_schema;
+		return TAG_objectTemplate;
 	}
 
 	public SystemObjectTemplateXMLSchema() {
@@ -40,7 +40,7 @@ public class SystemObjectTemplateXMLSchema implements XMLSchema<SystemObjectTemp
 
 	@Override
 	public Element combine(SystemObjectTemplate systemObjectTemplate) {
-		Element root = new Element(TAG_schema);
+		Element root = new Element(TAG_objectTemplate);
 		Element objectId = new Element(TAG_objectId);
 		objectId.setText(systemObjectTemplate.getId());
 		root.addContent(objectId);

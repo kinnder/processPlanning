@@ -9,11 +9,20 @@ import planning.model.SystemObject;
 
 public class SystemXMLSchema implements XMLSchema<System> {
 
-	final private static String TAG_schema = "system";
+	final private static String TAG_system = "system";
 
 	@Override
 	public String getSchemaName() {
-		return TAG_schema;
+		return TAG_system;
+	}
+
+	public SystemXMLSchema() {
+		this(new SystemObjectXMLSchema(), new LinkXMLSchema());
+	}
+
+	SystemXMLSchema(SystemObjectXMLSchema systemObjectXMLSchema, LinkXMLSchema linkXMLSchema) {
+		this.systemObjectSchema = systemObjectXMLSchema;
+		this.linkSchema = linkXMLSchema;
 	}
 
 	private SystemObjectXMLSchema systemObjectSchema = new SystemObjectXMLSchema();
@@ -24,12 +33,12 @@ public class SystemXMLSchema implements XMLSchema<System> {
 	public System parse(Element root) throws DataConversionException {
 		System system = new System();
 
-		for (Element element : root.getChildren("systemObject")) {
+		for (Element element : root.getChildren(systemObjectSchema.getSchemaName())) {
 			SystemObject object = systemObjectSchema.parse(element);
 			system.addObject(object);
 		}
 
-		for (Element element : root.getChildren("link")) {
+		for (Element element : root.getChildren(linkSchema.getSchemaName())) {
 			Link link = linkSchema.parse(element);
 			system.addLink(link);
 		}
@@ -39,7 +48,7 @@ public class SystemXMLSchema implements XMLSchema<System> {
 
 	@Override
 	public Element combine(System system) {
-		Element root = new Element("system");
+		Element root = new Element(TAG_system);
 
 		for (SystemObject systemObject : system.getObjects()) {
 			Element element = systemObjectSchema.combine(systemObject);

@@ -32,8 +32,17 @@ public class AttributeXMLSchemaTest {
 
 	AttributeXMLSchema testable;
 
+	ValueXMLSchema valueXMLSchema_mock;
+
 	@BeforeEach
 	public void setup() {
+		valueXMLSchema_mock = context.mock(ValueXMLSchema.class);
+
+		testable = new AttributeXMLSchema(valueXMLSchema_mock);
+	}
+
+	@Test
+	public void newInstance() {
 		testable = new AttributeXMLSchema();
 	}
 
@@ -41,35 +50,35 @@ public class AttributeXMLSchemaTest {
 	public void parse() throws DataConversionException {
 		final Element root_mock = context.mock(Element.class, "root");
 		final Element value_mock = context.mock(Element.class, "value");
+		final Object value = new Object();
 
 		context.checking(new Expectations() {
 			{
 				oneOf(root_mock).getChildText("name");
 				will(returnValue("name"));
 
+				oneOf(valueXMLSchema_mock).getSchemaName();
+				will(returnValue("value"));
+
 				oneOf(root_mock).getChild("value");
 				will(returnValue(value_mock));
 
-				// <-- parseValue
-
-				oneOf(value_mock).getAttributeValue("type", "string");
-
-				oneOf(value_mock).getText();
-
-				// parseValue -->
+				oneOf(valueXMLSchema_mock).parse(value_mock);
+				will(returnValue(value));
 			}
 		});
 
 		Attribute result = testable.parse(root_mock);
 		assertNotNull(result);
 		assertEquals("name", result.getName());
-		assertEquals("", result.getValue());
+		assertEquals(value, result.getValue());
 	}
 
 	@Test
 	public void combine() {
 		final Attribute attribute_mock = context.mock(Attribute.class);
 		final Object value_mock = context.mock(Object.class);
+		final Element value = new Element("value");
 
 		context.checking(new Expectations() {
 			{
@@ -78,6 +87,9 @@ public class AttributeXMLSchemaTest {
 
 				oneOf(attribute_mock).getValue();
 				will(returnValue(value_mock));
+
+				oneOf(valueXMLSchema_mock).combine(value_mock);
+				will(returnValue(value));
 			}
 		});
 
@@ -103,5 +115,10 @@ public class AttributeXMLSchemaTest {
 		Element element = testable.combine(attribute_mock);
 		assertEquals("attribute-name", element.getChildText("name"));
 		assertNull(element.getChild("value"));
+	}
+
+	@Test
+	public void getSchemaName() {
+		assertEquals("attribute", testable.getSchemaName());
 	}
 }

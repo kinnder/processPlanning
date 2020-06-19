@@ -89,4 +89,9 @@ public class AttributeTransformationXMLSchemaTest {
 		assertEquals("name", element.getChildText("name"));
 		assertNotNull(element.getChild("value"));
 	}
+
+	@Test
+	public void getSchemaName() {
+		assertEquals("attributeTransformation", testable.getSchemaName());
+	}
 }

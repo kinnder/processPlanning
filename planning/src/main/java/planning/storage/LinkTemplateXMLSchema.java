@@ -13,11 +13,11 @@ public class LinkTemplateXMLSchema implements XMLSchema<LinkTemplate> {
 
 	final private static String TAG_objectId2 = "objectId2";
 
-	final private static String TAG_schema = "linkTemplate";
+	final private static String TAG_linkTemplate = "linkTemplate";
 
 	@Override
 	public String getSchemaName() {
-		return TAG_schema;
+		return TAG_linkTemplate;
 	}
 
 	@Override
@@ -30,7 +30,7 @@ public class LinkTemplateXMLSchema implements XMLSchema<LinkTemplate> {
 
 	@Override
 	public Element combine(LinkTemplate linkTemplate) {
-		Element root = new Element("linkTemplate");
+		Element root = new Element(TAG_linkTemplate);
 		{
 			Element child = new Element(TAG_name);
 			child.setText(linkTemplate.getName());

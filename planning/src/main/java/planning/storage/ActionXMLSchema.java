@@ -12,13 +12,13 @@ import planning.model.ActionPreConditionChecker;
 
 public class ActionXMLSchema implements XMLSchema<Action> {
 
-	final private static String TAG_schema = "action";
+	final private static String TAG_action = "action";
 
 	final private static String TAG_name = "name";
 
 	@Override
 	public String getSchemaName() {
-		return TAG_schema;
+		return TAG_action;
 	}
 
 	public ActionXMLSchema() {
@@ -65,7 +65,7 @@ public class ActionXMLSchema implements XMLSchema<Action> {
 			Element element = parameterUpdaterSchema.combine(parameterUpdater);
 			elements.add(element);
 		}
-		Element root = new Element(TAG_schema);
+		Element root = new Element(TAG_action);
 		root.addContent(name);
 		root.addContent(elements);
 		return root;

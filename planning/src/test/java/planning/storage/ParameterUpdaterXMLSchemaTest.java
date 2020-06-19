@@ -89,4 +89,9 @@ public class ParameterUpdaterXMLSchemaTest {
 		assertEquals("local object = systemVariant:getObjectByIdMatch('ID-PLANE-X-TARGET')", lines.get(1).getText());
 		assertEquals("2", lines.get(1).getAttributeValue("n"));
 	}
+
+	@Test
+	public void getSchemaName() {
+		assertEquals("parameterUpdater", testable.getSchemaName());
+	}
 }

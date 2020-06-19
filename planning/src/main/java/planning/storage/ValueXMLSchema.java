@@ -4,24 +4,33 @@ import org.jdom2.Element;
 
 public class ValueXMLSchema implements XMLSchema<Object> {
 
-	final private static String TAG_schema = "value";
+	final private static String TAG_value = "value";
+
+	final private static String TAG_type = "type";
+
+	final private static String TAG_string = "string";
+
+	final private static String TAG_boolean = "boolean";
+
+	final private static String TAG_integer = "integer";
 
 	@Override
 	public String getSchemaName() {
-		return TAG_schema;
+		return TAG_value;
 	}
 
 	@Override
 	public Object parse(Element element) {
+		// TODO (2020-06-18 #22): убрать работу с null элементами
 		if (element == null) {
 			return null;
 		}
-		String type = element.getAttributeValue("type", "string");
+		String type = element.getAttributeValue(TAG_type, TAG_string);
 		String value = element.getText();
-		if ("boolean".equals(type)) {
+		if (TAG_boolean.equals(type)) {
 			return Boolean.valueOf(value);
 		}
-		if ("integer".equals(type)) {
+		if (TAG_integer.equals(type)) {
 			return Integer.valueOf(value);
 		}
 		return value;
@@ -29,11 +38,11 @@ public class ValueXMLSchema implements XMLSchema<Object> {
 
 	@Override
 	public Element combine(Object value) {
-		Element root = new Element("value");
+		Element root = new Element(TAG_value);
 		if (value instanceof Boolean) {
-			root.setAttribute("type", "boolean");
+			root.setAttribute(TAG_type, TAG_boolean);
 		} else if (value instanceof Integer) {
-			root.setAttribute("type", "integer");
+			root.setAttribute(TAG_type, TAG_integer);
 		}
 		root.setText(value.toString());
 		return root;

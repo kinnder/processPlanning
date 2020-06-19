@@ -33,10 +33,26 @@ public class SystemTransformationXMLSchemaTest {
 		context.assertIsSatisfied();
 	}
 
+	ActionXMLSchema actionSchema_mock;
+
+	TransformationsXMLSchema transformationsSchema_mock;
+
+	SystemTemplateXMLSchema systemTemplateSchema_mock;
+
 	SystemTransformationXMLSchema testable;
 
 	@BeforeEach
 	public void setup() {
+		actionSchema_mock = context.mock(ActionXMLSchema.class);
+		transformationsSchema_mock = context.mock(TransformationsXMLSchema.class);
+		systemTemplateSchema_mock = context.mock(SystemTemplateXMLSchema.class);
+
+		testable = new SystemTransformationXMLSchema(actionSchema_mock, transformationsSchema_mock,
+				systemTemplateSchema_mock);
+	}
+
+	@Test
+	public void newInstance() {
 		testable = new SystemTransformationXMLSchema();
 	}
 
@@ -46,46 +62,41 @@ public class SystemTransformationXMLSchemaTest {
 		final Element actionElement_mock = context.mock(Element.class, "actionElement");
 		final Element systemTemplateElement_mock = context.mock(Element.class, "systemTemplateElement");
 		final Element transformationsElement_mock = context.mock(Element.class, "transformationsElement");
+		final Action action = new Action("action");
+		final SystemTemplate systemTemplate = new SystemTemplate();
+		final Transformation[] transformations = new Transformation[] {};
 
 		context.checking(new Expectations() {
 			{
 				oneOf(root_mock).getChildText("name");
 				will(returnValue("name"));
 
+				oneOf(actionSchema_mock).getSchemaName();
+				will(returnValue("action"));
+
 				oneOf(root_mock).getChild("action");
 				will(returnValue(actionElement_mock));
 
-				// <-- parseAction
+				oneOf(actionSchema_mock).parse(actionElement_mock);
+				will(returnValue(action));
 
-				oneOf(actionElement_mock).getChildText("name");
-
-				oneOf(actionElement_mock).getChildren("preConditionChecker");
-
-				oneOf(actionElement_mock).getChildren("parameterUpdater");
-
-				// parseAction -->
+				oneOf(systemTemplateSchema_mock).getSchemaName();
+				will(returnValue("systemTemplate"));
 
 				oneOf(root_mock).getChild("systemTemplate");
 				will(returnValue(systemTemplateElement_mock));
 
-				// <-- parseSystemTemplate
+				oneOf(systemTemplateSchema_mock).parse(systemTemplateElement_mock);
+				will(returnValue(systemTemplate));
 
-				oneOf(systemTemplateElement_mock).getChildren("objectTemplate");
-
-				oneOf(systemTemplateElement_mock).getChildren("linkTemplate");
-
-				// parseSystemTemplate -->
+				oneOf(transformationsSchema_mock).getSchemaName();
+				will(returnValue("transformations"));
 
 				oneOf(root_mock).getChild("transformations");
 				will(returnValue(transformationsElement_mock));
 
-				// <-- parseTransformations
-
-				oneOf(transformationsElement_mock).getChildren("linkTransformation");
-
-				oneOf(transformationsElement_mock).getChildren("attributeTransformation");
-
-				// parseTransformation -->
+				oneOf(transformationsSchema_mock).parse(transformationsElement_mock);
+				will(returnValue(transformations));
 			}
 		});
 
@@ -99,6 +110,9 @@ public class SystemTransformationXMLSchemaTest {
 		final SystemTemplate systemTemplate_mock = context.mock(SystemTemplate.class);
 		final Transformation transformation_mock = context.mock(Transformation.class);
 		final Transformation[] transformations = new Transformation[] { transformation_mock };
+		final Element action = new Element("action");
+		final Element systemTemplate = new Element("systemTemplate");
+		final Element transformation = new Element("transformations");
 
 		context.checking(new Expectations() {
 			{
@@ -108,35 +122,20 @@ public class SystemTransformationXMLSchemaTest {
 				oneOf(systemTransformation_mock).getAction();
 				will(returnValue(action_mock));
 
-				// <-- combineAction
-
-				oneOf(action_mock).getName();
-
-				oneOf(action_mock).getPreConditionCheckers();
-
-				oneOf(action_mock).getParameterUpdaters();
-
-				// combineAction -->
+				oneOf(actionSchema_mock).combine(action_mock);
+				will(returnValue(action));
 
 				oneOf(systemTransformation_mock).getSystemTemplate();
 				will(returnValue(systemTemplate_mock));
 
-				// <-- combineSystemTemplate
-
-				oneOf(systemTemplate_mock).getObjectTemplates();
-
-				oneOf(systemTemplate_mock).getLinkTemplates();
-
-				// combineSystemTemplate -->
+				oneOf(systemTemplateSchema_mock).combine(systemTemplate_mock);
+				will(returnValue(systemTemplate));
 
 				oneOf(systemTransformation_mock).getTransformations();
 				will(returnValue(transformations));
 
-				// <-- combineTransformation
-
-				oneOf(transformation_mock).getObjectId();
-
-				// combineTransformation -->
+				oneOf(transformationsSchema_mock).combine(transformations);
+				will(returnValue(transformation));
 			}
 		});
 
@@ -145,5 +144,10 @@ public class SystemTransformationXMLSchemaTest {
 		assertNotNull(element.getChild("systemTemplate"));
 		assertNotNull(element.getChild("transformations"));
 		assertNotNull(element.getChild("action"));
+	}
+
+	@Test
+	public void getSchemaName() {
+		assertEquals("systemTransformation", testable.getSchemaName());
 	}
 }

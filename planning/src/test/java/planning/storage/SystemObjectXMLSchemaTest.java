@@ -34,10 +34,19 @@ public class SystemObjectXMLSchemaTest {
 		context.assertIsSatisfied();
 	}
 
+	AttributeXMLSchema attributeXMLSchema_mock;
+
 	SystemObjectXMLSchema testable;
 
 	@BeforeEach
 	public void setup() {
+		attributeXMLSchema_mock = context.mock(AttributeXMLSchema.class);
+
+		testable = new SystemObjectXMLSchema(attributeXMLSchema_mock);
+	}
+
+	@Test
+	public void newInstance() {
 		testable = new SystemObjectXMLSchema();
 	}
 
@@ -47,9 +56,7 @@ public class SystemObjectXMLSchemaTest {
 		final List<Element> attributes = new ArrayList<>();
 		final Element attribute_mock = context.mock(Element.class, "attribute");
 		attributes.add(attribute_mock);
-		final List<Element> links = new ArrayList<>();
-		final Element link_mock = context.mock(Element.class, "link");
-		links.add(link_mock);
+		final Attribute attribute = new Attribute("attribute-name", "attribute-value");
 
 		context.checking(new Expectations() {
 			{
@@ -59,16 +66,14 @@ public class SystemObjectXMLSchemaTest {
 				oneOf(root_mock).getChildText("id");
 				will(returnValue("object-id"));
 
+				oneOf(attributeXMLSchema_mock).getSchemaName();
+				will(returnValue("attribute"));
+
 				oneOf(root_mock).getChildren("attribute");
 				will(returnValue(attributes));
 
-				// <-- parseAttribute
-
-				oneOf(attribute_mock).getChildText("name");
-
-				oneOf(attribute_mock).getChild("value");
-
-				// parseAttribute -->
+				oneOf(attributeXMLSchema_mock).parse(attribute_mock);
+				will(returnValue(attribute));
 			}
 		});
 
@@ -81,6 +86,7 @@ public class SystemObjectXMLSchemaTest {
 		final Attribute attribute_mock = context.mock(Attribute.class);
 		final List<Attribute> attributes = new ArrayList<>();
 		attributes.add(attribute_mock);
+		final Element attribute = new Element("attribute");
 
 		context.checking(new Expectations() {
 			{
@@ -93,13 +99,8 @@ public class SystemObjectXMLSchemaTest {
 				oneOf(systemObject_mock).getAttributes();
 				will(returnValue(attributes));
 
-				// <-- combineAttribute
-
-				oneOf(attribute_mock).getName();
-
-				oneOf(attribute_mock).getValue();
-
-				// combineAttribute -->
+				oneOf(attributeXMLSchema_mock).combine(attribute_mock);
+				will(returnValue(attribute));
 			}
 		});
 
@@ -107,5 +108,10 @@ public class SystemObjectXMLSchemaTest {
 		assertEquals("object-name", element.getChildText("name"));
 		assertEquals("object-id", element.getChildText("id"));
 		assertNotNull(element.getChild("attribute"));
+	}
+
+	@Test
+	public void getSchemaName() {
+		assertEquals("systemObject", testable.getSchemaName());
 	}
 }

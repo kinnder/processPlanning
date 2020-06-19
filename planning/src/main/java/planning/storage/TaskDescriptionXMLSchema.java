@@ -9,23 +9,35 @@ import planning.model.System;
 
 public class TaskDescriptionXMLSchema implements XMLSchema<TaskDescription> {
 
-	final private static String TAG_schema = "taskDescription";
+	final private static String TAG_taskDescription = "taskDescription";
+
+	final private static String TAG_finalSystem = "finalSystem";
+
+	final private static String TAG_initialSystem = "initialSystem";
 
 	@Override
 	public String getSchemaName() {
-		return TAG_schema;
+		return TAG_taskDescription;
 	}
 
-	private SystemXMLSchema systemSchema = new SystemXMLSchema();
+	public TaskDescriptionXMLSchema() {
+		this(new SystemXMLSchema());
+	}
+
+	TaskDescriptionXMLSchema(SystemXMLSchema systemXMLSchema) {
+		this.systemSchema = systemXMLSchema;
+	}
+
+	private SystemXMLSchema systemSchema;
 
 	@Override
 	public TaskDescription parse(Element element) throws DataConversionException {
 		TaskDescription taskDescription = new TaskDescription();
 
-		System initialSystem = systemSchema.parse(element.getChild("initialSystem"));
+		System initialSystem = systemSchema.parse(element.getChild(TAG_initialSystem));
 		taskDescription.setInitialSystem(initialSystem);
 
-		System finalSystem = systemSchema.parse(element.getChild("finalSystem"));
+		System finalSystem = systemSchema.parse(element.getChild(TAG_finalSystem));
 		taskDescription.setFinalSystem(finalSystem);
 
 		return taskDescription;
@@ -33,16 +45,16 @@ public class TaskDescriptionXMLSchema implements XMLSchema<TaskDescription> {
 
 	@Override
 	public Element combine(TaskDescription taskDescription) {
-		Element root = new Element("taskDescription");
+		Element root = new Element(TAG_taskDescription);
 		Namespace xsiNamespace = Namespace.getNamespace("xsi", "http://www.w3.org/2001/XMLSchema-instance");
 		root.setAttribute("noNamespaceSchemaLocation", "../taskDescription.xsd", xsiNamespace);
 
 		Element initialSystem = systemSchema.combine(taskDescription.getInitialSystem());
-		initialSystem.setName("initialSystem");
+		initialSystem.setName(TAG_initialSystem);
 		root.addContent(initialSystem);
 
 		Element finalSystem = systemSchema.combine(taskDescription.getFinalSystem());
-		finalSystem.setName("finalSystem");
+		finalSystem.setName(TAG_finalSystem);
 		root.addContent(finalSystem);
 
 		return root;

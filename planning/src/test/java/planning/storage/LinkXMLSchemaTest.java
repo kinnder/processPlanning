@@ -127,4 +127,9 @@ public class LinkXMLSchemaTest {
 		assertNull(element.getChild("objectId1"));
 		assertNull(element.getChild("objectId2"));
 	}
+
+	@Test
+	public void getSchemaName() {
+		assertEquals("link", testable.getSchemaName());
+	}
 }

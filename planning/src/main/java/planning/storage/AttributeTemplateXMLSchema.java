@@ -7,19 +7,29 @@ import planning.model.AttributeTemplate;
 
 public class AttributeTemplateXMLSchema implements XMLSchema<AttributeTemplate> {
 
-	final public static String TAG_schema = "attributeTemplate";
+	final public static String TAG_attributeTemplate = "attributeTemplate";
+
+	final public static String TAG_name = "name";
 
 	@Override
 	public String getSchemaName() {
-		return TAG_schema;
+		return TAG_attributeTemplate;
 	}
 
-	private ValueXMLSchema valueSchema = new ValueXMLSchema();
+	public AttributeTemplateXMLSchema() {
+		this(new ValueXMLSchema());
+	}
+
+	AttributeTemplateXMLSchema(ValueXMLSchema valueXMLSchema) {
+		this.valueSchema = valueXMLSchema;
+	}
+
+	private ValueXMLSchema valueSchema;
 
 	@Override
 	public AttributeTemplate parse(Element root) throws DataConversionException {
-		String name = root.getChildText("name");
-		Object value = valueSchema.parse(root.getChild("value"));
+		String name = root.getChildText(TAG_name);
+		Object value = valueSchema.parse(root.getChild(valueSchema.getSchemaName()));
 		if (value == null) {
 			return new AttributeTemplate(name);
 		}
@@ -28,8 +38,8 @@ public class AttributeTemplateXMLSchema implements XMLSchema<AttributeTemplate> 
 
 	@Override
 	public Element combine(AttributeTemplate attributeTemplate) {
-		Element root = new Element("attributeTemplate");
-		Element name = new Element("name");
+		Element root = new Element(TAG_attributeTemplate);
+		Element name = new Element(TAG_name);
 		name.setText(attributeTemplate.getName());
 		root.addContent(name);
 		Object attributeValue = attributeTemplate.getValue();

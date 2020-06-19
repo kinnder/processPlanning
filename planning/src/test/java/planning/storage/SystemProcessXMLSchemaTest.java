@@ -34,10 +34,19 @@ public class SystemProcessXMLSchemaTest {
 		context.assertIsSatisfied();
 	}
 
+	ValueXMLSchema valueXMLSchema_mock;
+
 	SystemProcessXMLSchema testable;
 
 	@BeforeEach
 	public void setup() {
+		valueXMLSchema_mock = context.mock(ValueXMLSchema.class);
+
+		testable = new SystemProcessXMLSchema(valueXMLSchema_mock);
+	}
+
+	@Test
+	public void newInstance() {
 		testable = new SystemProcessXMLSchema();
 	}
 
@@ -98,6 +107,14 @@ public class SystemProcessXMLSchemaTest {
 	public void combineActionParameters() {
 		final Map<String, String> actionParameters = new HashMap<String, String>();
 		actionParameters.put("parameter-name", "parameter-value");
+		final Element value = new Element("parameter-value");
+
+		context.checking(new Expectations() {
+			{
+				oneOf(valueXMLSchema_mock).combine("parameter-value");
+				will(returnValue(value));
+			}
+		});
 
 		Element element = testable.combineActionParameters(actionParameters);
 		assertEquals("parameters", element.getName());
@@ -105,7 +122,7 @@ public class SystemProcessXMLSchemaTest {
 		Element parameter = element.getChildren().get(0);
 		assertEquals("parameter", parameter.getName());
 		assertEquals("parameter-name", parameter.getChildText("name"));
-		assertEquals("parameter-value", parameter.getChildText("value"));
+		assertNotNull(parameter.getChild("parameter-value"));
 	}
 
 	@Test
@@ -115,5 +132,10 @@ public class SystemProcessXMLSchemaTest {
 		assertThrows(UnsupportedOperationException.class, () -> {
 			testable.parse(element_mock);
 		});
+	}
+
+	@Test
+	public void getSchemaName() {
+		assertEquals("process", testable.getSchemaName());
 	}
 }

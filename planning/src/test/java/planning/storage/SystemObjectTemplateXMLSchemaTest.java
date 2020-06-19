@@ -102,4 +102,9 @@ public class SystemObjectTemplateXMLSchemaTest {
 		assertEquals("id", element.getChildText("objectId"));
 		assertNotNull(element.getChild("attributeTemplate"));
 	}
+
+	@Test
+	public void getSchemaName() {
+		assertEquals("objectTemplate", testable.getSchemaName());
+	}
 }

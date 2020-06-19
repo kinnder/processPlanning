@@ -12,25 +12,38 @@ import planning.model.Transformation;
 
 public class TransformationsXMLSchema implements XMLSchema<Transformation[]> {
 
-	final private static String TAG_schema = "transformations";
+	final private static String TAG_transformations = "transformations";
+
+	final private static String TAG_objectId = "objectId";
+
+	final private static String TAG_transformation = "transformation";
 
 	@Override
 	public String getSchemaName() {
-		return TAG_schema;
+		return TAG_transformations;
 	}
 
-	private AttributeTransformationXMLSchema attributeTransformationSchema = new AttributeTransformationXMLSchema();
+	public TransformationsXMLSchema() {
+		this(new AttributeTransformationXMLSchema(), new LinkTransformationXMLSchema());
+	}
 
-	private LinkTransformationXMLSchema linkTransformationSchema = new LinkTransformationXMLSchema();
+	TransformationsXMLSchema(AttributeTransformationXMLSchema attributeTransformationXMLSchema, LinkTransformationXMLSchema linkTransformationXMLSchema) {
+		this.attributeTransformationSchema = attributeTransformationXMLSchema;
+		this.linkTransformationSchema = linkTransformationXMLSchema;
+	}
+
+	private AttributeTransformationXMLSchema attributeTransformationSchema;
+
+	private LinkTransformationXMLSchema linkTransformationSchema;
 
 	@Override
 	public Transformation[] parse(Element root) throws DataConversionException {
 		List<Transformation> transformations = new ArrayList<>();
-		List<Element> elements = root.getChildren("linkTransformation");
+		List<Element> elements = root.getChildren(linkTransformationSchema.getSchemaName());
 		for (Element element : elements) {
 			transformations.add(linkTransformationSchema.parse(element));
 		}
-		elements = root.getChildren("attributeTransformation");
+		elements = root.getChildren(attributeTransformationSchema.getSchemaName());
 		for (Element element : elements) {
 			transformations.add(attributeTransformationSchema.parse(element));
 		}
@@ -39,7 +52,7 @@ public class TransformationsXMLSchema implements XMLSchema<Transformation[]> {
 
 	@Override
 	public Element combine(Transformation[] transformations) {
-		Element root = new Element("transformations");
+		Element root = new Element(TAG_transformations);
 		for (Transformation transformation : transformations) {
 			Element element;
 			if (transformation instanceof AttributeTransformation) {
@@ -56,9 +69,9 @@ public class TransformationsXMLSchema implements XMLSchema<Transformation[]> {
 
 	// TODO : remove this or update systemTransformations.xsd
 	public Element combineTransformation(Transformation transformation) {
-		Element objectId = new Element("objectId");
+		Element objectId = new Element(TAG_objectId);
 		objectId.setText(transformation.getObjectId());
-		Element root = new Element("transformation");
+		Element root = new Element(TAG_transformation);
 		root.addContent(objectId);
 		return root;
 	}

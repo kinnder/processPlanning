@@ -34,10 +34,22 @@ public class TransformationsXMLSchemaTest {
 		context.assertIsSatisfied();
 	}
 
+	AttributeTransformationXMLSchema attributeTransformationXMLSchema_mock;
+
+	LinkTransformationXMLSchema linkTransformationXMLSchema_mock;
+
 	TransformationsXMLSchema testable;
 
 	@BeforeEach
 	public void setup() {
+		attributeTransformationXMLSchema_mock = context.mock(AttributeTransformationXMLSchema.class);
+		linkTransformationXMLSchema_mock = context.mock(LinkTransformationXMLSchema.class);
+
+		testable = new TransformationsXMLSchema(attributeTransformationXMLSchema_mock, linkTransformationXMLSchema_mock);
+	}
+
+	@Test
+	public void newInstance() {
 		testable = new TransformationsXMLSchema();
 	}
 
@@ -50,36 +62,28 @@ public class TransformationsXMLSchemaTest {
 		final List<Element> attributeTransformations = new ArrayList<>();
 		final Element attributeTransformation_mock = context.mock(Element.class, "attributeTransformation");
 		attributeTransformations.add(attributeTransformation_mock);
+		final AttributeTransformation attributeTransformation = new AttributeTransformation("object-id", "attribute-name", "attribute-value");
+		final LinkTransformation linkTransformation = new LinkTransformation("object-id", "link-name", "link-value-old", "link-value-new");
 
 		context.checking(new Expectations() {
 			{
+				oneOf(linkTransformationXMLSchema_mock).getSchemaName();
+				will(returnValue("linkTransformation"));
+
 				oneOf(root_mock).getChildren("linkTransformation");
 				will(returnValue(linkTransformations));
 
-				// <-- parseLinkTransformation
+				oneOf(linkTransformationXMLSchema_mock).parse(linkTransformation_mock);
+				will(returnValue(linkTransformation));
 
-				oneOf(linkTransformation_mock).getChildText("objectId");
-
-				oneOf(linkTransformation_mock).getChildText("name");
-
-				oneOf(linkTransformation_mock).getChildText("oldValue");
-
-				oneOf(linkTransformation_mock).getChildText("newValue");
-
-				// parseLinkTransformation -->
+				oneOf(attributeTransformationXMLSchema_mock).getSchemaName();
+				will(returnValue("attributeTransformation"));
 
 				oneOf(root_mock).getChildren("attributeTransformation");
 				will(returnValue(attributeTransformations));
 
-				// <-- parseAttributeTransformation
-
-				oneOf(attributeTransformation_mock).getChildText("objectId");
-
-				oneOf(attributeTransformation_mock).getChildText("name");
-
-				oneOf(attributeTransformation_mock).getChild("value");
-
-				// parseAttributeTransformation -->
+				oneOf(attributeTransformationXMLSchema_mock).parse(attributeTransformation_mock);
+				will(returnValue(attributeTransformation));
 			}
 		});
 
@@ -91,32 +95,17 @@ public class TransformationsXMLSchemaTest {
 		final AttributeTransformation attributeTransformation_mock = context.mock(AttributeTransformation.class);
 		final LinkTransformation linkTransformation_mock = context.mock(LinkTransformation.class);
 		final Transformation transformation_mock = context.mock(Transformation.class);
-		final Transformation[] transformations = new Transformation[] { attributeTransformation_mock,
-				linkTransformation_mock, transformation_mock };
+		final Transformation[] transformations = new Transformation[] { attributeTransformation_mock, linkTransformation_mock, transformation_mock };
+		final Element linkTransformation = new Element("linkTransformation");
+		final Element attributeTransformation = new Element("attributeTransformation");
 
 		context.checking(new Expectations() {
 			{
-				// <-- combineAttributeTransformation
+				oneOf(attributeTransformationXMLSchema_mock).combine(attributeTransformation_mock);
+				will(returnValue(attributeTransformation));
 
-				oneOf(attributeTransformation_mock).getObjectId();
-
-				oneOf(attributeTransformation_mock).getAttributeName();
-
-				oneOf(attributeTransformation_mock).getAttributeValue();
-
-				// combineAttributeTransformation -->
-
-				// <-- combineLinkTransformation
-
-				oneOf(linkTransformation_mock).getObjectId();
-
-				oneOf(linkTransformation_mock).getLinkName();
-
-				oneOf(linkTransformation_mock).getLinkObject1Old();
-
-				oneOf(linkTransformation_mock).getLinkObjectId1New();
-
-				// combineLinkTransformation -->
+				oneOf(linkTransformationXMLSchema_mock).combine(linkTransformation_mock);
+				will(returnValue(linkTransformation));
 
 				// <-- combineTransformation
 
@@ -127,8 +116,8 @@ public class TransformationsXMLSchemaTest {
 		});
 
 		Element element = testable.combine(transformations);
-		assertNotNull(element.getChild("attributeTransformation"));
-		assertNotNull(element.getChild("linkTransformation"));
+		assertEquals(attributeTransformation, element.getChild("attributeTransformation"));
+		assertEquals(linkTransformation, element.getChild("linkTransformation"));
 		assertNotNull(element.getChild("transformation"));
 	}
 
@@ -145,5 +134,10 @@ public class TransformationsXMLSchemaTest {
 
 		Element element = testable.combineTransformation(transformation_mock);
 		assertEquals("id", element.getChildText("objectId"));
+	}
+
+	@Test
+	public void getSchemaName() {
+		assertEquals("transformations", testable.getSchemaName());
 	}
 }

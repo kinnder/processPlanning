@@ -140,4 +140,9 @@ public class LinkTransformationXMLSchemaTest {
 		assertNull(element.getChild("oldValue"));
 		assertEquals("new-link-value", element.getChildText("newValue"));
 	}
+
+	@Test
+	public void getSchemaName() {
+		assertEquals("linkTransformation", testable.getSchemaName());
+	}
 }

@@ -9,27 +9,37 @@ import planning.model.SystemTemplate;
 
 public class SystemTemplateXMLSchema implements XMLSchema<SystemTemplate> {
 
-	final private static String TAG_schema = "systemTemplate";
+	final private static String TAG_systemTemplate = "systemTemplate";
 
 	@Override
 	public String getSchemaName() {
-		return TAG_schema;
+		return TAG_systemTemplate;
 	}
 
-	private SystemObjectTemplateXMLSchema systemObjectTemplateSchema = new SystemObjectTemplateXMLSchema();
+	public SystemTemplateXMLSchema() {
+		this(new SystemObjectTemplateXMLSchema(), new LinkTemplateXMLSchema());
+	}
 
-	private LinkTemplateXMLSchema linkTemplateSchema = new LinkTemplateXMLSchema();
+	public SystemTemplateXMLSchema(SystemObjectTemplateXMLSchema systemObjectTemplateXMLSchema,
+			LinkTemplateXMLSchema linkTemplateXMLSchema) {
+		this.systemObjectTemplateSchema = systemObjectTemplateXMLSchema;
+		this.linkTemplateSchema = linkTemplateXMLSchema;
+	}
+
+	private SystemObjectTemplateXMLSchema systemObjectTemplateSchema;
+
+	private LinkTemplateXMLSchema linkTemplateSchema;
 
 	@Override
 	public SystemTemplate parse(Element root) throws DataConversionException {
 		SystemTemplate systemTemplate = new SystemTemplate();
 
-		for (Element element : root.getChildren("objectTemplate")) {
+		for (Element element : root.getChildren(systemObjectTemplateSchema.getSchemaName())) {
 			SystemObjectTemplate systemObjectTemplate = systemObjectTemplateSchema.parse(element);
 			systemTemplate.addObjectTemplate(systemObjectTemplate);
 		}
 
-		for (Element element : root.getChildren("linkTemplate")) {
+		for (Element element : root.getChildren(linkTemplateSchema.getSchemaName())) {
 			LinkTemplate linkTemplate = linkTemplateSchema.parse(element);
 			systemTemplate.addLinkTemplate(linkTemplate);
 		}
@@ -39,7 +49,7 @@ public class SystemTemplateXMLSchema implements XMLSchema<SystemTemplate> {
 
 	@Override
 	public Element combine(SystemTemplate systemTemplate) {
-		Element root = new Element("systemTemplate");
+		Element root = new Element(TAG_systemTemplate);
 
 		for (SystemObjectTemplate systemObjectTemplate : systemTemplate.getObjectTemplates()) {
 			Element element = systemObjectTemplateSchema.combine(systemObjectTemplate);

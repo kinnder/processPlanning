@@ -134,4 +134,9 @@ public class ActionXMLSchemaTest {
 		assertNotNull(element.getChild("preConditionChecker"));
 		assertNotNull(element.getChild("parameterUpdater"));
 	}
+
+	@Test
+	public void getSchemaName() {
+		assertEquals("action", testable.getSchemaName());
+	}
 }

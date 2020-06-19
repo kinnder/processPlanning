@@ -1,6 +1,6 @@
 package planning.storage;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
@@ -34,10 +34,22 @@ public class SystemXMLSchemaTest {
 		context.assertIsSatisfied();
 	}
 
+	SystemObjectXMLSchema systemObjectXMLSchema_mock;
+
+	LinkXMLSchema linkXMLSchema_mock;
+
 	SystemXMLSchema testable;
 
 	@BeforeEach
 	public void setup() {
+		systemObjectXMLSchema_mock = context.mock(SystemObjectXMLSchema.class);
+		linkXMLSchema_mock = context.mock(LinkXMLSchema.class);
+
+		testable = new SystemXMLSchema(systemObjectXMLSchema_mock, linkXMLSchema_mock);
+	}
+
+	@Test
+	public void newInstance() {
 		testable = new SystemXMLSchema();
 	}
 
@@ -50,34 +62,28 @@ public class SystemXMLSchemaTest {
 		final List<Element> links = new ArrayList<>();
 		final Element link_mock = context.mock(Element.class, "link");
 		links.add(link_mock);
+		final SystemObject systemObject = new SystemObject("object-name");
+		final Link link = new Link("link-name", "link-id-1", "link-id-2");
 
 		context.checking(new Expectations() {
 			{
+				oneOf(systemObjectXMLSchema_mock).getSchemaName();
+				will(returnValue("systemObject"));
+
 				oneOf(root_mock).getChildren("systemObject");
 				will(returnValue(objects));
 
-				// <-- parseSystemObject
+				oneOf(systemObjectXMLSchema_mock).parse(object_mock);
+				will(returnValue(systemObject));
 
-				oneOf(object_mock).getChildText("name");
-
-				oneOf(object_mock).getChildText("id");
-
-				oneOf(object_mock).getChildren("attribute");
-
-				// parseSystemObject -->
+				oneOf(linkXMLSchema_mock).getSchemaName();
+				will(returnValue("link"));
 
 				oneOf(root_mock).getChildren("link");
 				will(returnValue(links));
 
-				// <-- parseLink
-
-				oneOf(link_mock).getChildText("name");
-
-				oneOf(link_mock).getChildText("objectId1");
-
-				oneOf(link_mock).getChildText("objectId2");
-
-				// parseLink -->
+				oneOf(linkXMLSchema_mock).parse(link_mock);
+				will(returnValue(link));
 			}
 		});
 
@@ -93,38 +99,32 @@ public class SystemXMLSchemaTest {
 		final List<Link> links = new ArrayList<>();
 		final Link link_mock = context.mock(Link.class);
 		links.add(link_mock);
+		final Element systemObject = new Element("systemObject");
+		final Element link = new Element("link");
 
 		context.checking(new Expectations() {
 			{
 				oneOf(system_mock).getObjects();
 				will(returnValue(systemObjects));
 
-				// <-- combineSystemObject
-
-				oneOf(systemObject_mock).getName();
-
-				oneOf(systemObject_mock).getId();
-
-				oneOf(systemObject_mock).getAttributes();
-
-				// combineSystemObject -->
+				oneOf(systemObjectXMLSchema_mock).combine(systemObject_mock);
+				will(returnValue(systemObject));
 
 				oneOf(system_mock).getLinks();
 				will(returnValue(links));
 
-				// <-- combineLink
-
-				oneOf(link_mock).getName();
-
-				oneOf(link_mock).getObjectId1();
-
-				oneOf(link_mock).getObjectId2();
-
-				// combineLink -->
+				oneOf(linkXMLSchema_mock).combine(link_mock);
+				will(returnValue(link));
 			}
 		});
 
 		Element element = testable.combine(system_mock);
-		assertNotNull(element.getChild("systemObject"));
+		assertEquals(systemObject, element.getChild("systemObject"));
+		assertEquals(link, element.getChild("link"));
+	}
+
+	@Test
+	public void getSchemaName() {
+		assertEquals("system", testable.getSchemaName());
 	}
 }

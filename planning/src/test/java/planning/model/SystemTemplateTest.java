@@ -246,18 +246,18 @@ public class SystemTemplateTest {
 				oneOf(idsMatchingManager_mock).prepareMatchingsCandidates(with(any(Set.class)), with(any(Set.class)));
 
 				oneOf(objectTemplate_1_mock).matchesAttributes(object_mock);
-				will(returnValue(true));
-
-				oneOf(objectTemplate_2_mock).matchesAttributes(object_mock);
 				will(returnValue(false));
 
-				oneOf(objectTemplate_2_mock).getId();
-				will(returnValue("objectTemplate-2-id"));
+				oneOf(objectTemplate_1_mock).getId();
+				will(returnValue("objectTemplate-1-id"));
 
 				oneOf(object_mock).getId();
 				will(returnValue("object-id"));
 
-				oneOf(idsMatchingManager_mock).removeMatchingsCandidate("objectTemplate-2-id", "object-id");
+				oneOf(idsMatchingManager_mock).removeMatchingsCandidate("objectTemplate-1-id", "object-id");
+
+				oneOf(objectTemplate_2_mock).matchesAttributes(object_mock);
+				will(returnValue(true));
 
 				oneOf(idsMatchingManager_mock).generateMatchingsFromCandidates();
 
@@ -268,6 +268,9 @@ public class SystemTemplateTest {
 				will(returnValue(idsMatching_mock));
 
 				oneOf(objectTemplate_1_mock).matchesAttributes(object_mock);
+				will(returnValue(false));
+
+				oneOf(objectTemplate_2_mock).matchesAttributes(object_mock);
 				will(returnValue(true));
 
 				oneOf(idsMatchingManager_mock).removeMatching(idsMatching_mock);
