@@ -11,21 +11,29 @@ import planning.model.SystemTransformation;
 
 public class SystemTransformationsXMLSchema implements XMLSchema<SystemTransformations> {
 
-	final private static String TAG_schema = "systemTransformations";
+	final private static String TAG_systemTransformations = "systemTransformations";
 
 	@Override
 	public String getSchemaName() {
-		return TAG_schema;
+		return TAG_systemTransformations;
 	}
 
-	private SystemTransformationXMLSchema systemTransformationXMLSchema = new SystemTransformationXMLSchema();
+	public SystemTransformationsXMLSchema() {
+		this(new SystemTransformationXMLSchema());
+	}
+
+	SystemTransformationsXMLSchema(SystemTransformationXMLSchema systemTransformationXMLSchema) {
+		this.systemTransformationSchema = systemTransformationXMLSchema;
+	}
+
+	private SystemTransformationXMLSchema systemTransformationSchema;
 
 	@Override
 	public SystemTransformations parse(Element element) throws DataConversionException {
 		SystemTransformations systemTransformations = new SystemTransformations();
-		List<Element> elements = element.getChildren("systemTransformation");
+		List<Element> elements = element.getChildren(systemTransformationSchema.getSchemaName());
 		for (Element e : elements) {
-			SystemTransformation systemTransformation = systemTransformationXMLSchema.parse(e);
+			SystemTransformation systemTransformation = systemTransformationSchema.parse(e);
 			systemTransformations.add(systemTransformation);
 		}
 		return systemTransformations;
@@ -35,10 +43,10 @@ public class SystemTransformationsXMLSchema implements XMLSchema<SystemTransform
 	public Element combine(SystemTransformations systemTransformations) {
 		List<Element> elements = new ArrayList<>();
 		for (SystemTransformation systemTransformation : systemTransformations) {
-			Element element = systemTransformationXMLSchema.combine(systemTransformation);
+			Element element = systemTransformationSchema.combine(systemTransformation);
 			elements.add(element);
 		}
-		Element root = new Element("systemTransformations");
+		Element root = new Element(TAG_systemTransformations);
 		Namespace xsiNamespace = Namespace.getNamespace("xsi", "http://www.w3.org/2001/XMLSchema-instance");
 		root.setAttribute("noNamespaceSchemaLocation", "../systemTransformations.xsd", xsiNamespace);
 		root.addContent(elements);
