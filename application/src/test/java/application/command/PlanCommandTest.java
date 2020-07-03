@@ -117,18 +117,6 @@ public class PlanCommandTest {
 				oneOf(system_mock).contains(finalSystem_mock);
 				will(returnValue(true));
 
-				oneOf(systemTransformation_mock).applyTo(system_mock);
-				will(returnValue(systemVariants));
-
-				oneOf(systemVariant_mock).getSystem();
-				will(returnValue(system_mock));
-
-				oneOf(systemTransformation_mock).getAction();
-				will(returnValue(action_mock));
-
-				oneOf(systemVariant_mock).getActionParameters();
-				will(returnValue(actionParameters_mock));
-
 				oneOf(processXMLFile_mock).setObject(with(any(SystemProcess.class)));
 
 				oneOf(processXMLFile_mock).save("process.xml");

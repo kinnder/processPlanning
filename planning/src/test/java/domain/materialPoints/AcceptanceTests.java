@@ -10,6 +10,7 @@ import org.jdom2.JDOMException;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
+import planning.method.NodeNetwork;
 import planning.method.Planner;
 import planning.method.SystemTransformations;
 import planning.method.TaskDescription;
@@ -103,7 +104,7 @@ public class AcceptanceTests implements MaterialPoints {
 
 	@Test
 	public void movingInTheField() throws CloneNotSupportedException {
-		Planner planner = new Planner(taskDescription, materialPointsTransformations);
+		Planner planner = new Planner(taskDescription, materialPointsTransformations, new NodeNetwork());
 		planner.plan();
 
 		SystemProcess operations = planner.getShortestProcess();

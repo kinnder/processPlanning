@@ -1,11 +1,6 @@
 package planning.method;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.jgrapht.GraphPath;
-import org.jgrapht.alg.shortestpath.DijkstraShortestPath;
-import org.jgrapht.graph.DefaultDirectedGraph;
 
 import planning.model.SystemTransformation;
 import planning.model.SystemProcess;
@@ -15,15 +10,9 @@ import planning.model.SystemVariant;
 
 public class Planner {
 
-	private List<Node> checkedNodes = new ArrayList<>();
-
-	private List<Node> uncheckedNodes = new ArrayList<>();
-
 	private Node initialNode;
 
 	private Node finalNode;
-
-	private List<Edge> edges = new ArrayList<>();
 
 	private System initialSystem;
 
@@ -31,69 +20,46 @@ public class Planner {
 
 	private SystemTransformations systemTransformations;
 
-	private DefaultDirectedGraph<Node, Edge> network = new DefaultDirectedGraph<>(Edge.class);
+	private NodeNetwork nodeNetwork;
 
-	public Planner(TaskDescription taskDescription, SystemTransformations systemTransformations) {
+	public Planner(TaskDescription taskDescription, SystemTransformations systemTransformations,
+			NodeNetwork nodeNetwork) {
+		// TODO (2020-06-28 #22): передавать InitialSystem и FinalSystem в качестве параметров конструктора
 		this.initialSystem = taskDescription.getInitialSystem();
 		this.finalSystem = taskDescription.getFinalSystem();
 		this.systemTransformations = systemTransformations;
+		this.nodeNetwork = nodeNetwork;
 	}
 
 	public void plan() throws CloneNotSupportedException {
-		initialNode = new Node(initialSystem);
-		uncheckedNodes.add(initialNode);
-		network.addVertex(initialNode);
+		initialNode = nodeNetwork.createNode(initialSystem);
 
-		while (true) {
-			iterate();
-			if (finalNode != null) {
+		while (nodeNetwork.hasNextUncheckedNode()) {
+			Node sourceNode = nodeNetwork.nextUncheckedNode();
+			System sourceSystem = sourceNode.getSystem();
+			if (sourceSystem.contains(finalSystem)) {
+				finalNode = sourceNode;
 				break;
 			}
-			if (uncheckedNodes.isEmpty()) {
-				break;
-			}
-		}
-	}
-
-	private void iterate() throws CloneNotSupportedException {
-		Node sourceNode = uncheckedNodes.get(0);
-		System sourceSystem = sourceNode.getSystem();
-		if (sourceSystem.contains(finalSystem)) {
-			finalNode = sourceNode;
-		}
-		for (SystemTransformation systemTransformation : systemTransformations) {
-			SystemVariant systemVariants[] = systemTransformation.applyTo(sourceSystem);
-			for (SystemVariant systemVariant : systemVariants) {
-				System targetSystem = systemVariant.getSystem();
-
-				Node targetNode = null;
-				for (Node checkedNode : checkedNodes) {
-					if (checkedNode.getSystem().equals(targetSystem)) {
-						targetNode = checkedNode;
-						break;
+			for (SystemTransformation systemTransformation : systemTransformations) {
+				SystemVariant systemVariants[] = systemTransformation.applyTo(sourceSystem);
+				for (SystemVariant systemVariant : systemVariants) {
+					System targetSystem = systemVariant.getSystem();
+					Node targetNode = nodeNetwork.findNode(targetSystem);
+					if (targetNode == null) {
+						targetNode = nodeNetwork.createNode(targetSystem);
 					}
-				}
-				if (targetNode == null) {
-					targetNode = new Node(targetSystem);
-					uncheckedNodes.add(targetNode);
-				}
 
-				Edge edge = new Edge(
-						new SystemOperation(systemTransformation.getAction(), systemVariant.getActionParameters()));
-				edges.add(edge);
-
-				network.addVertex(targetNode);
-				network.addEdge(sourceNode, targetNode, edge);
+					SystemOperation operation = new SystemOperation(systemTransformation.getAction(),
+							systemVariant.getActionParameters());
+					nodeNetwork.createEdge(sourceNode, targetNode, operation);
+				}
 			}
 		}
-
-		uncheckedNodes.remove(0);
-		checkedNodes.add(sourceNode);
 	}
 
 	public SystemProcess getShortestProcess() {
-		DijkstraShortestPath<Node, Edge> alg = new DijkstraShortestPath<>(network);
-		GraphPath<Node, Edge> path = alg.getPath(initialNode, finalNode);
+		GraphPath<Node, Edge> path = nodeNetwork.getShortestPath(initialNode, finalNode);
 		SystemProcess process = new SystemProcess();
 		for (Edge edge : path.getEdgeList()) {
 			process.add(edge.getSystemOperation());

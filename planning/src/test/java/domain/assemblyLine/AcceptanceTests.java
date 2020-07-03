@@ -10,6 +10,7 @@ import org.jdom2.JDOMException;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
+import planning.method.NodeNetwork;
 import planning.method.Planner;
 import planning.method.SystemTransformations;
 import planning.method.TaskDescription;
@@ -164,7 +165,7 @@ public class AcceptanceTests implements AssemblyLine {
 
 	@Test
 	public void movePackageBoxToTable1() throws CloneNotSupportedException {
-		Planner planner = new Planner(taskDescription, assemblyLineTransformations);
+		Planner planner = new Planner(taskDescription, assemblyLineTransformations, new NodeNetwork());
 		planner.plan();
 
 		SystemProcess operations = planner.getShortestProcess();

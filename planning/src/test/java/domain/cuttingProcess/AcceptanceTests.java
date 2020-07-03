@@ -11,6 +11,7 @@ import org.jdom2.JDOMException;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
+import planning.method.NodeNetwork;
 import planning.method.Planner;
 import planning.method.SystemTransformations;
 import planning.method.TaskDescription;
@@ -135,7 +136,7 @@ public class AcceptanceTests implements CuttingProcess {
 
 	@Test
 	public void cuttingProcessForCylindricWorkpiece() throws CloneNotSupportedException {
-		Planner planner = new Planner(taskDescription, cuttingProcessTransformations);
+		Planner planner = new Planner(taskDescription, cuttingProcessTransformations, new NodeNetwork());
 		planner.plan();
 
 		SystemProcess operations = planner.getShortestProcess();

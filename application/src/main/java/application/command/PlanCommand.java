@@ -1,6 +1,7 @@
 package application.command;
 
 import application.event.CommandStatusEvent;
+import planning.method.NodeNetwork;
 import planning.method.Planner;
 import planning.method.SystemTransformations;
 import planning.method.TaskDescription;
@@ -34,7 +35,7 @@ public class PlanCommand extends Command {
 		TaskDescription taskDescription = taskXMLFile.getObject();
 
 		// TODO : move to initialization
-		Planner planner = new Planner(taskDescription, systemTransformations);
+		Planner planner = new Planner(taskDescription, systemTransformations, new NodeNetwork());
 		planner.plan();
 
 		SystemProcess operations = planner.getShortestProcess();
