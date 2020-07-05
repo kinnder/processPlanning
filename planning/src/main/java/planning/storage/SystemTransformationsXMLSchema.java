@@ -41,6 +41,7 @@ public class SystemTransformationsXMLSchema implements XMLSchema<SystemTransform
 
 	@Override
 	public Element combine(SystemTransformations systemTransformations) {
+		// TODO (2020-07-03 #22): добавлять элементы сразу в корневой узел
 		List<Element> elements = new ArrayList<>();
 		for (SystemTransformation systemTransformation : systemTransformations) {
 			Element element = systemTransformationSchema.combine(systemTransformation);

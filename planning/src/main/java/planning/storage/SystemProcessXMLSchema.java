@@ -82,6 +82,7 @@ public class SystemProcessXMLSchema implements XMLSchema<SystemProcess> {
 
 	@Override
 	public SystemProcess parse(Element element) throws DataConversionException {
+		// TODO (2020-07-05 #22): добавить реализацию метода parse
 		throw new UnsupportedOperationException("Parsing xml-files is not supported");
 	}
 }

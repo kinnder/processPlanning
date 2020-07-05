@@ -1,6 +1,8 @@
 package planning.method;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 import org.jgrapht.GraphPath;
@@ -25,6 +27,23 @@ public class NodeNetwork {
 		return null;
 	}
 
+	public Node findNodeById(String id) {
+		for (Node node : network.vertexSet()) {
+			if (node.getId().equals(id)) {
+				return node;
+			}
+		}
+		return null;
+	}
+
+	public Collection<Node> getNodes() {
+		return Collections.unmodifiableCollection(network.vertexSet());
+	}
+
+	public Collection<Edge> getEdges() {
+		return Collections.unmodifiableCollection(network.edgeSet());
+	}
+
 	public Node createNode(System system) {
 		Node node = new Node(system);
 		uncheckedNodes.add(node);
@@ -33,7 +52,7 @@ public class NodeNetwork {
 	}
 
 	public void createEdge(Node begin, Node end, SystemOperation operation) {
-		Edge edge = new Edge(operation);
+		Edge edge = new Edge(begin.getId(), end.getId(), operation);
 		network.addEdge(begin, end, edge);
 	}
 
@@ -43,6 +62,7 @@ public class NodeNetwork {
 
 	public Node nextUncheckedNode() {
 		Node node = uncheckedNodes.get(0);
+		node.setChecked(true);
 		uncheckedNodes.remove(0);
 		return node;
 	}
@@ -50,5 +70,19 @@ public class NodeNetwork {
 	public GraphPath<Node, Edge> getShortestPath(Node begin, Node end) {
 		DijkstraShortestPath<Node, Edge> alg = new DijkstraShortestPath<>(network);
 		return alg.getPath(begin, end);
+	}
+
+	public void addNode(Node node) {
+		network.addVertex(node);
+		if (node.isUnchecked()) {
+			uncheckedNodes.add(node);
+		}
+	}
+
+	public void addEdge(Edge edge) {
+		Node begin = findNodeById(edge.getBeginNodeId());
+		Node end = findNodeById(edge.getEndNodeId());
+
+		network.addEdge(begin, end, edge);
 	}
 }

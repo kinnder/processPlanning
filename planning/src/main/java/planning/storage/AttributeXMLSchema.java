@@ -28,7 +28,7 @@ public class AttributeXMLSchema implements XMLSchema<Attribute> {
 
 	@Override
 	public Attribute parse(Element root) throws DataConversionException {
-		String name = root.getChildText("name");
+		String name = root.getChildText(TAG_name);
 		Object value = valueSchema.parse(root.getChild(valueSchema.getSchemaName()));
 		return new Attribute(name, value);
 	}

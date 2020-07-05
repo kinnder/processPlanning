@@ -8,6 +8,8 @@ public class Node {
 
 	private String id;
 
+	private boolean checked;
+
 	public String getId() {
 		return this.id;
 	}
@@ -17,8 +19,13 @@ public class Node {
 	}
 
 	Node(String id, System system) {
+		this(id, system, false);
+	}
+
+	public Node(String id, System system, boolean checked) {
 		this.id = id;
 		this.system = system;
+		this.checked = checked;
 	}
 
 	@Override
@@ -42,5 +49,17 @@ public class Node {
 
 	public System getSystem() {
 		return this.system;
+	}
+
+	public boolean isUnchecked() {
+		return !checked;
+	}
+
+	public void setChecked(boolean b) {
+		this.checked = b;
+	}
+
+	public boolean getChecked() {
+		return this.checked;
 	}
 }

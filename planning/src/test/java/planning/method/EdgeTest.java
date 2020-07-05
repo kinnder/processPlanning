@@ -31,16 +31,22 @@ public class EdgeTest {
 
 	SystemOperation systemOperation_mock;
 
+	String beginNodeId;
+
+	String endNodeId;
+
 	@BeforeEach
 	public void setup() {
 		systemOperation_mock = context.mock(SystemOperation.class, "action");
+		beginNodeId = "node-begin-id";
+		endNodeId = "node-end-id";
 
-		testable = new Edge(systemOperation_mock);
+		testable = new Edge(beginNodeId, endNodeId, systemOperation_mock);
 	}
 
 	@Test
 	public void equals() {
-		final Edge edge = new Edge(testable.getId(), testable.getSystemOperation());
+		final Edge edge = new Edge(testable.getId(), beginNodeId, endNodeId, systemOperation_mock);
 		assertTrue(testable.equals(edge));
 	}
 
@@ -56,7 +62,7 @@ public class EdgeTest {
 
 	@Test
 	public void equals_differentId() {
-		final Edge edge = new Edge("differentId", systemOperation_mock);
+		final Edge edge = new Edge("differentId", beginNodeId, endNodeId, systemOperation_mock);
 		assertFalse(testable.equals(edge));
 	}
 
@@ -67,13 +73,13 @@ public class EdgeTest {
 
 	@Test
 	public void getId() {
-		testable = new Edge("id", systemOperation_mock);
+		testable = new Edge("id", beginNodeId, endNodeId, systemOperation_mock);
 		assertEquals("id", testable.getId());
 	}
 
 	@Test
 	public void hashCode_test() {
-		testable = new Edge("id", systemOperation_mock);
+		testable = new Edge("id", beginNodeId, endNodeId, systemOperation_mock);
 		assertEquals(3355, testable.hashCode());
 	}
 }

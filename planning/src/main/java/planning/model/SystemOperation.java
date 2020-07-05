@@ -11,6 +11,7 @@ public class SystemOperation {
 
 	private Action action;
 
+	// TODO (2020-07-05 #22): убрать ссылку на Action
 	public Action getAction() {
 		return action;
 	}
@@ -21,6 +22,7 @@ public class SystemOperation {
 		return actionParameters;
 	}
 
+	// TODO (2020-07-05 #22): переименовать в getActionName
 	public String getName() {
 		return action.getName();
 	}
