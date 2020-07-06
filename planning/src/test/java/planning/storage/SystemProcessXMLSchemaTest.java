@@ -77,33 +77,6 @@ public class SystemProcessXMLSchemaTest {
 	}
 
 	@Test
-	public void combineSystemOperation() {
-		final SystemOperation systemOperation_mock = context.mock(SystemOperation.class);
-		final Map<?, ?> actionParameters_mock = context.mock(Map.class);
-
-		context.checking(new Expectations() {
-			{
-				oneOf(systemOperation_mock).getName();
-				will(returnValue("operation-name"));
-
-				oneOf(systemOperation_mock).getActionParameters();
-				will(returnValue(actionParameters_mock));
-
-				// <-- combineActionParameters
-
-				oneOf(actionParameters_mock).keySet();
-
-				// combineActionParameters -->
-			}
-		});
-
-		Element element = testable.combineSystemOperation(systemOperation_mock);
-		assertEquals("operation", element.getName());
-		assertEquals("operation-name", element.getChildText("name"));
-		assertNotNull(element.getChild("parameters"));
-	}
-
-	@Test
 	public void combineActionParameters() {
 		final Map<String, String> actionParameters = new HashMap<String, String>();
 		actionParameters.put("parameter-name", "parameter-value");
