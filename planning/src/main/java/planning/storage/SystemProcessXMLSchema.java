@@ -31,7 +31,6 @@ public class SystemProcessXMLSchema implements XMLSchema<SystemProcess> {
 		Element root = new Element(TAG_process);
 		Namespace xsiNamespace = Namespace.getNamespace("xsi", "http://www.w3.org/2001/XMLSchema-instance");
 		root.setAttribute("noNamespaceSchemaLocation", "../process.xsd", xsiNamespace);
-
 		for (SystemOperation systemOperation : process) {
 			Element element = systemOperationXMLSchema.combine(systemOperation);
 			root.addContent(element);

@@ -1,6 +1,5 @@
 package planning.storage;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.jdom2.DataConversionException;
@@ -41,16 +40,13 @@ public class SystemTransformationsXMLSchema implements XMLSchema<SystemTransform
 
 	@Override
 	public Element combine(SystemTransformations systemTransformations) {
-		// TODO (2020-07-03 #22): добавлять элементы сразу в корневой узел
-		List<Element> elements = new ArrayList<>();
-		for (SystemTransformation systemTransformation : systemTransformations) {
-			Element element = systemTransformationSchema.combine(systemTransformation);
-			elements.add(element);
-		}
 		Element root = new Element(TAG_systemTransformations);
 		Namespace xsiNamespace = Namespace.getNamespace("xsi", "http://www.w3.org/2001/XMLSchema-instance");
 		root.setAttribute("noNamespaceSchemaLocation", "../systemTransformations.xsd", xsiNamespace);
-		root.addContent(elements);
+		for (SystemTransformation systemTransformation : systemTransformations) {
+			Element element = systemTransformationSchema.combine(systemTransformation);
+			root.addContent(element);
+		}
 		return root;
 	}
 }
