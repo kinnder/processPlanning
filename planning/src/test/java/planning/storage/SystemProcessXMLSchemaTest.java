@@ -4,9 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.jdom2.Element;
 import org.jdom2.Namespace;
 import org.jmock.Expectations;
@@ -34,15 +31,15 @@ public class SystemProcessXMLSchemaTest {
 		context.assertIsSatisfied();
 	}
 
-	ValueXMLSchema valueXMLSchema_mock;
+	SystemOperationXMLSchema systemOperationXMLSchema_mock;
 
 	SystemProcessXMLSchema testable;
 
 	@BeforeEach
 	public void setup() {
-		valueXMLSchema_mock = context.mock(ValueXMLSchema.class);
+		systemOperationXMLSchema_mock = context.mock(SystemOperationXMLSchema.class);
 
-		testable = new SystemProcessXMLSchema(valueXMLSchema_mock);
+		testable = new SystemProcessXMLSchema(systemOperationXMLSchema_mock);
 	}
 
 	@Test
@@ -55,16 +52,12 @@ public class SystemProcessXMLSchemaTest {
 		final SystemOperation systemOperation_mock = context.mock(SystemOperation.class);
 		final SystemProcess systemProcess = new SystemProcess();
 		systemProcess.add(systemOperation_mock);
+		final Element systemOperation = new Element("operation");
 
 		context.checking(new Expectations() {
 			{
-				// <-- combineSystemOperation
-
-				oneOf(systemOperation_mock).getName();
-
-				oneOf(systemOperation_mock).getActionParameters();
-
-				// combineSystemOperation -->
+				oneOf(systemOperationXMLSchema_mock).combine(systemOperation_mock);
+				will(returnValue(systemOperation));
 			}
 		});
 
@@ -74,28 +67,6 @@ public class SystemProcessXMLSchemaTest {
 				Namespace.getNamespace("xsi", "http://www.w3.org/2001/XMLSchema-instance")));
 		assertNotNull(element.getChild("operation"));
 		assertEquals(1, element.getChildren("operation").size());
-	}
-
-	@Test
-	public void combineActionParameters() {
-		final Map<String, String> actionParameters = new HashMap<String, String>();
-		actionParameters.put("parameter-name", "parameter-value");
-		final Element value = new Element("parameter-value");
-
-		context.checking(new Expectations() {
-			{
-				oneOf(valueXMLSchema_mock).combine("parameter-value");
-				will(returnValue(value));
-			}
-		});
-
-		Element element = testable.combineActionParameters(actionParameters);
-		assertEquals("parameters", element.getName());
-		assertEquals(1, element.getChildren("parameter").size());
-		Element parameter = element.getChildren().get(0);
-		assertEquals("parameter", parameter.getName());
-		assertEquals("parameter-name", parameter.getChildText("name"));
-		assertNotNull(parameter.getChild("parameter-value"));
 	}
 
 	@Test
