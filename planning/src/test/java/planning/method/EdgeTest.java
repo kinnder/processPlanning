@@ -82,4 +82,14 @@ public class EdgeTest {
 		testable = new Edge("id", beginNodeId, endNodeId, systemOperation_mock);
 		assertEquals(3355, testable.hashCode());
 	}
+
+	@Test
+	public void getBeginNodeId() {
+		assertEquals(beginNodeId, testable.getBeginNodeId());
+	}
+
+	@Test
+	public void getEndNodeId() {
+		assertEquals(endNodeId, testable.getEndNodeId());
+	}
 }

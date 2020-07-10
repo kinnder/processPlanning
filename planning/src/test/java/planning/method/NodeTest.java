@@ -76,4 +76,23 @@ public class NodeTest {
 		testable = new Node("id", system_mock);
 		assertEquals(3355, testable.hashCode());
 	}
+
+	@Test
+	public void isUnchecked() {
+		assertTrue(testable.isUnchecked());
+	}
+
+	@Test
+	public void setChecked() {
+		assertTrue(testable.isUnchecked());
+
+		testable.setChecked(true);
+
+		assertFalse(testable.isUnchecked());
+	}
+
+	@Test
+	public void getChecked() {
+		assertFalse(testable.getChecked());
+	}
 }

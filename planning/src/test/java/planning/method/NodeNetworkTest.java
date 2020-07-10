@@ -6,6 +6,8 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.Collection;
+
 import org.jgrapht.GraphPath;
 import org.jmock.imposters.ByteBuddyClassImposteriser;
 import org.jmock.junit5.JUnit5Mockery;
@@ -75,6 +77,7 @@ public class NodeNetworkTest {
 		Node node = testable.createNode(system_mock);
 
 		assertEquals(node, testable.nextUncheckedNode());
+		assertTrue(node.getChecked());
 	}
 
 	@Test
@@ -108,5 +111,72 @@ public class NodeNetworkTest {
 		final System system_mock = context.mock(System.class);
 
 		assertNull(testable.findNode(system_mock));
+	}
+
+	@Test
+	public void findNodeById() {
+		final System system_1_mock = context.mock(System.class, "system-1");
+		final System system_2_mock = context.mock(System.class, "system-2");
+
+		testable.createNode(system_1_mock);
+		Node node_2 = testable.createNode(system_2_mock);
+
+		assertEquals(node_2, testable.findNodeById(node_2.getId()));
+	}
+
+	@Test
+	public void findNodeById_not_found() {
+		final System system_1_mock = context.mock(System.class, "system-1");
+
+		testable.createNode(system_1_mock);
+
+		assertNull(testable.findNodeById("wrong-id"));
+	}
+
+	@Test
+	public void getNodes() {
+		assertTrue(testable.getNodes() instanceof Collection);
+	}
+
+	@Test
+	public void getEdges() {
+		assertTrue(testable.getEdges() instanceof Collection);
+	}
+
+	@Test
+	public void addNode() {
+		final System system_mock = context.mock(System.class, "system-1");
+		final Node node = new Node(system_mock);
+
+		testable.addNode(node);
+
+		assertTrue(testable.hasNextUncheckedNode());
+		assertEquals(node, testable.nextUncheckedNode());
+	}
+
+	@Test
+	public void addNode_checked() {
+		final System system_mock = context.mock(System.class, "system-1");
+		final Node node = new Node(system_mock);
+		node.setChecked(true);
+
+		testable.addNode(node);
+
+		assertFalse(testable.hasNextUncheckedNode());
+	}
+
+	@Test
+	public void addEdge() {
+		final System system_1_mock = context.mock(System.class, "system-1");
+		final System system_2_mock = context.mock(System.class, "system-2");
+		final Node node_1 = new Node(system_1_mock);
+		final Node node_2 = new Node(system_2_mock);
+		final SystemOperation systemOperation_mock = context.mock(SystemOperation.class);
+		final Edge edge = new Edge(node_1.getId(), node_2.getId(), systemOperation_mock);
+
+		testable.addNode(node_1);
+		testable.addNode(node_2);
+
+		testable.addEdge(edge);
 	}
 }

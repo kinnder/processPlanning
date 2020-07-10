@@ -2,6 +2,8 @@ package planning.storage;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -70,7 +72,7 @@ public class SystemTransformationsXMLSchemaTest {
 			}
 		});
 
-		assertEquals(1, ((SystemTransformations) testable.parse(root_mock)).size());
+		assertTrue(testable.parse(root_mock) instanceof SystemTransformations);
 	}
 
 	@Test
@@ -89,7 +91,8 @@ public class SystemTransformationsXMLSchemaTest {
 
 		Element element = testable.combine(systemTransformations);
 		assertEquals("systemTransformations", element.getName());
-		assertEquals("../systemTransformations.xsd", element.getAttributeValue("noNamespaceSchemaLocation", Namespace.getNamespace("xsi", "http://www.w3.org/2001/XMLSchema-instance")));
+		assertEquals("../systemTransformations.xsd", element.getAttributeValue("noNamespaceSchemaLocation",
+				Namespace.getNamespace("xsi", "http://www.w3.org/2001/XMLSchema-instance")));
 		assertNotNull(element.getChild("systemTransformation"));
 		assertEquals(1, element.getChildren("systemTransformation").size());
 	}
