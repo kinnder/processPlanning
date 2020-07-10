@@ -12,6 +12,7 @@ import org.junit.jupiter.api.extension.RegisterExtension;
 
 import application.UserInterface;
 import application.event.CommandStatusEventMatcher;
+import planning.method.NodeNetwork;
 import planning.method.SystemTransformations;
 import planning.method.TaskDescription;
 import planning.model.Action;
@@ -19,6 +20,7 @@ import planning.model.System;
 import planning.model.SystemProcess;
 import planning.model.SystemTransformation;
 import planning.model.SystemVariant;
+import planning.storage.NodeNetworkXMLFile;
 import planning.storage.SystemProcessXMLFile;
 import planning.storage.SystemTransformationsXMLFile;
 import planning.storage.TaskDescriptionXMLFile;
@@ -45,16 +47,21 @@ public class PlanCommandTest {
 
 	SystemProcessXMLFile processXMLFile_mock;
 
+	NodeNetworkXMLFile nodeNetworkXMLFile_mock;
+
 	@BeforeEach
 	public void setup() {
 		transformationsXMLFile_mock = context.mock(SystemTransformationsXMLFile.class);
 		taskXMLFile_mock = context.mock(TaskDescriptionXMLFile.class);
 		processXMLFile_mock = context.mock(SystemProcessXMLFile.class);
+		nodeNetworkXMLFile_mock = context.mock(NodeNetworkXMLFile.class);
 
 		testable = new PlanCommand();
+		// TODO (2020-07-10 #22): перенести в конструктор
 		testable.transformationsXMLFile = transformationsXMLFile_mock;
 		testable.taskXMLFile = taskXMLFile_mock;
 		testable.processXMLFile = processXMLFile_mock;
+		testable.nodeNetworkXMLFile = nodeNetworkXMLFile_mock;
 	}
 
 	@Test
@@ -63,6 +70,7 @@ public class PlanCommandTest {
 		data.systemTransformationsFile = "systemTransformations.xml";
 		data.taskDescriptionFile = "taskDescription.xml";
 		data.processFile = "process.xml";
+		data.nodeNetworkFile = "nodeNetwork.xml";
 
 		final SystemTransformation systemTransformation_mock = context.mock(SystemTransformation.class,
 				"systemTransformation");
@@ -120,6 +128,10 @@ public class PlanCommandTest {
 				oneOf(processXMLFile_mock).setObject(with(any(SystemProcess.class)));
 
 				oneOf(processXMLFile_mock).save("process.xml");
+
+				oneOf(nodeNetworkXMLFile_mock).setObject(with(any(NodeNetwork.class)));
+
+				oneOf(nodeNetworkXMLFile_mock).save("nodeNetwork.xml");
 
 				oneOf(ui_mock).notifyCommandStatus(with(new CommandStatusEventMatcher().expectMessage("done")));
 			}

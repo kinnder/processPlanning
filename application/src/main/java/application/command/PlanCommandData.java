@@ -7,4 +7,6 @@ public class PlanCommandData implements CommandData {
 	public String systemTransformationsFile;
 
 	public String processFile;
+
+	public String nodeNetworkFile;
 }

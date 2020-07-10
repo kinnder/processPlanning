@@ -6,6 +6,7 @@ import planning.method.Planner;
 import planning.method.SystemTransformations;
 import planning.method.TaskDescription;
 import planning.model.SystemProcess;
+import planning.storage.NodeNetworkXMLFile;
 import planning.storage.SystemProcessXMLFile;
 import planning.storage.SystemTransformationsXMLFile;
 import planning.storage.TaskDescriptionXMLFile;
@@ -25,6 +26,8 @@ public class PlanCommand extends Command {
 
 	SystemProcessXMLFile processXMLFile = new SystemProcessXMLFile();
 
+	NodeNetworkXMLFile nodeNetworkXMLFile = new NodeNetworkXMLFile();
+
 	private void execute(PlanCommandData data) throws Exception {
 		notifyCommandStatus(new CommandStatusEvent("planning..."));
 
@@ -34,13 +37,17 @@ public class PlanCommand extends Command {
 		taskXMLFile.load(data.taskDescriptionFile);
 		TaskDescription taskDescription = taskXMLFile.getObject();
 
+		NodeNetwork nodeNetwork = new NodeNetwork();
 		// TODO : move to initialization
-		Planner planner = new Planner(taskDescription, systemTransformations, new NodeNetwork());
+		Planner planner = new Planner(taskDescription, systemTransformations, nodeNetwork);
 		planner.plan();
 
 		SystemProcess operations = planner.getShortestProcess();
 		processXMLFile.setObject(operations);
 		processXMLFile.save(data.processFile);
+
+		nodeNetworkXMLFile.setObject(nodeNetwork);
+		nodeNetworkXMLFile.save(data.nodeNetworkFile);
 
 		notifyCommandStatus(new CommandStatusEvent("done"));
 	}
