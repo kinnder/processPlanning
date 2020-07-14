@@ -22,25 +22,25 @@ public class SystemTemplateXMLSchema implements XMLSchema<SystemTemplate> {
 
 	public SystemTemplateXMLSchema(SystemObjectTemplateXMLSchema systemObjectTemplateXMLSchema,
 			LinkTemplateXMLSchema linkTemplateXMLSchema) {
-		this.systemObjectTemplateSchema = systemObjectTemplateXMLSchema;
-		this.linkTemplateSchema = linkTemplateXMLSchema;
+		this.systemObjectTemplateXMLSchema = systemObjectTemplateXMLSchema;
+		this.linkTemplateXMLSchema = linkTemplateXMLSchema;
 	}
 
-	private SystemObjectTemplateXMLSchema systemObjectTemplateSchema;
+	private SystemObjectTemplateXMLSchema systemObjectTemplateXMLSchema;
 
-	private LinkTemplateXMLSchema linkTemplateSchema;
+	private LinkTemplateXMLSchema linkTemplateXMLSchema;
 
 	@Override
 	public SystemTemplate parse(Element root) throws DataConversionException {
 		SystemTemplate systemTemplate = new SystemTemplate();
 
-		for (Element element : root.getChildren(systemObjectTemplateSchema.getSchemaName())) {
-			SystemObjectTemplate systemObjectTemplate = systemObjectTemplateSchema.parse(element);
+		for (Element element : root.getChildren(systemObjectTemplateXMLSchema.getSchemaName())) {
+			SystemObjectTemplate systemObjectTemplate = systemObjectTemplateXMLSchema.parse(element);
 			systemTemplate.addObjectTemplate(systemObjectTemplate);
 		}
 
-		for (Element element : root.getChildren(linkTemplateSchema.getSchemaName())) {
-			LinkTemplate linkTemplate = linkTemplateSchema.parse(element);
+		for (Element element : root.getChildren(linkTemplateXMLSchema.getSchemaName())) {
+			LinkTemplate linkTemplate = linkTemplateXMLSchema.parse(element);
 			systemTemplate.addLinkTemplate(linkTemplate);
 		}
 
@@ -52,12 +52,12 @@ public class SystemTemplateXMLSchema implements XMLSchema<SystemTemplate> {
 		Element root = new Element(TAG_systemTemplate);
 
 		for (SystemObjectTemplate systemObjectTemplate : systemTemplate.getObjectTemplates()) {
-			Element element = systemObjectTemplateSchema.combine(systemObjectTemplate);
+			Element element = systemObjectTemplateXMLSchema.combine(systemObjectTemplate);
 			root.addContent(element);
 		}
 
 		for (LinkTemplate linkTemplate : systemTemplate.getLinkTemplates()) {
-			Element element = linkTemplateSchema.combine(linkTemplate);
+			Element element = linkTemplateXMLSchema.combine(linkTemplate);
 			root.addContent(element);
 		}
 

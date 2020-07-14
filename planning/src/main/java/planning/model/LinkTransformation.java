@@ -12,11 +12,11 @@ public class LinkTransformation extends Transformation {
 		return linkName;
 	}
 
-	public String getLinkObjectId1New() {
+	public String getLinkObjectId2New() {
 		return linkObjectId2New;
 	}
 
-	public String getLinkObject1Old() {
+	public String getLinkObjectId2Old() {
 		return linkObjectId2Old;
 	}
 

@@ -21,15 +21,15 @@ public class AttributeXMLSchema implements XMLSchema<Attribute> {
 	}
 
 	AttributeXMLSchema(ValueXMLSchema valueXMLSchema) {
-		this.valueSchema = valueXMLSchema;
+		this.valueXMLSchema = valueXMLSchema;
 	}
 
-	private ValueXMLSchema valueSchema;
+	private ValueXMLSchema valueXMLSchema;
 
 	@Override
 	public Attribute parse(Element root) throws DataConversionException {
 		String name = root.getChildText(TAG_name);
-		Object value = valueSchema.parse(root.getChild(valueSchema.getSchemaName()));
+		Object value = valueXMLSchema.parse(root.getChild(valueXMLSchema.getSchemaName()));
 		return new Attribute(name, value);
 	}
 
@@ -43,7 +43,7 @@ public class AttributeXMLSchema implements XMLSchema<Attribute> {
 
 		Object attributeValue = attribute.getValue();
 		if (attributeValue != null) {
-			Element value = valueSchema.combine(attributeValue);
+			Element value = valueXMLSchema.combine(attributeValue);
 			root.addContent(value);
 		}
 		return root;

@@ -41,13 +41,13 @@ public class LinkTransformationXMLSchema implements XMLSchema<LinkTransformation
 		name.setText(transformation.getLinkName());
 		root.addContent(name);
 		String value;
-		value = transformation.getLinkObject1Old();
+		value = transformation.getLinkObjectId2Old();
 		if (value != null) {
 			Element element = new Element(TAG_oldValue);
 			element.setText(value);
 			root.addContent(element);
 		}
-		value = transformation.getLinkObjectId1New();
+		value = transformation.getLinkObjectId2New();
 		if (value != null) {
 			Element element = new Element(TAG_newValue);
 			element.setText(value);

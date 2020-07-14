@@ -13,7 +13,7 @@ import planning.model.LuaScriptActionPreConditionChecker;
 // TODO : rename schema to match generic class
 public class PreConditionCheckerXMLSchema implements XMLSchema<ActionPreConditionChecker> {
 
-	final private static String TAG_schema = "preConditionChecker";
+	final private static String TAG_preConditionChecker = "preConditionChecker";
 
 	// TODO : пересмотреть положение globals
 	private static Globals globals = JsePlatform.standardGlobals();
@@ -51,7 +51,7 @@ public class PreConditionCheckerXMLSchema implements XMLSchema<ActionPreConditio
 
 	@Override
 	public String getSchemaName() {
-		return TAG_schema;
+		return TAG_preConditionChecker;
 	}
 
 }

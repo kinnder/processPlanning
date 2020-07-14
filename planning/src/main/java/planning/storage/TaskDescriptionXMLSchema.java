@@ -25,19 +25,19 @@ public class TaskDescriptionXMLSchema implements XMLSchema<TaskDescription> {
 	}
 
 	TaskDescriptionXMLSchema(SystemXMLSchema systemXMLSchema) {
-		this.systemSchema = systemXMLSchema;
+		this.systemXMLSchema = systemXMLSchema;
 	}
 
-	private SystemXMLSchema systemSchema;
+	private SystemXMLSchema systemXMLSchema;
 
 	@Override
 	public TaskDescription parse(Element element) throws DataConversionException {
 		TaskDescription taskDescription = new TaskDescription();
 
-		System initialSystem = systemSchema.parse(element.getChild(TAG_initialSystem));
+		System initialSystem = systemXMLSchema.parse(element.getChild(TAG_initialSystem));
 		taskDescription.setInitialSystem(initialSystem);
 
-		System finalSystem = systemSchema.parse(element.getChild(TAG_finalSystem));
+		System finalSystem = systemXMLSchema.parse(element.getChild(TAG_finalSystem));
 		taskDescription.setFinalSystem(finalSystem);
 
 		return taskDescription;
@@ -49,11 +49,11 @@ public class TaskDescriptionXMLSchema implements XMLSchema<TaskDescription> {
 		Namespace xsiNamespace = Namespace.getNamespace("xsi", "http://www.w3.org/2001/XMLSchema-instance");
 		root.setAttribute("noNamespaceSchemaLocation", "../taskDescription.xsd", xsiNamespace);
 
-		Element initialSystem = systemSchema.combine(taskDescription.getInitialSystem());
+		Element initialSystem = systemXMLSchema.combine(taskDescription.getInitialSystem());
 		initialSystem.setName(TAG_initialSystem);
 		root.addContent(initialSystem);
 
-		Element finalSystem = systemSchema.combine(taskDescription.getFinalSystem());
+		Element finalSystem = systemXMLSchema.combine(taskDescription.getFinalSystem());
 		finalSystem.setName(TAG_finalSystem);
 		root.addContent(finalSystem);
 

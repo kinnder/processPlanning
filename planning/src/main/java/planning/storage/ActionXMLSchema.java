@@ -27,26 +27,26 @@ public class ActionXMLSchema implements XMLSchema<Action> {
 
 	ActionXMLSchema(ParameterUpdaterXMLSchema parameterUpdaterXMLSchema,
 			PreConditionCheckerXMLSchema preConditionCheckerXMLSchema) {
-		this.parameterUpdaterSchema = parameterUpdaterXMLSchema;
-		this.preConditionCheckerSchema = preConditionCheckerXMLSchema;
+		this.parameterUpdaterXMLSchema = parameterUpdaterXMLSchema;
+		this.preConditionCheckerXMLSchema = preConditionCheckerXMLSchema;
 	}
 
-	private ParameterUpdaterXMLSchema parameterUpdaterSchema;
+	private ParameterUpdaterXMLSchema parameterUpdaterXMLSchema;
 
-	private PreConditionCheckerXMLSchema preConditionCheckerSchema;
+	private PreConditionCheckerXMLSchema preConditionCheckerXMLSchema;
 
 	@Override
 	public Action parse(Element root) throws DataConversionException {
 		String name = root.getChildText(TAG_name);
 		Action action = new Action(name);
-		List<Element> elements = root.getChildren(preConditionCheckerSchema.getSchemaName());
+		List<Element> elements = root.getChildren(preConditionCheckerXMLSchema.getSchemaName());
 		for (Element element : elements) {
-			ActionPreConditionChecker preConditionChecher = preConditionCheckerSchema.parse(element);
+			ActionPreConditionChecker preConditionChecher = preConditionCheckerXMLSchema.parse(element);
 			action.registerActionPreConditionChecker(preConditionChecher);
 		}
-		elements = root.getChildren(parameterUpdaterSchema.getSchemaName());
+		elements = root.getChildren(parameterUpdaterXMLSchema.getSchemaName());
 		for (Element element : elements) {
-			ActionParameterUpdater parameterUpdater = parameterUpdaterSchema.parse(element);
+			ActionParameterUpdater parameterUpdater = parameterUpdaterXMLSchema.parse(element);
 			action.registerActionParameterUpdater(parameterUpdater);
 		}
 		return action;
@@ -58,11 +58,11 @@ public class ActionXMLSchema implements XMLSchema<Action> {
 		name.setText(action.getName());
 		List<Element> elements = new ArrayList<>();
 		for (ActionPreConditionChecker preConditionChecker : action.getPreConditionCheckers()) {
-			Element element = preConditionCheckerSchema.combine(preConditionChecker);
+			Element element = preConditionCheckerXMLSchema.combine(preConditionChecker);
 			elements.add(element);
 		}
 		for (ActionParameterUpdater parameterUpdater : action.getParameterUpdaters()) {
-			Element element = parameterUpdaterSchema.combine(parameterUpdater);
+			Element element = parameterUpdaterXMLSchema.combine(parameterUpdater);
 			elements.add(element);
 		}
 		Element root = new Element(TAG_action);

@@ -72,10 +72,10 @@ public class LinkTransformationXMLSchemaTest {
 				oneOf(linkTransformation_mock).getLinkName();
 				will(returnValue("name"));
 
-				oneOf(linkTransformation_mock).getLinkObject1Old();
+				oneOf(linkTransformation_mock).getLinkObjectId2Old();
 				will(returnValue("old-link-value"));
 
-				oneOf(linkTransformation_mock).getLinkObjectId1New();
+				oneOf(linkTransformation_mock).getLinkObjectId2New();
 				will(returnValue("new-link-value"));
 			}
 		});
@@ -99,10 +99,10 @@ public class LinkTransformationXMLSchemaTest {
 				oneOf(linkTransformation_mock).getLinkName();
 				will(returnValue("name"));
 
-				oneOf(linkTransformation_mock).getLinkObject1Old();
+				oneOf(linkTransformation_mock).getLinkObjectId2Old();
 				will(returnValue("old-link-value"));
 
-				oneOf(linkTransformation_mock).getLinkObjectId1New();
+				oneOf(linkTransformation_mock).getLinkObjectId2New();
 				will(returnValue(null));
 			}
 		});
@@ -126,10 +126,10 @@ public class LinkTransformationXMLSchemaTest {
 				oneOf(linkTransformation_mock).getLinkName();
 				will(returnValue("name"));
 
-				oneOf(linkTransformation_mock).getLinkObject1Old();
+				oneOf(linkTransformation_mock).getLinkObjectId2Old();
 				will(returnValue(null));
 
-				oneOf(linkTransformation_mock).getLinkObjectId1New();
+				oneOf(linkTransformation_mock).getLinkObjectId2New();
 				will(returnValue("new-link-value"));
 			}
 		});

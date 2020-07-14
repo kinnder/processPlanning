@@ -24,10 +24,10 @@ public class SystemObjectXMLSchema implements XMLSchema<SystemObject> {
 	}
 
 	SystemObjectXMLSchema(AttributeXMLSchema attributeXMLSchema) {
-		this.attributeSchema = attributeXMLSchema;
+		this.attributeXMLSchema = attributeXMLSchema;
 	}
 
-	private AttributeXMLSchema attributeSchema;
+	private AttributeXMLSchema attributeXMLSchema;
 
 	@Override
 	public SystemObject parse(Element root) throws DataConversionException {
@@ -36,8 +36,8 @@ public class SystemObjectXMLSchema implements XMLSchema<SystemObject> {
 
 		SystemObject object = new SystemObject(name, id);
 
-		for (Element element : root.getChildren(attributeSchema.getSchemaName())) {
-			Attribute attribute = attributeSchema.parse(element);
+		for (Element element : root.getChildren(attributeXMLSchema.getSchemaName())) {
+			Attribute attribute = attributeXMLSchema.parse(element);
 			object.addAttribute(attribute);
 		}
 
@@ -57,7 +57,7 @@ public class SystemObjectXMLSchema implements XMLSchema<SystemObject> {
 		root.addContent(id);
 
 		for (Attribute attribute : systemObject.getAttributes()) {
-			Element element = attributeSchema.combine(attribute);
+			Element element = attributeXMLSchema.combine(attribute);
 			root.addContent(element);
 		}
 

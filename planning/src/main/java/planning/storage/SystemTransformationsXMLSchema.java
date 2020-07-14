@@ -22,17 +22,17 @@ public class SystemTransformationsXMLSchema implements XMLSchema<SystemTransform
 	}
 
 	SystemTransformationsXMLSchema(SystemTransformationXMLSchema systemTransformationXMLSchema) {
-		this.systemTransformationSchema = systemTransformationXMLSchema;
+		this.systemTransformationXMLSchema = systemTransformationXMLSchema;
 	}
 
-	private SystemTransformationXMLSchema systemTransformationSchema;
+	private SystemTransformationXMLSchema systemTransformationXMLSchema;
 
 	@Override
 	public SystemTransformations parse(Element element) throws DataConversionException {
 		SystemTransformations systemTransformations = new SystemTransformations();
-		List<Element> elements = element.getChildren(systemTransformationSchema.getSchemaName());
+		List<Element> elements = element.getChildren(systemTransformationXMLSchema.getSchemaName());
 		for (Element e : elements) {
-			SystemTransformation systemTransformation = systemTransformationSchema.parse(e);
+			SystemTransformation systemTransformation = systemTransformationXMLSchema.parse(e);
 			systemTransformations.add(systemTransformation);
 		}
 		return systemTransformations;
@@ -44,7 +44,7 @@ public class SystemTransformationsXMLSchema implements XMLSchema<SystemTransform
 		Namespace xsiNamespace = Namespace.getNamespace("xsi", "http://www.w3.org/2001/XMLSchema-instance");
 		root.setAttribute("noNamespaceSchemaLocation", "../systemTransformations.xsd", xsiNamespace);
 		for (SystemTransformation systemTransformation : systemTransformations) {
-			Element element = systemTransformationSchema.combine(systemTransformation);
+			Element element = systemTransformationXMLSchema.combine(systemTransformation);
 			root.addContent(element);
 		}
 		return root;

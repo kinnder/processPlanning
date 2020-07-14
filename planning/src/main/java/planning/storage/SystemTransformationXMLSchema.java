@@ -24,23 +24,23 @@ public class SystemTransformationXMLSchema implements XMLSchema<SystemTransforma
 	}
 
 	SystemTransformationXMLSchema(ActionXMLSchema actionXMLSchema, TransformationsXMLSchema transformationsXMLSchema, SystemTemplateXMLSchema systemTemplateXMLSchema) {
-		this.actionSchema = actionXMLSchema;
-		this.systemTemplateSchema = systemTemplateXMLSchema;
-		this.transformationsSchema = transformationsXMLSchema;
+		this.actionXMLSchema = actionXMLSchema;
+		this.systemTemplateXMLSchema = systemTemplateXMLSchema;
+		this.transformationsXMLSchema = transformationsXMLSchema;
 	}
 
-	private ActionXMLSchema actionSchema;
+	private ActionXMLSchema actionXMLSchema;
 
-	private TransformationsXMLSchema transformationsSchema;
+	private TransformationsXMLSchema transformationsXMLSchema;
 
-	private SystemTemplateXMLSchema systemTemplateSchema;
+	private SystemTemplateXMLSchema systemTemplateXMLSchema;
 
 	@Override
 	public SystemTransformation parse(Element root) throws DataConversionException {
 		String name = root.getChildText(TAG_name);
-		Action action = actionSchema.parse(root.getChild(actionSchema.getSchemaName()));
-		SystemTemplate systemTemplate = systemTemplateSchema.parse(root.getChild(systemTemplateSchema.getSchemaName()));
-		Transformation[] transformations = transformationsSchema.parse(root.getChild(transformationsSchema.getSchemaName()));
+		Action action = actionXMLSchema.parse(root.getChild(actionXMLSchema.getSchemaName()));
+		SystemTemplate systemTemplate = systemTemplateXMLSchema.parse(root.getChild(systemTemplateXMLSchema.getSchemaName()));
+		Transformation[] transformations = transformationsXMLSchema.parse(root.getChild(transformationsXMLSchema.getSchemaName()));
 		return new SystemTransformation(name, action, systemTemplate, transformations);
 	}
 
@@ -48,9 +48,9 @@ public class SystemTransformationXMLSchema implements XMLSchema<SystemTransforma
 	public Element combine(SystemTransformation systemTransformation) {
 		Element name = new Element(TAG_name);
 		name.setText(systemTransformation.getName());
-		Element action = actionSchema.combine(systemTransformation.getAction());
-		Element systemTemplate = systemTemplateSchema.combine(systemTransformation.getSystemTemplate());
-		Element transformations = transformationsSchema.combine(systemTransformation.getTransformations());
+		Element action = actionXMLSchema.combine(systemTransformation.getAction());
+		Element systemTemplate = systemTemplateXMLSchema.combine(systemTransformation.getSystemTemplate());
+		Element transformations = transformationsXMLSchema.combine(systemTransformation.getTransformations());
 		Element root = new Element(TAG_systemTransformation);
 		root.addContent(name);
 		root.addContent(systemTemplate);

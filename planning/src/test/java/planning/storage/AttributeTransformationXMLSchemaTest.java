@@ -1,7 +1,6 @@
 package planning.storage;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.jdom2.DataConversionException;
@@ -32,8 +31,17 @@ public class AttributeTransformationXMLSchemaTest {
 
 	AttributeTransformationXMLSchema testable;
 
+	ValueXMLSchema valueXMLSchema_mock;
+
 	@BeforeEach
 	public void setup() {
+		valueXMLSchema_mock = context.mock(ValueXMLSchema.class);
+
+		testable = new AttributeTransformationXMLSchema(valueXMLSchema_mock);
+	}
+
+	@Test
+	public void newInstance() {
 		testable = new AttributeTransformationXMLSchema();
 	}
 
@@ -41,6 +49,7 @@ public class AttributeTransformationXMLSchemaTest {
 	public void parse() throws DataConversionException {
 		final Element root_mock = context.mock(Element.class, "root");
 		final Element value_mock = context.mock(Element.class, "value");
+		final Object value = new Object();
 
 		context.checking(new Expectations() {
 			{
@@ -50,16 +59,14 @@ public class AttributeTransformationXMLSchemaTest {
 				oneOf(root_mock).getChildText("name");
 				will(returnValue("name"));
 
+				oneOf(valueXMLSchema_mock).getSchemaName();
+				will(returnValue("value"));
+
 				oneOf(root_mock).getChild("value");
 				will(returnValue(value_mock));
 
-				// <-- parseValue
-
-				oneOf(value_mock).getAttributeValue("type", "string");
-
-				oneOf(value_mock).getText();
-
-				// parseValue -->
+				oneOf(valueXMLSchema_mock).parse(value_mock);
+				will(returnValue(value));
 			}
 		});
 
@@ -70,6 +77,7 @@ public class AttributeTransformationXMLSchemaTest {
 	public void combine() {
 		final AttributeTransformation attributeTransformation_mock = context.mock(AttributeTransformation.class);
 		final Object value_mock = context.mock(Object.class);
+		final Element value = new Element("value");
 
 		context.checking(new Expectations() {
 			{
@@ -81,13 +89,16 @@ public class AttributeTransformationXMLSchemaTest {
 
 				oneOf(attributeTransformation_mock).getAttributeValue();
 				will(returnValue(value_mock));
+
+				oneOf(valueXMLSchema_mock).combine(value_mock);
+				will(returnValue(value));
 			}
 		});
 
 		Element element = testable.combine(attributeTransformation_mock);
 		assertEquals("id", element.getChildText("objectId"));
 		assertEquals("name", element.getChildText("name"));
-		assertNotNull(element.getChild("value"));
+		assertEquals(value, element.getChild("value"));
 	}
 
 	@Test

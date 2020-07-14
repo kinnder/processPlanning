@@ -21,25 +21,25 @@ public class SystemXMLSchema implements XMLSchema<System> {
 	}
 
 	SystemXMLSchema(SystemObjectXMLSchema systemObjectXMLSchema, LinkXMLSchema linkXMLSchema) {
-		this.systemObjectSchema = systemObjectXMLSchema;
-		this.linkSchema = linkXMLSchema;
+		this.systemObjectXMLSchema = systemObjectXMLSchema;
+		this.linkXMLSchema = linkXMLSchema;
 	}
 
-	private SystemObjectXMLSchema systemObjectSchema = new SystemObjectXMLSchema();
+	private SystemObjectXMLSchema systemObjectXMLSchema = new SystemObjectXMLSchema();
 
-	private LinkXMLSchema linkSchema = new LinkXMLSchema();
+	private LinkXMLSchema linkXMLSchema = new LinkXMLSchema();
 
 	@Override
 	public System parse(Element root) throws DataConversionException {
 		System system = new System();
 
-		for (Element element : root.getChildren(systemObjectSchema.getSchemaName())) {
-			SystemObject object = systemObjectSchema.parse(element);
+		for (Element element : root.getChildren(systemObjectXMLSchema.getSchemaName())) {
+			SystemObject object = systemObjectXMLSchema.parse(element);
 			system.addObject(object);
 		}
 
-		for (Element element : root.getChildren(linkSchema.getSchemaName())) {
-			Link link = linkSchema.parse(element);
+		for (Element element : root.getChildren(linkXMLSchema.getSchemaName())) {
+			Link link = linkXMLSchema.parse(element);
 			system.addLink(link);
 		}
 
@@ -51,12 +51,12 @@ public class SystemXMLSchema implements XMLSchema<System> {
 		Element root = new Element(TAG_system);
 
 		for (SystemObject systemObject : system.getObjects()) {
-			Element element = systemObjectSchema.combine(systemObject);
+			Element element = systemObjectXMLSchema.combine(systemObject);
 			root.addContent(element);
 		}
 
 		for (Link link : system.getLinks()) {
-			Element element = linkSchema.combine(link);
+			Element element = linkXMLSchema.combine(link);
 			root.addContent(element);
 		}
 
