@@ -16,6 +16,7 @@ public class NewSystemTransformationsCommand extends Command {
 
 	private void execute(NewSystemTransformationsData data) {
 		notifyCommandStatus(new CommandStatusEvent("executing command: \"new system transformation\"..."));
+		data.systemTransformationsFile = "";
 		notifyCommandStatus(new CommandStatusEvent("done"));
 	}
 }
