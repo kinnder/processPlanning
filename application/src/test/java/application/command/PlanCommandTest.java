@@ -65,7 +65,6 @@ public class PlanCommandTest {
 	}
 
 	@Test
-	// TODO (2020-07-21 #28): починить тест
 	public void execute() throws Exception {
 		final PlanCommandData data = context.mock(PlanCommandData.class);
 		data.systemTransformationsFile = "systemTransformations.xml";
