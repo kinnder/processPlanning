@@ -17,6 +17,8 @@ import application.command.Command;
 import application.command.CommandData;
 import application.command.HelpCommand;
 import application.command.HelpCommandDataMatcher;
+import application.command.NewSystemTransformationsCommand;
+import application.command.NewSystemTransformationsCommandDataMatcher;
 import application.command.PlanCommand;
 import application.command.PlanCommandDataMatcher;
 
@@ -40,14 +42,18 @@ public class ApplicationTest {
 
 	PlanCommand planCommand_mock;
 
+	NewSystemTransformationsCommand newSystemTransformationsCommand_mock;
+
 	@BeforeEach
 	public void setup() {
 		helpCommand_mock = context.mock(HelpCommand.class);
 		planCommand_mock = context.mock(PlanCommand.class);
+		newSystemTransformationsCommand_mock = context.mock(NewSystemTransformationsCommand.class);
 
 		testable = new Application();
 		testable.commands.put(HelpCommand.NAME, helpCommand_mock);
 		testable.commands.put(PlanCommand.NAME, planCommand_mock);
+		testable.commands.put(NewSystemTransformationsCommand.NAME, newSystemTransformationsCommand_mock);
 	}
 
 	@Test
@@ -55,6 +61,8 @@ public class ApplicationTest {
 		testable = new Application();
 		assertTrue(testable.commands.get(HelpCommand.NAME) instanceof HelpCommand);
 		assertTrue(testable.commands.get(PlanCommand.NAME) instanceof PlanCommand);
+		assertTrue(
+				testable.commands.get(NewSystemTransformationsCommand.NAME) instanceof NewSystemTransformationsCommand);
 	}
 
 	@Test
@@ -66,6 +74,8 @@ public class ApplicationTest {
 				oneOf(helpCommand_mock).registerUserInterface(ui_mock);
 
 				oneOf(planCommand_mock).registerUserInterface(ui_mock);
+
+				oneOf(newSystemTransformationsCommand_mock).registerUserInterface(ui_mock);
 			}
 		});
 
@@ -76,7 +86,8 @@ public class ApplicationTest {
 	public void run_helpCommand() throws Exception {
 		Option h_option = new Option("h", "help", false, "prints usage");
 		Option td_option = new Option("td", "taskDescription", true, "file with description of the task");
-		Option st_option = new Option("st", "systemTransformations", true, "file with description of the system transformations");
+		Option st_option = new Option("st", "systemTransformations", true,
+				"file with description of the system transformations");
 		Option p_option = new Option("p", "process", true, "output file");
 
 		Options options = new Options();
@@ -106,6 +117,19 @@ public class ApplicationTest {
 
 		testable.run(new String[] { "-taskDescription=td_file.xml", "-systemTransformations=st_file.xml",
 				"-process=p_file.xml", "-command=plan" });
+	}
+
+	@Test
+	public void run_NewSystemTransformationsCommand() throws Exception {
+		context.checking(new Expectations() {
+			{
+				oneOf(newSystemTransformationsCommand_mock)
+						.execute(with(new NewSystemTransformationsCommandDataMatcher()
+								.expectSystemTransformationsFile("st_file.xml")));
+			}
+		});
+
+		testable.run(new String[] { "-systemTransformations=st_file.xml", "-command=new_st" });
 	}
 
 	@Test

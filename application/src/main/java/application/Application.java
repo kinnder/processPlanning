@@ -13,7 +13,7 @@ import application.command.CommandData;
 import application.command.HelpCommand;
 import application.command.HelpCommandData;
 import application.command.NewSystemTransformationsCommand;
-import application.command.NewSystemTransformationsData;
+import application.command.NewSystemTransformationsCommandData;
 import application.command.PlanCommand;
 import application.command.PlanCommandData;
 
@@ -72,7 +72,8 @@ public class Application {
 			break;
 
 		case NewSystemTransformationsCommand.NAME: {
-			NewSystemTransformationsData data = new NewSystemTransformationsData();
+			NewSystemTransformationsCommandData data = new NewSystemTransformationsCommandData();
+			data.systemTransformationsFile = line.getOptionValue(st_option.getOpt(), "systemTransformations.xml");
 			runCommand(NewSystemTransformationsCommand.NAME, data);
 		}
 			break;

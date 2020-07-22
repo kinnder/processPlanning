@@ -1,6 +1,6 @@
 package application.command;
 
-public class NewSystemTransformationsData implements CommandData {
+public class NewSystemTransformationsCommandData implements CommandData {
 
 	public String systemTransformationsFile;
 }
