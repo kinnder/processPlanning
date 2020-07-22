@@ -29,7 +29,7 @@ public class PlanCommand extends Command {
 	NodeNetworkXMLFile nodeNetworkXMLFile = new NodeNetworkXMLFile();
 
 	private void execute(PlanCommandData data) throws Exception {
-		notifyCommandStatus(new CommandStatusEvent("planning..."));
+		notifyCommandStatus(new CommandStatusEvent("executing command: \"plan\"..."));
 
 		transformationsXMLFile.load(data.systemTransformationsFile);
 		SystemTransformations systemTransformations = transformationsXMLFile.getObject();

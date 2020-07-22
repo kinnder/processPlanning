@@ -105,7 +105,7 @@ public class ApplicationTest {
 		});
 
 		testable.run(new String[] { "-taskDescription=td_file.xml", "-systemTransformations=st_file.xml",
-				"-process=p_file.xml" });
+				"-process=p_file.xml", "-command=plan" });
 	}
 
 	@Test

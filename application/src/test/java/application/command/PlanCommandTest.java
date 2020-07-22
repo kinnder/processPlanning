@@ -65,6 +65,7 @@ public class PlanCommandTest {
 	}
 
 	@Test
+	// TODO (2020-07-21 #28): починить тест
 	public void execute() throws Exception {
 		final PlanCommandData data = context.mock(PlanCommandData.class);
 		data.systemTransformationsFile = "systemTransformations.xml";
@@ -89,7 +90,7 @@ public class PlanCommandTest {
 
 		context.checking(new Expectations() {
 			{
-				oneOf(ui_mock).notifyCommandStatus(with(new CommandStatusEventMatcher().expectMessage("planning...")));
+				oneOf(ui_mock).notifyCommandStatus(with(new CommandStatusEventMatcher().expectMessage("executing command: \"plan\"...")));
 
 				oneOf(transformationsXMLFile_mock).load("systemTransformations.xml");
 
