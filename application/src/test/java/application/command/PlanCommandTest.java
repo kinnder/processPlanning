@@ -66,11 +66,11 @@ public class PlanCommandTest {
 
 	@Test
 	public void execute() throws Exception {
-		final PlanCommandData data = context.mock(PlanCommandData.class);
-		data.systemTransformationsFile = "systemTransformations.xml";
-		data.taskDescriptionFile = "taskDescription.xml";
-		data.processFile = "process.xml";
-		data.nodeNetworkFile = "nodeNetwork.xml";
+		final PlanCommandData data_mock = context.mock(PlanCommandData.class);
+		data_mock.systemTransformationsFile = "systemTransformations.xml";
+		data_mock.taskDescriptionFile = "taskDescription.xml";
+		data_mock.processFile = "process.xml";
+		data_mock.nodeNetworkFile = "nodeNetwork.xml";
 
 		final SystemTransformation systemTransformation_mock = context.mock(SystemTransformation.class,
 				"systemTransformation");
@@ -138,6 +138,6 @@ public class PlanCommandTest {
 		});
 		testable.registerUserInterface(ui_mock);
 
-		testable.execute((CommandData) data);
+		testable.execute(data_mock);
 	}
 }
