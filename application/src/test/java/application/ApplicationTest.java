@@ -19,6 +19,8 @@ import application.command.HelpCommand;
 import application.command.HelpCommandDataMatcher;
 import application.command.NewSystemTransformationsCommand;
 import application.command.NewSystemTransformationsCommandDataMatcher;
+import application.command.NewTaskDescriptionCommand;
+import application.command.NewTaskDescriptionCommandDataMatcher;
 import application.command.PlanCommand;
 import application.command.PlanCommandDataMatcher;
 
@@ -44,16 +46,20 @@ public class ApplicationTest {
 
 	NewSystemTransformationsCommand newSystemTransformationsCommand_mock;
 
+	NewTaskDescriptionCommand newTaskDescriptionCommand_mock;
+
 	@BeforeEach
 	public void setup() {
 		helpCommand_mock = context.mock(HelpCommand.class);
 		planCommand_mock = context.mock(PlanCommand.class);
 		newSystemTransformationsCommand_mock = context.mock(NewSystemTransformationsCommand.class);
+		newTaskDescriptionCommand_mock = context.mock(NewTaskDescriptionCommand.class);
 
 		testable = new Application();
 		testable.commands.put(HelpCommand.NAME, helpCommand_mock);
 		testable.commands.put(PlanCommand.NAME, planCommand_mock);
 		testable.commands.put(NewSystemTransformationsCommand.NAME, newSystemTransformationsCommand_mock);
+		testable.commands.put(NewTaskDescriptionCommand.NAME, newTaskDescriptionCommand_mock);
 	}
 
 	@Test
@@ -61,6 +67,8 @@ public class ApplicationTest {
 		testable = new Application();
 		assertTrue(testable.commands.get(HelpCommand.NAME) instanceof HelpCommand);
 		assertTrue(testable.commands.get(PlanCommand.NAME) instanceof PlanCommand);
+		assertTrue(
+				testable.commands.get(NewSystemTransformationsCommand.NAME) instanceof NewSystemTransformationsCommand);
 		assertTrue(
 				testable.commands.get(NewSystemTransformationsCommand.NAME) instanceof NewSystemTransformationsCommand);
 	}
@@ -76,6 +84,8 @@ public class ApplicationTest {
 				oneOf(planCommand_mock).registerUserInterface(ui_mock);
 
 				oneOf(newSystemTransformationsCommand_mock).registerUserInterface(ui_mock);
+
+				oneOf(newTaskDescriptionCommand_mock).registerUserInterface(ui_mock);
 			}
 		});
 
@@ -86,8 +96,7 @@ public class ApplicationTest {
 	public void run_helpCommand() throws Exception {
 		Option h_option = new Option("h", "help", false, "prints usage");
 		Option td_option = new Option("td", "taskDescription", true, "file with description of the task");
-		Option st_option = new Option("st", "systemTransformations", true,
-				"file with description of the system transformations");
+		Option st_option = new Option("st", "systemTransformations", true, "file with description of the system transformations");
 		Option p_option = new Option("p", "process", true, "output file");
 
 		Options options = new Options();
@@ -130,6 +139,18 @@ public class ApplicationTest {
 		});
 
 		testable.run(new String[] { "-systemTransformations=st_file.xml", "-command=new_st" });
+	}
+
+	@Test
+	public void run_NewTaskDescriptionCommand() throws Exception {
+		context.checking(new Expectations() {
+			{
+				oneOf(newTaskDescriptionCommand_mock).execute(
+						with(new NewTaskDescriptionCommandDataMatcher().expectTaskDescriptionFile("td_file.xml")));
+			}
+		});
+
+		testable.run(new String[] { "-taskDescription=td_file.xml", "-command=new_td" });
 	}
 
 	@Test

@@ -14,6 +14,8 @@ import application.command.HelpCommand;
 import application.command.HelpCommandData;
 import application.command.NewSystemTransformationsCommand;
 import application.command.NewSystemTransformationsCommandData;
+import application.command.NewTaskDescriptionCommand;
+import application.command.NewTaskDescriptionCommandData;
 import application.command.PlanCommand;
 import application.command.PlanCommandData;
 
@@ -26,6 +28,7 @@ public class Application {
 		commands.put(HelpCommand.NAME, new HelpCommand());
 		commands.put(PlanCommand.NAME, new PlanCommand());
 		commands.put(NewSystemTransformationsCommand.NAME, new NewSystemTransformationsCommand());
+		commands.put(NewTaskDescriptionCommand.NAME, new NewTaskDescriptionCommand());
 	}
 
 	public void registerUserInterface(UserInterface ui) {
@@ -37,10 +40,12 @@ public class Application {
 	public void run(String[] args) throws Exception {
 		Option h_option = new Option("h", "help", false, "prints usage");
 		Option td_option = new Option("td", "taskDescription", true, "file with description of the task");
-		Option st_option = new Option("st", "systemTransformations", true, "file with description of the system transformations");
+		Option st_option = new Option("st", "systemTransformations", true,
+				"file with description of the system transformations");
 		Option p_option = new Option("p", "process", true, "output file with process");
 		Option nn_option = new Option("nn", "nodeNetwork", true, "output file with node network");
-		Option c_option = new Option("c", "command", true, "command to be executed \n\tplan, plan process\n\tnew-st, create new file with default system transformations");
+		Option c_option = new Option("c", "command", true,
+				"command to be executed \n\tplan, plan process\n\tnew_st, create new file with default system transformations\n\tnew_td, create new file with default task description");
 
 		Options options = new Options();
 		options.addOption(h_option);
@@ -75,6 +80,13 @@ public class Application {
 			NewSystemTransformationsCommandData data = new NewSystemTransformationsCommandData();
 			data.systemTransformationsFile = line.getOptionValue(st_option.getOpt(), "systemTransformations.xml");
 			runCommand(NewSystemTransformationsCommand.NAME, data);
+		}
+			break;
+
+		case NewTaskDescriptionCommand.NAME: {
+			NewTaskDescriptionCommandData data = new NewTaskDescriptionCommandData();
+			data.taskDescriptionFile = line.getOptionValue(td_option.getOpt(), "taskDescription.xml");
+			runCommand(NewTaskDescriptionCommand.NAME, data);
 		}
 			break;
 
