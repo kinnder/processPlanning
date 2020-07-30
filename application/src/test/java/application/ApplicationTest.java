@@ -93,7 +93,7 @@ public class ApplicationTest {
 	}
 
 	@Test
-	public void run_helpCommand() throws Exception {
+	public void run_HelpCommand() throws Exception {
 		Option h_option = new Option("h", "help", false, "prints usage");
 		Option td_option = new Option("td", "taskDescription", true, "file with description of the task");
 		Option st_option = new Option("st", "systemTransformations", true, "file with description of the system transformations");
@@ -115,7 +115,7 @@ public class ApplicationTest {
 	}
 
 	@Test
-	public void run_planCommand() throws Exception {
+	public void run_PlanCommand() throws Exception {
 		context.checking(new Expectations() {
 			{
 				oneOf(planCommand_mock)
@@ -124,8 +124,7 @@ public class ApplicationTest {
 			}
 		});
 
-		testable.run(new String[] { "-taskDescription=td_file.xml", "-systemTransformations=st_file.xml",
-				"-process=p_file.xml", "-command=plan" });
+		testable.run(new String[] { "-plan", "-taskDescription=td_file.xml", "-systemTransformations=st_file.xml", "-process=p_file.xml" });
 	}
 
 	@Test
@@ -138,7 +137,8 @@ public class ApplicationTest {
 			}
 		});
 
-		testable.run(new String[] { "-systemTransformations=st_file.xml", "-command=new_st" });
+		// TODO (2020-07-30 #30): проверять domain
+		testable.run(new String[] { "-new_st", "-systemTransformations=st_file.xml" });
 	}
 
 	@Test
@@ -150,7 +150,8 @@ public class ApplicationTest {
 			}
 		});
 
-		testable.run(new String[] { "-taskDescription=td_file.xml", "-command=new_td" });
+		// TODO (2020-07-30 #30): проверять domain
+		testable.run(new String[] { "-new_td", "-taskDescription=td_file.xml" });
 	}
 
 	@Test

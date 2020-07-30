@@ -38,14 +38,23 @@ public class Application {
 	}
 
 	public void run(String[] args) throws Exception {
+		// TODO (2020-07-29 #30): переделать работу с аргументами командной строки
+		// https://commons.apache.org/proper/commons-cli/usage.html
+		// executable [global options] <command> [command options] <arguments>
 		Option h_option = new Option("h", "help", false, "prints usage");
 		Option td_option = new Option("td", "taskDescription", true, "file with description of the task");
-		Option st_option = new Option("st", "systemTransformations", true,
-				"file with description of the system transformations");
+		Option st_option = new Option("st", "systemTransformations", true, "file with description of the system transformations");
 		Option p_option = new Option("p", "process", true, "output file with process");
 		Option nn_option = new Option("nn", "nodeNetwork", true, "output file with node network");
-		Option c_option = new Option("c", "command", true,
-				"command to be executed \n\tplan, plan process\n\tnew_st, create new file with default system transformations\n\tnew_td, create new file with default task description");
+		Option plan_option = new Option("plan", "plan process");
+		Option new_st_option = new Option("new_st", "create new file with predefined system transformations");
+		new_st_option.setLongOpt("new-system-transformations");
+		new_st_option.setArgName("domain");
+		new_st_option.setOptionalArg(true);
+		Option new_td_option = new Option("new_td", "create new file with predefined task description");
+		new_td_option.setLongOpt("new-task-description");
+		new_td_option.setArgName("domain");
+		new_td_option.setOptionalArg(true);
 
 		Options options = new Options();
 		options.addOption(h_option);
@@ -53,20 +62,19 @@ public class Application {
 		options.addOption(st_option);
 		options.addOption(p_option);
 		options.addOption(nn_option);
-		options.addOption(c_option);
+		options.addOption(plan_option);
+		options.addOption(new_st_option);
+		options.addOption(new_td_option);
 
 		CommandLineParser parser = new DefaultParser();
 		CommandLine line = parser.parse(options, args);
 
-		String command;
 		if (line.hasOption(h_option.getOpt())) {
-			command = HelpCommand.NAME;
-		} else {
-			command = line.getOptionValue(c_option.getOpt(), HelpCommand.NAME);
+			HelpCommandData data = new HelpCommandData();
+			data.options = options;
+			runCommand(HelpCommand.NAME, data);
 		}
-
-		switch (command) {
-		case PlanCommand.NAME: {
+		if (line.hasOption(plan_option.getOpt())) {
 			PlanCommandData data = new PlanCommandData();
 			data.taskDescriptionFile = line.getOptionValue(td_option.getOpt(), "taskDescription.xml");
 			data.systemTransformationsFile = line.getOptionValue(st_option.getOpt(), "systemTransformations.xml");
@@ -74,28 +82,17 @@ public class Application {
 			data.nodeNetworkFile = line.getOptionValue(nn_option.getOpt(), "nodeNetwork.xml");
 			runCommand(PlanCommand.NAME, data);
 		}
-			break;
-
-		case NewSystemTransformationsCommand.NAME: {
+		if (line.hasOption(new_st_option.getOpt())) {
 			NewSystemTransformationsCommandData data = new NewSystemTransformationsCommandData();
 			data.systemTransformationsFile = line.getOptionValue(st_option.getOpt(), "systemTransformations.xml");
+			data.domain = line.getOptionValue(new_st_option.getOpt(), "materialPoints");
 			runCommand(NewSystemTransformationsCommand.NAME, data);
 		}
-			break;
-
-		case NewTaskDescriptionCommand.NAME: {
+		if (line.hasOption(new_td_option.getOpt())) {
 			NewTaskDescriptionCommandData data = new NewTaskDescriptionCommandData();
 			data.taskDescriptionFile = line.getOptionValue(td_option.getOpt(), "taskDescription.xml");
+			data.domain = line.getOptionValue(new_td_option.getOpt(), "materialPoints");
 			runCommand(NewTaskDescriptionCommand.NAME, data);
-		}
-			break;
-
-		default: {
-			HelpCommandData data = new HelpCommandData();
-			data.options = options;
-			runCommand(HelpCommand.NAME, data);
-		}
-			break;
 		}
 	}
 
