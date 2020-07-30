@@ -1,7 +1,5 @@
 package application.command;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import org.jmock.Expectations;
 import org.jmock.imposters.ByteBuddyClassImposteriser;
 import org.jmock.junit5.JUnit5Mockery;
@@ -14,7 +12,6 @@ import application.UserInterface;
 import application.event.CommandStatusEventMatcher;
 import planning.storage.TaskDescriptionXMLFile;
 import planning.method.TaskDescription;
-import planning.model.System;
 
 public class NewTaskDescriptionCommandTest {
 
@@ -47,6 +44,8 @@ public class NewTaskDescriptionCommandTest {
 	public void execute() throws Exception {
 		final NewTaskDescriptionCommandData data_mock = context.mock(NewTaskDescriptionCommandData.class);
 		data_mock.taskDescriptionFile = "taskDescription.xml";
+		// TODO (2020-07-30 #30): добавить варианты теста с другими domain
+		data_mock.domain = "unknown";
 		final UserInterface ui_mock = context.mock(UserInterface.class);
 
 		context.checking(new Expectations() {
@@ -65,20 +64,5 @@ public class NewTaskDescriptionCommandTest {
 		testable.registerUserInterface(ui_mock);
 
 		testable.execute(data_mock);
-	}
-
-	@Test
-	public void alphaAndBeta() {
-		assertTrue(NewTaskDescriptionCommand.alphaAndBeta() instanceof TaskDescription);
-	}
-
-	@Test
-	public void initialSystem() {
-		assertTrue(NewTaskDescriptionCommand.initialSystem() instanceof System);
-	}
-
-	@Test
-	public void finalSystem() {
-		assertTrue(NewTaskDescriptionCommand.finalSystem() instanceof System);
 	}
 }

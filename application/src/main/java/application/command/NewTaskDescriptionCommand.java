@@ -2,10 +2,12 @@ package application.command;
 
 import java.io.IOException;
 
+import application.domain.AssemblyLine;
+import application.domain.CuttingProcess;
+import application.domain.MaterialPoints;
 import application.event.CommandStatusEvent;
 import planning.method.TaskDescription;
 import planning.storage.TaskDescriptionXMLFile;
-import planning.model.System;
 
 public class NewTaskDescriptionCommand extends Command {
 
@@ -21,29 +23,25 @@ public class NewTaskDescriptionCommand extends Command {
 	private void execute(NewTaskDescriptionCommandData data) throws IOException {
 		notifyCommandStatus(new CommandStatusEvent("executing command: \"new task description\"..."));
 
-		TaskDescription taskDescription = alphaAndBeta();
+		TaskDescription taskDescription;
+		switch (data.domain) {
+		case MaterialPoints.DOMAIN_NAME:
+			taskDescription = MaterialPoints.getTaskDescription();
+			break;
+		case CuttingProcess.DOMAIN_NAME:
+			taskDescription = CuttingProcess.getTaskDescription();
+			break;
+		case AssemblyLine.DOMAIN_NAME:
+			taskDescription = AssemblyLine.getTaskDescription();
+			break;
+		default:
+			taskDescription = new TaskDescription();
+			break;
+		}
 
 		taskXMLFile.setObject(taskDescription);
 		taskXMLFile.save(data.taskDescriptionFile);
 
 		notifyCommandStatus(new CommandStatusEvent("done"));
-	}
-
-	// TODO (2020-07-24 #29): использовать в качестве примеров сценарии из domain
-	public static TaskDescription alphaAndBeta() {
-		TaskDescription taskDescription = new TaskDescription();
-		taskDescription.setInitialSystem(initialSystem());
-		taskDescription.setFinalSystem(finalSystem());
-		return taskDescription;
-	}
-
-	public static System initialSystem() {
-		final System system = new System();
-		return system;
-	}
-
-	public static System finalSystem() {
-		final System system = new System();
-		return system;
 	}
 }
