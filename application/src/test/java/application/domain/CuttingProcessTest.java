@@ -1,4 +1,4 @@
-package application.domain.cuttingProcess;
+package application.domain;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -7,11 +7,11 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
+
 import org.jdom2.JDOMException;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import application.domain.CuttingProcess;
 import planning.method.NodeNetwork;
 import planning.method.Planner;
 import planning.method.SystemTransformations;
@@ -21,10 +21,8 @@ import planning.model.SystemOperation;
 import planning.model.SystemProcess;
 import planning.model.SystemTransformation;
 import planning.model.SystemVariant;
-import planning.storage.SystemTransformationsXMLFile;
-import planning.storage.TaskDescriptionXMLFile;
 
-public class AcceptanceTests extends CuttingProcess {
+public class CuttingProcessTest extends CuttingProcess {
 
 	private static SystemTransformations cuttingProcessTransformations;
 
@@ -36,16 +34,9 @@ public class AcceptanceTests extends CuttingProcess {
 
 	@BeforeAll
 	public static void setupAll() throws JDOMException, IOException, URISyntaxException {
-		SystemTransformationsXMLFile xmlFile = new SystemTransformationsXMLFile();
-		xmlFile.load(AcceptanceTests.class.getResource("/cuttingProcess/systemTransformations.xml"));
+		cuttingProcessTransformations = CuttingProcess.getSystemTransformations();
+		taskDescription = CuttingProcess.getTaskDescription();
 
-		cuttingProcessTransformations = new SystemTransformations();
-		cuttingProcessTransformations.addAll(xmlFile.getObject());
-
-		TaskDescriptionXMLFile taskXMLFile = new TaskDescriptionXMLFile();
-		taskXMLFile.load(AcceptanceTests.class.getResource("/cuttingProcess/taskDescription.xml"));
-
-		taskDescription = taskXMLFile.getObject();
 		initialSystem = taskDescription.getInitialSystem();
 		finalSystem = taskDescription.getFinalSystem();
 	}

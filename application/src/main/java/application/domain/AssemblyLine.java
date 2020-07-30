@@ -711,5 +711,6 @@ public class AssemblyLine {
 		return taskDescription;
 	}
 
+	// TODO (2020-07-30 #30): включить проверку copy-paste
 	// CPD-ON
 }

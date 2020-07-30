@@ -1,4 +1,4 @@
-package application.domain.materialPoints;
+package application.domain;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -6,11 +6,11 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
+
 import org.jdom2.JDOMException;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import application.domain.MaterialPoints;
 import planning.method.NodeNetwork;
 import planning.method.Planner;
 import planning.method.SystemTransformations;
@@ -19,10 +19,8 @@ import planning.model.System;
 import planning.model.SystemProcess;
 import planning.model.SystemTransformation;
 import planning.model.SystemVariant;
-import planning.storage.SystemTransformationsXMLFile;
-import planning.storage.TaskDescriptionXMLFile;
 
-public class AcceptanceTests extends MaterialPoints {
+public class MaterialPointsTest extends MaterialPoints {
 
 	private static SystemTransformations materialPointsTransformations;
 
@@ -34,15 +32,9 @@ public class AcceptanceTests extends MaterialPoints {
 
 	@BeforeAll
 	public static void setupAll() throws JDOMException, IOException, URISyntaxException {
-		SystemTransformationsXMLFile xmlFile = new SystemTransformationsXMLFile();
-		xmlFile.load(AcceptanceTests.class.getResource("/materialPoints/systemTransformations.xml"));
-
-		materialPointsTransformations = new SystemTransformations();
-		materialPointsTransformations.addAll(xmlFile.getObject());
-		TaskDescriptionXMLFile taskXMLFile = new TaskDescriptionXMLFile();
-		taskXMLFile.load(AcceptanceTests.class.getResource("/materialPoints/taskDescription.xml"));
-
-		taskDescription = taskXMLFile.getObject();
+		materialPointsTransformations = MaterialPoints.getSystemTransformations();
+		taskDescription = MaterialPoints.getTaskDescription();
+		
 		initialSystem = taskDescription.getInitialSystem();
 		finalSystem = taskDescription.getFinalSystem();
 	}
