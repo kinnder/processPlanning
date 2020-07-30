@@ -18,7 +18,6 @@ import application.command.NewTaskDescriptionCommand;
 import application.command.NewTaskDescriptionCommandData;
 import application.command.PlanCommand;
 import application.command.PlanCommandData;
-import application.domain.MaterialPoints;
 
 public class Application {
 
@@ -86,13 +85,13 @@ public class Application {
 		if (line.hasOption(new_st_option.getOpt())) {
 			NewSystemTransformationsCommandData data = new NewSystemTransformationsCommandData();
 			data.systemTransformationsFile = line.getOptionValue(st_option.getOpt(), "systemTransformations.xml");
-			data.domain = line.getOptionValue(new_st_option.getOpt(), MaterialPoints.DOMAIN_NAME);
+			data.domain = line.getOptionValue(new_st_option.getOpt(), "unknown");
 			runCommand(NewSystemTransformationsCommand.NAME, data);
 		}
 		if (line.hasOption(new_td_option.getOpt())) {
 			NewTaskDescriptionCommandData data = new NewTaskDescriptionCommandData();
 			data.taskDescriptionFile = line.getOptionValue(td_option.getOpt(), "taskDescription.xml");
-			data.domain = line.getOptionValue(new_td_option.getOpt(), MaterialPoints.DOMAIN_NAME);
+			data.domain = line.getOptionValue(new_td_option.getOpt(), "unknown");
 			runCommand(NewTaskDescriptionCommand.NAME, data);
 		}
 	}

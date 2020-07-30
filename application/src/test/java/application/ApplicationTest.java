@@ -145,7 +145,7 @@ public class ApplicationTest {
 			{
 				oneOf(newSystemTransformationsCommand_mock)
 						.execute(with(new NewSystemTransformationsCommandDataMatcher()
-								.expectSystemTransformationsFile("st_file.xml").expectDomain("materialPoints")));
+								.expectSystemTransformationsFile("st_file.xml").expectDomain("unknown")));
 			}
 		});
 
