@@ -47,11 +47,11 @@ public class Application {
 		Option p_option = new Option("p", "process", true, "output file with process");
 		Option nn_option = new Option("nn", "nodeNetwork", true, "output file with node network");
 		Option plan_option = new Option("plan", "plan process");
-		Option new_st_option = new Option("new_st", "create new file with predefined system transformations");
+		Option new_st_option = new Option("new_st", true, "create new file with predefined system transformations");
 		new_st_option.setLongOpt("new-system-transformations");
 		new_st_option.setArgName("domain");
 		new_st_option.setOptionalArg(true);
-		Option new_td_option = new Option("new_td", "create new file with predefined task description");
+		Option new_td_option = new Option("new_td", true, "create new file with predefined task description");
 		new_td_option.setLongOpt("new-task-description");
 		new_td_option.setArgName("domain");
 		new_td_option.setOptionalArg(true);

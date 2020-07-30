@@ -14,4 +14,14 @@ public class NewTaskDescriptionCommandDataMatcher extends Matcher<NewTaskDescrip
 		});
 		return this;
 	}
+
+	public NewTaskDescriptionCommandDataMatcher expectDomain(String domain) {
+		addExpectation(new MatcherExpectation() {
+			@Override
+			public void trigger(NewTaskDescriptionCommandData arg) throws MatcherException {
+				compare("domain", domain, arg.domain);
+			}
+		});
+		return this;
+	}
 }

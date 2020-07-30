@@ -15,4 +15,14 @@ public class NewSystemTransformationsCommandDataMatcher extends Matcher<NewSyste
 		});
 		return this;
 	}
+
+	public NewSystemTransformationsCommandDataMatcher expectDomain(String domain) {
+		addExpectation(new MatcherExpectation() {
+			@Override
+			public void trigger(NewSystemTransformationsCommandData arg) throws MatcherException {
+				compare("domain", domain, arg.domain);
+			}
+		});
+		return this;
+	}
 }

@@ -11,6 +11,7 @@ public class HelpCommandDataMatcher extends Matcher<HelpCommandData> {
 		addExpectation(new MatcherExpectation() {
 			@Override
 			public void trigger(HelpCommandData arg) throws MatcherException {
+				compare("options.getOptions().size()", options.getOptions().size(), arg.options.getOptions().size());
 				for (Option expected : options.getOptions()) {
 					Option actual = arg.options.getOption(expected.getOpt());
 					compare(expected.getOpt(), true, expected.equals(actual));
