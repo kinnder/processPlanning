@@ -1,7 +1,5 @@
 package application.command;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import org.jmock.Expectations;
 import org.jmock.imposters.ByteBuddyClassImposteriser;
 import org.jmock.junit5.JUnit5Mockery;
@@ -13,7 +11,6 @@ import org.junit.jupiter.api.extension.RegisterExtension;
 import application.UserInterface;
 import application.event.CommandStatusEventMatcher;
 import planning.method.SystemTransformations;
-import planning.model.SystemTransformation;
 import planning.storage.SystemTransformationsXMLFile;
 
 public class NewSystemTransformationsCommandTest {
@@ -47,6 +44,8 @@ public class NewSystemTransformationsCommandTest {
 	public void execute() throws Exception {
 		final NewSystemTransformationsCommandData data_mock = context.mock(NewSystemTransformationsCommandData.class);
 		data_mock.systemTransformationsFile = "systemTransformations.xml";
+		// TODO (2020-07-30 #30): добавить варианты теста с другими domain
+		data_mock.domain = "unknown";
 		final UserInterface ui_mock = context.mock(UserInterface.class);
 
 		context.checking(new Expectations() {
@@ -65,10 +64,5 @@ public class NewSystemTransformationsCommandTest {
 		testable.registerUserInterface(ui_mock);
 
 		testable.execute(data_mock);
-	}
-
-	@Test
-	public void connectAlphaAndBeta() {
-		assertTrue(NewSystemTransformationsCommand.connectAlphaAndBeta() instanceof SystemTransformation);
 	}
 }

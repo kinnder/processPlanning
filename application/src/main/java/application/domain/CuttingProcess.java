@@ -26,6 +26,8 @@ public class CuttingProcess {
 	// TODO (2020-07-30 #30): включить проверку copy-paste
 	// CPD-OFF
 
+	public static final String DOMAIN_NAME = "cuttingProcess";
+
 	public static final String ID_OBJECT_WORKPIECE = UUID.randomUUID().toString();
 
 	public static final String ID_OBJECT_CYLINDER_SURFACE = UUID.randomUUID().toString();

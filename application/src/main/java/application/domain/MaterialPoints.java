@@ -18,6 +18,8 @@ import planning.model.Transformation;
 
 public class MaterialPoints {
 
+	public static final String DOMAIN_NAME = "materialPoints";
+
 	public static final String ID_OBJECT_OBJECT = UUID.randomUUID().toString();
 
 	public static final String ID_OBJECT_POINT_15 = UUID.randomUUID().toString();

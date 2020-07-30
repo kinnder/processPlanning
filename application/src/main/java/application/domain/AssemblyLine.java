@@ -24,6 +24,8 @@ public class AssemblyLine {
 	// TODO (2020-07-30 #30): включить проверку copy-paste
 	// CPD-OFF
 
+	public static final String DOMAIN_NAME = "assemblyLine";
+
 	public static final String ID_OBJECT_PICK_AND_PLACE_ROBOT = UUID.randomUUID().toString();
 
 	public static final String ID_OBJECT_PLANE_X_TABLE_1 = UUID.randomUUID().toString();
