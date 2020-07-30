@@ -44,8 +44,82 @@ public class NewTaskDescriptionCommandTest {
 	public void execute() throws Exception {
 		final NewTaskDescriptionCommandData data_mock = context.mock(NewTaskDescriptionCommandData.class);
 		data_mock.taskDescriptionFile = "taskDescription.xml";
-		// TODO (2020-07-30 #30): добавить варианты теста с другими domain
 		data_mock.domain = "unknown";
+		final UserInterface ui_mock = context.mock(UserInterface.class);
+
+		context.checking(new Expectations() {
+			{
+				oneOf(ui_mock).notifyCommandStatus(with(new CommandStatusEventMatcher()
+						.expectMessage("executing command: \"new task description\"...")));
+
+				// TODO (2020-07-24 #29): добавить Matcher для сравнения TaskDescription
+				oneOf(taskXMLFile_mock).setObject(with(any(TaskDescription.class)));
+
+				oneOf(taskXMLFile_mock).save("taskDescription.xml");
+
+				oneOf(ui_mock).notifyCommandStatus(with(new CommandStatusEventMatcher().expectMessage("done")));
+			}
+		});
+		testable.registerUserInterface(ui_mock);
+
+		testable.execute(data_mock);
+	}
+
+	@Test
+	public void execute_assemblyLine() throws Exception {
+		final NewTaskDescriptionCommandData data_mock = context.mock(NewTaskDescriptionCommandData.class);
+		data_mock.taskDescriptionFile = "taskDescription.xml";
+		data_mock.domain = "assemblyLine";
+		final UserInterface ui_mock = context.mock(UserInterface.class);
+
+		context.checking(new Expectations() {
+			{
+				oneOf(ui_mock).notifyCommandStatus(with(new CommandStatusEventMatcher()
+						.expectMessage("executing command: \"new task description\"...")));
+
+				// TODO (2020-07-24 #29): добавить Matcher для сравнения TaskDescription
+				oneOf(taskXMLFile_mock).setObject(with(any(TaskDescription.class)));
+
+				oneOf(taskXMLFile_mock).save("taskDescription.xml");
+
+				oneOf(ui_mock).notifyCommandStatus(with(new CommandStatusEventMatcher().expectMessage("done")));
+			}
+		});
+		testable.registerUserInterface(ui_mock);
+
+		testable.execute(data_mock);
+	}
+
+	@Test
+	public void execute_cuttingProcess() throws Exception {
+		final NewTaskDescriptionCommandData data_mock = context.mock(NewTaskDescriptionCommandData.class);
+		data_mock.taskDescriptionFile = "taskDescription.xml";
+		data_mock.domain = "cuttingProcess";
+		final UserInterface ui_mock = context.mock(UserInterface.class);
+
+		context.checking(new Expectations() {
+			{
+				oneOf(ui_mock).notifyCommandStatus(with(new CommandStatusEventMatcher()
+						.expectMessage("executing command: \"new task description\"...")));
+
+				// TODO (2020-07-24 #29): добавить Matcher для сравнения TaskDescription
+				oneOf(taskXMLFile_mock).setObject(with(any(TaskDescription.class)));
+
+				oneOf(taskXMLFile_mock).save("taskDescription.xml");
+
+				oneOf(ui_mock).notifyCommandStatus(with(new CommandStatusEventMatcher().expectMessage("done")));
+			}
+		});
+		testable.registerUserInterface(ui_mock);
+
+		testable.execute(data_mock);
+	}
+
+	@Test
+	public void execute_materialPoints() throws Exception {
+		final NewTaskDescriptionCommandData data_mock = context.mock(NewTaskDescriptionCommandData.class);
+		data_mock.taskDescriptionFile = "taskDescription.xml";
+		data_mock.domain = "materialPoints";
 		final UserInterface ui_mock = context.mock(UserInterface.class);
 
 		context.checking(new Expectations() {
