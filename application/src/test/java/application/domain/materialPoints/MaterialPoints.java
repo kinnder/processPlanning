@@ -1,4 +1,4 @@
-package domain.materialPoints;
+package application.domain.materialPoints;
 
 import java.util.UUID;
 

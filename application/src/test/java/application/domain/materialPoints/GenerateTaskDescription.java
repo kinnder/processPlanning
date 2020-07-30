@@ -1,9 +1,9 @@
-package domain.materialPoints;
+package application.domain.materialPoints;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
 
-import domain.assemblyLine.AcceptanceTests;
+import application.domain.assemblyLine.AcceptanceTests;
 import planning.method.TaskDescription;
 import planning.model.Attribute;
 import planning.model.System;

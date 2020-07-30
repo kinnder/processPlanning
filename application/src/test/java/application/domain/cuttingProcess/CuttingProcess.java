@@ -1,4 +1,4 @@
-package domain.cuttingProcess;
+package application.domain.cuttingProcess;
 
 import java.util.UUID;
 

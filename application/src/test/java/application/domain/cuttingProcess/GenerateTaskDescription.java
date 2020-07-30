@@ -1,9 +1,9 @@
-package domain.cuttingProcess;
+package application.domain.cuttingProcess;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
 
-import domain.assemblyLine.AcceptanceTests;
+import application.domain.assemblyLine.AcceptanceTests;
 import planning.method.TaskDescription;
 import planning.storage.TaskDescriptionXMLFile;
 import planning.model.Attribute;

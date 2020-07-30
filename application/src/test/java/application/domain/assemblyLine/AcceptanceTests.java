@@ -1,4 +1,4 @@
-package domain.assemblyLine;
+package application.domain.assemblyLine;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -10,6 +10,7 @@ import org.jdom2.JDOMException;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
+import application.domain.AssemblyLine;
 import planning.method.NodeNetwork;
 import planning.method.Planner;
 import planning.method.SystemTransformations;
@@ -22,7 +23,7 @@ import planning.model.SystemVariant;
 import planning.storage.SystemTransformationsXMLFile;
 import planning.storage.TaskDescriptionXMLFile;
 
-public class AcceptanceTests implements AssemblyLine {
+public class AcceptanceTests extends AssemblyLine {
 
 	private static SystemTransformations assemblyLineTransformations;
 

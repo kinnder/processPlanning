@@ -1,4 +1,4 @@
-package domain.materialPoints;
+package application.domain.materialPoints;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
