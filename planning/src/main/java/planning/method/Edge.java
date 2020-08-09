@@ -1,5 +1,6 @@
 package planning.method;
 
+import java.util.Objects;
 import java.util.UUID;
 
 import planning.model.SystemOperation;
@@ -29,14 +30,18 @@ public class Edge {
 
 	@Override
 	public boolean equals(Object obj) {
-		if (obj == null) {
-			return false;
-		}
 		if (this == obj) {
 			return true;
 		}
-		Edge edge = (Edge) obj;
-		return id.equals(edge.id);
+		if (obj == null) {
+			return false;
+		}
+		if (obj instanceof Edge) {
+			Edge edge = (Edge) obj;
+			return Objects.equals(id, edge.id);
+			// TODO (2020-08-10 #23): сравнение по другим полям
+		}
+		return false;
 	}
 
 	@Override

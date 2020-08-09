@@ -61,6 +61,11 @@ public class EdgeTest {
 	}
 
 	@Test
+	public void equals_type() {
+		assertFalse(testable.equals(new Object()));
+	}
+
+	@Test
 	public void equals_differentId() {
 		final Edge edge = new Edge("differentId", beginNodeId, endNodeId, systemOperation_mock);
 		assertFalse(testable.equals(edge));
