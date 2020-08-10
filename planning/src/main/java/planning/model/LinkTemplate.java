@@ -32,16 +32,18 @@ public class LinkTemplate implements Cloneable {
 
 	@Override
 	public boolean equals(Object obj) {
-		if (obj == null) {
-			return false;
-		}
 		if (this == obj) {
 			return true;
 		}
-		LinkTemplate linkTemplate = (LinkTemplate) obj;
-
-		return name.equals(linkTemplate.name) && Objects.equals(objectId1, linkTemplate.objectId1)
-				&& Objects.equals(objectId2, linkTemplate.objectId2);
+		if (obj == null) {
+			return false;
+		}
+		if (obj instanceof LinkTemplate) {
+			LinkTemplate linkTemplate = (LinkTemplate) obj;
+			return name.equals(linkTemplate.name) && Objects.equals(objectId1, linkTemplate.objectId1)
+					&& Objects.equals(objectId2, linkTemplate.objectId2);
+		}
+		return false;
 	}
 
 	public boolean matches(Link link, IdsMatching matching) {

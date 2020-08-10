@@ -55,6 +55,11 @@ public class NodeTest {
 	}
 
 	@Test
+	public void equals_type() {
+		assertFalse(testable.equals(new Object()));
+	}
+
+	@Test
 	public void equals_differentId() {
 		final Node node = new Node("differentId", system_mock);
 		assertFalse(testable.equals(node));

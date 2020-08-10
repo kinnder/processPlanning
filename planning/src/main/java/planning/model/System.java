@@ -58,11 +58,14 @@ public class System implements Cloneable {
 		if (this == obj) {
 			return true;
 		}
-		if (!(obj instanceof System)) {
+		if (obj == null) {
 			return false;
 		}
-		System system = (System) obj;
-		return equalsSystemObjects(system) && equalsLinks(system);
+		if (obj instanceof System) {
+			System system = (System) obj;
+			return equalsSystemObjects(system) && equalsLinks(system);
+		}
+		return false;
 	}
 
 	private boolean equalsSystemObjects(System system) {

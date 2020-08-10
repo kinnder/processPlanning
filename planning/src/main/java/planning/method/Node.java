@@ -30,14 +30,17 @@ public class Node {
 
 	@Override
 	public boolean equals(Object obj) {
-		if (obj == null) {
-			return false;
-		}
 		if (this == obj) {
 			return true;
 		}
-		Node node = (Node) obj;
-		return id.equals(node.id);
+		if (obj == null) {
+			return false;
+		}
+		if (obj instanceof Node) {
+			Node node = (Node) obj;
+			return id.equals(node.id);
+		}
+		return false;
 	}
 
 	@Override

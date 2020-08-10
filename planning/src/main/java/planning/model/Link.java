@@ -20,16 +20,18 @@ public class Link implements Cloneable {
 
 	@Override
 	public boolean equals(Object obj) {
-		if (obj == null) {
-			return false;
-		}
 		if (this == obj) {
 			return true;
 		}
-		Link link = (Link) obj;
-
-		return name.equals(link.name) && Objects.equals(objectId1, link.objectId1)
-				&& Objects.equals(objectId2, link.objectId2);
+		if (obj == null) {
+			return false;
+		}
+		if (obj instanceof Link) {
+			Link link = (Link) obj;
+			return name.equals(link.name) && Objects.equals(objectId1, link.objectId1)
+					&& Objects.equals(objectId2, link.objectId2);
+		}
+		return false;
 	}
 
 	@Override

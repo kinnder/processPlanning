@@ -57,6 +57,11 @@ class AttributeTest {
 	}
 
 	@Test
+	public void equals_type() {
+		assertFalse(testable.equals(new Object()));
+	}
+
+	@Test
 	public void equals_differentName() {
 		assertFalse(testable.equals(new Attribute("different", "value")));
 	}

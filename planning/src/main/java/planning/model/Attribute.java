@@ -37,14 +37,17 @@ public class Attribute implements Cloneable {
 
 	@Override
 	public boolean equals(Object obj) {
-		if (obj == null) {
-			return false;
-		}
 		if (this == obj) {
 			return true;
 		}
-		Attribute attribute = (Attribute) obj;
-		return name.equals(attribute.name) && value.equals(attribute.value);
+		if (obj == null) {
+			return false;
+		}
+		if (obj instanceof Attribute) {
+			Attribute attribute = (Attribute) obj;
+			return name.equals(attribute.name) && value.equals(attribute.value);
+		}
+		return false;
 	}
 
 	public String getName() {

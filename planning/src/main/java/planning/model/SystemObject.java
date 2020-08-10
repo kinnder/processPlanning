@@ -43,11 +43,14 @@ public class SystemObject implements Cloneable {
 		if (this == obj) {
 			return true;
 		}
-		if (!(obj instanceof SystemObject)) {
+		if (obj == null) {
 			return false;
 		}
-		SystemObject systemObject = (SystemObject) obj;
-		return Objects.equals(name, systemObject.name) && equalsAttributes(systemObject);
+		if (obj instanceof SystemObject) {
+			SystemObject systemObject = (SystemObject) obj;
+			return Objects.equals(name, systemObject.name) && equalsAttributes(systemObject);
+		}
+		return false;
 	}
 
 	private boolean equalsAttributes(SystemObject systemObject) {

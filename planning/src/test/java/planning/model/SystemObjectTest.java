@@ -100,6 +100,11 @@ public class SystemObjectTest {
 	}
 
 	@Test
+	public void equals_type() {
+		assertFalse(testable.equals(new Object()));
+	}
+
+	@Test
 	public void equals_differentName() {
 		assertFalse(testable.equals(new SystemObject("object 2")));
 	}

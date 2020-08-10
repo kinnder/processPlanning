@@ -158,6 +158,11 @@ public class LinkTemplateTest {
 	}
 
 	@Test
+	public void equals_type() {
+		assertFalse(testable.equals(new Object()));
+	}
+
+	@Test
 	public void equals_different_name() {
 		assertFalse(testable.equals(new LinkTemplate("different", "id-template-1", "id-template-2")));
 	}

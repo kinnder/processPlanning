@@ -57,6 +57,11 @@ public class LinkTest {
 	}
 
 	@Test
+	public void equals_type() {
+		assertFalse(testable.equals(new Object()));
+	}
+
+	@Test
 	public void equals_different_name() {
 		assertFalse(testable.equals(new Link("different", "id-1", "id-2")));
 	}

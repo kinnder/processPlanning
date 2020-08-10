@@ -88,6 +88,11 @@ public class SystemTest {
 	}
 
 	@Test
+	public void equals_type() {
+		assertFalse(testable.equals(new Object()));
+	}
+
+	@Test
 	public void equals_differentObjectAmount() {
 		final SystemObject object_mock = context.mock(SystemObject.class, "object");
 
