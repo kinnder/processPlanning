@@ -12,6 +12,10 @@ import org.junit.jupiter.api.extension.RegisterExtension;
 
 import application.UserInterface;
 import application.event.CommandStatusEventMatcher;
+import application.storage.NodeNetworkXMLFile;
+import application.storage.SystemProcessXMLFile;
+import application.storage.SystemTransformationsXMLFile;
+import application.storage.TaskDescriptionXMLFile;
 import planning.method.NodeNetwork;
 import planning.method.SystemTransformations;
 import planning.method.TaskDescription;
@@ -20,10 +24,6 @@ import planning.model.System;
 import planning.model.SystemProcess;
 import planning.model.SystemTransformation;
 import planning.model.SystemVariant;
-import planning.storage.NodeNetworkXMLFile;
-import planning.storage.SystemProcessXMLFile;
-import planning.storage.SystemTransformationsXMLFile;
-import planning.storage.TaskDescriptionXMLFile;
 
 public class PlanCommandTest {
 

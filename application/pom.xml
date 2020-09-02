@@ -52,12 +52,11 @@
 			<artifactId>log4j-core</artifactId>
 			<version>2.13.2</version>
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/org.hamcrest/hamcrest -->
+		<!-- https://mvnrepository.com/artifact/org.jdom/jdom2 -->
 		<dependency>
-			<groupId>org.hamcrest</groupId>
-			<artifactId>hamcrest</artifactId>
-			<version>2.2</version>
-			<scope>test</scope>
+			<groupId>org.jdom</groupId>
+			<artifactId>jdom2</artifactId>
+			<version>2.0.6</version>
 		</dependency>
 	</dependencies>
 
