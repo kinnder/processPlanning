@@ -6,7 +6,7 @@ import application.domain.AssemblyLine;
 import application.domain.CuttingProcess;
 import application.domain.MaterialPoints;
 import application.event.CommandStatusEvent;
-import application.storage.SystemTransformationsXMLFile;
+import application.storage.xml.SystemTransformationsXMLFile;
 import planning.method.SystemTransformations;
 
 public class NewSystemTransformationsCommand extends Command {

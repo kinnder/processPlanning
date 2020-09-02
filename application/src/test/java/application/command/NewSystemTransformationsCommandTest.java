@@ -10,7 +10,7 @@ import org.junit.jupiter.api.extension.RegisterExtension;
 
 import application.UserInterface;
 import application.event.CommandStatusEventMatcher;
-import application.storage.SystemTransformationsXMLFile;
+import application.storage.xml.SystemTransformationsXMLFile;
 import planning.method.SystemTransformations;
 
 public class NewSystemTransformationsCommandTest {

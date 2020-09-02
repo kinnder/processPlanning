@@ -1,10 +1,10 @@
 package application.command;
 
 import application.event.CommandStatusEvent;
-import application.storage.NodeNetworkXMLFile;
-import application.storage.SystemProcessXMLFile;
-import application.storage.SystemTransformationsXMLFile;
-import application.storage.TaskDescriptionXMLFile;
+import application.storage.xml.NodeNetworkXMLFile;
+import application.storage.xml.SystemProcessXMLFile;
+import application.storage.xml.SystemTransformationsXMLFile;
+import application.storage.xml.TaskDescriptionXMLFile;
 import planning.method.NodeNetwork;
 import planning.method.Planner;
 import planning.method.SystemTransformations;

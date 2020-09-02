@@ -10,7 +10,7 @@ import org.junit.jupiter.api.extension.RegisterExtension;
 
 import application.UserInterface;
 import application.event.CommandStatusEventMatcher;
-import application.storage.TaskDescriptionXMLFile;
+import application.storage.xml.TaskDescriptionXMLFile;
 import planning.method.TaskDescription;
 
 public class NewTaskDescriptionCommandTest {
