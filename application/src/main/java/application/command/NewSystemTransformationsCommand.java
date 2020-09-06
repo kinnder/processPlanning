@@ -13,7 +13,13 @@ public class NewSystemTransformationsCommand extends Command {
 
 	public static final String NAME = "new_st";
 
+	// TODO (2020-09-06 #31): удалить
 	SystemTransformationsXMLFile transformationsXMLFile = new SystemTransformationsXMLFile();
+	//
+
+	// TODO (2020-09-06 #31): убрать комментирование
+	// PersistanceStorage persistanceStorage = new
+	// PersistanceStorage(StorageType.xml);
 
 	@Override
 	public void execute(CommandData data) throws Exception {
@@ -39,8 +45,14 @@ public class NewSystemTransformationsCommand extends Command {
 			break;
 		}
 
+		// TODO (2020-09-06 #31): убрать комментирование
+		// persistanceStorage.save(systemTransformations,
+		// data.systemTransformationsFile);
+
+		// TODO (2020-09-06 #31): удалить
 		transformationsXMLFile.setObject(systemTransformations);
 		transformationsXMLFile.save(data.systemTransformationsFile);
+		//
 
 		notifyCommandStatus(new CommandStatusEvent("done"));
 	}
