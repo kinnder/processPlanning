@@ -1,7 +1,6 @@
 package application.storage.xml;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
 
 import java.io.BufferedInputStream;
 import java.io.IOException;
@@ -70,36 +69,24 @@ public class XMLFileTest {
 			}
 		});
 
-		testable.load(path_mock);
+		assertEquals(data_mock, testable.load(path_mock));
 	}
 
 	@Test
 	public void save_path() throws IOException {
 		final Path path_mock = context.mock(Path.class);
 		final Element element = new Element("document");
+		final Object object_mock = context.mock(Object.class);
 
 		context.checking(new Expectations() {
 			{
-				oneOf(xmlSchema_mock).combine(null);
+				oneOf(xmlSchema_mock).combine(object_mock);
 				will(returnValue(element));
 
 				oneOf(path_mock).getFileSystem();
 			}
 		});
 
-		testable.save(path_mock);
-	}
-
-	@Test
-	public void getObject() {
-		assertNull(testable.getObject());
-	}
-
-	@Test
-	public void setObject() {
-		final Object object_mock = context.mock(Object.class);
-
-		testable.setObject(object_mock);
-		assertEquals(object_mock, testable.getObject());
+		testable.save(object_mock, path_mock);
 	}
 }

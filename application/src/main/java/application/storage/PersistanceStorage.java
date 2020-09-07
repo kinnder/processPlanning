@@ -21,7 +21,7 @@ public class PersistanceStorage {
 		this.storageType = storageType;
 	}
 
-	public void save(SystemTransformations systemTransformations, String path) throws IOException {
+	public void saveSystemTransformations(SystemTransformations systemTransformations, String path) throws IOException {
 		switch (storageType) {
 		case xml:
 //			transformationsXMLFile.setObject(systemTransformations);
@@ -32,7 +32,7 @@ public class PersistanceStorage {
 		}
 	}
 
-	public void save(TaskDescription taskDescription, String path) throws IOException {
+	public void saveTaskDescription(TaskDescription taskDescription, String path) throws IOException {
 		switch (storageType) {
 		case xml:
 //			taskXMLFile.setObject(taskDescription);
@@ -43,7 +43,7 @@ public class PersistanceStorage {
 		}
 	}
 
-	public void load(SystemTransformations systemTransformations, String path) throws IOException, JDOMException {
+	public SystemTransformations loadSystemTransformations(String path) throws IOException, JDOMException {
 		switch (storageType) {
 		case xml:
 //			transformationsXMLFile.load(path);
@@ -55,9 +55,10 @@ public class PersistanceStorage {
 		default:
 			break;
 		}
+		return null;
 	}
 
-	public void load(TaskDescription taskDescription, String path) throws IOException, JDOMException {
+	public TaskDescription loadTaskDescription(String path) throws IOException, JDOMException {
 		switch (storageType) {
 		case xml:
 //			taskXMLFile.load(path);
@@ -66,5 +67,6 @@ public class PersistanceStorage {
 		default:
 			break;
 		}
+		return null;
 	}
 }

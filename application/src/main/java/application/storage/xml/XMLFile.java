@@ -22,8 +22,6 @@ public class XMLFile<T> {
 
 	private XMLSchema<T> xmlSchema;
 
-	protected T object;
-
 	private SAXBuilder builder = new SAXBuilder();
 
 	private XMLOutputter outputter = new XMLOutputter(Format.getPrettyFormat().setIndent("\t"));
@@ -37,40 +35,32 @@ public class XMLFile<T> {
 		this.builder = builder;
 	}
 
-	public void load(String path) throws IOException, JDOMException {
-		load(Paths.get(path));
+	public T load(String path) throws IOException, JDOMException {
+		return load(Paths.get(path));
 	}
 
-	public void load(URL resource) throws IOException, URISyntaxException, JDOMException {
-		load(Paths.get(resource.toURI()));
+	public T load(URL resource) throws IOException, URISyntaxException, JDOMException {
+		return load(Paths.get(resource.toURI()));
 	}
 
-	public void load(Path path) throws IOException, JDOMException {
+	public T load(Path path) throws IOException, JDOMException {
 		InputStream inputStream = new BufferedInputStream(Files.newInputStream(path));
 		Element root = builder.build(inputStream).getRootElement();
-		object = xmlSchema.parse(root);
+		return xmlSchema.parse(root);
 	}
 
-	public void save(String path) throws IOException {
-		save(Paths.get(path));
+	public void save(T object, String path) throws IOException {
+		save(object, Paths.get(path));
 	}
 
-	public void save(URL resource) throws IOException, URISyntaxException {
-		save(Paths.get(resource.toURI()));
+	public void save(T object, URL resource) throws IOException, URISyntaxException {
+		save(object, Paths.get(resource.toURI()));
 	}
 
-	public void save(Path path) throws IOException {
+	public void save(T object, Path path) throws IOException {
 		Element root = xmlSchema.combine(object);
 		Document document = new Document(root);
 		OutputStream outputStream = new BufferedOutputStream(Files.newOutputStream(path));
 		outputter.output(document, outputStream);
-	}
-
-	public void setObject(T object) {
-		this.object = object;
-	}
-
-	public T getObject() {
-		return this.object;
 	}
 }

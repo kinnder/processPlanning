@@ -72,8 +72,7 @@ public class PlanCommandTest {
 		data_mock.processFile = "process.xml";
 		data_mock.nodeNetworkFile = "nodeNetwork.xml";
 
-		final SystemTransformation systemTransformation_mock = context.mock(SystemTransformation.class,
-				"systemTransformation");
+		final SystemTransformation systemTransformation_mock = context.mock(SystemTransformation.class, "systemTransformation");
 		final SystemTransformations systemTransformations = new SystemTransformations();
 		systemTransformations.add(systemTransformation_mock);
 		final TaskDescription taskDescription_mock = context.mock(TaskDescription.class);
@@ -89,16 +88,13 @@ public class PlanCommandTest {
 
 		context.checking(new Expectations() {
 			{
-				oneOf(ui_mock).notifyCommandStatus(with(new CommandStatusEventMatcher().expectMessage("executing command: \"plan\"...")));
+				oneOf(ui_mock).notifyCommandStatus(
+						with(new CommandStatusEventMatcher().expectMessage("executing command: \"plan\"...")));
 
 				oneOf(transformationsXMLFile_mock).load("systemTransformations.xml");
-
-				oneOf(transformationsXMLFile_mock).getObject();
 				will(returnValue(systemTransformations));
 
 				oneOf(taskXMLFile_mock).load("taskDescription.xml");
-
-				oneOf(taskXMLFile_mock).getObject();
 				will(returnValue(taskDescription_mock));
 
 				oneOf(taskDescription_mock).getInitialSystem();
@@ -125,13 +121,9 @@ public class PlanCommandTest {
 				oneOf(system_mock).contains(finalSystem_mock);
 				will(returnValue(true));
 
-				oneOf(processXMLFile_mock).setObject(with(any(SystemProcess.class)));
+				oneOf(processXMLFile_mock).save(with(any(SystemProcess.class)), with("process.xml"));
 
-				oneOf(processXMLFile_mock).save("process.xml");
-
-				oneOf(nodeNetworkXMLFile_mock).setObject(with(any(NodeNetwork.class)));
-
-				oneOf(nodeNetworkXMLFile_mock).save("nodeNetwork.xml");
+				oneOf(nodeNetworkXMLFile_mock).save(with(any(NodeNetwork.class)), with("nodeNetwork.xml"));
 
 				oneOf(ui_mock).notifyCommandStatus(with(new CommandStatusEventMatcher().expectMessage("done")));
 			}

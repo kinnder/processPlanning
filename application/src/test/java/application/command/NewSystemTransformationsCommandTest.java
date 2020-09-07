@@ -53,9 +53,7 @@ public class NewSystemTransformationsCommandTest {
 						.expectMessage("executing command: \"new system transformation\"...")));
 
 				// TODO (2020-07-23 #28): добавить Matcher для сравнения SystemTransformations
-				oneOf(transformationsXMLFile_mock).setObject(with(any(SystemTransformations.class)));
-
-				oneOf(transformationsXMLFile_mock).save("systemTransformations.xml");
+				oneOf(transformationsXMLFile_mock).save(with(any(SystemTransformations.class)), with("systemTransformations.xml"));
 
 				oneOf(ui_mock).notifyCommandStatus(with(new CommandStatusEventMatcher().expectMessage("done")));
 			}
@@ -78,9 +76,7 @@ public class NewSystemTransformationsCommandTest {
 						.expectMessage("executing command: \"new system transformation\"...")));
 
 				// TODO (2020-07-23 #28): добавить Matcher для сравнения SystemTransformations
-				oneOf(transformationsXMLFile_mock).setObject(with(any(SystemTransformations.class)));
-
-				oneOf(transformationsXMLFile_mock).save("systemTransformations.xml");
+				oneOf(transformationsXMLFile_mock).save(with(any(SystemTransformations.class)), with("systemTransformations.xml"));
 
 				oneOf(ui_mock).notifyCommandStatus(with(new CommandStatusEventMatcher().expectMessage("done")));
 			}
@@ -103,9 +99,7 @@ public class NewSystemTransformationsCommandTest {
 						.expectMessage("executing command: \"new system transformation\"...")));
 
 				// TODO (2020-07-23 #28): добавить Matcher для сравнения SystemTransformations
-				oneOf(transformationsXMLFile_mock).setObject(with(any(SystemTransformations.class)));
-
-				oneOf(transformationsXMLFile_mock).save("systemTransformations.xml");
+				oneOf(transformationsXMLFile_mock).save(with(any(SystemTransformations.class)), with("systemTransformations.xml"));
 
 				oneOf(ui_mock).notifyCommandStatus(with(new CommandStatusEventMatcher().expectMessage("done")));
 			}
@@ -128,9 +122,7 @@ public class NewSystemTransformationsCommandTest {
 						.expectMessage("executing command: \"new system transformation\"...")));
 
 				// TODO (2020-07-23 #28): добавить Matcher для сравнения SystemTransformations
-				oneOf(transformationsXMLFile_mock).setObject(with(any(SystemTransformations.class)));
-
-				oneOf(transformationsXMLFile_mock).save("systemTransformations.xml");
+				oneOf(transformationsXMLFile_mock).save(with(any(SystemTransformations.class)), with("systemTransformations.xml"));
 
 				oneOf(ui_mock).notifyCommandStatus(with(new CommandStatusEventMatcher().expectMessage("done")));
 			}

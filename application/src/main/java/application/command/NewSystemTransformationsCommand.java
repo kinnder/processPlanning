@@ -50,8 +50,7 @@ public class NewSystemTransformationsCommand extends Command {
 		// data.systemTransformationsFile);
 
 		// TODO (2020-09-06 #31): удалить
-		transformationsXMLFile.setObject(systemTransformations);
-		transformationsXMLFile.save(data.systemTransformationsFile);
+		transformationsXMLFile.save(systemTransformations, data.systemTransformationsFile);
 		//
 
 		notifyCommandStatus(new CommandStatusEvent("done"));

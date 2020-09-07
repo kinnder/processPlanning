@@ -43,8 +43,7 @@ public class NewTaskDescriptionCommand extends Command {
 			break;
 		}
 
-		taskXMLFile.setObject(taskDescription);
-		taskXMLFile.save(data.taskDescriptionFile);
+		taskXMLFile.save(taskDescription, data.taskDescriptionFile);
 
 		notifyCommandStatus(new CommandStatusEvent("done"));
 	}

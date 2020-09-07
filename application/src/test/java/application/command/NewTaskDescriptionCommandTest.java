@@ -53,9 +53,7 @@ public class NewTaskDescriptionCommandTest {
 						.expectMessage("executing command: \"new task description\"...")));
 
 				// TODO (2020-07-24 #29): добавить Matcher для сравнения TaskDescription
-				oneOf(taskXMLFile_mock).setObject(with(any(TaskDescription.class)));
-
-				oneOf(taskXMLFile_mock).save("taskDescription.xml");
+				oneOf(taskXMLFile_mock).save(with(any(TaskDescription.class)), with("taskDescription.xml"));
 
 				oneOf(ui_mock).notifyCommandStatus(with(new CommandStatusEventMatcher().expectMessage("done")));
 			}
@@ -78,9 +76,7 @@ public class NewTaskDescriptionCommandTest {
 						.expectMessage("executing command: \"new task description\"...")));
 
 				// TODO (2020-07-24 #29): добавить Matcher для сравнения TaskDescription
-				oneOf(taskXMLFile_mock).setObject(with(any(TaskDescription.class)));
-
-				oneOf(taskXMLFile_mock).save("taskDescription.xml");
+				oneOf(taskXMLFile_mock).save(with(any(TaskDescription.class)), with("taskDescription.xml"));
 
 				oneOf(ui_mock).notifyCommandStatus(with(new CommandStatusEventMatcher().expectMessage("done")));
 			}
@@ -103,9 +99,7 @@ public class NewTaskDescriptionCommandTest {
 						.expectMessage("executing command: \"new task description\"...")));
 
 				// TODO (2020-07-24 #29): добавить Matcher для сравнения TaskDescription
-				oneOf(taskXMLFile_mock).setObject(with(any(TaskDescription.class)));
-
-				oneOf(taskXMLFile_mock).save("taskDescription.xml");
+				oneOf(taskXMLFile_mock).save(with(any(TaskDescription.class)), with("taskDescription.xml"));
 
 				oneOf(ui_mock).notifyCommandStatus(with(new CommandStatusEventMatcher().expectMessage("done")));
 			}
@@ -128,9 +122,7 @@ public class NewTaskDescriptionCommandTest {
 						.expectMessage("executing command: \"new task description\"...")));
 
 				// TODO (2020-07-24 #29): добавить Matcher для сравнения TaskDescription
-				oneOf(taskXMLFile_mock).setObject(with(any(TaskDescription.class)));
-
-				oneOf(taskXMLFile_mock).save("taskDescription.xml");
+				oneOf(taskXMLFile_mock).save(with(any(TaskDescription.class)), with("taskDescription.xml"));
 
 				oneOf(ui_mock).notifyCommandStatus(with(new CommandStatusEventMatcher().expectMessage("done")));
 			}

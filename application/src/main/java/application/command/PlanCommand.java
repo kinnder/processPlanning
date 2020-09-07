@@ -31,11 +31,9 @@ public class PlanCommand extends Command {
 	private void execute(PlanCommandData data) throws Exception {
 		notifyCommandStatus(new CommandStatusEvent("executing command: \"plan\"..."));
 
-		transformationsXMLFile.load(data.systemTransformationsFile);
-		SystemTransformations systemTransformations = transformationsXMLFile.getObject();
+		SystemTransformations systemTransformations = transformationsXMLFile.load(data.systemTransformationsFile);
 
-		taskXMLFile.load(data.taskDescriptionFile);
-		TaskDescription taskDescription = taskXMLFile.getObject();
+		TaskDescription taskDescription = taskXMLFile.load(data.taskDescriptionFile);
 
 		NodeNetwork nodeNetwork = new NodeNetwork();
 		// TODO : move to initialization
@@ -43,11 +41,9 @@ public class PlanCommand extends Command {
 		planner.plan();
 
 		SystemProcess operations = planner.getShortestProcess();
-		processXMLFile.setObject(operations);
-		processXMLFile.save(data.processFile);
+		processXMLFile.save(operations, data.processFile);
 
-		nodeNetworkXMLFile.setObject(nodeNetwork);
-		nodeNetworkXMLFile.save(data.nodeNetworkFile);
+		nodeNetworkXMLFile.save(nodeNetwork, data.nodeNetworkFile);
 
 		notifyCommandStatus(new CommandStatusEvent("done"));
 	}
