@@ -11,62 +11,32 @@ import planning.method.TaskDescription;
 
 public class PersistanceStorage {
 
-	private StorageType storageType;
+	SystemTransformationsXMLFile transformationsXMLFile;
 
-	SystemTransformationsXMLFile transformationsXMLFile = new SystemTransformationsXMLFile();
+	TaskDescriptionXMLFile taskXMLFile;
 
-	TaskDescriptionXMLFile taskXMLFile = new TaskDescriptionXMLFile();
+	public PersistanceStorage() {
+		this(new SystemTransformationsXMLFile(), new TaskDescriptionXMLFile());
+	}
 
-	public PersistanceStorage(StorageType storageType) {
-		this.storageType = storageType;
+	PersistanceStorage(SystemTransformationsXMLFile transformationsXMLFile, TaskDescriptionXMLFile taskXMLFile) {
+		this.transformationsXMLFile = transformationsXMLFile;
+		this.taskXMLFile = taskXMLFile;
 	}
 
 	public void saveSystemTransformations(SystemTransformations systemTransformations, String path) throws IOException {
-		switch (storageType) {
-		case xml:
-//			transformationsXMLFile.setObject(systemTransformations);
-//			transformationsXMLFile.save(path);
-			break;
-		default:
-			break;
-		}
+		transformationsXMLFile.save(systemTransformations, path);
 	}
 
 	public void saveTaskDescription(TaskDescription taskDescription, String path) throws IOException {
-		switch (storageType) {
-		case xml:
-//			taskXMLFile.setObject(taskDescription);
-//			taskXMLFile.save(path);
-			break;
-		default:
-			break;
-		}
+		taskXMLFile.save(taskDescription, path);
 	}
 
 	public SystemTransformations loadSystemTransformations(String path) throws IOException, JDOMException {
-		switch (storageType) {
-		case xml:
-//			transformationsXMLFile.load(path);
-//			systemTransformations = transformationsXMLFile.getObject();
-			// v2
-			// transformationsXMLFile.setObject(systemTransformations);
-			// transformations.load(path);
-			break;
-		default:
-			break;
-		}
-		return null;
+		return transformationsXMLFile.load(path);
 	}
 
 	public TaskDescription loadTaskDescription(String path) throws IOException, JDOMException {
-		switch (storageType) {
-		case xml:
-//			taskXMLFile.load(path);
-//			taskDescription = taskXMLFile.getObject();
-			break;
-		default:
-			break;
-		}
-		return null;
+		return taskXMLFile.load(path);
 	}
 }
