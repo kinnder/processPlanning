@@ -13,10 +13,14 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
+import application.storage.xml.NodeNetworkXMLFile;
+import application.storage.xml.SystemProcessXMLFile;
 import application.storage.xml.SystemTransformationsXMLFile;
 import application.storage.xml.TaskDescriptionXMLFile;
+import planning.method.NodeNetwork;
 import planning.method.SystemTransformations;
 import planning.method.TaskDescription;
+import planning.model.SystemProcess;
 
 public class PersistanceStorageTest {
 
@@ -38,12 +42,19 @@ public class PersistanceStorageTest {
 
 	TaskDescriptionXMLFile taskDescriptionXMLFile_mock;
 
+	SystemProcessXMLFile systemProcessXMLFile_mock;
+
+	NodeNetworkXMLFile nodeNetworkXMLFile_mock;
+
 	@BeforeEach
 	public void setup() {
 		systemTransformationsXMLFile_mock = context.mock(SystemTransformationsXMLFile.class);
 		taskDescriptionXMLFile_mock = context.mock(TaskDescriptionXMLFile.class);
+		systemProcessXMLFile_mock = context.mock(SystemProcessXMLFile.class);
+		nodeNetworkXMLFile_mock = context.mock(NodeNetworkXMLFile.class);
 
-		testable = new PersistanceStorage(systemTransformationsXMLFile_mock, taskDescriptionXMLFile_mock);
+		testable = new PersistanceStorage(systemTransformationsXMLFile_mock, taskDescriptionXMLFile_mock,
+				systemProcessXMLFile_mock, nodeNetworkXMLFile_mock);
 	}
 
 	@Test
@@ -107,5 +118,33 @@ public class PersistanceStorageTest {
 		});
 
 		assertEquals(taskDescription_mock, testable.loadTaskDescription(path));
+	}
+
+	@Test
+	public void saveSystemProcess() throws IOException {
+		final SystemProcess systemProcess_mock = context.mock(SystemProcess.class);
+		final String path = "path-to-file";
+
+		context.checking(new Expectations() {
+			{
+				oneOf(systemProcessXMLFile_mock).save(systemProcess_mock, path);
+			}
+		});
+
+		testable.saveSystemProcess(systemProcess_mock, path);
+	}
+
+	@Test
+	public void saveNodeNetwork() throws IOException {
+		final NodeNetwork nodeNetwork_mock = context.mock(NodeNetwork.class);
+		final String path = "path-to-file";
+
+		context.checking(new Expectations() {
+			{
+				oneOf(nodeNetworkXMLFile_mock).save(nodeNetwork_mock, path);
+			}
+		});
+
+		testable.saveNodeNetwork(nodeNetwork_mock, path);
 	}
 }

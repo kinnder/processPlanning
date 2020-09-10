@@ -6,20 +6,14 @@ import application.domain.AssemblyLine;
 import application.domain.CuttingProcess;
 import application.domain.MaterialPoints;
 import application.event.CommandStatusEvent;
-import application.storage.xml.SystemTransformationsXMLFile;
+import application.storage.PersistanceStorage;
 import planning.method.SystemTransformations;
 
 public class NewSystemTransformationsCommand extends Command {
 
 	public static final String NAME = "new_st";
 
-	// TODO (2020-09-06 #31): удалить
-	SystemTransformationsXMLFile transformationsXMLFile = new SystemTransformationsXMLFile();
-	//
-
-	// TODO (2020-09-06 #31): убрать комментирование
-	// PersistanceStorage persistanceStorage = new
-	// PersistanceStorage(StorageType.xml);
+	PersistanceStorage persistanceStorage = new PersistanceStorage();
 
 	@Override
 	public void execute(CommandData data) throws Exception {
@@ -45,13 +39,7 @@ public class NewSystemTransformationsCommand extends Command {
 			break;
 		}
 
-		// TODO (2020-09-06 #31): убрать комментирование
-		// persistanceStorage.save(systemTransformations,
-		// data.systemTransformationsFile);
-
-		// TODO (2020-09-06 #31): удалить
-		transformationsXMLFile.save(systemTransformations, data.systemTransformationsFile);
-		//
+		persistanceStorage.saveSystemTransformations(systemTransformations, data.systemTransformationsFile);
 
 		notifyCommandStatus(new CommandStatusEvent("done"));
 	}

@@ -12,10 +12,7 @@ import org.junit.jupiter.api.extension.RegisterExtension;
 
 import application.UserInterface;
 import application.event.CommandStatusEventMatcher;
-import application.storage.xml.NodeNetworkXMLFile;
-import application.storage.xml.SystemProcessXMLFile;
-import application.storage.xml.SystemTransformationsXMLFile;
-import application.storage.xml.TaskDescriptionXMLFile;
+import application.storage.PersistanceStorage;
 import planning.method.NodeNetwork;
 import planning.method.SystemTransformations;
 import planning.method.TaskDescription;
@@ -41,27 +38,15 @@ public class PlanCommandTest {
 
 	PlanCommand testable;
 
-	SystemTransformationsXMLFile transformationsXMLFile_mock;
-
-	TaskDescriptionXMLFile taskXMLFile_mock;
-
-	SystemProcessXMLFile processXMLFile_mock;
-
-	NodeNetworkXMLFile nodeNetworkXMLFile_mock;
+	PersistanceStorage persistanceStorage_mock;
 
 	@BeforeEach
 	public void setup() {
-		transformationsXMLFile_mock = context.mock(SystemTransformationsXMLFile.class);
-		taskXMLFile_mock = context.mock(TaskDescriptionXMLFile.class);
-		processXMLFile_mock = context.mock(SystemProcessXMLFile.class);
-		nodeNetworkXMLFile_mock = context.mock(NodeNetworkXMLFile.class);
+		persistanceStorage_mock = context.mock(PersistanceStorage.class);
 
 		testable = new PlanCommand();
 		// TODO (2020-07-10 #22): перенести в конструктор
-		testable.transformationsXMLFile = transformationsXMLFile_mock;
-		testable.taskXMLFile = taskXMLFile_mock;
-		testable.processXMLFile = processXMLFile_mock;
-		testable.nodeNetworkXMLFile = nodeNetworkXMLFile_mock;
+		testable.persistanceStorage = persistanceStorage_mock;
 	}
 
 	@Test
@@ -72,7 +57,8 @@ public class PlanCommandTest {
 		data_mock.processFile = "process.xml";
 		data_mock.nodeNetworkFile = "nodeNetwork.xml";
 
-		final SystemTransformation systemTransformation_mock = context.mock(SystemTransformation.class, "systemTransformation");
+		final SystemTransformation systemTransformation_mock = context.mock(SystemTransformation.class,
+				"systemTransformation");
 		final SystemTransformations systemTransformations = new SystemTransformations();
 		systemTransformations.add(systemTransformation_mock);
 		final TaskDescription taskDescription_mock = context.mock(TaskDescription.class);
@@ -91,10 +77,10 @@ public class PlanCommandTest {
 				oneOf(ui_mock).notifyCommandStatus(
 						with(new CommandStatusEventMatcher().expectMessage("executing command: \"plan\"...")));
 
-				oneOf(transformationsXMLFile_mock).load("systemTransformations.xml");
+				oneOf(persistanceStorage_mock).loadSystemTransformations("systemTransformations.xml");
 				will(returnValue(systemTransformations));
 
-				oneOf(taskXMLFile_mock).load("taskDescription.xml");
+				oneOf(persistanceStorage_mock).loadTaskDescription("taskDescription.xml");
 				will(returnValue(taskDescription_mock));
 
 				oneOf(taskDescription_mock).getInitialSystem();
@@ -121,9 +107,9 @@ public class PlanCommandTest {
 				oneOf(system_mock).contains(finalSystem_mock);
 				will(returnValue(true));
 
-				oneOf(processXMLFile_mock).save(with(any(SystemProcess.class)), with("process.xml"));
+				oneOf(persistanceStorage_mock).saveSystemProcess(with(any(SystemProcess.class)), with("process.xml"));
 
-				oneOf(nodeNetworkXMLFile_mock).save(with(any(NodeNetwork.class)), with("nodeNetwork.xml"));
+				oneOf(persistanceStorage_mock).saveNodeNetwork(with(any(NodeNetwork.class)), with("nodeNetwork.xml"));
 
 				oneOf(ui_mock).notifyCommandStatus(with(new CommandStatusEventMatcher().expectMessage("done")));
 			}

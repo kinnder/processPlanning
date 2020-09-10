@@ -1,10 +1,7 @@
 package application.command;
 
 import application.event.CommandStatusEvent;
-import application.storage.xml.NodeNetworkXMLFile;
-import application.storage.xml.SystemProcessXMLFile;
-import application.storage.xml.SystemTransformationsXMLFile;
-import application.storage.xml.TaskDescriptionXMLFile;
+import application.storage.PersistanceStorage;
 import planning.method.NodeNetwork;
 import planning.method.Planner;
 import planning.method.SystemTransformations;
@@ -20,30 +17,24 @@ public class PlanCommand extends Command {
 		execute((PlanCommandData) data);
 	}
 
-	SystemTransformationsXMLFile transformationsXMLFile = new SystemTransformationsXMLFile();
-
-	TaskDescriptionXMLFile taskXMLFile = new TaskDescriptionXMLFile();
-
-	SystemProcessXMLFile processXMLFile = new SystemProcessXMLFile();
-
-	NodeNetworkXMLFile nodeNetworkXMLFile = new NodeNetworkXMLFile();
+	PersistanceStorage persistanceStorage = new PersistanceStorage();
 
 	private void execute(PlanCommandData data) throws Exception {
 		notifyCommandStatus(new CommandStatusEvent("executing command: \"plan\"..."));
 
-		SystemTransformations systemTransformations = transformationsXMLFile.load(data.systemTransformationsFile);
+		SystemTransformations systemTransformations = persistanceStorage.loadSystemTransformations(data.systemTransformationsFile);
 
-		TaskDescription taskDescription = taskXMLFile.load(data.taskDescriptionFile);
+		TaskDescription taskDescription = persistanceStorage.loadTaskDescription(data.taskDescriptionFile);
 
 		NodeNetwork nodeNetwork = new NodeNetwork();
 		// TODO : move to initialization
 		Planner planner = new Planner(taskDescription, systemTransformations, nodeNetwork);
 		planner.plan();
 
-		SystemProcess operations = planner.getShortestProcess();
-		processXMLFile.save(operations, data.processFile);
+		SystemProcess process = planner.getShortestProcess();
+		persistanceStorage.saveSystemProcess(process, data.processFile);
 
-		nodeNetworkXMLFile.save(nodeNetwork, data.nodeNetworkFile);
+		persistanceStorage.saveNodeNetwork(nodeNetwork, data.nodeNetworkFile);
 
 		notifyCommandStatus(new CommandStatusEvent("done"));
 	}

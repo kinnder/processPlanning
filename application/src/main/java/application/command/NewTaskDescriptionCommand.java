@@ -6,7 +6,7 @@ import application.domain.AssemblyLine;
 import application.domain.CuttingProcess;
 import application.domain.MaterialPoints;
 import application.event.CommandStatusEvent;
-import application.storage.xml.TaskDescriptionXMLFile;
+import application.storage.PersistanceStorage;
 import planning.method.TaskDescription;
 import planning.model.System;
 
@@ -14,7 +14,7 @@ public class NewTaskDescriptionCommand extends Command {
 
 	public static final String NAME = "new_td";
 
-	TaskDescriptionXMLFile taskXMLFile = new TaskDescriptionXMLFile();
+	PersistanceStorage persistanceStorage = new PersistanceStorage();
 
 	@Override
 	public void execute(CommandData data) throws Exception {
@@ -43,7 +43,7 @@ public class NewTaskDescriptionCommand extends Command {
 			break;
 		}
 
-		taskXMLFile.save(taskDescription, data.taskDescriptionFile);
+		persistanceStorage.saveTaskDescription(taskDescription, data.taskDescriptionFile);
 
 		notifyCommandStatus(new CommandStatusEvent("done"));
 	}

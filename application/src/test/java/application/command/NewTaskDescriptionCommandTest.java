@@ -10,7 +10,7 @@ import org.junit.jupiter.api.extension.RegisterExtension;
 
 import application.UserInterface;
 import application.event.CommandStatusEventMatcher;
-import application.storage.xml.TaskDescriptionXMLFile;
+import application.storage.PersistanceStorage;
 import planning.method.TaskDescription;
 
 public class NewTaskDescriptionCommandTest {
@@ -29,15 +29,15 @@ public class NewTaskDescriptionCommandTest {
 
 	NewTaskDescriptionCommand testable;
 
-	TaskDescriptionXMLFile taskXMLFile_mock;
+	PersistanceStorage persistanceStorage_mock;
 
 	@BeforeEach
 	public void setup() {
-		taskXMLFile_mock = context.mock(TaskDescriptionXMLFile.class);
+		persistanceStorage_mock = context.mock(PersistanceStorage.class);
 
 		testable = new NewTaskDescriptionCommand();
 		// TODO (2020-07-24 #29): перенести в конструктор
-		testable.taskXMLFile = taskXMLFile_mock;
+		testable.persistanceStorage = persistanceStorage_mock;
 	}
 
 	@Test
@@ -53,7 +53,7 @@ public class NewTaskDescriptionCommandTest {
 						.expectMessage("executing command: \"new task description\"...")));
 
 				// TODO (2020-07-24 #29): добавить Matcher для сравнения TaskDescription
-				oneOf(taskXMLFile_mock).save(with(any(TaskDescription.class)), with("taskDescription.xml"));
+				oneOf(persistanceStorage_mock).saveTaskDescription(with(any(TaskDescription.class)), with("taskDescription.xml"));
 
 				oneOf(ui_mock).notifyCommandStatus(with(new CommandStatusEventMatcher().expectMessage("done")));
 			}
@@ -76,7 +76,7 @@ public class NewTaskDescriptionCommandTest {
 						.expectMessage("executing command: \"new task description\"...")));
 
 				// TODO (2020-07-24 #29): добавить Matcher для сравнения TaskDescription
-				oneOf(taskXMLFile_mock).save(with(any(TaskDescription.class)), with("taskDescription.xml"));
+				oneOf(persistanceStorage_mock).saveTaskDescription(with(any(TaskDescription.class)), with("taskDescription.xml"));
 
 				oneOf(ui_mock).notifyCommandStatus(with(new CommandStatusEventMatcher().expectMessage("done")));
 			}
@@ -99,7 +99,7 @@ public class NewTaskDescriptionCommandTest {
 						.expectMessage("executing command: \"new task description\"...")));
 
 				// TODO (2020-07-24 #29): добавить Matcher для сравнения TaskDescription
-				oneOf(taskXMLFile_mock).save(with(any(TaskDescription.class)), with("taskDescription.xml"));
+				oneOf(persistanceStorage_mock).saveTaskDescription(with(any(TaskDescription.class)), with("taskDescription.xml"));
 
 				oneOf(ui_mock).notifyCommandStatus(with(new CommandStatusEventMatcher().expectMessage("done")));
 			}
@@ -122,7 +122,7 @@ public class NewTaskDescriptionCommandTest {
 						.expectMessage("executing command: \"new task description\"...")));
 
 				// TODO (2020-07-24 #29): добавить Matcher для сравнения TaskDescription
-				oneOf(taskXMLFile_mock).save(with(any(TaskDescription.class)), with("taskDescription.xml"));
+				oneOf(persistanceStorage_mock).saveTaskDescription(with(any(TaskDescription.class)), with("taskDescription.xml"));
 
 				oneOf(ui_mock).notifyCommandStatus(with(new CommandStatusEventMatcher().expectMessage("done")));
 			}
