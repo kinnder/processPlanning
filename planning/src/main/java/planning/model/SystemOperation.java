@@ -16,6 +16,7 @@ public class SystemOperation {
 		return action;
 	}
 
+	// TODO (2020-09-17 #31): скрыть структуру хранения параметров
 	private Map<String, String> actionParameters;
 
 	public Map<String, String> getActionParameters() {
