@@ -2,9 +2,9 @@ package application.storage.owl;
 
 import planning.model.SystemProcess;
 
-public class SystemProcessOWLFile {
+public class SystemProcessOWLFile extends OWLFile<SystemProcess> {
 
-	public void save(SystemProcess systemProcess, String path) {
-		// TODO Auto-generated method stub
+	public SystemProcessOWLFile() {
+		super(new SystemProcessOWLSchema());
 	}
 }
