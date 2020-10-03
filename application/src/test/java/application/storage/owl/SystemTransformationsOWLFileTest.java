@@ -7,7 +7,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
-public class SystemProcessOWLFileTest {
+public class SystemTransformationsOWLFileTest {
 
 	@RegisterExtension
 	JUnit5Mockery context = new JUnit5Mockery() {
@@ -21,11 +21,11 @@ public class SystemProcessOWLFileTest {
 		context.assertIsSatisfied();
 	}
 
-	SystemProcessOWLFile testable;
+	SystemTransformationsOWLFile testable;
 
 	@BeforeEach
 	public void setup() {
-		testable = new SystemProcessOWLFile();
+		testable = new SystemTransformationsOWLFile();
 	}
 
 	@Test
