@@ -12,4 +12,10 @@ public class SystemTransformationsOWLSchema implements OWLSchema<SystemTransform
 		return null;
 	}
 
+	@Override
+	public SystemTransformations parse(OntModel m) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

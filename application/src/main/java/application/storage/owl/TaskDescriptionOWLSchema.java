@@ -11,4 +11,10 @@ public class TaskDescriptionOWLSchema implements OWLSchema<TaskDescription> {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public TaskDescription parse(OntModel m) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

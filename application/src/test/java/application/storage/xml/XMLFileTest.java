@@ -52,7 +52,7 @@ public class XMLFileTest {
 		final Path path_mock = context.mock(Path.class);
 		final Document document_mock = context.mock(Document.class);
 		final Element element_mock = context.mock(Element.class);
-		final Object data_mock = context.mock(Object.class);
+		final Object object_mock = context.mock(Object.class);
 
 		context.checking(new Expectations() {
 			{
@@ -65,11 +65,11 @@ public class XMLFileTest {
 				will(returnValue(element_mock));
 
 				oneOf(xmlSchema_mock).parse(element_mock);
-				will(returnValue(data_mock));
+				will(returnValue(object_mock));
 			}
 		});
 
-		assertEquals(data_mock, testable.load(path_mock));
+		assertEquals(object_mock, testable.load(path_mock));
 	}
 
 	@Test

@@ -11,4 +11,10 @@ public class NodeNetworkOWLSchema implements OWLSchema<NodeNetwork> {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public NodeNetwork parse(OntModel m) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
