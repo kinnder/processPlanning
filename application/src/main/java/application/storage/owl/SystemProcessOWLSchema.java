@@ -47,8 +47,7 @@ public class SystemProcessOWLSchema implements OWLSchema<SystemProcess> {
 		ontDatatypeProperty_value.addLabel("value", "en");
 		ontDatatypeProperty_value.addLabel("значение", "ru");
 		ontDatatypeProperty_value.addDomain(ontClass_parameter);
-		// TODO : не Integer, а String
-		ontDatatypeProperty_value.addRange(XSD.integer);
+		ontDatatypeProperty_value.addRange(XSD.xstring);
 
 		ObjectProperty ontObjectProperty_hasOperation = m.createObjectProperty(NS + "hasOperation");
 		ontObjectProperty_hasOperation.addLabel("has operation", "en");
@@ -105,7 +104,7 @@ public class SystemProcessOWLSchema implements OWLSchema<SystemProcess> {
 				ind_parameter.addLabel("Parameter ".concat(operationNum).concat(" ").concat(parameterNum), "en");
 				ind_parameter.addLabel("Параметр ".concat(operationNum).concat(" ").concat(parameterNum), "ru");
 				ind_parameter.addProperty(ontDatatypeProperty_name, parameterName);
-				ind_parameter.addProperty(ontDatatypeProperty_value, parameterValue, XSDDatatype.XSDinteger);
+				ind_parameter.addProperty(ontDatatypeProperty_value, parameterValue, XSDDatatype.XSDstring);
 
 				ind_operation.addProperty(ontObjectProperty_hasParameter, ind_parameter);
 			}
