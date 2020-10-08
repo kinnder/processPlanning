@@ -1,13 +1,6 @@
 package application.storage.owl;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
-
-import org.apache.jena.datatypes.xsd.XSDDatatype;
 import org.apache.jena.ontology.DatatypeProperty;
-import org.apache.jena.ontology.Individual;
-import org.apache.jena.ontology.ObjectProperty;
 import org.apache.jena.ontology.OntClass;
 import org.apache.jena.ontology.OntModel;
 import org.apache.jena.rdf.model.ModelFactory;
@@ -15,107 +8,10 @@ import org.apache.jena.vocabulary.XSD;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
-import planning.model.Action;
-import planning.model.SystemOperation;
-import planning.model.SystemProcess;
-
 public class SystemProcessOWLSchemaTest {
 
 	@Test
 	@Disabled
-	public void example() {
-		// Ontology
-
-		String NS = "https://github.com/kinnder/process-engineering/planning#";
-
-		OntModel m = ModelFactory.createOntologyModel();
-
-		OntClass ontClass_process = m.createClass(NS + "Process");
-		ontClass_process.addLabel("Process", "en");
-		ontClass_process.addLabel("Процесс", "ru");
-
-		OntClass ontClass_operation = m.createClass(NS + "Operation");
-		ontClass_operation.addLabel("Operation", "en");
-		ontClass_operation.addLabel("Операция", "ru");
-
-		OntClass ontClass_parameter = m.createClass(NS + "Parameter");
-		ontClass_parameter.addLabel("Parameter", "en");
-		ontClass_parameter.addLabel("Параметр", "ru");
-
-		ontClass_operation.addDisjointWith(ontClass_parameter);
-		ontClass_parameter.addDisjointWith(ontClass_operation);
-
-		DatatypeProperty ontDatatypeProperty_name = m.createDatatypeProperty(NS + "name");
-		ontDatatypeProperty_name.addLabel("name", "en");
-		ontDatatypeProperty_name.addLabel("название", "ru");
-		ontDatatypeProperty_name.addRange(XSD.xstring);
-
-		DatatypeProperty ontDatatypeProperty_value = m.createDatatypeProperty(NS + "value");
-		ontDatatypeProperty_value.addLabel("value", "en");
-		ontDatatypeProperty_value.addLabel("значение", "ru");
-		ontDatatypeProperty_value.addDomain(ontClass_parameter);
-		ontDatatypeProperty_value.addRange(XSD.integer);
-
-		ObjectProperty ontObjectProperty_hasOperation = m.createObjectProperty(NS + "hasOperation");
-		ontObjectProperty_hasOperation.addLabel("has operation", "en");
-		ontObjectProperty_hasOperation.addLabel("имеет операцию", "ru");
-		ontObjectProperty_hasOperation.addDomain(ontClass_process);
-		ontObjectProperty_hasOperation.addRange(ontClass_operation);
-
-		ObjectProperty ontObjectProperty_isOperationOf = m.createObjectProperty(NS + "isOperationOf");
-		ontObjectProperty_isOperationOf.addLabel("is operation of", "en");
-		ontObjectProperty_isOperationOf.addLabel("является операция для", "ru");
-		ontObjectProperty_isOperationOf.addDomain(ontClass_operation);
-		ontObjectProperty_isOperationOf.addRange(ontClass_process);
-
-		ontObjectProperty_hasOperation.addInverseOf(ontObjectProperty_isOperationOf);
-		ontObjectProperty_isOperationOf.addInverseOf(ontObjectProperty_hasOperation);
-
-		ObjectProperty ontObjectProperty_hasParameter = m.createObjectProperty(NS + "hasParameter");
-		ontObjectProperty_hasParameter.addLabel("has parameter", "en");
-		ontObjectProperty_hasParameter.addLabel("имеет параметр", "ru");
-		ontObjectProperty_hasParameter.addDomain(ontClass_operation);
-		ontObjectProperty_hasParameter.addRange(ontClass_parameter);
-
-		ObjectProperty ontObjectProperty_isParameterOf = m.createObjectProperty(NS + "isParameterOf");
-		ontObjectProperty_isParameterOf.addLabel("is parameter of", "en");
-		ontObjectProperty_isParameterOf.addLabel("является параметром для", "ru");
-		ontObjectProperty_isParameterOf.addDomain(ontClass_parameter);
-		ontObjectProperty_isParameterOf.addRange(ontClass_operation);
-
-		ontObjectProperty_hasParameter.addInverseOf(ontObjectProperty_isParameterOf);
-		ontObjectProperty_isParameterOf.addInverseOf(ontObjectProperty_hasParameter);
-
-		// Individuals
-
-		SystemProcess prrocess = new SystemProcess();
-		Map<String, String> parameters1 = new HashMap<>();
-		parameters1.put("параметр-1-1", "10");
-		SystemOperation operation1 = new SystemOperation(new Action("операция-1"), parameters1);
-		prrocess.add(operation1);
-
-		Individual ind_process1 = ontClass_process.createIndividual(NS + UUID.randomUUID().toString());
-		ind_process1.addLabel("Process 1", "en");
-		ind_process1.addLabel("Процесс 1", "ru");
-
-		Individual ind_operation1 = ontClass_operation.createIndividual(NS + UUID.randomUUID().toString());
-		ind_operation1.addLabel("Operation 1", "en");
-		ind_operation1.addLabel("Операция 1", "ru");
-		ind_operation1.addProperty(ontDatatypeProperty_name, operation1.getName());
-
-		ind_process1.addProperty(ontObjectProperty_hasOperation, ind_operation1);
-
-		Individual ind_parameter1 = ontClass_parameter.createIndividual(NS + UUID.randomUUID().toString());
-		ind_parameter1.addLabel("Parameter 1", "en");
-		ind_parameter1.addLabel("Параметр 1", "ru");
-		ind_parameter1.addProperty(ontDatatypeProperty_name, "параметр-1-1");
-		ind_parameter1.addProperty(ontDatatypeProperty_value, parameters1.get("параметр-1-1"), XSDDatatype.XSDinteger);
-
-		ind_operation1.addProperty(ontObjectProperty_hasParameter, ind_parameter1);
-
-		m.write(System.out, "RDF/XML");
-	}
-
 	public void test() {
 		String NS = "http://localhost/process-engineering#";
 
