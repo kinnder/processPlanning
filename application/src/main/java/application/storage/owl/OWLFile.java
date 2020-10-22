@@ -16,6 +16,7 @@ public class OWLFile<T> {
 
 	private OWLSchema<T> owlSchema;
 
+	// TODO (2020-10-22 #31) неиспользуется для записи
 	private OntModel ontModel = ModelFactory.createOntologyModel();
 
 	public OWLFile(OWLSchema<T> owlSchema) {
