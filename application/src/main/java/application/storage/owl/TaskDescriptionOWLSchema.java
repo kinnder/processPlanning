@@ -15,9 +15,29 @@ public class TaskDescriptionOWLSchema implements OWLSchema<TaskDescription> {
 		// Ontology
 		OntModel m = ModelFactory.createOntologyModel();
 
-		OntClass ontClass_process = m.createClass(NS + "Task Description");
-		ontClass_process.addLabel("Task Description", "en");
-		ontClass_process.addLabel("Описание задания", "ru");
+		OntClass ontClass_taskDescription = m.createClass(NS + "Task Description");
+		ontClass_taskDescription.addLabel("Task Description", "en");
+		ontClass_taskDescription.addLabel("Описание задания", "ru");
+
+		OntClass ontClass_initialSystem = m.createClass(NS + "Initial System");
+		ontClass_initialSystem.addLabel("Initial System", "en");
+		ontClass_initialSystem.addLabel("Начальная система", "ru");
+
+		OntClass ontClass_finalSystem = m.createClass(NS + "Final System");
+		ontClass_finalSystem.addLabel("Final System", "en");
+		ontClass_finalSystem.addLabel("Конечная система", "ru");
+
+		OntClass ontClass_systemObject = m.createClass(NS + "System Object");
+		ontClass_systemObject.addLabel("System Object", "en");
+		ontClass_systemObject.addLabel("Объект системы", "ru");
+
+		OntClass ontClass_link = m.createClass(NS + "Link");
+		ontClass_link.addLabel("Link", "en");
+		ontClass_link.addLabel("Связь системы", "ru");
+
+		OntClass ontClass_attribute = m.createClass(NS + "Attribute");
+		ontClass_attribute.addLabel("Attribute", "en");
+		ontClass_attribute.addLabel("Атрибут", "ru");
 
 		return m;
 	}
