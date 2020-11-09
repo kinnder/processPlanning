@@ -1,9 +1,11 @@
 package application.storage.owl;
 
+import org.apache.jena.ontology.DatatypeProperty;
 import org.apache.jena.ontology.ObjectProperty;
 import org.apache.jena.ontology.OntClass;
 import org.apache.jena.ontology.OntModel;
 import org.apache.jena.rdf.model.ModelFactory;
+import org.apache.jena.vocabulary.XSD;
 
 import planning.method.TaskDescription;
 
@@ -43,7 +45,7 @@ public class TaskDescriptionOWLSchema implements OWLSchema<TaskDescription> {
 
 		OntClass ontClass_link = m.createClass(NS + "Link");
 		ontClass_link.addLabel("Link", "en");
-		ontClass_link.addLabel("Связь системы", "ru");
+		ontClass_link.addLabel("Связь", "ru");
 
 		OntClass ontClass_attribute = m.createClass(NS + "Attribute");
 		ontClass_attribute.addLabel("Attribute", "en");
@@ -108,6 +110,57 @@ public class TaskDescriptionOWLSchema implements OWLSchema<TaskDescription> {
 
 		ontObjectProperty_hasLink.addInverseOf(ontObjectProperty_isLinkOf);
 		ontObjectProperty_isLinkOf.addInverseOf(ontObjectProperty_hasLink);
+
+		ObjectProperty ontObjectProperty_hasAttribute = m.createObjectProperty(NS + "hasAttribute");
+		ontObjectProperty_hasAttribute.addLabel("has attribute", "en");
+		ontObjectProperty_hasAttribute.addLabel("имеет атрибут", "ru");
+		ontObjectProperty_hasAttribute.addDomain(ontClass_systemObject);
+		ontObjectProperty_hasAttribute.addRange(ontClass_attribute);
+
+		ObjectProperty ontObjectProperty_isAttributeOf = m.createObjectProperty(NS + "isAttributeOf");
+		ontObjectProperty_isAttributeOf.addLabel("is attribute of", "en");
+		ontObjectProperty_isAttributeOf.addLabel("является атрибутом для", "ru");
+		ontObjectProperty_isAttributeOf.addDomain(ontClass_attribute);
+		ontObjectProperty_isAttributeOf.addRange(ontClass_systemObject);
+
+		ontObjectProperty_hasAttribute.addInverseOf(ontObjectProperty_isAttributeOf);
+		ontObjectProperty_isAttributeOf.addInverseOf(ontObjectProperty_hasAttribute);
+
+		DatatypeProperty ontDatatypeProperty_name = m.createDatatypeProperty(NS + "name");
+		ontDatatypeProperty_name.addLabel("name", "en");
+		ontDatatypeProperty_name.addLabel("название", "ru");
+		ontDatatypeProperty_name.addDomain(ontClass_systemObject);
+		ontDatatypeProperty_name.addRange(XSD.xstring);
+
+		DatatypeProperty ontDatatypeProperty_id = m.createDatatypeProperty(NS + "id");
+		ontDatatypeProperty_id.addLabel("id", "en");
+		ontDatatypeProperty_id.addLabel("идентификатор", "ru");
+		ontDatatypeProperty_id.addDomain(ontClass_systemObject);
+		ontDatatypeProperty_id.addRange(XSD.xstring);
+
+		ontDatatypeProperty_name.addDomain(ontClass_attribute);
+
+		DatatypeProperty ontDatatypeProperty_value = m.createDatatypeProperty(NS + "value");
+		ontDatatypeProperty_value.addLabel("value", "en");
+		ontDatatypeProperty_value.addLabel("значение", "ru");
+		ontDatatypeProperty_value.addDomain(ontClass_attribute);
+		ontDatatypeProperty_value.addRange(XSD.xstring);
+		ontDatatypeProperty_value.addRange(XSD.xboolean);
+		ontDatatypeProperty_value.addRange(XSD.xint);
+
+		ontDatatypeProperty_name.addDomain(ontClass_link);
+
+		DatatypeProperty ontDatatypeProperty_objectId1 = m.createDatatypeProperty(NS + "objectId1");
+		ontDatatypeProperty_objectId1.addLabel("objectId1", "en");
+		ontDatatypeProperty_objectId1.addLabel("идентификатор объекта 1", "ru");
+		ontDatatypeProperty_objectId1.addDomain(ontClass_link);
+		ontDatatypeProperty_objectId1.addRange(XSD.xstring);
+
+		DatatypeProperty ontDatatypeProperty_objectId2 = m.createDatatypeProperty(NS + "objectId2");
+		ontDatatypeProperty_objectId2.addLabel("objectId2", "en");
+		ontDatatypeProperty_objectId2.addLabel("идентификатор объекта 2", "ru");
+		ontDatatypeProperty_objectId2.addDomain(ontClass_link);
+		ontDatatypeProperty_objectId2.addRange(XSD.xstring);
 
 		return m;
 	}

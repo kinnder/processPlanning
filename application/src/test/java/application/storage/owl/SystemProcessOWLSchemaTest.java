@@ -1,14 +1,53 @@
 package application.storage.owl;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
 import org.apache.jena.ontology.DatatypeProperty;
 import org.apache.jena.ontology.OntClass;
 import org.apache.jena.ontology.OntModel;
 import org.apache.jena.rdf.model.ModelFactory;
 import org.apache.jena.vocabulary.XSD;
+import org.jmock.imposters.ByteBuddyClassImposteriser;
+import org.jmock.junit5.JUnit5Mockery;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.RegisterExtension;
+
+import planning.model.SystemProcess;
 
 public class SystemProcessOWLSchemaTest {
+
+	@RegisterExtension
+	JUnit5Mockery context = new JUnit5Mockery() {
+		{
+			setImposteriser(ByteBuddyClassImposteriser.INSTANCE);
+		}
+	};
+
+	@AfterEach
+	public void teardown() {
+		context.assertIsSatisfied();
+	}
+
+	SystemProcessOWLSchema testable;
+
+	@BeforeEach
+	public void setup() {
+		testable = new SystemProcessOWLSchema();
+	}
+
+	@Test
+	public void combine() {
+		final SystemProcess systemProcess = new SystemProcess();
+
+		OntModel model = testable.combine(systemProcess);
+		assertNotNull(model);
+
+		// TODO (2020-11-09 #31): удалить
+//		model.write(System.out, "RDF/XML");
+	}
 
 	@Test
 	@Disabled
