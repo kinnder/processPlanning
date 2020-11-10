@@ -1,5 +1,6 @@
 package application.storage.owl;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import org.apache.jena.ontology.OntModel;
@@ -39,6 +40,8 @@ public class TaskDescriptionOWLSchemaTest {
 
 		OntModel model = testable.combine(taskDescription);
 		assertNotNull(model);
+		assertEquals(86, model.listObjects().toList().size());
+		assertEquals(289, model.listStatements().toList().size());
 
 		// TODO (2020-11-09 #31): удалить
 //		model.write(System.out, "RDF/XML");
