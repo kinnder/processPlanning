@@ -1,12 +1,17 @@
 package application.storage.owl;
 
+import java.util.UUID;
+
 import org.apache.jena.ontology.DatatypeProperty;
+import org.apache.jena.ontology.Individual;
 import org.apache.jena.ontology.ObjectProperty;
 import org.apache.jena.ontology.OntClass;
 import org.apache.jena.ontology.OntModel;
 import org.apache.jena.rdf.model.ModelFactory;
 import org.apache.jena.vocabulary.XSD;
 
+import planning.model.System;
+import planning.model.SystemObject;
 import planning.method.TaskDescription;
 
 public class TaskDescriptionOWLSchema implements OWLSchema<TaskDescription> {
@@ -14,7 +19,7 @@ public class TaskDescriptionOWLSchema implements OWLSchema<TaskDescription> {
 	final private String NS = "https://github.com/kinnder/process-engineering/planning/task-description#";
 
 	@Override
-	public OntModel combine(TaskDescription object) {
+	public OntModel combine(TaskDescription taskDescription) {
 		// Ontology
 		OntModel m = ModelFactory.createOntologyModel();
 
@@ -161,6 +166,44 @@ public class TaskDescriptionOWLSchema implements OWLSchema<TaskDescription> {
 		ontDatatypeProperty_objectId2.addLabel("идентификатор объекта 2", "ru");
 		ontDatatypeProperty_objectId2.addDomain(ontClass_link);
 		ontDatatypeProperty_objectId2.addRange(XSD.xstring);
+
+		// Individuals
+		Individual ind_taskDescription = ontClass_taskDescription.createIndividual(NS + UUID.randomUUID().toString());
+		ind_taskDescription.addLabel("Task Description 1", "en");
+		ind_taskDescription.addLabel("Описания задания 1", "ru");
+
+		Individual ind_initialSystem = ontClass_initialSystem.createIndividual(NS + UUID.randomUUID().toString());
+		ind_initialSystem.addLabel("Initial system 1", "en");
+		ind_initialSystem.addLabel("Начальная система 1", "ru");
+		ind_taskDescription.addProperty(ontObjectProperty_hasInitialSystem, ind_initialSystem);
+		ind_initialSystem.addProperty(ontObjectProperty_isInitialSystemOf, ind_taskDescription);
+
+		System initialSystem = taskDescription.getInitialSystem();
+		int i = 0;
+		for (SystemObject systemObject : initialSystem.getObjects()) {
+			i++;
+			Individual ind_systemObject = ontClass_systemObject.createIndividual(NS + UUID.randomUUID().toString());
+			ind_systemObject.addLabel("System Object ".concat(Integer.toString(i)), "en");
+			ind_systemObject.addLabel("Объект системы ".concat(Integer.toString(i)), "ru");
+			ind_initialSystem.addProperty(ontObjectProperty_hasSystemObject, ind_systemObject);
+			ind_systemObject.addProperty(ontObjectProperty_isSystemObjectOf, ind_initialSystem);
+			ind_systemObject.addProperty(ontDatatypeProperty_name, systemObject.getName());
+			ind_systemObject.addProperty(ontDatatypeProperty_id, systemObject.getId());
+		}
+//		for (Link link : initialSystem.getLinks()) {
+//		}
+
+		Individual ind_finalSystem = ontClass_initialSystem.createIndividual(NS + UUID.randomUUID().toString());
+		ind_finalSystem.addLabel("Final system 1", "en");
+		ind_finalSystem.addLabel("Конечная система 1", "ru");
+		ind_taskDescription.addProperty(ontObjectProperty_hasFinalSystem, ind_finalSystem);
+		ind_finalSystem.addProperty(ontObjectProperty_isFinalSystemOf, ind_taskDescription);
+
+//		System finalSystem = taskDescription.getFinalSystem();
+//		for (SystemObject systemObject : finalSystem.getObjects()) {
+//		}
+//		for (Link link : finalSystem.getLinks()) {
+//		}
 
 		return m;
 	}

@@ -12,6 +12,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
 import planning.method.TaskDescription;
+import planning.model.System;
 
 public class TaskDescriptionOWLSchemaTest {
 
@@ -37,11 +38,15 @@ public class TaskDescriptionOWLSchemaTest {
 	@Test
 	public void combine() {
 		final TaskDescription taskDescription = new TaskDescription();
+		final System initialSystem = new System();
+		final System finalSystem = new System();
+		taskDescription.setInitialSystem(initialSystem);
+		taskDescription.setFinalSystem(finalSystem);
 
 		OntModel model = testable.combine(taskDescription);
 		assertNotNull(model);
-		assertEquals(86, model.listObjects().toList().size());
-		assertEquals(289, model.listStatements().toList().size());
+		assertEquals(95, model.listObjects().toList().size());
+		assertEquals(308, model.listStatements().toList().size());
 
 		// TODO (2020-11-09 #31): удалить
 //		model.write(System.out, "RDF/XML");
