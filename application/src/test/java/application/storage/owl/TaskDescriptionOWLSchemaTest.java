@@ -12,7 +12,9 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
 import planning.method.TaskDescription;
+import planning.model.Link;
 import planning.model.System;
+import planning.model.SystemObject;
 
 public class TaskDescriptionOWLSchemaTest {
 
@@ -39,16 +41,23 @@ public class TaskDescriptionOWLSchemaTest {
 	public void combine() {
 		final TaskDescription taskDescription = new TaskDescription();
 		final System initialSystem = new System();
+		final SystemObject object1 = new SystemObject("test-object-1");
+		initialSystem.addObject(object1);
+		final SystemObject object2 = new SystemObject("test-object-2");
+		initialSystem.addObject(object2);
+		final Link link_1_2 = new Link("test-link-1-2", object1.getId(), object2.getId());
+		initialSystem.addLink(link_1_2);
+
 		final System finalSystem = new System();
 		taskDescription.setInitialSystem(initialSystem);
 		taskDescription.setFinalSystem(finalSystem);
 
 		OntModel model = testable.combine(taskDescription);
 		assertNotNull(model);
-		assertEquals(95, model.listObjects().toList().size());
-		assertEquals(308, model.listStatements().toList().size());
+		assertEquals(109, model.listObjects().toList().size());
+		assertEquals(339, model.listStatements().toList().size());
 
 		// TODO (2020-11-09 #31): удалить
-//		model.write(System.out, "RDF/XML");
+//		model.write(java.lang.System.out, "RDF/XML");
 	}
 }

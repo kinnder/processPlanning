@@ -10,6 +10,7 @@ import org.apache.jena.ontology.OntModel;
 import org.apache.jena.rdf.model.ModelFactory;
 import org.apache.jena.vocabulary.XSD;
 
+import planning.model.Link;
 import planning.model.System;
 import planning.model.SystemObject;
 import planning.method.TaskDescription;
@@ -189,9 +190,21 @@ public class TaskDescriptionOWLSchema implements OWLSchema<TaskDescription> {
 			ind_systemObject.addProperty(ontObjectProperty_isSystemObjectOf, ind_initialSystem);
 			ind_systemObject.addProperty(ontDatatypeProperty_name, systemObject.getName());
 			ind_systemObject.addProperty(ontDatatypeProperty_id, systemObject.getId());
+			//
+//			for (Attribute attribute : systemObject.getAttributes()) {
+//			}
 		}
-//		for (Link link : initialSystem.getLinks()) {
-//		}
+		i = 0;
+		for (Link link : initialSystem.getLinks()) {
+			Individual ind_link = ontClass_link.createIndividual(NS + UUID.randomUUID().toString());
+			ind_link.addLabel("Link ".concat(Integer.toString(i)), "en");
+			ind_link.addLabel("Связь ".concat(Integer.toString(i)), "ru");
+			ind_initialSystem.addProperty(ontObjectProperty_hasLink, ind_link);
+			ind_link.addProperty(ontObjectProperty_isLinkOf, ind_initialSystem);
+			ind_link.addProperty(ontDatatypeProperty_name, link.getName());
+			ind_link.addProperty(ontDatatypeProperty_objectId1, link.getObjectId1());
+			ind_link.addProperty(ontDatatypeProperty_objectId2, link.getObjectId2());
+		}
 
 		Individual ind_finalSystem = ontClass_initialSystem.createIndividual(NS + UUID.randomUUID().toString());
 		ind_finalSystem.addLabel("Final system 1", "en");
