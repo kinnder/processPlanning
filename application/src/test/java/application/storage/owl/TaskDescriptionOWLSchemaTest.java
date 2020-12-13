@@ -12,7 +12,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
 import planning.method.TaskDescription;
-import planning.model.Link;
 import planning.model.System;
 import planning.model.SystemObject;
 
@@ -39,23 +38,36 @@ public class TaskDescriptionOWLSchemaTest {
 
 	@Test
 	public void combine() {
-		final TaskDescription taskDescription = new TaskDescription();
+		final SystemObject object1 = new SystemObject("test_object_1");
+		object1.addAttribute("test_attribute_1_name", new String("test_attribute_1_value"));
+
+		final SystemObject object2 = new SystemObject("test_object_2");
+		object2.addAttribute("test_attribute_2_name", new String("test_attribute_2_value"));
+
 		final System initialSystem = new System();
-		final SystemObject object1 = new SystemObject("test-object-1");
 		initialSystem.addObject(object1);
-		final SystemObject object2 = new SystemObject("test-object-2");
 		initialSystem.addObject(object2);
-		final Link link_1_2 = new Link("test-link-1-2", object1.getId(), object2.getId());
-		initialSystem.addLink(link_1_2);
+		initialSystem.addLink("test_link-1-2", object1.getId(), object2.getId());
+
+		final SystemObject object3 = new SystemObject("test_object_3");
+		object3.addAttribute("test_attribute_3_name", new String("test_attribute_3_value"));
+
+		final SystemObject object4 = new SystemObject("test_object_4");
+		object4.addAttribute("test_attribute_4_name", new String("test_attribute_4_value"));
 
 		final System finalSystem = new System();
+		finalSystem.addObject(object3);
+		finalSystem.addObject(object4);
+		finalSystem.addLink("test_link-3-4", object3.getId(), object4.getId());
+
+		final TaskDescription taskDescription = new TaskDescription();
 		taskDescription.setInitialSystem(initialSystem);
 		taskDescription.setFinalSystem(finalSystem);
 
 		OntModel model = testable.combine(taskDescription);
 		assertNotNull(model);
-		assertEquals(109, model.listObjects().toList().size());
-		assertEquals(339, model.listStatements().toList().size());
+		assertEquals(133, model.listObjects().toList().size());
+		assertEquals(410, model.listStatements().toList().size());
 
 		// TODO (2020-11-09 #31): удалить
 //		model.write(java.lang.System.out, "RDF/XML");

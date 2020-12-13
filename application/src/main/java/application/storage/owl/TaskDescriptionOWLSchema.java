@@ -2,6 +2,7 @@ package application.storage.owl;
 
 import java.util.UUID;
 
+import org.apache.jena.datatypes.xsd.XSDDatatype;
 import org.apache.jena.ontology.DatatypeProperty;
 import org.apache.jena.ontology.Individual;
 import org.apache.jena.ontology.ObjectProperty;
@@ -10,12 +11,16 @@ import org.apache.jena.ontology.OntModel;
 import org.apache.jena.rdf.model.ModelFactory;
 import org.apache.jena.vocabulary.XSD;
 
+import planning.model.Attribute;
 import planning.model.Link;
 import planning.model.System;
 import planning.model.SystemObject;
 import planning.method.TaskDescription;
 
 public class TaskDescriptionOWLSchema implements OWLSchema<TaskDescription> {
+
+	// TODO (2020-12-13 #31): включить проверку copy-paste
+	// CPD-OFF
 
 	final private String NS = "https://github.com/kinnder/process-engineering/planning/task-description#";
 
@@ -190,9 +195,20 @@ public class TaskDescriptionOWLSchema implements OWLSchema<TaskDescription> {
 			ind_systemObject.addProperty(ontObjectProperty_isSystemObjectOf, ind_initialSystem);
 			ind_systemObject.addProperty(ontDatatypeProperty_name, systemObject.getName());
 			ind_systemObject.addProperty(ontDatatypeProperty_id, systemObject.getId());
-			//
-//			for (Attribute attribute : systemObject.getAttributes()) {
-//			}
+			int j = 0;
+			for (Attribute attribute : systemObject.getAttributes()) {
+				Individual ind_attribute = ontClass_attribute.createIndividual(NS + UUID.randomUUID().toString());
+				ind_attribute.addLabel("Атрибут ".concat(Integer.toString(i).concat(" ").concat(Integer.toString(j))),
+						"ru");
+				ind_attribute.addLabel("Attribute ".concat(Integer.toString(i).concat(" ").concat(Integer.toString(j))),
+						"en");
+				ind_attribute.addProperty(ontDatatypeProperty_name, attribute.getName());
+				// TODO (2020-12-13 #31): поддержка других DataType
+				ind_attribute.addProperty(ontDatatypeProperty_value, attribute.getValueAsString(),
+						XSDDatatype.XSDstring);
+				ind_systemObject.addProperty(ontObjectProperty_hasAttribute, ind_attribute);
+				ind_attribute.addProperty(ontObjectProperty_isAttributeOf, ind_systemObject);
+			}
 		}
 		i = 0;
 		for (Link link : initialSystem.getLinks()) {
@@ -212,11 +228,44 @@ public class TaskDescriptionOWLSchema implements OWLSchema<TaskDescription> {
 		ind_taskDescription.addProperty(ontObjectProperty_hasFinalSystem, ind_finalSystem);
 		ind_finalSystem.addProperty(ontObjectProperty_isFinalSystemOf, ind_taskDescription);
 
-//		System finalSystem = taskDescription.getFinalSystem();
-//		for (SystemObject systemObject : finalSystem.getObjects()) {
-//		}
-//		for (Link link : finalSystem.getLinks()) {
-//		}
+		//
+		System finalSystem = taskDescription.getFinalSystem();
+		i = 0;
+		for (SystemObject systemObject : finalSystem.getObjects()) {
+			i++;
+			Individual ind_systemObject = ontClass_systemObject.createIndividual(NS + UUID.randomUUID().toString());
+			ind_systemObject.addLabel("System Object ".concat(Integer.toString(i)), "en");
+			ind_systemObject.addLabel("Объект системы ".concat(Integer.toString(i)), "ru");
+			ind_initialSystem.addProperty(ontObjectProperty_hasSystemObject, ind_systemObject);
+			ind_systemObject.addProperty(ontObjectProperty_isSystemObjectOf, ind_initialSystem);
+			ind_systemObject.addProperty(ontDatatypeProperty_name, systemObject.getName());
+			ind_systemObject.addProperty(ontDatatypeProperty_id, systemObject.getId());
+			int j = 0;
+			for (Attribute attribute : systemObject.getAttributes()) {
+				Individual ind_attribute = ontClass_attribute.createIndividual(NS + UUID.randomUUID().toString());
+				ind_attribute.addLabel("Атрибут ".concat(Integer.toString(i).concat(" ").concat(Integer.toString(j))),
+						"ru");
+				ind_attribute.addLabel("Attribute ".concat(Integer.toString(i).concat(" ").concat(Integer.toString(j))),
+						"en");
+				ind_attribute.addProperty(ontDatatypeProperty_name, attribute.getName());
+				// TODO (2020-12-13 #31): поддержка других DataType
+				ind_attribute.addProperty(ontDatatypeProperty_value, attribute.getValueAsString(),
+						XSDDatatype.XSDstring);
+				ind_systemObject.addProperty(ontObjectProperty_hasAttribute, ind_attribute);
+				ind_attribute.addProperty(ontObjectProperty_isAttributeOf, ind_systemObject);
+			}
+		}
+		i = 0;
+		for (Link link : finalSystem.getLinks()) {
+			Individual ind_link = ontClass_link.createIndividual(NS + UUID.randomUUID().toString());
+			ind_link.addLabel("Link ".concat(Integer.toString(i)), "en");
+			ind_link.addLabel("Связь ".concat(Integer.toString(i)), "ru");
+			ind_initialSystem.addProperty(ontObjectProperty_hasLink, ind_link);
+			ind_link.addProperty(ontObjectProperty_isLinkOf, ind_initialSystem);
+			ind_link.addProperty(ontDatatypeProperty_name, link.getName());
+			ind_link.addProperty(ontDatatypeProperty_objectId1, link.getObjectId1());
+			ind_link.addProperty(ontDatatypeProperty_objectId2, link.getObjectId2());
+		}
 
 		return m;
 	}
@@ -226,4 +275,7 @@ public class TaskDescriptionOWLSchema implements OWLSchema<TaskDescription> {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	// TODO (2020-12-13 #31): включить проверку copy-paste
+	// CPD-ON
 }
