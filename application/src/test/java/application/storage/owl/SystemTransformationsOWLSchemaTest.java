@@ -40,10 +40,10 @@ public class SystemTransformationsOWLSchemaTest {
 
 		OntModel model = testable.combine(systemTransformations);
 		assertNotNull(model);
-		assertEquals(22, model.listObjects().toList().size());
-		assertEquals(111, model.listStatements().toList().size());
+		assertEquals(64, model.listObjects().toList().size());
+		assertEquals(222, model.listStatements().toList().size());
 
 		// TODO (2020-12-14 #31): удалить
-//		model.write(java.lang.System.out, "RDF/XML");
+		model.write(java.lang.System.out, "RDF/XML");
 	}
 }
