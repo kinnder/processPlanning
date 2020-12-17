@@ -13,6 +13,8 @@ public class SystemTransformationsOWLSchema implements OWLSchema<SystemTransform
 
 	final private String NS = "https://github.com/kinnder/process-engineering/planning/system-transformations#";
 
+	// TODO (2020-12-17 #31): убрать linkTemplate из схемы objectTemplate
+
 	@Override
 	public OntModel combine(SystemTransformations object) {
 		// Ontology
@@ -37,6 +39,18 @@ public class SystemTransformationsOWLSchema implements OWLSchema<SystemTransform
 		OntClass ontClass_action = m.createClass(NS + "Action");
 		ontClass_action.addLabel("Action", "en");
 		ontClass_action.addLabel("Действие", "ru");
+
+		OntClass ontClass_objectTemplate = m.createClass(NS + "Object Template");
+		ontClass_objectTemplate.addLabel("Object Template", "en");
+		ontClass_objectTemplate.addLabel("Шаблон объекта", "ru");
+
+		OntClass ontClass_linkTemplate = m.createClass(NS + "Link Template");
+		ontClass_linkTemplate.addLabel("Link Template", "en");
+		ontClass_linkTemplate.addLabel("Шаблон связи", "ru");
+
+		OntClass ontClass_attributeTemplate = m.createClass(NS + "Attribute Template");
+		ontClass_attributeTemplate.addLabel("Attribute Template", "en");
+		ontClass_attributeTemplate.addLabel("Шаблон атрибута", "ru");
 
 		ObjectProperty ontObjectProperty_hasSystemTransformation = m
 				.createObjectProperty(NS + "hasSystemTransformation");
@@ -100,13 +114,88 @@ public class SystemTransformationsOWLSchema implements OWLSchema<SystemTransform
 		ontObjectProperty_hasAction.addInverseOf(ontObjectProperty_isActionOf);
 		ontObjectProperty_isActionOf.addInverseOf(ontObjectProperty_hasAction);
 
-		// systemTemplate
+		ObjectProperty ontObjectProperty_hasObjectTemplate = m.createObjectProperty(NS + "hasObjectTemplate");
+		ontObjectProperty_hasObjectTemplate.addLabel("has objectTemplate", "en");
+		ontObjectProperty_hasObjectTemplate.addLabel("имеет шаблон объекта", "ru");
+		ontObjectProperty_hasObjectTemplate.addDomain(ontClass_systemTemplate);
+		ontObjectProperty_hasObjectTemplate.addRange(ontClass_objectTemplate);
+
+		ObjectProperty ontObjectProperty_isObjectTemplateOf = m.createObjectProperty(NS + "isObjectTemplateOf");
+		ontObjectProperty_isObjectTemplateOf.addLabel("is object template of", "en");
+		ontObjectProperty_isObjectTemplateOf.addLabel("является шаблоном объекта для", "ru");
+		ontObjectProperty_isObjectTemplateOf.addDomain(ontClass_objectTemplate);
+		ontObjectProperty_isObjectTemplateOf.addRange(ontClass_systemTemplate);
+
+		ontObjectProperty_hasObjectTemplate.addInverseOf(ontObjectProperty_isObjectTemplateOf);
+		ontObjectProperty_isObjectTemplateOf.addInverseOf(ontObjectProperty_hasObjectTemplate);
+
+		ObjectProperty ontObjectProperty_hasLinkTemplate = m.createObjectProperty(NS + "hasLinkTemplate");
+		ontObjectProperty_hasLinkTemplate.addLabel("has link template", "en");
+		ontObjectProperty_hasLinkTemplate.addLabel("имеет шаблон связи", "ru");
+		ontObjectProperty_hasLinkTemplate.addDomain(ontClass_systemTemplate);
+		ontObjectProperty_hasLinkTemplate.addRange(ontClass_linkTemplate);
+
+		ObjectProperty ontObjectProperty_isLinkTemplateOf = m.createObjectProperty(NS + "isLinkTemplateOf");
+		ontObjectProperty_isLinkTemplateOf.addLabel("is link template of", "en");
+		ontObjectProperty_isLinkTemplateOf.addLabel("является шаблоном связи для", "ru");
+		ontObjectProperty_isLinkTemplateOf.addDomain(ontClass_linkTemplate);
+		ontObjectProperty_isLinkTemplateOf.addRange(ontClass_systemTemplate);
+
+		ontObjectProperty_hasLinkTemplate.addInverseOf(ontObjectProperty_isLinkTemplateOf);
+		ontObjectProperty_isLinkTemplateOf.addInverseOf(ontObjectProperty_hasLinkTemplate);
+
+		ObjectProperty ontObjectProperty_hasAttributeTemplate = m.createObjectProperty(NS + "hasAttributeTemplate");
+		ontObjectProperty_hasAttributeTemplate.addLabel("has attribute template", "en");
+		ontObjectProperty_hasAttributeTemplate.addLabel("имеет шаблон атрибута", "ru");
+		ontObjectProperty_hasAttributeTemplate.addDomain(ontClass_objectTemplate);
+		ontObjectProperty_hasAttributeTemplate.addRange(ontClass_attributeTemplate);
+
+		ObjectProperty ontObjectProperty_isAttributeTemplateOf = m.createObjectProperty(NS + "isAttributeTemplateOf");
+		ontObjectProperty_isAttributeTemplateOf.addLabel("is attribute template of", "en");
+		ontObjectProperty_isAttributeTemplateOf.addLabel("является шаблоном атрибута для", "ru");
+		ontObjectProperty_isAttributeTemplateOf.addDomain(ontClass_attributeTemplate);
+		ontObjectProperty_isAttributeTemplateOf.addRange(ontClass_objectTemplate);
+
+		ontObjectProperty_hasAttributeTemplate.addInverseOf(ontObjectProperty_isAttributeTemplateOf);
+		ontObjectProperty_isAttributeTemplateOf.addInverseOf(ontObjectProperty_hasAttributeTemplate);
 
 		DatatypeProperty ontDatatypeProperty_name = m.createDatatypeProperty(NS + "name");
 		ontDatatypeProperty_name.addLabel("name", "en");
 		ontDatatypeProperty_name.addLabel("название", "ru");
 		ontDatatypeProperty_name.addDomain(ontClass_systemTransformation);
 		ontDatatypeProperty_name.addRange(XSD.xstring);
+
+		DatatypeProperty ontDatatypeProperty_objectId = m.createDatatypeProperty(NS + "objectId");
+		ontDatatypeProperty_objectId.addLabel("objectId", "en");
+		ontDatatypeProperty_objectId.addLabel("идентификатор объекта", "ru");
+		ontDatatypeProperty_objectId.addDomain(ontClass_objectTemplate);
+		ontDatatypeProperty_objectId.addRange(XSD.xstring);
+
+		ontDatatypeProperty_name.addDomain(ontClass_attributeTemplate);
+
+		DatatypeProperty ontDatatypeProperty_value = m.createDatatypeProperty(NS + "value");
+		ontDatatypeProperty_value.addLabel("value", "en");
+		ontDatatypeProperty_value.addLabel("значение", "ru");
+		ontDatatypeProperty_value.addDomain(ontClass_attributeTemplate);
+		ontDatatypeProperty_value.addRange(XSD.xstring);
+		ontDatatypeProperty_value.addRange(XSD.xboolean);
+		ontDatatypeProperty_value.addRange(XSD.xint);
+
+		ontDatatypeProperty_name.addDomain(ontClass_linkTemplate);
+
+		DatatypeProperty ontDatatypeProperty_objectId1 = m.createDatatypeProperty(NS + "objectId1");
+		ontDatatypeProperty_objectId1.addLabel("objectId1", "en");
+		ontDatatypeProperty_objectId1.addLabel("идентификатор объекта 1", "ru");
+		ontDatatypeProperty_objectId1.addDomain(ontClass_linkTemplate);
+		ontDatatypeProperty_objectId1.addRange(XSD.xstring);
+
+		DatatypeProperty ontDatatypeProperty_objectId2 = m.createDatatypeProperty(NS + "objectId2");
+		ontDatatypeProperty_objectId2.addLabel("objectId2", "en");
+		ontDatatypeProperty_objectId2.addLabel("идентификатор объекта 2", "ru");
+		ontDatatypeProperty_objectId2.addDomain(ontClass_linkTemplate);
+		ontDatatypeProperty_objectId2.addRange(XSD.xstring);
+
+		// transformations
 
 		// Individuals
 
