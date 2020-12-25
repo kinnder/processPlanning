@@ -52,6 +52,14 @@ public class SystemTransformationsOWLSchema implements OWLSchema<SystemTransform
 		ontClass_attributeTemplate.addLabel("Attribute Template", "en");
 		ontClass_attributeTemplate.addLabel("Шаблон атрибута", "ru");
 
+		OntClass ontClass_attributeTransformation = m.createClass(NS + "Attribute Transformations");
+		ontClass_attributeTransformation.addLabel("Attribute Transformation", "en");
+		ontClass_attributeTransformation.addLabel("Трансформация атрибута", "ru");
+
+		OntClass ontClass_linkTransformation = m.createClass(NS + "Link Transformation");
+		ontClass_linkTransformation.addLabel("Link Transformation", "en");
+		ontClass_linkTransformation.addLabel("Трансформация связи", "ru");
+
 		ObjectProperty ontObjectProperty_hasSystemTransformation = m
 				.createObjectProperty(NS + "hasSystemTransformation");
 		ontObjectProperty_hasSystemTransformation.addLabel("has system transformation", "en");
@@ -195,7 +203,39 @@ public class SystemTransformationsOWLSchema implements OWLSchema<SystemTransform
 		ontDatatypeProperty_objectId2.addDomain(ontClass_linkTemplate);
 		ontDatatypeProperty_objectId2.addRange(XSD.xstring);
 
-		// transformations
+		ObjectProperty ontObjectProperty_hasAttributeTransformation = m
+				.createObjectProperty(NS + "hasAttributeTransformation");
+		ontObjectProperty_hasAttributeTransformation.addLabel("has attribute transformation", "en");
+		ontObjectProperty_hasAttributeTransformation.addLabel("имеет трансформацию атрибута", "ru");
+		ontObjectProperty_hasAttributeTransformation.addDomain(ontClass_transformations);
+		ontObjectProperty_hasAttributeTransformation.addRange(ontClass_attributeTransformation);
+
+		ObjectProperty ontObjectProperty_isAttributeTransformationOf = m
+				.createObjectProperty(NS + "isAttributeTransformationOf");
+		ontObjectProperty_isAttributeTransformationOf.addLabel("is attribute transformation of", "en");
+		ontObjectProperty_isAttributeTransformationOf.addLabel("является трансформацией атрибута для", "ru");
+		ontObjectProperty_isAttributeTransformationOf.addDomain(ontClass_attributeTransformation);
+		ontObjectProperty_isAttributeTransformationOf.addRange(ontClass_transformations);
+
+		ontObjectProperty_hasAttributeTransformation.addInverseOf(ontObjectProperty_isAttributeTransformationOf);
+		ontObjectProperty_isAttributeTransformationOf.addInverseOf(ontObjectProperty_hasAttributeTransformation);
+
+		ObjectProperty ontObjectProperty_hasLinkTransformation = m.createObjectProperty(NS + "hasLinkTransformation");
+		ontObjectProperty_hasLinkTransformation.addLabel("has link transformation", "en");
+		ontObjectProperty_hasLinkTransformation.addLabel("имеет трансформацию связи", "ru");
+		ontObjectProperty_hasLinkTransformation.addDomain(ontClass_transformations);
+		ontObjectProperty_hasLinkTransformation.addRange(ontClass_linkTransformation);
+
+		ObjectProperty ontObjectProperty_isLinkTransformationOf = m.createObjectProperty(NS + "isLinkTransformationOf");
+		ontObjectProperty_isLinkTransformationOf.addLabel("is link transformation of", "en");
+		ontObjectProperty_isLinkTransformationOf.addLabel("является трасформацией связи для", "ru");
+		ontObjectProperty_isLinkTransformationOf.addDomain(ontClass_linkTransformation);
+		ontObjectProperty_isLinkTransformationOf.addRange(ontClass_transformations);
+
+		ontObjectProperty_hasLinkTransformation.addInverseOf(ontObjectProperty_isLinkTransformationOf);
+		ontObjectProperty_isLinkTransformationOf.addInverseOf(ontObjectProperty_hasLinkTransformation);
+
+		// linkTransformation
 
 		// Individuals
 
