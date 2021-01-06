@@ -60,6 +60,18 @@ public class SystemTransformationsOWLSchema implements OWLSchema<SystemTransform
 		ontClass_linkTransformation.addLabel("Link Transformation", "en");
 		ontClass_linkTransformation.addLabel("Трансформация связи", "ru");
 
+		OntClass ontClass_preConditionChecker = m.createClass(NS + "preConditionChecker");
+		ontClass_preConditionChecker.addLabel("PreConditionChecker", "en");
+		ontClass_preConditionChecker.addLabel("Проверка предусловий", "ru");
+
+		OntClass ontClass_parameterUpdater = m.createClass(NS + "parameterUpdater");
+		ontClass_parameterUpdater.addLabel("ParameterUpdater", "en");
+		ontClass_parameterUpdater.addLabel("Обновление параметров", "ru");
+
+		OntClass ontClass_line = m.createClass(NS + "line");
+		ontClass_line.addLabel("Line", "en");
+		ontClass_line.addLabel("линия", "ru");
+
 		ObjectProperty ontObjectProperty_hasSystemTransformation = m
 				.createObjectProperty(NS + "hasSystemTransformation");
 		ontObjectProperty_hasSystemTransformation.addLabel("has system transformation", "en");
@@ -235,7 +247,45 @@ public class SystemTransformationsOWLSchema implements OWLSchema<SystemTransform
 		ontObjectProperty_hasLinkTransformation.addInverseOf(ontObjectProperty_isLinkTransformationOf);
 		ontObjectProperty_isLinkTransformationOf.addInverseOf(ontObjectProperty_hasLinkTransformation);
 
-		// linkTransformation
+		ontDatatypeProperty_objectId.addDomain(ontClass_linkTransformation);
+		ontDatatypeProperty_name.addDomain(ontClass_linkTransformation);
+
+		DatatypeProperty ontDatatypeProperty_oldValue = m.createDatatypeProperty(NS + "oldValue");
+		ontDatatypeProperty_oldValue.addLabel("old value", "en");
+		ontDatatypeProperty_oldValue.addLabel("старое значение", "ru");
+		ontDatatypeProperty_oldValue.addDomain(ontClass_linkTransformation);
+		ontDatatypeProperty_oldValue.addRange(XSD.xstring);
+
+		DatatypeProperty ontDatatypeProperty_newValue = m.createDatatypeProperty(NS + "newValue");
+		ontDatatypeProperty_newValue.addLabel("new value", "en");
+		ontDatatypeProperty_newValue.addLabel("новое значение", "ru");
+		ontDatatypeProperty_newValue.addDomain(ontClass_linkTransformation);
+		ontDatatypeProperty_newValue.addRange(XSD.xstring);
+
+		ontDatatypeProperty_objectId.addDomain(ontClass_attributeTransformation);
+		ontDatatypeProperty_name.addDomain(ontClass_attributeTransformation);
+		ontDatatypeProperty_value.addDomain(ontClass_attributeTransformation);
+
+		// action
+		ontDatatypeProperty_name.addDomain(ontClass_action);
+		
+		ObjectProperty ontObjectProperty_hasPreConditionChecker = m.createObjectProperty(NS+"hasPreConditionChecker");
+		ontObjectProperty_hasPreConditionChecker.addLabel("hasPreconditionChecker", "en");
+		ontObjectProperty_hasPreConditionChecker.addLabel("имеет проверку условий", "ru");
+		ontObjectProperty_hasPreConditionChecker.addDomain(ontClass_action);
+		ontObjectProperty_hasPreConditionChecker.addRange(ontClass_preConditionChecker);
+		
+		ObjectProperty ontObjectProperty_isPreConditionCheckerOf = m.createObjectProperty(NS+"isPreConditionChecker");
+		ontObjectProperty_isPreConditionCheckerOf.addLabel("isPreConditionCheckerOf", "en");
+		ontObjectProperty_isPreConditionCheckerOf.addLabel("является проверкой условий для", "ru");
+		
+		
+		//ObjectProperty ontObjectProperty_hasParameterUpdater = m.createObjectProperty(NS+"hasParameterUpdater");
+		//ObjectProperty ontObjectProperty_isParameterUpdaterOf = m.createObjectProperty(NS+"isParameterUpdater");
+
+		// preConditionChecker
+		// parameterUpdater
+		// line
 
 		// Individuals
 
