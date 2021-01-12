@@ -70,7 +70,7 @@ public class SystemTransformationsOWLSchema implements OWLSchema<SystemTransform
 
 		OntClass ontClass_line = m.createClass(NS + "line");
 		ontClass_line.addLabel("Line", "en");
-		ontClass_line.addLabel("линия", "ru");
+		ontClass_line.addLabel("Линия", "ru");
 
 		ObjectProperty ontObjectProperty_hasSystemTransformation = m
 				.createObjectProperty(NS + "hasSystemTransformation");
@@ -268,24 +268,64 @@ public class SystemTransformationsOWLSchema implements OWLSchema<SystemTransform
 
 		// action
 		ontDatatypeProperty_name.addDomain(ontClass_action);
-		
-		ObjectProperty ontObjectProperty_hasPreConditionChecker = m.createObjectProperty(NS+"hasPreConditionChecker");
+
+		ObjectProperty ontObjectProperty_hasPreConditionChecker = m.createObjectProperty(NS + "hasPreConditionChecker");
 		ontObjectProperty_hasPreConditionChecker.addLabel("hasPreconditionChecker", "en");
 		ontObjectProperty_hasPreConditionChecker.addLabel("имеет проверку условий", "ru");
 		ontObjectProperty_hasPreConditionChecker.addDomain(ontClass_action);
 		ontObjectProperty_hasPreConditionChecker.addRange(ontClass_preConditionChecker);
-		
-		ObjectProperty ontObjectProperty_isPreConditionCheckerOf = m.createObjectProperty(NS+"isPreConditionChecker");
+
+		ObjectProperty ontObjectProperty_isPreConditionCheckerOf = m.createObjectProperty(NS + "isPreConditionChecker");
 		ontObjectProperty_isPreConditionCheckerOf.addLabel("isPreConditionCheckerOf", "en");
 		ontObjectProperty_isPreConditionCheckerOf.addLabel("является проверкой условий для", "ru");
-		
-		
-		//ObjectProperty ontObjectProperty_hasParameterUpdater = m.createObjectProperty(NS+"hasParameterUpdater");
-		//ObjectProperty ontObjectProperty_isParameterUpdaterOf = m.createObjectProperty(NS+"isParameterUpdater");
+		ontObjectProperty_isPreConditionCheckerOf.addDomain(ontClass_preConditionChecker);
+		ontObjectProperty_isPreConditionCheckerOf.addRange(ontClass_action);
 
+		ontObjectProperty_hasPreConditionChecker.addInverseOf(ontObjectProperty_isPreConditionCheckerOf);
+		ontObjectProperty_isPreConditionCheckerOf.addInverseOf(ontObjectProperty_hasPreConditionChecker);
+
+		ObjectProperty ontObjectProperty_hasParameterUpdater = m.createObjectProperty(NS + "hasParameterUpdater");
+		ontObjectProperty_hasParameterUpdater.addLabel("hasParameterUpdater", "en");
+		ontObjectProperty_hasParameterUpdater.addLabel("имеет функцию обновления", "ru");
+		ontObjectProperty_hasParameterUpdater.addDomain(ontClass_action);
+		ontObjectProperty_hasParameterUpdater.addRange(ontClass_parameterUpdater);
+
+		ObjectProperty ontObjectProperty_isParameterUpdaterOf = m.createObjectProperty(NS + "isParameterUpdater");
+		ontObjectProperty_isParameterUpdaterOf.addLabel("isParameterUpdaterOf", "en");
+		ontObjectProperty_isParameterUpdaterOf.addLabel("является функцией обновления для", "ru");
+		ontObjectProperty_isParameterUpdaterOf.addDomain(ontClass_parameterUpdater);
+		ontObjectProperty_isParameterUpdaterOf.addRange(ontClass_action);
+
+		ontObjectProperty_hasParameterUpdater.addInverseOf(ontObjectProperty_isParameterUpdaterOf);
+		ontObjectProperty_isParameterUpdaterOf.addInverseOf(ontObjectProperty_hasParameterUpdater);
+
+		// TODO (2021-01-12 #31): добавить общий класс function
 		// preConditionChecker
+		ObjectProperty ontObjectProperty_hasLine = m.createObjectProperty(NS + "hasLine");
+		ontObjectProperty_hasLine.addLabel("hasLine", "en");
+		ontObjectProperty_hasLine.addLabel("имеет линию", "ru");
+		ontObjectProperty_hasLine.addDomain(ontClass_preConditionChecker);
+		ontObjectProperty_hasLine.addRange(ontClass_line);
+
+		ObjectProperty ontObjectProperty_isLineOf = m.createObjectProperty(NS + "isLineOf");
+		ontObjectProperty_isLineOf.addLabel("isLineOf", "en");
+		ontObjectProperty_isLineOf.addLabel("является линией для", "ru");
+		ontObjectProperty_isLineOf.addDomain(ontClass_line);
+		ontObjectProperty_isLineOf.addRange(ontClass_preConditionChecker);
+
+		ontObjectProperty_hasLine.addInverseOf(ontObjectProperty_isLineOf);
+		ontObjectProperty_isLineOf.addInverseOf(ontObjectProperty_hasLine);
+
 		// parameterUpdater
+		ontObjectProperty_hasLine.addDomain(ontClass_parameterUpdater);
+		ontObjectProperty_isLineOf.addRange(ontClass_parameterUpdater);
+
 		// line
+		DatatypeProperty ontDatatypeProperty_number = m.createDatatypeProperty(NS + "number");
+		ontDatatypeProperty_number.addLabel("number", "en");
+		ontDatatypeProperty_number.addLabel("номер", "ru");
+		ontDatatypeProperty_number.addDomain(ontClass_line);
+		ontDatatypeProperty_number.addRange(XSD.integer);
 
 		// Individuals
 
