@@ -1,6 +1,9 @@
 package application.storage.owl;
 
+import java.util.UUID;
+
 import org.apache.jena.ontology.DatatypeProperty;
+import org.apache.jena.ontology.Individual;
 import org.apache.jena.ontology.ObjectProperty;
 import org.apache.jena.ontology.OntClass;
 import org.apache.jena.ontology.OntModel;
@@ -8,8 +11,24 @@ import org.apache.jena.rdf.model.ModelFactory;
 import org.apache.jena.vocabulary.XSD;
 
 import planning.method.SystemTransformations;
+import planning.model.Action;
+import planning.model.ActionParameterUpdater;
+import planning.model.ActionPreConditionChecker;
+import planning.model.AttributeTemplate;
+import planning.model.AttributeTransformation;
+import planning.model.LinkTemplate;
+import planning.model.LinkTransformation;
+import planning.model.LuaScriptActionParameterUpdater;
+import planning.model.LuaScriptActionPreConditionChecker;
+import planning.model.SystemObjectTemplate;
+import planning.model.SystemTemplate;
+import planning.model.SystemTransformation;
+import planning.model.Transformation;
 
 public class SystemTransformationsOWLSchema implements OWLSchema<SystemTransformations> {
+
+	// TODO (2021-01-13 #31): включить проверку copy-paste
+	// CPD-OFF
 
 	final private String NS = "https://github.com/kinnder/process-engineering/planning/system-transformations#";
 
@@ -327,7 +346,181 @@ public class SystemTransformationsOWLSchema implements OWLSchema<SystemTransform
 		ontDatatypeProperty_number.addDomain(ontClass_line);
 		ontDatatypeProperty_number.addRange(XSD.integer);
 
+		DatatypeProperty ontDatatypeProperty_text = m.createDatatypeProperty(NS + "text");
+		ontDatatypeProperty_text.addLabel("text", "en");
+		ontDatatypeProperty_text.addLabel("текст", "ru");
+		ontDatatypeProperty_text.addDomain(ontClass_line);
+		ontDatatypeProperty_text.addRange(XSD.xstring);
+
 		// Individuals
+		// << Individual: SystemTransformations
+		Individual ind_systemTransformations = ontClass_systemTransformations
+				.createIndividual(NS + UUID.randomUUID().toString());
+		ind_systemTransformations.addLabel("System Transformations 1", "en");
+		ind_systemTransformations.addLabel("Трансформации системы 1", "ru");
+
+		for (SystemTransformation systemTransformation : object) {
+			// << Individual: SystemTransformation
+			Individual ind_systemTransformation = ontClass_systemTransformation
+					.createIndividual(NS + UUID.randomUUID().toString());
+			ind_systemTransformation.addProperty(ontDatatypeProperty_name, systemTransformation.getName());
+			// << Individual: Action
+			Action action = systemTransformation.getAction();
+			Individual ind_action = ontClass_action.createIndividual(NS + UUID.randomUUID().toString());
+			ind_action.addProperty(ontDatatypeProperty_name, action.getName());
+			for (ActionPreConditionChecker preConditionChecker : action.getPreConditionCheckers()) {
+				// << Individual: PreConditionChecker
+				Individual ind_preConditionChecker = ontClass_preConditionChecker
+						.createIndividual(NS + UUID.randomUUID().toString());
+				LuaScriptActionPreConditionChecker luaPreConditionChecker = (LuaScriptActionPreConditionChecker) preConditionChecker;
+				String lines[] = luaPreConditionChecker.getScript().split("\n");
+				for (int i = 0; i < lines.length; i++) {
+					// << Individual: Line
+					Individual ind_line = ontClass_line.createIndividual(NS + UUID.randomUUID().toString());
+					ind_line.addProperty(ontDatatypeProperty_number, Integer.toString(i + 1));
+					ind_line.addProperty(ontDatatypeProperty_text, lines[i]);
+					ind_line.addProperty(ontObjectProperty_isLineOf, ind_preConditionChecker);
+					ind_preConditionChecker.addProperty(ontObjectProperty_hasLine, ind_line);
+					// >> Individual: Line
+				}
+				ind_action.addProperty(ontObjectProperty_hasPreConditionChecker, ind_preConditionChecker);
+				ind_preConditionChecker.addProperty(ontObjectProperty_isPreConditionCheckerOf, ind_action);
+				// >> Individual: PreConditionChecker
+			}
+			for (ActionParameterUpdater parameterUpdater : action.getParameterUpdaters()) {
+				// << Individual: ParameterUpdater
+				Individual ind_parameterUpdater = ontClass_parameterUpdater
+						.createIndividual(NS + UUID.randomUUID().toString());
+				LuaScriptActionParameterUpdater luaParameterUpdater = (LuaScriptActionParameterUpdater) parameterUpdater;
+				String lines[] = luaParameterUpdater.getScript().split("\n");
+				for (int i = 0; i < lines.length; i++) {
+					// << Individual: Line
+					Individual ind_line = ontClass_line.createIndividual(NS + UUID.randomUUID().toString());
+					ind_line.addProperty(ontDatatypeProperty_number, Integer.toString(i + 1));
+					ind_line.addProperty(ontDatatypeProperty_text, lines[i]);
+					ind_line.addProperty(ontObjectProperty_isLineOf, ind_parameterUpdater);
+					ind_parameterUpdater.addProperty(ontObjectProperty_hasLine, ind_line);
+					// >> Individual: Line
+				}
+				ind_action.addProperty(ontObjectProperty_hasPreConditionChecker, ind_parameterUpdater);
+				ind_parameterUpdater.addProperty(ontObjectProperty_isPreConditionCheckerOf, ind_action);
+				// >> Individual: ParameterUpdater
+			}
+			ind_action.addProperty(ontObjectProperty_isActionOf, ind_systemTransformation);
+			ind_systemTransformation.addProperty(ontObjectProperty_hasAction, ind_action);
+			// >> Individual: Action
+			// << Individual: SystemTemplate
+			SystemTemplate systemTemplate = systemTransformation.getSystemTemplate();
+			Individual ind_systemTemplate = ontClass_systemTemplate.createIndividual(NS + UUID.randomUUID().toString());
+			ind_systemTemplate.addLabel("System Template 1", "en");
+			ind_systemTemplate.addLabel("Шаблон системы 1", "ru");
+			int i = 0;
+			for (SystemObjectTemplate objectTemplate : systemTemplate.getObjectTemplates()) {
+				// >> Individual: SystemObjectTemplate
+				i++;
+				Individual ind_objectTemplate = ontClass_objectTemplate
+						.createIndividual(NS + UUID.randomUUID().toString());
+				ind_objectTemplate.addLabel("Object Template ".concat(Integer.toString(i)), "en");
+				ind_objectTemplate.addLabel("Шаблон объекта ".concat(Integer.toString(i)), "ru");
+				ind_objectTemplate.addProperty(ontDatatypeProperty_objectId, objectTemplate.getId());
+				int j = 0;
+				for (AttributeTemplate attributeTemplate : objectTemplate.getAttributeTemplates()) {
+					// >> Individual: AttributeTemplate
+					Individual ind_attributeTemplate = ontClass_attributeTemplate
+							.createIndividual(NS + UUID.randomUUID().toString());
+					ind_attributeTemplate.addLabel(
+							"Attribute Template ".concat(Integer.toString(i).concat(" ").concat(Integer.toString(j))),
+							"en");
+					ind_attributeTemplate.addLabel(
+							"Шаблон атрибута ".concat(Integer.toString(i).concat(" ").concat(Integer.toString(j))),
+							"ru");
+					ind_attributeTemplate.addProperty(ontDatatypeProperty_name, attributeTemplate.getName());
+					Object value = attributeTemplate.getValue();
+					if (value != null) {
+						// TODO (2021-01-13 #31): поддержка других DataType
+						ind_attributeTemplate.addProperty(ontDatatypeProperty_value, value.toString());
+					}
+					ind_attributeTemplate.addProperty(ontObjectProperty_isAttributeTemplateOf, ind_objectTemplate);
+					ind_objectTemplate.addProperty(ontObjectProperty_hasAttributeTemplate, ind_attributeTemplate);
+					// << Individual: AttributeTemplate
+				}
+				ind_objectTemplate.addProperty(ontObjectProperty_isObjectTemplateOf, ind_systemTemplate);
+				ind_systemTemplate.addProperty(ontObjectProperty_hasObjectTemplate, ind_objectTemplate);
+				// << Individual: SystemObjectTemplate
+			}
+			i = 0;
+			for (LinkTemplate linkTemplate : systemTemplate.getLinkTemplates()) {
+				// >> Individual: LinkTemplate
+				Individual ind_linkTemplate = ontClass_linkTemplate.createIndividual(NS + UUID.randomUUID().toString());
+				ind_linkTemplate.addLabel("Link Template ".concat(Integer.toString(i)), "en");
+				ind_linkTemplate.addLabel("Шаблон связи ".concat(Integer.toString(i)), "ru");
+				ind_linkTemplate.addProperty(ontDatatypeProperty_name, linkTemplate.getName());
+				String objectId1 = linkTemplate.getObjectId1();
+				if (objectId1 != null) {
+					ind_linkTemplate.addProperty(ontDatatypeProperty_objectId1, objectId1);
+				}
+				String objectId2 = linkTemplate.getObjectId2();
+				if (objectId2 != null) {
+					ind_linkTemplate.addProperty(ontDatatypeProperty_objectId2, objectId2);
+				}
+				ind_linkTemplate.addProperty(ontObjectProperty_isLinkTemplateOf, ind_systemTemplate);
+				ind_systemTemplate.addProperty(ontObjectProperty_hasLinkTemplate, ind_linkTemplate);
+				// << Individual: LinkTemplate
+			}
+			ind_systemTemplate.addProperty(ontObjectProperty_isSystemTemplateOf, ind_systemTransformation);
+			ind_systemTransformation.addProperty(ontObjectProperty_hasSystemTemplate, ind_systemTemplate);
+			// >> Individual: SystemTemplate
+			// << Individual: Transformations
+			Transformation[] transformations = systemTransformation.getTransformations();
+			Individual ind_transformations = ontClass_transformations
+					.createIndividual(NS + UUID.randomUUID().toString());
+			for (Transformation transformation : transformations) {
+				if (transformation instanceof AttributeTransformation) {
+					AttributeTransformation attributeTransformation = (AttributeTransformation) transformation;
+					// >> Individual: AttributeTransformation
+					Individual ind_attributeTransformation = ontClass_attributeTransformation
+							.createIndividual(NS + UUID.randomUUID().toString());
+					ind_attributeTransformation.addProperty(ontDatatypeProperty_objectId,
+							attributeTransformation.getObjectId());
+					ind_attributeTransformation.addProperty(ontDatatypeProperty_name,
+							attributeTransformation.getAttributeName());
+					// TODO (2021-01-13 #31): поддержка других типов данных
+					ind_attributeTransformation.addProperty(ontDatatypeProperty_value,
+							attributeTransformation.getAttributeValue().toString());
+					ind_attributeTransformation.addProperty(ontObjectProperty_isAttributeTransformationOf,
+							ind_transformations);
+					ind_transformations.addProperty(ontObjectProperty_hasAttributeTransformation,
+							ind_attributeTransformation);
+					// << Individual: AttributeTransformation
+				} else if (transformation instanceof LinkTransformation) {
+					LinkTransformation linkTransformation = (LinkTransformation) transformation;
+					// >> Individual: LinkTransformation
+					Individual ind_linkTransformation = ontClass_linkTransformation
+							.createIndividual(NS + UUID.randomUUID().toString());
+					ind_linkTransformation.addProperty(ontDatatypeProperty_objectId, linkTransformation.getObjectId());
+					ind_linkTransformation.addProperty(ontDatatypeProperty_name, linkTransformation.getLinkName());
+					String objectIdOld = linkTransformation.getLinkObjectId2Old();
+					if (objectIdOld != null) {
+						ind_linkTransformation.addProperty(ontDatatypeProperty_oldValue, objectIdOld);
+					}
+					String objectIdNew = linkTransformation.getLinkObjectId2New();
+					if (objectIdNew != null) {
+						ind_linkTransformation.addProperty(ontDatatypeProperty_newValue, objectIdNew);
+					}
+					ind_linkTransformation.addProperty(ontObjectProperty_isLinkTransformationOf, ind_transformations);
+					ind_transformations.addProperty(ontObjectProperty_hasLinkTransformation, ind_linkTransformation);
+					// << Individual: LinkTransformation
+				} else {
+					// TODO (2021-01-13 #31): remove this or update systemTransformations.xsd
+				}
+			}
+			ind_transformations.addProperty(ontObjectProperty_areTransformationsOf, ind_systemTransformation);
+			ind_systemTransformation.addProperty(ontObjectProperty_hasTransformations, ind_transformations);
+			// >> Individual: Transformations
+			ind_systemTransformations.addProperty(ontObjectProperty_hasSystemTransformation, ind_systemTransformation);
+			ind_systemTransformation.addProperty(ontObjectProperty_isSystemTransformationOf, ind_systemTransformations);
+			// >> Individual: SystemTransformation
+		}
 
 		return m;
 	}
@@ -338,4 +531,6 @@ public class SystemTransformationsOWLSchema implements OWLSchema<SystemTransform
 		return null;
 	}
 
+	// TODO (2021-01-13 #31): включить проверку copy-paste
+	// CPD-ON
 }

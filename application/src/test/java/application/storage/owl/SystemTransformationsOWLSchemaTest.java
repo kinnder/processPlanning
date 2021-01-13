@@ -11,6 +11,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
+import application.domain.AssemblyLine;
 import planning.method.SystemTransformations;
 
 public class SystemTransformationsOWLSchemaTest {
@@ -37,11 +38,12 @@ public class SystemTransformationsOWLSchemaTest {
 	@Test
 	public void combine() {
 		final SystemTransformations systemTransformations = new SystemTransformations();
+		systemTransformations.add(AssemblyLine.turnWithLoad());
 
 		OntModel model = testable.combine(systemTransformations);
 		assertNotNull(model);
-		assertEquals(153, model.listObjects().toList().size());
-		assertEquals(479, model.listStatements().toList().size());
+		assertEquals(222, model.listObjects().toList().size());
+		assertEquals(753, model.listStatements().toList().size());
 
 		// TODO (2020-12-14 #31): удалить
 		model.write(java.lang.System.out, "RDF/XML");
