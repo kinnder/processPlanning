@@ -30,7 +30,33 @@ public class SystemTransformationsOWLSchema implements OWLSchema<SystemTransform
 	// TODO (2021-01-13 #31): включить проверку copy-paste
 	// CPD-OFF
 
-	private static final String NS = "https://github.com/kinnder/process-engineering/planning/system-transformations#";
+	private static final String URI_isAttributeTemplateOf = "isAttributeTemplateOf";
+
+	private static final String URI_hasAttributeTemplate = "hasAttributeTemplate";
+
+	private static final String URI_isLinkTemplateOf = "isLinkTemplateOf";
+
+	private static final String URI_hasLinkTemplate = "hasLinkTemplate";
+
+	private static final String URI_isObjectTemplateOf = "isObjectTemplateOf";
+
+	private static final String URI_hasObjectTemplate = "hasObjectTemplate";
+
+	private static final String URI_isActionOf = "isActionOf";
+
+	private static final String URI_hasAction = "hasAction";
+
+	private static final String URI_areTransformationsOf = "areTransformationsOf";
+
+	private static final String URI_hasTransformations = "hasTransformations";
+
+	private static final String URI_isSystemTemplateOf = "isSystemTemplateOf";
+
+	private static final String URI_hasSystemTemplate = "hasSystemTemplate";
+
+	private static final String URI_isSystemTransformationOf = "isSystemTransformationOf";
+
+	private static final String URI_hasSystemTransformation = "hasSystemTransformation";
 
 	private static final String URI_Line = "Line";
 
@@ -57,6 +83,8 @@ public class SystemTransformationsOWLSchema implements OWLSchema<SystemTransform
 	private static final String URI_Transformations = "Transformations";
 
 	private static final String URI_Action = "Action";
+
+	private static final String NS = "https://github.com/kinnder/process-engineering/planning/system-transformations#";
 
 	// TODO (2020-12-17 #31): убрать linkTemplate из схемы objectTemplate
 
@@ -87,6 +115,39 @@ public class SystemTransformationsOWLSchema implements OWLSchema<SystemTransform
 	private OntClass class_parameterUpdater;
 
 	private OntClass class_line;
+
+	private ObjectProperty objectProperty_hasSystemTransformation;
+
+	private ObjectProperty objectProperty_isSystemTransformationOf;
+
+	private ObjectProperty objectProperty_hasSystemTemplate;
+
+	private ObjectProperty objectProperty_isSystemTemplateOf;
+
+	private ObjectProperty objectProperty_hasTransformations;
+
+	private ObjectProperty objectProperty_areTransformationsOf;
+
+	private ObjectProperty objectProperty_hasAction;
+
+	private ObjectProperty objectProperty_isActionOf;
+
+	private ObjectProperty objectProperty_hasObjectTemplate;
+
+	private ObjectProperty objectProperty_isObjectTemplateOf;
+
+	private ObjectProperty objectProperty_hasLinkTemplate;
+
+	private ObjectProperty objectProperty_isLinkTemplateOf;
+
+	private ObjectProperty objectProperty_hasAttributeTemplate;
+
+	private ObjectProperty objectProperty_isAttributeTemplateOf;
+
+	private void makeInverse(ObjectProperty property1, ObjectProperty property2) {
+		property1.addInverseOf(property2);
+		property2.addInverseOf(property1);
+	}
 
 	@Override
 	public OntModel combine(SystemTransformations object) {
@@ -145,112 +206,103 @@ public class SystemTransformationsOWLSchema implements OWLSchema<SystemTransform
 		class_line.addLabel("Line", "en");
 		class_line.addLabel("Линия", "ru");
 
-		ObjectProperty ontObjectProperty_hasSystemTransformation = m
-				.createObjectProperty(NS + "hasSystemTransformation");
-		ontObjectProperty_hasSystemTransformation.addLabel("has system transformation", "en");
-		ontObjectProperty_hasSystemTransformation.addLabel("имеет трансформацию системы", "ru");
-		ontObjectProperty_hasSystemTransformation.addDomain(class_SystemTransformations);
-		ontObjectProperty_hasSystemTransformation.addRange(class_SystemTransformation);
+		objectProperty_hasSystemTransformation = m.createObjectProperty(NS + URI_hasSystemTransformation);
+		objectProperty_hasSystemTransformation.addLabel("has system transformation", "en");
+		objectProperty_hasSystemTransformation.addLabel("имеет трансформацию системы", "ru");
+		objectProperty_hasSystemTransformation.addDomain(class_SystemTransformations);
+		objectProperty_hasSystemTransformation.addRange(class_SystemTransformation);
 
-		ObjectProperty ontObjectProperty_isSystemTransformationOf = m
-				.createObjectProperty(NS + "isSystemTransformationOf");
-		ontObjectProperty_isSystemTransformationOf.addLabel("is system transformation of", "en");
-		ontObjectProperty_isSystemTransformationOf.addLabel("является трансформацией системы для", "ru");
-		ontObjectProperty_isSystemTransformationOf.addDomain(class_SystemTransformation);
-		ontObjectProperty_isSystemTransformationOf.addRange(class_SystemTransformations);
+		objectProperty_isSystemTransformationOf = m.createObjectProperty(NS + URI_isSystemTransformationOf);
+		objectProperty_isSystemTransformationOf.addLabel("is system transformation of", "en");
+		objectProperty_isSystemTransformationOf.addLabel("является трансформацией системы для", "ru");
+		objectProperty_isSystemTransformationOf.addDomain(class_SystemTransformation);
+		objectProperty_isSystemTransformationOf.addRange(class_SystemTransformations);
 
-		ontObjectProperty_hasSystemTransformation.addInverseOf(ontObjectProperty_isSystemTransformationOf);
-		ontObjectProperty_isSystemTransformationOf.addInverseOf(ontObjectProperty_hasSystemTransformation);
+		makeInverse(objectProperty_hasSystemTransformation, objectProperty_isSystemTransformationOf);
 
-		ObjectProperty ontObjectProperty_hasSystemTemplate = m.createObjectProperty(NS + "hasSystemTemplate");
-		ontObjectProperty_hasSystemTemplate.addLabel("has system template", "en");
-		ontObjectProperty_hasSystemTemplate.addLabel("имеет шаблон системы", "ru");
-		ontObjectProperty_hasSystemTemplate.addDomain(class_SystemTransformation);
-		ontObjectProperty_hasSystemTemplate.addRange(class_SystemTemplate);
+		objectProperty_hasSystemTemplate = m.createObjectProperty(NS + URI_hasSystemTemplate);
+		objectProperty_hasSystemTemplate.addLabel("has system template", "en");
+		objectProperty_hasSystemTemplate.addLabel("имеет шаблон системы", "ru");
+		objectProperty_hasSystemTemplate.addDomain(class_SystemTransformation);
+		objectProperty_hasSystemTemplate.addRange(class_SystemTemplate);
 
-		ObjectProperty ontObjectProperty_isSystemTemplateOf = m.createObjectProperty(NS + "isSystemTemplateOf");
-		ontObjectProperty_isSystemTemplateOf.addLabel("is system template of", "en");
-		ontObjectProperty_isSystemTemplateOf.addLabel("является шаблоном системы для ", "ru");
-		ontObjectProperty_isSystemTemplateOf.addDomain(class_SystemTemplate);
-		ontObjectProperty_isSystemTemplateOf.addRange(class_SystemTransformation);
+		objectProperty_isSystemTemplateOf = m.createObjectProperty(NS + URI_isSystemTemplateOf);
+		objectProperty_isSystemTemplateOf.addLabel("is system template of", "en");
+		objectProperty_isSystemTemplateOf.addLabel("является шаблоном системы для ", "ru");
+		objectProperty_isSystemTemplateOf.addDomain(class_SystemTemplate);
+		objectProperty_isSystemTemplateOf.addRange(class_SystemTransformation);
 
-		ontObjectProperty_hasSystemTemplate.addInverseOf(ontObjectProperty_isSystemTemplateOf);
-		ontObjectProperty_isSystemTemplateOf.addInverseOf(ontObjectProperty_hasSystemTemplate);
+		makeInverse(objectProperty_hasSystemTemplate, objectProperty_isSystemTemplateOf);
 
-		ObjectProperty ontObjectProperty_hasTransformations = m.createObjectProperty(NS + "hasTransformations");
-		ontObjectProperty_hasTransformations.addLabel("has transformations", "en");
-		ontObjectProperty_hasTransformations.addLabel("имеет трансформации", "ru");
-		ontObjectProperty_hasTransformations.addDomain(class_SystemTransformation);
-		ontObjectProperty_hasTransformations.addRange(class_Transformations);
+		objectProperty_hasTransformations = m.createObjectProperty(NS + URI_hasTransformations);
+		objectProperty_hasTransformations.addLabel("has transformations", "en");
+		objectProperty_hasTransformations.addLabel("имеет трансформации", "ru");
+		objectProperty_hasTransformations.addDomain(class_SystemTransformation);
+		objectProperty_hasTransformations.addRange(class_Transformations);
 
-		ObjectProperty ontObjectProperty_areTransformationsOf = m.createObjectProperty(NS + "areTransformationsOf");
-		ontObjectProperty_areTransformationsOf.addLabel("are transformations of", "en");
-		ontObjectProperty_areTransformationsOf.addLabel("является трансформациями для", "ru");
-		ontObjectProperty_areTransformationsOf.addDomain(class_Transformations);
-		ontObjectProperty_areTransformationsOf.addRange(class_SystemTransformation);
+		objectProperty_areTransformationsOf = m.createObjectProperty(NS + URI_areTransformationsOf);
+		objectProperty_areTransformationsOf.addLabel("are transformations of", "en");
+		objectProperty_areTransformationsOf.addLabel("является трансформациями для", "ru");
+		objectProperty_areTransformationsOf.addDomain(class_Transformations);
+		objectProperty_areTransformationsOf.addRange(class_SystemTransformation);
 
-		ontObjectProperty_hasTransformations.addInverseOf(ontObjectProperty_areTransformationsOf);
-		ontObjectProperty_areTransformationsOf.addInverseOf(ontObjectProperty_hasTransformations);
+		makeInverse(objectProperty_hasTransformations, objectProperty_areTransformationsOf);
 
-		ObjectProperty ontObjectProperty_hasAction = m.createObjectProperty(NS + "hasAction");
-		ontObjectProperty_hasAction.addLabel("has action", "en");
-		ontObjectProperty_hasAction.addLabel("имеет действие", "ru");
-		ontObjectProperty_hasAction.addDomain(class_SystemTransformation);
-		ontObjectProperty_hasAction.addRange(class_Action);
+		objectProperty_hasAction = m.createObjectProperty(NS + URI_hasAction);
+		objectProperty_hasAction.addLabel("has action", "en");
+		objectProperty_hasAction.addLabel("имеет действие", "ru");
+		objectProperty_hasAction.addDomain(class_SystemTransformation);
+		objectProperty_hasAction.addRange(class_Action);
 
-		ObjectProperty ontObjectProperty_isActionOf = m.createObjectProperty(NS + "isActionOf");
-		ontObjectProperty_isActionOf.addLabel("is action of", "en");
-		ontObjectProperty_isActionOf.addLabel("является действием для", "ru");
-		ontObjectProperty_isActionOf.addDomain(class_Action);
-		ontObjectProperty_isActionOf.addRange(class_SystemTransformation);
+		objectProperty_isActionOf = m.createObjectProperty(NS + URI_isActionOf);
+		objectProperty_isActionOf.addLabel("is action of", "en");
+		objectProperty_isActionOf.addLabel("является действием для", "ru");
+		objectProperty_isActionOf.addDomain(class_Action);
+		objectProperty_isActionOf.addRange(class_SystemTransformation);
 
-		ontObjectProperty_hasAction.addInverseOf(ontObjectProperty_isActionOf);
-		ontObjectProperty_isActionOf.addInverseOf(ontObjectProperty_hasAction);
+		makeInverse(objectProperty_hasAction, objectProperty_isActionOf);
 
-		ObjectProperty ontObjectProperty_hasObjectTemplate = m.createObjectProperty(NS + "hasObjectTemplate");
-		ontObjectProperty_hasObjectTemplate.addLabel("has objectTemplate", "en");
-		ontObjectProperty_hasObjectTemplate.addLabel("имеет шаблон объекта", "ru");
-		ontObjectProperty_hasObjectTemplate.addDomain(class_SystemTemplate);
-		ontObjectProperty_hasObjectTemplate.addRange(class_objectTemplate);
+		objectProperty_hasObjectTemplate = m.createObjectProperty(NS + URI_hasObjectTemplate);
+		objectProperty_hasObjectTemplate.addLabel("has objectTemplate", "en");
+		objectProperty_hasObjectTemplate.addLabel("имеет шаблон объекта", "ru");
+		objectProperty_hasObjectTemplate.addDomain(class_SystemTemplate);
+		objectProperty_hasObjectTemplate.addRange(class_objectTemplate);
 
-		ObjectProperty ontObjectProperty_isObjectTemplateOf = m.createObjectProperty(NS + "isObjectTemplateOf");
-		ontObjectProperty_isObjectTemplateOf.addLabel("is object template of", "en");
-		ontObjectProperty_isObjectTemplateOf.addLabel("является шаблоном объекта для", "ru");
-		ontObjectProperty_isObjectTemplateOf.addDomain(class_objectTemplate);
-		ontObjectProperty_isObjectTemplateOf.addRange(class_SystemTemplate);
+		objectProperty_isObjectTemplateOf = m.createObjectProperty(NS + URI_isObjectTemplateOf);
+		objectProperty_isObjectTemplateOf.addLabel("is object template of", "en");
+		objectProperty_isObjectTemplateOf.addLabel("является шаблоном объекта для", "ru");
+		objectProperty_isObjectTemplateOf.addDomain(class_objectTemplate);
+		objectProperty_isObjectTemplateOf.addRange(class_SystemTemplate);
 
-		ontObjectProperty_hasObjectTemplate.addInverseOf(ontObjectProperty_isObjectTemplateOf);
-		ontObjectProperty_isObjectTemplateOf.addInverseOf(ontObjectProperty_hasObjectTemplate);
+		makeInverse(objectProperty_hasObjectTemplate, objectProperty_isObjectTemplateOf);
 
-		ObjectProperty ontObjectProperty_hasLinkTemplate = m.createObjectProperty(NS + "hasLinkTemplate");
-		ontObjectProperty_hasLinkTemplate.addLabel("has link template", "en");
-		ontObjectProperty_hasLinkTemplate.addLabel("имеет шаблон связи", "ru");
-		ontObjectProperty_hasLinkTemplate.addDomain(class_SystemTemplate);
-		ontObjectProperty_hasLinkTemplate.addRange(class_linkTemplate);
+		objectProperty_hasLinkTemplate = m.createObjectProperty(NS + URI_hasLinkTemplate);
+		objectProperty_hasLinkTemplate.addLabel("has link template", "en");
+		objectProperty_hasLinkTemplate.addLabel("имеет шаблон связи", "ru");
+		objectProperty_hasLinkTemplate.addDomain(class_SystemTemplate);
+		objectProperty_hasLinkTemplate.addRange(class_linkTemplate);
 
-		ObjectProperty ontObjectProperty_isLinkTemplateOf = m.createObjectProperty(NS + "isLinkTemplateOf");
-		ontObjectProperty_isLinkTemplateOf.addLabel("is link template of", "en");
-		ontObjectProperty_isLinkTemplateOf.addLabel("является шаблоном связи для", "ru");
-		ontObjectProperty_isLinkTemplateOf.addDomain(class_linkTemplate);
-		ontObjectProperty_isLinkTemplateOf.addRange(class_SystemTemplate);
+		objectProperty_isLinkTemplateOf = m.createObjectProperty(NS + URI_isLinkTemplateOf);
+		objectProperty_isLinkTemplateOf.addLabel("is link template of", "en");
+		objectProperty_isLinkTemplateOf.addLabel("является шаблоном связи для", "ru");
+		objectProperty_isLinkTemplateOf.addDomain(class_linkTemplate);
+		objectProperty_isLinkTemplateOf.addRange(class_SystemTemplate);
 
-		ontObjectProperty_hasLinkTemplate.addInverseOf(ontObjectProperty_isLinkTemplateOf);
-		ontObjectProperty_isLinkTemplateOf.addInverseOf(ontObjectProperty_hasLinkTemplate);
+		makeInverse(objectProperty_hasLinkTemplate, objectProperty_isLinkTemplateOf);
 
-		ObjectProperty ontObjectProperty_hasAttributeTemplate = m.createObjectProperty(NS + "hasAttributeTemplate");
-		ontObjectProperty_hasAttributeTemplate.addLabel("has attribute template", "en");
-		ontObjectProperty_hasAttributeTemplate.addLabel("имеет шаблон атрибута", "ru");
-		ontObjectProperty_hasAttributeTemplate.addDomain(class_objectTemplate);
-		ontObjectProperty_hasAttributeTemplate.addRange(class_attributeTemplate);
+		objectProperty_hasAttributeTemplate = m.createObjectProperty(NS + URI_hasAttributeTemplate);
+		objectProperty_hasAttributeTemplate.addLabel("has attribute template", "en");
+		objectProperty_hasAttributeTemplate.addLabel("имеет шаблон атрибута", "ru");
+		objectProperty_hasAttributeTemplate.addDomain(class_objectTemplate);
+		objectProperty_hasAttributeTemplate.addRange(class_attributeTemplate);
 
-		ObjectProperty ontObjectProperty_isAttributeTemplateOf = m.createObjectProperty(NS + "isAttributeTemplateOf");
-		ontObjectProperty_isAttributeTemplateOf.addLabel("is attribute template of", "en");
-		ontObjectProperty_isAttributeTemplateOf.addLabel("является шаблоном атрибута для", "ru");
-		ontObjectProperty_isAttributeTemplateOf.addDomain(class_attributeTemplate);
-		ontObjectProperty_isAttributeTemplateOf.addRange(class_objectTemplate);
+		objectProperty_isAttributeTemplateOf = m.createObjectProperty(NS + URI_isAttributeTemplateOf);
+		objectProperty_isAttributeTemplateOf.addLabel("is attribute template of", "en");
+		objectProperty_isAttributeTemplateOf.addLabel("является шаблоном атрибута для", "ru");
+		objectProperty_isAttributeTemplateOf.addDomain(class_attributeTemplate);
+		objectProperty_isAttributeTemplateOf.addRange(class_objectTemplate);
 
-		ontObjectProperty_hasAttributeTemplate.addInverseOf(ontObjectProperty_isAttributeTemplateOf);
-		ontObjectProperty_isAttributeTemplateOf.addInverseOf(ontObjectProperty_hasAttributeTemplate);
+		makeInverse(objectProperty_hasAttributeTemplate, objectProperty_isAttributeTemplateOf);
 
 		DatatypeProperty ontDatatypeProperty_name = m.createDatatypeProperty(NS + "name");
 		ontDatatypeProperty_name.addLabel("name", "en");
@@ -460,8 +512,8 @@ public class SystemTransformationsOWLSchema implements OWLSchema<SystemTransform
 				ind_parameterUpdater.addProperty(ontObjectProperty_isPreConditionCheckerOf, ind_action);
 				// >> Individual: ParameterUpdater
 			}
-			ind_action.addProperty(ontObjectProperty_isActionOf, ind_systemTransformation);
-			ind_systemTransformation.addProperty(ontObjectProperty_hasAction, ind_action);
+			ind_action.addProperty(objectProperty_isActionOf, ind_systemTransformation);
+			ind_systemTransformation.addProperty(objectProperty_hasAction, ind_action);
 			// >> Individual: Action
 			// << Individual: SystemTemplate
 			SystemTemplate systemTemplate = systemTransformation.getSystemTemplate();
@@ -494,12 +546,12 @@ public class SystemTransformationsOWLSchema implements OWLSchema<SystemTransform
 						// TODO (2021-01-13 #31): поддержка других DataType
 						ind_attributeTemplate.addProperty(ontDatatypeProperty_value, value.toString());
 					}
-					ind_attributeTemplate.addProperty(ontObjectProperty_isAttributeTemplateOf, ind_objectTemplate);
-					ind_objectTemplate.addProperty(ontObjectProperty_hasAttributeTemplate, ind_attributeTemplate);
+					ind_attributeTemplate.addProperty(objectProperty_isAttributeTemplateOf, ind_objectTemplate);
+					ind_objectTemplate.addProperty(objectProperty_hasAttributeTemplate, ind_attributeTemplate);
 					// << Individual: AttributeTemplate
 				}
-				ind_objectTemplate.addProperty(ontObjectProperty_isObjectTemplateOf, ind_systemTemplate);
-				ind_systemTemplate.addProperty(ontObjectProperty_hasObjectTemplate, ind_objectTemplate);
+				ind_objectTemplate.addProperty(objectProperty_isObjectTemplateOf, ind_systemTemplate);
+				ind_systemTemplate.addProperty(objectProperty_hasObjectTemplate, ind_objectTemplate);
 				// << Individual: SystemObjectTemplate
 			}
 			i = 0;
@@ -517,12 +569,12 @@ public class SystemTransformationsOWLSchema implements OWLSchema<SystemTransform
 				if (objectId2 != null) {
 					ind_linkTemplate.addProperty(ontDatatypeProperty_objectId2, objectId2);
 				}
-				ind_linkTemplate.addProperty(ontObjectProperty_isLinkTemplateOf, ind_systemTemplate);
-				ind_systemTemplate.addProperty(ontObjectProperty_hasLinkTemplate, ind_linkTemplate);
+				ind_linkTemplate.addProperty(objectProperty_isLinkTemplateOf, ind_systemTemplate);
+				ind_systemTemplate.addProperty(objectProperty_hasLinkTemplate, ind_linkTemplate);
 				// << Individual: LinkTemplate
 			}
-			ind_systemTemplate.addProperty(ontObjectProperty_isSystemTemplateOf, ind_systemTransformation);
-			ind_systemTransformation.addProperty(ontObjectProperty_hasSystemTemplate, ind_systemTemplate);
+			ind_systemTemplate.addProperty(objectProperty_isSystemTemplateOf, ind_systemTransformation);
+			ind_systemTransformation.addProperty(objectProperty_hasSystemTemplate, ind_systemTemplate);
 			// >> Individual: SystemTemplate
 			// << Individual: Transformations
 			Transformation[] transformations = systemTransformation.getTransformations();
@@ -567,11 +619,11 @@ public class SystemTransformationsOWLSchema implements OWLSchema<SystemTransform
 					// TODO (2021-01-13 #31): remove this or update systemTransformations.xsd
 				}
 			}
-			ind_transformations.addProperty(ontObjectProperty_areTransformationsOf, ind_systemTransformation);
-			ind_systemTransformation.addProperty(ontObjectProperty_hasTransformations, ind_transformations);
+			ind_transformations.addProperty(objectProperty_areTransformationsOf, ind_systemTransformation);
+			ind_systemTransformation.addProperty(objectProperty_hasTransformations, ind_transformations);
 			// >> Individual: Transformations
-			ind_systemTransformations.addProperty(ontObjectProperty_hasSystemTransformation, ind_systemTransformation);
-			ind_systemTransformation.addProperty(ontObjectProperty_isSystemTransformationOf, ind_systemTransformations);
+			ind_systemTransformations.addProperty(objectProperty_hasSystemTransformation, ind_systemTransformation);
+			ind_systemTransformation.addProperty(objectProperty_isSystemTransformationOf, ind_systemTransformations);
 			// >> Individual: SystemTransformation
 		}
 
