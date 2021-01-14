@@ -47,7 +47,9 @@ public class SystemProcessOWLSchemaTest {
 		final Action action = new Action("test-action");
 		systemProcess.add(new SystemOperation(action, parameters));
 
-		OntModel model = testable.combine(systemProcess);
+		OntModel model = new SystemProcessOWLModel().createOntologyModel();
+		testable.connectOntologyModel(model);
+		testable.combine(systemProcess);
 		assertNotNull(model);
 		assertEquals(59, model.listObjects().toList().size());
 		assertEquals(201, model.listStatements().toList().size());

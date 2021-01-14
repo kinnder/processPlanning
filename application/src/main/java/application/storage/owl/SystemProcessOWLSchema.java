@@ -8,7 +8,6 @@ import org.apache.jena.ontology.Individual;
 import org.apache.jena.ontology.ObjectProperty;
 import org.apache.jena.ontology.OntClass;
 import org.apache.jena.ontology.OntModel;
-import org.apache.jena.rdf.model.ModelFactory;
 import org.apache.jena.vocabulary.XSD;
 
 import planning.model.SystemOperation;
@@ -18,11 +17,11 @@ public class SystemProcessOWLSchema implements OWLSchema<SystemProcess> {
 
 	final private String NS = "https://github.com/kinnder/process-engineering/planning/system-process#";
 
-	@Override
-	public OntModel combine(SystemProcess systemProcess) {
-		// Ontology
-		OntModel m = ModelFactory.createOntologyModel();
+	private OntModel m;
 
+	@Override
+	public void combine(SystemProcess systemProcess) {
+		// Ontology
 		OntClass ontClass_process = m.createClass(NS + "Process");
 		ontClass_process.addLabel("Process", "en");
 		ontClass_process.addLabel("Процесс", "ru");
@@ -109,13 +108,17 @@ public class SystemProcessOWLSchema implements OWLSchema<SystemProcess> {
 				ind_operation.addProperty(ontObjectProperty_hasParameter, ind_parameter);
 			}
 		}
-
-		return m;
 	}
 
 	@Override
-	public SystemProcess parse(OntModel m) {
+	public SystemProcess parse() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public void connectOntologyModel(OntModel ontModel) {
+		// TODO Auto-generated method stub
+		this.m = ontModel;
 	}
 }

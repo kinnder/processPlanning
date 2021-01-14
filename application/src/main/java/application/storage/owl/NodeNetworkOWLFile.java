@@ -8,6 +8,6 @@ public class NodeNetworkOWLFile extends OWLFile<NodeNetwork> {
 		/*
 		 * TODO (2020-10-01 #31): перенести схемы из конструктора в параметры расширения
 		 */
-		super(new NodeNetworkOWLSchema());
+		super(new NodeNetworkOWLModel(), new NodeNetworkOWLSchema());
 	}
 }

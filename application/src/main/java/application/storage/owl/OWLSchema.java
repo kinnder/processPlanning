@@ -4,7 +4,9 @@ import org.apache.jena.ontology.OntModel;
 
 public interface OWLSchema<T> {
 
-	OntModel combine(T object);
+	void combine(T object);
 
-	T parse(OntModel m);
+	T parse();
+
+	void connectOntologyModel(OntModel ontModel);
 }

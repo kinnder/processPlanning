@@ -64,7 +64,9 @@ public class TaskDescriptionOWLSchemaTest {
 		taskDescription.setInitialSystem(initialSystem);
 		taskDescription.setFinalSystem(finalSystem);
 
-		OntModel model = testable.combine(taskDescription);
+		OntModel model = new TaskDescriptionOWLModel().createOntologyModel();
+		testable.connectOntologyModel(model);
+		testable.combine(taskDescription);
 		assertNotNull(model);
 		assertEquals(133, model.listObjects().toList().size());
 		assertEquals(410, model.listStatements().toList().size());

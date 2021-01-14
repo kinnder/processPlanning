@@ -7,7 +7,6 @@ import org.apache.jena.ontology.Individual;
 import org.apache.jena.ontology.ObjectProperty;
 import org.apache.jena.ontology.OntClass;
 import org.apache.jena.ontology.OntModel;
-import org.apache.jena.rdf.model.ModelFactory;
 import org.apache.jena.vocabulary.XSD;
 
 import planning.method.SystemTransformations;
@@ -226,8 +225,6 @@ public class SystemTransformationsOWLSchema implements OWLSchema<SystemTransform
 	}
 
 	private void createOntologyModel() {
-		m = ModelFactory.createOntologyModel();
-
 		class_SystemTransformations = m.createClass(URI_SystemTransformations);
 		class_SystemTransformations.addLabel("System Transformations", "en");
 		class_SystemTransformations.addLabel("Трансформации системы", "ru");
@@ -516,7 +513,7 @@ public class SystemTransformationsOWLSchema implements OWLSchema<SystemTransform
 	}
 
 	@Override
-	public OntModel combine(SystemTransformations object) {
+	public void combine(SystemTransformations object) {
 		// Ontology
 		createOntologyModel();
 
@@ -688,14 +685,18 @@ public class SystemTransformationsOWLSchema implements OWLSchema<SystemTransform
 			ind_systemTransformation.addProperty(objectProperty_isSystemTransformationOf, ind_systemTransformations);
 			// >> Individual: SystemTransformation
 		}
-
-		return m;
 	}
 
 	@Override
-	public SystemTransformations parse(OntModel m) {
+	public SystemTransformations parse() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public void connectOntologyModel(OntModel ontModel) {
+		// TODO Auto-generated method stub
+		this.m = ontModel;
 	}
 
 	// TODO (2021-01-13 #31): включить проверку copy-paste

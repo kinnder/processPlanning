@@ -8,7 +8,6 @@ import org.apache.jena.ontology.Individual;
 import org.apache.jena.ontology.ObjectProperty;
 import org.apache.jena.ontology.OntClass;
 import org.apache.jena.ontology.OntModel;
-import org.apache.jena.rdf.model.ModelFactory;
 import org.apache.jena.vocabulary.XSD;
 
 import planning.model.Attribute;
@@ -24,11 +23,11 @@ public class TaskDescriptionOWLSchema implements OWLSchema<TaskDescription> {
 
 	final private String NS = "https://github.com/kinnder/process-engineering/planning/task-description#";
 
-	@Override
-	public OntModel combine(TaskDescription taskDescription) {
-		// Ontology
-		OntModel m = ModelFactory.createOntologyModel();
+	private OntModel m;
 
+	@Override
+	public void combine(TaskDescription taskDescription) {
+		// Ontology
 		OntClass ontClass_taskDescription = m.createClass(NS + "TaskDescription");
 		ontClass_taskDescription.addLabel("Task Description", "en");
 		ontClass_taskDescription.addLabel("Описание задания", "ru");
@@ -266,14 +265,19 @@ public class TaskDescriptionOWLSchema implements OWLSchema<TaskDescription> {
 			ind_link.addProperty(ontDatatypeProperty_objectId1, link.getObjectId1());
 			ind_link.addProperty(ontDatatypeProperty_objectId2, link.getObjectId2());
 		}
-
-		return m;
 	}
 
 	@Override
-	public TaskDescription parse(OntModel m) {
+	public TaskDescription parse() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public void connectOntologyModel(OntModel ontModel) {
+		// TODO Auto-generated method stub
+		this.m = ontModel;
+
 	}
 
 	// TODO (2020-12-13 #31): включить проверку copy-paste

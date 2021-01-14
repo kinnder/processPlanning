@@ -40,7 +40,9 @@ public class SystemTransformationsOWLSchemaTest {
 		final SystemTransformations systemTransformations = new SystemTransformations();
 		systemTransformations.add(AssemblyLine.turnWithLoad());
 
-		OntModel model = testable.combine(systemTransformations);
+		OntModel model = new SystemTransformationsOWLModel().createOntologyModel();
+		testable.connectOntologyModel(model);
+		testable.combine(systemTransformations);
 		assertNotNull(model);
 		assertEquals(222, model.listObjects().toList().size());
 		assertEquals(753, model.listStatements().toList().size());

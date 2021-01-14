@@ -38,7 +38,9 @@ public class NodeNetworkOWLSchemaTest {
 	public void combine() {
 		final NodeNetwork nodeNetwork = new NodeNetwork();
 
-		OntModel model = testable.combine(nodeNetwork);
+		OntModel model = new NodeNetworkOWLModel().createOntologyModel();
+		testable.connectOntologyModel(model);
+		testable.combine(nodeNetwork);
 		assertNotNull(model);
 		assertEquals(22, model.listObjects().toList().size());
 		assertEquals(111, model.listStatements().toList().size());

@@ -5,6 +5,6 @@ import planning.method.TaskDescription;
 public class TaskDescriptionOWLFile extends OWLFile<TaskDescription> {
 
 	public TaskDescriptionOWLFile() {
-		super(new TaskDescriptionOWLSchema());
+		super(new TaskDescriptionOWLModel(), new TaskDescriptionOWLSchema());
 	}
 }
