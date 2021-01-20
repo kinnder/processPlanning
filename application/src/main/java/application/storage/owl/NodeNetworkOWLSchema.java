@@ -1,5 +1,6 @@
 package application.storage.owl;
 
+import org.apache.jena.ontology.Individual;
 import org.apache.jena.ontology.OntClass;
 import org.apache.jena.ontology.OntModel;
 import planning.method.NodeNetwork;
@@ -11,11 +12,12 @@ public class NodeNetworkOWLSchema implements OWLSchema<NodeNetwork> {
 	private OntModel m;
 
 	@Override
-	public void combine(NodeNetwork object) {
+	public Individual combine(NodeNetwork object) {
 		// Ontology
 		OntClass ontClass_process = m.createClass(NS + "Node Network");
 		ontClass_process.addLabel("Node Network", "en");
 		ontClass_process.addLabel("Сеть узлов", "ru");
+		return null;
 	}
 
 	@Override

@@ -20,7 +20,7 @@ public class SystemProcessOWLSchema implements OWLSchema<SystemProcess> {
 	private OntModel m;
 
 	@Override
-	public void combine(SystemProcess systemProcess) {
+	public Individual combine(SystemProcess systemProcess) {
 		// Ontology
 		OntClass ontClass_process = m.createClass(NS + "Process");
 		ontClass_process.addLabel("Process", "en");
@@ -108,6 +108,7 @@ public class SystemProcessOWLSchema implements OWLSchema<SystemProcess> {
 				ind_operation.addProperty(ontObjectProperty_hasParameter, ind_parameter);
 			}
 		}
+		return ind_process;
 	}
 
 	@Override

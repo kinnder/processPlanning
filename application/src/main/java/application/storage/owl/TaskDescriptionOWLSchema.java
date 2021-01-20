@@ -26,7 +26,7 @@ public class TaskDescriptionOWLSchema implements OWLSchema<TaskDescription> {
 	private OntModel m;
 
 	@Override
-	public void combine(TaskDescription taskDescription) {
+	public Individual combine(TaskDescription taskDescription) {
 		// Ontology
 		OntClass ontClass_taskDescription = m.createClass(NS + "TaskDescription");
 		ontClass_taskDescription.addLabel("Task Description", "en");
@@ -265,6 +265,7 @@ public class TaskDescriptionOWLSchema implements OWLSchema<TaskDescription> {
 			ind_link.addProperty(ontDatatypeProperty_objectId1, link.getObjectId1());
 			ind_link.addProperty(ontDatatypeProperty_objectId2, link.getObjectId2());
 		}
+		return ind_taskDescription;
 	}
 
 	@Override
