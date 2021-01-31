@@ -269,7 +269,7 @@ public class TaskDescriptionOWLSchema implements OWLSchema<TaskDescription> {
 	}
 
 	@Override
-	public TaskDescription parse() {
+	public TaskDescription parse(Individual individual) {
 		// TODO Auto-generated method stub
 		return null;
 	}

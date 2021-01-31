@@ -50,4 +50,16 @@ public class SystemTransformationsOWLSchemaTest {
 		// TODO (2020-12-14 #31): удалить
 		model.write(java.lang.System.out, "RDF/XML");
 	}
+
+	@Test
+	public void parse() {
+		final SystemTransformations systemTransformations = new SystemTransformations();
+		systemTransformations.add(AssemblyLine.turnWithLoad());
+
+		OntModel model = new SystemTransformationsOWLModel().createOntologyModel();
+		testable.connectOntologyModel(model);
+		testable.combine(systemTransformations);
+
+		testable.parse(null);
+	}
 }

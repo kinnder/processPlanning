@@ -21,7 +21,7 @@ public class NodeNetworkOWLSchema implements OWLSchema<NodeNetwork> {
 	}
 
 	@Override
-	public NodeNetwork parse() {
+	public NodeNetwork parse(Individual individual) {
 		// TODO Auto-generated method stub
 		return null;
 	}

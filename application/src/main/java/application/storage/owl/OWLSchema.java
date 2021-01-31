@@ -7,7 +7,7 @@ public interface OWLSchema<T> {
 
 	Individual combine(T object);
 
-	T parse();
+	T parse(Individual individual);
 
 	void connectOntologyModel(OntModel ontModel);
 }

@@ -61,7 +61,7 @@ public class OWLFileTest {
 
 				oneOf(ontModel_mock).read(with(any(BufferedInputStream.class)), with("RDF/XML"));
 
-				oneOf(owlSchema_mock).parse();
+				oneOf(owlSchema_mock).parse(null);
 				will(returnValue(object_mock));
 			}
 		});

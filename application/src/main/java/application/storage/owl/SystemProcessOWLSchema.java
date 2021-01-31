@@ -112,7 +112,7 @@ public class SystemProcessOWLSchema implements OWLSchema<SystemProcess> {
 	}
 
 	@Override
-	public SystemProcess parse() {
+	public SystemProcess parse(Individual individual) {
 		// TODO Auto-generated method stub
 		return null;
 	}

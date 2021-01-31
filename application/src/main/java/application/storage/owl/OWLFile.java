@@ -43,6 +43,6 @@ public class OWLFile<T> {
 		OntModel ontModel = owlModel.createOntologyModel();
 		ontModel.read(inputStream, "RDF/XML");
 		owlSchema.connectOntologyModel(ontModel);
-		return owlSchema.parse();
+		return owlSchema.parse(null);
 	}
 }
