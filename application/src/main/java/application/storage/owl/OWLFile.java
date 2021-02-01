@@ -43,6 +43,7 @@ public class OWLFile<T> {
 		OntModel ontModel = owlModel.createOntologyModel();
 		ontModel.read(inputStream, "RDF/XML");
 		owlSchema.connectOntologyModel(ontModel);
+		// TODO (2021-02-01 #31): загружаться должен основной индивид, не null
 		return owlSchema.parse(null);
 	}
 }

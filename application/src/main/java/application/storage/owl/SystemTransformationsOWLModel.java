@@ -1,5 +1,7 @@
 package application.storage.owl;
 
+import java.util.UUID;
+
 import org.apache.jena.ontology.DatatypeProperty;
 import org.apache.jena.ontology.ObjectProperty;
 import org.apache.jena.ontology.OntClass;
@@ -495,5 +497,9 @@ public class SystemTransformationsOWLModel implements OWLModel {
 		dataProperty_text.addRange(XSD.xstring);
 
 		return m;
+	}
+
+	public static String getUniqueIndividualURI() {
+		return SystemTransformationsOWLModel.NS + UUID.randomUUID().toString();
 	}
 }
