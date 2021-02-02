@@ -1,22 +1,21 @@
 package application.storage.owl;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-
+import java.util.Arrays;
 import org.apache.jena.ontology.Individual;
 import org.apache.jena.ontology.ObjectProperty;
 import org.apache.jena.ontology.OntClass;
 import org.apache.jena.ontology.OntModel;
+import org.apache.jena.util.iterator.ExtendedIterator;
+import org.apache.jena.util.iterator.NiceIterator;
 import org.jmock.Expectations;
 import org.jmock.imposters.ByteBuddyClassImposteriser;
 import org.jmock.junit5.JUnit5Mockery;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
-import application.domain.AssemblyLine;
 import planning.method.SystemTransformations;
 import planning.model.SystemTransformation;
 
@@ -143,7 +142,6 @@ public class SystemTransformationsOWLSchemaTest {
 	}
 
 	@Test
-	@Disabled
 	public void parse() {
 		final OntModel ontModel_mock = context.mock(OntModel.class);
 		final OntClass oc_systemTransformations_mock = context.mock(OntClass.class, "oc-1");
@@ -173,47 +171,45 @@ public class SystemTransformationsOWLSchemaTest {
 
 		testable.connectOntologyModel(ontModel_mock);
 
-//		final Individual i_systemTransformations_mock = context.mock(Individual.class, "i-1");
-//		final Individual i_systemTransformation_mock = context.mock(Individual.class, "i-2");
+		final Individual i_systemTransformations_mock = context.mock(Individual.class, "i-1");
+		ExtendedIterator<Individual> systemTransformationsIterator = new NiceIterator<Individual>()
+				.andThen(Arrays.asList(i_systemTransformations_mock).iterator());
+
+		final Individual i_systemTransformation1_mock = context.mock(Individual.class, "i-2");
+		final Individual i_systemTransformation2_mock = context.mock(Individual.class, "i-3");
+		ExtendedIterator<Individual> systemTransformationIterator = new NiceIterator<Individual>()
+				.andThen(Arrays.asList(i_systemTransformation1_mock, i_systemTransformation2_mock).iterator());
+
+		SystemTransformation systemTransformation_mock = context.mock(SystemTransformation.class);
 
 		// <parse>
 		context.checking(new Expectations() {
 			{
 				oneOf(oc_systemTransformations_mock).listInstances();
+				will(returnValue(systemTransformationsIterator));
+
+				oneOf(oc_systemTransformation_mock).listInstances();
+				will(returnValue(systemTransformationIterator));
+
+				oneOf(i_systemTransformations_mock).hasProperty(op_hasSystemTransformation_mock,
+						i_systemTransformation1_mock);
+				will(returnValue(true));
+
+				oneOf(i_systemTransformation1_mock).asIndividual();
+				will(returnValue(i_systemTransformation1_mock));
+
+				oneOf(systemTransformationOWLSchema_mock).parse(i_systemTransformation1_mock);
+				will(returnValue(systemTransformation_mock));
+
+				oneOf(i_systemTransformations_mock).hasProperty(op_hasSystemTransformation_mock,
+						i_systemTransformation2_mock);
+				will(returnValue(false));
 			}
 		});
 		// </parse>
 
-		testable.parse(null);
-	}
-
-	@Test
-	public void combine_full() {
-		testable = new SystemTransformationsOWLSchema();
-		final SystemTransformations systemTransformations = new SystemTransformations();
-		systemTransformations.add(AssemblyLine.turnWithLoad());
-
-		OntModel model = new SystemTransformationsOWLModel().createOntologyModel();
-		testable.connectOntologyModel(model);
-		testable.combine(systemTransformations);
-		assertNotNull(model);
-		assertEquals(222, model.listObjects().toList().size());
-		assertEquals(753, model.listStatements().toList().size());
-
-		// TODO (2020-12-14 #31): удалить
-		model.write(java.lang.System.out, "RDF/XML");
-	}
-
-	@Test
-	public void parse_full() {
-		testable = new SystemTransformationsOWLSchema();
-		final SystemTransformations systemTransformations = new SystemTransformations();
-		systemTransformations.add(AssemblyLine.turnWithLoad());
-
-		OntModel model = new SystemTransformationsOWLModel().createOntologyModel();
-		testable.connectOntologyModel(model);
-		testable.combine(systemTransformations);
-
-		testable.parse(null);
+		SystemTransformations result = testable.parse(null);
+		assertEquals(1, result.size());
+		assertEquals(systemTransformation_mock, result.get(0));
 	}
 }
