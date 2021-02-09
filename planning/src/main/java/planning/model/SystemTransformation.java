@@ -20,6 +20,10 @@ public class SystemTransformation {
 		this.transformations = transformations;
 	}
 
+	public SystemTransformation(String name) {
+		this.name = name;
+	}
+
 	public String getName() {
 		return name;
 	}
@@ -28,12 +32,24 @@ public class SystemTransformation {
 		return action;
 	}
 
+	public void setAction(Action action) {
+		this.action = action;
+	}
+
 	public SystemTemplate getSystemTemplate() {
 		return template;
 	}
 
+	public void setSystemTemplate(SystemTemplate systemTemplate) {
+		this.template = systemTemplate;
+	}
+
 	public Transformation[] getTransformations() {
 		return transformations;
+	}
+
+	public void setTransformations(Transformation[] transformations) {
+		this.transformations = transformations;
 	}
 
 	public SystemVariant[] applyTo(System system) throws CloneNotSupportedException {
