@@ -109,9 +109,21 @@ public class SystemTransformationsOWLModel implements OWLModel {
 
 	private OntModel m;
 
+	public OntModel getOntologyModel() {
+		return m;
+	}
+
 	private OntClass class_SystemTransformations;
 
+	public OntClass getSystemTransformations() {
+		return class_SystemTransformations;
+	}
+
 	private OntClass class_SystemTransformation;
+
+	public OntClass getSystemTransformation() {
+		return class_SystemTransformation;
+	}
 
 	private OntClass class_SystemTemplate;
 
@@ -137,7 +149,15 @@ public class SystemTransformationsOWLModel implements OWLModel {
 
 	private ObjectProperty objectProperty_hasSystemTransformation;
 
+	public ObjectProperty getHasSystemTransformation() {
+		return objectProperty_hasSystemTransformation;
+	}
+
 	private ObjectProperty objectProperty_isSystemTransformationOf;
+
+	public ObjectProperty getIsSystemTransformationOf() {
+		return objectProperty_isSystemTransformationOf;
+	}
 
 	private ObjectProperty objectProperty_hasSystemTemplate;
 
@@ -501,5 +521,16 @@ public class SystemTransformationsOWLModel implements OWLModel {
 
 	public static String getUniqueIndividualURI() {
 		return SystemTransformationsOWLModel.NS + UUID.randomUUID().toString();
+	}
+
+	@Override
+	public void connectOntologyModel(OntModel ontModel) {
+		m = ontModel;
+
+		class_SystemTransformations = m.getOntClass(URI_SystemTransformations);
+		class_SystemTransformation = m.getOntClass(URI_SystemTransformation);
+
+		objectProperty_hasSystemTransformation = m.getObjectProperty(URI_hasSystemTransformation);
+		objectProperty_isSystemTransformationOf = m.getObjectProperty(URI_isSystemTransformationOf);
 	}
 }

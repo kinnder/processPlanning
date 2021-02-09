@@ -10,4 +10,9 @@ public class TaskDescriptionOWLModel implements OWLModel {
 		// TODO Auto-generated method stub
 		return ModelFactory.createOntologyModel();
 	}
+
+	@Override
+	public void connectOntologyModel(OntModel ontModel) {
+		// TODO Auto-generated method stub
+	}
 }
