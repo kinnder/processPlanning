@@ -19,14 +19,14 @@ public class SystemTransformationsOWLSchema implements OWLSchema<SystemTransform
 
 	@Override
 	public Individual combine(SystemTransformations systemTransformations) {
-		Individual ind_systemTransformations = owlModel.getSystemTransformations().createIndividual(SystemTransformationsOWLModel.getUniqueIndividualURI());
+		Individual ind_systemTransformations = owlModel.getClass_SystemTransformations().createIndividual(SystemTransformationsOWLModel.getUniqueIndividualURI());
 		ind_systemTransformations.addLabel("System Transformations 1", "en");
 		ind_systemTransformations.addLabel("Трансформации системы 1", "ru");
 
 		for (SystemTransformation systemTransformation : systemTransformations) {
 			Individual ind_systemTransformation = systemTransformationOWLSchema.combine(systemTransformation);
-			ind_systemTransformations.addProperty(owlModel.getHasSystemTransformation(), ind_systemTransformation);
-			ind_systemTransformation.addProperty(owlModel.getIsSystemTransformationOf(), ind_systemTransformations);
+			ind_systemTransformations.addProperty(owlModel.getObjectProperty_hasSystemTransformation(), ind_systemTransformation);
+			ind_systemTransformation.addProperty(owlModel.getObjectProperty_isSystemTransformationOf(), ind_systemTransformations);
 		}
 		return ind_systemTransformations;
 	}
@@ -34,9 +34,9 @@ public class SystemTransformationsOWLSchema implements OWLSchema<SystemTransform
 	@Override
 	public SystemTransformations parse(Individual individual) {
 		SystemTransformations systemTransformations = new SystemTransformations();
-		owlModel.getSystemTransformations().listInstances().forEachRemaining((ind_systemTransformations) -> {
-			owlModel.getSystemTransformation().listInstances().filterKeep((ind_systemTransformation) -> {
-				return ind_systemTransformations.hasProperty(owlModel.getHasSystemTransformation(), ind_systemTransformation);
+		owlModel.getClass_SystemTransformations().listInstances().forEachRemaining((ind_systemTransformations) -> {
+			owlModel.getClass_SystemTransformation().listInstances().filterKeep((ind_systemTransformation) -> {
+				return ind_systemTransformations.hasProperty(owlModel.getObjectProperty_hasSystemTransformation(), ind_systemTransformation);
 			}).forEachRemaining((z) -> {
 				SystemTransformation systemTransformation = systemTransformationOWLSchema.parse(z.asIndividual());
 				systemTransformations.add(systemTransformation);

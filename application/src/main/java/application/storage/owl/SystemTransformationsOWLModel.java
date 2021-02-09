@@ -115,111 +115,279 @@ public class SystemTransformationsOWLModel implements OWLModel {
 
 	private OntClass class_SystemTransformations;
 
-	public OntClass getSystemTransformations() {
+	public OntClass getClass_SystemTransformations() {
 		return class_SystemTransformations;
 	}
 
 	private OntClass class_SystemTransformation;
 
-	public OntClass getSystemTransformation() {
+	public OntClass getClass_SystemTransformation() {
 		return class_SystemTransformation;
 	}
 
 	private OntClass class_SystemTemplate;
 
+	public OntClass getClass_SystemTemplate() {
+		return class_SystemTemplate;
+	}
+
 	private OntClass class_Transformations;
+
+	public OntClass getClass_Transformations() {
+		return class_Transformations;
+	}
 
 	private OntClass class_Action;
 
+	public OntClass getClass_Action() {
+		return class_Action;
+	}
+
 	private OntClass class_ObjectTemplate;
+
+	public OntClass getClass_ObjectTemplate() {
+		return class_ObjectTemplate;
+	}
 
 	private OntClass class_LinkTemplate;
 
+	public OntClass getClass_LinkTemplate() {
+		return class_LinkTemplate;
+	}
+
 	private OntClass class_AttributeTemplate;
+
+	public OntClass getClass_AttributeTemplate() {
+		return class_AttributeTemplate;
+	}
 
 	private OntClass class_AttributeTransformation;
 
+	public OntClass getClass_AttributeTransformation() {
+		return class_AttributeTransformation;
+	}
+
 	private OntClass class_LinkTransformation;
+
+	public OntClass getClass_LinkTransformation() {
+		return class_LinkTransformation;
+	}
 
 	private OntClass class_PreConditionChecker;
 
+	public OntClass getClass_PreConditionChecker() {
+		return class_PreConditionChecker;
+	}
+
 	private OntClass class_ParameterUpdater;
+
+	public OntClass getClass_ParameterUpdater() {
+		return class_ParameterUpdater;
+	}
 
 	private OntClass class_line;
 
+	public OntClass getClass_line() {
+		return class_line;
+	}
+
 	private ObjectProperty objectProperty_hasSystemTransformation;
 
-	public ObjectProperty getHasSystemTransformation() {
+	public ObjectProperty getObjectProperty_hasSystemTransformation() {
 		return objectProperty_hasSystemTransformation;
 	}
 
 	private ObjectProperty objectProperty_isSystemTransformationOf;
 
-	public ObjectProperty getIsSystemTransformationOf() {
+	public ObjectProperty getObjectProperty_isSystemTransformationOf() {
 		return objectProperty_isSystemTransformationOf;
 	}
 
 	private ObjectProperty objectProperty_hasSystemTemplate;
 
+	public ObjectProperty getObjectProperty_hasSystemTemplate() {
+		return objectProperty_hasSystemTemplate;
+	}
+
 	private ObjectProperty objectProperty_isSystemTemplateOf;
+
+	public ObjectProperty getObjectProperty_isSystemTemplateOf() {
+		return objectProperty_isSystemTemplateOf;
+	}
 
 	private ObjectProperty objectProperty_hasTransformations;
 
+	public ObjectProperty getObjectProperty_hasTransformations() {
+		return objectProperty_hasTransformations;
+	}
+
 	private ObjectProperty objectProperty_areTransformationsOf;
+
+	public ObjectProperty getObjectProperty_areTransformationsOf() {
+		return objectProperty_areTransformationsOf;
+	}
 
 	private ObjectProperty objectProperty_hasAction;
 
+	public ObjectProperty getObjectProperty_hasAction() {
+		return objectProperty_hasAction;
+	}
+
 	private ObjectProperty objectProperty_isActionOf;
+
+	public ObjectProperty getObjectProperty_isActionOf() {
+		return objectProperty_isActionOf;
+	}
 
 	private ObjectProperty objectProperty_hasObjectTemplate;
 
+	public ObjectProperty getObjectProperty_hasObjectTemplate() {
+		return objectProperty_hasObjectTemplate;
+	}
+
 	private ObjectProperty objectProperty_isObjectTemplateOf;
+
+	public ObjectProperty getObjectProperty_isObjectTemplateOf() {
+		return objectProperty_isObjectTemplateOf;
+	}
 
 	private ObjectProperty objectProperty_hasLinkTemplate;
 
+	public ObjectProperty getObjectProperty_hasLinkTemplate() {
+		return objectProperty_hasLinkTemplate;
+	}
+
 	private ObjectProperty objectProperty_isLinkTemplateOf;
+
+	public ObjectProperty getObjectProperty_isLinkTemplateOf() {
+		return objectProperty_isLinkTemplateOf;
+	}
 
 	private ObjectProperty objectProperty_hasAttributeTemplate;
 
+	public ObjectProperty getObjectProperty_hasAttributeTemplate() {
+		return objectProperty_hasAttributeTemplate;
+	}
+
 	private ObjectProperty objectProperty_isAttributeTemplateOf;
+
+	public ObjectProperty getObjectProperty_isAttributeTemplateOf() {
+		return objectProperty_isAttributeTemplateOf;
+	}
 
 	private ObjectProperty objectProperty_hasAttributeTransformation;
 
+	public ObjectProperty getObjectProperty_hasAttributeTransformation() {
+		return objectProperty_hasAttributeTransformation;
+	}
+
 	private ObjectProperty objectProperty_isAttributeTransformationOf;
+
+	public ObjectProperty getObjectProperty_isAttributeTransformationOf() {
+		return objectProperty_isAttributeTransformationOf;
+	}
 
 	private ObjectProperty objectProperty_hasLinkTransformation;
 
+	public ObjectProperty getObjectProperty_hasLinkTransformation() {
+		return objectProperty_hasLinkTransformation;
+	}
+
 	private ObjectProperty objectProperty_isLinkTransformationOf;
+
+	public ObjectProperty getObjectProperty_isLinkTransformationOf() {
+		return objectProperty_isLinkTransformationOf;
+	}
 
 	private ObjectProperty objectProperty_hasPreConditionChecker;
 
+	public ObjectProperty getObjectProperty_hasPreConditionChecker() {
+		return objectProperty_hasPreConditionChecker;
+	}
+
 	private ObjectProperty objectProperty_isPreConditionCheckerOf;
+
+	public ObjectProperty getObjectProperty_isPreConditionCheckerOf() {
+		return objectProperty_isPreConditionCheckerOf;
+	}
 
 	private ObjectProperty objectProperty_hasParameterUpdater;
 
+	public ObjectProperty getObjectProperty_hasParameterUpdater() {
+		return objectProperty_hasParameterUpdater;
+	}
+
 	private ObjectProperty objectProperty_isParameterUpdaterOf;
+
+	public ObjectProperty getObjectProperty_isParameterUpdaterOf() {
+		return objectProperty_isParameterUpdaterOf;
+	}
 
 	private ObjectProperty objectProperty_hasLine;
 
+	public ObjectProperty getObjectProperty_hasLine() {
+		return objectProperty_hasLine;
+	}
+
 	private ObjectProperty objectProperty_isLineOf;
+
+	public ObjectProperty getObjectProperty_isLineOf() {
+		return objectProperty_isLineOf;
+	}
 
 	private DatatypeProperty dataProperty_name;
 
+	public DatatypeProperty getDataProperty_name() {
+		return dataProperty_name;
+	}
+
 	private DatatypeProperty dataProperty_objectId;
+
+	public DatatypeProperty getDataProperty_objectId() {
+		return dataProperty_objectId;
+	}
 
 	private DatatypeProperty dataProperty_value;
 
+	public DatatypeProperty getDataProperty_value() {
+		return dataProperty_value;
+	}
+
 	private DatatypeProperty dataProperty_objectId1;
+
+	public DatatypeProperty getDataProperty_objectId1() {
+		return dataProperty_objectId1;
+	}
 
 	private DatatypeProperty dataProperty_objectId2;
 
+	public DatatypeProperty getDataProperty_objectId2() {
+		return dataProperty_objectId2;
+	}
+
 	private DatatypeProperty dataProperty_oldValue;
+
+	public DatatypeProperty getDataProperty_oldValue() {
+		return dataProperty_oldValue;
+	}
 
 	private DatatypeProperty dataProperty_newValue;
 
+	public DatatypeProperty getDataProperty_newValue() {
+		return dataProperty_newValue;
+	}
+
 	private DatatypeProperty dataProperty_number;
 
+	public DatatypeProperty getDataProperty_number() {
+		return dataProperty_number;
+	}
+
 	private DatatypeProperty dataProperty_text;
+
+	public DatatypeProperty getDataProperty_text() {
+		return dataProperty_text;
+	}
 
 	private void makeInverse(ObjectProperty property1, ObjectProperty property2) {
 		property1.addInverseOf(property2);
@@ -529,8 +697,51 @@ public class SystemTransformationsOWLModel implements OWLModel {
 
 		class_SystemTransformations = m.getOntClass(URI_SystemTransformations);
 		class_SystemTransformation = m.getOntClass(URI_SystemTransformation);
+		class_SystemTemplate = ontModel.getOntClass(URI_SystemTemplate);
+		class_Transformations = ontModel.getOntClass(URI_Transformations);
+		class_Action = ontModel.getOntClass(URI_Action);
+		class_PreConditionChecker = ontModel.getOntClass(URI_PreConditionChecker);
+		class_ParameterUpdater = ontModel.getOntClass(URI_ParameterUpdater);
+		class_line = ontModel.getOntClass(URI_Line);
+		class_ObjectTemplate = ontModel.getOntClass(URI_ObjectTemplate);
+		class_LinkTemplate = ontModel.getOntClass(URI_LinkTemplate);
+		class_AttributeTemplate = ontModel.getOntClass(URI_AttributeTemplate);
+		class_AttributeTransformation = ontModel.getOntClass(URI_AttributeTransformation);
+		class_LinkTransformation = ontModel.getOntClass(URI_LinkTransformation);
 
 		objectProperty_hasSystemTransformation = m.getObjectProperty(URI_hasSystemTransformation);
 		objectProperty_isSystemTransformationOf = m.getObjectProperty(URI_isSystemTransformationOf);
+		objectProperty_hasSystemTemplate = ontModel.getObjectProperty(URI_hasSystemTemplate);
+		objectProperty_isSystemTemplateOf = ontModel.getObjectProperty(URI_isSystemTemplateOf);
+		objectProperty_hasTransformations = ontModel.getObjectProperty(URI_hasTransformations);
+		objectProperty_areTransformationsOf = ontModel.getObjectProperty(URI_areTransformationsOf);
+		objectProperty_hasAction = ontModel.getObjectProperty(URI_hasAction);
+		objectProperty_isActionOf = ontModel.getObjectProperty(URI_isActionOf);
+		objectProperty_hasPreConditionChecker = ontModel.getObjectProperty(URI_hasPreConditionChecker);
+		objectProperty_isPreConditionCheckerOf = ontModel.getObjectProperty(URI_isPreConditionCheckerOf);
+		objectProperty_hasParameterUpdater = ontModel.getObjectProperty(URI_hasParameterUpdater);
+		objectProperty_isParameterUpdaterOf = ontModel.getObjectProperty(URI_isParameterUpdaterOf);
+		objectProperty_hasLine = ontModel.getObjectProperty(URI_hasLine);
+		objectProperty_isLineOf = ontModel.getObjectProperty(URI_isLineOf);
+		objectProperty_hasObjectTemplate = ontModel.getObjectProperty(URI_hasObjectTemplate);
+		objectProperty_isObjectTemplateOf = ontModel.getObjectProperty(URI_isObjectTemplateOf);
+		objectProperty_hasLinkTemplate = ontModel.getObjectProperty(URI_hasLinkTemplate);
+		objectProperty_isLinkTemplateOf = ontModel.getObjectProperty(URI_isLinkTemplateOf);
+		objectProperty_hasAttributeTemplate = ontModel.getObjectProperty(URI_hasAttributeTemplate);
+		objectProperty_isAttributeTemplateOf = ontModel.getObjectProperty(URI_isAttributeTemplateOf);
+		objectProperty_hasAttributeTransformation = ontModel.getObjectProperty(URI_hasAttributeTransformation);
+		objectProperty_isAttributeTransformationOf = ontModel.getObjectProperty(URI_isAttributeTransformationOf);
+		objectProperty_hasLinkTransformation = ontModel.getObjectProperty(URI_hasLinkTransformation);
+		objectProperty_isLinkTransformationOf = ontModel.getObjectProperty(URI_isLinkTransformationOf);
+
+		dataProperty_name = ontModel.getDatatypeProperty(URI_name);
+		dataProperty_number = ontModel.getDatatypeProperty(URI_number);
+		dataProperty_text = ontModel.getDatatypeProperty(URI_text);
+		dataProperty_objectId = ontModel.getDatatypeProperty(URI_objectId);
+		dataProperty_objectId1 = ontModel.getDatatypeProperty(URI_objectId1);
+		dataProperty_objectId2 = ontModel.getDatatypeProperty(URI_objectId2);
+		dataProperty_value = ontModel.getDatatypeProperty(URI_value);
+		dataProperty_oldValue = ontModel.getDatatypeProperty(URI_oldValue);
+		dataProperty_newValue = ontModel.getDatatypeProperty(URI_newValue);
 	}
 }
