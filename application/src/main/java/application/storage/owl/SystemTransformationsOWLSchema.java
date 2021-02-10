@@ -1,7 +1,6 @@
 package application.storage.owl;
 
 import org.apache.jena.ontology.Individual;
-import org.apache.jena.ontology.OntModel;
 import planning.method.SystemTransformations;
 import planning.model.SystemTransformation;
 
@@ -9,17 +8,21 @@ public class SystemTransformationsOWLSchema implements OWLSchema<SystemTransform
 
 	private SystemTransformationOWLSchema systemTransformationOWLSchema;
 
-	public SystemTransformationsOWLSchema() {
-		systemTransformationOWLSchema = new SystemTransformationOWLSchema();
+	private SystemTransformationsOWLModel owlModel;
+
+	public SystemTransformationsOWLSchema(SystemTransformationsOWLModel owlModel) {
+		this(owlModel, new SystemTransformationOWLSchema(owlModel));
 	}
 
-	SystemTransformationsOWLSchema(SystemTransformationOWLSchema systemTransformationOWLSchema) {
+	SystemTransformationsOWLSchema(SystemTransformationsOWLModel owlModel,
+			SystemTransformationOWLSchema systemTransformationOWLSchema) {
+		this.owlModel = owlModel;
 		this.systemTransformationOWLSchema = systemTransformationOWLSchema;
 	}
 
 	@Override
 	public Individual combine(SystemTransformations systemTransformations) {
-		Individual ind_systemTransformations = owlModel.getClass_SystemTransformations().createIndividual(SystemTransformationsOWLModel.getUniqueIndividualURI());
+		Individual ind_systemTransformations = owlModel.getClass_SystemTransformations().createIndividual(owlModel.getUniqueURI());
 		ind_systemTransformations.addLabel("System Transformations 1", "en");
 		ind_systemTransformations.addLabel("Трансформации системы 1", "ru");
 
@@ -43,14 +46,5 @@ public class SystemTransformationsOWLSchema implements OWLSchema<SystemTransform
 			});
 		});
 		return systemTransformations;
-	}
-
-	private SystemTransformationsOWLModel owlModel = new SystemTransformationsOWLModel();
-
-	@Override
-	public void connectOntologyModel(OntModel ontModel) {
-		owlModel.connectOntologyModel(ontModel);
-
-		systemTransformationOWLSchema.connectOntologyModel(ontModel);
 	}
 }

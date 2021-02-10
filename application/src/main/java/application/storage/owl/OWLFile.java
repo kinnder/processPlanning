@@ -13,12 +13,9 @@ import org.apache.jena.ontology.OntModel;
 
 public class OWLFile<T> {
 
-	private OWLSchema<T> owlSchema;
+	private OWLModel<T> owlModel;
 
-	private OWLModel owlModel;
-
-	public OWLFile(OWLModel owlModel, OWLSchema<T> owlSchema) {
-		this.owlSchema = owlSchema;
+	public OWLFile(OWLModel<T> owlModel) {
 		this.owlModel = owlModel;
 	}
 
@@ -27,11 +24,10 @@ public class OWLFile<T> {
 	}
 
 	public void save(T object, Path path) throws IOException {
-		OntModel ontModel = owlModel.createOntologyModel();
-		owlSchema.connectOntologyModel(ontModel);
-		owlSchema.combine(object);
+		owlModel.createOntologyModel();
+		owlModel.getOWLSchema().combine(object);
 		OutputStream outputStream = new BufferedOutputStream(Files.newOutputStream(path));
-		ontModel.write(outputStream, "RDF/XML");
+		owlModel.getOntologyModel().write(outputStream, "RDF/XML");
 	}
 
 	public T load(String path) throws IOException {
@@ -40,10 +36,10 @@ public class OWLFile<T> {
 
 	public T load(Path path) throws IOException {
 		InputStream inputStream = new BufferedInputStream(Files.newInputStream(path));
-		OntModel ontModel = owlModel.createOntologyModel();
+		OntModel ontModel = owlModel.createOntologyModelBase();
 		ontModel.read(inputStream, "RDF/XML");
-		owlSchema.connectOntologyModel(ontModel);
+		owlModel.connectOntologyModel(ontModel);
 		// TODO (2021-02-01 #31): загружаться должен основной индивид, не null
-		return owlSchema.parse(null);
+		return owlModel.getOWLSchema().parse(null);
 	}
 }

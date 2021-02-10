@@ -9,7 +9,9 @@ import org.apache.jena.ontology.OntModel;
 import org.apache.jena.rdf.model.ModelFactory;
 import org.apache.jena.vocabulary.XSD;
 
-public class SystemTransformationsOWLModel implements OWLModel {
+import planning.method.SystemTransformations;
+
+public class SystemTransformationsOWLModel implements OWLModel<SystemTransformations> {
 
 	static final String NS = "https://github.com/kinnder/process-engineering/planning/system-transformations#";
 
@@ -109,6 +111,7 @@ public class SystemTransformationsOWLModel implements OWLModel {
 
 	private OntModel m;
 
+	@Override
 	public OntModel getOntologyModel() {
 		return m;
 	}
@@ -395,8 +398,8 @@ public class SystemTransformationsOWLModel implements OWLModel {
 	}
 
 	@Override
-	public OntModel createOntologyModel() {
-		m = ModelFactory.createOntologyModel();
+	public void createOntologyModel() {
+		m = createOntologyModelBase();
 
 		class_SystemTransformations = m.createClass(URI_SystemTransformations);
 		class_SystemTransformations.addLabel("System Transformations", "en");
@@ -683,12 +686,11 @@ public class SystemTransformationsOWLModel implements OWLModel {
 		dataProperty_text.addLabel("текст", "ru");
 		dataProperty_text.addDomain(class_line);
 		dataProperty_text.addRange(XSD.xstring);
-
-		return m;
 	}
 
-	public static String getUniqueIndividualURI() {
-		return SystemTransformationsOWLModel.NS + UUID.randomUUID().toString();
+	@Override
+	public String getUniqueURI() {
+		return NS + UUID.randomUUID().toString();
 	}
 
 	@Override
@@ -743,5 +745,15 @@ public class SystemTransformationsOWLModel implements OWLModel {
 		dataProperty_value = ontModel.getDatatypeProperty(URI_value);
 		dataProperty_oldValue = ontModel.getDatatypeProperty(URI_oldValue);
 		dataProperty_newValue = ontModel.getDatatypeProperty(URI_newValue);
+	}
+
+	@Override
+	public OWLSchema<SystemTransformations> getOWLSchema() {
+		return new SystemTransformationsOWLSchema(this);
+	}
+
+	@Override
+	public OntModel createOntologyModelBase() {
+		return ModelFactory.createOntologyModel();
 	}
 }

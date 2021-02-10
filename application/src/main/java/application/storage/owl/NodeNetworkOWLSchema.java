@@ -9,10 +9,15 @@ public class NodeNetworkOWLSchema implements OWLSchema<NodeNetwork> {
 
 	final private String NS = "https://github.com/kinnder/process-engineering/planning/node-network#";
 
-	private OntModel m;
+	private NodeNetworkOWLModel owlModel;
+
+	public NodeNetworkOWLSchema(NodeNetworkOWLModel owlModel) {
+		this.owlModel = owlModel;
+	}
 
 	@Override
 	public Individual combine(NodeNetwork object) {
+		OntModel m = owlModel.getOntologyModel();
 		// Ontology
 		OntClass ontClass_process = m.createClass(NS + "Node Network");
 		ontClass_process.addLabel("Node Network", "en");
@@ -24,10 +29,5 @@ public class NodeNetworkOWLSchema implements OWLSchema<NodeNetwork> {
 	public NodeNetwork parse(Individual individual) {
 		// TODO Auto-generated method stub
 		return null;
-	}
-
-	@Override
-	public void connectOntologyModel(OntModel ontModel) {
-		this.m = ontModel;
 	}
 }

@@ -19,6 +19,10 @@ public class SystemProcessOWLSchema implements OWLSchema<SystemProcess> {
 
 	private OntModel m;
 
+	public SystemProcessOWLSchema(SystemProcessOWLModel owlModel) {
+		m = owlModel.getOntologyModel();
+	}
+
 	@Override
 	public Individual combine(SystemProcess systemProcess) {
 		// Ontology
@@ -115,11 +119,5 @@ public class SystemProcessOWLSchema implements OWLSchema<SystemProcess> {
 	public SystemProcess parse(Individual individual) {
 		// TODO Auto-generated method stub
 		return null;
-	}
-
-	@Override
-	public void connectOntologyModel(OntModel ontModel) {
-		// TODO Auto-generated method stub
-		this.m = ontModel;
 	}
 }

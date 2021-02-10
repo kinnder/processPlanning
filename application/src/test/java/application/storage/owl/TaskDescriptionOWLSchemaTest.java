@@ -31,9 +31,13 @@ public class TaskDescriptionOWLSchemaTest {
 
 	TaskDescriptionOWLSchema testable;
 
+	TaskDescriptionOWLModel owlModel;
+
 	@BeforeEach
 	public void setup() {
-		testable = new TaskDescriptionOWLSchema();
+		owlModel = new TaskDescriptionOWLModel();
+
+		testable = new TaskDescriptionOWLSchema(owlModel);
 	}
 
 	@Test
@@ -64,9 +68,9 @@ public class TaskDescriptionOWLSchemaTest {
 		taskDescription.setInitialSystem(initialSystem);
 		taskDescription.setFinalSystem(finalSystem);
 
-		OntModel model = new TaskDescriptionOWLModel().createOntologyModel();
-		testable.connectOntologyModel(model);
+		owlModel.createOntologyModel();
 		testable.combine(taskDescription);
+		OntModel model = owlModel.getOntologyModel();
 		assertNotNull(model);
 		assertEquals(133, model.listObjects().toList().size());
 		assertEquals(410, model.listStatements().toList().size());

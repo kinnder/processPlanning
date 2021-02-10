@@ -3,8 +3,6 @@ package application.storage.owl;
 import java.util.UUID;
 
 import org.apache.jena.ontology.Individual;
-import org.apache.jena.ontology.OntModel;
-
 import planning.model.Action;
 import planning.model.ActionParameterUpdater;
 import planning.model.ActionPreConditionChecker;
@@ -12,6 +10,12 @@ import planning.model.LuaScriptActionParameterUpdater;
 import planning.model.LuaScriptActionPreConditionChecker;
 
 public class ActionOWLSchema implements OWLSchema<Action> {
+
+	private SystemTransformationsOWLModel owlModel;
+
+	public ActionOWLSchema(SystemTransformationsOWLModel owlModel) {
+		this.owlModel = owlModel;
+	}
 
 	@Override
 	public Individual combine(Action action) {
@@ -65,12 +69,5 @@ public class ActionOWLSchema implements OWLSchema<Action> {
 	public Action parse(Individual individual) {
 		// TODO Auto-generated method stub
 		return null;
-	}
-
-	private SystemTransformationsOWLModel owlModel = new SystemTransformationsOWLModel();
-
-	@Override
-	public void connectOntologyModel(OntModel ontModel) {
-		owlModel.connectOntologyModel(ontModel);
 	}
 }

@@ -3,13 +3,17 @@ package application.storage.owl;
 import java.util.UUID;
 
 import org.apache.jena.ontology.Individual;
-import org.apache.jena.ontology.OntModel;
-
 import planning.model.AttributeTransformation;
 import planning.model.LinkTransformation;
 import planning.model.Transformation;
 
 public class TransformationsOWLSchema implements OWLSchema<Transformation[]> {
+
+	private SystemTransformationsOWLModel owlModel;
+
+	public TransformationsOWLSchema(SystemTransformationsOWLModel owlModel) {
+		this.owlModel = owlModel;
+	}
 
 	@Override
 	public Individual combine(Transformation[] transformations) {
@@ -65,12 +69,5 @@ public class TransformationsOWLSchema implements OWLSchema<Transformation[]> {
 	public Transformation[] parse(Individual individual) {
 		// TODO Auto-generated method stub
 		return null;
-	}
-
-	private SystemTransformationsOWLModel owlModel = new SystemTransformationsOWLModel();
-
-	@Override
-	public void connectOntologyModel(OntModel ontModel) {
-		owlModel.connectOntologyModel(ontModel);
 	}
 }

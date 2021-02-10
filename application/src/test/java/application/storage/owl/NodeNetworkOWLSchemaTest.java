@@ -1,9 +1,11 @@
 package application.storage.owl;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
+import org.apache.jena.ontology.Individual;
+import org.apache.jena.ontology.OntClass;
 import org.apache.jena.ontology.OntModel;
+import org.jmock.Expectations;
 import org.jmock.imposters.ByteBuddyClassImposteriser;
 import org.jmock.junit5.JUnit5Mockery;
 import org.junit.jupiter.api.AfterEach;
@@ -29,23 +31,36 @@ public class NodeNetworkOWLSchemaTest {
 
 	NodeNetworkOWLSchema testable;
 
+	NodeNetworkOWLModel nodeNetworkOWLModel_mock;
+
 	@BeforeEach
 	public void setup() {
-		testable = new NodeNetworkOWLSchema();
+		nodeNetworkOWLModel_mock = context.mock(NodeNetworkOWLModel.class);
+
+		testable = new NodeNetworkOWLSchema(nodeNetworkOWLModel_mock);
 	}
 
 	@Test
 	public void combine() {
-		final NodeNetwork nodeNetwork = new NodeNetwork();
+		final NodeNetwork nodeNetwork_mock = context.mock(NodeNetwork.class);
+		final OntModel ontModel_mock = context.mock(OntModel.class);
+		final OntClass ontClass_mock = context.mock(OntClass.class);
 
-		OntModel model = new NodeNetworkOWLModel().createOntologyModel();
-		testable.connectOntologyModel(model);
-		testable.combine(nodeNetwork);
-		assertNotNull(model);
-		assertEquals(22, model.listObjects().toList().size());
-		assertEquals(111, model.listStatements().toList().size());
+		context.checking(new Expectations() {
+			{
+				oneOf(nodeNetworkOWLModel_mock).getOntologyModel();
+				will(returnValue(ontModel_mock));
 
-		// TODO (2020-12-14 #31): удалить
-//		model.write(java.lang.System.out, "RDF/XML");
+				oneOf(ontModel_mock).createClass(with(any(String.class)));
+				will(returnValue(ontClass_mock));
+
+				oneOf(ontClass_mock).addLabel("Node Network", "en");
+
+				oneOf(ontClass_mock).addLabel("Сеть узлов", "ru");
+			}
+		});
+
+		Individual result = testable.combine(nodeNetwork_mock);
+		assertNull(result);
 	}
 }

@@ -8,7 +8,6 @@ import org.jmock.imposters.ByteBuddyClassImposteriser;
 import org.jmock.junit5.JUnit5Mockery;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
@@ -31,47 +30,38 @@ public class SystemTransformationOWLSchemaTest {
 
 	SystemTransformationsOWLSchema testable;
 
-	SystemTransformationOWLSchema systemTransformationOWLSchema_mock;
+	SystemTransformationsOWLModel owlModel;
 
 	@BeforeEach
 	public void setup() {
-		systemTransformationOWLSchema_mock = context.mock(SystemTransformationOWLSchema.class);
+		owlModel = new SystemTransformationsOWLModel();
 
-		testable = new SystemTransformationsOWLSchema(systemTransformationOWLSchema_mock);
+		testable = new SystemTransformationsOWLSchema(owlModel);
 	}
 
 	@Test
-	public void newInstance() {
-		testable = new SystemTransformationsOWLSchema();
-	}
-
-	@Test
-	@Disabled
 	public void combine_full() {
-		testable = new SystemTransformationsOWLSchema();
 		final SystemTransformations systemTransformations = new SystemTransformations();
 		systemTransformations.add(AssemblyLine.turnWithLoad());
 
-		OntModel model = new SystemTransformationsOWLModel().createOntologyModel();
-		testable.connectOntologyModel(model);
+		owlModel.createOntologyModel();
 		testable.combine(systemTransformations);
+
+		OntModel model = owlModel.getOntologyModel();
 		assertNotNull(model);
 		assertEquals(222, model.listObjects().toList().size());
 		assertEquals(753, model.listStatements().toList().size());
 
 		// TODO (2020-12-14 #31): удалить
-		model.write(java.lang.System.out, "RDF/XML");
+//		model.write(java.lang.System.out, "RDF/XML");
 	}
 
 	@Test
-	@Disabled
 	public void parse_full() {
-		testable = new SystemTransformationsOWLSchema();
 		final SystemTransformations systemTransformations = new SystemTransformations();
 		systemTransformations.add(AssemblyLine.turnWithLoad());
 
-		OntModel model = new SystemTransformationsOWLModel().createOntologyModel();
-		testable.connectOntologyModel(model);
+		owlModel.createOntologyModel();
 		testable.combine(systemTransformations);
 
 		testable.parse(null);

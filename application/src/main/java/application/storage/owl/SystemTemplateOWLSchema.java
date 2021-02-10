@@ -3,14 +3,18 @@ package application.storage.owl;
 import java.util.UUID;
 
 import org.apache.jena.ontology.Individual;
-import org.apache.jena.ontology.OntModel;
-
 import planning.model.AttributeTemplate;
 import planning.model.LinkTemplate;
 import planning.model.SystemObjectTemplate;
 import planning.model.SystemTemplate;
 
 public class SystemTemplateOWLSchema implements OWLSchema<SystemTemplate> {
+
+	private SystemTransformationsOWLModel owlModel;
+
+	public SystemTemplateOWLSchema(SystemTransformationsOWLModel owlModel) {
+		this.owlModel = owlModel;
+	}
 
 	@Override
 	public Individual combine(SystemTemplate systemTemplate) {
@@ -80,12 +84,5 @@ public class SystemTemplateOWLSchema implements OWLSchema<SystemTemplate> {
 	public SystemTemplate parse(Individual individual) {
 		// TODO Auto-generated method stub
 		return null;
-	}
-
-	private SystemTransformationsOWLModel owlModel = new SystemTransformationsOWLModel();
-
-	@Override
-	public void connectOntologyModel(OntModel ontModel) {
-		owlModel.connectOntologyModel(ontModel);
 	}
 }

@@ -1,8 +1,6 @@
 package application.storage.owl;
 
 import org.apache.jena.ontology.Individual;
-import org.apache.jena.ontology.OntModel;
-
 import planning.model.Action;
 import planning.model.SystemTemplate;
 import planning.model.SystemTransformation;
@@ -16,15 +14,19 @@ public class SystemTransformationOWLSchema implements OWLSchema<SystemTransforma
 
 	private TransformationsOWLSchema transformationsOWLSchema;
 
-	public SystemTransformationOWLSchema() {
-		actionOWLSchema = new ActionOWLSchema();
-		systemTemplateOWLSchema = new SystemTemplateOWLSchema();
-		transformationsOWLSchema = new TransformationsOWLSchema();
+	private SystemTransformationsOWLModel owlModel;
+
+	public SystemTransformationOWLSchema(SystemTransformationsOWLModel owlModel) {
+		this.owlModel = owlModel;
+
+		actionOWLSchema = new ActionOWLSchema(owlModel);
+		systemTemplateOWLSchema = new SystemTemplateOWLSchema(owlModel);
+		transformationsOWLSchema = new TransformationsOWLSchema(owlModel);
 	}
 
 	@Override
 	public Individual combine(SystemTransformation systemTransformation) {
-		Individual ind_systemTransformation = owlModel.getClass_SystemTransformation().createIndividual(SystemTransformationsOWLModel.getUniqueIndividualURI());
+		Individual ind_systemTransformation = owlModel.getClass_SystemTransformation().createIndividual(owlModel.getUniqueURI());
 		ind_systemTransformation.addProperty(owlModel.getDataProperty_name(), systemTransformation.getName());
 
 		Individual ind_action = actionOWLSchema.combine(systemTransformation.getAction());
@@ -53,30 +55,17 @@ public class SystemTransformationOWLSchema implements OWLSchema<SystemTransforma
 			systemTransformation.setAction(action);
 		});
 		owlModel.getClass_SystemTemplate().listInstances().filterKeep((ind_systemTemplate) -> {
-			return ind_systemTransformation.hasProperty(owlModel.getObjectProperty_hasSystemTemplate(),
-					ind_systemTemplate);
+			return ind_systemTransformation.hasProperty(owlModel.getObjectProperty_hasSystemTemplate(), ind_systemTemplate);
 		}).forEachRemaining((ind_systemTemplate) -> {
 			SystemTemplate systemTemplate = systemTemplateOWLSchema.parse(ind_systemTemplate.asIndividual());
 			systemTransformation.setSystemTemplate(systemTemplate);
 		});
 		owlModel.getClass_Transformations().listInstances().filterKeep((ind_transformations) -> {
-			return ind_systemTransformation.hasProperty(owlModel.getObjectProperty_hasTransformations(),
-					ind_transformations);
+			return ind_systemTransformation.hasProperty(owlModel.getObjectProperty_hasTransformations(), ind_transformations);
 		}).forEachRemaining((ind_transformations) -> {
 			Transformation[] transformations = transformationsOWLSchema.parse(ind_transformations.asIndividual());
 			systemTransformation.setTransformations(transformations);
 		});
 		return systemTransformation;
-	}
-
-	private SystemTransformationsOWLModel owlModel = new SystemTransformationsOWLModel();
-
-	@Override
-	public void connectOntologyModel(OntModel ontModel) {
-		owlModel.connectOntologyModel(ontModel);
-
-		actionOWLSchema.connectOntologyModel(ontModel);
-		systemTemplateOWLSchema.connectOntologyModel(ontModel);
-		transformationsOWLSchema.connectOntologyModel(ontModel);
 	}
 }

@@ -34,9 +34,13 @@ public class SystemProcessOWLSchemaTest {
 
 	SystemProcessOWLSchema testable;
 
+	SystemProcessOWLModel systemProcessOWLModel;
+
 	@BeforeEach
 	public void setup() {
-		testable = new SystemProcessOWLSchema();
+		systemProcessOWLModel = new SystemProcessOWLModel();
+
+		testable = new SystemProcessOWLSchema(systemProcessOWLModel);
 	}
 
 	@Test
@@ -47,9 +51,8 @@ public class SystemProcessOWLSchemaTest {
 		final Action action = new Action("test-action");
 		systemProcess.add(new SystemOperation(action, parameters));
 
-		OntModel model = new SystemProcessOWLModel().createOntologyModel();
-		testable.connectOntologyModel(model);
 		testable.combine(systemProcess);
+		OntModel model = systemProcessOWLModel.getOntologyModel();
 		assertNotNull(model);
 		assertEquals(59, model.listObjects().toList().size());
 		assertEquals(201, model.listStatements().toList().size());

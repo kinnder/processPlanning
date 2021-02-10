@@ -25,6 +25,10 @@ public class TaskDescriptionOWLSchema implements OWLSchema<TaskDescription> {
 
 	private OntModel m;
 
+	public TaskDescriptionOWLSchema(TaskDescriptionOWLModel owlModel) {
+		m = owlModel.getOntologyModel();
+	}
+
 	@Override
 	public Individual combine(TaskDescription taskDescription) {
 		// Ontology
@@ -272,13 +276,6 @@ public class TaskDescriptionOWLSchema implements OWLSchema<TaskDescription> {
 	public TaskDescription parse(Individual individual) {
 		// TODO Auto-generated method stub
 		return null;
-	}
-
-	@Override
-	public void connectOntologyModel(OntModel ontModel) {
-		// TODO Auto-generated method stub
-		this.m = ontModel;
-
 	}
 
 	// TODO (2020-12-13 #31): включить проверку copy-paste
