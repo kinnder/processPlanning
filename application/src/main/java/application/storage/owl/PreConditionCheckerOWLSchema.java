@@ -1,12 +1,17 @@
 package application.storage.owl;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.apache.jena.ontology.Individual;
+import org.luaj.vm2.Globals;
+import org.luaj.vm2.lib.jse.JsePlatform;
 
 import planning.model.ActionPreConditionChecker;
 import planning.model.LuaScriptActionPreConditionChecker;
 
 public class PreConditionCheckerOWLSchema implements OWLSchema<ActionPreConditionChecker> {
-	
+
 	private SystemTransformationsOWLModel owlModel;
 
 	public PreConditionCheckerOWLSchema(SystemTransformationsOWLModel owlModel) {
@@ -31,10 +36,27 @@ public class PreConditionCheckerOWLSchema implements OWLSchema<ActionPreConditio
 		return ind_preConditionChecker;
 	}
 
+	// TODO : пересмотреть положение globals
+	private static Globals globals = JsePlatform.standardGlobals();
+
+	// TODO : lines has separate schema
+
 	@Override
 	public ActionPreConditionChecker parse(Individual individual) {
-		// TODO Auto-generated method stub
-		return null;
+		Map<Integer, String> lines = new HashMap<>();
+		owlModel.getClass_line().listInstances().filterKeep((ind_line) -> {
+			return individual.hasProperty(owlModel.getObjectProperty_hasLine(), ind_line);
+		}).forEachRemaining((int_line) -> {
+			int id = int_line.getProperty(owlModel.getDataProperty_number()).getInt() - 1;
+			String text = int_line.getProperty(owlModel.getDataProperty_text()).getString();
+			lines.put(id, text);
+		});
+		int amount = lines.keySet().size();
+		StringBuilder script = new StringBuilder();
+		for (int i = 0; i < amount; i++) {
+			script.append(lines.get(i)).append("\n");
+		}
+		return new LuaScriptActionPreConditionChecker(globals, script.toString());
 	}
 
 }

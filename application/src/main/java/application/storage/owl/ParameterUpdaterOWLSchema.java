@@ -1,6 +1,11 @@
 package application.storage.owl;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.apache.jena.ontology.Individual;
+import org.luaj.vm2.Globals;
+import org.luaj.vm2.lib.jse.JsePlatform;
 
 import planning.model.ActionParameterUpdater;
 import planning.model.LuaScriptActionParameterUpdater;
@@ -32,9 +37,26 @@ public class ParameterUpdaterOWLSchema implements OWLSchema<ActionParameterUpdat
 		return ind_parameterUpdater;
 	}
 
+	// TODO : пересмотреть положение globals
+	private static Globals globals = JsePlatform.standardGlobals();
+
+	// TODO : lines has separate schema
+
 	@Override
-	public ActionParameterUpdater parse(Individual individual) {
-		// TODO Auto-generated method stub
-		return null;
+	public ActionParameterUpdater parse(Individual ind_parameterUpdater) {
+		Map<Integer, String> lines = new HashMap<>();
+		owlModel.getClass_line().listInstances().filterKeep((ind_line) -> {
+			return ind_parameterUpdater.hasProperty(owlModel.getObjectProperty_hasLine(), ind_line);
+		}).forEachRemaining((ind_line) -> {
+			int id = ind_line.getProperty(owlModel.getDataProperty_number()).getInt() - 1;
+			String text = ind_line.getProperty(owlModel.getDataProperty_text()).getString();
+			lines.put(id, text);
+		});
+		int amount = lines.keySet().size();
+		StringBuilder script = new StringBuilder();
+		for (int i = 0; i < amount; i++) {
+			script.append(lines.get(i)).append("\n");
+		}
+		return new LuaScriptActionParameterUpdater(globals, script.toString());
 	}
 }
