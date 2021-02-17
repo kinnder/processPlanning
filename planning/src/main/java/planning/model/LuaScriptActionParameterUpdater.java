@@ -1,5 +1,7 @@
 package planning.model;
 
+import java.util.Collection;
+
 import org.luaj.vm2.Globals;
 import org.luaj.vm2.lib.jse.CoerceJavaToLua;
 
@@ -7,6 +9,10 @@ public class LuaScriptActionParameterUpdater extends LuaScript implements Action
 
 	public LuaScriptActionParameterUpdater(Globals globals, String script) {
 		super(globals, script);
+	}
+
+	public LuaScriptActionParameterUpdater(Globals globals, Collection<LuaScriptLine> scriptLines) {
+		super(globals, scriptLines);
 	}
 
 	@Override

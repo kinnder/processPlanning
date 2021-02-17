@@ -19,6 +19,7 @@ import org.junit.jupiter.api.extension.RegisterExtension;
 
 import planning.model.ActionParameterUpdater;
 import planning.model.LuaScriptActionParameterUpdater;
+import planning.model.LuaScriptLine;
 
 public class ParameterUpdaterXMLSchemaTest {
 
@@ -72,12 +73,14 @@ public class ParameterUpdaterXMLSchemaTest {
 	public void combine() {
 		final LuaScriptActionParameterUpdater parameterUpdater_mock = context
 				.mock(LuaScriptActionParameterUpdater.class);
+		final List<LuaScriptLine> scriptLines = new ArrayList<LuaScriptLine>();
+		scriptLines.add(new LuaScriptLine(1, "local systemVariant = ..."));
+		scriptLines.add(new LuaScriptLine(2, "local object = systemVariant:getObjectByIdMatch('ID-PLANE-X-TARGET')"));
 
 		context.checking(new Expectations() {
 			{
-				oneOf(parameterUpdater_mock).getScript();
-				will(returnValue(
-						"local systemVariant = ...\nlocal object = systemVariant:getObjectByIdMatch('ID-PLANE-X-TARGET')"));
+				oneOf(parameterUpdater_mock).getScriptLines();
+				will(returnValue(scriptLines));
 			}
 		});
 

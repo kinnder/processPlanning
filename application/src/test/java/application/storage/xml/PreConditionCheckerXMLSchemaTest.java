@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import org.jdom2.Attribute;
 import org.jdom2.DataConversionException;
 import org.jdom2.Element;
@@ -19,6 +18,7 @@ import org.junit.jupiter.api.extension.RegisterExtension;
 
 import planning.model.ActionPreConditionChecker;
 import planning.model.LuaScriptActionPreConditionChecker;
+import planning.model.LuaScriptLine;
 
 public class PreConditionCheckerXMLSchemaTest {
 
@@ -72,12 +72,14 @@ public class PreConditionCheckerXMLSchemaTest {
 	public void combine() {
 		final LuaScriptActionPreConditionChecker preConditionChecker_mock = context
 				.mock(LuaScriptActionPreConditionChecker.class);
+		final List<LuaScriptLine> scriptLines = new ArrayList<LuaScriptLine>();
+		scriptLines.add(new LuaScriptLine(1, "local systemVariant = ..."));
+		scriptLines.add(new LuaScriptLine(2, "local object = systemVariant:getObjectByIdMatch('ID-PLANE-X-TARGET')"));
 
 		context.checking(new Expectations() {
 			{
-				oneOf(preConditionChecker_mock).getScript();
-				will(returnValue(
-						"local systemVariant = ...\nlocal object = systemVariant:getObjectByIdMatch('ID-PLANE-X-TARGET')"));
+				oneOf(preConditionChecker_mock).getScriptLines();
+				will(returnValue(scriptLines));
 			}
 		});
 

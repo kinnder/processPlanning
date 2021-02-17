@@ -1,6 +1,9 @@
 package application.storage.xml;
 
+import java.util.Collection;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 import org.jdom2.DataConversionException;
 import org.jdom2.Element;
@@ -9,6 +12,7 @@ import org.luaj.vm2.lib.jse.JsePlatform;
 
 import planning.model.ActionPreConditionChecker;
 import planning.model.LuaScriptActionPreConditionChecker;
+import planning.model.LuaScriptLine;
 
 // TODO : rename schema to match generic class
 public class PreConditionCheckerXMLSchema implements XMLSchema<ActionPreConditionChecker> {
@@ -18,32 +22,26 @@ public class PreConditionCheckerXMLSchema implements XMLSchema<ActionPreConditio
 	// TODO : пересмотреть положение globals
 	private static Globals globals = JsePlatform.standardGlobals();
 
-	// TODO : lines has separate schema
+	private LuaScriptLineXMLSchema luaScriptLineXMLSchema = new LuaScriptLineXMLSchema();
 
 	@Override
 	public ActionPreConditionChecker parse(Element root) throws DataConversionException {
-		List<Element> elements = root.getChildren("line");
-		String[] lines = new String[elements.size()];
+		List<Element> elements = root.getChildren(luaScriptLineXMLSchema.getSchemaName());
+		Map<Integer, LuaScriptLine> scriptLines = new TreeMap<Integer, LuaScriptLine>();
 		for (Element element : elements) {
-			int id = element.getAttribute("n").getIntValue() - 1;
-			lines[id] = element.getText();
+			LuaScriptLine scriptLine = luaScriptLineXMLSchema.parse(element);
+			scriptLines.put(scriptLine.getNumber(), scriptLine);
 		}
-		StringBuilder script = new StringBuilder();
-		for (String line : lines) {
-			script.append(line).append("\n");
-		}
-		return new LuaScriptActionPreConditionChecker(globals, script.toString());
+		return new LuaScriptActionPreConditionChecker(globals, scriptLines.values());
 	}
 
 	@Override
 	public Element combine(ActionPreConditionChecker preConditionChecker) {
 		LuaScriptActionPreConditionChecker luaPreConditionChecker = (LuaScriptActionPreConditionChecker) preConditionChecker;
-		String lines[] = luaPreConditionChecker.getScript().split("\n");
-		Element root = new Element("preConditionChecker");
-		for (int i = 0; i < lines.length; i++) {
-			Element element = new Element("line");
-			element.setText(lines[i]);
-			element.setAttribute("n", Integer.toString(i + 1));
+		Element root = new Element(TAG_preConditionChecker);
+		Collection<LuaScriptLine> scriptLines = luaPreConditionChecker.getScriptLines();
+		for (LuaScriptLine scriptLine : scriptLines) {
+			Element element = luaScriptLineXMLSchema.combine(scriptLine);
 			root.addContent(element);
 		}
 		return root;
