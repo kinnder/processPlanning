@@ -20,8 +20,7 @@ public class LuaScriptLineXMLSchema implements XMLSchema<LuaScriptLine> {
 	public LuaScriptLine parse(Element element) throws DataConversionException {
 		int number = element.getAttribute(TAG_n).getIntValue();
 		String text = element.getText();
-		LuaScriptLine scriptLine = new LuaScriptLine(number, text);
-		return scriptLine;
+		return new LuaScriptLine(number, text);
 	}
 
 	@Override
