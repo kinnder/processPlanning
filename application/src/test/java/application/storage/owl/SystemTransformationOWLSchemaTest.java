@@ -49,7 +49,7 @@ public class SystemTransformationOWLSchemaTest {
 
 		OntModel model = owlModel.getOntologyModel();
 		assertNotNull(model);
-		assertEquals(222, model.listObjects().toList().size());
+		assertEquals(207, model.listObjects().toList().size());
 		assertEquals(753, model.listStatements().toList().size());
 
 		// TODO (2020-12-14 #31): удалить
