@@ -14,28 +14,43 @@ public class AttributeTemplateOWLSchema implements OWLSchema<AttributeTemplate> 
 
 	@Override
 	public Individual combine(AttributeTemplate attributeTemplate) {
-		int i = 0;
-		int j = 0;
-		// >> Individual: AttributeTemplate
-		Individual ind_attributeTemplate = owlModel.getClass_AttributeTemplate()
-				.createIndividual(owlModel.getUniqueURI());
-		ind_attributeTemplate.addLabel(
-				"Attribute Template ".concat(Integer.toString(i).concat(" ").concat(Integer.toString(j))), "en");
-		ind_attributeTemplate
-				.addLabel("Шаблон атрибута ".concat(Integer.toString(i).concat(" ").concat(Integer.toString(j))), "ru");
+		Individual ind_attributeTemplate = owlModel.getClass_AttributeTemplate().createIndividual(owlModel.getUniqueURI());
+		ind_attributeTemplate.addLabel("Attribute Template", "en");
+		ind_attributeTemplate.addLabel("Шаблон атрибута", "ru");
 		ind_attributeTemplate.addProperty(owlModel.getDataProperty_name(), attributeTemplate.getName());
 		Object value = attributeTemplate.getValue();
-		if (value != null) {
-			// TODO (2021-01-13 #31): поддержка других DataType
+		if (value == null) {
+			ind_attributeTemplate.addProperty(owlModel.getDataProperty_value(), "");
+			ind_attributeTemplate.addProperty(owlModel.getDataProperty_type(), "null");
+		} else if (value instanceof Boolean) {
 			ind_attributeTemplate.addProperty(owlModel.getDataProperty_value(), value.toString());
+			ind_attributeTemplate.addProperty(owlModel.getDataProperty_type(), "boolean");
+		} else if (value instanceof Integer) {
+			ind_attributeTemplate.addProperty(owlModel.getDataProperty_value(), value.toString());
+			ind_attributeTemplate.addProperty(owlModel.getDataProperty_type(), "integer");
+		} else {
+			ind_attributeTemplate.addProperty(owlModel.getDataProperty_value(), value.toString());
+			ind_attributeTemplate.addProperty(owlModel.getDataProperty_type(), "string");
 		}
-		// << Individual: AttributeTemplate
 		return ind_attributeTemplate;
 	}
 
 	@Override
-	public AttributeTemplate parse(Individual individual) {
-		// TODO Auto-generated method stub
-		return null;
+	public AttributeTemplate parse(Individual ind_attributeTemplate) {
+		String name = ind_attributeTemplate.getProperty(owlModel.getDataProperty_name()).getString();
+		String type = ind_attributeTemplate.getProperty(owlModel.getDataProperty_type()).getString();
+		if ("string".equals(type)) {
+			String value = ind_attributeTemplate.getProperty(owlModel.getDataProperty_value()).getString();
+			return new AttributeTemplate(name, value);
+		}
+		if ("integer".equals(type)) {
+			Integer value = ind_attributeTemplate.getProperty(owlModel.getDataProperty_value()).getInt();
+			return new AttributeTemplate(name, value);
+		}
+		if ("boolean".equals(type)) {
+			Boolean value = ind_attributeTemplate.getProperty(owlModel.getDataProperty_value()).getBoolean();
+			return new AttributeTemplate(name, value);
+		}
+		return new AttributeTemplate(name);
 	}
 }

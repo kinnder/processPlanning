@@ -107,6 +107,8 @@ public class SystemTransformationsOWLModel implements OWLModel<SystemTransformat
 
 	static final String URI_number = NS + "number";
 
+	static final String URI_type = NS + "type";
+
 	// TODO (2020-12-17 #31): убрать linkTemplate из схемы objectTemplate
 
 	private OntModel m;
@@ -390,6 +392,12 @@ public class SystemTransformationsOWLModel implements OWLModel<SystemTransformat
 
 	public DatatypeProperty getDataProperty_text() {
 		return dataProperty_text;
+	}
+
+	private DatatypeProperty dataProperty_type;
+
+	public DatatypeProperty getDataProperty_type() {
+		return dataProperty_type;
 	}
 
 	private void makeInverse(ObjectProperty property1, ObjectProperty property2) {
@@ -686,6 +694,12 @@ public class SystemTransformationsOWLModel implements OWLModel<SystemTransformat
 		dataProperty_text.addLabel("текст", "ru");
 		dataProperty_text.addDomain(class_line);
 		dataProperty_text.addRange(XSD.xstring);
+
+		dataProperty_type = m.createDatatypeProperty(URI_type);
+		dataProperty_type.addLabel("type", "en");
+		dataProperty_type.addLabel("тип", "ru");
+		dataProperty_type.addDomain(class_AttributeTemplate);
+		dataProperty_type.addRange(XSD.xstring);
 	}
 
 	@Override
@@ -745,6 +759,7 @@ public class SystemTransformationsOWLModel implements OWLModel<SystemTransformat
 		dataProperty_value = ontModel.getDatatypeProperty(URI_value);
 		dataProperty_oldValue = ontModel.getDatatypeProperty(URI_oldValue);
 		dataProperty_newValue = ontModel.getDatatypeProperty(URI_newValue);
+		dataProperty_type = ontModel.getDatatypeProperty(URI_type);
 	}
 
 	@Override
