@@ -74,9 +74,9 @@ public class SystemTransformationsOWLSchemaTest {
 				oneOf(oc_systemTransformations_mock).createIndividual("unique-uri");
 				will(returnValue(i_systemTransformations_mock));
 
-				oneOf(i_systemTransformations_mock).addLabel("System Transformations 1", "en");
+				oneOf(i_systemTransformations_mock).addLabel("System Transformations", "en");
 
-				oneOf(i_systemTransformations_mock).addLabel("Трансформации системы 1", "ru");
+				oneOf(i_systemTransformations_mock).addLabel("Трансформации системы", "ru");
 
 				oneOf(systemTransformationOWLSchema_mock).combine(systemTransformation_mock);
 				will(returnValue(i_systemTransformation_mock));

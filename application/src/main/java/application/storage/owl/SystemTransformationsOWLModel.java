@@ -2,11 +2,13 @@ package application.storage.owl;
 
 import java.util.UUID;
 
+import org.apache.jena.ontology.DataRange;
 import org.apache.jena.ontology.DatatypeProperty;
 import org.apache.jena.ontology.ObjectProperty;
 import org.apache.jena.ontology.OntClass;
 import org.apache.jena.ontology.OntModel;
 import org.apache.jena.rdf.model.ModelFactory;
+import org.apache.jena.rdf.model.RDFNode;
 import org.apache.jena.vocabulary.XSD;
 
 import planning.method.SystemTransformations;
@@ -112,8 +114,6 @@ public class SystemTransformationsOWLModel implements OWLModel<SystemTransformat
 	static final String URI_text = NS + "text";
 
 	static final String URI_number = NS + "number";
-
-	static final String URI_type = NS + "type";
 
 	// TODO (2020-12-17 #31): убрать linkTemplate из схемы objectTemplate
 
@@ -418,15 +418,15 @@ public class SystemTransformationsOWLModel implements OWLModel<SystemTransformat
 		return dataProperty_text;
 	}
 
-	private DatatypeProperty dataProperty_type;
-
-	public DatatypeProperty getDataProperty_type() {
-		return dataProperty_type;
-	}
-
 	private void makeInverse(ObjectProperty property1, ObjectProperty property2) {
 		property1.addInverseOf(property2);
 		property2.addInverseOf(property1);
+	}
+
+	private DataRange createDataRange(RDFNode... members) {
+		DataRange d = m.createOntResource(DataRange.class, m.getProfile().DATARANGE(), null);
+		d.addProperty(m.getProfile().UNION_OF(), m.createList(members));
+		return d;
 	}
 
 	@Override
@@ -698,9 +698,7 @@ public class SystemTransformationsOWLModel implements OWLModel<SystemTransformat
 		dataProperty_value.addLabel("значение", "ru");
 		dataProperty_value.addDomain(class_AttributeTemplate);
 		dataProperty_value.addDomain(class_AttributeTransformation);
-		dataProperty_value.addRange(XSD.xstring);
-		dataProperty_value.addRange(XSD.xboolean);
-		dataProperty_value.addRange(XSD.xint);
+		dataProperty_value.addRange(createDataRange(XSD.xstring, XSD.xboolean, XSD.xint));
 
 		dataProperty_objectId1 = m.createDatatypeProperty(URI_objectId1);
 		dataProperty_objectId1.addLabel("objectId1", "en");
@@ -737,13 +735,6 @@ public class SystemTransformationsOWLModel implements OWLModel<SystemTransformat
 		dataProperty_text.addLabel("текст", "ru");
 		dataProperty_text.addDomain(class_line);
 		dataProperty_text.addRange(XSD.xstring);
-
-		dataProperty_type = m.createDatatypeProperty(URI_type);
-		dataProperty_type.addLabel("type", "en");
-		dataProperty_type.addLabel("тип", "ru");
-		dataProperty_type.addDomain(class_AttributeTemplate);
-		dataProperty_type.addDomain(class_AttributeTransformation);
-		dataProperty_type.addRange(XSD.xstring);
 	}
 
 	@Override
@@ -806,7 +797,6 @@ public class SystemTransformationsOWLModel implements OWLModel<SystemTransformat
 		dataProperty_value = ontModel.getDatatypeProperty(URI_value);
 		dataProperty_oldValue = ontModel.getDatatypeProperty(URI_oldValue);
 		dataProperty_newValue = ontModel.getDatatypeProperty(URI_newValue);
-		dataProperty_type = ontModel.getDatatypeProperty(URI_type);
 	}
 
 	@Override

@@ -1,7 +1,7 @@
 package application.storage.owl;
 
+import org.apache.jena.datatypes.xsd.XSDDatatype;
 import org.apache.jena.ontology.Individual;
-
 import planning.model.LuaScriptLine;
 
 public class LuaScriptLineOWLSchema implements OWLSchema<LuaScriptLine> {
@@ -16,7 +16,7 @@ public class LuaScriptLineOWLSchema implements OWLSchema<LuaScriptLine> {
 	public Individual combine(LuaScriptLine scriptLine) {
 		Individual ind_line = owlModel.getClass_line().createIndividual(owlModel.getUniqueURI());
 		ind_line.addProperty(owlModel.getDataProperty_text(), scriptLine.getText());
-		ind_line.addProperty(owlModel.getDataProperty_number(), scriptLine.getNumber().toString());
+		ind_line.addProperty(owlModel.getDataProperty_number(), scriptLine.getNumber().toString(), XSDDatatype.XSDinteger);
 		return ind_line;
 	}
 

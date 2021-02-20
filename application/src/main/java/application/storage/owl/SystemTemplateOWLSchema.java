@@ -23,8 +23,8 @@ public class SystemTemplateOWLSchema implements OWLSchema<SystemTemplate> {
 	@Override
 	public Individual combine(SystemTemplate systemTemplate) {
 		Individual ind_systemTemplate = owlModel.getClass_SystemTemplate().createIndividual(owlModel.getUniqueURI());
-		ind_systemTemplate.addLabel("Шаблон Системы", "ru");
-		ind_systemTemplate.addLabel("System Template", "en");
+		ind_systemTemplate.addLabel("Шаблон системы", "ru");
+		ind_systemTemplate.addLabel("System template", "en");
 
 		for (SystemObjectTemplate objectTemplate : systemTemplate.getObjectTemplates()) {
 			Individual ind_objectTemplate = systemObjectTemplateOWLSchema.combine(objectTemplate);

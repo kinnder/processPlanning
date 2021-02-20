@@ -1,6 +1,9 @@
 package application.storage.owl;
 
+import org.apache.jena.datatypes.xsd.XSDDatatype;
 import org.apache.jena.ontology.Individual;
+import org.apache.jena.rdf.model.Literal;
+import org.apache.jena.rdf.model.Statement;
 
 import planning.model.AttributeTemplate;
 
@@ -19,18 +22,12 @@ public class AttributeTemplateOWLSchema implements OWLSchema<AttributeTemplate> 
 		ind_attributeTemplate.addLabel("Шаблон атрибута", "ru");
 		ind_attributeTemplate.addProperty(owlModel.getDataProperty_name(), attributeTemplate.getName());
 		Object value = attributeTemplate.getValue();
-		if (value == null) {
-			ind_attributeTemplate.addProperty(owlModel.getDataProperty_value(), "");
-			ind_attributeTemplate.addProperty(owlModel.getDataProperty_type(), "null");
-		} else if (value instanceof Boolean) {
-			ind_attributeTemplate.addProperty(owlModel.getDataProperty_value(), value.toString());
-			ind_attributeTemplate.addProperty(owlModel.getDataProperty_type(), "boolean");
+		if (value instanceof Boolean) {
+			ind_attributeTemplate.addProperty(owlModel.getDataProperty_value(), value.toString(), XSDDatatype.XSDboolean);
 		} else if (value instanceof Integer) {
-			ind_attributeTemplate.addProperty(owlModel.getDataProperty_value(), value.toString());
-			ind_attributeTemplate.addProperty(owlModel.getDataProperty_type(), "integer");
-		} else {
-			ind_attributeTemplate.addProperty(owlModel.getDataProperty_value(), value.toString());
-			ind_attributeTemplate.addProperty(owlModel.getDataProperty_type(), "string");
+			ind_attributeTemplate.addProperty(owlModel.getDataProperty_value(), value.toString(), XSDDatatype.XSDinteger);
+		} else if (value instanceof String) {
+			ind_attributeTemplate.addProperty(owlModel.getDataProperty_value(), value.toString(), XSDDatatype.XSDstring);
 		}
 		return ind_attributeTemplate;
 	}
@@ -38,18 +35,19 @@ public class AttributeTemplateOWLSchema implements OWLSchema<AttributeTemplate> 
 	@Override
 	public AttributeTemplate parse(Individual ind_attributeTemplate) {
 		String name = ind_attributeTemplate.getProperty(owlModel.getDataProperty_name()).getString();
-		String type = ind_attributeTemplate.getProperty(owlModel.getDataProperty_type()).getString();
-		if ("string".equals(type)) {
-			String value = ind_attributeTemplate.getProperty(owlModel.getDataProperty_value()).getString();
-			return new AttributeTemplate(name, value);
-		}
-		if ("integer".equals(type)) {
-			Integer value = ind_attributeTemplate.getProperty(owlModel.getDataProperty_value()).getInt();
-			return new AttributeTemplate(name, value);
-		}
-		if ("boolean".equals(type)) {
-			Boolean value = ind_attributeTemplate.getProperty(owlModel.getDataProperty_value()).getBoolean();
-			return new AttributeTemplate(name, value);
+
+		Statement valueStatement = ind_attributeTemplate.getProperty(owlModel.getDataProperty_value());
+		if (valueStatement != null) {
+			Literal valueLiteral = valueStatement.getLiteral();
+			if (valueLiteral.getDatatype() == XSDDatatype.XSDboolean) {
+				return new AttributeTemplate(name, valueLiteral.getBoolean());
+			}
+			if (valueLiteral.getDatatype() == XSDDatatype.XSDstring) {
+				return new AttributeTemplate(name, valueLiteral.getString());
+			}
+			if (valueLiteral.getDatatype() == XSDDatatype.XSDinteger) {
+				return new AttributeTemplate(name, valueLiteral.getInt());
+			}
 		}
 		return new AttributeTemplate(name);
 	}
