@@ -742,6 +742,7 @@ public class SystemTransformationsOWLModel implements OWLModel<SystemTransformat
 		dataProperty_type.addLabel("type", "en");
 		dataProperty_type.addLabel("тип", "ru");
 		dataProperty_type.addDomain(class_AttributeTemplate);
+		dataProperty_type.addDomain(class_AttributeTransformation);
 		dataProperty_type.addRange(XSD.xstring);
 	}
 
