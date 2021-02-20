@@ -35,6 +35,10 @@ public class SystemTransformationsOWLModel implements OWLModel<SystemTransformat
 
 	static final String URI_hasAttributeTransformation = NS + "hasAttributeTransformation";
 
+	static final String URI_hasTransformation = NS + "hasTransformation";
+
+	static final String URI_isTransformationOf = NS + "isTransformationOf";
+
 	static final String URI_isAttributeTemplateOf = NS + "isAttributeTemplateOf";
 
 	static final String URI_hasAttributeTemplate = NS + "hasAttributeTemplate";
@@ -71,7 +75,9 @@ public class SystemTransformationsOWLModel implements OWLModel<SystemTransformat
 
 	static final String URI_LinkTransformation = NS + "LinkTransformation";
 
-	static final String URI_AttributeTransformation = NS + "AttributeTransformations";
+	static final String URI_AttributeTransformation = NS + "AttributeTransformation";
+
+	static final String URI_Transformation = NS + "Transformation";
 
 	static final String URI_AttributeTemplate = NS + "AttributeTemplate";
 
@@ -176,6 +182,12 @@ public class SystemTransformationsOWLModel implements OWLModel<SystemTransformat
 
 	public OntClass getClass_LinkTransformation() {
 		return class_LinkTransformation;
+	}
+
+	private OntClass class_Transformation;
+
+	public OntClass getClass_Transformation() {
+		return class_Transformation;
 	}
 
 	private OntClass class_PreConditionChecker;
@@ -302,6 +314,18 @@ public class SystemTransformationsOWLModel implements OWLModel<SystemTransformat
 
 	public ObjectProperty getObjectProperty_isLinkTransformationOf() {
 		return objectProperty_isLinkTransformationOf;
+	}
+
+	private ObjectProperty objectProperty_hasTransformation;
+
+	public ObjectProperty getObjectProperty_hasTransformation() {
+		return objectProperty_hasTransformation;
+	}
+
+	private ObjectProperty objectProperty_isTransformationOf;
+
+	public ObjectProperty getObjectProperty_isTransformationOf() {
+		return objectProperty_isTransformationOf;
 	}
 
 	private ObjectProperty objectProperty_hasPreConditionChecker;
@@ -449,6 +473,10 @@ public class SystemTransformationsOWLModel implements OWLModel<SystemTransformat
 		class_LinkTransformation.addLabel("Link Transformation", "en");
 		class_LinkTransformation.addLabel("Трансформация связи", "ru");
 
+		class_Transformation = m.createClass(URI_Transformation);
+		class_Transformation.addLabel("Transformation", "en");
+		class_Transformation.addLabel("Трансформация", "ru");
+
 		class_PreConditionChecker = m.createClass(URI_PreConditionChecker);
 		class_PreConditionChecker.addLabel("PreCondition Checker", "en");
 		class_PreConditionChecker.addLabel("Проверка предусловий", "ru");
@@ -587,6 +615,20 @@ public class SystemTransformationsOWLModel implements OWLModel<SystemTransformat
 
 		makeInverse(objectProperty_hasLinkTransformation, objectProperty_isLinkTransformationOf);
 
+		objectProperty_hasTransformation = m.createObjectProperty(URI_hasTransformation);
+		objectProperty_hasTransformation.addLabel("has transformation", "en");
+		objectProperty_hasTransformation.addLabel("имеет трансформацию", "ru");
+		objectProperty_hasTransformation.addDomain(class_Transformations);
+		objectProperty_hasTransformation.addRange(class_Transformation);
+
+		objectProperty_isTransformationOf = m.createObjectProperty(URI_isTransformationOf);
+		objectProperty_isTransformationOf.addLabel("is transformation of", "en");
+		objectProperty_isTransformationOf.addLabel("является трансформацией для", "ru");
+		objectProperty_isTransformationOf.addDomain(class_Transformation);
+		objectProperty_isTransformationOf.addRange(class_Transformations);
+
+		makeInverse(objectProperty_hasTransformation, objectProperty_isTransformationOf);
+
 		objectProperty_hasPreConditionChecker = m.createObjectProperty(URI_hasPreConditionChecker);
 		objectProperty_hasPreConditionChecker.addLabel("has precondition checker", "en");
 		objectProperty_hasPreConditionChecker.addLabel("имеет проверку условий", "ru");
@@ -647,6 +689,7 @@ public class SystemTransformationsOWLModel implements OWLModel<SystemTransformat
 		dataProperty_objectId.addLabel("идентификатор объекта", "ru");
 		dataProperty_objectId.addDomain(class_AttributeTransformation);
 		dataProperty_objectId.addDomain(class_LinkTransformation);
+		dataProperty_objectId.addDomain(class_Transformation);
 		dataProperty_objectId.addDomain(class_ObjectTemplate);
 		dataProperty_objectId.addRange(XSD.xstring);
 
@@ -724,6 +767,7 @@ public class SystemTransformationsOWLModel implements OWLModel<SystemTransformat
 		class_AttributeTemplate = ontModel.getOntClass(URI_AttributeTemplate);
 		class_AttributeTransformation = ontModel.getOntClass(URI_AttributeTransformation);
 		class_LinkTransformation = ontModel.getOntClass(URI_LinkTransformation);
+		class_Transformation = ontModel.getOntClass(URI_Transformation);
 
 		objectProperty_hasSystemTransformation = m.getObjectProperty(URI_hasSystemTransformation);
 		objectProperty_isSystemTransformationOf = m.getObjectProperty(URI_isSystemTransformationOf);
@@ -749,6 +793,8 @@ public class SystemTransformationsOWLModel implements OWLModel<SystemTransformat
 		objectProperty_isAttributeTransformationOf = ontModel.getObjectProperty(URI_isAttributeTransformationOf);
 		objectProperty_hasLinkTransformation = ontModel.getObjectProperty(URI_hasLinkTransformation);
 		objectProperty_isLinkTransformationOf = ontModel.getObjectProperty(URI_isLinkTransformationOf);
+		objectProperty_hasTransformation = ontModel.getObjectProperty(URI_hasTransformation);
+		objectProperty_isTransformationOf = ontModel.getObjectProperty(URI_isTransformationOf);
 
 		dataProperty_name = ontModel.getDatatypeProperty(URI_name);
 		dataProperty_number = ontModel.getDatatypeProperty(URI_number);
