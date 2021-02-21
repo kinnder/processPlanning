@@ -3,6 +3,7 @@ package application.storage.owl;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+import org.apache.jena.ontology.Individual;
 import org.apache.jena.ontology.OntModel;
 import org.jmock.imposters.ByteBuddyClassImposteriser;
 import org.jmock.junit5.JUnit5Mockery;
@@ -11,6 +12,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
+import application.domain.AssemblyLine;
 import planning.method.TaskDescription;
 import planning.model.System;
 import planning.model.SystemObject;
@@ -72,10 +74,33 @@ public class TaskDescriptionOWLSchemaTest {
 		testable.combine(taskDescription);
 		OntModel model = owlModel.getOntologyModel();
 		assertNotNull(model);
-		assertEquals(133, model.listObjects().toList().size());
-		assertEquals(410, model.listStatements().toList().size());
+		assertEquals(139, model.listObjects().toList().size());
+		assertEquals(423, model.listStatements().toList().size());
+	}
+
+	@Test
+	public void combine_full() {
+		final TaskDescription taskDescription = AssemblyLine.getTaskDescription();
+
+		owlModel.createOntologyModel();
+		testable.combine(taskDescription);
+
+		OntModel model = owlModel.getOntologyModel();
+		assertNotNull(model);
+		assertEquals(269, model.listObjects().toList().size());
+		assertEquals(1211, model.listStatements().toList().size());
 
 		// TODO (2020-11-09 #31): удалить
 //		model.write(java.lang.System.out, "RDF/XML");
+	}
+
+	@Test
+	public void parse_full() {
+		final TaskDescription taskDescription = AssemblyLine.getTaskDescription();
+
+		owlModel.createOntologyModel();
+		Individual ind_taskDescription = testable.combine(taskDescription);
+
+		testable.parse(ind_taskDescription);
 	}
 }
