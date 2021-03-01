@@ -75,7 +75,7 @@ public class TaskDescriptionOWLSchemaTest {
 		OntModel model = owlModel.getOntologyModel();
 		assertNotNull(model);
 		assertEquals(139, model.listObjects().toList().size());
-		assertEquals(423, model.listStatements().toList().size());
+		assertEquals(426, model.listStatements().toList().size());
 	}
 
 	@Test
@@ -88,7 +88,7 @@ public class TaskDescriptionOWLSchemaTest {
 		OntModel model = owlModel.getOntologyModel();
 		assertNotNull(model);
 		assertEquals(269, model.listObjects().toList().size());
-		assertEquals(1211, model.listStatements().toList().size());
+		assertEquals(1214, model.listStatements().toList().size());
 
 		// TODO (2020-11-09 #31): удалить
 //		model.write(java.lang.System.out, "RDF/XML");
