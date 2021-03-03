@@ -74,7 +74,7 @@ public class TaskDescriptionOWLSchemaTest {
 		testable.combine(taskDescription);
 		OntModel model = owlModel.getOntologyModel();
 		assertNotNull(model);
-		assertEquals(134, model.listObjects().toList().size());
+		assertEquals(132, model.listObjects().toList().size());
 		assertEquals(426, model.listStatements().toList().size());
 	}
 
@@ -87,7 +87,7 @@ public class TaskDescriptionOWLSchemaTest {
 
 		OntModel model = owlModel.getOntologyModel();
 		assertNotNull(model);
-		assertEquals(228, model.listObjects().toList().size());
+		assertEquals(226, model.listObjects().toList().size());
 		assertEquals(1214, model.listStatements().toList().size());
 
 		// TODO (2020-11-09 #31): удалить
