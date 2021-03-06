@@ -1,11 +1,15 @@
 package application.storage.owl;
 
+import org.apache.jena.ontology.OntClass;
 import org.apache.jena.ontology.OntModel;
 import org.apache.jena.rdf.model.ModelFactory;
+import org.apache.jena.rdf.model.Property;
 
 import planning.method.NodeNetwork;
 
 public class NodeNetworkOWLModel implements OWLModel<NodeNetwork> {
+
+	final String NS = "https://github.com/kinnder/process-engineering/planning/node-network#";
 
 	@Override
 	public void createOntologyModel() {
@@ -34,6 +38,41 @@ public class NodeNetworkOWLModel implements OWLModel<NodeNetwork> {
 
 	@Override
 	public String getUniqueURI() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public OntClass getClass_NodeNetwork() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public Property getObjectProperty_hasNode() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public Property getObjectProperty_isNodeOf() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public Property getObjectProperty_hasEdge() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public Property getObjectProperty_isEdgeOf() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public OntClass getClass_Node() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public OntClass getClass_Edge() {
 		// TODO Auto-generated method stub
 		return null;
 	}
