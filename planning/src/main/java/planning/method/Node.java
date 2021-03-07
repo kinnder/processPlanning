@@ -65,4 +65,8 @@ public class Node {
 	public boolean getChecked() {
 		return this.checked;
 	}
+
+	public void setSystem(System system) {
+		this.system = system;
+	}
 }

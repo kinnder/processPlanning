@@ -1,5 +1,6 @@
 package application.storage.owl;
 
+import org.apache.jena.ontology.DatatypeProperty;
 import org.apache.jena.ontology.OntClass;
 import org.apache.jena.ontology.OntModel;
 import org.apache.jena.rdf.model.ModelFactory;
@@ -7,7 +8,7 @@ import org.apache.jena.rdf.model.Property;
 
 import planning.method.NodeNetwork;
 
-public class NodeNetworkOWLModel implements OWLModel<NodeNetwork> {
+public class NodeNetworkOWLModel implements OWLModel<NodeNetwork>  {
 
 	final String NS = "https://github.com/kinnder/process-engineering/planning/node-network#";
 
@@ -73,6 +74,31 @@ public class NodeNetworkOWLModel implements OWLModel<NodeNetwork> {
 	}
 
 	public OntClass getClass_Edge() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public DatatypeProperty getDataProperty_id() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public DatatypeProperty getDataProperty_checked() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public Property getObjectProperty_hasSystem() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public Property getObjectProperty_isSystemOf() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public OntClass getClass_System() {
 		// TODO Auto-generated method stub
 		return null;
 	}

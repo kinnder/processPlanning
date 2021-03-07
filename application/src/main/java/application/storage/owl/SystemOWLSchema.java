@@ -21,6 +21,10 @@ public class SystemOWLSchema implements OWLSchema<System> {
 		this.linkOWLSchema = new LinkOWLSchema(owlModel);
 	}
 
+	public SystemOWLSchema(NodeNetworkOWLModel owlModel2) {
+		// TODO Auto-generated constructor stub
+	}
+
 	@Override
 	public Individual combine(System system) {
 		Individual ind_system = owlModel.getClass_System().createIndividual(owlModel.getUniqueURI());
