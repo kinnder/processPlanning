@@ -102,4 +102,29 @@ public class NodeNetworkOWLModel implements OWLModel<NodeNetwork>  {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	public Property getDataProperty_beginNodeId() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public Property getDataProperty_endNodeId() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public Property getObjectProperty_hasSystemOperation() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public Property getObjectProperty_isSystemOperationOf() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public OntClass getClass_SystemOperation() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

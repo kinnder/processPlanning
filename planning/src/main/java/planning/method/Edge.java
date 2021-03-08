@@ -62,4 +62,8 @@ public class Edge {
 	public String getEndNodeId() {
 		return endNodeId;
 	}
+
+	public void setSystemOperation(SystemOperation systemOperation) {
+		this.systemOperation = systemOperation;
+	}
 }
