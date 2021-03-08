@@ -31,4 +31,8 @@ public class SystemOperation {
 	public String getParameter(String parameterName) {
 		return actionParameters.get(parameterName);
 	}
+
+	public void setActionParameters(Map<String, String> actionParameters) {
+		this.actionParameters = actionParameters;
+	}
 }
