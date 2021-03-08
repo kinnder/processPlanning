@@ -147,4 +147,29 @@ public class NodeNetworkOWLModel implements OWLModel<NodeNetwork>  {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	public OntClass getClass_Parameter() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public Property getDataProperty_key() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public Property getDataProperty_value() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public Property getObjectProperty_hasParameter() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public Property getObjectProperty_isParameterOf() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
