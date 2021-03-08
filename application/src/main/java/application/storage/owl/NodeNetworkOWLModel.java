@@ -1,14 +1,13 @@
 package application.storage.owl;
 
 import org.apache.jena.ontology.DatatypeProperty;
+import org.apache.jena.ontology.ObjectProperty;
 import org.apache.jena.ontology.OntClass;
 import org.apache.jena.ontology.OntModel;
 import org.apache.jena.rdf.model.ModelFactory;
-import org.apache.jena.rdf.model.Property;
-
 import planning.method.NodeNetwork;
 
-public class NodeNetworkOWLModel implements OWLModel<NodeNetwork>  {
+public class NodeNetworkOWLModel implements OWLModel<NodeNetwork> {
 
 	final String NS = "https://github.com/kinnder/process-engineering/planning/node-network#";
 
@@ -48,22 +47,22 @@ public class NodeNetworkOWLModel implements OWLModel<NodeNetwork>  {
 		return null;
 	}
 
-	public Property getObjectProperty_hasNode() {
+	public ObjectProperty getObjectProperty_hasNode() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	public Property getObjectProperty_isNodeOf() {
+	public ObjectProperty getObjectProperty_isNodeOf() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	public Property getObjectProperty_hasEdge() {
+	public ObjectProperty getObjectProperty_hasEdge() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	public Property getObjectProperty_isEdgeOf() {
+	public ObjectProperty getObjectProperty_isEdgeOf() {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -88,12 +87,12 @@ public class NodeNetworkOWLModel implements OWLModel<NodeNetwork>  {
 		return null;
 	}
 
-	public Property getObjectProperty_hasSystem() {
+	public ObjectProperty getObjectProperty_hasSystem() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	public Property getObjectProperty_isSystemOf() {
+	public ObjectProperty getObjectProperty_isSystemOf() {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -103,22 +102,22 @@ public class NodeNetworkOWLModel implements OWLModel<NodeNetwork>  {
 		return null;
 	}
 
-	public Property getDataProperty_beginNodeId() {
+	public DatatypeProperty getDataProperty_beginNodeId() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	public Property getDataProperty_endNodeId() {
+	public DatatypeProperty getDataProperty_endNodeId() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	public Property getObjectProperty_hasSystemOperation() {
+	public ObjectProperty getObjectProperty_hasSystemOperation() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	public Property getObjectProperty_isSystemOperationOf() {
+	public ObjectProperty getObjectProperty_isSystemOperationOf() {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -128,17 +127,17 @@ public class NodeNetworkOWLModel implements OWLModel<NodeNetwork>  {
 		return null;
 	}
 
-	public Property getDataProperty_name() {
+	public DatatypeProperty getDataProperty_name() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	public Property getObjectProperty_hasActionParameters() {
+	public ObjectProperty getObjectProperty_hasActionParameters() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	public Property getObjectProperty_areActionParametersOf() {
+	public ObjectProperty getObjectProperty_areActionParametersOf() {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -153,22 +152,22 @@ public class NodeNetworkOWLModel implements OWLModel<NodeNetwork>  {
 		return null;
 	}
 
-	public Property getDataProperty_key() {
+	public DatatypeProperty getDataProperty_key() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	public Property getDataProperty_value() {
+	public DatatypeProperty getDataProperty_value() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	public Property getObjectProperty_hasParameter() {
+	public ObjectProperty getObjectProperty_hasParameter() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	public Property getObjectProperty_isParameterOf() {
+	public ObjectProperty getObjectProperty_isParameterOf() {
 		// TODO Auto-generated method stub
 		return null;
 	}
