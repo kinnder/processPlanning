@@ -13,7 +13,7 @@ import org.apache.jena.vocabulary.XSD;
 
 import planning.method.TaskDescription;
 
-public class TaskDescriptionOWLModel implements OWLModel<TaskDescription> {
+public class TaskDescriptionOWLModel implements OWLModel<TaskDescription>, OWLModelCommonPart {
 
 	static final String NS = "https://github.com/kinnder/process-engineering/planning/task-description#";
 
@@ -76,6 +76,7 @@ public class TaskDescriptionOWLModel implements OWLModel<TaskDescription> {
 
 	private OntClass class_System;
 
+	@Override
 	public OntClass getClass_System() {
 		return class_System;
 	}
@@ -94,18 +95,21 @@ public class TaskDescriptionOWLModel implements OWLModel<TaskDescription> {
 
 	private OntClass class_SystemObject;
 
+	@Override
 	public OntClass getClass_SystemObject() {
 		return class_SystemObject;
 	}
 
 	private OntClass class_Link;
 
+	@Override
 	public OntClass getClass_Link() {
 		return class_Link;
 	}
 
 	private OntClass class_Attribute;
 
+	@Override
 	public OntClass getClass_Attribute() {
 		return class_Attribute;
 	}
@@ -136,66 +140,77 @@ public class TaskDescriptionOWLModel implements OWLModel<TaskDescription> {
 
 	private ObjectProperty objectProperty_hasSystemObject;
 
+	@Override
 	public ObjectProperty getObjectProperty_hasSystemObject() {
 		return objectProperty_hasSystemObject;
 	}
 
 	private ObjectProperty objectProperty_isSystemObjectOf;
 
+	@Override
 	public ObjectProperty getObjectProperty_isSystemObjectOf() {
 		return objectProperty_isSystemObjectOf;
 	}
 
 	private ObjectProperty objectProperty_hasLink;
 
+	@Override
 	public ObjectProperty getObjectProperty_hasLink() {
 		return objectProperty_hasLink;
 	}
 
 	private ObjectProperty objectProperty_isLinkOf;
 
+	@Override
 	public ObjectProperty getObjectProperty_isLinkOf() {
 		return objectProperty_isLinkOf;
 	}
 
 	private ObjectProperty objectProperty_hasAttribute;
 
+	@Override
 	public ObjectProperty getObjectProperty_hasAttribute() {
 		return objectProperty_hasAttribute;
 	}
 
 	private ObjectProperty objectProperty_isAttributeOf;
 
+	@Override
 	public ObjectProperty getObjectProperty_isAttributeOf() {
 		return objectProperty_isAttributeOf;
 	}
 
 	private DatatypeProperty dataProperty_name;
 
+	@Override
 	public DatatypeProperty getDataProperty_name() {
 		return dataProperty_name;
 	}
 
 	private DatatypeProperty dataProperty_id;
 
+	@Override
 	public DatatypeProperty getDataProperty_id() {
 		return dataProperty_id;
 	}
 
 	private DatatypeProperty dataProperty_value;
 
+	@Override
 	public DatatypeProperty getDataProperty_value() {
 		return dataProperty_value;
 	}
 
 	private DatatypeProperty dataProperty_objectId1;
 
+	@Override
 	public DatatypeProperty getDataProperty_objectId1() {
 		return dataProperty_objectId1;
 	}
 
 	private DatatypeProperty dataProperty_objectId2;
 
+	@Override
 	public DatatypeProperty getDataProperty_objectId2() {
 		return dataProperty_objectId2;
 	}

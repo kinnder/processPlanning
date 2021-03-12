@@ -7,7 +7,7 @@ import org.apache.jena.ontology.OntModel;
 import org.apache.jena.rdf.model.ModelFactory;
 import planning.method.NodeNetwork;
 
-public class NodeNetworkOWLModel implements OWLModel<NodeNetwork> {
+public class NodeNetworkOWLModel implements OWLModel<NodeNetwork>, OWLModelCommonPart {
 
 	final String NS = "https://github.com/kinnder/process-engineering/planning/node-network#";
 
@@ -77,6 +77,7 @@ public class NodeNetworkOWLModel implements OWLModel<NodeNetwork> {
 		return null;
 	}
 
+	@Override
 	public DatatypeProperty getDataProperty_id() {
 		// TODO Auto-generated method stub
 		return null;
@@ -97,6 +98,7 @@ public class NodeNetworkOWLModel implements OWLModel<NodeNetwork> {
 		return null;
 	}
 
+	@Override
 	public OntClass getClass_System() {
 		// TODO Auto-generated method stub
 		return null;
@@ -127,6 +129,7 @@ public class NodeNetworkOWLModel implements OWLModel<NodeNetwork> {
 		return null;
 	}
 
+	@Override
 	public DatatypeProperty getDataProperty_name() {
 		// TODO Auto-generated method stub
 		return null;
@@ -157,6 +160,7 @@ public class NodeNetworkOWLModel implements OWLModel<NodeNetwork> {
 		return null;
 	}
 
+	@Override
 	public DatatypeProperty getDataProperty_value() {
 		// TODO Auto-generated method stub
 		return null;
@@ -168,6 +172,72 @@ public class NodeNetworkOWLModel implements OWLModel<NodeNetwork> {
 	}
 
 	public ObjectProperty getObjectProperty_isParameterOf() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ObjectProperty getObjectProperty_isSystemObjectOf() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ObjectProperty getObjectProperty_hasSystemObject() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ObjectProperty getObjectProperty_isLinkOf() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ObjectProperty getObjectProperty_hasLink() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public OntClass getClass_SystemObject() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public OntClass getClass_Link() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ObjectProperty getObjectProperty_isAttributeOf() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ObjectProperty getObjectProperty_hasAttribute() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public OntClass getClass_Attribute() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public DatatypeProperty getDataProperty_objectId1() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public DatatypeProperty getDataProperty_objectId2() {
 		// TODO Auto-generated method stub
 		return null;
 	}

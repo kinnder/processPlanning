@@ -8,21 +8,17 @@ import planning.model.SystemObject;
 
 public class SystemOWLSchema implements OWLSchema<System> {
 
-	private TaskDescriptionOWLModel owlModel;
+	private OWLModelCommonPart owlModel;
 
 	private SystemObjectOWLSchema systemObjectOWLSchema;
 
 	private LinkOWLSchema linkOWLSchema;
 
-	public SystemOWLSchema(TaskDescriptionOWLModel owlModel) {
+	public SystemOWLSchema(OWLModelCommonPart owlModel) {
 		this.owlModel = owlModel;
 
 		this.systemObjectOWLSchema = new SystemObjectOWLSchema(owlModel);
 		this.linkOWLSchema = new LinkOWLSchema(owlModel);
-	}
-
-	public SystemOWLSchema(NodeNetworkOWLModel owlModel2) {
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override

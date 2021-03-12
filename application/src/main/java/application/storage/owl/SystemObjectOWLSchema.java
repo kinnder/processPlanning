@@ -7,11 +7,11 @@ import planning.model.SystemObject;
 
 public class SystemObjectOWLSchema implements OWLSchema<SystemObject> {
 
-	private TaskDescriptionOWLModel owlModel;
+	private OWLModelCommonPart owlModel;
 
 	private AttributeOWLSchema attributeOWLSchema;
 
-	public SystemObjectOWLSchema(TaskDescriptionOWLModel owlModel) {
+	public SystemObjectOWLSchema(OWLModelCommonPart owlModel) {
 		this.owlModel = owlModel;
 
 		this.attributeOWLSchema = new AttributeOWLSchema(owlModel);

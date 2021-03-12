@@ -9,9 +9,9 @@ import planning.model.Attribute;
 
 public class AttributeOWLSchema implements OWLSchema<Attribute> {
 
-	private TaskDescriptionOWLModel owlModel;
+	private OWLModelCommonPart owlModel;
 
-	public AttributeOWLSchema(TaskDescriptionOWLModel owlModel) {
+	public AttributeOWLSchema(OWLModelCommonPart owlModel) {
 		this.owlModel = owlModel;
 	}
 
