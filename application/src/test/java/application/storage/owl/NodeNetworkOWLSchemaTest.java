@@ -1,20 +1,24 @@
 package application.storage.owl;
 
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import java.util.HashMap;
+import java.util.Map;
 
-import org.apache.jena.ontology.Individual;
-import org.apache.jena.ontology.OntClass;
 import org.apache.jena.ontology.OntModel;
-import org.jmock.Expectations;
 import org.jmock.imposters.ByteBuddyClassImposteriser;
 import org.jmock.junit5.JUnit5Mockery;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
+import application.domain.AssemblyLine;
+import planning.method.Node;
 import planning.method.NodeNetwork;
+import planning.model.Action;
+import planning.model.System;
+import planning.model.SystemOperation;
 
 public class NodeNetworkOWLSchemaTest {
 
@@ -32,37 +36,36 @@ public class NodeNetworkOWLSchemaTest {
 
 	NodeNetworkOWLSchema testable;
 
-	NodeNetworkOWLModel nodeNetworkOWLModel_mock;
+	NodeNetworkOWLModel owlModel;
 
 	@BeforeEach
 	public void setup() {
-		nodeNetworkOWLModel_mock = context.mock(NodeNetworkOWLModel.class);
+		owlModel = new NodeNetworkOWLModel();
 
-		testable = new NodeNetworkOWLSchema(nodeNetworkOWLModel_mock);
+		testable = new NodeNetworkOWLSchema(owlModel);
 	}
 
 	@Test
-	@Disabled("FIX")
 	public void combine() {
-		final NodeNetwork nodeNetwork_mock = context.mock(NodeNetwork.class);
-		final OntModel ontModel_mock = context.mock(OntModel.class);
-		final OntClass ontClass_mock = context.mock(OntClass.class);
+		final NodeNetwork nodeNetwork = new NodeNetwork();
+		final System node1system = AssemblyLine.initialSystem();
+		final System node2system = AssemblyLine.finalSystem();
+		final Action action = new Action("test-action");
+		final Map<String, String> actionParameters = new HashMap<>();
+		actionParameters.put("test-parameter-key", "test-parameter-value");
+		final SystemOperation systemOperation = new SystemOperation(action, actionParameters);
+		final Node node1 = nodeNetwork.createNode(node1system);
+		final Node node2 = nodeNetwork.createNode(node2system);
+		nodeNetwork.createEdge(node1, node2, systemOperation);
 
-		context.checking(new Expectations() {
-			{
-				oneOf(nodeNetworkOWLModel_mock).getOntologyModel();
-				will(returnValue(ontModel_mock));
+		owlModel.createOntologyModel();
+		testable.combine(nodeNetwork);
+		OntModel model = owlModel.getOntologyModel();
+		assertNotNull(model);
+		assertEquals(271, model.listObjects().toList().size());
+		assertEquals(1524, model.listStatements().toList().size());
 
-				oneOf(ontModel_mock).createClass(with(any(String.class)));
-				will(returnValue(ontClass_mock));
-
-				oneOf(ontClass_mock).addLabel("Node Network", "en");
-
-				oneOf(ontClass_mock).addLabel("Сеть узлов", "ru");
-			}
-		});
-
-		Individual result = testable.combine(nodeNetwork_mock);
-		assertNull(result);
+//		 TODO (2021-03-13 #31): удалить
+//		model.write(java.lang.System.out, "RDF/XML");
 	}
 }

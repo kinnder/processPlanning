@@ -112,7 +112,7 @@ public class NodeNetworkOWLModel implements OWLModel<NodeNetwork>, OWLModelCommo
 
 		class_Attribute = m.createClass(URI_Attribute);
 		class_Attribute.addLabel("Attribute", "en");
-		class_Attribute.addLabel("Аттрибут", "ru");
+		class_Attribute.addLabel("Атрибут", "ru");
 
 		class_Edge = m.createClass(URI_Edge);
 		class_Edge.addLabel("Edge", "en");

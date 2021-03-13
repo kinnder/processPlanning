@@ -1,7 +1,7 @@
 package application.storage.owl;
 
+import org.apache.jena.datatypes.xsd.XSDDatatype;
 import org.apache.jena.ontology.Individual;
-
 import planning.method.Node;
 import planning.model.System;
 
@@ -23,7 +23,7 @@ public class NodeOWLSchema implements OWLSchema<Node> {
 		ind_node.addLabel("Node", "en");
 		ind_node.addLabel("Узел", "ru");
 		ind_node.addProperty(owlModel.getDataProperty_id(), node.getId());
-		ind_node.addProperty(owlModel.getDataProperty_checked(), Boolean.toString(node.getChecked()));
+		ind_node.addProperty(owlModel.getDataProperty_checked(), Boolean.toString(node.getChecked()), XSDDatatype.XSDboolean);
 
 		Individual ind_system = systemOWLSchema.combine(node.getSystem());
 		ind_node.addProperty(owlModel.getObjectProperty_hasSystem(), ind_system);
