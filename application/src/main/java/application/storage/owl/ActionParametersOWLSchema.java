@@ -39,7 +39,7 @@ public class ActionParametersOWLSchema implements OWLSchema<Map<String, String>>
 		owlModel.getClass_Parameter().listInstances().filterKeep((ind_parameter) -> {
 			return ind_actionParameters.hasProperty(owlModel.getObjectProperty_hasParameter(), ind_parameter);
 		}).forEachRemaining((ind_parameter) -> {
-			String name = ind_parameter.getProperty(owlModel.getDataProperty_name()).getString();
+			String name = ind_parameter.getProperty(owlModel.getDataProperty_key()).getString();
 			String value = ind_parameter.getProperty(owlModel.getDataProperty_value()).getString();
 			actionParameters.put(name, value);
 		});

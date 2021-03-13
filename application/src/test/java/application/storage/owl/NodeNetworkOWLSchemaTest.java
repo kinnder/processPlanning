@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.jena.ontology.Individual;
 import org.apache.jena.ontology.OntModel;
 import org.jmock.imposters.ByteBuddyClassImposteriser;
 import org.jmock.junit5.JUnit5Mockery;
@@ -67,5 +68,24 @@ public class NodeNetworkOWLSchemaTest {
 
 //		 TODO (2021-03-13 #31): удалить
 //		model.write(java.lang.System.out, "RDF/XML");
+	}
+
+	@Test
+	public void parse() {
+		final NodeNetwork nodeNetwork = new NodeNetwork();
+		final System node1system = AssemblyLine.initialSystem();
+		final System node2system = AssemblyLine.finalSystem();
+		final Action action = new Action("test-action");
+		final Map<String, String> actionParameters = new HashMap<>();
+		actionParameters.put("test-parameter-key", "test-parameter-value");
+		final SystemOperation systemOperation = new SystemOperation(action, actionParameters);
+		final Node node1 = nodeNetwork.createNode(node1system);
+		final Node node2 = nodeNetwork.createNode(node2system);
+		nodeNetwork.createEdge(node1, node2, systemOperation);
+
+		owlModel.createOntologyModel();
+		Individual ind_nodeNetwork = testable.combine(nodeNetwork);
+
+		testable.parse(ind_nodeNetwork);
 	}
 }
