@@ -91,6 +91,9 @@ public class NodeNetworkOWLModel implements OWLModel<NodeNetwork>, OWLModelCommo
 
 	static final String URI_value = NS + "value";
 
+	// TODO (2021-03-13 #31): включить проверку copy-paste
+	// CPD-OFF
+
 	private void makeInverse(ObjectProperty property1, ObjectProperty property2) {
 		property1.addInverseOf(property2);
 		property2.addInverseOf(property1);
@@ -101,6 +104,8 @@ public class NodeNetworkOWLModel implements OWLModel<NodeNetwork>, OWLModelCommo
 		d.addProperty(m.getProfile().UNION_OF(), m.createList(members));
 		return d;
 	}
+
+	// CPD-ON
 
 	@Override
 	public void createOntologyModel() {
@@ -488,12 +493,14 @@ public class NodeNetworkOWLModel implements OWLModel<NodeNetwork>, OWLModelCommo
 
 	private ObjectProperty objectProperty_hasSystemOperation;
 
+	@Override
 	public ObjectProperty getObjectProperty_hasSystemOperation() {
 		return objectProperty_hasSystemOperation;
 	}
 
 	private ObjectProperty objectProperty_isSystemOperationOf;
 
+	@Override
 	public ObjectProperty getObjectProperty_isSystemOperationOf() {
 		return objectProperty_isSystemOperationOf;
 	}
