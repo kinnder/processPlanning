@@ -7,9 +7,9 @@ import org.apache.jena.ontology.Individual;
 
 public class ActionParametersOWLSchema implements OWLSchema<Map<String, String>> {
 
-	private NodeNetworkOWLModel owlModel;
+	private OWLModelCommonPart2 owlModel;
 
-	public ActionParametersOWLSchema(NodeNetworkOWLModel owlModel) {
+	public ActionParametersOWLSchema(OWLModelCommonPart2 owlModel) {
 		this.owlModel = owlModel;
 	}
 

@@ -34,13 +34,13 @@ public class SystemProcessOWLSchemaTest {
 
 	SystemProcessOWLSchema testable;
 
-	SystemProcessOWLModel systemProcessOWLModel;
+	SystemProcessOWLModel owlModel;
 
 	@BeforeEach
 	public void setup() {
-		systemProcessOWLModel = new SystemProcessOWLModel();
+		owlModel = new SystemProcessOWLModel();
 
-		testable = new SystemProcessOWLSchema(systemProcessOWLModel);
+		testable = new SystemProcessOWLSchema(owlModel);
 	}
 
 	@Test
@@ -51,11 +51,12 @@ public class SystemProcessOWLSchemaTest {
 		final Action action = new Action("test-action");
 		systemProcess.add(new SystemOperation(action, parameters));
 
+		owlModel.createOntologyModel();
 		testable.combine(systemProcess);
-		OntModel model = systemProcessOWLModel.getOntologyModel();
+		OntModel model = owlModel.getOntologyModel();
 		assertNotNull(model);
-		assertEquals(59, model.listObjects().toList().size());
-		assertEquals(201, model.listStatements().toList().size());
+		assertEquals(74, model.listObjects().toList().size());
+		assertEquals(261, model.listStatements().toList().size());
 
 		// TODO (2020-11-09 #31): удалить
 //		model.write(System.out, "RDF/XML");

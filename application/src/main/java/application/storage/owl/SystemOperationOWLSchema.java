@@ -9,11 +9,11 @@ import planning.model.SystemOperation;
 
 public class SystemOperationOWLSchema implements OWLSchema<SystemOperation> {
 
-	private NodeNetworkOWLModel owlModel;
+	private OWLModelCommonPart2 owlModel;
 
 	private ActionParametersOWLSchema actionParametersOWLSchema;
 
-	public SystemOperationOWLSchema(NodeNetworkOWLModel owlModel) {
+	public SystemOperationOWLSchema(OWLModelCommonPart2 owlModel) {
 		this.owlModel = owlModel;
 
 		this.actionParametersOWLSchema = new ActionParametersOWLSchema(owlModel);

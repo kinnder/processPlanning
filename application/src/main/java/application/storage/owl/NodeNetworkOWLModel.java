@@ -13,7 +13,7 @@ import org.apache.jena.vocabulary.XSD;
 
 import planning.method.NodeNetwork;
 
-public class NodeNetworkOWLModel implements OWLModel<NodeNetwork>, OWLModelCommonPart {
+public class NodeNetworkOWLModel implements OWLModel<NodeNetwork>, OWLModelCommonPart, OWLModelCommonPart2 {
 
 	static final String NS = "https://github.com/kinnder/process-engineering/planning/node-network#";
 
@@ -335,7 +335,6 @@ public class NodeNetworkOWLModel implements OWLModel<NodeNetwork>, OWLModelCommo
 
 	@Override
 	public void connectOntologyModel(OntModel ontModel) {
-		// TODO Auto-generated method stub
 		m = ontModel;
 
 		class_ActionParameters = m.getOntClass(URI_ActionParameters);
@@ -501,6 +500,7 @@ public class NodeNetworkOWLModel implements OWLModel<NodeNetwork>, OWLModelCommo
 
 	private OntClass class_SystemOperation;
 
+	@Override
 	public OntClass getClass_SystemOperation() {
 		return class_SystemOperation;
 	}
@@ -514,30 +514,35 @@ public class NodeNetworkOWLModel implements OWLModel<NodeNetwork>, OWLModelCommo
 
 	private ObjectProperty objectProperty_hasActionParameters;
 
+	@Override
 	public ObjectProperty getObjectProperty_hasActionParameters() {
 		return objectProperty_hasActionParameters;
 	}
 
 	private ObjectProperty objectProperty_areActionParametersOf;
 
+	@Override
 	public ObjectProperty getObjectProperty_areActionParametersOf() {
 		return objectProperty_areActionParametersOf;
 	}
 
 	private OntClass class_ActionParameters;
 
+	@Override
 	public OntClass getClass_ActionParameters() {
 		return class_ActionParameters;
 	}
 
 	private OntClass class_Parameter;
 
+	@Override
 	public OntClass getClass_Parameter() {
 		return class_Parameter;
 	}
 
 	private DatatypeProperty dataProperty_key;
 
+	@Override
 	public DatatypeProperty getDataProperty_key() {
 		return dataProperty_key;
 	}
@@ -551,12 +556,14 @@ public class NodeNetworkOWLModel implements OWLModel<NodeNetwork>, OWLModelCommo
 
 	private ObjectProperty objectProperty_hasParameter;
 
+	@Override
 	public ObjectProperty getObjectProperty_hasParameter() {
 		return objectProperty_hasParameter;
 	}
 
 	private ObjectProperty objectProperty_isParameterOf;
 
+	@Override
 	public ObjectProperty getObjectProperty_isParameterOf() {
 		return objectProperty_isParameterOf;
 	}
@@ -636,5 +643,11 @@ public class NodeNetworkOWLModel implements OWLModel<NodeNetwork>, OWLModelCommo
 	@Override
 	public DatatypeProperty getDataProperty_objectId2() {
 		return dataProperty_objectId2;
+	}
+
+	@Override
+	public OntClass getClass_Process() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
