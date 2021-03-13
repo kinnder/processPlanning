@@ -2,11 +2,15 @@ package application.storage.owl;
 
 import java.util.UUID;
 
+import org.apache.jena.ontology.DataRange;
 import org.apache.jena.ontology.DatatypeProperty;
 import org.apache.jena.ontology.ObjectProperty;
 import org.apache.jena.ontology.OntClass;
 import org.apache.jena.ontology.OntModel;
 import org.apache.jena.rdf.model.ModelFactory;
+import org.apache.jena.rdf.model.RDFNode;
+import org.apache.jena.vocabulary.XSD;
+
 import planning.method.NodeNetwork;
 
 public class NodeNetworkOWLModel implements OWLModel<NodeNetwork>, OWLModelCommonPart {
@@ -67,7 +71,7 @@ public class NodeNetworkOWLModel implements OWLModel<NodeNetwork>, OWLModelCommo
 
 	static final String URI_isSystemOf = NS + "isSystemOf";
 
-	static final String URI_isSystemOperation = NS + "isSystemOperation";
+	static final String URI_isSystemOperationOf = NS + "isSystemOperation";
 
 	static final String URI_beginNodeId = NS + "beginNodeId";
 
@@ -90,6 +94,12 @@ public class NodeNetworkOWLModel implements OWLModel<NodeNetwork>, OWLModelCommo
 	private void makeInverse(ObjectProperty property1, ObjectProperty property2) {
 		property1.addInverseOf(property2);
 		property2.addInverseOf(property1);
+	}
+
+	private DataRange createDataRange(RDFNode... members) {
+		DataRange d = m.createOntResource(DataRange.class, m.getProfile().DATARANGE(), null);
+		d.addProperty(m.getProfile().UNION_OF(), m.createList(members));
+		return d;
 	}
 
 	@Override
@@ -150,13 +160,223 @@ public class NodeNetworkOWLModel implements OWLModel<NodeNetwork>, OWLModelCommo
 
 		makeInverse(objectProperty_hasActionParameters, objectProperty_areActionParametersOf);
 
+		objectProperty_hasAttribute = m.createObjectProperty(URI_hasAttribute);
+		objectProperty_hasAttribute.addLabel("has attribute", "en");
+		objectProperty_hasAttribute.addLabel("имеет атрибут", "ru");
+		objectProperty_hasAttribute.addDomain(class_SystemObject);
+		objectProperty_hasAttribute.addRange(class_Attribute);
+
+		objectProperty_isAttributeOf = m.createObjectProperty(URI_isAttributeOf);
+		objectProperty_isAttributeOf.addLabel("is attribute of", "en");
+		objectProperty_isAttributeOf.addLabel("является атрибутом для", "ru");
+		objectProperty_isAttributeOf.addDomain(class_Attribute);
+		objectProperty_isAttributeOf.addRange(class_SystemObject);
+
+		makeInverse(objectProperty_hasAttribute, objectProperty_isAttributeOf);
+
+		objectProperty_hasEdge = m.createObjectProperty(URI_hasEdge);
+		objectProperty_hasEdge.addLabel("has edge", "en");
+		objectProperty_hasEdge.addLabel("имеет ребро", "ru");
+		objectProperty_hasEdge.addDomain(class_NodeNetwork);
+		objectProperty_hasEdge.addRange(class_Edge);
+
+		objectProperty_isEdgeOf = m.createObjectProperty(URI_isEdgeOf);
+		objectProperty_isEdgeOf.addLabel("is edge of", "en");
+		objectProperty_isEdgeOf.addLabel("является ребром для", "ru");
+		objectProperty_isEdgeOf.addDomain(class_Edge);
+		objectProperty_isEdgeOf.addRange(class_NodeNetwork);
+
+		makeInverse(objectProperty_hasEdge, objectProperty_isEdgeOf);
+
+		objectProperty_hasLink = m.createObjectProperty(URI_hasLink);
+		objectProperty_hasLink.addLabel("has link", "en");
+		objectProperty_hasLink.addLabel("имеет связь", "ru");
+		objectProperty_hasLink.addDomain(class_System);
+		objectProperty_hasLink.addRange(class_Link);
+
+		objectProperty_isLinkOf = m.createObjectProperty(URI_isLinkOf);
+		objectProperty_isLinkOf.addLabel("is link of", "en");
+		objectProperty_isLinkOf.addLabel("является связью для", "ru");
+		objectProperty_isLinkOf.addDomain(class_Link);
+		objectProperty_isLinkOf.addRange(class_System);
+
+		makeInverse(objectProperty_hasLink, objectProperty_isLinkOf);
+
 		objectProperty_hasNode = m.createObjectProperty(URI_hasNode);
-		// TODO Auto-generated method stub
+		objectProperty_hasNode.addLabel("has node", "en");
+		objectProperty_hasNode.addLabel("имеет узел", "ru");
+		objectProperty_hasNode.addDomain(class_NodeNetwork);
+		objectProperty_hasNode.addRange(class_Node);
+
+		objectProperty_isNodeOf = m.createObjectProperty(URI_isNodeOf);
+		objectProperty_isNodeOf.addLabel("is node of", "en");
+		objectProperty_isNodeOf.addLabel("является узлом для", "ru");
+		objectProperty_isNodeOf.addDomain(class_Node);
+		objectProperty_isNodeOf.addRange(class_NodeNetwork);
+
+		makeInverse(objectProperty_hasNode, objectProperty_isNodeOf);
+
+		objectProperty_hasParameter = m.createObjectProperty(URI_hasParameter);
+		objectProperty_hasParameter.addLabel("has parameter", "en");
+		objectProperty_hasParameter.addLabel("имеет параметр", "ru");
+		objectProperty_hasParameter.addDomain(class_ActionParameters);
+		objectProperty_hasParameter.addRange(class_Parameter);
+
+		objectProperty_isParameterOf = m.createObjectProperty(URI_isParameterOf);
+		objectProperty_isParameterOf.addLabel("is parameter of", "en");
+		objectProperty_isParameterOf.addLabel("является параметром для", "ru");
+		objectProperty_isParameterOf.addDomain(class_Parameter);
+		objectProperty_isParameterOf.addRange(class_ActionParameters);
+
+		makeInverse(objectProperty_hasParameter, objectProperty_isParameterOf);
+
+		objectProperty_hasSystem = m.createObjectProperty(URI_hasSystem);
+		objectProperty_hasSystem.addLabel("has system", "en");
+		objectProperty_hasSystem.addLabel("имеет систему", "ru");
+		objectProperty_hasSystem.addDomain(class_Node);
+		objectProperty_hasSystem.addRange(class_System);
+
+		objectProperty_isSystemOf = m.createObjectProperty(URI_isSystemOf);
+		objectProperty_isSystemOf.addLabel("is system of", "en");
+		objectProperty_isSystemOf.addLabel("является системой для", "ru");
+		objectProperty_isSystemOf.addDomain(class_System);
+		objectProperty_isSystemOf.addRange(class_Node);
+
+		makeInverse(objectProperty_hasSystem, objectProperty_isSystemOf);
+
+		objectProperty_hasSystemObject = m.createObjectProperty(URI_hasSystemObject);
+		objectProperty_hasSystemObject.addLabel("has system object", "en");
+		objectProperty_hasSystemObject.addLabel("имеет объект системы", "ru");
+		objectProperty_hasSystemObject.addDomain(class_System);
+		objectProperty_hasSystemObject.addRange(class_SystemObject);
+
+		objectProperty_isSystemObjectOf = m.createObjectProperty(URI_isSystemObjectOf);
+		objectProperty_isSystemObjectOf.addLabel("is system object of", "en");
+		objectProperty_isSystemObjectOf.addLabel("является объектом системы для", "ru");
+		objectProperty_isSystemObjectOf.addDomain(class_SystemObject);
+		objectProperty_isSystemObjectOf.addRange(class_System);
+
+		makeInverse(objectProperty_hasSystemObject, objectProperty_isSystemObjectOf);
+
+		objectProperty_hasSystemOperation = m.createObjectProperty(URI_hasSystemOperation);
+		objectProperty_hasSystemOperation.addLabel("has system operation", "en");
+		objectProperty_hasSystemOperation.addLabel("имеет операцию системы", "ru");
+		objectProperty_hasSystemOperation.addDomain(class_Edge);
+		objectProperty_hasSystemOperation.addRange(class_SystemOperation);
+
+		objectProperty_isSystemOperationOf = m.createObjectProperty(URI_isSystemOperationOf);
+		objectProperty_isSystemOperationOf.addLabel("is system operation of", "en");
+		objectProperty_isSystemOperationOf.addLabel("является операцией системы для", "ru");
+		objectProperty_isSystemOperationOf.addDomain(class_SystemOperation);
+		objectProperty_isSystemOperationOf.addRange(class_Edge);
+
+		makeInverse(objectProperty_hasSystemOperation, objectProperty_isSystemOperationOf);
+
+		dataProperty_beginNodeId = m.createDatatypeProperty(URI_beginNodeId);
+		dataProperty_beginNodeId.addLabel("begin node id", "en");
+		dataProperty_beginNodeId.addLabel("идентификатор начального узла", "ru");
+		dataProperty_beginNodeId.addDomain(class_Edge);
+		dataProperty_beginNodeId.addRange(XSD.xstring);
+
+		dataProperty_checked = m.createDatatypeProperty(URI_checked);
+		dataProperty_checked.addLabel("checked", "en");
+		dataProperty_checked.addLabel("просмотрен", "ru");
+		dataProperty_checked.addDomain(class_Node);
+		dataProperty_checked.addRange(XSD.xboolean);
+
+		dataProperty_endNodeId = m.createDatatypeProperty(URI_endNodeId);
+		dataProperty_endNodeId.addLabel("end node id", "en");
+		dataProperty_endNodeId.addLabel("индентификатор конечного узла", "ru");
+		dataProperty_endNodeId.addDomain(class_Edge);
+		dataProperty_endNodeId.addRange(XSD.xstring);
+
+		dataProperty_id = m.createDatatypeProperty(URI_id);
+		dataProperty_id.addLabel("id", "en");
+		dataProperty_id.addLabel("идентификатор", "ru");
+		dataProperty_id.addDomain(class_Edge);
+		dataProperty_id.addDomain(class_Node);
+		dataProperty_id.addDomain(class_SystemObject);
+		dataProperty_id.addRange(XSD.xstring);
+
+		dataProperty_key = m.createDatatypeProperty(URI_key);
+		dataProperty_key.addLabel("key", "en");
+		dataProperty_key.addLabel("ключ", "ru");
+		dataProperty_key.addDomain(class_Parameter);
+		dataProperty_key.addRange(XSD.xstring);
+
+		dataProperty_name = m.createDatatypeProperty(URI_name);
+		dataProperty_name.addLabel("name", "en");
+		dataProperty_name.addLabel("название", "ru");
+		dataProperty_name.addDomain(class_SystemObject);
+		dataProperty_name.addDomain(class_Attribute);
+		dataProperty_name.addDomain(class_Link);
+		dataProperty_name.addDomain(class_SystemOperation);
+		dataProperty_name.addRange(XSD.xstring);
+
+		dataProperty_objectId1 = m.createDatatypeProperty(URI_objectId1);
+		dataProperty_objectId1.addLabel("objectId1", "en");
+		dataProperty_objectId1.addLabel("идентификатор объекта 1", "ru");
+		dataProperty_objectId1.addDomain(class_Link);
+		dataProperty_objectId1.addRange(XSD.xstring);
+
+		dataProperty_objectId2 = m.createDatatypeProperty(URI_objectId2);
+		dataProperty_objectId2.addLabel("objectId2", "en");
+		dataProperty_objectId2.addLabel("идентификатор объекта 2", "ru");
+		dataProperty_objectId2.addDomain(class_Link);
+		dataProperty_objectId2.addRange(XSD.xstring);
+
+		dataProperty_value = m.createDatatypeProperty(URI_value);
+		dataProperty_value.addLabel("value", "en");
+		dataProperty_value.addLabel("значение", "ru");
+		dataProperty_value.addDomain(class_Attribute);
+		dataProperty_value.addDomain(class_Parameter);
+		dataProperty_value.addRange(createDataRange(XSD.xstring, XSD.xboolean, XSD.xint));
 	}
 
 	@Override
 	public void connectOntologyModel(OntModel ontModel) {
 		// TODO Auto-generated method stub
+		m = ontModel;
+
+		class_ActionParameters = m.getOntClass(URI_ActionParameters);
+		class_Attribute = m.getOntClass(URI_Attribute);
+		class_Edge = m.getOntClass(URI_Edge);
+		class_Link = m.getOntClass(URI_Link);
+		class_Node = m.getOntClass(URI_Node);
+		class_NodeNetwork = m.getOntClass(URI_NodeNetwork);
+		class_Parameter = m.getOntClass(URI_Parameter);
+		class_System = m.getOntClass(URI_System);
+		class_SystemObject = m.getOntClass(URI_SystemObject);
+		class_SystemOperation = m.getOntClass(URI_SystemOperation);
+
+		objectProperty_areActionParametersOf = m.getObjectProperty(URI_areActionParametersOf);
+		objectProperty_hasActionParameters = m.getObjectProperty(URI_hasActionParameters);
+		objectProperty_hasAttribute = m.getObjectProperty(URI_hasAttribute);
+		objectProperty_hasEdge = m.getObjectProperty(URI_hasEdge);
+		objectProperty_hasLink = m.getObjectProperty(URI_hasLink);
+		objectProperty_hasNode = m.getObjectProperty(URI_hasNode);
+		objectProperty_hasParameter = m.getObjectProperty(URI_hasParameter);
+		objectProperty_hasSystem = m.getObjectProperty(URI_hasSystem);
+		objectProperty_hasSystemObject = m.getObjectProperty(URI_hasSystemObject);
+		objectProperty_hasSystemOperation = m.getObjectProperty(URI_hasSystemOperation);
+		objectProperty_isAttributeOf = m.getObjectProperty(URI_isAttributeOf);
+		objectProperty_isEdgeOf = m.getObjectProperty(URI_isEdgeOf);
+		objectProperty_isLinkOf = m.getObjectProperty(URI_isLinkOf);
+		objectProperty_isNodeOf = m.getObjectProperty(URI_isNodeOf);
+		objectProperty_isParameterOf = m.getObjectProperty(URI_isParameterOf);
+		objectProperty_isSystemObjectOf = m.getObjectProperty(URI_isSystemObjectOf);
+		objectProperty_isSystemOf = m.getObjectProperty(URI_isSystemOf);
+		objectProperty_isSystemOperationOf = m.getObjectProperty(URI_isSystemOperationOf);
+
+		dataProperty_beginNodeId = m.getDatatypeProperty(URI_beginNodeId);
+		dataProperty_checked = m.getDatatypeProperty(URI_checked);
+		dataProperty_endNodeId = m.getDatatypeProperty(URI_endNodeId);
+		dataProperty_id = m.getDatatypeProperty(URI_id);
+		dataProperty_key = m.getDatatypeProperty(URI_key);
+		dataProperty_name = m.getDatatypeProperty(URI_name);
+		dataProperty_objectId1 = m.getDatatypeProperty(URI_objectId1);
+		dataProperty_objectId2 = m.getDatatypeProperty(URI_objectId2);
+		dataProperty_value = m.getDatatypeProperty(URI_value);
 	}
 
 	private OntModel m;
@@ -273,10 +493,10 @@ public class NodeNetworkOWLModel implements OWLModel<NodeNetwork>, OWLModelCommo
 		return objectProperty_hasSystemOperation;
 	}
 
-	private ObjectProperty objectProperty_isSystemOperation;
+	private ObjectProperty objectProperty_isSystemOperationOf;
 
 	public ObjectProperty getObjectProperty_isSystemOperationOf() {
-		return objectProperty_isSystemOperation;
+		return objectProperty_isSystemOperationOf;
 	}
 
 	private OntClass class_SystemOperation;
