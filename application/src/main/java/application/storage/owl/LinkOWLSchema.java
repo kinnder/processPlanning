@@ -35,8 +35,8 @@ public class LinkOWLSchema implements OWLSchema<Link> {
 		String name = ind_link.getProperty(owlModel.getDataProperty_name()).getString();
 		Statement objectId1Property = ind_link.getProperty(owlModel.getDataProperty_objectId1());
 		Statement objectId2Property = ind_link.getProperty(owlModel.getDataProperty_objectId2());
-		String objectId1 = objectId1Property == null ? null : objectId1Property.toString();
-		String objectId2 = objectId2Property == null ? null : objectId2Property.toString();
+		String objectId1 = objectId1Property == null ? null : objectId1Property.getString();
+		String objectId2 = objectId2Property == null ? null : objectId2Property.getString();
 
 		return new Link(name, objectId1, objectId2);
 	}
