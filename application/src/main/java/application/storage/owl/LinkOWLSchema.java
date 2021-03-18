@@ -15,7 +15,7 @@ public class LinkOWLSchema implements OWLSchema<Link> {
 
 	@Override
 	public Individual combine(Link link) {
-		Individual ind_link = owlModel.getClass_Link().createIndividual(owlModel.getUniqueURI());
+		Individual ind_link = owlModel.newIndividual_Link();
 		ind_link.addLabel("Link", "en");
 		ind_link.addLabel("Связь", "ru");
 		ind_link.addProperty(owlModel.getDataProperty_name(), link.getName());

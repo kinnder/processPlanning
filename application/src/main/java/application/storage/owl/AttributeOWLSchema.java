@@ -17,7 +17,7 @@ public class AttributeOWLSchema implements OWLSchema<Attribute> {
 
 	@Override
 	public Individual combine(Attribute attribute) {
-		Individual ind_attribute = owlModel.getClass_Attribute().createIndividual(owlModel.getUniqueURI());
+		Individual ind_attribute = owlModel.newIndividual_Attribute();
 		ind_attribute.addLabel("Атрибут", "ru");
 		ind_attribute.addLabel("Attribute", "en");
 		ind_attribute.addProperty(owlModel.getDataProperty_name(), attribute.getName());

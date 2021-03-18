@@ -221,7 +221,7 @@ public class TaskDescriptionOWLSchemaTest {
 		OntModel model = owlModel_mock.getOntologyModel();
 		assertNotNull(model);
 		assertEquals(219, model.listObjects().toList().size());
-		assertEquals(1214, model.listStatements().toList().size());
+		assertEquals(1211, model.listStatements().toList().size());
 
 		// TODO (2020-11-09 #31): удалить
 //		model.write(java.lang.System.out, "RDF/XML");

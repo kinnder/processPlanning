@@ -1,14 +1,13 @@
 package application.storage.owl;
 
 import org.apache.jena.ontology.DatatypeProperty;
+import org.apache.jena.ontology.Individual;
 import org.apache.jena.ontology.ObjectProperty;
 import org.apache.jena.ontology.OntClass;
 
 public interface OWLModelCommonPart {
 
 	OntClass getClass_System();
-
-	String getUniqueURI();
 
 	ObjectProperty getObjectProperty_isSystemObjectOf();
 
@@ -37,4 +36,12 @@ public interface OWLModelCommonPart {
 	DatatypeProperty getDataProperty_objectId2();
 
 	DatatypeProperty getDataProperty_value();
+
+	Individual newIndividual_System();
+
+	Individual newIndividual_SystemObject();
+
+	Individual newIndividual_Link();
+
+	Individual newIndividual_Attribute();
 }

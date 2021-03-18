@@ -86,6 +86,11 @@ public class TaskDescriptionOWLModel implements OWLModel<TaskDescription>, OWLMo
 		return class_System;
 	}
 
+	@Override
+	public Individual newIndividual_System() {
+		return class_System.createIndividual(getUniqueURI());
+	}
+
 	private OntClass class_InitialSystem;
 
 	public OntClass getClass_InitialSystem() {
@@ -105,6 +110,11 @@ public class TaskDescriptionOWLModel implements OWLModel<TaskDescription>, OWLMo
 		return class_SystemObject;
 	}
 
+	@Override
+	public Individual newIndividual_SystemObject() {
+		return class_SystemObject.createIndividual(getUniqueURI());
+	}
+
 	private OntClass class_Link;
 
 	@Override
@@ -112,11 +122,21 @@ public class TaskDescriptionOWLModel implements OWLModel<TaskDescription>, OWLMo
 		return class_Link;
 	}
 
+	@Override
+	public Individual newIndividual_Link() {
+		return class_Link.createIndividual(getUniqueURI());
+	}
+
 	private OntClass class_Attribute;
 
 	@Override
 	public OntClass getClass_Attribute() {
 		return class_Attribute;
+	}
+
+	@Override
+	public Individual newIndividual_Attribute() {
+		return class_Attribute.createIndividual(getUniqueURI());
 	}
 
 	private ObjectProperty objectProperty_hasInitialSystem;
@@ -128,7 +148,7 @@ public class TaskDescriptionOWLModel implements OWLModel<TaskDescription>, OWLMo
 	private ObjectProperty objectProperty_isInitialSystemOf;
 
 	public ObjectProperty getObjectProperty_isInitialSystemOf() {
-		return objectProperty_hasInitialSystem;
+		return objectProperty_isInitialSystemOf;
 	}
 
 	private ObjectProperty objectProperty_hasFinalSystem;

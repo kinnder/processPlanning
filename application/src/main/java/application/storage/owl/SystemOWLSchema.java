@@ -23,7 +23,7 @@ public class SystemOWLSchema implements OWLSchema<System> {
 
 	@Override
 	public Individual combine(System system) {
-		Individual ind_system = owlModel.getClass_System().createIndividual(owlModel.getUniqueURI());
+		Individual ind_system = owlModel.newIndividual_System();
 		ind_system.addLabel("System", "en");
 		ind_system.addLabel("Система", "ru");
 

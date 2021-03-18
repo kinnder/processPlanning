@@ -4,6 +4,7 @@ import java.util.UUID;
 
 import org.apache.jena.ontology.DataRange;
 import org.apache.jena.ontology.DatatypeProperty;
+import org.apache.jena.ontology.Individual;
 import org.apache.jena.ontology.ObjectProperty;
 import org.apache.jena.ontology.OntClass;
 import org.apache.jena.ontology.OntModel;
@@ -656,5 +657,25 @@ public class NodeNetworkOWLModel implements OWLModel<NodeNetwork>, OWLModelCommo
 	public OntClass getClass_Process() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public Individual newIndividual_System() {
+		return class_System.createIndividual(getUniqueURI());
+	}
+
+	@Override
+	public Individual newIndividual_SystemObject() {
+		return class_SystemObject.createIndividual(getUniqueURI());
+	}
+
+	@Override
+	public Individual newIndividual_Link() {
+		return class_Link.createIndividual(getUniqueURI());
+	}
+
+	@Override
+	public Individual newIndividual_Attribute() {
+		return class_Attribute.createIndividual(getUniqueURI());
 	}
 }

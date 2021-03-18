@@ -19,7 +19,7 @@ public class SystemObjectOWLSchema implements OWLSchema<SystemObject> {
 
 	@Override
 	public Individual combine(SystemObject systemObject) {
-		Individual ind_systemObject = owlModel.getClass_SystemObject().createIndividual(owlModel.getUniqueURI());
+		Individual ind_systemObject = owlModel.newIndividual_SystemObject();
 		ind_systemObject.addLabel("System Object", "en");
 		ind_systemObject.addLabel("Объект системы", "ru");
 		ind_systemObject.addProperty(owlModel.getDataProperty_name(), systemObject.getName());
