@@ -11,28 +11,31 @@ public class TaskDescriptionOWLSchema implements OWLSchema<TaskDescription> {
 	private SystemOWLSchema systemOWLSchema;
 
 	public TaskDescriptionOWLSchema(TaskDescriptionOWLModel owlModel) {
-		this.owlModel = owlModel;
+		this(owlModel, new SystemOWLSchema(owlModel));
+	}
 
-		systemOWLSchema = new SystemOWLSchema(owlModel);
+	TaskDescriptionOWLSchema(TaskDescriptionOWLModel owlModel, SystemOWLSchema systemOWLSchema) {
+		this.owlModel = owlModel;
+		this.systemOWLSchema = systemOWLSchema;
 	}
 
 	@Override
 	public Individual combine(TaskDescription taskDescription) {
-		Individual ind_taskDescription = owlModel.getClass_TaskDescription().createIndividual(owlModel.getUniqueURI());
-		ind_taskDescription.addLabel("Task Description 1", "en");
-		ind_taskDescription.addLabel("Описания задания 1", "ru");
+		Individual ind_taskDescription = owlModel.newIndividual_TaskDescription();
+		ind_taskDescription.addLabel("Task Description", "en");
+		ind_taskDescription.addLabel("Описание задания", "ru");
 
 		Individual ind_initialSystem = systemOWLSchema.combine(taskDescription.getInitialSystem());
 		ind_initialSystem.setOntClass(owlModel.getClass_InitialSystem());
-		ind_initialSystem.addLabel("Initial system 1", "en");
-		ind_initialSystem.addLabel("Начальная система 1", "ru");
+		ind_initialSystem.addLabel("Initial system", "en");
+		ind_initialSystem.addLabel("Начальная система", "ru");
 		ind_taskDescription.addProperty(owlModel.getObjectProperty_hasInitialSystem(), ind_initialSystem);
 		ind_initialSystem.addProperty(owlModel.getObjectProperty_isInitialSystemOf(), ind_taskDescription);
 
 		Individual ind_finalSystem = systemOWLSchema.combine(taskDescription.getFinalSystem());
 		ind_finalSystem.setOntClass(owlModel.getClass_FinalSystem());
-		ind_finalSystem.addLabel("Final system 1", "en");
-		ind_finalSystem.addLabel("Конечная система 1", "ru");
+		ind_finalSystem.addLabel("Final system", "en");
+		ind_finalSystem.addLabel("Конечная система", "ru");
 		ind_taskDescription.addProperty(owlModel.getObjectProperty_hasFinalSystem(), ind_finalSystem);
 		ind_finalSystem.addProperty(owlModel.getObjectProperty_isFinalSystemOf(), ind_taskDescription);
 

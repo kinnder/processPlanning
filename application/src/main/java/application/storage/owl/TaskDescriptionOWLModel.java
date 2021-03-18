@@ -4,6 +4,7 @@ import java.util.UUID;
 
 import org.apache.jena.ontology.DataRange;
 import org.apache.jena.ontology.DatatypeProperty;
+import org.apache.jena.ontology.Individual;
 import org.apache.jena.ontology.ObjectProperty;
 import org.apache.jena.ontology.OntClass;
 import org.apache.jena.ontology.OntModel;
@@ -72,6 +73,10 @@ public class TaskDescriptionOWLModel implements OWLModel<TaskDescription>, OWLMo
 
 	public OntClass getClass_TaskDescription() {
 		return class_TaskDescription;
+	}
+
+	public Individual newIndividual_TaskDescription() {
+		return class_TaskDescription.createIndividual(getUniqueURI());
 	}
 
 	private OntClass class_System;

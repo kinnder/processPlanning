@@ -3,8 +3,15 @@ package application.storage.owl;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+import java.util.Arrays;
+
 import org.apache.jena.ontology.Individual;
+import org.apache.jena.ontology.ObjectProperty;
+import org.apache.jena.ontology.OntClass;
 import org.apache.jena.ontology.OntModel;
+import org.apache.jena.util.iterator.ExtendedIterator;
+import org.apache.jena.util.iterator.NiceIterator;
+import org.jmock.Expectations;
 import org.jmock.imposters.ByteBuddyClassImposteriser;
 import org.jmock.junit5.JUnit5Mockery;
 import org.junit.jupiter.api.AfterEach;
@@ -15,7 +22,6 @@ import org.junit.jupiter.api.extension.RegisterExtension;
 import application.domain.AssemblyLine;
 import planning.method.TaskDescription;
 import planning.model.System;
-import planning.model.SystemObject;
 
 public class TaskDescriptionOWLSchemaTest {
 
@@ -33,61 +39,188 @@ public class TaskDescriptionOWLSchemaTest {
 
 	TaskDescriptionOWLSchema testable;
 
-	TaskDescriptionOWLModel owlModel;
+	TaskDescriptionOWLModel owlModel_mock;
+
+	SystemOWLSchema systemOWLSchema_mock;
 
 	@BeforeEach
 	public void setup() {
-		owlModel = new TaskDescriptionOWLModel();
+		owlModel_mock = context.mock(TaskDescriptionOWLModel.class);
+		systemOWLSchema_mock = context.mock(SystemOWLSchema.class);
 
-		testable = new TaskDescriptionOWLSchema(owlModel);
+		testable = new TaskDescriptionOWLSchema(owlModel_mock, systemOWLSchema_mock);
+	}
+
+	@Test
+	public void newInstance() {
+		testable = new TaskDescriptionOWLSchema(new TaskDescriptionOWLModel());
 	}
 
 	@Test
 	public void combine() {
-		final SystemObject object1 = new SystemObject("test_object_1");
-		object1.addAttribute("test_attribute_1_name", new String("test_attribute_1_value"));
+		final TaskDescription taskDescription_mock = context.mock(TaskDescription.class, "taskDescription");
+		final Individual i_taskDescription_mock = context.mock(Individual.class, "i-taskDescription");
+		final Individual i_initialSystem_mock = context.mock(Individual.class, "i-initialSystem");
+		final Individual i_finalSystem_mock = context.mock(Individual.class, "i-finalSystem");
+		final System initialSystem_mock = context.mock(System.class, "initialSystem");
+		final System finalSystem_mock = context.mock(System.class, "finalSystem");
+		final OntClass oc_initialSystem_mock = context.mock(OntClass.class, "oc-initialSystem");
+		final OntClass oc_finalSystem_mock = context.mock(OntClass.class, "oc-finalSystem");
+		final ObjectProperty op_hasInitialSystem_mock = context.mock(ObjectProperty.class, "op-hasInitialSystem");
+		final ObjectProperty op_isInitialSystemOf_mock = context.mock(ObjectProperty.class, "op-isInitialSystemOf");
+		final ObjectProperty op_hasFinalSystem_mock = context.mock(ObjectProperty.class, "op-hasFinalSystem");
+		final ObjectProperty op_isFinalSystem_mock = context.mock(ObjectProperty.class, "op-isFinalSystem");
 
-		final SystemObject object2 = new SystemObject("test_object_2");
-		object2.addAttribute("test_attribute_2_name", new String("test_attribute_2_value"));
+		context.checking(new Expectations() {
+			{
+				oneOf(owlModel_mock).newIndividual_TaskDescription();
+				will(returnValue(i_taskDescription_mock));
 
-		final System initialSystem = new System();
-		initialSystem.addObject(object1);
-		initialSystem.addObject(object2);
-		initialSystem.addLink("test_link-1-2", object1.getId(), object2.getId());
+				oneOf(i_taskDescription_mock).addLabel("Task Description", "en");
 
-		final SystemObject object3 = new SystemObject("test_object_3");
-		object3.addAttribute("test_attribute_3_name", new String("test_attribute_3_value"));
+				oneOf(i_taskDescription_mock).addLabel("Описание задания", "ru");
 
-		final SystemObject object4 = new SystemObject("test_object_4");
-		object4.addAttribute("test_attribute_4_name", new String("test_attribute_4_value"));
+				oneOf(taskDescription_mock).getInitialSystem();
+				will(returnValue(initialSystem_mock));
 
-		final System finalSystem = new System();
-		finalSystem.addObject(object3);
-		finalSystem.addObject(object4);
-		finalSystem.addLink("test_link-3-4", object3.getId(), object4.getId());
+				oneOf(systemOWLSchema_mock).combine(initialSystem_mock);
+				will(returnValue(i_initialSystem_mock));
 
-		final TaskDescription taskDescription = new TaskDescription();
-		taskDescription.setInitialSystem(initialSystem);
-		taskDescription.setFinalSystem(finalSystem);
+				oneOf(owlModel_mock).getClass_InitialSystem();
+				will(returnValue(oc_initialSystem_mock));
 
-		owlModel.createOntologyModel();
-		testable.combine(taskDescription);
-		OntModel model = owlModel.getOntologyModel();
-		assertNotNull(model);
-		assertEquals(131, model.listObjects().toList().size());
-		assertEquals(426, model.listStatements().toList().size());
+				oneOf(i_initialSystem_mock).setOntClass(oc_initialSystem_mock);
+
+				oneOf(i_initialSystem_mock).addLabel("Initial system", "en");
+
+				oneOf(i_initialSystem_mock).addLabel("Начальная система", "ru");
+
+				oneOf(owlModel_mock).getObjectProperty_hasInitialSystem();
+				will(returnValue(op_hasInitialSystem_mock));
+
+				oneOf(i_taskDescription_mock).addProperty(op_hasInitialSystem_mock, i_initialSystem_mock);
+
+				oneOf(owlModel_mock).getObjectProperty_isInitialSystemOf();
+				will(returnValue(op_isInitialSystemOf_mock));
+
+				oneOf(i_initialSystem_mock).addProperty(op_isInitialSystemOf_mock, i_taskDescription_mock);
+
+				oneOf(taskDescription_mock).getFinalSystem();
+				will(returnValue(finalSystem_mock));
+
+				oneOf(systemOWLSchema_mock).combine(finalSystem_mock);
+				will(returnValue(i_finalSystem_mock));
+
+				oneOf(owlModel_mock).getClass_FinalSystem();
+				will(returnValue(oc_finalSystem_mock));
+
+				oneOf(i_finalSystem_mock).setOntClass(oc_finalSystem_mock);
+
+				oneOf(i_finalSystem_mock).addLabel("Final system", "en");
+
+				oneOf(i_finalSystem_mock).addLabel("Конечная система", "ru");
+
+				oneOf(owlModel_mock).getObjectProperty_hasFinalSystem();
+				will(returnValue(op_hasFinalSystem_mock));
+
+				oneOf(i_taskDescription_mock).addProperty(op_hasFinalSystem_mock, i_finalSystem_mock);
+
+				oneOf(owlModel_mock).getObjectProperty_isFinalSystemOf();
+				will(returnValue(op_isFinalSystem_mock));
+
+				oneOf(i_finalSystem_mock).addProperty(op_isFinalSystem_mock, i_taskDescription_mock);
+			}
+		});
+
+		assertEquals(i_taskDescription_mock, testable.combine(taskDescription_mock));
+	}
+
+	@Test
+	public void parse() {
+		final System initialSystem_mock = context.mock(System.class, "initialSystem");
+		final System finalSystem_mock = context.mock(System.class, "finalSystem");
+		final OntClass oc_taskDescription_mock = context.mock(OntClass.class, "oc-taskDescription");
+		final OntClass oc_initialSystem_mock = context.mock(OntClass.class, "oc-initialSystem");
+		final OntClass oc_finalSystem_mock = context.mock(OntClass.class, "oc-finalSystem");
+		final ObjectProperty op_hasInitialSystem = context.mock(ObjectProperty.class, "op-hasInitialSystem");
+		final ObjectProperty op_hasFinalSystem = context.mock(ObjectProperty.class, "op-hasFinalSystem");
+
+		final Individual i_taskDescription_mock = context.mock(Individual.class, "i-taskDescription");
+		final ExtendedIterator<Individual> taskDescriptionIterator = new NiceIterator<Individual>()
+				.andThen(Arrays.asList(i_taskDescription_mock).iterator());
+
+		final Individual i_initialSystem_mock = context.mock(Individual.class, "i-initialSystem");
+		final ExtendedIterator<Individual> initialSystemIterator = new NiceIterator<Individual>()
+				.andThen(Arrays.asList(i_initialSystem_mock).iterator());
+
+		final Individual i_finalSystem_mock = context.mock(Individual.class, "i_finalSystem");
+		final ExtendedIterator<Individual> finalSystemIterator = new NiceIterator<Individual>()
+				.andThen(Arrays.asList(i_finalSystem_mock).iterator());
+
+		context.checking(new Expectations() {
+			{
+				oneOf(owlModel_mock).getClass_TaskDescription();
+				will(returnValue(oc_taskDescription_mock));
+
+				oneOf(oc_taskDescription_mock).listInstances();
+				will(returnValue(taskDescriptionIterator));
+
+				oneOf(owlModel_mock).getClass_InitialSystem();
+				will(returnValue(oc_initialSystem_mock));
+
+				oneOf(oc_initialSystem_mock).listInstances();
+				will(returnValue(initialSystemIterator));
+
+				oneOf(owlModel_mock).getObjectProperty_hasInitialSystem();
+				will(returnValue(op_hasInitialSystem));
+
+				oneOf(i_taskDescription_mock).hasProperty(op_hasInitialSystem, i_initialSystem_mock);
+				will(returnValue(true));
+
+				oneOf(i_initialSystem_mock).asIndividual();
+				will(returnValue(i_initialSystem_mock));
+
+				oneOf(systemOWLSchema_mock).parse(i_initialSystem_mock);
+				will(returnValue(initialSystem_mock));
+
+				oneOf(owlModel_mock).getClass_FinalSystem();
+				will(returnValue(oc_finalSystem_mock));
+
+				oneOf(oc_finalSystem_mock).listInstances();
+				will(returnValue(finalSystemIterator));
+
+				oneOf(owlModel_mock).getObjectProperty_hasFinalSystem();
+				will(returnValue(op_hasFinalSystem));
+
+				oneOf(i_taskDescription_mock).hasProperty(op_hasFinalSystem, i_finalSystem_mock);
+				will(returnValue(true));
+
+				oneOf(i_finalSystem_mock).asIndividual();
+				will(returnValue(i_finalSystem_mock));
+
+				oneOf(systemOWLSchema_mock).parse(i_finalSystem_mock);
+				will(returnValue(finalSystem_mock));
+			}
+		});
+
+		TaskDescription result = testable.parse(null);
+		assertEquals(initialSystem_mock, result.getInitialSystem());
+		assertEquals(finalSystem_mock, result.getFinalSystem());
 	}
 
 	@Test
 	public void combine_full() {
+		owlModel_mock = new TaskDescriptionOWLModel();
+		testable = new TaskDescriptionOWLSchema(owlModel_mock);
+
 		final TaskDescription taskDescription = AssemblyLine.getTaskDescription();
 
-		owlModel.createOntologyModel();
+		owlModel_mock.createOntologyModel();
 		testable.combine(taskDescription);
 
-		OntModel model = owlModel.getOntologyModel();
+		OntModel model = owlModel_mock.getOntologyModel();
 		assertNotNull(model);
-		assertEquals(225, model.listObjects().toList().size());
+		assertEquals(219, model.listObjects().toList().size());
 		assertEquals(1214, model.listStatements().toList().size());
 
 		// TODO (2020-11-09 #31): удалить
@@ -96,9 +229,12 @@ public class TaskDescriptionOWLSchemaTest {
 
 	@Test
 	public void parse_full() {
+		owlModel_mock = new TaskDescriptionOWLModel();
+		testable = new TaskDescriptionOWLSchema(owlModel_mock);
+
 		final TaskDescription taskDescription = AssemblyLine.getTaskDescription();
 
-		owlModel.createOntologyModel();
+		owlModel_mock.createOntologyModel();
 		Individual ind_taskDescription = testable.combine(taskDescription);
 
 		testable.parse(ind_taskDescription);
