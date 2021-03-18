@@ -1,7 +1,7 @@
 cd ..\application\target
 
-call .\..\..\tests\materialPoints.bat
+call .\..\..\tests\materialPoints_xml.bat
 
-call .\..\..\tests\assemblyLine.bat
+call .\..\..\tests\assemblyLine_xml.bat
 
-call .\..\..\tests\cuttingProcess.bat
+call .\..\..\tests\cuttingProcess_xml.bat
