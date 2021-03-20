@@ -1,5 +1,6 @@
 package application.storage.owl;
 
+import org.apache.jena.datatypes.RDFDatatype;
 import org.apache.jena.datatypes.xsd.XSDDatatype;
 import org.apache.jena.ontology.Individual;
 import org.apache.jena.rdf.model.Literal;
@@ -39,13 +40,14 @@ public class AttributeOWLSchema implements OWLSchema<Attribute> {
 		Statement valueStatement = ind_attribute.getProperty(owlModel.getDataProperty_value());
 		if (valueStatement != null) {
 			Literal valueLiteral = valueStatement.getLiteral();
-			if (valueLiteral.getDatatype() == XSDDatatype.XSDboolean) {
+			RDFDatatype valueType = valueLiteral.getDatatype();
+			if (valueType == XSDDatatype.XSDboolean) {
 				return new Attribute(name, valueLiteral.getBoolean());
 			}
-			if (valueLiteral.getDatatype() == XSDDatatype.XSDstring) {
+			if (valueType == XSDDatatype.XSDstring) {
 				return new Attribute(name, valueLiteral.getString());
 			}
-			if (valueLiteral.getDatatype() == XSDDatatype.XSDinteger) {
+			if (valueType == XSDDatatype.XSDinteger) {
 				return new Attribute(name, valueLiteral.getInt());
 			}
 		}
