@@ -12,9 +12,12 @@ public class SystemObjectOWLSchema implements OWLSchema<SystemObject> {
 	private AttributeOWLSchema attributeOWLSchema;
 
 	public SystemObjectOWLSchema(OWLModelCommonPart owlModel) {
-		this.owlModel = owlModel;
+		this(owlModel, new AttributeOWLSchema(owlModel));
+	}
 
-		this.attributeOWLSchema = new AttributeOWLSchema(owlModel);
+	SystemObjectOWLSchema(OWLModelCommonPart owlModel, AttributeOWLSchema attributeOWLSchema) {
+		this.owlModel = owlModel;
+		this.attributeOWLSchema = attributeOWLSchema;
 	}
 
 	@Override
