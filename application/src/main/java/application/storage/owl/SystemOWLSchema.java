@@ -15,10 +15,13 @@ public class SystemOWLSchema implements OWLSchema<System> {
 	private LinkOWLSchema linkOWLSchema;
 
 	public SystemOWLSchema(OWLModelCommonPart owlModel) {
-		this.owlModel = owlModel;
+		this(owlModel, new SystemObjectOWLSchema(owlModel), new LinkOWLSchema(owlModel));
+	}
 
-		this.systemObjectOWLSchema = new SystemObjectOWLSchema(owlModel);
-		this.linkOWLSchema = new LinkOWLSchema(owlModel);
+	SystemOWLSchema(OWLModelCommonPart owlModel, SystemObjectOWLSchema systemObjectOWLSchema, LinkOWLSchema linkOWLSchema) {
+		this.owlModel = owlModel;
+		this.systemObjectOWLSchema = systemObjectOWLSchema;
+		this.linkOWLSchema = linkOWLSchema;
 	}
 
 	@Override
