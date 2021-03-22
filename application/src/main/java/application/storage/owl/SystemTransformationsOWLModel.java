@@ -4,6 +4,7 @@ import java.util.UUID;
 
 import org.apache.jena.ontology.DataRange;
 import org.apache.jena.ontology.DatatypeProperty;
+import org.apache.jena.ontology.Individual;
 import org.apache.jena.ontology.ObjectProperty;
 import org.apache.jena.ontology.OntClass;
 import org.apache.jena.ontology.OntModel;
@@ -202,10 +203,10 @@ public class SystemTransformationsOWLModel implements OWLModel<SystemTransformat
 		return class_ParameterUpdater;
 	}
 
-	private OntClass class_line;
+	private OntClass class_Line;
 
-	public OntClass getClass_line() {
-		return class_line;
+	public OntClass getClass_Line() {
+		return class_Line;
 	}
 
 	private ObjectProperty objectProperty_hasSystemTransformation;
@@ -485,9 +486,9 @@ public class SystemTransformationsOWLModel implements OWLModel<SystemTransformat
 		class_ParameterUpdater.addLabel("Parameter Updater", "en");
 		class_ParameterUpdater.addLabel("Обновление параметров", "ru");
 
-		class_line = m.createClass(URI_Line);
-		class_line.addLabel("Line", "en");
-		class_line.addLabel("Линия", "ru");
+		class_Line = m.createClass(URI_Line);
+		class_Line.addLabel("Line", "en");
+		class_Line.addLabel("Линия", "ru");
 
 		objectProperty_hasSystemTransformation = m.createObjectProperty(URI_hasSystemTransformation);
 		objectProperty_hasSystemTransformation.addLabel("has system transformation", "en");
@@ -662,12 +663,12 @@ public class SystemTransformationsOWLModel implements OWLModel<SystemTransformat
 		objectProperty_hasLine.addLabel("имеет линию", "ru");
 		objectProperty_hasLine.addDomain(class_PreConditionChecker);
 		objectProperty_hasLine.addDomain(class_ParameterUpdater);
-		objectProperty_hasLine.addRange(class_line);
+		objectProperty_hasLine.addRange(class_Line);
 
 		objectProperty_isLineOf = m.createObjectProperty(URI_isLineOf);
 		objectProperty_isLineOf.addLabel("is line of", "en");
 		objectProperty_isLineOf.addLabel("является линией для", "ru");
-		objectProperty_isLineOf.addDomain(class_line);
+		objectProperty_isLineOf.addDomain(class_Line);
 		objectProperty_isLineOf.addRange(class_PreConditionChecker);
 		objectProperty_isLineOf.addRange(class_ParameterUpdater);
 
@@ -727,13 +728,13 @@ public class SystemTransformationsOWLModel implements OWLModel<SystemTransformat
 		dataProperty_number = m.createDatatypeProperty(URI_number);
 		dataProperty_number.addLabel("number", "en");
 		dataProperty_number.addLabel("номер", "ru");
-		dataProperty_number.addDomain(class_line);
+		dataProperty_number.addDomain(class_Line);
 		dataProperty_number.addRange(XSD.integer);
 
 		dataProperty_text = m.createDatatypeProperty(URI_text);
 		dataProperty_text.addLabel("text", "en");
 		dataProperty_text.addLabel("текст", "ru");
-		dataProperty_text.addDomain(class_line);
+		dataProperty_text.addDomain(class_Line);
 		dataProperty_text.addRange(XSD.xstring);
 	}
 
@@ -753,7 +754,7 @@ public class SystemTransformationsOWLModel implements OWLModel<SystemTransformat
 		class_Action = ontModel.getOntClass(URI_Action);
 		class_PreConditionChecker = ontModel.getOntClass(URI_PreConditionChecker);
 		class_ParameterUpdater = ontModel.getOntClass(URI_ParameterUpdater);
-		class_line = ontModel.getOntClass(URI_Line);
+		class_Line = ontModel.getOntClass(URI_Line);
 		class_ObjectTemplate = ontModel.getOntClass(URI_ObjectTemplate);
 		class_LinkTemplate = ontModel.getOntClass(URI_LinkTemplate);
 		class_AttributeTemplate = ontModel.getOntClass(URI_AttributeTemplate);
@@ -807,5 +808,61 @@ public class SystemTransformationsOWLModel implements OWLModel<SystemTransformat
 	@Override
 	public OntModel createOntologyModelBase() {
 		return ModelFactory.createOntologyModel();
+	}
+
+	public Individual newIndividual_Action() {
+		return class_Action.createIndividual(getUniqueURI());
+	}
+
+	public Individual newIndividual_AttributeTemplate() {
+		return class_AttributeTemplate.createIndividual(getUniqueURI());
+	}
+
+	public Individual newIndividual_AttributeTransformation() {
+		return class_AttributeTransformation.createIndividual(getUniqueURI());
+	}
+
+	public Individual newIndividual_Line() {
+		return class_Line.createIndividual(getUniqueURI());
+	}
+
+	public Individual newIndividual_LinkTemplate() {
+		return class_LinkTemplate.createIndividual(getUniqueURI());
+	}
+
+	public Individual newIndividual_LinkTransformation() {
+		return class_LinkTransformation.createIndividual(getUniqueURI());
+	}
+
+	public Individual newIndividual_ObjectTemplate() {
+		return class_ObjectTemplate.createIndividual(getUniqueURI());
+	}
+
+	public Individual newIndividual_ParameterUpdater() {
+		return class_ParameterUpdater.createIndividual(getUniqueURI());
+	}
+
+	public Individual newIndividual_PreConditionChecker() {
+		return class_PreConditionChecker.createIndividual(getUniqueURI());
+	}
+
+	public Individual newIndividual_SystemTemplate() {
+		return class_SystemTemplate.createIndividual(getUniqueURI());
+	}
+
+	public Individual newIndividual_SystemTransformation() {
+		return class_SystemTransformation.createIndividual(getUniqueURI());
+	}
+
+	public Individual newIndividual_SystemTransformations() {
+		return class_SystemTransformations.createIndividual(getUniqueURI());
+	}
+
+	public Individual newIndividual_Transformation() {
+		return class_Transformation.createIndividual(getUniqueURI());
+	}
+
+	public Individual newIndividual_Transformations() {
+		return class_Transformations.createIndividual(getUniqueURI());
 	}
 }

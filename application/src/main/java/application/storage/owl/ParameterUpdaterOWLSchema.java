@@ -43,7 +43,7 @@ public class ParameterUpdaterOWLSchema implements OWLSchema<ActionParameterUpdat
 	@Override
 	public ActionParameterUpdater parse(Individual ind_parameterUpdater) {
 		Map<Integer, LuaScriptLine> scriptLines = new TreeMap<Integer, LuaScriptLine>();
-		owlModel.getClass_line().listInstances().filterKeep((ind_line) -> {
+		owlModel.getClass_Line().listInstances().filterKeep((ind_line) -> {
 			return ind_parameterUpdater.hasProperty(owlModel.getObjectProperty_hasLine(), ind_line);
 		}).forEachRemaining((ind_line) -> {
 			LuaScriptLine scriptLine = luaScriptLineOWLSchema.parse(ind_line.asIndividual());
