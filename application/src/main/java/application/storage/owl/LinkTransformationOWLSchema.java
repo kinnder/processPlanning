@@ -15,7 +15,7 @@ public class LinkTransformationOWLSchema implements OWLSchema<LinkTransformation
 
 	@Override
 	public Individual combine(LinkTransformation linkTransformation) {
-		Individual ind_linkTransformation = owlModel.getClass_LinkTransformation().createIndividual(owlModel.getUniqueURI());
+		Individual ind_linkTransformation = owlModel.newIndividual_LinkTransformation();
 		ind_linkTransformation.addProperty(owlModel.getDataProperty_objectId(), linkTransformation.getObjectId());
 		ind_linkTransformation.addProperty(owlModel.getDataProperty_name(), linkTransformation.getLinkName());
 		String objectIdOld = linkTransformation.getLinkObjectId2Old();

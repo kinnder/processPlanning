@@ -25,7 +25,7 @@ public class TransformationsOWLSchema implements OWLSchema<Transformation[]> {
 
 	@Override
 	public Individual combine(Transformation[] transformations) {
-		Individual ind_transformations = owlModel.getClass_Transformations().createIndividual(owlModel.getUniqueURI());
+		Individual ind_transformations = owlModel.newIndividual_Transformations();
 		for (Transformation transformation : transformations) {
 			if (transformation instanceof AttributeTransformation) {
 				AttributeTransformation attributeTransformation = (AttributeTransformation) transformation;
@@ -48,7 +48,7 @@ public class TransformationsOWLSchema implements OWLSchema<Transformation[]> {
 
 	// TODO (2021-01-13 #31): remove this or update systemTransformations.xsd
 	public Individual combineTransformation(Transformation transformation) {
-		Individual ind_transformation = owlModel.getClass_Transformation().createIndividual(owlModel.getUniqueURI());
+		Individual ind_transformation = owlModel.newIndividual_Transformation();
 		ind_transformation.addProperty(owlModel.getDataProperty_objectId(), transformation.getObjectId());
 		return ind_transformation;
 	}

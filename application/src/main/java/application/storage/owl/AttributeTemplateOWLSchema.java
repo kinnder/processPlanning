@@ -17,7 +17,7 @@ public class AttributeTemplateOWLSchema implements OWLSchema<AttributeTemplate> 
 
 	@Override
 	public Individual combine(AttributeTemplate attributeTemplate) {
-		Individual ind_attributeTemplate = owlModel.getClass_AttributeTemplate().createIndividual(owlModel.getUniqueURI());
+		Individual ind_attributeTemplate = owlModel.newIndividual_AttributeTemplate();
 		ind_attributeTemplate.addLabel("Attribute Template", "en");
 		ind_attributeTemplate.addLabel("Шаблон атрибута", "ru");
 		ind_attributeTemplate.addProperty(owlModel.getDataProperty_name(), attributeTemplate.getName());

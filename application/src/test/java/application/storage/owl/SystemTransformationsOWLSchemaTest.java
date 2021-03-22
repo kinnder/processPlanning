@@ -57,7 +57,6 @@ public class SystemTransformationsOWLSchemaTest {
 		final SystemTransformations systemTransformations = new SystemTransformations();
 		systemTransformations.add(systemTransformation_mock);
 
-		final OntClass oc_systemTransformations_mock = context.mock(OntClass.class, "oc-1");
 		final ObjectProperty op_hasSystemTransformation_mock = context.mock(ObjectProperty.class, "op-1");
 		final ObjectProperty op_isSystemTransformationOf_mock = context.mock(ObjectProperty.class, "op-2");
 		final Individual i_systemTransformations_mock = context.mock(Individual.class, "i-1");
@@ -65,13 +64,7 @@ public class SystemTransformationsOWLSchemaTest {
 
 		context.checking(new Expectations() {
 			{
-				oneOf(owlModel_mock).getClass_SystemTransformations();
-				will(returnValue(oc_systemTransformations_mock));
-
-				oneOf(owlModel_mock).getUniqueURI();
-				will(returnValue("unique-uri"));
-
-				oneOf(oc_systemTransformations_mock).createIndividual("unique-uri");
+				oneOf(owlModel_mock).newIndividual_SystemTransformations();
 				will(returnValue(i_systemTransformations_mock));
 
 				oneOf(i_systemTransformations_mock).addLabel("System Transformations", "en");

@@ -26,7 +26,7 @@ public class SystemTransformationOWLSchema implements OWLSchema<SystemTransforma
 
 	@Override
 	public Individual combine(SystemTransformation systemTransformation) {
-		Individual ind_systemTransformation = owlModel.getClass_SystemTransformation().createIndividual(owlModel.getUniqueURI());
+		Individual ind_systemTransformation = owlModel.newIndividual_SystemTransformation();
 		ind_systemTransformation.addProperty(owlModel.getDataProperty_name(), systemTransformation.getName());
 
 		Individual ind_action = actionOWLSchema.combine(systemTransformation.getAction());

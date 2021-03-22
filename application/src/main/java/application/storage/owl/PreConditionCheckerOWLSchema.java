@@ -25,7 +25,7 @@ public class PreConditionCheckerOWLSchema implements OWLSchema<ActionPreConditio
 
 	@Override
 	public Individual combine(ActionPreConditionChecker preConditionChecker) {
-		Individual ind_preConditionChecker = owlModel.getClass_PreConditionChecker().createIndividual(owlModel.getUniqueURI());
+		Individual ind_preConditionChecker = owlModel.newIndividual_PreConditionChecker();
 		LuaScriptActionPreConditionChecker luaPreConditionChecker = (LuaScriptActionPreConditionChecker) preConditionChecker;
 		Collection<LuaScriptLine> scriptLines = luaPreConditionChecker.getScriptLines();
 		for (LuaScriptLine scriptLine : scriptLines) {

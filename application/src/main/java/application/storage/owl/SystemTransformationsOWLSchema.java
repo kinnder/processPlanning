@@ -22,7 +22,7 @@ public class SystemTransformationsOWLSchema implements OWLSchema<SystemTransform
 
 	@Override
 	public Individual combine(SystemTransformations systemTransformations) {
-		Individual ind_systemTransformations = owlModel.getClass_SystemTransformations().createIndividual(owlModel.getUniqueURI());
+		Individual ind_systemTransformations = owlModel.newIndividual_SystemTransformations();
 		ind_systemTransformations.addLabel("System Transformations", "en");
 		ind_systemTransformations.addLabel("Трансформации системы", "ru");
 

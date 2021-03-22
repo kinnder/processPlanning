@@ -17,7 +17,7 @@ public class AttributeTransformationOWLSchema implements OWLSchema<AttributeTran
 
 	@Override
 	public Individual combine(AttributeTransformation attributeTransformation) {
-		Individual ind_attributeTransformation = owlModel.getClass_AttributeTransformation().createIndividual(owlModel.getUniqueURI());
+		Individual ind_attributeTransformation = owlModel.newIndividual_AttributeTransformation();
 		ind_attributeTransformation.addProperty(owlModel.getDataProperty_objectId(), attributeTransformation.getObjectId());
 		ind_attributeTransformation.addProperty(owlModel.getDataProperty_name(), attributeTransformation.getAttributeName());
 		Object value = attributeTransformation.getAttributeValue();

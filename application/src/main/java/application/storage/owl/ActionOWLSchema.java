@@ -22,7 +22,7 @@ public class ActionOWLSchema implements OWLSchema<Action> {
 
 	@Override
 	public Individual combine(Action action) {
-		Individual ind_action = owlModel.getClass_Action().createIndividual(owlModel.getUniqueURI());
+		Individual ind_action = owlModel.newIndividual_Action();
 		ind_action.addProperty(owlModel.getDataProperty_name(), action.getName());
 		for (ActionPreConditionChecker preConditionChecker : action.getPreConditionCheckers()) {
 			Individual ind_preConditionChecker = preConditionCheckerOWLSchema.combine(preConditionChecker);

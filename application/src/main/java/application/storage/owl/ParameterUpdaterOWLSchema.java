@@ -26,7 +26,7 @@ public class ParameterUpdaterOWLSchema implements OWLSchema<ActionParameterUpdat
 
 	@Override
 	public Individual combine(ActionParameterUpdater parameterUpdater) {
-		Individual ind_parameterUpdater = owlModel.getClass_ParameterUpdater().createIndividual(owlModel.getUniqueURI());
+		Individual ind_parameterUpdater = owlModel.newIndividual_ParameterUpdater();
 		LuaScriptActionParameterUpdater luaParameterUpdater = (LuaScriptActionParameterUpdater) parameterUpdater;
 		Collection<LuaScriptLine> scriptLines = luaParameterUpdater.getScriptLines();
 		for (LuaScriptLine scriptLine : scriptLines) {

@@ -14,7 +14,7 @@ public class LuaScriptLineOWLSchema implements OWLSchema<LuaScriptLine> {
 
 	@Override
 	public Individual combine(LuaScriptLine scriptLine) {
-		Individual ind_line = owlModel.getClass_Line().createIndividual(owlModel.getUniqueURI());
+		Individual ind_line = owlModel.newIndividual_Line();
 		ind_line.addProperty(owlModel.getDataProperty_text(), scriptLine.getText());
 		ind_line.addProperty(owlModel.getDataProperty_number(), scriptLine.getNumber().toString(), XSDDatatype.XSDinteger);
 		return ind_line;
