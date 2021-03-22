@@ -1,5 +1,6 @@
 package application.storage.owl;
 
+import org.apache.jena.datatypes.RDFDatatype;
 import org.apache.jena.datatypes.xsd.XSDDatatype;
 import org.apache.jena.ontology.Individual;
 import org.apache.jena.rdf.model.Literal;
@@ -18,7 +19,7 @@ public class AttributeTemplateOWLSchema implements OWLSchema<AttributeTemplate> 
 	@Override
 	public Individual combine(AttributeTemplate attributeTemplate) {
 		Individual ind_attributeTemplate = owlModel.newIndividual_AttributeTemplate();
-		ind_attributeTemplate.addLabel("Attribute Template", "en");
+		ind_attributeTemplate.addLabel("Attribute template", "en");
 		ind_attributeTemplate.addLabel("Шаблон атрибута", "ru");
 		ind_attributeTemplate.addProperty(owlModel.getDataProperty_name(), attributeTemplate.getName());
 		Object value = attributeTemplate.getValue();
@@ -39,13 +40,14 @@ public class AttributeTemplateOWLSchema implements OWLSchema<AttributeTemplate> 
 		Statement valueStatement = ind_attributeTemplate.getProperty(owlModel.getDataProperty_value());
 		if (valueStatement != null) {
 			Literal valueLiteral = valueStatement.getLiteral();
-			if (valueLiteral.getDatatype() == XSDDatatype.XSDboolean) {
+			RDFDatatype valueType = valueLiteral.getDatatype();
+			if (valueType == XSDDatatype.XSDboolean) {
 				return new AttributeTemplate(name, valueLiteral.getBoolean());
 			}
-			if (valueLiteral.getDatatype() == XSDDatatype.XSDstring) {
+			if (valueType == XSDDatatype.XSDstring) {
 				return new AttributeTemplate(name, valueLiteral.getString());
 			}
-			if (valueLiteral.getDatatype() == XSDDatatype.XSDinteger) {
+			if (valueType == XSDDatatype.XSDinteger) {
 				return new AttributeTemplate(name, valueLiteral.getInt());
 			}
 		}
