@@ -40,8 +40,8 @@ public class SystemTransformationsOWLSchema implements OWLSchema<SystemTransform
 		owlModel.getClass_SystemTransformations().listInstances().forEachRemaining((ind_systemTransformations) -> {
 			owlModel.getClass_SystemTransformation().listInstances().filterKeep((ind_systemTransformation) -> {
 				return ind_systemTransformations.hasProperty(owlModel.getObjectProperty_hasSystemTransformation(), ind_systemTransformation);
-			}).forEachRemaining((z) -> {
-				SystemTransformation systemTransformation = systemTransformationOWLSchema.parse(z.asIndividual());
+			}).forEachRemaining((ind_systemTransformation) -> {
+				SystemTransformation systemTransformation = systemTransformationOWLSchema.parse(ind_systemTransformation.asIndividual());
 				systemTransformations.add(systemTransformation);
 			});
 		});

@@ -57,10 +57,12 @@ public class SystemTransformationsOWLSchemaTest {
 		final SystemTransformations systemTransformations = new SystemTransformations();
 		systemTransformations.add(systemTransformation_mock);
 
-		final ObjectProperty op_hasSystemTransformation_mock = context.mock(ObjectProperty.class, "op-1");
-		final ObjectProperty op_isSystemTransformationOf_mock = context.mock(ObjectProperty.class, "op-2");
-		final Individual i_systemTransformations_mock = context.mock(Individual.class, "i-1");
-		final Individual i_systemTransformation_mock = context.mock(Individual.class, "i-2");
+		final ObjectProperty op_hasSystemTransformation_mock = context.mock(ObjectProperty.class,
+				"op-hasSystemTransformation");
+		final ObjectProperty op_isSystemTransformationOf_mock = context.mock(ObjectProperty.class,
+				"op-isSystemTransformationOf");
+		final Individual i_systemTransformations_mock = context.mock(Individual.class, "i-systemTransformations");
+		final Individual i_systemTransformation_mock = context.mock(Individual.class, "i-systemTransformation");
 
 		context.checking(new Expectations() {
 			{
@@ -94,18 +96,19 @@ public class SystemTransformationsOWLSchemaTest {
 	@Test
 	public void parse() {
 		final SystemTransformation systemTransformation_mock = context.mock(SystemTransformation.class);
-		final OntClass oc_systemTransformations_mock = context.mock(OntClass.class, "oc-1");
-		final OntClass oc_systemTransformation_mock = context.mock(OntClass.class, "oc-2");
-		final ObjectProperty op_hasSystemTransformation_mock = context.mock(ObjectProperty.class, "op-1");
+		final OntClass oc_systemTransformations_mock = context.mock(OntClass.class, "oc-systemTransformations");
+		final OntClass oc_systemTransformation_mock = context.mock(OntClass.class, "oc-systemTransformation");
+		final ObjectProperty op_hasSystemTransformation_mock = context.mock(ObjectProperty.class,
+				"op-hasSystemTransformation");
 
-		final Individual i_systemTransformations_mock = context.mock(Individual.class, "i-1");
+		final Individual i_systemTransformations_mock = context.mock(Individual.class, "i-systemTransformations");
 		final ExtendedIterator<Individual> systemTransformationsIterator = new NiceIterator<Individual>()
 				.andThen(Arrays.asList(i_systemTransformations_mock).iterator());
 
-		final Individual i_systemTransformation1_mock = context.mock(Individual.class, "i-2");
-		final Individual i_systemTransformation2_mock = context.mock(Individual.class, "i-3");
+		final Individual i_systemTransformation_1_mock = context.mock(Individual.class, "i-systemTransformation-1");
+		final Individual i_systemTransformation_2_mock = context.mock(Individual.class, "i-systemTransformation-2");
 		final ExtendedIterator<Individual> systemTransformationIterator = new NiceIterator<Individual>()
-				.andThen(Arrays.asList(i_systemTransformation1_mock, i_systemTransformation2_mock).iterator());
+				.andThen(Arrays.asList(i_systemTransformation_1_mock, i_systemTransformation_2_mock).iterator());
 
 		context.checking(new Expectations() {
 			{
@@ -125,20 +128,20 @@ public class SystemTransformationsOWLSchemaTest {
 				will(returnValue(op_hasSystemTransformation_mock));
 
 				oneOf(i_systemTransformations_mock).hasProperty(op_hasSystemTransformation_mock,
-						i_systemTransformation1_mock);
+						i_systemTransformation_1_mock);
 				will(returnValue(true));
 
-				oneOf(i_systemTransformation1_mock).asIndividual();
-				will(returnValue(i_systemTransformation1_mock));
+				oneOf(i_systemTransformation_1_mock).asIndividual();
+				will(returnValue(i_systemTransformation_1_mock));
 
-				oneOf(systemTransformationOWLSchema_mock).parse(i_systemTransformation1_mock);
+				oneOf(systemTransformationOWLSchema_mock).parse(i_systemTransformation_1_mock);
 				will(returnValue(systemTransformation_mock));
 
 				oneOf(owlModel_mock).getObjectProperty_hasSystemTransformation();
 				will(returnValue(op_hasSystemTransformation_mock));
 
 				oneOf(i_systemTransformations_mock).hasProperty(op_hasSystemTransformation_mock,
-						i_systemTransformation2_mock);
+						i_systemTransformation_2_mock);
 				will(returnValue(false));
 			}
 		});
