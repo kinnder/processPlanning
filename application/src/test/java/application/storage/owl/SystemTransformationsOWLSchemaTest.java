@@ -1,6 +1,8 @@
 package application.storage.owl;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import java.util.Arrays;
 import org.apache.jena.ontology.Individual;
 import org.apache.jena.ontology.ObjectProperty;
@@ -147,7 +149,6 @@ public class SystemTransformationsOWLSchemaTest {
 		});
 
 		SystemTransformations result = testable.parse(null);
-		assertEquals(1, result.size());
-		assertEquals(systemTransformation_mock, result.get(0));
+		assertTrue(result.contains(systemTransformation_mock));
 	}
 }

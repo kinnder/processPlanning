@@ -50,8 +50,8 @@ public class SystemTransformationOWLSchemaTest {
 
 		OntModel model = owlModel.getOntologyModel();
 		assertNotNull(model);
-		assertEquals(216, model.listObjects().toList().size());
-		assertEquals(794, model.listStatements().toList().size());
+		assertEquals(217, model.listObjects().toList().size());
+		assertEquals(800, model.listStatements().toList().size());
 
 		// TODO (2020-12-14 #31): удалить
 //		model.write(java.lang.System.out, "RDF/XML");
