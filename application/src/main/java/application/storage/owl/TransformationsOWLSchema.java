@@ -17,15 +17,22 @@ public class TransformationsOWLSchema implements OWLSchema<Transformation[]> {
 	private LinkTransformationOWLSchema linkTransformationOWLSchema;
 
 	public TransformationsOWLSchema(SystemTransformationsOWLModel owlModel) {
-		this.owlModel = owlModel;
+		this(owlModel, new AttributeTransformationOWLSchema(owlModel), new LinkTransformationOWLSchema(owlModel));
+	}
 
-		attributeTransformationOWLSchema = new AttributeTransformationOWLSchema(owlModel);
-		linkTransformationOWLSchema = new LinkTransformationOWLSchema(owlModel);
+	TransformationsOWLSchema(SystemTransformationsOWLModel owlModel,
+			AttributeTransformationOWLSchema attributeTransformationOWLSchema,
+			LinkTransformationOWLSchema linkTransformationOWLSchema) {
+		this.owlModel = owlModel;
+		this.attributeTransformationOWLSchema = attributeTransformationOWLSchema;
+		this.linkTransformationOWLSchema = linkTransformationOWLSchema;
 	}
 
 	@Override
 	public Individual combine(Transformation[] transformations) {
 		Individual ind_transformations = owlModel.newIndividual_Transformations();
+		ind_transformations.addLabel("Transformations", "en");
+		ind_transformations.addLabel("Трансформации", "ru");
 		for (Transformation transformation : transformations) {
 			if (transformation instanceof AttributeTransformation) {
 				AttributeTransformation attributeTransformation = (AttributeTransformation) transformation;
@@ -53,6 +60,11 @@ public class TransformationsOWLSchema implements OWLSchema<Transformation[]> {
 		return ind_transformation;
 	}
 
+	public Transformation parseTransformation(Individual ind_transformation) {
+		String objectId = ind_transformation.getProperty(owlModel.getDataProperty_objectId()).getString();
+		return new Transformation(objectId);
+	}
+
 	@Override
 	public Transformation[] parse(Individual ind_transformations) {
 		List<Transformation> transformations = new ArrayList<>();
@@ -65,6 +77,11 @@ public class TransformationsOWLSchema implements OWLSchema<Transformation[]> {
 			return ind_transformations.hasProperty(owlModel.getObjectProperty_hasAttributeTransformation(), ind_attributeTransformation);
 		}).forEachRemaining((ind_attributeTransformation) -> {
 			transformations.add(attributeTransformationOWLSchema.parse(ind_attributeTransformation.asIndividual()));
+		});
+		owlModel.getClass_Transformation().listInstances().filterKeep((ind_transformation) -> {
+			return ind_transformations.hasProperty(owlModel.getObjectProperty_hasTransformation(), ind_transformation);
+		}).forEachRemaining((ind_transformation) -> {
+			transformations.add(parseTransformation(ind_transformation.asIndividual()));
 		});
 		return transformations.toArray(new Transformation[0]);
 	}
