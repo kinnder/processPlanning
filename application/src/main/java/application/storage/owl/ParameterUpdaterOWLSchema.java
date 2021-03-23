@@ -20,8 +20,12 @@ public class ParameterUpdaterOWLSchema implements OWLSchema<ActionParameterUpdat
 	private LuaScriptLineOWLSchema luaScriptLineOWLSchema;
 
 	public ParameterUpdaterOWLSchema(SystemTransformationsOWLModel owlModel) {
+		this(owlModel, new LuaScriptLineOWLSchema(owlModel));
+	}
+
+	ParameterUpdaterOWLSchema(SystemTransformationsOWLModel owlModel, LuaScriptLineOWLSchema luaScriptLineOWLSchema) {
 		this.owlModel = owlModel;
-		this.luaScriptLineOWLSchema = new LuaScriptLineOWLSchema(owlModel);
+		this.luaScriptLineOWLSchema = luaScriptLineOWLSchema;
 	}
 
 	@Override
