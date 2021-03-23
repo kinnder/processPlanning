@@ -14,10 +14,13 @@ public class ActionOWLSchema implements OWLSchema<Action> {
 	private PreConditionCheckerOWLSchema preConditionCheckerOWLSchema;
 
 	public ActionOWLSchema(SystemTransformationsOWLModel owlModel) {
-		this.owlModel = owlModel;
+		this(owlModel, new ParameterUpdaterOWLSchema(owlModel), new PreConditionCheckerOWLSchema(owlModel));
+	}
 
-		parameterUpdaterOWLSchema = new ParameterUpdaterOWLSchema(owlModel);
-		preConditionCheckerOWLSchema = new PreConditionCheckerOWLSchema(owlModel);
+	ActionOWLSchema(SystemTransformationsOWLModel owlModel, ParameterUpdaterOWLSchema parameterUpdaterOWLSchema, PreConditionCheckerOWLSchema preConditionCheckerOWLSchema) {
+		this.owlModel = owlModel;
+		this.parameterUpdaterOWLSchema = parameterUpdaterOWLSchema;
+		this.preConditionCheckerOWLSchema = preConditionCheckerOWLSchema;
 	}
 
 	@Override
