@@ -14,17 +14,21 @@ public class SystemTemplateOWLSchema implements OWLSchema<SystemTemplate> {
 	private LinkTemplateOWLSchema linkTemplateOWLSchema;
 
 	public SystemTemplateOWLSchema(SystemTransformationsOWLModel owlModel) {
-		this.owlModel = owlModel;
+		this(owlModel, new SystemObjectTemplateOWLSchema(owlModel), new LinkTemplateOWLSchema(owlModel));
+	}
 
-		this.systemObjectTemplateOWLSchema = new SystemObjectTemplateOWLSchema(owlModel);
-		this.linkTemplateOWLSchema = new LinkTemplateOWLSchema(owlModel);
+	SystemTemplateOWLSchema(SystemTransformationsOWLModel owlModel,
+			SystemObjectTemplateOWLSchema systemObjectTemplateOWLSchema, LinkTemplateOWLSchema linkTemplateOWLSchema) {
+		this.owlModel = owlModel;
+		this.systemObjectTemplateOWLSchema = systemObjectTemplateOWLSchema;
+		this.linkTemplateOWLSchema = linkTemplateOWLSchema;
 	}
 
 	@Override
 	public Individual combine(SystemTemplate systemTemplate) {
 		Individual ind_systemTemplate = owlModel.newIndividual_SystemTemplate();
-		ind_systemTemplate.addLabel("Шаблон системы", "ru");
 		ind_systemTemplate.addLabel("System template", "en");
+		ind_systemTemplate.addLabel("Шаблон системы", "ru");
 
 		for (SystemObjectTemplate objectTemplate : systemTemplate.getObjectTemplates()) {
 			Individual ind_objectTemplate = systemObjectTemplateOWLSchema.combine(objectTemplate);
