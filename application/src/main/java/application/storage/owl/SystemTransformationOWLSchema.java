@@ -17,11 +17,16 @@ public class SystemTransformationOWLSchema implements OWLSchema<SystemTransforma
 	private SystemTransformationsOWLModel owlModel;
 
 	public SystemTransformationOWLSchema(SystemTransformationsOWLModel owlModel) {
-		this.owlModel = owlModel;
+		this(owlModel, new ActionOWLSchema(owlModel), new SystemTemplateOWLSchema(owlModel),
+				new TransformationsOWLSchema(owlModel));
+	}
 
-		actionOWLSchema = new ActionOWLSchema(owlModel);
-		systemTemplateOWLSchema = new SystemTemplateOWLSchema(owlModel);
-		transformationsOWLSchema = new TransformationsOWLSchema(owlModel);
+	SystemTransformationOWLSchema(SystemTransformationsOWLModel owlModel, ActionOWLSchema actionOWLSchema,
+			SystemTemplateOWLSchema systemTemplateOWLSchema, TransformationsOWLSchema transformationOWLSchema) {
+		this.owlModel = owlModel;
+		this.actionOWLSchema = actionOWLSchema;
+		this.systemTemplateOWLSchema = systemTemplateOWLSchema;
+		this.transformationsOWLSchema = transformationOWLSchema;
 	}
 
 	@Override

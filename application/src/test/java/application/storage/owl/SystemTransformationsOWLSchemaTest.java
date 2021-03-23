@@ -1,12 +1,14 @@
 package application.storage.owl;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Arrays;
 import org.apache.jena.ontology.Individual;
 import org.apache.jena.ontology.ObjectProperty;
 import org.apache.jena.ontology.OntClass;
+import org.apache.jena.ontology.OntModel;
 import org.apache.jena.util.iterator.ExtendedIterator;
 import org.apache.jena.util.iterator.NiceIterator;
 import org.jmock.Expectations;
@@ -17,6 +19,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
+import application.domain.AssemblyLine;
 import planning.method.SystemTransformations;
 import planning.model.SystemTransformation;
 
@@ -150,5 +153,33 @@ public class SystemTransformationsOWLSchemaTest {
 
 		SystemTransformations result = testable.parse(null);
 		assertTrue(result.contains(systemTransformation_mock));
+	}
+
+	@Test
+	public void combine_full() {
+		final SystemTransformations systemTransformations = new SystemTransformations();
+		systemTransformations.add(AssemblyLine.turnWithLoad());
+
+		owlModel_mock.createOntologyModel();
+		testable.combine(systemTransformations);
+
+		OntModel model = owlModel_mock.getOntologyModel();
+		assertNotNull(model);
+		assertEquals(218, model.listObjects().toList().size());
+		assertEquals(800, model.listStatements().toList().size());
+
+		// TODO (2020-12-14 #31): удалить
+//		model.write(java.lang.System.out, "RDF/XML");
+	}
+
+	@Test
+	public void parse_full() {
+		final SystemTransformations systemTransformations = new SystemTransformations();
+		systemTransformations.add(AssemblyLine.turnWithLoad());
+
+		owlModel_mock.createOntologyModel();
+		Individual ind_systemTransformations = testable.combine(systemTransformations);
+
+		testable.parse(ind_systemTransformations);
 	}
 }
