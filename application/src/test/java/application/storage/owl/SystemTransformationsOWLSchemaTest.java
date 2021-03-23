@@ -160,12 +160,15 @@ public class SystemTransformationsOWLSchemaTest {
 		final SystemTransformations systemTransformations = new SystemTransformations();
 		systemTransformations.add(AssemblyLine.turnWithLoad());
 
-		owlModel_mock.createOntologyModel();
-		testable.combine(systemTransformations);
+		final SystemTransformationsOWLModel owlModel = new SystemTransformationsOWLModel();
+		final SystemTransformationsOWLSchema owlSchema = new SystemTransformationsOWLSchema(owlModel);
 
-		OntModel model = owlModel_mock.getOntologyModel();
+		owlModel.createOntologyModel();
+		owlSchema.combine(systemTransformations);
+
+		OntModel model = owlModel.getOntologyModel();
 		assertNotNull(model);
-		assertEquals(218, model.listObjects().toList().size());
+		assertEquals(219, model.listObjects().toList().size());
 		assertEquals(800, model.listStatements().toList().size());
 
 		// TODO (2020-12-14 #31): удалить
@@ -177,9 +180,12 @@ public class SystemTransformationsOWLSchemaTest {
 		final SystemTransformations systemTransformations = new SystemTransformations();
 		systemTransformations.add(AssemblyLine.turnWithLoad());
 
-		owlModel_mock.createOntologyModel();
-		Individual ind_systemTransformations = testable.combine(systemTransformations);
+		final SystemTransformationsOWLModel owlModel = new SystemTransformationsOWLModel();
+		final SystemTransformationsOWLSchema owlSchema = new SystemTransformationsOWLSchema(owlModel);
 
-		testable.parse(ind_systemTransformations);
+		owlModel.createOntologyModel();
+		Individual ind_systemTransformations = owlSchema.combine(systemTransformations);
+
+		owlSchema.parse(ind_systemTransformations);
 	}
 }

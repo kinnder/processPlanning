@@ -1,5 +1,6 @@
 package application.storage.owl;
 
+import org.apache.jena.datatypes.RDFDatatype;
 import org.apache.jena.datatypes.xsd.XSDDatatype;
 import org.apache.jena.ontology.Individual;
 import org.apache.jena.rdf.model.Literal;
@@ -18,6 +19,8 @@ public class AttributeTransformationOWLSchema implements OWLSchema<AttributeTran
 	@Override
 	public Individual combine(AttributeTransformation attributeTransformation) {
 		Individual ind_attributeTransformation = owlModel.newIndividual_AttributeTransformation();
+		ind_attributeTransformation.addLabel("Трансформация атрибута", "ru");
+		ind_attributeTransformation.addLabel("Attribute transformation", "en");
 		ind_attributeTransformation.addProperty(owlModel.getDataProperty_objectId(), attributeTransformation.getObjectId());
 		ind_attributeTransformation.addProperty(owlModel.getDataProperty_name(), attributeTransformation.getAttributeName());
 		Object value = attributeTransformation.getAttributeValue();
@@ -33,19 +36,20 @@ public class AttributeTransformationOWLSchema implements OWLSchema<AttributeTran
 
 	@Override
 	public AttributeTransformation parse(Individual ind_attributeTransformation) {
-		String name = ind_attributeTransformation.getProperty(owlModel.getDataProperty_name()).toString();
-		String objectId = ind_attributeTransformation.getProperty(owlModel.getDataProperty_objectId()).toString();
+		String name = ind_attributeTransformation.getProperty(owlModel.getDataProperty_name()).getString();
+		String objectId = ind_attributeTransformation.getProperty(owlModel.getDataProperty_objectId()).getString();
 
 		Statement valueStatement = ind_attributeTransformation.getProperty(owlModel.getDataProperty_value());
 		if (valueStatement != null) {
 			Literal valueLiteral = valueStatement.getLiteral();
-			if (valueLiteral.getDatatype() == XSDDatatype.XSDboolean) {
+			RDFDatatype valueType = valueLiteral.getDatatype();
+			if (valueType == XSDDatatype.XSDboolean) {
 				return new AttributeTransformation(objectId, name, valueLiteral.getBoolean());
 			}
-			if (valueLiteral.getDatatype() == XSDDatatype.XSDstring) {
+			if (valueType == XSDDatatype.XSDstring) {
 				return new AttributeTransformation(objectId, name, valueLiteral.getString());
 			}
-			if (valueLiteral.getDatatype() == XSDDatatype.XSDinteger) {
+			if (valueType == XSDDatatype.XSDinteger) {
 				return new AttributeTransformation(objectId, name, valueLiteral.getInt());
 			}
 		}
