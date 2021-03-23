@@ -19,8 +19,12 @@ public class PreConditionCheckerOWLSchema implements OWLSchema<ActionPreConditio
 	private LuaScriptLineOWLSchema luaScriptLineOWLSchema;
 
 	public PreConditionCheckerOWLSchema(SystemTransformationsOWLModel owlModel) {
+		this(owlModel, new LuaScriptLineOWLSchema(owlModel));
+	}
+
+	PreConditionCheckerOWLSchema(SystemTransformationsOWLModel owlModel, LuaScriptLineOWLSchema luaScriptLineOWLSchema) {
 		this.owlModel = owlModel;
-		this.luaScriptLineOWLSchema = new LuaScriptLineOWLSchema(owlModel);
+		this.luaScriptLineOWLSchema = luaScriptLineOWLSchema;
 	}
 
 	@Override
