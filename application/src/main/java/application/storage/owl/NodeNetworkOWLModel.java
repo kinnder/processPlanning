@@ -32,6 +32,8 @@ public class NodeNetworkOWLModel implements OWLModel<NodeNetwork>, OWLModelCommo
 
 	static final String URI_Parameter = NS + "Parameter";
 
+	static final String URI_Process = NS + "Process";
+
 	static final String URI_System = NS + "System";
 
 	static final String URI_SystemObject = NS + "SystemObject";
@@ -139,6 +141,10 @@ public class NodeNetworkOWLModel implements OWLModel<NodeNetwork>, OWLModelCommo
 		class_Parameter = m.createClass(URI_Parameter);
 		class_Parameter.addLabel("Parameter", "en");
 		class_Parameter.addLabel("Параметр", "ru");
+
+		class_Process = m.createClass(URI_Process);
+		class_Process.addLabel("Process", "en");
+		class_Process.addLabel("Процесс", "ru");
 
 		class_System = m.createClass(URI_System);
 		class_System.addLabel("System", "en");
@@ -350,6 +356,7 @@ public class NodeNetworkOWLModel implements OWLModel<NodeNetwork>, OWLModelCommo
 		class_Node = m.getOntClass(URI_Node);
 		class_NodeNetwork = m.getOntClass(URI_NodeNetwork);
 		class_Parameter = m.getOntClass(URI_Parameter);
+		class_Process = m.getOntClass(URI_Process);
 		class_System = m.getOntClass(URI_System);
 		class_SystemObject = m.getOntClass(URI_SystemObject);
 		class_SystemOperation = m.getOntClass(URI_SystemOperation);
@@ -548,6 +555,8 @@ public class NodeNetworkOWLModel implements OWLModel<NodeNetwork>, OWLModelCommo
 		return class_Parameter;
 	}
 
+	private OntClass class_Process;
+
 	private DatatypeProperty dataProperty_key;
 
 	@Override
@@ -655,8 +664,7 @@ public class NodeNetworkOWLModel implements OWLModel<NodeNetwork>, OWLModelCommo
 
 	@Override
 	public OntClass getClass_Process() {
-		// TODO Auto-generated method stub
-		return null;
+		return class_Process;
 	}
 
 	@Override
@@ -677,5 +685,33 @@ public class NodeNetworkOWLModel implements OWLModel<NodeNetwork>, OWLModelCommo
 	@Override
 	public Individual newIndividual_Attribute() {
 		return class_Attribute.createIndividual(getUniqueURI());
+	}
+
+	public Individual newIndividual_ActionParameters() {
+		return class_ActionParameters.createIndividual(getUniqueURI());
+	}
+
+	public Individual newIndividual_Edge() {
+		return class_Edge.createIndividual(getUniqueURI());
+	}
+
+	public Individual newIndividual_Node() {
+		return class_Node.createIndividual(getUniqueURI());
+	}
+
+	public Individual newIndividual_NodeNetwork() {
+		return class_NodeNetwork.createIndividual(getUniqueURI());
+	}
+
+	public Individual newIndividual_Parameter() {
+		return class_Parameter.createIndividual(getUniqueURI());
+	}
+
+	public Individual newIndividual_Process() {
+		return class_Process.createIndividual(getUniqueURI());
+	}
+
+	public Individual newIndividual_SystemOperation() {
+		return class_SystemOperation.createIndividual(getUniqueURI());
 	}
 }
