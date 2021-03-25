@@ -14,16 +14,19 @@ public class NodeNetworkOWLSchema implements OWLSchema<NodeNetwork> {
 	private EdgeOWLSchema edgeOWLSchema;
 
 	public NodeNetworkOWLSchema(NodeNetworkOWLModel owlModel) {
-		this.owlModel = owlModel;
+		this(owlModel, new NodeOWLSchema(owlModel), new EdgeOWLSchema(owlModel));
+	}
 
-		this.nodeOWLSchema = new NodeOWLSchema(owlModel);
-		this.edgeOWLSchema = new EdgeOWLSchema(owlModel);
+	NodeNetworkOWLSchema(NodeNetworkOWLModel owlModel, NodeOWLSchema nodeOWLSchema, EdgeOWLSchema edgeOWLSchema) {
+		this.owlModel = owlModel;
+		this.nodeOWLSchema = nodeOWLSchema;
+		this.edgeOWLSchema = edgeOWLSchema;
 	}
 
 	@Override
 	public Individual combine(NodeNetwork nodeNetwork) {
-		Individual ind_nodeNetwork = owlModel.getClass_NodeNetwork().createIndividual(owlModel.getUniqueURI());
-		ind_nodeNetwork.addLabel("Node Network", "en");
+		Individual ind_nodeNetwork = owlModel.newIndividual_NodeNetwork();
+		ind_nodeNetwork.addLabel("Node network", "en");
 		ind_nodeNetwork.addLabel("Сеть узлов", "ru");
 
 		for (Node node : nodeNetwork.getNodes()) {
