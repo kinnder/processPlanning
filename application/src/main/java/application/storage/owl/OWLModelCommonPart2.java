@@ -36,4 +36,8 @@ public interface OWLModelCommonPart2 {
 	ObjectProperty getObjectProperty_isParameterOf();
 
 	Individual newIndividual_SystemOperation();
+
+	Individual newIndividual_ActionParameters();
+
+	Individual newIndividual_Parameter();
 }

@@ -687,6 +687,7 @@ public class NodeNetworkOWLModel implements OWLModel<NodeNetwork>, OWLModelCommo
 		return class_Attribute.createIndividual(getUniqueURI());
 	}
 
+	@Override
 	public Individual newIndividual_ActionParameters() {
 		return class_ActionParameters.createIndividual(getUniqueURI());
 	}
@@ -703,6 +704,7 @@ public class NodeNetworkOWLModel implements OWLModel<NodeNetwork>, OWLModelCommo
 		return class_NodeNetwork.createIndividual(getUniqueURI());
 	}
 
+	@Override
 	public Individual newIndividual_Parameter() {
 		return class_Parameter.createIndividual(getUniqueURI());
 	}

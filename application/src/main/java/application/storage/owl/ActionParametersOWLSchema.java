@@ -15,13 +15,12 @@ public class ActionParametersOWLSchema implements OWLSchema<Map<String, String>>
 
 	@Override
 	public Individual combine(Map<String, String> actionParameters) {
-		Individual ind_actionParameters = owlModel.getClass_ActionParameters()
-				.createIndividual(owlModel.getUniqueURI());
-		ind_actionParameters.addLabel("Action Parameters", "en");
+		Individual ind_actionParameters = owlModel.newIndividual_ActionParameters();
+		ind_actionParameters.addLabel("Action parameters", "en");
 		ind_actionParameters.addLabel("Параметры действия", "ru");
 
 		for (String key : actionParameters.keySet()) {
-			Individual ind_parameter = owlModel.getClass_Parameter().createIndividual(owlModel.getUniqueURI());
+			Individual ind_parameter = owlModel.newIndividual_Parameter();
 			ind_parameter.addLabel("Parameter", "en");
 			ind_parameter.addLabel("Параметр", "ru");
 			ind_parameter.addProperty(owlModel.getDataProperty_key(), key);

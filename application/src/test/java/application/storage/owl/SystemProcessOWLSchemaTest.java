@@ -55,7 +55,7 @@ public class SystemProcessOWLSchemaTest {
 		testable.combine(systemProcess);
 		OntModel model = owlModel.getOntologyModel();
 		assertNotNull(model);
-		assertEquals(74, model.listObjects().toList().size());
+		assertEquals(76, model.listObjects().toList().size());
 		assertEquals(261, model.listStatements().toList().size());
 
 		// TODO (2020-11-09 #31): удалить

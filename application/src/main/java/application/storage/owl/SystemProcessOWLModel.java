@@ -281,4 +281,14 @@ public class SystemProcessOWLModel implements OWLModel<SystemProcess>, OWLModelC
 	public Individual newIndividual_SystemOperation() {
 		return class_SystemOperation.createIndividual(getUniqueURI());
 	}
+
+	@Override
+	public Individual newIndividual_ActionParameters() {
+		return class_ActionParameters.createIndividual(getUniqueURI());
+	}
+
+	@Override
+	public Individual newIndividual_Parameter() {
+		return class_Parameter.createIndividual(getUniqueURI());
+	}
 }
