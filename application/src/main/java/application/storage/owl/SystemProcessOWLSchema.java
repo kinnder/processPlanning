@@ -11,14 +11,17 @@ public class SystemProcessOWLSchema implements OWLSchema<SystemProcess> {
 	private SystemOperationOWLSchema systemOperationOWLSchema;
 
 	public SystemProcessOWLSchema(OWLModelCommonPart2 owlModel) {
-		this.owlModel = owlModel;
+		this(owlModel, new SystemOperationOWLSchema(owlModel));
+	}
 
-		this.systemOperationOWLSchema = new SystemOperationOWLSchema(owlModel);
+	SystemProcessOWLSchema(OWLModelCommonPart2 owlModel, SystemOperationOWLSchema systemOperationOWLSchema) {
+		this.owlModel = owlModel;
+		this.systemOperationOWLSchema = systemOperationOWLSchema;
 	}
 
 	@Override
 	public Individual combine(SystemProcess systemProcess) {
-		Individual ind_process = owlModel.getClass_Process().createIndividual(owlModel.getUniqueURI());
+		Individual ind_process = owlModel.newIndividual_Process();
 		ind_process.addLabel("Process", "en");
 		ind_process.addLabel("Процесс", "ru");
 
@@ -33,7 +36,17 @@ public class SystemProcessOWLSchema implements OWLSchema<SystemProcess> {
 
 	@Override
 	public SystemProcess parse(Individual ind_systemProcess) {
-		// TODO (2021-03-13 #31): добавить реализацию метода parse
-		throw new UnsupportedOperationException("Parsing owl-files is not supported");
+		SystemProcess systemProcess = new SystemProcess();
+
+		owlModel.getClass_Process().listInstances().forEachRemaining((ind_process) -> {
+			owlModel.getClass_SystemOperation().listInstances().filterKeep((ind_systemOperation) -> {
+				return ind_process.hasProperty(owlModel.getObjectProperty_hasSystemOperation(), ind_systemOperation);
+			}).forEachRemaining((ind_systemOperation) -> {
+				SystemOperation systemOperation = systemOperationOWLSchema.parse(ind_systemOperation.asIndividual());
+				systemProcess.add(systemOperation);
+			});
+		});
+
+		return systemProcess;
 	}
 }

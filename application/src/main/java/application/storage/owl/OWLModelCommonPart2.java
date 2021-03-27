@@ -40,4 +40,6 @@ public interface OWLModelCommonPart2 {
 	Individual newIndividual_ActionParameters();
 
 	Individual newIndividual_Parameter();
+
+	Individual newIndividual_Process();
 }
