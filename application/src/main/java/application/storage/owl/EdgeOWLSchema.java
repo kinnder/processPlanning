@@ -12,14 +12,17 @@ public class EdgeOWLSchema implements OWLSchema<Edge> {
 	private SystemOperationOWLSchema systemOperationOWLSchema;
 
 	public EdgeOWLSchema(NodeNetworkOWLModel owlModel) {
-		this.owlModel = owlModel;
+		this(owlModel, new SystemOperationOWLSchema(owlModel));
+	}
 
-		this.systemOperationOWLSchema = new SystemOperationOWLSchema(owlModel);
+	EdgeOWLSchema(NodeNetworkOWLModel owlModel, SystemOperationOWLSchema systemOperationOWLSchema) {
+		this.owlModel = owlModel;
+		this.systemOperationOWLSchema = systemOperationOWLSchema;
 	}
 
 	@Override
 	public Individual combine(Edge edge) {
-		Individual ind_edge = owlModel.getClass_Edge().createIndividual(owlModel.getUniqueURI());
+		Individual ind_edge = owlModel.newIndividual_Edge();
 		ind_edge.addLabel("Edge", "en");
 		ind_edge.addLabel("Ребро", "ru");
 		ind_edge.addProperty(owlModel.getDataProperty_id(), edge.getId());
