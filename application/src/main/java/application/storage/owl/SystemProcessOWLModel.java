@@ -4,6 +4,7 @@ import java.util.UUID;
 
 import org.apache.jena.ontology.DataRange;
 import org.apache.jena.ontology.DatatypeProperty;
+import org.apache.jena.ontology.Individual;
 import org.apache.jena.ontology.ObjectProperty;
 import org.apache.jena.ontology.OntClass;
 import org.apache.jena.ontology.OntModel;
@@ -274,5 +275,10 @@ public class SystemProcessOWLModel implements OWLModel<SystemProcess>, OWLModelC
 	@Override
 	public DatatypeProperty getDataProperty_key() {
 		return datatypeProperty_key;
+	}
+
+	@Override
+	public Individual newIndividual_SystemOperation() {
+		return class_SystemOperation.createIndividual(getUniqueURI());
 	}
 }

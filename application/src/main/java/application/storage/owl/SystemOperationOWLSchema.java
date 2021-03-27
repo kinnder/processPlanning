@@ -14,15 +14,18 @@ public class SystemOperationOWLSchema implements OWLSchema<SystemOperation> {
 	private ActionParametersOWLSchema actionParametersOWLSchema;
 
 	public SystemOperationOWLSchema(OWLModelCommonPart2 owlModel) {
-		this.owlModel = owlModel;
+		this(owlModel, new ActionParametersOWLSchema(owlModel));
+	}
 
-		this.actionParametersOWLSchema = new ActionParametersOWLSchema(owlModel);
+	SystemOperationOWLSchema(OWLModelCommonPart2 owlModel, ActionParametersOWLSchema actionParametersOWLSchema) {
+		this.owlModel = owlModel;
+		this.actionParametersOWLSchema = actionParametersOWLSchema;
 	}
 
 	@Override
 	public Individual combine(SystemOperation systemOperation) {
-		Individual ind_systemOperation = owlModel.getClass_SystemOperation().createIndividual(owlModel.getUniqueURI());
-		ind_systemOperation.addLabel("System Operation", "en");
+		Individual ind_systemOperation = owlModel.newIndividual_SystemOperation();
+		ind_systemOperation.addLabel("System operation", "en");
 		ind_systemOperation.addLabel("Операция системы", "ru");
 		ind_systemOperation.addProperty(owlModel.getDataProperty_name(), systemOperation.getName());
 
