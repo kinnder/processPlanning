@@ -12,14 +12,17 @@ public class NodeOWLSchema implements OWLSchema<Node> {
 	private SystemOWLSchema systemOWLSchema;
 
 	public NodeOWLSchema(NodeNetworkOWLModel owlModel) {
-		this.owlModel = owlModel;
+		this(owlModel, new SystemOWLSchema(owlModel));
+	}
 
-		this.systemOWLSchema = new SystemOWLSchema(owlModel);
+	NodeOWLSchema(NodeNetworkOWLModel owlModel, SystemOWLSchema systemOWLSchema) {
+		this.owlModel = owlModel;
+		this.systemOWLSchema = systemOWLSchema;
 	}
 
 	@Override
 	public Individual combine(Node node) {
-		Individual ind_node = owlModel.getClass_Node().createIndividual(owlModel.getUniqueURI());
+		Individual ind_node = owlModel.newIndividual_Node();
 		ind_node.addLabel("Node", "en");
 		ind_node.addLabel("Узел", "ru");
 		ind_node.addProperty(owlModel.getDataProperty_id(), node.getId());
@@ -40,7 +43,7 @@ public class NodeOWLSchema implements OWLSchema<Node> {
 		Node node = new Node(id, null, checked);
 
 		owlModel.getClass_System().listInstances().filterKeep((ind_system) -> {
-			return ind_node.hasProperty(owlModel.getObjectProperty_hasSystem(), ind_system.asIndividual());
+			return ind_node.hasProperty(owlModel.getObjectProperty_hasSystem(), ind_system);
 		}).forEachRemaining((ind_system) -> {
 			System system = systemOWLSchema.parse(ind_system.asIndividual());
 			node.setSystem(system);
