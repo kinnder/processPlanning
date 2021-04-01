@@ -26,8 +26,9 @@ public class OWLFile<T> {
 	public void save(T object, Path path) throws IOException {
 		owlModel.createOntologyModel();
 		owlModel.getOWLSchema().combine(object);
-		OutputStream outputStream = new BufferedOutputStream(Files.newOutputStream(path));
-		owlModel.getOntologyModel().write(outputStream, "RDF/XML");
+		try (OutputStream outputStream = new BufferedOutputStream(Files.newOutputStream(path))) {
+			owlModel.getOntologyModel().write(outputStream, "RDF/XML");
+		}
 	}
 
 	public T load(String path) throws IOException {
@@ -35,9 +36,10 @@ public class OWLFile<T> {
 	}
 
 	public T load(Path path) throws IOException {
-		InputStream inputStream = new BufferedInputStream(Files.newInputStream(path));
 		OntModel ontModel = owlModel.createOntologyModelBase();
-		ontModel.read(inputStream, "RDF/XML");
+		try (InputStream inputStream = new BufferedInputStream(Files.newInputStream(path))) {
+			ontModel.read(inputStream, "RDF/XML");
+		}
 		owlModel.connectOntologyModel(ontModel);
 		// TODO (2021-02-01 #31): загружаться должен основной индивид, не null
 		return owlModel.getOWLSchema().parse(null);
