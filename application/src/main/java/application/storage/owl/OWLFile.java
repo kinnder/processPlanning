@@ -27,6 +27,7 @@ public class OWLFile<T> {
 		owlModel.createOntologyModel();
 		owlModel.getOWLSchema().combine(object);
 		try (OutputStream outputStream = new BufferedOutputStream(Files.newOutputStream(path))) {
+			// TODO (2021-04-02 #31): запись онтологии в файл выполняется очень медленно
 			owlModel.getOntologyModel().write(outputStream, "RDF/XML");
 		}
 	}
