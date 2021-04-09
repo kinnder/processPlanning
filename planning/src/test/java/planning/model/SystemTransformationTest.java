@@ -1,6 +1,7 @@
 package planning.model;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 import org.jmock.Expectations;
 import org.jmock.imposters.ByteBuddyClassImposteriser;
@@ -48,6 +49,40 @@ public class SystemTransformationTest {
 	@Test
 	public void getAction() {
 		assertEquals(action_mock, testable.getAction());
+	}
+
+	@Test
+	public void newInstance() {
+		testable = new SystemTransformation("system-transformation-name");
+
+		assertEquals("system-transformation-name", testable.getName());
+		assertNull(testable.getAction());
+		assertNull(testable.getSystemTemplate());
+		assertNull(testable.getTransformations());
+	}
+
+	@Test
+	public void setAction() {
+		testable = new SystemTransformation("system-transformation-name");
+		testable.setAction(action_mock);
+
+		assertEquals(action_mock, testable.getAction());
+	}
+
+	@Test
+	public void setSystemTemplate() {
+		testable = new SystemTransformation("system-transformation-name");
+		testable.setSystemTemplate(systemTemplate_mock);
+
+		assertEquals(systemTemplate_mock, testable.getSystemTemplate());
+	}
+
+	@Test
+	public void setTransformations() {
+		testable = new SystemTransformation("system-transformation-name");
+		testable.setTransformations(transformations);
+
+		assertEquals(transformations, testable.getTransformations());
 	}
 
 	@Test

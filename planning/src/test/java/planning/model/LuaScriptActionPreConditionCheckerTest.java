@@ -1,6 +1,10 @@
 package planning.model;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.util.Arrays;
+import java.util.Collection;
 
 import org.jmock.imposters.ByteBuddyClassImposteriser;
 import org.jmock.junit5.JUnit5Mockery;
@@ -48,5 +52,15 @@ public class LuaScriptActionPreConditionCheckerTest {
 
 		testable = new LuaScriptActionPreConditionChecker(globals, script.toString());
 		assertTrue(testable.invoke(systemVariant_mock));
+	}
+
+	@Test
+	public void newInstance() {
+		final LuaScriptLine line_1 = new LuaScriptLine(1, "local a = ...");
+		final LuaScriptLine line_2 = new LuaScriptLine(2, "return a + 2");
+		final Collection<LuaScriptLine> lines = Arrays.asList(line_1, line_2);
+
+		testable = new LuaScriptActionPreConditionChecker(globals, lines);
+		assertEquals("local a = ...\nreturn a + 2\n", testable.getScript());
 	}
 }

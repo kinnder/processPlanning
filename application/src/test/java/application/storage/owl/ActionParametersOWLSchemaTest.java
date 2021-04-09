@@ -21,7 +21,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
-public class ActionParameterOWLSchemaTest {
+public class ActionParametersOWLSchemaTest {
 
 	@RegisterExtension
 	JUnit5Mockery context = new JUnit5Mockery() {
