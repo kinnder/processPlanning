@@ -20,23 +20,26 @@ import planning.model.SystemProcess;
 
 public class PersistanceStorage {
 
-	SystemTransformationsXMLFile transformationsXMLFile = new SystemTransformationsXMLFile();
+	private SystemTransformationsXMLFile transformationsXMLFile;
 
-	SystemTransformationsOWLFile transformationsOWLFile = new SystemTransformationsOWLFile();
+	private SystemTransformationsOWLFile transformationsOWLFile;
 
-	TaskDescriptionXMLFile taskXMLFile = new TaskDescriptionXMLFile();
+	private TaskDescriptionXMLFile taskXMLFile;
 
-	TaskDescriptionOWLFile taskOWLFile = new TaskDescriptionOWLFile();
+	private TaskDescriptionOWLFile taskOWLFile;
 
-	SystemProcessXMLFile processXMLFile = new SystemProcessXMLFile();
+	private SystemProcessXMLFile processXMLFile;
 
-	SystemProcessOWLFile processOWLFile = new SystemProcessOWLFile();
+	private SystemProcessOWLFile processOWLFile;
 
-	NodeNetworkXMLFile nodeNetworkXMLFile = new NodeNetworkXMLFile();
+	private NodeNetworkXMLFile nodeNetworkXMLFile;
 
-	NodeNetworkOWLFile nodeNetworkOWLFile = new NodeNetworkOWLFile();
+	private NodeNetworkOWLFile nodeNetworkOWLFile;
 
 	public PersistanceStorage() {
+		this(new SystemTransformationsXMLFile(), new TaskDescriptionXMLFile(), new SystemProcessXMLFile(),
+				new NodeNetworkXMLFile(), new SystemTransformationsOWLFile(), new TaskDescriptionOWLFile(),
+				new SystemProcessOWLFile(), new NodeNetworkOWLFile());
 	}
 
 	PersistanceStorage(SystemTransformationsXMLFile transformationsXMLFile, TaskDescriptionXMLFile taskXMLFile,
