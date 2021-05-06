@@ -155,6 +155,8 @@ public class SystemProcessOWLModel implements OWLModel<SystemProcess>, OWLModelC
 	public void createOntologyModel() {
 		m = createOntologyModelBase();
 
+		m.createOntology(NS);
+
 		class_ActionParameters = m.createClass(URI_ActionParameters);
 		class_ActionParameters.addLabel("Action Parameters", "en");
 		class_ActionParameters.addLabel("Параметры действия", "ru");

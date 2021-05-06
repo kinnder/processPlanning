@@ -260,6 +260,8 @@ public class TaskDescriptionOWLModel implements OWLModel<TaskDescription>, OWLMo
 	public void createOntologyModel() {
 		m = createOntologyModelBase();
 
+		m.createOntology(NS);
+
 		class_TaskDescription = m.createClass(URI_TaskDescription);
 		class_TaskDescription.addLabel("Task Description", "en");
 		class_TaskDescription.addLabel("Описание задания", "ru");

@@ -233,8 +233,8 @@ public class NodeNetworkOWLSchemaTest {
 		owlSchema.combine(nodeNetwork);
 		OntModel model = owlModel.getOntologyModel();
 		assertNotNull(model);
-		assertEquals(276, model.listObjects().toList().size());
-		assertEquals(1527, model.listStatements().toList().size());
+		assertEquals(277, model.listObjects().toList().size());
+		assertEquals(1530, model.listStatements().toList().size());
 
 //		 TODO (2021-03-13 #31): удалить
 //		model.write(java.lang.System.out, "RDF/XML");

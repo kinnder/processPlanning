@@ -434,6 +434,8 @@ public class SystemTransformationsOWLModel implements OWLModel<SystemTransformat
 	public void createOntologyModel() {
 		m = createOntologyModelBase();
 
+		m.createOntology(NS);
+
 		class_SystemTransformations = m.createClass(URI_SystemTransformations);
 		class_SystemTransformations.addLabel("System Transformations", "en");
 		class_SystemTransformations.addLabel("Трансформации системы", "ru");
