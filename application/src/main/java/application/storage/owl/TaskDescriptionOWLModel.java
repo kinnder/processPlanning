@@ -240,6 +240,9 @@ public class TaskDescriptionOWLModel implements OWLModel<TaskDescription>, OWLMo
 		return dataProperty_objectId2;
 	}
 
+	// TODO (2021-05-06 #36): включить проверку copy-paste
+	// CPD-OFF
+
 	private void makeHierarchy(OntClass superClass, OntClass subClass) {
 		superClass.addSubClass(subClass);
 		subClass.addSuperClass(superClass);
@@ -255,6 +258,8 @@ public class TaskDescriptionOWLModel implements OWLModel<TaskDescription>, OWLMo
 		d.addProperty(m.getProfile().UNION_OF(), m.createList(members));
 		return d;
 	}
+
+	// CPD-ON
 
 	@Override
 	public void createOntologyModel() {

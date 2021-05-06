@@ -419,6 +419,9 @@ public class SystemTransformationsOWLModel implements OWLModel<SystemTransformat
 		return dataProperty_text;
 	}
 
+	// TODO (2021-05-06 #36): включить проверку copy-paste
+	// CPD-OFF
+
 	private void makeInverse(ObjectProperty property1, ObjectProperty property2) {
 		property1.addInverseOf(property2);
 		property2.addInverseOf(property1);
@@ -429,6 +432,8 @@ public class SystemTransformationsOWLModel implements OWLModel<SystemTransformat
 		d.addProperty(m.getProfile().UNION_OF(), m.createList(members));
 		return d;
 	}
+
+	// CPD-ON
 
 	@Override
 	public void createOntologyModel() {
