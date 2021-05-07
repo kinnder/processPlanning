@@ -16,51 +16,51 @@ import planning.method.TaskDescription;
 
 public class TaskDescriptionOWLModel implements OWLModel<TaskDescription>, OWLModelCommonPart {
 
-	static final String NS = "https://github.com/kinnder/process-engineering/planning/task-description#";
+	static final String NS = "https://github.com/kinnder/process-engineering/planning/task-description";
 
-	static final String URI_TaskDescription = NS + "TaskDescription";
+	static final String URI_TaskDescription = NS + "#TaskDescription";
 
-	static final String URI_System = NS + "System";
+	static final String URI_System = NS + "#System";
 
-	static final String URI_InitialSystem = NS + "InitialSystem";
+	static final String URI_InitialSystem = NS + "#InitialSystem";
 
-	static final String URI_FinalSystem = NS + "FinalSystem";
+	static final String URI_FinalSystem = NS + "#FinalSystem";
 
-	static final String URI_SystemObject = NS + "SystemObject";
+	static final String URI_SystemObject = NS + "#SystemObject";
 
-	static final String URI_Link = NS + "Link";
+	static final String URI_Link = NS + "#Link";
 
-	static final String URI_Attribute = NS + "Attribute";
+	static final String URI_Attribute = NS + "#Attribute";
 
-	static final String URI_hasInitialSystem = NS + "hasInitialSystem";
+	static final String URI_hasInitialSystem = NS + "#hasInitialSystem";
 
-	static final String URI_isInitialSystemOf = NS + "isInitialSystemOf";
+	static final String URI_isInitialSystemOf = NS + "#isInitialSystemOf";
 
-	static final String URI_hasFinalSystem = NS + "hasFinalSystem";
+	static final String URI_hasFinalSystem = NS + "#hasFinalSystem";
 
-	static final String URI_isFinalSystemOf = NS + "isFinalSystemOf";
+	static final String URI_isFinalSystemOf = NS + "#isFinalSystemOf";
 
-	static final String URI_hasSystemObject = NS + "hasSystemObject";
+	static final String URI_hasSystemObject = NS + "#hasSystemObject";
 
-	static final String URI_isSystemObjectOf = NS + "isSystemObjectOf";
+	static final String URI_isSystemObjectOf = NS + "#isSystemObjectOf";
 
-	static final String URI_hasLink = NS + "hasLink";
+	static final String URI_hasLink = NS + "#hasLink";
 
-	static final String URI_isLinkOf = NS + "isLinkOf";
+	static final String URI_isLinkOf = NS + "#isLinkOf";
 
-	static final String URI_hasAttribute = NS + "hasAttribute";
+	static final String URI_hasAttribute = NS + "#hasAttribute";
 
-	static final String URI_isAttributeOf = NS + "isAttributeOf";
+	static final String URI_isAttributeOf = NS + "#isAttributeOf";
 
-	static final String URI_name = NS + "name";
+	static final String URI_name = NS + "#name";
 
-	static final String URI_id = NS + "id";
+	static final String URI_id = NS + "#id";
 
-	static final String URI_value = NS + "value";
+	static final String URI_value = NS + "#value";
 
-	static final String URI_objectId1 = NS + "objectId1";
+	static final String URI_objectId1 = NS + "#objectId1";
 
-	static final String URI_objectId2 = NS + "objectId2";
+	static final String URI_objectId2 = NS + "#objectId2";
 
 	private OntModel m;
 

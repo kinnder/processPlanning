@@ -16,33 +16,33 @@ import planning.model.SystemProcess;
 
 public class SystemProcessOWLModel implements OWLModel<SystemProcess>, OWLModelCommonPart2 {
 
-	static final String NS = "https://github.com/kinnder/process-engineering/planning/system-process#";
+	static final String NS = "https://github.com/kinnder/process-engineering/planning/system-process";
 
-	static final String URI_areActionParametersOf = NS + "areActionParametersOf";
+	static final String URI_areActionParametersOf = NS + "#areActionParametersOf";
 
-	static final String URI_hasActionParameters = NS + "hasActionParameters";
+	static final String URI_hasActionParameters = NS + "#hasActionParameters";
 
-	static final String URI_key = NS + "key";
+	static final String URI_key = NS + "#key";
 
-	static final String URI_ActionParameters = NS + "ActionParameters";
+	static final String URI_ActionParameters = NS + "#ActionParameters";
 
-	static final String URI_isParameterOf = NS + "isParameterOf";
+	static final String URI_isParameterOf = NS + "#isParameterOf";
 
-	static final String URI_hasParameter = NS + "hasParameter";
+	static final String URI_hasParameter = NS + "#hasParameter";
 
-	static final String URI_isSystemOperationOf = NS + "isOperationOf";
+	static final String URI_isSystemOperationOf = NS + "#isOperationOf";
 
-	static final String URI_hasSystemOperation = NS + "hasOperation";
+	static final String URI_hasSystemOperation = NS + "#hasOperation";
 
-	static final String URI_value = NS + "value";
+	static final String URI_value = NS + "#value";
 
-	static final String URI_name = NS + "name";
+	static final String URI_name = NS + "#name";
 
-	static final String URI_Parameter = NS + "Parameter";
+	static final String URI_Parameter = NS + "#Parameter";
 
-	static final String URI_SystemOperation = NS + "SystemOperation";
+	static final String URI_SystemOperation = NS + "#SystemOperation";
 
-	static final String URI_Process = NS + "Process";
+	static final String URI_Process = NS + "#Process";
 
 	private OntModel m;
 

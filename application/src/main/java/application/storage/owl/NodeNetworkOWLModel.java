@@ -16,83 +16,83 @@ import planning.method.NodeNetwork;
 
 public class NodeNetworkOWLModel implements OWLModel<NodeNetwork>, OWLModelCommonPart, OWLModelCommonPart2 {
 
-	static final String NS = "https://github.com/kinnder/process-engineering/planning/node-network#";
+	static final String NS = "https://github.com/kinnder/process-engineering/planning/node-network";
 
-	static final String URI_ActionParameters = NS + "ActionParameters";
+	static final String URI_ActionParameters = NS + "#ActionParameters";
 
-	static final String URI_Attribute = NS + "Attribute";
+	static final String URI_Attribute = NS + "#Attribute";
 
-	static final String URI_Edge = NS + "Edge";
+	static final String URI_Edge = NS + "#Edge";
 
-	static final String URI_Link = NS + "Link";
+	static final String URI_Link = NS + "#Link";
 
-	static final String URI_NodeNetwork = NS + "NodeNetwork";
+	static final String URI_NodeNetwork = NS + "#NodeNetwork";
 
-	static final String URI_Node = NS + "Node";
+	static final String URI_Node = NS + "#Node";
 
-	static final String URI_Parameter = NS + "Parameter";
+	static final String URI_Parameter = NS + "#Parameter";
 
-	static final String URI_Process = NS + "Process";
+	static final String URI_Process = NS + "#Process";
 
-	static final String URI_System = NS + "System";
+	static final String URI_System = NS + "#System";
 
-	static final String URI_SystemObject = NS + "SystemObject";
+	static final String URI_SystemObject = NS + "#SystemObject";
 
-	static final String URI_SystemOperation = NS + "SystemOperation";
+	static final String URI_SystemOperation = NS + "#SystemOperation";
 
-	static final String URI_areActionParametersOf = NS + "areActionParametersOf";
+	static final String URI_areActionParametersOf = NS + "#areActionParametersOf";
 
-	static final String URI_hasActionParameters = NS + "hasActionParameters";
+	static final String URI_hasActionParameters = NS + "#hasActionParameters";
 
-	static final String URI_hasAttribute = NS + "hasAttribute";
+	static final String URI_hasAttribute = NS + "#hasAttribute";
 
-	static final String URI_hasEdge = NS + "hasEdge";
+	static final String URI_hasEdge = NS + "#hasEdge";
 
-	static final String URI_hasLink = NS + "hasLink";
+	static final String URI_hasLink = NS + "#hasLink";
 
-	static final String URI_hasNode = NS + "hasNode";
+	static final String URI_hasNode = NS + "#hasNode";
 
-	static final String URI_hasParameter = NS + "hasParameter";
+	static final String URI_hasParameter = NS + "#hasParameter";
 
-	static final String URI_hasSystem = NS + "hasSystem";
+	static final String URI_hasSystem = NS + "#hasSystem";
 
-	static final String URI_hasSystemObject = NS + "hasSystemObject";
+	static final String URI_hasSystemObject = NS + "#hasSystemObject";
 
-	static final String URI_hasSystemOperation = NS + "hasSystemOperation";
+	static final String URI_hasSystemOperation = NS + "#hasSystemOperation";
 
-	static final String URI_isAttributeOf = NS + "isAttributeOf";
+	static final String URI_isAttributeOf = NS + "#isAttributeOf";
 
-	static final String URI_isEdgeOf = NS + "isEdgeOf";
+	static final String URI_isEdgeOf = NS + "#isEdgeOf";
 
-	static final String URI_isLinkOf = NS + "isLinkOf";
+	static final String URI_isLinkOf = NS + "#isLinkOf";
 
-	static final String URI_isNodeOf = NS + "isNodeOf";
+	static final String URI_isNodeOf = NS + "#isNodeOf";
 
-	static final String URI_isParameterOf = NS + "isParameterOf";
+	static final String URI_isParameterOf = NS + "#isParameterOf";
 
-	static final String URI_isSystemObjectOf = NS + "isSystemObjectOf";
+	static final String URI_isSystemObjectOf = NS + "#isSystemObjectOf";
 
-	static final String URI_isSystemOf = NS + "isSystemOf";
+	static final String URI_isSystemOf = NS + "#isSystemOf";
 
-	static final String URI_isSystemOperationOf = NS + "isSystemOperation";
+	static final String URI_isSystemOperationOf = NS + "#isSystemOperation";
 
-	static final String URI_beginNodeId = NS + "beginNodeId";
+	static final String URI_beginNodeId = NS + "#beginNodeId";
 
-	static final String URI_checked = NS + "checked";
+	static final String URI_checked = NS + "#checked";
 
-	static final String URI_endNodeId = NS + "endNodeId";
+	static final String URI_endNodeId = NS + "#endNodeId";
 
-	static final String URI_id = NS + "id";
+	static final String URI_id = NS + "#id";
 
-	static final String URI_key = NS + "key";
+	static final String URI_key = NS + "#key";
 
-	static final String URI_name = NS + "name";
+	static final String URI_name = NS + "#name";
 
-	static final String URI_objectId1 = NS + "objectId1";
+	static final String URI_objectId1 = NS + "#objectId1";
 
-	static final String URI_objectId2 = NS + "objectId2";
+	static final String URI_objectId2 = NS + "#objectId2";
 
-	static final String URI_value = NS + "value";
+	static final String URI_value = NS + "#value";
 
 	// TODO (2021-03-13 #31): включить проверку copy-paste
 	// CPD-OFF

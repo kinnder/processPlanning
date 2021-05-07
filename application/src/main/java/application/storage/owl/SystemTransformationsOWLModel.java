@@ -16,105 +16,105 @@ import planning.method.SystemTransformations;
 
 public class SystemTransformationsOWLModel implements OWLModel<SystemTransformations> {
 
-	static final String NS = "https://github.com/kinnder/process-engineering/planning/system-transformations#";
+	static final String NS = "https://github.com/kinnder/process-engineering/planning/system-transformations";
 
-	static final String URI_isLineOf = NS + "isLineOf";
+	static final String URI_isLineOf = NS + "#isLineOf";
 
-	static final String URI_hasLine = NS + "hasLine";
+	static final String URI_hasLine = NS + "#hasLine";
 
-	static final String URI_isParameterUpdaterOf = NS + "isParameterUpdaterOf";
+	static final String URI_isParameterUpdaterOf = NS + "#isParameterUpdaterOf";
 
-	static final String URI_hasParameterUpdater = NS + "hasParameterUpdater";
+	static final String URI_hasParameterUpdater = NS + "#hasParameterUpdater";
 
-	static final String URI_isPreConditionCheckerOf = NS + "isPreConditionCheckerOf";
+	static final String URI_isPreConditionCheckerOf = NS + "#isPreConditionCheckerOf";
 
-	static final String URI_hasPreConditionChecker = NS + "hasPreConditionChecker";
+	static final String URI_hasPreConditionChecker = NS + "#hasPreConditionChecker";
 
-	static final String URI_isLinkTransformationOf = NS + "isLinkTransformationOf";
+	static final String URI_isLinkTransformationOf = NS + "#isLinkTransformationOf";
 
-	static final String URI_hasLinkTransformation = NS + "hasLinkTransformation";
+	static final String URI_hasLinkTransformation = NS + "#hasLinkTransformation";
 
-	static final String URI_isAttributeTransformationOf = NS + "isAttributeTransformationOf";
+	static final String URI_isAttributeTransformationOf = NS + "#isAttributeTransformationOf";
 
-	static final String URI_hasAttributeTransformation = NS + "hasAttributeTransformation";
+	static final String URI_hasAttributeTransformation = NS + "#hasAttributeTransformation";
 
-	static final String URI_hasTransformation = NS + "hasTransformation";
+	static final String URI_hasTransformation = NS + "#hasTransformation";
 
-	static final String URI_isTransformationOf = NS + "isTransformationOf";
+	static final String URI_isTransformationOf = NS + "#isTransformationOf";
 
-	static final String URI_isAttributeTemplateOf = NS + "isAttributeTemplateOf";
+	static final String URI_isAttributeTemplateOf = NS + "#isAttributeTemplateOf";
 
-	static final String URI_hasAttributeTemplate = NS + "hasAttributeTemplate";
+	static final String URI_hasAttributeTemplate = NS + "#hasAttributeTemplate";
 
-	static final String URI_isLinkTemplateOf = NS + "isLinkTemplateOf";
+	static final String URI_isLinkTemplateOf = NS + "#isLinkTemplateOf";
 
-	static final String URI_hasLinkTemplate = NS + "hasLinkTemplate";
+	static final String URI_hasLinkTemplate = NS + "#hasLinkTemplate";
 
-	static final String URI_isObjectTemplateOf = NS + "isObjectTemplateOf";
+	static final String URI_isObjectTemplateOf = NS + "#isObjectTemplateOf";
 
-	static final String URI_hasObjectTemplate = NS + "hasObjectTemplate";
+	static final String URI_hasObjectTemplate = NS + "#hasObjectTemplate";
 
-	static final String URI_isActionOf = NS + "isActionOf";
+	static final String URI_isActionOf = NS + "#isActionOf";
 
-	static final String URI_hasAction = NS + "hasAction";
+	static final String URI_hasAction = NS + "#hasAction";
 
-	static final String URI_areTransformationsOf = NS + "areTransformationsOf";
+	static final String URI_areTransformationsOf = NS + "#areTransformationsOf";
 
-	static final String URI_hasTransformations = NS + "hasTransformations";
+	static final String URI_hasTransformations = NS + "#hasTransformations";
 
-	static final String URI_isSystemTemplateOf = NS + "isSystemTemplateOf";
+	static final String URI_isSystemTemplateOf = NS + "#isSystemTemplateOf";
 
-	static final String URI_hasSystemTemplate = NS + "hasSystemTemplate";
+	static final String URI_hasSystemTemplate = NS + "#hasSystemTemplate";
 
-	static final String URI_isSystemTransformationOf = NS + "isSystemTransformationOf";
+	static final String URI_isSystemTransformationOf = NS + "#isSystemTransformationOf";
 
-	static final String URI_hasSystemTransformation = NS + "hasSystemTransformation";
+	static final String URI_hasSystemTransformation = NS + "#hasSystemTransformation";
 
-	static final String URI_Line = NS + "Line";
+	static final String URI_Line = NS + "#Line";
 
-	static final String URI_ParameterUpdater = NS + "ParameterUpdater";
+	static final String URI_ParameterUpdater = NS + "#ParameterUpdater";
 
-	static final String URI_PreConditionChecker = NS + "PreConditionChecker";
+	static final String URI_PreConditionChecker = NS + "#PreConditionChecker";
 
-	static final String URI_LinkTransformation = NS + "LinkTransformation";
+	static final String URI_LinkTransformation = NS + "#LinkTransformation";
 
-	static final String URI_AttributeTransformation = NS + "AttributeTransformation";
+	static final String URI_AttributeTransformation = NS + "#AttributeTransformation";
 
-	static final String URI_Transformation = NS + "Transformation";
+	static final String URI_Transformation = NS + "#Transformation";
 
-	static final String URI_AttributeTemplate = NS + "AttributeTemplate";
+	static final String URI_AttributeTemplate = NS + "#AttributeTemplate";
 
-	static final String URI_LinkTemplate = NS + "LinkTemplate";
+	static final String URI_LinkTemplate = NS + "#LinkTemplate";
 
-	static final String URI_ObjectTemplate = NS + "ObjectTemplate";
+	static final String URI_ObjectTemplate = NS + "#ObjectTemplate";
 
-	static final String URI_SystemTransformations = NS + "SystemTransformations";
+	static final String URI_SystemTransformations = NS + "#SystemTransformations";
 
-	static final String URI_SystemTransformation = NS + "SystemTransformation";
+	static final String URI_SystemTransformation = NS + "#SystemTransformation";
 
-	static final String URI_SystemTemplate = NS + "SystemTemplate";
+	static final String URI_SystemTemplate = NS + "#SystemTemplate";
 
-	static final String URI_Transformations = NS + "Transformations";
+	static final String URI_Transformations = NS + "#Transformations";
 
-	static final String URI_Action = NS + "Action";
+	static final String URI_Action = NS + "#Action";
 
-	static final String URI_name = NS + "name";
+	static final String URI_name = NS + "#name";
 
-	static final String URI_objectId = NS + "objectId";
+	static final String URI_objectId = NS + "#objectId";
 
-	static final String URI_value = NS + "value";
+	static final String URI_value = NS + "#value";
 
-	static final String URI_objectId1 = NS + "objectId1";
+	static final String URI_objectId1 = NS + "#objectId1";
 
-	static final String URI_objectId2 = NS + "objectId2";
+	static final String URI_objectId2 = NS + "#objectId2";
 
-	static final String URI_oldValue = NS + "oldValue";
+	static final String URI_oldValue = NS + "#oldValue";
 
-	static final String URI_newValue = NS + "newValue";
+	static final String URI_newValue = NS + "#newValue";
 
-	static final String URI_text = NS + "text";
+	static final String URI_text = NS + "#text";
 
-	static final String URI_number = NS + "number";
+	static final String URI_number = NS + "#number";
 
 	// TODO (2020-12-17 #31): убрать linkTemplate из схемы objectTemplate
 
