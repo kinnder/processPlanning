@@ -444,6 +444,6 @@ public class TaskDescriptionOWLModel implements OWLModel<TaskDescription>, OWLMo
 
 	@Override
 	public String getUniqueURI() {
-		return NS + UUID.randomUUID().toString();
+		return NS + "#" + UUID.randomUUID().toString();
 	}
 }

@@ -221,7 +221,7 @@ public class SystemProcessOWLModel implements OWLModel<SystemProcess>, OWLModelC
 
 	@Override
 	public String getUniqueURI() {
-		return NS + UUID.randomUUID().toString();
+		return NS + "#" + UUID.randomUUID().toString();
 	}
 
 	private DatatypeProperty datatypeProperty_key;

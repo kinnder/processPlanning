@@ -107,6 +107,11 @@ public class TaskDescriptionOWLModelTest {
 	}
 
 	@Test
+	public void getUniqueURI_startsWith_NameSpace() {
+		assertTrue(testable.getUniqueURI().startsWith(TaskDescriptionOWLModel.NS + "#"));
+	}
+
+	@Test
 	public void newIndividual() {
 		testable.createOntologyModel();
 

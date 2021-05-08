@@ -385,7 +385,7 @@ public class NodeNetworkOWLModel implements OWLModel<NodeNetwork>, OWLModelCommo
 
 	@Override
 	public String getUniqueURI() {
-		return NS + UUID.randomUUID().toString();
+		return NS + "#" + UUID.randomUUID().toString();
 	}
 
 	private OntClass class_NodeNetwork;

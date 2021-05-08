@@ -161,6 +161,11 @@ public class SystemTransformationsOWLModelTest {
 	}
 
 	@Test
+	public void getUniqueURI_startsWith_NameSpace() {
+		assertTrue(testable.getUniqueURI().startsWith(SystemTransformationsOWLModel.NS + "#"));
+	}
+
+	@Test
 	public void newIndividual() {
 		testable.createOntologyModel();
 

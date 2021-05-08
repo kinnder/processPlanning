@@ -133,6 +133,11 @@ public class NodeNetworkOWLModelTest {
 	}
 
 	@Test
+	public void getUniqueURI_startsWith_NameSpace() {
+		assertTrue(testable.getUniqueURI().startsWith(NodeNetworkOWLModel.NS + "#"));
+	}
+
+	@Test
 	public void newIndividual() {
 		testable.createOntologyModel();
 
