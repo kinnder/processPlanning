@@ -42,7 +42,6 @@ public class NodeNetworkOWLModelTest {
 	public void createOntologyModel() {
 		testable.createOntologyModel();
 
-		assertEquals(NodeNetworkOWLModel.URI_ActionParameters, testable.getClass_ActionParameters().getURI());
 		assertEquals(NodeNetworkOWLModel.URI_Attribute, testable.getClass_Attribute().getURI());
 		assertEquals(NodeNetworkOWLModel.URI_Edge, testable.getClass_Edge().getURI());
 		assertEquals(NodeNetworkOWLModel.URI_Link, testable.getClass_Link().getURI());
@@ -64,8 +63,6 @@ public class NodeNetworkOWLModelTest {
 		assertEquals(NodeNetworkOWLModel.URI_objectId2, testable.getDataProperty_objectId2().getURI());
 		assertEquals(NodeNetworkOWLModel.URI_value, testable.getDataProperty_value().getURI());
 
-		assertEquals(NodeNetworkOWLModel.URI_areActionParametersOf, testable.getObjectProperty_areActionParametersOf().getURI());
-		assertEquals(NodeNetworkOWLModel.URI_hasActionParameters, testable.getObjectProperty_hasActionParameters().getURI());
 		assertEquals(NodeNetworkOWLModel.URI_hasAttribute, testable.getObjectProperty_hasAttribute().getURI());
 		assertEquals(NodeNetworkOWLModel.URI_hasEdge, testable.getObjectProperty_hasEdge().getURI());
 		assertEquals(NodeNetworkOWLModel.URI_hasLink, testable.getObjectProperty_hasLink().getURI());
@@ -91,7 +88,6 @@ public class NodeNetworkOWLModelTest {
 
 		testable.connectOntologyModel(newOwlModel.getOntologyModel());
 
-		assertEquals(NodeNetworkOWLModel.URI_ActionParameters, testable.getClass_ActionParameters().getURI());
 		assertEquals(NodeNetworkOWLModel.URI_Attribute, testable.getClass_Attribute().getURI());
 		assertEquals(NodeNetworkOWLModel.URI_Edge, testable.getClass_Edge().getURI());
 		assertEquals(NodeNetworkOWLModel.URI_Link, testable.getClass_Link().getURI());
@@ -113,8 +109,6 @@ public class NodeNetworkOWLModelTest {
 		assertEquals(NodeNetworkOWLModel.URI_objectId2, testable.getDataProperty_objectId2().getURI());
 		assertEquals(NodeNetworkOWLModel.URI_value, testable.getDataProperty_value().getURI());
 
-		assertEquals(NodeNetworkOWLModel.URI_areActionParametersOf, testable.getObjectProperty_areActionParametersOf().getURI());
-		assertEquals(NodeNetworkOWLModel.URI_hasActionParameters, testable.getObjectProperty_hasActionParameters().getURI());
 		assertEquals(NodeNetworkOWLModel.URI_hasAttribute, testable.getObjectProperty_hasAttribute().getURI());
 		assertEquals(NodeNetworkOWLModel.URI_hasEdge, testable.getObjectProperty_hasEdge().getURI());
 		assertEquals(NodeNetworkOWLModel.URI_hasLink, testable.getObjectProperty_hasLink().getURI());
@@ -141,10 +135,6 @@ public class NodeNetworkOWLModelTest {
 	@Test
 	public void newIndividual() {
 		testable.createOntologyModel();
-
-		Individual actionParameters = testable.newIndividual_ActionParameters();
-		assertEquals(actionParameters.getOntClass(), testable.getClass_ActionParameters());
-		assertNotEquals(actionParameters.getURI(), testable.newIndividual_ActionParameters().getURI());
 
 		Individual attribute = testable.newIndividual_Attribute();
 		assertEquals(attribute.getOntClass(), testable.getClass_Attribute());

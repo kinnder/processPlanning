@@ -160,8 +160,8 @@ public class SystemProcessOWLSchemaTest {
 		owlSchema.combine(systemProcess);
 		OntModel model = owlModel.getOntologyModel();
 		assertNotNull(model);
-		assertEquals(77, model.listObjects().toList().size());
-		assertEquals(264, model.listStatements().toList().size());
+		assertEquals(66, model.listObjects().toList().size());
+		assertEquals(234, model.listStatements().toList().size());
 
 		// TODO (2020-11-09 #31): удалить
 //		model.write(System.out, "RDF/XML");

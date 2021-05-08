@@ -18,13 +18,7 @@ public class SystemProcessOWLModel implements OWLModel<SystemProcess>, OWLModelC
 
 	static final String NS = "https://github.com/kinnder/process-engineering/planning/system-process";
 
-	static final String URI_areActionParametersOf = NS + "#areActionParametersOf";
-
-	static final String URI_hasActionParameters = NS + "#hasActionParameters";
-
 	static final String URI_key = NS + "#key";
-
-	static final String URI_ActionParameters = NS + "#ActionParameters";
 
 	static final String URI_isParameterOf = NS + "#isParameterOf";
 
@@ -50,13 +44,10 @@ public class SystemProcessOWLModel implements OWLModel<SystemProcess>, OWLModelC
 	public void connectOntologyModel(OntModel ontModel) {
 		m = ontModel;
 
-		class_ActionParameters = m.getOntClass(URI_ActionParameters);
 		class_SystemOperation = m.getOntClass(URI_SystemOperation);
 		class_Parameter = m.getOntClass(URI_Parameter);
 		class_SystemProcess = m.getOntClass(URI_Process);
 
-		objectProperty_areActionParametersOf = m.getObjectProperty(URI_areActionParametersOf);
-		objectProperty_hasActionParameters = m.getObjectProperty(URI_hasActionParameters);
 		objectProperty_hasSystemOperation = m.getObjectProperty(URI_hasSystemOperation);
 		objectProperty_hasParameter = m.getObjectProperty(URI_hasParameter);
 		objectProperty_isSystemOperationOf = m.getObjectProperty(URI_isSystemOperationOf);
@@ -157,10 +148,6 @@ public class SystemProcessOWLModel implements OWLModel<SystemProcess>, OWLModelC
 
 		m.createOntology(NS);
 
-		class_ActionParameters = m.createClass(URI_ActionParameters);
-		class_ActionParameters.addLabel("Action Parameters", "en");
-		class_ActionParameters.addLabel("Параметры действия", "ru");
-
 		class_SystemProcess = m.createClass(URI_Process);
 		class_SystemProcess.addLabel("Process", "en");
 		class_SystemProcess.addLabel("Процесс", "ru");
@@ -203,20 +190,6 @@ public class SystemProcessOWLModel implements OWLModel<SystemProcess>, OWLModelC
 
 		makeInverse(objectProperty_hasParameter, objectProperty_isParameterOf);
 
-		objectProperty_hasActionParameters = m.createObjectProperty(URI_hasActionParameters);
-		objectProperty_hasActionParameters.addLabel("has action parameters", "en");
-		objectProperty_hasActionParameters.addLabel("имеет параметры действия", "ru");
-		objectProperty_hasActionParameters.addDomain(class_SystemOperation);
-		objectProperty_hasActionParameters.addRange(class_ActionParameters);
-
-		objectProperty_areActionParametersOf = m.createObjectProperty(URI_areActionParametersOf);
-		objectProperty_areActionParametersOf.addLabel("are action parameters of", "en");
-		objectProperty_areActionParametersOf.addLabel("являются параметрами действиями для", "ru");
-		objectProperty_areActionParametersOf.addDomain(class_ActionParameters);
-		objectProperty_areActionParametersOf.addRange(class_SystemOperation);
-
-		makeInverse(objectProperty_hasActionParameters, objectProperty_areActionParametersOf);
-
 		datatypeProperty_name = m.createDatatypeProperty(URI_name);
 		datatypeProperty_name.addLabel("name", "en");
 		datatypeProperty_name.addLabel("название", "ru");
@@ -251,27 +224,6 @@ public class SystemProcessOWLModel implements OWLModel<SystemProcess>, OWLModelC
 		return NS + UUID.randomUUID().toString();
 	}
 
-	private ObjectProperty objectProperty_hasActionParameters;
-
-	@Override
-	public ObjectProperty getObjectProperty_hasActionParameters() {
-		return objectProperty_hasActionParameters;
-	}
-
-	private ObjectProperty objectProperty_areActionParametersOf;
-
-	@Override
-	public ObjectProperty getObjectProperty_areActionParametersOf() {
-		return objectProperty_areActionParametersOf;
-	}
-
-	private OntClass class_ActionParameters;
-
-	@Override
-	public OntClass getClass_ActionParameters() {
-		return class_ActionParameters;
-	}
-
 	private DatatypeProperty datatypeProperty_key;
 
 	@Override
@@ -282,11 +234,6 @@ public class SystemProcessOWLModel implements OWLModel<SystemProcess>, OWLModelC
 	@Override
 	public Individual newIndividual_SystemOperation() {
 		return class_SystemOperation.createIndividual(getUniqueURI());
-	}
-
-	@Override
-	public Individual newIndividual_ActionParameters() {
-		return class_ActionParameters.createIndividual(getUniqueURI());
 	}
 
 	@Override

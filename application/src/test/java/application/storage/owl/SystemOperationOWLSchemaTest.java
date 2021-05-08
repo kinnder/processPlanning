@@ -42,14 +42,11 @@ public class SystemOperationOWLSchemaTest {
 
 	NodeNetworkOWLModel owlModel_mock;
 
-	ActionParametersOWLSchema actionParametersOWLSchema_mock;
-
 	@BeforeEach
 	public void setup() {
 		owlModel_mock = context.mock(NodeNetworkOWLModel.class);
-		actionParametersOWLSchema_mock = context.mock(ActionParametersOWLSchema.class);
 
-		testable = new SystemOperationOWLSchema(owlModel_mock, actionParametersOWLSchema_mock);
+		testable = new SystemOperationOWLSchema(owlModel_mock);
 	}
 
 	@Test
@@ -61,13 +58,15 @@ public class SystemOperationOWLSchemaTest {
 	public void combine() {
 		final Action action = new Action("operation-name");
 		final Map<String, String> actionParameters = new HashMap<>();
+		actionParameters.put("parameter-name", "parameter-value");
 		final SystemOperation systemOperation = new SystemOperation(action, actionParameters);
 		final Individual i_systemOperation_mock = context.mock(Individual.class, "i-systemOperation");
-		final Individual i_actionParameters_mock = context.mock(Individual.class, "i-actionParameters");
 		final DatatypeProperty dp_name_mock = context.mock(DatatypeProperty.class, "dp-name");
-		final ObjectProperty op_hasActionParameters_mock = context.mock(ObjectProperty.class, "op-hasActionParameters");
-		final ObjectProperty op_areActionParametersOf_mock = context.mock(ObjectProperty.class,
-				"op-areActionParametersOf");
+		final Individual i_parameter_mock = context.mock(Individual.class, "i-parameter");
+		final DatatypeProperty dp_key_mock = context.mock(DatatypeProperty.class, "dp-key");
+		final DatatypeProperty dp_value_mock = context.mock(DatatypeProperty.class, "dp-value");
+		final ObjectProperty op_hasParameter_mock = context.mock(ObjectProperty.class, "op-hasParameter");
+		final ObjectProperty op_isParameterOf_mock = context.mock(ObjectProperty.class, "op-isParameterOf");
 
 		context.checking(new Expectations() {
 			{
@@ -83,18 +82,32 @@ public class SystemOperationOWLSchemaTest {
 
 				oneOf(i_systemOperation_mock).addProperty(dp_name_mock, "operation-name");
 
-				oneOf(actionParametersOWLSchema_mock).combine(actionParameters);
-				will(returnValue(i_actionParameters_mock));
+				oneOf(owlModel_mock).newIndividual_Parameter();
+				will(returnValue(i_parameter_mock));
 
-				oneOf(owlModel_mock).getObjectProperty_hasActionParameters();
-				will(returnValue(op_hasActionParameters_mock));
+				oneOf(i_parameter_mock).addLabel("Parameter", "en");
 
-				oneOf(i_systemOperation_mock).addProperty(op_hasActionParameters_mock, i_actionParameters_mock);
+				oneOf(i_parameter_mock).addLabel("Параметр", "ru");
 
-				oneOf(owlModel_mock).getObjectProperty_areActionParametersOf();
-				will(returnValue(op_areActionParametersOf_mock));
+				oneOf(owlModel_mock).getDataProperty_key();
+				will(returnValue(dp_key_mock));
 
-				oneOf(i_actionParameters_mock).addProperty(op_areActionParametersOf_mock, i_systemOperation_mock);
+				oneOf(i_parameter_mock).addProperty(dp_key_mock, "parameter-name");
+
+				oneOf(owlModel_mock).getDataProperty_value();
+				will(returnValue(dp_value_mock));
+
+				oneOf(i_parameter_mock).addProperty(dp_value_mock, "parameter-value");
+
+				oneOf(owlModel_mock).getObjectProperty_hasParameter();
+				will(returnValue(op_hasParameter_mock));
+
+				oneOf(i_systemOperation_mock).addProperty(op_hasParameter_mock, i_parameter_mock);
+
+				oneOf(owlModel_mock).getObjectProperty_isParameterOf();
+				will(returnValue(op_isParameterOf_mock));
+
+				oneOf(i_parameter_mock).addProperty(op_isParameterOf_mock, i_systemOperation_mock);
 			}
 		});
 
@@ -103,19 +116,19 @@ public class SystemOperationOWLSchemaTest {
 
 	@Test
 	public void parse() {
-		final Action action = new Action("operation-name");
-		final Map<String, String> actionParameters = new HashMap<>();
-		new SystemOperation(action, actionParameters);
 		final Individual i_systemOperation_mock = context.mock(Individual.class, "i-systemOperation");
 		final DatatypeProperty dp_name_mock = context.mock(DatatypeProperty.class, "dp-name");
 		final Statement st_name_mock = context.mock(Statement.class, "st-name");
-		final ObjectProperty op_hasActionParameters_mock = context.mock(ObjectProperty.class, "op-hasActionParameters");
-		context.mock(ObjectProperty.class, "op-areActionParametersOf");
-		final OntClass oc_actionParameters_mock = context.mock(OntClass.class, "oc-actionParameters");
+		final DatatypeProperty dp_key_mock = context.mock(DatatypeProperty.class, "dp-key");
+		final DatatypeProperty dp_value_mock = context.mock(DatatypeProperty.class, "dp-value");
+		final Statement st_key_mock = context.mock(Statement.class, "st-key");
+		final Statement st_value_mock = context.mock(Statement.class, "st-value");
+		final ObjectProperty op_hasParameter_mock = context.mock(ObjectProperty.class, "op-hasParameter");
+		final OntClass oc_parameter_mock = context.mock(OntClass.class, "oc-parameter");
 
-		final Individual i_actionParameters_mock = context.mock(Individual.class, "i-actionParameters");
-		final ExtendedIterator<Individual> actionParametersIterator = new NiceIterator<Individual>()
-				.andThen(Arrays.asList(i_actionParameters_mock).iterator());
+		final Individual i_parameter_mock = context.mock(Individual.class, "i-parameter");
+		final ExtendedIterator<Individual> parameterIterator = new NiceIterator<Individual>()
+				.andThen(Arrays.asList(i_parameter_mock).iterator());
 
 		context.checking(new Expectations() {
 			{
@@ -128,28 +141,40 @@ public class SystemOperationOWLSchemaTest {
 				oneOf(st_name_mock).getString();
 				will(returnValue("operation-name"));
 
-				oneOf(owlModel_mock).getClass_ActionParameters();
-				will(returnValue(oc_actionParameters_mock));
+				oneOf(owlModel_mock).getClass_Parameter();
+				will(returnValue(oc_parameter_mock));
 
-				oneOf(oc_actionParameters_mock).listInstances();
-				will(returnValue(actionParametersIterator));
+				oneOf(oc_parameter_mock).listInstances();
+				will(returnValue(parameterIterator));
 
-				oneOf(owlModel_mock).getObjectProperty_hasActionParameters();
-				will(returnValue(op_hasActionParameters_mock));
+				oneOf(owlModel_mock).getObjectProperty_hasParameter();
+				will(returnValue(op_hasParameter_mock));
 
-				oneOf(i_systemOperation_mock).hasProperty(op_hasActionParameters_mock, i_actionParameters_mock);
+				oneOf(i_systemOperation_mock).hasProperty(op_hasParameter_mock, i_parameter_mock);
 				will(returnValue(true));
 
-				oneOf(i_actionParameters_mock).asIndividual();
-				will(returnValue(i_actionParameters_mock));
+				oneOf(owlModel_mock).getDataProperty_key();
+				will(returnValue(dp_key_mock));
 
-				oneOf(actionParametersOWLSchema_mock).parse(i_actionParameters_mock);
-				will(returnValue(actionParameters));
+				oneOf(i_parameter_mock).getProperty(dp_key_mock);
+				will(returnValue(st_key_mock));
+
+				oneOf(st_key_mock).getString();
+				will(returnValue("parameter-name"));
+
+				oneOf(owlModel_mock).getDataProperty_value();
+				will(returnValue(dp_value_mock));
+
+				oneOf(i_parameter_mock).getProperty(dp_value_mock);
+				will(returnValue(st_value_mock));
+
+				oneOf(st_value_mock).getString();
+				will(returnValue("parameter-value"));
 			}
 		});
 
 		SystemOperation result = testable.parse(i_systemOperation_mock);
 		assertEquals("operation-name", result.getName());
-		assertEquals(actionParameters, result.getActionParameters());
+		assertEquals("parameter-value", result.getActionParameters().get("parameter-name"));
 	}
 }

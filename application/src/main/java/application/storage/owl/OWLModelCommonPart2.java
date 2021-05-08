@@ -19,12 +19,6 @@ public interface OWLModelCommonPart2 {
 
 	DatatypeProperty getDataProperty_name();
 
-	ObjectProperty getObjectProperty_hasActionParameters();
-
-	ObjectProperty getObjectProperty_areActionParametersOf();
-
-	OntClass getClass_ActionParameters();
-
 	OntClass getClass_Parameter();
 
 	DatatypeProperty getDataProperty_key();
@@ -36,8 +30,6 @@ public interface OWLModelCommonPart2 {
 	ObjectProperty getObjectProperty_isParameterOf();
 
 	Individual newIndividual_SystemOperation();
-
-	Individual newIndividual_ActionParameters();
 
 	Individual newIndividual_Parameter();
 

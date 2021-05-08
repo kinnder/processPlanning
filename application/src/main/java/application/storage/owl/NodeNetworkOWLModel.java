@@ -18,8 +18,6 @@ public class NodeNetworkOWLModel implements OWLModel<NodeNetwork>, OWLModelCommo
 
 	static final String NS = "https://github.com/kinnder/process-engineering/planning/node-network";
 
-	static final String URI_ActionParameters = NS + "#ActionParameters";
-
 	static final String URI_Attribute = NS + "#Attribute";
 
 	static final String URI_Edge = NS + "#Edge";
@@ -39,10 +37,6 @@ public class NodeNetworkOWLModel implements OWLModel<NodeNetwork>, OWLModelCommo
 	static final String URI_SystemObject = NS + "#SystemObject";
 
 	static final String URI_SystemOperation = NS + "#SystemOperation";
-
-	static final String URI_areActionParametersOf = NS + "#areActionParametersOf";
-
-	static final String URI_hasActionParameters = NS + "#hasActionParameters";
 
 	static final String URI_hasAttribute = NS + "#hasAttribute";
 
@@ -116,10 +110,6 @@ public class NodeNetworkOWLModel implements OWLModel<NodeNetwork>, OWLModelCommo
 
 		m.createOntology(NS);
 
-		class_ActionParameters = m.createClass(URI_ActionParameters);
-		class_ActionParameters.addLabel("Action Parameters", "en");
-		class_ActionParameters.addLabel("Параметры действия", "ru");
-
 		class_Attribute = m.createClass(URI_Attribute);
 		class_Attribute.addLabel("Attribute", "en");
 		class_Attribute.addLabel("Атрибут", "ru");
@@ -159,20 +149,6 @@ public class NodeNetworkOWLModel implements OWLModel<NodeNetwork>, OWLModelCommo
 		class_SystemOperation = m.createClass(URI_SystemOperation);
 		class_SystemOperation.addLabel("System Operation", "en");
 		class_SystemOperation.addLabel("Операция системы", "ru");
-
-		objectProperty_hasActionParameters = m.createObjectProperty(URI_hasActionParameters);
-		objectProperty_hasActionParameters.addLabel("has action parameters", "en");
-		objectProperty_hasActionParameters.addLabel("имеет параметры действия", "ru");
-		objectProperty_hasActionParameters.addDomain(class_SystemOperation);
-		objectProperty_hasActionParameters.addRange(class_ActionParameters);
-
-		objectProperty_areActionParametersOf = m.createObjectProperty(URI_areActionParametersOf);
-		objectProperty_areActionParametersOf.addLabel("are action parameters of", "en");
-		objectProperty_areActionParametersOf.addLabel("являются параметрами действиями для", "ru");
-		objectProperty_areActionParametersOf.addDomain(class_ActionParameters);
-		objectProperty_areActionParametersOf.addRange(class_SystemOperation);
-
-		makeInverse(objectProperty_hasActionParameters, objectProperty_areActionParametersOf);
 
 		objectProperty_hasAttribute = m.createObjectProperty(URI_hasAttribute);
 		objectProperty_hasAttribute.addLabel("has attribute", "en");
@@ -233,14 +209,14 @@ public class NodeNetworkOWLModel implements OWLModel<NodeNetwork>, OWLModelCommo
 		objectProperty_hasParameter = m.createObjectProperty(URI_hasParameter);
 		objectProperty_hasParameter.addLabel("has parameter", "en");
 		objectProperty_hasParameter.addLabel("имеет параметр", "ru");
-		objectProperty_hasParameter.addDomain(class_ActionParameters);
+		objectProperty_hasParameter.addDomain(class_SystemOperation);
 		objectProperty_hasParameter.addRange(class_Parameter);
 
 		objectProperty_isParameterOf = m.createObjectProperty(URI_isParameterOf);
 		objectProperty_isParameterOf.addLabel("is parameter of", "en");
 		objectProperty_isParameterOf.addLabel("является параметром для", "ru");
 		objectProperty_isParameterOf.addDomain(class_Parameter);
-		objectProperty_isParameterOf.addRange(class_ActionParameters);
+		objectProperty_isParameterOf.addRange(class_SystemOperation);
 
 		makeInverse(objectProperty_hasParameter, objectProperty_isParameterOf);
 
@@ -351,7 +327,6 @@ public class NodeNetworkOWLModel implements OWLModel<NodeNetwork>, OWLModelCommo
 	public void connectOntologyModel(OntModel ontModel) {
 		m = ontModel;
 
-		class_ActionParameters = m.getOntClass(URI_ActionParameters);
 		class_Attribute = m.getOntClass(URI_Attribute);
 		class_Edge = m.getOntClass(URI_Edge);
 		class_Link = m.getOntClass(URI_Link);
@@ -363,8 +338,6 @@ public class NodeNetworkOWLModel implements OWLModel<NodeNetwork>, OWLModelCommo
 		class_SystemObject = m.getOntClass(URI_SystemObject);
 		class_SystemOperation = m.getOntClass(URI_SystemOperation);
 
-		objectProperty_areActionParametersOf = m.getObjectProperty(URI_areActionParametersOf);
-		objectProperty_hasActionParameters = m.getObjectProperty(URI_hasActionParameters);
 		objectProperty_hasAttribute = m.getObjectProperty(URI_hasAttribute);
 		objectProperty_hasEdge = m.getObjectProperty(URI_hasEdge);
 		objectProperty_hasLink = m.getObjectProperty(URI_hasLink);
@@ -529,27 +502,6 @@ public class NodeNetworkOWLModel implements OWLModel<NodeNetwork>, OWLModelCommo
 		return dataProperty_name;
 	}
 
-	private ObjectProperty objectProperty_hasActionParameters;
-
-	@Override
-	public ObjectProperty getObjectProperty_hasActionParameters() {
-		return objectProperty_hasActionParameters;
-	}
-
-	private ObjectProperty objectProperty_areActionParametersOf;
-
-	@Override
-	public ObjectProperty getObjectProperty_areActionParametersOf() {
-		return objectProperty_areActionParametersOf;
-	}
-
-	private OntClass class_ActionParameters;
-
-	@Override
-	public OntClass getClass_ActionParameters() {
-		return class_ActionParameters;
-	}
-
 	private OntClass class_Parameter;
 
 	@Override
@@ -687,11 +639,6 @@ public class NodeNetworkOWLModel implements OWLModel<NodeNetwork>, OWLModelCommo
 	@Override
 	public Individual newIndividual_Attribute() {
 		return class_Attribute.createIndividual(getUniqueURI());
-	}
-
-	@Override
-	public Individual newIndividual_ActionParameters() {
-		return class_ActionParameters.createIndividual(getUniqueURI());
 	}
 
 	public Individual newIndividual_Edge() {

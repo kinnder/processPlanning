@@ -1,8 +1,6 @@
 package planning.model;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
-
 import java.util.Map;
 
 import org.jmock.Expectations;
@@ -50,13 +48,6 @@ public class SystemOperationTest {
 	@Test
 	public void getActionParameters() {
 		assertEquals(actionParameters_mock, testable.getActionParameters());
-	}
-
-	@Test
-	public void setActionParameters() {
-		testable.setActionParameters(null);
-
-		assertNull(testable.getActionParameters());
 	}
 
 	@Test

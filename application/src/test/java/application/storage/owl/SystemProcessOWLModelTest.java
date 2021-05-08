@@ -42,7 +42,6 @@ public class SystemProcessOWLModelTest {
 	public void createOntologyModel() {
 		testable.createOntologyModel();
 
-		assertEquals(SystemProcessOWLModel.URI_ActionParameters, testable.getClass_ActionParameters().getURI());
 		assertEquals(SystemProcessOWLModel.URI_Parameter, testable.getClass_Parameter().getURI());
 		assertEquals(SystemProcessOWLModel.URI_Process, testable.getClass_Process().getURI());
 		assertEquals(SystemProcessOWLModel.URI_SystemOperation, testable.getClass_SystemOperation().getURI());
@@ -51,10 +50,6 @@ public class SystemProcessOWLModelTest {
 		assertEquals(SystemProcessOWLModel.URI_name, testable.getDataProperty_name().getURI());
 		assertEquals(SystemProcessOWLModel.URI_value, testable.getDataProperty_value().getURI());
 
-		assertEquals(SystemProcessOWLModel.URI_areActionParametersOf,
-				testable.getObjectProperty_areActionParametersOf().getURI());
-		assertEquals(SystemProcessOWLModel.URI_hasActionParameters,
-				testable.getObjectProperty_hasActionParameters().getURI());
 		assertEquals(SystemProcessOWLModel.URI_hasParameter, testable.getObjectProperty_hasParameter().getURI());
 		assertEquals(SystemProcessOWLModel.URI_hasSystemOperation,
 				testable.getObjectProperty_hasSystemOperation().getURI());
@@ -70,7 +65,6 @@ public class SystemProcessOWLModelTest {
 
 		testable.connectOntologyModel(newOwlModel.getOntologyModel());
 
-		assertEquals(SystemProcessOWLModel.URI_ActionParameters, testable.getClass_ActionParameters().getURI());
 		assertEquals(SystemProcessOWLModel.URI_Parameter, testable.getClass_Parameter().getURI());
 		assertEquals(SystemProcessOWLModel.URI_Process, testable.getClass_Process().getURI());
 		assertEquals(SystemProcessOWLModel.URI_SystemOperation, testable.getClass_SystemOperation().getURI());
@@ -79,10 +73,6 @@ public class SystemProcessOWLModelTest {
 		assertEquals(SystemProcessOWLModel.URI_name, testable.getDataProperty_name().getURI());
 		assertEquals(SystemProcessOWLModel.URI_value, testable.getDataProperty_value().getURI());
 
-		assertEquals(SystemProcessOWLModel.URI_areActionParametersOf,
-				testable.getObjectProperty_areActionParametersOf().getURI());
-		assertEquals(SystemProcessOWLModel.URI_hasActionParameters,
-				testable.getObjectProperty_hasActionParameters().getURI());
 		assertEquals(SystemProcessOWLModel.URI_hasParameter, testable.getObjectProperty_hasParameter().getURI());
 		assertEquals(SystemProcessOWLModel.URI_hasSystemOperation,
 				testable.getObjectProperty_hasSystemOperation().getURI());
@@ -99,10 +89,6 @@ public class SystemProcessOWLModelTest {
 	@Test
 	public void newIndividual() {
 		testable.createOntologyModel();
-
-		Individual actionParameters = testable.newIndividual_ActionParameters();
-		assertEquals(actionParameters.getOntClass(), testable.getClass_ActionParameters());
-		assertNotEquals(actionParameters.getURI(), testable.newIndividual_ActionParameters().getURI());
 
 		Individual parameter = testable.newIndividual_Parameter();
 		assertEquals(parameter.getOntClass(), testable.getClass_Parameter());

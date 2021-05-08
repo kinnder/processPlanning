@@ -1,5 +1,6 @@
 package application.storage.owl;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.jena.ontology.Individual;
@@ -11,15 +12,8 @@ public class SystemOperationOWLSchema implements OWLSchema<SystemOperation> {
 
 	private OWLModelCommonPart2 owlModel;
 
-	private ActionParametersOWLSchema actionParametersOWLSchema;
-
 	public SystemOperationOWLSchema(OWLModelCommonPart2 owlModel) {
-		this(owlModel, new ActionParametersOWLSchema(owlModel));
-	}
-
-	SystemOperationOWLSchema(OWLModelCommonPart2 owlModel, ActionParametersOWLSchema actionParametersOWLSchema) {
 		this.owlModel = owlModel;
-		this.actionParametersOWLSchema = actionParametersOWLSchema;
 	}
 
 	@Override
@@ -29,9 +23,16 @@ public class SystemOperationOWLSchema implements OWLSchema<SystemOperation> {
 		ind_systemOperation.addLabel("Операция системы", "ru");
 		ind_systemOperation.addProperty(owlModel.getDataProperty_name(), systemOperation.getName());
 
-		Individual ind_actionParameters = actionParametersOWLSchema.combine(systemOperation.getActionParameters());
-		ind_systemOperation.addProperty(owlModel.getObjectProperty_hasActionParameters(), ind_actionParameters);
-		ind_actionParameters.addProperty(owlModel.getObjectProperty_areActionParametersOf(), ind_systemOperation);
+		Map<String, String> actionParameters = systemOperation.getActionParameters();
+		for (String key : actionParameters.keySet()) {
+			Individual ind_parameter = owlModel.newIndividual_Parameter();
+			ind_parameter.addLabel("Parameter", "en");
+			ind_parameter.addLabel("Параметр", "ru");
+			ind_parameter.addProperty(owlModel.getDataProperty_key(), key);
+			ind_parameter.addProperty(owlModel.getDataProperty_value(), actionParameters.get(key));
+			ind_systemOperation.addProperty(owlModel.getObjectProperty_hasParameter(), ind_parameter);
+			ind_parameter.addProperty(owlModel.getObjectProperty_isParameterOf(), ind_systemOperation);
+		}
 
 		return ind_systemOperation;
 	}
@@ -40,15 +41,15 @@ public class SystemOperationOWLSchema implements OWLSchema<SystemOperation> {
 	public SystemOperation parse(Individual ind_systemOperation) {
 		String name = ind_systemOperation.getProperty(owlModel.getDataProperty_name()).getString();
 
-		SystemOperation systemOperation = new SystemOperation(new Action(name), null);
-
-		owlModel.getClass_ActionParameters().listInstances().filterKeep((ind_actionParamteres) -> {
-			return ind_systemOperation.hasProperty(owlModel.getObjectProperty_hasActionParameters(), ind_actionParamteres);
-		}).forEachRemaining((ind_actionParameters) -> {
-			Map<String, String> actionParameters = actionParametersOWLSchema.parse(ind_actionParameters.asIndividual());
-			systemOperation.setActionParameters(actionParameters);
+		Map<String, String> actionParameters = new HashMap<>();
+		owlModel.getClass_Parameter().listInstances().filterKeep((ind_parameter) -> {
+			return ind_systemOperation.hasProperty(owlModel.getObjectProperty_hasParameter(), ind_parameter);
+		}).forEachRemaining((ind_parameter) -> {
+			String parameterName = ind_parameter.getProperty(owlModel.getDataProperty_key()).getString();
+			String parameterValue = ind_parameter.getProperty(owlModel.getDataProperty_value()).getString();
+			actionParameters.put(parameterName, parameterValue);
 		});
 
-		return systemOperation;
+		return new SystemOperation(new Action(name), actionParameters);
 	}
 }
