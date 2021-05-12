@@ -56,9 +56,9 @@ public class LinkTransformationOWLSchemTest {
 				oneOf(owlModel_mock).newIndividual_LinkTransformation();
 				will(returnValue(i_linkTransformation_mock));
 
-				oneOf(i_linkTransformation_mock).addLabel("Link transformation", "en");
+				oneOf(i_linkTransformation_mock).addLabel("Link transformation \"link-name\"", "en");
 
-				oneOf(i_linkTransformation_mock).addLabel("Трансформация связи", "ru");
+				oneOf(i_linkTransformation_mock).addLabel("Трансформация связи \"link-name\"", "ru");
 
 				oneOf(owlModel_mock).getDataProperty_objectId();
 				will(returnValue(dp_objectId_mock));
@@ -97,9 +97,9 @@ public class LinkTransformationOWLSchemTest {
 				oneOf(owlModel_mock).newIndividual_LinkTransformation();
 				will(returnValue(i_linkTransformation_mock));
 
-				oneOf(i_linkTransformation_mock).addLabel("Link transformation", "en");
+				oneOf(i_linkTransformation_mock).addLabel("Link transformation \"link-name\"", "en");
 
-				oneOf(i_linkTransformation_mock).addLabel("Трансформация связи", "ru");
+				oneOf(i_linkTransformation_mock).addLabel("Трансформация связи \"link-name\"", "ru");
 
 				oneOf(owlModel_mock).getDataProperty_objectId();
 				will(returnValue(dp_objectId_mock));

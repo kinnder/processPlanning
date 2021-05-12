@@ -74,9 +74,9 @@ public class SystemObjectTemplateOWLSchemaTest {
 				oneOf(owlModel_mock).newIndividual_ObjectTemplate();
 				will(returnValue(i_systemObjectTemplate_mock));
 
-				oneOf(i_systemObjectTemplate_mock).addLabel("Шаблон объекта", "ru");
+				oneOf(i_systemObjectTemplate_mock).addLabel("Шаблон объекта \"template-id\"", "ru");
 
-				oneOf(i_systemObjectTemplate_mock).addLabel("Object template", "en");
+				oneOf(i_systemObjectTemplate_mock).addLabel("Object template \"template-id\"", "en");
 
 				oneOf(owlModel_mock).getDataProperty_objectId();
 				will(returnValue(dp_objectId_mock));

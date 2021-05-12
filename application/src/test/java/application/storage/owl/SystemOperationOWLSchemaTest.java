@@ -73,9 +73,9 @@ public class SystemOperationOWLSchemaTest {
 				oneOf(owlModel_mock).newIndividual_SystemOperation();
 				will(returnValue(i_systemOperation_mock));
 
-				oneOf(i_systemOperation_mock).addLabel("System operation", "en");
+				oneOf(i_systemOperation_mock).addLabel("System operation \"operation-name\"", "en");
 
-				oneOf(i_systemOperation_mock).addLabel("Операция системы", "ru");
+				oneOf(i_systemOperation_mock).addLabel("Операция системы \"operation-name\"", "ru");
 
 				oneOf(owlModel_mock).getDataProperty_name();
 				will(returnValue(dp_name_mock));
@@ -85,9 +85,9 @@ public class SystemOperationOWLSchemaTest {
 				oneOf(owlModel_mock).newIndividual_Parameter();
 				will(returnValue(i_parameter_mock));
 
-				oneOf(i_parameter_mock).addLabel("Parameter", "en");
+				oneOf(i_parameter_mock).addLabel("Parameter \"parameter-name\"", "en");
 
-				oneOf(i_parameter_mock).addLabel("Параметр", "ru");
+				oneOf(i_parameter_mock).addLabel("Параметр \"parameter-name\"", "ru");
 
 				oneOf(owlModel_mock).getDataProperty_key();
 				will(returnValue(dp_key_mock));

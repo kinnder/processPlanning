@@ -19,9 +19,10 @@ public class AttributeTemplateOWLSchema implements OWLSchema<AttributeTemplate> 
 	@Override
 	public Individual combine(AttributeTemplate attributeTemplate) {
 		Individual ind_attributeTemplate = owlModel.newIndividual_AttributeTemplate();
-		ind_attributeTemplate.addLabel("Attribute template", "en");
-		ind_attributeTemplate.addLabel("Шаблон атрибута", "ru");
-		ind_attributeTemplate.addProperty(owlModel.getDataProperty_name(), attributeTemplate.getName());
+		String name = attributeTemplate.getName();
+		ind_attributeTemplate.addLabel(String.format("Attribute template \"%s\"", name), "en");
+		ind_attributeTemplate.addLabel(String.format("Шаблон атрибута \"%s\"", name), "ru");
+		ind_attributeTemplate.addProperty(owlModel.getDataProperty_name(), name);
 		Object value = attributeTemplate.getValue();
 		if (value instanceof Boolean) {
 			ind_attributeTemplate.addProperty(owlModel.getDataProperty_value(), value.toString(), XSDDatatype.XSDboolean);

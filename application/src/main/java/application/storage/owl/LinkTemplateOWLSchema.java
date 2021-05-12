@@ -16,9 +16,10 @@ public class LinkTemplateOWLSchema implements OWLSchema<LinkTemplate> {
 	@Override
 	public Individual combine(LinkTemplate linkTemplate) {
 		Individual ind_linkTemplate = owlModel.newIndividual_LinkTemplate();
-		ind_linkTemplate.addLabel("Link template", "en");
-		ind_linkTemplate.addLabel("Шаблон связи", "ru");
-		ind_linkTemplate.addProperty(owlModel.getDataProperty_name(), linkTemplate.getName());
+		String name = linkTemplate.getName();
+		ind_linkTemplate.addLabel(String.format("Link template \"%s\"", name), "en");
+		ind_linkTemplate.addLabel(String.format("Шаблон связи \"%s\"", name), "ru");
+		ind_linkTemplate.addProperty(owlModel.getDataProperty_name(), name);
 		String objectId1 = linkTemplate.getObjectId1();
 		if (objectId1 != null) {
 			ind_linkTemplate.addProperty(owlModel.getDataProperty_objectId1(), objectId1);

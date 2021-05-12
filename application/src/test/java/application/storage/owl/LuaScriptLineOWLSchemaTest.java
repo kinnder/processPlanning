@@ -53,9 +53,9 @@ public class LuaScriptLineOWLSchemaTest {
 				oneOf(owlModel_mock).newIndividual_Line();
 				will(returnValue(i_line_mock));
 
-				oneOf(i_line_mock).addLabel("Линия", "ru");
+				oneOf(i_line_mock).addLabel("Линия \"1\"", "ru");
 
-				oneOf(i_line_mock).addLabel("Line", "en");
+				oneOf(i_line_mock).addLabel("Line \"1\"", "en");
 
 				oneOf(owlModel_mock).getDataProperty_text();
 				will(returnValue(dp_text_mock));

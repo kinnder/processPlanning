@@ -73,9 +73,9 @@ public class SystemObjectOWLSchemaTest {
 				oneOf(owlModel_mock).newIndividual_SystemObject();
 				will(returnValue(i_systemObject_mock));
 
-				oneOf(i_systemObject_mock).addLabel("System Object", "en");
+				oneOf(i_systemObject_mock).addLabel("System Object \"object-name\"", "en");
 
-				oneOf(i_systemObject_mock).addLabel("Объект системы", "ru");
+				oneOf(i_systemObject_mock).addLabel("Объект системы \"object-name\"", "ru");
 
 				oneOf(owlModel_mock).getDataProperty_name();
 				will(returnValue(dp_name_mock));

@@ -233,7 +233,7 @@ public class NodeNetworkOWLSchemaTest {
 		owlSchema.combine(nodeNetwork);
 		OntModel model = owlModel.getOntologyModel();
 		assertNotNull(model);
-		assertEquals(266, model.listObjects().toList().size());
+		assertEquals(319, model.listObjects().toList().size());
 		assertEquals(1501, model.listStatements().toList().size());
 
 //		 TODO (2021-03-13 #31): удалить

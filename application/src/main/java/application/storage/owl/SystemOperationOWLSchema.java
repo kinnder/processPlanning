@@ -19,15 +19,16 @@ public class SystemOperationOWLSchema implements OWLSchema<SystemOperation> {
 	@Override
 	public Individual combine(SystemOperation systemOperation) {
 		Individual ind_systemOperation = owlModel.newIndividual_SystemOperation();
-		ind_systemOperation.addLabel("System operation", "en");
-		ind_systemOperation.addLabel("Операция системы", "ru");
-		ind_systemOperation.addProperty(owlModel.getDataProperty_name(), systemOperation.getName());
+		String name = systemOperation.getName();
+		ind_systemOperation.addLabel(String.format("System operation \"%s\"", name), "en");
+		ind_systemOperation.addLabel(String.format("Операция системы \"%s\"", name), "ru");
+		ind_systemOperation.addProperty(owlModel.getDataProperty_name(), name);
 
 		Map<String, String> actionParameters = systemOperation.getActionParameters();
 		for (String key : actionParameters.keySet()) {
 			Individual ind_parameter = owlModel.newIndividual_Parameter();
-			ind_parameter.addLabel("Parameter", "en");
-			ind_parameter.addLabel("Параметр", "ru");
+			ind_parameter.addLabel(String.format("Parameter \"%s\"", key), "en");
+			ind_parameter.addLabel(String.format("Параметр \"%s\"", key), "ru");
 			ind_parameter.addProperty(owlModel.getDataProperty_key(), key);
 			ind_parameter.addProperty(owlModel.getDataProperty_value(), actionParameters.get(key));
 			ind_systemOperation.addProperty(owlModel.getObjectProperty_hasParameter(), ind_parameter);

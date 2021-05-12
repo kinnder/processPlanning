@@ -16,10 +16,11 @@ public class LinkTransformationOWLSchema implements OWLSchema<LinkTransformation
 	@Override
 	public Individual combine(LinkTransformation linkTransformation) {
 		Individual ind_linkTransformation = owlModel.newIndividual_LinkTransformation();
-		ind_linkTransformation.addLabel("Link transformation", "en");
-		ind_linkTransformation.addLabel("Трансформация связи", "ru");
+		String name = linkTransformation.getLinkName();
+		ind_linkTransformation.addLabel(String.format("Link transformation \"%s\"", name), "en");
+		ind_linkTransformation.addLabel(String.format("Трансформация связи \"%s\"", name), "ru");
 		ind_linkTransformation.addProperty(owlModel.getDataProperty_objectId(), linkTransformation.getObjectId());
-		ind_linkTransformation.addProperty(owlModel.getDataProperty_name(), linkTransformation.getLinkName());
+		ind_linkTransformation.addProperty(owlModel.getDataProperty_name(), name);
 		String objectIdOld = linkTransformation.getLinkObjectId2Old();
 		if (objectIdOld != null) {
 			ind_linkTransformation.addProperty(owlModel.getDataProperty_oldValue(), objectIdOld);

@@ -19,10 +19,11 @@ public class AttributeTransformationOWLSchema implements OWLSchema<AttributeTran
 	@Override
 	public Individual combine(AttributeTransformation attributeTransformation) {
 		Individual ind_attributeTransformation = owlModel.newIndividual_AttributeTransformation();
-		ind_attributeTransformation.addLabel("Трансформация атрибута", "ru");
-		ind_attributeTransformation.addLabel("Attribute transformation", "en");
+		String name = attributeTransformation.getAttributeName();
+		ind_attributeTransformation.addLabel(String.format("Трансформация атрибута \"%s\"", name), "ru");
+		ind_attributeTransformation.addLabel(String.format("Attribute transformation \"%s\"", name), "en");
 		ind_attributeTransformation.addProperty(owlModel.getDataProperty_objectId(), attributeTransformation.getObjectId());
-		ind_attributeTransformation.addProperty(owlModel.getDataProperty_name(), attributeTransformation.getAttributeName());
+		ind_attributeTransformation.addProperty(owlModel.getDataProperty_name(), name);
 		Object value = attributeTransformation.getAttributeValue();
 		if (value instanceof Boolean) {
 			ind_attributeTransformation.addProperty(owlModel.getDataProperty_value(), value.toString(), XSDDatatype.XSDboolean);

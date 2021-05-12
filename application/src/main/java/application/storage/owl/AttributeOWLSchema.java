@@ -19,9 +19,10 @@ public class AttributeOWLSchema implements OWLSchema<Attribute> {
 	@Override
 	public Individual combine(Attribute attribute) {
 		Individual ind_attribute = owlModel.newIndividual_Attribute();
-		ind_attribute.addLabel("Атрибут", "ru");
-		ind_attribute.addLabel("Attribute", "en");
-		ind_attribute.addProperty(owlModel.getDataProperty_name(), attribute.getName());
+		String name = attribute.getName();
+		ind_attribute.addLabel(String.format("Атрибут \"%s\"", name), "ru");
+		ind_attribute.addLabel(String.format("Attribute \"%s\"", name), "en");
+		ind_attribute.addProperty(owlModel.getDataProperty_name(), name);
 		Object value = attribute.getValue();
 		if (value instanceof Boolean) {
 			ind_attribute.addProperty(owlModel.getDataProperty_value(), value.toString(), XSDDatatype.XSDboolean);

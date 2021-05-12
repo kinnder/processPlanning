@@ -26,7 +26,10 @@ public class ActionOWLSchema implements OWLSchema<Action> {
 	@Override
 	public Individual combine(Action action) {
 		Individual ind_action = owlModel.newIndividual_Action();
-		ind_action.addProperty(owlModel.getDataProperty_name(), action.getName());
+		String name = action.getName();
+		ind_action.addLabel(String.format("Действие \"%s\"", name), "ru");
+		ind_action.addLabel(String.format("Action \"%s\"", name), "en");
+		ind_action.addProperty(owlModel.getDataProperty_name(), name);
 		for (ActionPreConditionChecker preConditionChecker : action.getPreConditionCheckers()) {
 			Individual ind_preConditionChecker = preConditionCheckerOWLSchema.combine(preConditionChecker);
 			ind_action.addProperty(owlModel.getObjectProperty_hasPreConditionChecker(), ind_preConditionChecker);

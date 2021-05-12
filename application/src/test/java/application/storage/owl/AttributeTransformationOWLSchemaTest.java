@@ -56,9 +56,9 @@ public class AttributeTransformationOWLSchemaTest {
 				oneOf(owlModel_mock).newIndividual_AttributeTransformation();
 				will(returnValue(i_attributeTransformation_mock));
 
-				oneOf(i_attributeTransformation_mock).addLabel("Трансформация атрибута", "ru");
+				oneOf(i_attributeTransformation_mock).addLabel("Трансформация атрибута \"attribute-name\"", "ru");
 
-				oneOf(i_attributeTransformation_mock).addLabel("Attribute transformation", "en");
+				oneOf(i_attributeTransformation_mock).addLabel("Attribute transformation \"attribute-name\"", "en");
 
 				oneOf(owlModel_mock).getDataProperty_objectId();
 				will(returnValue(dp_objectId_mock));
@@ -89,9 +89,9 @@ public class AttributeTransformationOWLSchemaTest {
 				oneOf(owlModel_mock).newIndividual_AttributeTransformation();
 				will(returnValue(i_attributeTransformation_mock));
 
-				oneOf(i_attributeTransformation_mock).addLabel("Трансформация атрибута", "ru");
+				oneOf(i_attributeTransformation_mock).addLabel("Трансформация атрибута \"attribute-name\"", "ru");
 
-				oneOf(i_attributeTransformation_mock).addLabel("Attribute transformation", "en");
+				oneOf(i_attributeTransformation_mock).addLabel("Attribute transformation \"attribute-name\"", "en");
 
 				oneOf(owlModel_mock).getDataProperty_objectId();
 				will(returnValue(dp_objectId_mock));
@@ -127,9 +127,9 @@ public class AttributeTransformationOWLSchemaTest {
 				oneOf(owlModel_mock).newIndividual_AttributeTransformation();
 				will(returnValue(i_attributeTransformation_mock));
 
-				oneOf(i_attributeTransformation_mock).addLabel("Трансформация атрибута", "ru");
+				oneOf(i_attributeTransformation_mock).addLabel("Трансформация атрибута \"attribute-name\"", "ru");
 
-				oneOf(i_attributeTransformation_mock).addLabel("Attribute transformation", "en");
+				oneOf(i_attributeTransformation_mock).addLabel("Attribute transformation \"attribute-name\"", "en");
 
 				oneOf(owlModel_mock).getDataProperty_objectId();
 				will(returnValue(dp_objectId_mock));
@@ -165,9 +165,9 @@ public class AttributeTransformationOWLSchemaTest {
 				oneOf(owlModel_mock).newIndividual_AttributeTransformation();
 				will(returnValue(i_attributeTransformation_mock));
 
-				oneOf(i_attributeTransformation_mock).addLabel("Трансформация атрибута", "ru");
+				oneOf(i_attributeTransformation_mock).addLabel("Трансформация атрибута \"attribute-name\"", "ru");
 
-				oneOf(i_attributeTransformation_mock).addLabel("Attribute transformation", "en");
+				oneOf(i_attributeTransformation_mock).addLabel("Attribute transformation \"attribute-name\"", "en");
 
 				oneOf(owlModel_mock).getDataProperty_objectId();
 				will(returnValue(dp_objectId_mock));

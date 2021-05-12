@@ -54,9 +54,9 @@ public class LinkTemplateOWLSchemaTest {
 				oneOf(owlModel_mock).newIndividual_LinkTemplate();
 				will(returnValue(i_linkTemplate_mock));
 
-				oneOf(i_linkTemplate_mock).addLabel("Link template", "en");
+				oneOf(i_linkTemplate_mock).addLabel("Link template \"link-name\"", "en");
 
-				oneOf(i_linkTemplate_mock).addLabel("Шаблон связи", "ru");
+				oneOf(i_linkTemplate_mock).addLabel("Шаблон связи \"link-name\"", "ru");
 
 				oneOf(owlModel_mock).getDataProperty_name();
 				will(returnValue(dp_name_mock));
@@ -89,9 +89,9 @@ public class LinkTemplateOWLSchemaTest {
 				oneOf(owlModel_mock).newIndividual_LinkTemplate();
 				will(returnValue(i_linkTemplate_mock));
 
-				oneOf(i_linkTemplate_mock).addLabel("Link template", "en");
+				oneOf(i_linkTemplate_mock).addLabel("Link template \"link-name\"", "en");
 
-				oneOf(i_linkTemplate_mock).addLabel("Шаблон связи", "ru");
+				oneOf(i_linkTemplate_mock).addLabel("Шаблон связи \"link-name\"", "ru");
 
 				oneOf(owlModel_mock).getDataProperty_name();
 				will(returnValue(dp_name_mock));

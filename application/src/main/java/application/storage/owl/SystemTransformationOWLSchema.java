@@ -32,7 +32,10 @@ public class SystemTransformationOWLSchema implements OWLSchema<SystemTransforma
 	@Override
 	public Individual combine(SystemTransformation systemTransformation) {
 		Individual ind_systemTransformation = owlModel.newIndividual_SystemTransformation();
-		ind_systemTransformation.addProperty(owlModel.getDataProperty_name(), systemTransformation.getName());
+		String name = systemTransformation.getName();
+		ind_systemTransformation.addLabel(String.format("System Transformation \"%s\"", name), "en");
+		ind_systemTransformation.addLabel(String.format("Трансформация системы \"%s\"", name), "ru");
+		ind_systemTransformation.addProperty(owlModel.getDataProperty_name(), name);
 
 		Individual ind_action = actionOWLSchema.combine(systemTransformation.getAction());
 		ind_action.addProperty(owlModel.getObjectProperty_isActionOf(), ind_systemTransformation);

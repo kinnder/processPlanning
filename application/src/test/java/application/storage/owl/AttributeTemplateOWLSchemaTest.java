@@ -54,9 +54,9 @@ public class AttributeTemplateOWLSchemaTest {
 				oneOf(owlModel_mock).newIndividual_AttributeTemplate();
 				will(returnValue(i_attributeTemplate_mock));
 
-				oneOf(i_attributeTemplate_mock).addLabel("Attribute template", "en");
+				oneOf(i_attributeTemplate_mock).addLabel("Attribute template \"attribute-name\"", "en");
 
-				oneOf(i_attributeTemplate_mock).addLabel("Шаблон атрибута", "ru");
+				oneOf(i_attributeTemplate_mock).addLabel("Шаблон атрибута \"attribute-name\"", "ru");
 
 				oneOf(owlModel_mock).getDataProperty_name();
 				will(returnValue(dp_name_mock));
@@ -80,9 +80,9 @@ public class AttributeTemplateOWLSchemaTest {
 				oneOf(owlModel_mock).newIndividual_AttributeTemplate();
 				will(returnValue(i_attributeTemplate_mock));
 
-				oneOf(i_attributeTemplate_mock).addLabel("Attribute template", "en");
+				oneOf(i_attributeTemplate_mock).addLabel("Attribute template \"attribute-name\"", "en");
 
-				oneOf(i_attributeTemplate_mock).addLabel("Шаблон атрибута", "ru");
+				oneOf(i_attributeTemplate_mock).addLabel("Шаблон атрибута \"attribute-name\"", "ru");
 
 				oneOf(owlModel_mock).getDataProperty_name();
 				will(returnValue(dp_name_mock));
@@ -111,9 +111,9 @@ public class AttributeTemplateOWLSchemaTest {
 				oneOf(owlModel_mock).newIndividual_AttributeTemplate();
 				will(returnValue(i_attributeTemplate_mock));
 
-				oneOf(i_attributeTemplate_mock).addLabel("Attribute template", "en");
+				oneOf(i_attributeTemplate_mock).addLabel("Attribute template \"attribute-name\"", "en");
 
-				oneOf(i_attributeTemplate_mock).addLabel("Шаблон атрибута", "ru");
+				oneOf(i_attributeTemplate_mock).addLabel("Шаблон атрибута \"attribute-name\"", "ru");
 
 				oneOf(owlModel_mock).getDataProperty_name();
 				will(returnValue(dp_name_mock));
@@ -142,9 +142,9 @@ public class AttributeTemplateOWLSchemaTest {
 				oneOf(owlModel_mock).newIndividual_AttributeTemplate();
 				will(returnValue(i_attributeTemplate_mock));
 
-				oneOf(i_attributeTemplate_mock).addLabel("Attribute template", "en");
+				oneOf(i_attributeTemplate_mock).addLabel("Attribute template \"attribute-name\"", "en");
 
-				oneOf(i_attributeTemplate_mock).addLabel("Шаблон атрибута", "ru");
+				oneOf(i_attributeTemplate_mock).addLabel("Шаблон атрибута \"attribute-name\"", "ru");
 
 				oneOf(owlModel_mock).getDataProperty_name();
 				will(returnValue(dp_name_mock));

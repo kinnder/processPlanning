@@ -16,9 +16,10 @@ public class LinkOWLSchema implements OWLSchema<Link> {
 	@Override
 	public Individual combine(Link link) {
 		Individual ind_link = owlModel.newIndividual_Link();
-		ind_link.addLabel("Link", "en");
-		ind_link.addLabel("Связь", "ru");
-		ind_link.addProperty(owlModel.getDataProperty_name(), link.getName());
+		String name = link.getName();
+		ind_link.addLabel(String.format("Link \"%s\"", name), "en");
+		ind_link.addLabel(String.format("Связь \"%s\"", name), "ru");
+		ind_link.addProperty(owlModel.getDataProperty_name(), name);
 		String objectId1 = link.getObjectId1();
 		if (objectId1 != null) {
 			ind_link.addProperty(owlModel.getDataProperty_objectId1(), objectId1);

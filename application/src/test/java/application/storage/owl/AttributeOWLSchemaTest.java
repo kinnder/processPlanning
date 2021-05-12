@@ -54,9 +54,9 @@ public class AttributeOWLSchemaTest {
 				oneOf(owlModel_mock).newIndividual_Attribute();
 				will(returnValue(i_attribute_mock));
 
-				oneOf(i_attribute_mock).addLabel("Атрибут", "ru");
+				oneOf(i_attribute_mock).addLabel("Атрибут \"attribute-name\"", "ru");
 
-				oneOf(i_attribute_mock).addLabel("Attribute", "en");
+				oneOf(i_attribute_mock).addLabel("Attribute \"attribute-name\"", "en");
 
 				oneOf(owlModel_mock).getDataProperty_name();
 				will(returnValue(dp_name_mock));
@@ -80,9 +80,9 @@ public class AttributeOWLSchemaTest {
 				oneOf(owlModel_mock).newIndividual_Attribute();
 				will(returnValue(i_attribute_mock));
 
-				oneOf(i_attribute_mock).addLabel("Атрибут", "ru");
+				oneOf(i_attribute_mock).addLabel("Атрибут \"attribute-name\"", "ru");
 
-				oneOf(i_attribute_mock).addLabel("Attribute", "en");
+				oneOf(i_attribute_mock).addLabel("Attribute \"attribute-name\"", "en");
 
 				oneOf(owlModel_mock).getDataProperty_name();
 				will(returnValue(dp_name_mock));
@@ -111,9 +111,9 @@ public class AttributeOWLSchemaTest {
 				oneOf(owlModel_mock).newIndividual_Attribute();
 				will(returnValue(i_attribute_mock));
 
-				oneOf(i_attribute_mock).addLabel("Атрибут", "ru");
+				oneOf(i_attribute_mock).addLabel("Атрибут \"attribute-name\"", "ru");
 
-				oneOf(i_attribute_mock).addLabel("Attribute", "en");
+				oneOf(i_attribute_mock).addLabel("Attribute \"attribute-name\"", "en");
 
 				oneOf(owlModel_mock).getDataProperty_name();
 				will(returnValue(dp_name_mock));
@@ -142,9 +142,9 @@ public class AttributeOWLSchemaTest {
 				oneOf(owlModel_mock).newIndividual_Attribute();
 				will(returnValue(i_attribute_mock));
 
-				oneOf(i_attribute_mock).addLabel("Атрибут", "ru");
+				oneOf(i_attribute_mock).addLabel("Атрибут \"attribute-name\"", "ru");
 
-				oneOf(i_attribute_mock).addLabel("Attribute", "en");
+				oneOf(i_attribute_mock).addLabel("Attribute \"attribute-name\"", "en");
 
 				oneOf(owlModel_mock).getDataProperty_name();
 				will(returnValue(dp_name_mock));

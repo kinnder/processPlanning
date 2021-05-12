@@ -88,6 +88,10 @@ public class ActionOWLSchemaTest {
 				oneOf(owlModel_mock).getDataProperty_name();
 				will(returnValue(dp_name_mock));
 
+				oneOf(i_action_mock).addLabel("Действие \"action-name\"", "ru");
+
+				oneOf(i_action_mock).addLabel("Action \"action-name\"", "en");
+
 				oneOf(i_action_mock).addProperty(dp_name_mock, "action-name");
 
 				oneOf(preConditionCheckerOWLSchema_mock).combine(actionPreConditionChecker_mock);

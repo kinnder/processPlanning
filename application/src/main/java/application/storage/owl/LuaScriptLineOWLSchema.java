@@ -15,10 +15,11 @@ public class LuaScriptLineOWLSchema implements OWLSchema<LuaScriptLine> {
 	@Override
 	public Individual combine(LuaScriptLine scriptLine) {
 		Individual ind_line = owlModel.newIndividual_Line();
-		ind_line.addLabel("Линия" , "ru");
-		ind_line.addLabel("Line", "en");
+		String number = scriptLine.getNumber().toString();
+		ind_line.addLabel(String.format("Линия \"%s\"", number), "ru");
+		ind_line.addLabel(String.format("Line \"%s\"", number), "en");
 		ind_line.addProperty(owlModel.getDataProperty_text(), scriptLine.getText());
-		ind_line.addProperty(owlModel.getDataProperty_number(), scriptLine.getNumber().toString(), XSDDatatype.XSDinteger);
+		ind_line.addProperty(owlModel.getDataProperty_number(), number, XSDDatatype.XSDinteger);
 		return ind_line;
 	}
 

@@ -91,6 +91,10 @@ public class SystemTransformationOWLSchemaTest {
 				oneOf(owlModel_mock).getDataProperty_name();
 				will(returnValue(dp_name_mock));
 
+				oneOf(i_systemTransformation_mock).addLabel("System Transformation \"system-transformation\"", "en");
+
+				oneOf(i_systemTransformation_mock).addLabel("Трансформация системы \"system-transformation\"", "ru");
+
 				oneOf(i_systemTransformation_mock).addProperty(dp_name_mock, "system-transformation");
 
 				oneOf(actionOWLSchema_mock).combine(action_mock);
