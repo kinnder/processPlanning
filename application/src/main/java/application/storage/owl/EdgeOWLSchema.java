@@ -26,12 +26,26 @@ public class EdgeOWLSchema implements OWLSchema<Edge> {
 		ind_edge.addLabel("Edge", "en");
 		ind_edge.addLabel("Ребро", "ru");
 		ind_edge.addProperty(owlModel.getDataProperty_id(), edge.getId());
-		ind_edge.addProperty(owlModel.getDataProperty_beginNodeId(), edge.getBeginNodeId());
-		ind_edge.addProperty(owlModel.getDataProperty_endNodeId(), edge.getEndNodeId());
+		String beginNodeId = edge.getBeginNodeId();
+		String endNodeId = edge.getEndNodeId();
+		ind_edge.addProperty(owlModel.getDataProperty_beginNodeId(), beginNodeId);
+		ind_edge.addProperty(owlModel.getDataProperty_endNodeId(), endNodeId);
 
 		Individual ind_systemOperation = systemOperationOWLSchema.combine(edge.getSystemOperation());
 		ind_edge.addProperty(owlModel.getObjectProperty_hasSystemOperation(), ind_systemOperation);
 		ind_systemOperation.addProperty(owlModel.getObjectProperty_isSystemOperationOf(), ind_edge);
+
+		owlModel.getClass_Node().listInstances().toList().forEach((ind_node) -> {
+			String nodeId = ind_node.getProperty(owlModel.getDataProperty_id()).getString();
+			if (nodeId.equals(beginNodeId)) {
+				ind_edge.addProperty(owlModel.getObjectProperty_hasBeginNode(), ind_node);
+				ind_node.addProperty(owlModel.getObjectProperty_isBeginNodeOf(), ind_edge);
+			}
+			if (nodeId.equals(endNodeId)) {
+				ind_edge.addProperty(owlModel.getObjectProperty_hasEndNode(), ind_node);
+				ind_node.addProperty(owlModel.getObjectProperty_isEndNodeOf(), ind_edge);
+			}
+		});
 
 		return ind_edge;
 	}

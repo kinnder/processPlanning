@@ -71,6 +71,8 @@ public class NodeNetworkOWLModelTest {
 		assertEquals(NodeNetworkOWLModel.URI_hasSystem, testable.getObjectProperty_hasSystem().getURI());
 		assertEquals(NodeNetworkOWLModel.URI_hasSystemObject, testable.getObjectProperty_hasSystemObject().getURI());
 		assertEquals(NodeNetworkOWLModel.URI_hasSystemOperation, testable.getObjectProperty_hasSystemOperation().getURI());
+		assertEquals(NodeNetworkOWLModel.URI_hasBeginNode, testable.getObjectProperty_hasBeginNode().getURI());
+		assertEquals(NodeNetworkOWLModel.URI_hasEndNode, testable.getObjectProperty_hasEndNode().getURI());
 		assertEquals(NodeNetworkOWLModel.URI_isAttributeOf, testable.getObjectProperty_isAttributeOf().getURI());
 		assertEquals(NodeNetworkOWLModel.URI_isEdgeOf, testable.getObjectProperty_isEdgeOf().getURI());
 		assertEquals(NodeNetworkOWLModel.URI_isLinkOf, testable.getObjectProperty_isLinkOf().getURI());
@@ -79,6 +81,8 @@ public class NodeNetworkOWLModelTest {
 		assertEquals(NodeNetworkOWLModel.URI_isSystemObjectOf, testable.getObjectProperty_isSystemObjectOf().getURI());
 		assertEquals(NodeNetworkOWLModel.URI_isSystemOf, testable.getObjectProperty_isSystemOf().getURI());
 		assertEquals(NodeNetworkOWLModel.URI_isSystemOperationOf, testable.getObjectProperty_isSystemOperationOf().getURI());
+		assertEquals(NodeNetworkOWLModel.URI_isBeginNodeOf, testable.getObjectProperty_isBeginNodeOf().getURI());
+		assertEquals(NodeNetworkOWLModel.URI_isEndNodeOf, testable.getObjectProperty_isEndNodeOf().getURI());
 	}
 
 	@Test
@@ -117,6 +121,8 @@ public class NodeNetworkOWLModelTest {
 		assertEquals(NodeNetworkOWLModel.URI_hasSystem, testable.getObjectProperty_hasSystem().getURI());
 		assertEquals(NodeNetworkOWLModel.URI_hasSystemObject, testable.getObjectProperty_hasSystemObject().getURI());
 		assertEquals(NodeNetworkOWLModel.URI_hasSystemOperation, testable.getObjectProperty_hasSystemOperation().getURI());
+		assertEquals(NodeNetworkOWLModel.URI_hasBeginNode, testable.getObjectProperty_hasBeginNode().getURI());
+		assertEquals(NodeNetworkOWLModel.URI_hasEndNode, testable.getObjectProperty_hasEndNode().getURI());
 		assertEquals(NodeNetworkOWLModel.URI_isAttributeOf, testable.getObjectProperty_isAttributeOf().getURI());
 		assertEquals(NodeNetworkOWLModel.URI_isEdgeOf, testable.getObjectProperty_isEdgeOf().getURI());
 		assertEquals(NodeNetworkOWLModel.URI_isLinkOf, testable.getObjectProperty_isLinkOf().getURI());
@@ -125,6 +131,8 @@ public class NodeNetworkOWLModelTest {
 		assertEquals(NodeNetworkOWLModel.URI_isSystemObjectOf, testable.getObjectProperty_isSystemObjectOf().getURI());
 		assertEquals(NodeNetworkOWLModel.URI_isSystemOf, testable.getObjectProperty_isSystemOf().getURI());
 		assertEquals(NodeNetworkOWLModel.URI_isSystemOperationOf, testable.getObjectProperty_isSystemOperationOf().getURI());
+		assertEquals(NodeNetworkOWLModel.URI_isBeginNodeOf, testable.getObjectProperty_isBeginNodeOf().getURI());
+		assertEquals(NodeNetworkOWLModel.URI_isEndNodeOf, testable.getObjectProperty_isEndNodeOf().getURI());
 	}
 
 	@Test

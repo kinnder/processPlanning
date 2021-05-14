@@ -54,7 +54,15 @@ public class NodeNetworkOWLModel implements OWLModel<NodeNetwork>, OWLModelCommo
 
 	static final String URI_hasSystemOperation = NS + "#hasSystemOperation";
 
+	static final String URI_hasBeginNode = NS + "#hasBeginNode";
+
+	static final String URI_isBeginNodeOf = NS + "#isBeginNodeOf";
+
 	static final String URI_isAttributeOf = NS + "#isAttributeOf";
+
+	static final String URI_hasEndNode = NS + "#hasEndNode";
+
+	static final String URI_isEndNodeOf = NS + "#isEndNodeOf";
 
 	static final String URI_isEdgeOf = NS + "#isEdgeOf";
 
@@ -262,6 +270,34 @@ public class NodeNetworkOWLModel implements OWLModel<NodeNetwork>, OWLModelCommo
 
 		makeInverse(objectProperty_hasSystemOperation, objectProperty_isSystemOperationOf);
 
+		objectProperty_hasBeginNode = m.createObjectProperty(URI_hasBeginNode);
+		objectProperty_hasBeginNode.addLabel("has begin node", "en");
+		objectProperty_hasBeginNode.addLabel("имеет начальный узел", "ru");
+		objectProperty_hasBeginNode.addDomain(class_Edge);
+		objectProperty_hasBeginNode.addRange(class_Node);
+
+		objectProperty_isBeginNodeOf = m.createObjectProperty(URI_isBeginNodeOf);
+		objectProperty_isBeginNodeOf.addLabel("is begin node of", "en");
+		objectProperty_isBeginNodeOf.addLabel("является начальным узлом для", "ru");
+		objectProperty_isBeginNodeOf.addDomain(class_Node);
+		objectProperty_isBeginNodeOf.addRange(class_Edge);
+
+		makeInverse(objectProperty_hasBeginNode, objectProperty_isBeginNodeOf);
+
+		objectProperty_hasEndNode = m.createObjectProperty(URI_hasEndNode);
+		objectProperty_hasEndNode.addLabel("has end node", "en");
+		objectProperty_hasEndNode.addLabel("имеет конечный узел", "ru");
+		objectProperty_hasEndNode.addDomain(class_Edge);
+		objectProperty_hasEndNode.addRange(class_Node);
+
+		objectProperty_isEndNodeOf = m.createObjectProperty(URI_isEndNodeOf);
+		objectProperty_isEndNodeOf.addLabel("is end node of", "en");
+		objectProperty_isEndNodeOf.addLabel("является конечным узлом для", "ru");
+		objectProperty_isEndNodeOf.addDomain(class_Edge);
+		objectProperty_isEndNodeOf.addRange(class_Node);
+
+		makeInverse(objectProperty_hasEndNode, objectProperty_isEndNodeOf);
+
 		dataProperty_beginNodeId = m.createDatatypeProperty(URI_beginNodeId);
 		dataProperty_beginNodeId.addLabel("begin node id", "en");
 		dataProperty_beginNodeId.addLabel("идентификатор начального узла", "ru");
@@ -354,6 +390,10 @@ public class NodeNetworkOWLModel implements OWLModel<NodeNetwork>, OWLModelCommo
 		objectProperty_isSystemObjectOf = m.getObjectProperty(URI_isSystemObjectOf);
 		objectProperty_isSystemOf = m.getObjectProperty(URI_isSystemOf);
 		objectProperty_isSystemOperationOf = m.getObjectProperty(URI_isSystemOperationOf);
+		objectProperty_hasBeginNode = m.getObjectProperty(URI_hasBeginNode);
+		objectProperty_hasEndNode = m.getObjectProperty(URI_hasEndNode);
+		objectProperty_isBeginNodeOf = m.getObjectProperty(URI_isBeginNodeOf);
+		objectProperty_isEndNodeOf = m.getObjectProperty(URI_isEndNodeOf);
 
 		dataProperty_beginNodeId = m.getDatatypeProperty(URI_beginNodeId);
 		dataProperty_checked = m.getDatatypeProperty(URI_checked);
@@ -666,5 +706,29 @@ public class NodeNetworkOWLModel implements OWLModel<NodeNetwork>, OWLModelCommo
 	@Override
 	public Individual newIndividual_SystemOperation() {
 		return class_SystemOperation.createIndividual(getUniqueURI());
+	}
+
+	private ObjectProperty objectProperty_hasBeginNode;
+
+	public ObjectProperty getObjectProperty_hasBeginNode() {
+		return objectProperty_hasBeginNode;
+	}
+
+	private ObjectProperty objectProperty_isBeginNodeOf;
+
+	public ObjectProperty getObjectProperty_isBeginNodeOf() {
+		return objectProperty_isBeginNodeOf;
+	}
+
+	private ObjectProperty objectProperty_hasEndNode;
+
+	public ObjectProperty getObjectProperty_hasEndNode() {
+		return objectProperty_hasEndNode;
+	}
+
+	private ObjectProperty objectProperty_isEndNodeOf;
+
+	public ObjectProperty getObjectProperty_isEndNodeOf() {
+		return objectProperty_isEndNodeOf;
 	}
 }
