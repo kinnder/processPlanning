@@ -293,8 +293,8 @@ public class NodeNetworkOWLModel implements OWLModel<NodeNetwork>, OWLModelCommo
 		objectProperty_isEndNodeOf = m.createObjectProperty(URI_isEndNodeOf);
 		objectProperty_isEndNodeOf.addLabel("is end node of", "en");
 		objectProperty_isEndNodeOf.addLabel("является конечным узлом для", "ru");
-		objectProperty_isEndNodeOf.addDomain(class_Edge);
-		objectProperty_isEndNodeOf.addRange(class_Node);
+		objectProperty_isEndNodeOf.addDomain(class_Node);
+		objectProperty_isEndNodeOf.addRange(class_Edge);
 
 		makeInverse(objectProperty_hasEndNode, objectProperty_isEndNodeOf);
 
