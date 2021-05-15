@@ -35,6 +35,7 @@ public class EdgeOWLSchema implements OWLSchema<Edge> {
 		ind_edge.addProperty(owlModel.getObjectProperty_hasSystemOperation(), ind_systemOperation);
 		ind_systemOperation.addProperty(owlModel.getObjectProperty_isSystemOperationOf(), ind_edge);
 
+		// toList() call required only to suppress ConcurrentModificationException
 		owlModel.getClass_Node().listInstances().toList().forEach((ind_node) -> {
 			String nodeId = ind_node.getProperty(owlModel.getDataProperty_id()).getString();
 			if (nodeId.equals(beginNodeId)) {
