@@ -43,13 +43,7 @@ public class LuaScriptActionFunctionTest {
 	}
 
 	@Test
-	public void invoke() {
-		testable = new LuaScriptActionFunction(globals, script.toString());
-		testable.invoke(null);
-	}
-
-	@Test
-	public void invoke_PreConditionChecker() {
+	public void test_PreConditionChecker() {
 		script.append("local systemVariant = ...");
 		script.append("\n");
 		script.append("return true");
@@ -58,11 +52,11 @@ public class LuaScriptActionFunctionTest {
 		SystemVariant systemVariant_mock = context.mock(SystemVariant.class);
 
 		testable = new LuaScriptActionFunction(globals, script.toString());
-		assertTrue(testable.invokeAndReturnBoolean(systemVariant_mock));
+		assertTrue(testable.test(systemVariant_mock));
 	}
 
 	@Test
-	public void invoke_ParameterUpdater() {
+	public void accept_ParameterUpdater() {
 		script.append("local systemVariant = ...");
 		script.append("\n");
 		script.append("local object = systemVariant:getObjectByIdMatch('plane-x-id')");
@@ -85,7 +79,7 @@ public class LuaScriptActionFunctionTest {
 		});
 
 		testable = new LuaScriptActionFunction(globals, script.toString());
-		testable.invoke(systemVariant_mock);
+		testable.accept(systemVariant_mock);
 	}
 
 	@Test

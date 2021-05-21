@@ -1,8 +1,7 @@
 package planning.model;
 
-public interface ActionFunction {
+import java.util.function.Consumer;
+import java.util.function.Predicate;
 
-	void invoke(SystemVariant systemVariant);
-
-	Boolean invokeAndReturnBoolean(SystemVariant systemVariant);
+public interface ActionFunction extends Consumer<SystemVariant>, Predicate<SystemVariant> {
 }
