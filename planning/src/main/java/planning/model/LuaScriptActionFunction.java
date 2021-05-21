@@ -16,7 +16,12 @@ public class LuaScriptActionFunction extends LuaScript implements ActionFunction
 	}
 
 	@Override
-	public Object invoke(SystemVariant systemVariant) {
-		return call(CoerceJavaToLua.coerce(systemVariant));
+	public void invoke(SystemVariant systemVariant) {
+		call(CoerceJavaToLua.coerce(systemVariant));
+	}
+
+	@Override
+	public Boolean invokeAndReturnBoolean(SystemVariant systemVariant) {
+		return call(CoerceJavaToLua.coerce(systemVariant)).toboolean();
 	}
 }

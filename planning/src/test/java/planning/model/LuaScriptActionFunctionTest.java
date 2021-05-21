@@ -1,6 +1,8 @@
 package planning.model;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import java.util.Arrays;
 import java.util.Collection;
 
@@ -9,7 +11,6 @@ import org.jmock.imposters.ByteBuddyClassImposteriser;
 import org.jmock.junit5.JUnit5Mockery;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 import org.luaj.vm2.Globals;
@@ -48,7 +49,6 @@ public class LuaScriptActionFunctionTest {
 	}
 
 	@Test
-	@Disabled
 	public void invoke_PreConditionChecker() {
 		script.append("local systemVariant = ...");
 		script.append("\n");
@@ -58,7 +58,7 @@ public class LuaScriptActionFunctionTest {
 		SystemVariant systemVariant_mock = context.mock(SystemVariant.class);
 
 		testable = new LuaScriptActionFunction(globals, script.toString());
-		assertEquals(true, testable.invoke(systemVariant_mock));
+		assertTrue(testable.invokeAndReturnBoolean(systemVariant_mock));
 	}
 
 	@Test

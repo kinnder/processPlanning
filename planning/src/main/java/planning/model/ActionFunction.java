@@ -2,5 +2,7 @@ package planning.model;
 
 public interface ActionFunction {
 
-	Object invoke(SystemVariant systemVariant);
+	void invoke(SystemVariant systemVariant);
+
+	Boolean invokeAndReturnBoolean(SystemVariant systemVariant);
 }
