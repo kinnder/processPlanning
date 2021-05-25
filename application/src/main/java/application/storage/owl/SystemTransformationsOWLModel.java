@@ -72,9 +72,7 @@ public class SystemTransformationsOWLModel implements OWLModel<SystemTransformat
 
 	static final String URI_Line = NS + "#Line";
 
-	static final String URI_ParameterUpdater = NS + "#ParameterUpdater";
-
-	static final String URI_PreConditionChecker = NS + "#PreConditionChecker";
+	static final String URI_ActionFunction = NS + "#ActionFunction";
 
 	static final String URI_LinkTransformation = NS + "#LinkTransformation";
 
@@ -191,16 +189,10 @@ public class SystemTransformationsOWLModel implements OWLModel<SystemTransformat
 		return class_Transformation;
 	}
 
-	private OntClass class_PreConditionChecker;
+	private OntClass class_ActionFunction;
 
-	public OntClass getClass_PreConditionChecker() {
-		return class_PreConditionChecker;
-	}
-
-	private OntClass class_ParameterUpdater;
-
-	public OntClass getClass_ParameterUpdater() {
-		return class_ParameterUpdater;
+	public OntClass getClass_ActionFunction() {
+		return class_ActionFunction;
 	}
 
 	private OntClass class_Line;
@@ -485,13 +477,9 @@ public class SystemTransformationsOWLModel implements OWLModel<SystemTransformat
 		class_Transformation.addLabel("Transformation", "en");
 		class_Transformation.addLabel("Трансформация", "ru");
 
-		class_PreConditionChecker = m.createClass(URI_PreConditionChecker);
-		class_PreConditionChecker.addLabel("PreCondition Checker", "en");
-		class_PreConditionChecker.addLabel("Проверка предусловий", "ru");
-
-		class_ParameterUpdater = m.createClass(URI_ParameterUpdater);
-		class_ParameterUpdater.addLabel("Parameter Updater", "en");
-		class_ParameterUpdater.addLabel("Обновление параметров", "ru");
+		class_ActionFunction = m.createClass(URI_ActionFunction);
+		class_ActionFunction.addLabel("Action Function", "en");
+		class_ActionFunction.addLabel("Функция действия", "ru");
 
 		class_Line = m.createClass(URI_Line);
 		class_Line.addLabel("Line", "en");
@@ -641,12 +629,12 @@ public class SystemTransformationsOWLModel implements OWLModel<SystemTransformat
 		objectProperty_hasPreConditionChecker.addLabel("has precondition checker", "en");
 		objectProperty_hasPreConditionChecker.addLabel("имеет проверку условий", "ru");
 		objectProperty_hasPreConditionChecker.addDomain(class_Action);
-		objectProperty_hasPreConditionChecker.addRange(class_PreConditionChecker);
+		objectProperty_hasPreConditionChecker.addRange(class_ActionFunction);
 
 		objectProperty_isPreConditionCheckerOf = m.createObjectProperty(URI_isPreConditionCheckerOf);
 		objectProperty_isPreConditionCheckerOf.addLabel("is precondition checker of", "en");
 		objectProperty_isPreConditionCheckerOf.addLabel("является проверкой условий для", "ru");
-		objectProperty_isPreConditionCheckerOf.addDomain(class_PreConditionChecker);
+		objectProperty_isPreConditionCheckerOf.addDomain(class_ActionFunction);
 		objectProperty_isPreConditionCheckerOf.addRange(class_Action);
 
 		makeInverse(objectProperty_hasPreConditionChecker, objectProperty_isPreConditionCheckerOf);
@@ -655,12 +643,12 @@ public class SystemTransformationsOWLModel implements OWLModel<SystemTransformat
 		objectProperty_hasParameterUpdater.addLabel("has parameter updater", "en");
 		objectProperty_hasParameterUpdater.addLabel("имеет функцию обновления", "ru");
 		objectProperty_hasParameterUpdater.addDomain(class_Action);
-		objectProperty_hasParameterUpdater.addRange(class_ParameterUpdater);
+		objectProperty_hasParameterUpdater.addRange(class_ActionFunction);
 
 		objectProperty_isParameterUpdaterOf = m.createObjectProperty(URI_isParameterUpdaterOf);
 		objectProperty_isParameterUpdaterOf.addLabel("is parameter updater of", "en");
 		objectProperty_isParameterUpdaterOf.addLabel("является функцией обновления для", "ru");
-		objectProperty_isParameterUpdaterOf.addDomain(class_ParameterUpdater);
+		objectProperty_isParameterUpdaterOf.addDomain(class_ActionFunction);
 		objectProperty_isParameterUpdaterOf.addRange(class_Action);
 
 		makeInverse(objectProperty_hasParameterUpdater, objectProperty_isParameterUpdaterOf);
@@ -668,16 +656,14 @@ public class SystemTransformationsOWLModel implements OWLModel<SystemTransformat
 		objectProperty_hasLine = m.createObjectProperty(URI_hasLine);
 		objectProperty_hasLine.addLabel("has line", "en");
 		objectProperty_hasLine.addLabel("имеет линию", "ru");
-		objectProperty_hasLine.addDomain(class_PreConditionChecker);
-		objectProperty_hasLine.addDomain(class_ParameterUpdater);
+		objectProperty_hasLine.addDomain(class_ActionFunction);
 		objectProperty_hasLine.addRange(class_Line);
 
 		objectProperty_isLineOf = m.createObjectProperty(URI_isLineOf);
 		objectProperty_isLineOf.addLabel("is line of", "en");
 		objectProperty_isLineOf.addLabel("является линией для", "ru");
 		objectProperty_isLineOf.addDomain(class_Line);
-		objectProperty_isLineOf.addRange(class_PreConditionChecker);
-		objectProperty_isLineOf.addRange(class_ParameterUpdater);
+		objectProperty_isLineOf.addRange(class_ActionFunction);
 
 		makeInverse(objectProperty_hasLine, objectProperty_isLineOf);
 
@@ -759,8 +745,7 @@ public class SystemTransformationsOWLModel implements OWLModel<SystemTransformat
 		class_SystemTemplate = ontModel.getOntClass(URI_SystemTemplate);
 		class_Transformations = ontModel.getOntClass(URI_Transformations);
 		class_Action = ontModel.getOntClass(URI_Action);
-		class_PreConditionChecker = ontModel.getOntClass(URI_PreConditionChecker);
-		class_ParameterUpdater = ontModel.getOntClass(URI_ParameterUpdater);
+		class_ActionFunction = ontModel.getOntClass(URI_ActionFunction);
 		class_Line = ontModel.getOntClass(URI_Line);
 		class_ObjectTemplate = ontModel.getOntClass(URI_ObjectTemplate);
 		class_LinkTemplate = ontModel.getOntClass(URI_LinkTemplate);
@@ -845,12 +830,8 @@ public class SystemTransformationsOWLModel implements OWLModel<SystemTransformat
 		return class_ObjectTemplate.createIndividual(getUniqueURI());
 	}
 
-	public Individual newIndividual_ParameterUpdater() {
-		return class_ParameterUpdater.createIndividual(getUniqueURI());
-	}
-
-	public Individual newIndividual_PreConditionChecker() {
-		return class_PreConditionChecker.createIndividual(getUniqueURI());
+	public Individual newIndividual_ActionFunction() {
+		return class_ActionFunction.createIndividual(getUniqueURI());
 	}
 
 	public Individual newIndividual_SystemTemplate() {

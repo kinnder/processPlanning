@@ -20,10 +20,10 @@ import org.junit.jupiter.api.extension.RegisterExtension;
 import org.luaj.vm2.Globals;
 import org.luaj.vm2.lib.jse.JsePlatform;
 
-import planning.model.LuaScriptActionParameterUpdater;
+import planning.model.LuaScriptActionFunction;
 import planning.model.LuaScriptLine;
 
-public class ParameterUpdaterOWLSchemaTest {
+public class LuaScriptActionFunctionOWLSchemaTest {
 
 	@RegisterExtension
 	JUnit5Mockery context = new JUnit5Mockery() {
@@ -37,7 +37,7 @@ public class ParameterUpdaterOWLSchemaTest {
 		context.assertIsSatisfied();
 	}
 
-	ParameterUpdaterOWLSchema testable;
+	LuaScriptActionFunctionOWLSchema testable;
 
 	LuaScriptLineOWLSchema luaScriptLineOWLSchema_mock;
 
@@ -48,12 +48,12 @@ public class ParameterUpdaterOWLSchemaTest {
 		owlModel_mock = context.mock(SystemTransformationsOWLModel.class);
 		luaScriptLineOWLSchema_mock = context.mock(LuaScriptLineOWLSchema.class);
 
-		testable = new ParameterUpdaterOWLSchema(owlModel_mock, luaScriptLineOWLSchema_mock);
+		testable = new LuaScriptActionFunctionOWLSchema(owlModel_mock, luaScriptLineOWLSchema_mock);
 	}
 
 	@Test
 	public void newInstance() {
-		testable = new ParameterUpdaterOWLSchema(new SystemTransformationsOWLModel());
+		testable = new LuaScriptActionFunctionOWLSchema(new SystemTransformationsOWLModel());
 	}
 
 	// TODO : пересмотреть положение globals
@@ -63,17 +63,16 @@ public class ParameterUpdaterOWLSchemaTest {
 	public void combine() {
 		final LuaScriptLine scriptLine = new LuaScriptLine(10, "line-text");
 		final List<LuaScriptLine> scriptLines = Arrays.asList(scriptLine);
-		final LuaScriptActionParameterUpdater parameterUpdater = new LuaScriptActionParameterUpdater(globals,
-				scriptLines);
-		final Individual i_parameterUpdater = context.mock(Individual.class, "i-parameterUpdater");
+		final LuaScriptActionFunction actionFunction = new LuaScriptActionFunction(globals, scriptLines);
+		final Individual i_actionFunction = context.mock(Individual.class, "i-actionFunction");
 		final Individual i_line_mock = context.mock(Individual.class, "i-line");
 		final ObjectProperty op_isLineOf_mock = context.mock(ObjectProperty.class, "op-isLineOf");
 		final ObjectProperty op_hasLine_mock = context.mock(ObjectProperty.class, "op-hasLine");
 
 		context.checking(new Expectations() {
 			{
-				oneOf(owlModel_mock).newIndividual_ParameterUpdater();
-				will(returnValue(i_parameterUpdater));
+				oneOf(owlModel_mock).newIndividual_ActionFunction();
+				will(returnValue(i_actionFunction));
 
 				// TODO (2021-03-23 #31): добавить Matcher для LuaScriptLine
 				oneOf(luaScriptLineOWLSchema_mock).combine(with(any(LuaScriptLine.class)));
@@ -82,22 +81,22 @@ public class ParameterUpdaterOWLSchemaTest {
 				oneOf(owlModel_mock).getObjectProperty_isLineOf();
 				will(returnValue(op_isLineOf_mock));
 
-				oneOf(i_line_mock).addProperty(op_isLineOf_mock, i_parameterUpdater);
+				oneOf(i_line_mock).addProperty(op_isLineOf_mock, i_actionFunction);
 
 				oneOf(owlModel_mock).getObjectProperty_hasLine();
 				will(returnValue(op_hasLine_mock));
 
-				oneOf(i_parameterUpdater).addProperty(op_hasLine_mock, i_line_mock);
+				oneOf(i_actionFunction).addProperty(op_hasLine_mock, i_line_mock);
 			}
 		});
 
-		assertEquals(i_parameterUpdater, testable.combine(parameterUpdater));
+		assertEquals(i_actionFunction, testable.combine(actionFunction));
 	}
 
 	@Test
 	public void parse() {
 		final LuaScriptLine scriptLine = new LuaScriptLine(10, "line-text");
-		final Individual i_parameterUpdater = context.mock(Individual.class, "i-parameterUpdater");
+		final Individual i_actionFunction = context.mock(Individual.class, "i-actionFunction");
 		final ObjectProperty op_hasLine_mock = context.mock(ObjectProperty.class, "op-hasLine");
 		final OntClass oc_line_mock = context.mock(OntClass.class, "oc-line");
 
@@ -116,7 +115,7 @@ public class ParameterUpdaterOWLSchemaTest {
 				oneOf(owlModel_mock).getObjectProperty_hasLine();
 				will(returnValue(op_hasLine_mock));
 
-				oneOf(i_parameterUpdater).hasProperty(op_hasLine_mock, i_line_mock);
+				oneOf(i_actionFunction).hasProperty(op_hasLine_mock, i_line_mock);
 				will(returnValue(true));
 
 				oneOf(i_line_mock).asIndividual();
@@ -127,7 +126,7 @@ public class ParameterUpdaterOWLSchemaTest {
 			}
 		});
 
-		LuaScriptActionParameterUpdater result = (LuaScriptActionParameterUpdater) testable.parse(i_parameterUpdater);
+		LuaScriptActionFunction result = (LuaScriptActionFunction) testable.parse(i_actionFunction);
 		assertEquals("line-text\n", result.getScript());
 	}
 }

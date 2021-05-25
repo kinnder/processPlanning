@@ -3,6 +3,7 @@ package planning.model;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import org.jmock.imposters.ByteBuddyClassImposteriser;
 import org.jmock.junit5.JUnit5Mockery;
@@ -41,23 +42,34 @@ public class ActionTest {
 	public void updateParameters() {
 		final SystemVariant systemVariant_mock = context.mock(SystemVariant.class);
 
-		testable.registerActionParameterUpdater(new ActionParameterUpdater() {
+		testable.registerParameterUpdater(new ActionFunction() {
 			@Override
-			public void invoke(SystemVariant systemVariant) {
+			public void accept(SystemVariant systemVariant) {
 				assertEquals(systemVariant_mock, systemVariant);
+			}
+
+			@Override
+			public boolean test(SystemVariant t) {
+				fail();
+				return false;
 			}
 		});
 
-		testable.updateActionParameters(systemVariant_mock);
+		testable.updateParameters(systemVariant_mock);
 	}
 
 	@Test
-	public void allConditionsPasses() {
+	public void haveAllPreConditionsPassed_true() {
 		final SystemVariant systemVariant_mock = context.mock(SystemVariant.class);
 
-		testable.registerActionPreConditionChecker(new ActionPreConditionChecker() {
+		testable.registerPreConditionChecker(new ActionFunction() {
 			@Override
-			public boolean invoke(SystemVariant systemVariant) {
+			public void accept(SystemVariant t) {
+				fail();
+			}
+
+			@Override
+			public boolean test(SystemVariant systemVariant) {
 				assertEquals(systemVariant_mock, systemVariant);
 				return true;
 			}
@@ -67,12 +79,17 @@ public class ActionTest {
 	}
 
 	@Test
-	public void allConditionsPasses_false() {
+	public void haveAllPreConditionsPassed_false() {
 		final SystemVariant systemVariant_mock = context.mock(SystemVariant.class);
 
-		testable.registerActionPreConditionChecker(new ActionPreConditionChecker() {
+		testable.registerPreConditionChecker(new ActionFunction() {
 			@Override
-			public boolean invoke(SystemVariant systemVariant) {
+			public void accept(SystemVariant t) {
+				fail();
+			}
+
+			@Override
+			public boolean test(SystemVariant systemVariant) {
 				assertEquals(systemVariant_mock, systemVariant);
 				return false;
 			}

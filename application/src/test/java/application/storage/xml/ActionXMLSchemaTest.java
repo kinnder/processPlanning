@@ -1,7 +1,6 @@
 package application.storage.xml;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
@@ -18,10 +17,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
 import planning.model.Action;
-import planning.model.ActionParameterUpdater;
-import planning.model.ActionPreConditionChecker;
-import planning.model.LuaScriptActionParameterUpdater;
-import planning.model.LuaScriptActionPreConditionChecker;
+import planning.model.LuaScriptActionFunction;
 
 public class ActionXMLSchemaTest {
 
@@ -39,16 +35,13 @@ public class ActionXMLSchemaTest {
 
 	ActionXMLSchema testable;
 
-	ParameterUpdaterXMLSchema parameterUpdaterXMLSchema_mock;
-
-	PreConditionCheckerXMLSchema preConditionCheckerXMLSchema_mock;
+	LuaScriptActionFunctionXMLSchema luaSciptActionFunctionXMLSchema_mock;
 
 	@BeforeEach
 	public void setup() {
-		parameterUpdaterXMLSchema_mock = context.mock(ParameterUpdaterXMLSchema.class);
-		preConditionCheckerXMLSchema_mock = context.mock(PreConditionCheckerXMLSchema.class);
+		luaSciptActionFunctionXMLSchema_mock = context.mock(LuaScriptActionFunctionXMLSchema.class);
 
-		testable = new ActionXMLSchema(parameterUpdaterXMLSchema_mock, preConditionCheckerXMLSchema_mock);
+		testable = new ActionXMLSchema(luaSciptActionFunctionXMLSchema_mock);
 	}
 
 	@Test
@@ -59,54 +52,63 @@ public class ActionXMLSchemaTest {
 	@Test
 	public void parse() throws DataConversionException {
 		final Element root_mock = context.mock(Element.class, "root");
-		final List<Element> preConditionCheckers = new ArrayList<>();
-		final Element preConditionChecker_mock = context.mock(Element.class, "preConditionChecker-element");
-		preConditionCheckers.add(preConditionChecker_mock);
-		final ActionPreConditionChecker actionPreConditionChecker_mock = context.mock(ActionPreConditionChecker.class);
-		final List<Element> parameterUpdaters = new ArrayList<>();
-		final Element parameterUpdater_mock = context.mock(Element.class, "parameterUpdater-element");
-		parameterUpdaters.add(parameterUpdater_mock);
-		final ActionParameterUpdater actionParameterUpdater_mock = context.mock(ActionParameterUpdater.class);
+		final Element e_preConditionChecker_mock = context.mock(Element.class, "e-preConditionChecker");
+		final Element e_parameterUpdater_mock = context.mock(Element.class, "e-parameterUpdater");
+		final Element e_unknownFunction_mock = context.mock(Element.class, "e-unknownFunction");
+		final List<Element> e_actionFunctions = new ArrayList<>();
+		e_actionFunctions.add(e_preConditionChecker_mock);
+		e_actionFunctions.add(e_parameterUpdater_mock);
+		e_actionFunctions.add(e_unknownFunction_mock);
+		final LuaScriptActionFunction lua_preConditionChecker_mock = context.mock(LuaScriptActionFunction.class, "lua-preConditionChecker");
+		final LuaScriptActionFunction lua_parameterUpdater_mock = context.mock(LuaScriptActionFunction.class, "lua-parameterUpdater");
+		final LuaScriptActionFunction lua_unknownFunction_mock = context.mock(LuaScriptActionFunction.class, "lua-unknownFunction");
 
 		context.checking(new Expectations() {
 			{
 				oneOf(root_mock).getChildText("name");
 				will(returnValue("action-name"));
 
-				oneOf(preConditionCheckerXMLSchema_mock).getSchemaName();
+				oneOf(luaSciptActionFunctionXMLSchema_mock).getSchemaName();
+				will(returnValue("luaScriptActionFunction"));
+
+				oneOf(root_mock).getChildren("luaScriptActionFunction");
+				will(returnValue(e_actionFunctions));
+
+				oneOf(luaSciptActionFunctionXMLSchema_mock).parse(e_preConditionChecker_mock);
+				will(returnValue(lua_preConditionChecker_mock));
+
+				oneOf(e_preConditionChecker_mock).getAttributeValue("functionType");
 				will(returnValue("preConditionChecker"));
 
-				oneOf(root_mock).getChildren("preConditionChecker");
-				will(returnValue(preConditionCheckers));
+				oneOf(luaSciptActionFunctionXMLSchema_mock).parse(e_parameterUpdater_mock);
+				will(returnValue(lua_parameterUpdater_mock));
 
-				oneOf(preConditionCheckerXMLSchema_mock).parse(preConditionChecker_mock);
-				will(returnValue(actionPreConditionChecker_mock));
-
-				oneOf(parameterUpdaterXMLSchema_mock).getSchemaName();
+				oneOf(e_parameterUpdater_mock).getAttributeValue("functionType");
 				will(returnValue("parameterUpdater"));
 
-				oneOf(root_mock).getChildren("parameterUpdater");
-				will(returnValue(parameterUpdaters));
+				oneOf(luaSciptActionFunctionXMLSchema_mock).parse(e_unknownFunction_mock);
+				will(returnValue(lua_unknownFunction_mock));
 
-				oneOf(parameterUpdaterXMLSchema_mock).parse(parameterUpdater_mock);
-				will(returnValue(actionParameterUpdater_mock));
+				oneOf(e_unknownFunction_mock).getAttributeValue("functionType");
+				will(returnValue("unknownFunction"));
 			}
 		});
 
-		assertTrue(testable.parse(root_mock) instanceof Action);
+		Action result = testable.parse(root_mock);
+		assertTrue(result instanceof Action);
+		assertEquals(1, result.getParameterUpdaters().size());
+		assertEquals(1, result.getPreConditionCheckers().size());
 	}
 
 	@Test
 	public void combine() {
 		final Action action_mock = context.mock(Action.class);
-		final LuaScriptActionPreConditionChecker preConditionChecker_mock = context
-				.mock(LuaScriptActionPreConditionChecker.class);
-		final List<ActionPreConditionChecker> preConditionCheckers = new ArrayList<>();
-		preConditionCheckers.add(preConditionChecker_mock);
-		final LuaScriptActionParameterUpdater parameterUpdater_mock = context
-				.mock(LuaScriptActionParameterUpdater.class);
-		final List<ActionParameterUpdater> parameterUpdaters = new ArrayList<>();
-		parameterUpdaters.add(parameterUpdater_mock);
+		final LuaScriptActionFunction lua_preConditionChecker_mock = context.mock(LuaScriptActionFunction.class, "lua-preConditionChecker");
+		final LuaScriptActionFunction lua_parameterUpdater_mock = context.mock(LuaScriptActionFunction.class, "lua-parameterUpdater");
+		final List<LuaScriptActionFunction> preConditionCheckers = new ArrayList<>();
+		preConditionCheckers.add(lua_preConditionChecker_mock);
+		final List<LuaScriptActionFunction> parameterUpdaters = new ArrayList<>();
+		parameterUpdaters.add(lua_parameterUpdater_mock);
 		final Element preConditionChecker = new Element("preConditionChecker");
 		final Element parameterUpdater = new Element("parameterUpdater");
 
@@ -118,21 +120,21 @@ public class ActionXMLSchemaTest {
 				oneOf(action_mock).getPreConditionCheckers();
 				will(returnValue(preConditionCheckers));
 
-				oneOf(preConditionCheckerXMLSchema_mock).combine(preConditionChecker_mock);
+				oneOf(luaSciptActionFunctionXMLSchema_mock).combine(lua_preConditionChecker_mock);
 				will(returnValue(preConditionChecker));
 
 				oneOf(action_mock).getParameterUpdaters();
 				will(returnValue(parameterUpdaters));
 
-				oneOf(parameterUpdaterXMLSchema_mock).combine(parameterUpdater_mock);
+				oneOf(luaSciptActionFunctionXMLSchema_mock).combine(lua_parameterUpdater_mock);
 				will(returnValue(parameterUpdater));
 			}
 		});
 
 		Element element = testable.combine(action_mock);
 		assertEquals("OPERATION", element.getChildText("name"));
-		assertNotNull(element.getChild("preConditionChecker"));
-		assertNotNull(element.getChild("parameterUpdater"));
+		assertEquals("preConditionChecker", element.getChild("preConditionChecker").getAttributeValue("functionType"));
+		assertEquals("parameterUpdater", element.getChild("parameterUpdater").getAttributeValue("functionType"));
 	}
 
 	@Test

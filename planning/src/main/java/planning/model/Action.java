@@ -15,35 +15,35 @@ public class Action {
 		return name;
 	}
 
-	public void updateActionParameters(SystemVariant systemVariant) {
-		for (ActionParameterUpdater parameterUpdater : parameterUpdaters) {
-			parameterUpdater.invoke(systemVariant);
+	public void updateParameters(SystemVariant systemVariant) {
+		for (ActionFunction parameterUpdater : parameterUpdaters) {
+			parameterUpdater.accept(systemVariant);
 		}
 	}
 
-	private List<ActionParameterUpdater> parameterUpdaters = new ArrayList<>();
+	private List<ActionFunction> parameterUpdaters = new ArrayList<>();
 
-	public List<ActionParameterUpdater> getParameterUpdaters() {
+	public List<ActionFunction> getParameterUpdaters() {
 		return parameterUpdaters;
 	}
 
-	public void registerActionParameterUpdater(ActionParameterUpdater parameterUpdater) {
+	public void registerParameterUpdater(ActionFunction parameterUpdater) {
 		parameterUpdaters.add(parameterUpdater);
 	}
 
-	private List<ActionPreConditionChecker> preConditionCheckers = new ArrayList<>();
+	private List<ActionFunction> preConditionCheckers = new ArrayList<>();
 
-	public List<ActionPreConditionChecker> getPreConditionCheckers() {
+	public List<ActionFunction> getPreConditionCheckers() {
 		return preConditionCheckers;
 	}
 
-	public void registerActionPreConditionChecker(ActionPreConditionChecker preConditionChecker) {
+	public void registerPreConditionChecker(ActionFunction preConditionChecker) {
 		preConditionCheckers.add(preConditionChecker);
 	}
 
 	public boolean haveAllPreConditionsPassed(SystemVariant systemVariant) {
-		for (ActionPreConditionChecker conditionChecker : preConditionCheckers) {
-			boolean conditionPasses = conditionChecker.invoke(systemVariant);
+		for (ActionFunction preConditionChecker : preConditionCheckers) {
+			boolean conditionPasses = preConditionChecker.test(systemVariant);
 			if (!conditionPasses) {
 				return false;
 			}

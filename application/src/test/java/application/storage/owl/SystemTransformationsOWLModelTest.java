@@ -49,8 +49,7 @@ public class SystemTransformationsOWLModelTest {
 		assertEquals(SystemTransformationsOWLModel.URI_LinkTemplate, testable.getClass_LinkTemplate().getURI());
 		assertEquals(SystemTransformationsOWLModel.URI_LinkTransformation, testable.getClass_LinkTransformation().getURI());
 		assertEquals(SystemTransformationsOWLModel.URI_ObjectTemplate, testable.getClass_ObjectTemplate().getURI());
-		assertEquals(SystemTransformationsOWLModel.URI_ParameterUpdater, testable.getClass_ParameterUpdater().getURI());
-		assertEquals(SystemTransformationsOWLModel.URI_PreConditionChecker, testable.getClass_PreConditionChecker().getURI());
+		assertEquals(SystemTransformationsOWLModel.URI_ActionFunction, testable.getClass_ActionFunction().getURI());
 		assertEquals(SystemTransformationsOWLModel.URI_SystemTemplate, testable.getClass_SystemTemplate().getURI());
 		assertEquals(SystemTransformationsOWLModel.URI_SystemTransformation, testable.getClass_SystemTransformation().getURI());
 		assertEquals(SystemTransformationsOWLModel.URI_SystemTransformations, testable.getClass_SystemTransformations().getURI());
@@ -109,8 +108,7 @@ public class SystemTransformationsOWLModelTest {
 		assertEquals(SystemTransformationsOWLModel.URI_LinkTemplate, testable.getClass_LinkTemplate().getURI());
 		assertEquals(SystemTransformationsOWLModel.URI_LinkTransformation, testable.getClass_LinkTransformation().getURI());
 		assertEquals(SystemTransformationsOWLModel.URI_ObjectTemplate, testable.getClass_ObjectTemplate().getURI());
-		assertEquals(SystemTransformationsOWLModel.URI_ParameterUpdater, testable.getClass_ParameterUpdater().getURI());
-		assertEquals(SystemTransformationsOWLModel.URI_PreConditionChecker, testable.getClass_PreConditionChecker().getURI());
+		assertEquals(SystemTransformationsOWLModel.URI_ActionFunction, testable.getClass_ActionFunction().getURI());
 		assertEquals(SystemTransformationsOWLModel.URI_SystemTemplate, testable.getClass_SystemTemplate().getURI());
 		assertEquals(SystemTransformationsOWLModel.URI_SystemTransformation, testable.getClass_SystemTransformation().getURI());
 		assertEquals(SystemTransformationsOWLModel.URI_SystemTransformations, testable.getClass_SystemTransformations().getURI());
@@ -197,13 +195,9 @@ public class SystemTransformationsOWLModelTest {
 		assertEquals(objectTemplate.getOntClass(), testable.getClass_ObjectTemplate());
 		assertNotEquals(objectTemplate.getURI(), testable.newIndividual_ObjectTemplate().getURI());
 
-		Individual parameterUpdater = testable.newIndividual_ParameterUpdater();
-		assertEquals(parameterUpdater.getOntClass(), testable.getClass_ParameterUpdater());
-		assertNotEquals(parameterUpdater.getURI(), testable.newIndividual_ParameterUpdater().getURI());
-
-		Individual preConditionChecker = testable.newIndividual_PreConditionChecker();
-		assertEquals(preConditionChecker.getOntClass(), testable.getClass_PreConditionChecker());
-		assertNotEquals(preConditionChecker.getURI(), testable.newIndividual_PreConditionChecker().getURI());
+		Individual actionFunction = testable.newIndividual_ActionFunction();
+		assertEquals(actionFunction.getOntClass(), testable.getClass_ActionFunction());
+		assertNotEquals(actionFunction.getURI(), testable.newIndividual_ActionFunction().getURI());
 
 		Individual systemTemplate = testable.newIndividual_SystemTemplate();
 		assertEquals(systemTemplate.getOntClass(), testable.getClass_SystemTemplate());

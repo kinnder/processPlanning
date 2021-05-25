@@ -62,7 +62,7 @@ public class SystemTransformation {
 				for (Transformation transformation : transformations) {
 					transformation.applyTo(systemVariant);
 				}
-				action.updateActionParameters(systemVariant);
+				action.updateParameters(systemVariant);
 				systemVariants.add(systemVariant);
 			}
 		}

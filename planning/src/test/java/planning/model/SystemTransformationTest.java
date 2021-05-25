@@ -105,7 +105,7 @@ public class SystemTransformationTest {
 
 				oneOf(transformation_mock).applyTo(with(any(SystemVariant.class)));
 
-				oneOf(action_mock).updateActionParameters(with(any(SystemVariant.class)));
+				oneOf(action_mock).updateParameters(with(any(SystemVariant.class)));
 			}
 		});
 

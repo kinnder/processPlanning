@@ -21,8 +21,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
 import planning.model.Action;
-import planning.model.ActionParameterUpdater;
-import planning.model.ActionPreConditionChecker;
+import planning.model.LuaScriptActionFunction;
 
 public class ActionOWLSchemaTest {
 
@@ -42,18 +41,14 @@ public class ActionOWLSchemaTest {
 
 	SystemTransformationsOWLModel owlModel_mock;
 
-	ParameterUpdaterOWLSchema parameterUpdaterOWLSchema_mock;
-
-	PreConditionCheckerOWLSchema preConditionCheckerOWLSchema_mock;
+	LuaScriptActionFunctionOWLSchema parameterUpdaterOWLSchema_mock;
 
 	@BeforeEach
 	public void setup() {
 		owlModel_mock = context.mock(SystemTransformationsOWLModel.class);
-		parameterUpdaterOWLSchema_mock = context.mock(ParameterUpdaterOWLSchema.class);
-		preConditionCheckerOWLSchema_mock = context.mock(PreConditionCheckerOWLSchema.class);
+		parameterUpdaterOWLSchema_mock = context.mock(LuaScriptActionFunctionOWLSchema.class);
 
-		testable = new ActionOWLSchema(owlModel_mock, parameterUpdaterOWLSchema_mock,
-				preConditionCheckerOWLSchema_mock);
+		testable = new ActionOWLSchema(owlModel_mock, parameterUpdaterOWLSchema_mock);
 	}
 
 	@Test
@@ -64,10 +59,10 @@ public class ActionOWLSchemaTest {
 	@Test
 	public void combine() {
 		final Action action = new Action("action-name");
-		final ActionPreConditionChecker actionPreConditionChecker_mock = context.mock(ActionPreConditionChecker.class);
-		final ActionParameterUpdater actionParameterUpdater_mock = context.mock(ActionParameterUpdater.class);
-		action.registerActionParameterUpdater(actionParameterUpdater_mock);
-		action.registerActionPreConditionChecker(actionPreConditionChecker_mock);
+		final LuaScriptActionFunction actionPreConditionChecker_mock = context.mock(LuaScriptActionFunction.class, "preConditionChekcer");
+		final LuaScriptActionFunction actionParameterUpdater_mock = context.mock(LuaScriptActionFunction.class, "parameterUpdater");
+		action.registerParameterUpdater(actionParameterUpdater_mock);
+		action.registerPreConditionChecker(actionPreConditionChecker_mock);
 		final Individual i_action_mock = context.mock(Individual.class, "i-action");
 		final Individual i_preConditionChecker_mock = context.mock(Individual.class, "i-preConditionChecker");
 		final Individual i_parameterUpdater_mock = context.mock(Individual.class, "i-parameterUdpater");
@@ -94,7 +89,7 @@ public class ActionOWLSchemaTest {
 
 				oneOf(i_action_mock).addProperty(dp_name_mock, "action-name");
 
-				oneOf(preConditionCheckerOWLSchema_mock).combine(actionPreConditionChecker_mock);
+				oneOf(parameterUpdaterOWLSchema_mock).combine(actionPreConditionChecker_mock);
 				will(returnValue(i_preConditionChecker_mock));
 
 				oneOf(owlModel_mock).getObjectProperty_hasPreConditionChecker();
@@ -128,10 +123,10 @@ public class ActionOWLSchemaTest {
 	@Test
 	public void parse() {
 		final Action action = new Action("action-name");
-		final ActionPreConditionChecker actionPreConditionChecker_mock = context.mock(ActionPreConditionChecker.class);
-		final ActionParameterUpdater actionParameterUpdater_mock = context.mock(ActionParameterUpdater.class);
-		action.registerActionParameterUpdater(actionParameterUpdater_mock);
-		action.registerActionPreConditionChecker(actionPreConditionChecker_mock);
+		final LuaScriptActionFunction actionPreConditionChecker_mock = context.mock(LuaScriptActionFunction.class, "preConditionChecker");
+		final LuaScriptActionFunction actionParameterUpdater_mock = context.mock(LuaScriptActionFunction.class, "parameterUpdater");
+		action.registerParameterUpdater(actionParameterUpdater_mock);
+		action.registerPreConditionChecker(actionPreConditionChecker_mock);
 		final Individual i_action_mock = context.mock(Individual.class, "i-action");
 		final DatatypeProperty dp_name_mock = context.mock(DatatypeProperty.class, "dp-name");
 		final ObjectProperty op_hasPreConditionChecker_mock = context.mock(ObjectProperty.class,
@@ -160,7 +155,7 @@ public class ActionOWLSchemaTest {
 				oneOf(st_name_mock).getString();
 				will(returnValue("action-name"));
 
-				oneOf(owlModel_mock).getClass_PreConditionChecker();
+				oneOf(owlModel_mock).getClass_ActionFunction();
 				will(returnValue(oc_preConditionChecker_mock));
 
 				oneOf(oc_preConditionChecker_mock).listInstances();
@@ -175,10 +170,10 @@ public class ActionOWLSchemaTest {
 				oneOf(i_preConditionChecker_mock).asIndividual();
 				will(returnValue(i_preConditionChecker_mock));
 
-				oneOf(preConditionCheckerOWLSchema_mock).parse(i_preConditionChecker_mock);
+				oneOf(parameterUpdaterOWLSchema_mock).parse(i_preConditionChecker_mock);
 				will(returnValue(actionPreConditionChecker_mock));
 
-				oneOf(owlModel_mock).getClass_ParameterUpdater();
+				oneOf(owlModel_mock).getClass_ActionFunction();
 				will(returnValue(oc_parameterUpdater_mock));
 
 				oneOf(oc_parameterUpdater_mock).listInstances();

@@ -55,7 +55,7 @@ public class LuaScriptTest {
 	@Test
 	public void getScript() {
 		script.append("lua-code");
-		testable = new LuaScriptActionPreConditionChecker(globals, script.toString());
+		testable = new LuaScript(globals, script.toString());
 
 		assertEquals("lua-code", testable.getScript());
 	}
