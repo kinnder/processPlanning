@@ -11,6 +11,7 @@ import org.luaj.vm2.lib.jse.JsePlatform;
 import planning.model.LuaScriptActionFunction;
 import planning.model.LuaScriptLine;
 
+// TODO (2021-05-27 #39): переделать в ActionFunctionOWLSchema
 public class LuaScriptActionFunctionOWLSchema implements OWLSchema<LuaScriptActionFunction> {
 
 	private SystemTransformationsOWLModel owlModel;

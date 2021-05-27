@@ -1,6 +1,5 @@
 package application.storage.xml;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.jdom2.DataConversionException;
@@ -8,7 +7,6 @@ import org.jdom2.Element;
 
 import planning.model.Action;
 import planning.model.ActionFunction;
-import planning.model.LuaScriptActionFunction;
 
 public class ActionXMLSchema implements XMLSchema<Action> {
 
@@ -28,30 +26,29 @@ public class ActionXMLSchema implements XMLSchema<Action> {
 	}
 
 	public ActionXMLSchema() {
-		this(new LuaScriptActionFunctionXMLSchema());
+		this(new ActionFunctionXMLSchema());
 	}
 
-	ActionXMLSchema(LuaScriptActionFunctionXMLSchema luaSciptActionFunctionXMLSchema) {
-		this.luaSciptActionFunctionXMLSchema = luaSciptActionFunctionXMLSchema;
+	ActionXMLSchema(ActionFunctionXMLSchema actionFunctionXMLSchema) {
+		this.actionFunctionXMLSchema = actionFunctionXMLSchema;
 	}
 
-	private LuaScriptActionFunctionXMLSchema luaSciptActionFunctionXMLSchema;
+	private ActionFunctionXMLSchema actionFunctionXMLSchema;
 
 	@Override
 	public Action parse(Element root) throws DataConversionException {
 		String name = root.getChildText(TAG_name);
 		Action action = new Action(name);
-		List<Element> elements = root.getChildren(luaSciptActionFunctionXMLSchema.getSchemaName());
+		List<Element> elements = root.getChildren(actionFunctionXMLSchema.getSchemaName());
 		for (Element element : elements) {
-			// TODO (2021-05-25 #39): заполнять атрибуты внутри ActionFunctionXMLSchema
-			LuaScriptActionFunction luaScriptActionFunction = luaSciptActionFunctionXMLSchema.parse(element);
+			ActionFunction actionFunction = actionFunctionXMLSchema.parse(element);
 			String functionType = element.getAttributeValue(TAG_functionType);
 			if (VALUE_preConditionChecker.equals(functionType)) {
-				action.registerPreConditionChecker(luaScriptActionFunction);
+				action.registerPreConditionChecker(actionFunction);
 				continue;
 			}
 			if (VALUE_parameterUpdater.equals(functionType)) {
-				action.registerParameterUpdater(luaScriptActionFunction);
+				action.registerParameterUpdater(actionFunction);
 				continue;
 			}
 		}
@@ -60,22 +57,22 @@ public class ActionXMLSchema implements XMLSchema<Action> {
 
 	@Override
 	public Element combine(Action action) {
+		Element root = new Element(TAG_action);
+
 		Element name = new Element(TAG_name);
 		name.setText(action.getName());
-		List<Element> elements = new ArrayList<>();
+		root.addContent(name);
+
 		for (ActionFunction preConditionChecker : action.getPreConditionCheckers()) {
-			Element element = luaSciptActionFunctionXMLSchema.combine((LuaScriptActionFunction) preConditionChecker);
+			Element element = actionFunctionXMLSchema.combine(preConditionChecker);
 			element.setAttribute(TAG_functionType, VALUE_preConditionChecker);
-			elements.add(element);
+			root.addContent(element);
 		}
 		for (ActionFunction parameterUpdater : action.getParameterUpdaters()) {
-			Element element = luaSciptActionFunctionXMLSchema.combine((LuaScriptActionFunction) parameterUpdater);
+			Element element = actionFunctionXMLSchema.combine(parameterUpdater);
 			element.setAttribute(TAG_functionType, VALUE_parameterUpdater);
-			elements.add(element);
+			root.addContent(element);
 		}
-		Element root = new Element(TAG_action);
-		root.addContent(name);
-		root.addContent(elements);
 		return root;
 	}
 }

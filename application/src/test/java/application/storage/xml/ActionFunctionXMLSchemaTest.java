@@ -19,7 +19,7 @@ import org.junit.jupiter.api.extension.RegisterExtension;
 import planning.model.LuaScriptActionFunction;
 import planning.model.LuaScriptLine;
 
-public class LuaScriptActionFunctionXMLSchemaTest {
+public class ActionFunctionXMLSchemaTest {
 
 	@RegisterExtension
 	JUnit5Mockery context = new JUnit5Mockery() {
@@ -33,7 +33,7 @@ public class LuaScriptActionFunctionXMLSchemaTest {
 		context.assertIsSatisfied();
 	}
 
-	LuaScriptActionFunctionXMLSchema testable;
+	ActionFunctionXMLSchema testable;
 
 	LuaScriptLineXMLSchema luaScriptLineXMLSchema_mock;
 
@@ -41,12 +41,12 @@ public class LuaScriptActionFunctionXMLSchemaTest {
 	public void setup() {
 		luaScriptLineXMLSchema_mock = context.mock(LuaScriptLineXMLSchema.class);
 
-		testable = new LuaScriptActionFunctionXMLSchema(luaScriptLineXMLSchema_mock);
+		testable = new ActionFunctionXMLSchema(luaScriptLineXMLSchema_mock);
 	}
 
 	@Test
 	public void newInstance() {
-		testable = new LuaScriptActionFunctionXMLSchema();
+		testable = new ActionFunctionXMLSchema();
 	}
 
 	@Test
@@ -99,6 +99,6 @@ public class LuaScriptActionFunctionXMLSchemaTest {
 
 	@Test
 	public void getSchemaName() {
-		assertEquals("luaScriptActionFunction", testable.getSchemaName());
+		assertEquals("actionFunction", testable.getSchemaName());
 	}
 }

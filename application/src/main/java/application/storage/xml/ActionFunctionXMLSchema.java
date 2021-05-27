@@ -10,16 +10,17 @@ import org.jdom2.Element;
 import org.luaj.vm2.Globals;
 import org.luaj.vm2.lib.jse.JsePlatform;
 
+import planning.model.ActionFunction;
 import planning.model.LuaScriptActionFunction;
 import planning.model.LuaScriptLine;
 
-public class LuaScriptActionFunctionXMLSchema implements XMLSchema<LuaScriptActionFunction> {
+public class ActionFunctionXMLSchema implements XMLSchema<ActionFunction> {
 
-	final private static String TAG_luaScriptActionFunction = "luaScriptActionFunction";
+	final private static String TAG_actionFunction = "actionFunction";
 
 	@Override
 	public String getSchemaName() {
-		return TAG_luaScriptActionFunction;
+		return TAG_actionFunction;
 	}
 
 	// TODO (2021-05-21 #39): пересмотреть положение globals
@@ -27,16 +28,16 @@ public class LuaScriptActionFunctionXMLSchema implements XMLSchema<LuaScriptActi
 
 	private LuaScriptLineXMLSchema luaScriptLineXMLSchema;
 
-	public LuaScriptActionFunctionXMLSchema() {
+	public ActionFunctionXMLSchema() {
 		this(new LuaScriptLineXMLSchema());
 	}
 
-	LuaScriptActionFunctionXMLSchema(LuaScriptLineXMLSchema luaScriptLineXMLSchema) {
+	ActionFunctionXMLSchema(LuaScriptLineXMLSchema luaScriptLineXMLSchema) {
 		this.luaScriptLineXMLSchema = luaScriptLineXMLSchema;
 	}
 
 	@Override
-	public LuaScriptActionFunction parse(Element root) throws DataConversionException {
+	public ActionFunction parse(Element root) throws DataConversionException {
 		List<Element> elements = root.getChildren(luaScriptLineXMLSchema.getSchemaName());
 		Map<Integer, LuaScriptLine> scriptLines = new TreeMap<Integer, LuaScriptLine>();
 		for (Element element : elements) {
@@ -47,9 +48,10 @@ public class LuaScriptActionFunctionXMLSchema implements XMLSchema<LuaScriptActi
 	}
 
 	@Override
-	public Element combine(LuaScriptActionFunction actionFunction) {
-		Element root = new Element(TAG_luaScriptActionFunction);
-		Collection<LuaScriptLine> scriptLines = actionFunction.getScriptLines();
+	public Element combine(ActionFunction actionFunction) {
+		Element root = new Element(TAG_actionFunction);
+		LuaScriptActionFunction luaActionFunction = (LuaScriptActionFunction) actionFunction;
+		Collection<LuaScriptLine> scriptLines = luaActionFunction.getScriptLines();
 		for (LuaScriptLine scriptLine : scriptLines) {
 			Element element = luaScriptLineXMLSchema.combine(scriptLine);
 			root.addContent(element);
