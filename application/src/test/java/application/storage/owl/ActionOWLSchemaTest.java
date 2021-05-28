@@ -41,14 +41,14 @@ public class ActionOWLSchemaTest {
 
 	SystemTransformationsOWLModel owlModel_mock;
 
-	LuaScriptActionFunctionOWLSchema parameterUpdaterOWLSchema_mock;
+	ActionFunctionOWLSchema actionFunctionOWLSchema_mock;
 
 	@BeforeEach
 	public void setup() {
 		owlModel_mock = context.mock(SystemTransformationsOWLModel.class);
-		parameterUpdaterOWLSchema_mock = context.mock(LuaScriptActionFunctionOWLSchema.class);
+		actionFunctionOWLSchema_mock = context.mock(ActionFunctionOWLSchema.class);
 
-		testable = new ActionOWLSchema(owlModel_mock, parameterUpdaterOWLSchema_mock);
+		testable = new ActionOWLSchema(owlModel_mock, actionFunctionOWLSchema_mock);
 	}
 
 	@Test
@@ -89,7 +89,7 @@ public class ActionOWLSchemaTest {
 
 				oneOf(i_action_mock).addProperty(dp_name_mock, "action-name");
 
-				oneOf(parameterUpdaterOWLSchema_mock).combine(actionPreConditionChecker_mock);
+				oneOf(actionFunctionOWLSchema_mock).combine(actionPreConditionChecker_mock);
 				will(returnValue(i_preConditionChecker_mock));
 
 				oneOf(owlModel_mock).getObjectProperty_hasPreConditionChecker();
@@ -102,7 +102,7 @@ public class ActionOWLSchemaTest {
 
 				oneOf(i_preConditionChecker_mock).addProperty(op_isPreConditionChecker_mock, i_action_mock);
 
-				oneOf(parameterUpdaterOWLSchema_mock).combine(actionParameterUpdater_mock);
+				oneOf(actionFunctionOWLSchema_mock).combine(actionParameterUpdater_mock);
 				will(returnValue(i_parameterUpdater_mock));
 
 				oneOf(owlModel_mock).getObjectProperty_hasParameterUpdater();
@@ -170,7 +170,7 @@ public class ActionOWLSchemaTest {
 				oneOf(i_preConditionChecker_mock).asIndividual();
 				will(returnValue(i_preConditionChecker_mock));
 
-				oneOf(parameterUpdaterOWLSchema_mock).parse(i_preConditionChecker_mock);
+				oneOf(actionFunctionOWLSchema_mock).parse(i_preConditionChecker_mock);
 				will(returnValue(actionPreConditionChecker_mock));
 
 				oneOf(owlModel_mock).getClass_ActionFunction();
@@ -188,7 +188,7 @@ public class ActionOWLSchemaTest {
 				oneOf(i_parameterUpdater_mock).asIndividual();
 				will(returnValue(i_parameterUpdater_mock));
 
-				oneOf(parameterUpdaterOWLSchema_mock).parse(i_parameterUpdater_mock);
+				oneOf(actionFunctionOWLSchema_mock).parse(i_parameterUpdater_mock);
 				will(returnValue(actionParameterUpdater_mock));
 			}
 		});

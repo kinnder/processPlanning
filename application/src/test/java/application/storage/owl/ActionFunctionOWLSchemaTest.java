@@ -23,7 +23,7 @@ import org.luaj.vm2.lib.jse.JsePlatform;
 import planning.model.LuaScriptActionFunction;
 import planning.model.LuaScriptLine;
 
-public class LuaScriptActionFunctionOWLSchemaTest {
+public class ActionFunctionOWLSchemaTest {
 
 	@RegisterExtension
 	JUnit5Mockery context = new JUnit5Mockery() {
@@ -37,7 +37,7 @@ public class LuaScriptActionFunctionOWLSchemaTest {
 		context.assertIsSatisfied();
 	}
 
-	LuaScriptActionFunctionOWLSchema testable;
+	ActionFunctionOWLSchema testable;
 
 	LuaScriptLineOWLSchema luaScriptLineOWLSchema_mock;
 
@@ -48,12 +48,12 @@ public class LuaScriptActionFunctionOWLSchemaTest {
 		owlModel_mock = context.mock(SystemTransformationsOWLModel.class);
 		luaScriptLineOWLSchema_mock = context.mock(LuaScriptLineOWLSchema.class);
 
-		testable = new LuaScriptActionFunctionOWLSchema(owlModel_mock, luaScriptLineOWLSchema_mock);
+		testable = new ActionFunctionOWLSchema(owlModel_mock, luaScriptLineOWLSchema_mock);
 	}
 
 	@Test
 	public void newInstance() {
-		testable = new LuaScriptActionFunctionOWLSchema(new SystemTransformationsOWLModel());
+		testable = new ActionFunctionOWLSchema(new SystemTransformationsOWLModel());
 	}
 
 	// TODO : пересмотреть положение globals

@@ -9,15 +9,15 @@ public class ActionOWLSchema implements OWLSchema<Action> {
 
 	private SystemTransformationsOWLModel owlModel;
 
-	private LuaScriptActionFunctionOWLSchema luaScriptActionFunctionOWLSchema;
+	private ActionFunctionOWLSchema actionFunctionOWLSchema;
 
 	public ActionOWLSchema(SystemTransformationsOWLModel owlModel) {
-		this(owlModel, new LuaScriptActionFunctionOWLSchema(owlModel));
+		this(owlModel, new ActionFunctionOWLSchema(owlModel));
 	}
 
-	ActionOWLSchema(SystemTransformationsOWLModel owlModel, LuaScriptActionFunctionOWLSchema luaScriptActionFunctionOWLSchema) {
+	ActionOWLSchema(SystemTransformationsOWLModel owlModel, ActionFunctionOWLSchema actionFunctionOWLSchema) {
 		this.owlModel = owlModel;
-		this.luaScriptActionFunctionOWLSchema = luaScriptActionFunctionOWLSchema;
+		this.actionFunctionOWLSchema = actionFunctionOWLSchema;
 	}
 
 	@Override
@@ -28,12 +28,12 @@ public class ActionOWLSchema implements OWLSchema<Action> {
 		ind_action.addLabel(String.format("Action \"%s\"", name), "en");
 		ind_action.addProperty(owlModel.getDataProperty_name(), name);
 		for (ActionFunction preConditionChecker : action.getPreConditionCheckers()) {
-			Individual ind_preConditionChecker = luaScriptActionFunctionOWLSchema.combine((LuaScriptActionFunction) preConditionChecker);
+			Individual ind_preConditionChecker = actionFunctionOWLSchema.combine((LuaScriptActionFunction) preConditionChecker);
 			ind_action.addProperty(owlModel.getObjectProperty_hasPreConditionChecker(), ind_preConditionChecker);
 			ind_preConditionChecker.addProperty(owlModel.getObjectProperty_isPreConditionCheckerOf(), ind_action);
 		}
 		for (ActionFunction parameterUpdater : action.getParameterUpdaters()) {
-			Individual ind_parameterUpdater = luaScriptActionFunctionOWLSchema.combine((LuaScriptActionFunction) parameterUpdater);
+			Individual ind_parameterUpdater = actionFunctionOWLSchema.combine((LuaScriptActionFunction) parameterUpdater);
 			ind_action.addProperty(owlModel.getObjectProperty_hasParameterUpdater(), ind_parameterUpdater);
 			ind_parameterUpdater.addProperty(owlModel.getObjectProperty_isParameterUpdaterOf(), ind_action);
 		}
@@ -47,13 +47,13 @@ public class ActionOWLSchema implements OWLSchema<Action> {
 		owlModel.getClass_ActionFunction().listInstances().filterKeep((ind_preConditionChecker) -> {
 			return ind_action.hasProperty(owlModel.getObjectProperty_hasPreConditionChecker(), ind_preConditionChecker);
 		}).forEachRemaining((ind_preConditionChecker) -> {
-			ActionFunction preConditionChecker = luaScriptActionFunctionOWLSchema.parse(ind_preConditionChecker.asIndividual());
+			ActionFunction preConditionChecker = actionFunctionOWLSchema.parse(ind_preConditionChecker.asIndividual());
 			action.registerPreConditionChecker(preConditionChecker);
 		});
 		owlModel.getClass_ActionFunction().listInstances().filterKeep((ind_parameterUpdater) -> {
 			return ind_action.hasProperty(owlModel.getObjectProperty_hasParameterUpdater(), ind_parameterUpdater);
 		}).forEachRemaining((ind_parameterUpdater) -> {
-			ActionFunction parameterUpdater = luaScriptActionFunctionOWLSchema.parse(ind_parameterUpdater.asIndividual());
+			ActionFunction parameterUpdater = actionFunctionOWLSchema.parse(ind_parameterUpdater.asIndividual());
 			action.registerParameterUpdater(parameterUpdater);
 		});
 		return action;
