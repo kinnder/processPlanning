@@ -8,7 +8,7 @@ tests_location: str = '.\\..\\..\\tests\\'
 
 os.chdir(r'..\application\target')
 
-testNames = [
+test_names = [
     'assemblyLine_xml.py',
     'cuttingProcess_xml.py',
     'materialPoints_xml.py',
@@ -18,18 +18,30 @@ testNames = [
 
 pathlib.Path(tests_location + "results\\").mkdir(parents=True, exist_ok=True)
 
-for testName in testNames:
-    start_time = datetime.datetime.now().time().strftime('%H:%M:%S')
-    print(testName + " started : " + start_time)
+tests_passed = True
 
-    subprocess.run(['py', tests_location + testName])
+for test_name in test_names:
+    start_time = datetime.datetime.now().time().strftime('%H:%M:%S')
+    print(test_name + " started : " + start_time)
+
+    test_passed = True
+    try:
+        subprocess.run(['py', tests_location + test_name], check=True)
+    except subprocess.CalledProcessError as exception:
+        test_passed = False
+        tests_passed = False
 
     end_time = datetime.datetime.now().time().strftime('%H:%M:%S')
-    print(testName + " finished : " + end_time)
+    print(test_name + " finished : " + end_time)
 
-    elapsedTime = (datetime.datetime.strptime(end_time, '%H:%M:%S') - datetime.datetime.strptime(start_time, '%H:%M:%S'))
-    print(testName + " elapsed : " + str(elapsedTime))
+    elapsed_time = (datetime.datetime.strptime(end_time, '%H:%M:%S') - datetime.datetime.strptime(start_time, '%H:%M:%S'))
+    print(test_name + " elapsed : " + str(elapsed_time))
 
-    currentDate = datetime.datetime.now().date().strftime("%Y-%m-%d")
-    with open(tests_location + "results\\" + platform.node() + ".txt", "a") as myfile:
-        myfile.write(currentDate + "; " + testName + "; " + str(elapsedTime) + "\n")
+    current_date = datetime.datetime.now().date().strftime("%Y-%m-%d")
+    with open(tests_location + "results\\" + platform.node() + ".txt", "a") as report_file:
+        report_file.write(current_date + "; " + test_name + "; " + str(elapsed_time) + "; " + str(test_passed) + "\n")
+
+if tests_passed:
+    print("SUCCESS")
+else:
+    print("FAILURE")
