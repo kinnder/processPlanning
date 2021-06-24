@@ -5,3 +5,4 @@
 .project
 design/planning/target/*
 doxygen/
+tests/.idea
