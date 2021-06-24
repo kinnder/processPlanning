@@ -2,7 +2,7 @@ from subprocess import check_output
 
 application: str = 'application-0.0.1.jar'
 
-task_domain: str = 'cuttingProcess'
+task_domain: str = 'materialPoints'
 
 file_format: str = 'xml'
 

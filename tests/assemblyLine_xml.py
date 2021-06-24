@@ -11,6 +11,8 @@ system_transformation_file: str = task_domain + '_st.' + file_format
 node_network_file: str = task_domain + '_nn.' + file_format
 process_file: str = task_domain + '_p.' + file_format
 
+print(task_domain + ' ' + file_format + ' started')
+
 check_output(['java', '-jar', application,
               '-new_td', task_domain,
               '-td', task_description_file])

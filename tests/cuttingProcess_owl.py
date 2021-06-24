@@ -4,7 +4,7 @@ application: str = 'application-0.0.1.jar'
 
 task_domain: str = 'cuttingProcess'
 
-file_format: str = 'xml'
+file_format: str = 'owl'
 
 task_description_file: str = task_domain + '_td.' + file_format
 system_transformation_file: str = task_domain + '_st.' + file_format
