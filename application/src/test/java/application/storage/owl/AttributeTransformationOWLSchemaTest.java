@@ -78,7 +78,7 @@ public class AttributeTransformationOWLSchemaTest {
 	@Test
 	public void combine_boolean() {
 		final AttributeTransformation attributeTransformation = new AttributeTransformation("attribute-objectId",
-				"attribute-name", new Boolean(true));
+				"attribute-name", Boolean.valueOf(true));
 		final Individual i_attributeTransformation_mock = context.mock(Individual.class, "i-attributeTransformation");
 		final DatatypeProperty dp_name_mock = context.mock(DatatypeProperty.class, "dp-name");
 		final DatatypeProperty dp_objectId_mock = context.mock(DatatypeProperty.class, "dp-objectId");
@@ -116,7 +116,7 @@ public class AttributeTransformationOWLSchemaTest {
 	@Test
 	public void combine_integer() {
 		final AttributeTransformation attributeTransformation = new AttributeTransformation("attribute-objectId",
-				"attribute-name", new Integer(100));
+				"attribute-name", Integer.valueOf(100));
 		final Individual i_attributeTransformation_mock = context.mock(Individual.class, "i-attributeTransformation");
 		final DatatypeProperty dp_name_mock = context.mock(DatatypeProperty.class, "dp-name");
 		final DatatypeProperty dp_objectId_mock = context.mock(DatatypeProperty.class, "dp-objectId");

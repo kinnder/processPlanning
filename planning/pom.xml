@@ -21,8 +21,7 @@
 		<dependency>
 			<groupId>org.jgrapht</groupId>
 			<artifactId>jgrapht-core</artifactId>
-			<!-- higher version requires jdk 11 or greater -->
-			<version>1.4.0</version>
+			<version>1.5.1</version>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/org.luaj/luaj-jse -->
 		<dependency>
