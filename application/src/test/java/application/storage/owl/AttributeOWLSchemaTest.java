@@ -70,7 +70,7 @@ public class AttributeOWLSchemaTest {
 
 	@Test
 	public void combine_boolean() {
-		final Attribute attribute = new Attribute("attribute-name", new Boolean(true));
+		final Attribute attribute = new Attribute("attribute-name", Boolean.valueOf(true));
 		final Individual i_attribute_mock = context.mock(Individual.class, "i-attribute");
 		final DatatypeProperty dp_name_mock = context.mock(DatatypeProperty.class, "dp-name");
 		final DatatypeProperty dp_value_mock = context.mock(DatatypeProperty.class, "dp-value");
@@ -101,7 +101,7 @@ public class AttributeOWLSchemaTest {
 
 	@Test
 	public void combine_integer() {
-		final Attribute attribute = new Attribute("attribute-name", new Integer(100));
+		final Attribute attribute = new Attribute("attribute-name", Integer.valueOf(100));
 		final Individual i_attribute_mock = context.mock(Individual.class, "i-attribute");
 		final DatatypeProperty dp_name_mock = context.mock(DatatypeProperty.class, "dp-name");
 		final DatatypeProperty dp_value_mock = context.mock(DatatypeProperty.class, "dp-value");
