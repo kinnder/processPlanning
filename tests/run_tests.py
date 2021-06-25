@@ -27,7 +27,7 @@ for test_name in test_names:
     test_passed = True
     try:
         subprocess.run(['py', tests_location + test_name], check=True)
-    except subprocess.CalledProcessError as exception:
+    except (subprocess.CalledProcessError, FileNotFoundError) as exception:
         test_passed = False
         tests_passed = False
 
