@@ -69,9 +69,7 @@ public class SystemOWLSchemaTest {
 		final Individual i_system_mock = context.mock(Individual.class, "i-system");
 		final Individual i_systemObject_mock = context.mock(Individual.class, "i-systemObject");
 		final Individual i_link_mock = context.mock(Individual.class, "i-link");
-		final ObjectProperty op_isSystemObjectOf_mock = context.mock(ObjectProperty.class, "op-isSystemObjectOf");
 		final ObjectProperty op_hasSystemObject_mock = context.mock(ObjectProperty.class, "op-hasSystemObject");
-		final ObjectProperty op_isLinkOf_mock = context.mock(ObjectProperty.class, "op-isLinkOf");
 		final ObjectProperty op_hasLink_mock = context.mock(ObjectProperty.class, "op-hasLink");
 
 		context.checking(new Expectations() {
@@ -86,11 +84,6 @@ public class SystemOWLSchemaTest {
 				oneOf(systemObjectOWLSchema_mock).combine(systemObject);
 				will(returnValue(i_systemObject_mock));
 
-				oneOf(owlModel_mock).getObjectProperty_isSystemObjectOf();
-				will(returnValue(op_isSystemObjectOf_mock));
-
-				oneOf(i_systemObject_mock).addProperty(op_isSystemObjectOf_mock, i_system_mock);
-
 				oneOf(owlModel_mock).getObjectProperty_hasSystemObject();
 				will(returnValue(op_hasSystemObject_mock));
 
@@ -98,11 +91,6 @@ public class SystemOWLSchemaTest {
 
 				oneOf(linkOWLSchema_mock).combine(link);
 				will(returnValue(i_link_mock));
-
-				oneOf(owlModel_mock).getObjectProperty_isLinkOf();
-				will(returnValue(op_isLinkOf_mock));
-
-				oneOf(i_link_mock).addProperty(op_isLinkOf_mock, i_system_mock);
 
 				oneOf(owlModel_mock).getObjectProperty_hasLink();
 				will(returnValue(op_hasLink_mock));

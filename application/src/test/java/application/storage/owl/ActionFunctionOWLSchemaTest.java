@@ -66,7 +66,6 @@ public class ActionFunctionOWLSchemaTest {
 		final LuaScriptActionFunction actionFunction = new LuaScriptActionFunction(globals, scriptLines);
 		final Individual i_actionFunction = context.mock(Individual.class, "i-actionFunction");
 		final Individual i_line_mock = context.mock(Individual.class, "i-line");
-		final ObjectProperty op_isLineOf_mock = context.mock(ObjectProperty.class, "op-isLineOf");
 		final ObjectProperty op_hasLine_mock = context.mock(ObjectProperty.class, "op-hasLine");
 
 		context.checking(new Expectations() {
@@ -77,11 +76,6 @@ public class ActionFunctionOWLSchemaTest {
 				// TODO (2021-03-23 #31): добавить Matcher для LuaScriptLine
 				oneOf(luaScriptLineOWLSchema_mock).combine(with(any(LuaScriptLine.class)));
 				will(returnValue(i_line_mock));
-
-				oneOf(owlModel_mock).getObjectProperty_isLineOf();
-				will(returnValue(op_isLineOf_mock));
-
-				oneOf(i_line_mock).addProperty(op_isLineOf_mock, i_actionFunction);
 
 				oneOf(owlModel_mock).getObjectProperty_hasLine();
 				will(returnValue(op_hasLine_mock));

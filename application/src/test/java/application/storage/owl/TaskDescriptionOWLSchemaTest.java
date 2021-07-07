@@ -67,9 +67,7 @@ public class TaskDescriptionOWLSchemaTest {
 		final OntClass oc_initialSystem_mock = context.mock(OntClass.class, "oc-initialSystem");
 		final OntClass oc_finalSystem_mock = context.mock(OntClass.class, "oc-finalSystem");
 		final ObjectProperty op_hasInitialSystem_mock = context.mock(ObjectProperty.class, "op-hasInitialSystem");
-		final ObjectProperty op_isInitialSystemOf_mock = context.mock(ObjectProperty.class, "op-isInitialSystemOf");
 		final ObjectProperty op_hasFinalSystem_mock = context.mock(ObjectProperty.class, "op-hasFinalSystem");
-		final ObjectProperty op_isFinalSystem_mock = context.mock(ObjectProperty.class, "op-isFinalSystem");
 
 		context.checking(new Expectations() {
 			{
@@ -100,11 +98,6 @@ public class TaskDescriptionOWLSchemaTest {
 
 				oneOf(i_taskDescription_mock).addProperty(op_hasInitialSystem_mock, i_initialSystem_mock);
 
-				oneOf(owlModel_mock).getObjectProperty_isInitialSystemOf();
-				will(returnValue(op_isInitialSystemOf_mock));
-
-				oneOf(i_initialSystem_mock).addProperty(op_isInitialSystemOf_mock, i_taskDescription_mock);
-
 				oneOf(taskDescription_mock).getFinalSystem();
 				will(returnValue(finalSystem_mock));
 
@@ -124,11 +117,6 @@ public class TaskDescriptionOWLSchemaTest {
 				will(returnValue(op_hasFinalSystem_mock));
 
 				oneOf(i_taskDescription_mock).addProperty(op_hasFinalSystem_mock, i_finalSystem_mock);
-
-				oneOf(owlModel_mock).getObjectProperty_isFinalSystemOf();
-				will(returnValue(op_isFinalSystem_mock));
-
-				oneOf(i_finalSystem_mock).addProperty(op_isFinalSystem_mock, i_taskDescription_mock);
 			}
 		});
 
@@ -220,8 +208,8 @@ public class TaskDescriptionOWLSchemaTest {
 
 		OntModel model = owlModel_mock.getOntologyModel();
 		assertNotNull(model);
-		assertEquals(268, model.listObjects().toList().size());
-		assertEquals(1214, model.listStatements().toList().size());
+		assertEquals(267, model.listObjects().toList().size());
+		assertEquals(1127, model.listStatements().toList().size());
 
 		// TODO (2020-11-09 #31): удалить
 //		model.write(java.lang.System.out, "RDF/XML");

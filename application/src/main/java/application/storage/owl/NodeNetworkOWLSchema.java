@@ -32,13 +32,11 @@ public class NodeNetworkOWLSchema implements OWLSchema<NodeNetwork> {
 		for (Node node : nodeNetwork.getNodes()) {
 			Individual ind_node = nodeOWLSchema.combine(node);
 			ind_nodeNetwork.addProperty(owlModel.getObjectProperty_hasNode(), ind_node);
-			ind_node.addProperty(owlModel.getObjectProperty_isNodeOf(), ind_nodeNetwork);
 		}
 
 		for (Edge edge : nodeNetwork.getEdges()) {
 			Individual ind_edge = edgeOWLSchema.combine(edge);
 			ind_nodeNetwork.addProperty(owlModel.getObjectProperty_hasEdge(), ind_edge);
-			ind_edge.addProperty(owlModel.getObjectProperty_isEdgeOf(), ind_nodeNetwork);
 		}
 
 		return ind_nodeNetwork;

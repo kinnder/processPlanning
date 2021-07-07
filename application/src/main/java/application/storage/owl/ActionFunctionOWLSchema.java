@@ -34,7 +34,6 @@ public class ActionFunctionOWLSchema implements OWLSchema<ActionFunction> {
 		Collection<LuaScriptLine> scriptLines = luaActionFunction.getScriptLines();
 		for (LuaScriptLine scriptLine : scriptLines) {
 			Individual ind_line = luaScriptLineOWLSchema.combine(scriptLine);
-			ind_line.addProperty(owlModel.getObjectProperty_isLineOf(), ind_actionFunction);
 			ind_actionFunction.addProperty(owlModel.getObjectProperty_hasLine(), ind_line);
 		}
 		return ind_actionFunction;

@@ -67,7 +67,6 @@ public class SystemProcessOWLSchemaTest {
 		final Individual i_systemProcess_mock = context.mock(Individual.class, "i-systemProcess");
 		final Individual i_systemOperation_mock = context.mock(Individual.class, "i-systemOperation");
 		final ObjectProperty op_hasSystemOperation_mock = context.mock(ObjectProperty.class, "op-hasSystemOperation");
-		final ObjectProperty op_isSystemOperationOf_mock = context.mock(ObjectProperty.class, "op-isSystemOperationOf");
 
 		context.checking(new Expectations() {
 			{
@@ -85,11 +84,6 @@ public class SystemProcessOWLSchemaTest {
 				will(returnValue(op_hasSystemOperation_mock));
 
 				oneOf(i_systemProcess_mock).addProperty(op_hasSystemOperation_mock, i_systemOperation_mock);
-
-				oneOf(owlModel_mock).getObjectProperty_isSystemOperationOf();
-				will(returnValue(op_isSystemOperationOf_mock));
-
-				oneOf(i_systemOperation_mock).addProperty(op_isSystemOperationOf_mock, i_systemProcess_mock);
 			}
 		});
 
@@ -160,8 +154,8 @@ public class SystemProcessOWLSchemaTest {
 		owlSchema.combine(systemProcess);
 		OntModel model = owlModel.getOntologyModel();
 		assertNotNull(model);
-		assertEquals(69, model.listObjects().toList().size());
-		assertEquals(234, model.listStatements().toList().size());
+		assertEquals(68, model.listObjects().toList().size());
+		assertEquals(232, model.listStatements().toList().size());
 
 		// TODO (2020-11-09 #31): удалить
 //		model.write(System.out, "RDF/XML");

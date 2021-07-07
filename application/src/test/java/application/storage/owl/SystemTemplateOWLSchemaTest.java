@@ -70,11 +70,7 @@ public class SystemTemplateOWLSchemaTest {
 		final Individual i_systemTemplate_mock = context.mock(Individual.class, "i-systemTemplate");
 		final Individual i_systemObjectTemplate_mock = context.mock(Individual.class, "i-systemObjectTemplate");
 		final Individual i_linkTemplate_mock = context.mock(Individual.class, "i-linkTemplate");
-		final ObjectProperty op_isSystemObjectTemplateOf_mock = context.mock(ObjectProperty.class,
-				"op-isSystemObjectTemplateOf");
-		final ObjectProperty op_hasSystemObjectTemplate_mock = context.mock(ObjectProperty.class,
-				"op-hasSystemObjectTemplate");
-		final ObjectProperty op_isLinkTemplateOf_mock = context.mock(ObjectProperty.class, "op-isLinkTemplateOf");
+		final ObjectProperty op_hasSystemObjectTemplate_mock = context.mock(ObjectProperty.class, "op-hasSystemObjectTemplate");
 		final ObjectProperty op_hasLinkTemplate_mock = context.mock(ObjectProperty.class, "op-hasLinkTemplate");
 
 		context.checking(new Expectations() {
@@ -89,11 +85,6 @@ public class SystemTemplateOWLSchemaTest {
 				oneOf(systemObjectTemplateOWLSchema_mock).combine(systemObjectTemplate);
 				will(returnValue(i_systemObjectTemplate_mock));
 
-				oneOf(owlModel_mock).getObjectProperty_isObjectTemplateOf();
-				will(returnValue(op_isSystemObjectTemplateOf_mock));
-
-				oneOf(i_systemObjectTemplate_mock).addProperty(op_isSystemObjectTemplateOf_mock, i_systemTemplate_mock);
-
 				oneOf(owlModel_mock).getObjectProperty_hasObjectTemplate();
 				will(returnValue(op_hasSystemObjectTemplate_mock));
 
@@ -101,11 +92,6 @@ public class SystemTemplateOWLSchemaTest {
 
 				oneOf(linkTemplateOWLSchema_mock).combine(linkTemplate);
 				will(returnValue(i_linkTemplate_mock));
-
-				oneOf(owlModel_mock).getObjectProperty_isLinkTemplateOf();
-				will(returnValue(op_isLinkTemplateOf_mock));
-
-				oneOf(i_linkTemplate_mock).addProperty(op_isLinkTemplateOf_mock, i_systemTemplate_mock);
 
 				oneOf(owlModel_mock).getObjectProperty_hasLinkTemplate();
 				will(returnValue(op_hasLinkTemplate_mock));

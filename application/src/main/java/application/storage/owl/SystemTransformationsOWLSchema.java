@@ -29,7 +29,6 @@ public class SystemTransformationsOWLSchema implements OWLSchema<SystemTransform
 		for (SystemTransformation systemTransformation : systemTransformations) {
 			Individual ind_systemTransformation = systemTransformationOWLSchema.combine(systemTransformation);
 			ind_systemTransformations.addProperty(owlModel.getObjectProperty_hasSystemTransformation(), ind_systemTransformation);
-			ind_systemTransformation.addProperty(owlModel.getObjectProperty_isSystemTransformationOf(), ind_systemTransformations);
 		}
 		return ind_systemTransformations;
 	}

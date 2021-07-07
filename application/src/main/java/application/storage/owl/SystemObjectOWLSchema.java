@@ -31,7 +31,6 @@ public class SystemObjectOWLSchema implements OWLSchema<SystemObject> {
 
 		for (Attribute attribute : systemObject.getAttributes()) {
 			Individual ind_attribute = attributeOWLSchema.combine(attribute);
-			ind_attribute.addProperty(owlModel.getObjectProperty_isAttributeOf(), ind_systemObject);
 			ind_systemObject.addProperty(owlModel.getObjectProperty_hasAttribute(), ind_attribute);
 		}
 

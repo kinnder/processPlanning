@@ -31,7 +31,6 @@ public class SystemObjectTemplateOWLSchema implements OWLSchema<SystemObjectTemp
 
 		for (AttributeTemplate attributeTemplate : objectTemplate.getAttributeTemplates()) {
 			Individual ind_attributeTemplate = attributeTemplateOWLSchema.combine(attributeTemplate);
-			ind_attributeTemplate.addProperty(owlModel.getObjectProperty_isAttributeTemplateOf(), ind_objectTemplate);
 			ind_objectTemplate.addProperty(owlModel.getObjectProperty_hasAttributeTemplate(), ind_attributeTemplate);
 		}
 		return ind_objectTemplate;

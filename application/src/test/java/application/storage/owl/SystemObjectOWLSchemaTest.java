@@ -65,7 +65,6 @@ public class SystemObjectOWLSchemaTest {
 		final Individual i_attribute_mock = context.mock(Individual.class, "i-attribute");
 		final DatatypeProperty dp_name_mock = context.mock(DatatypeProperty.class, "dp-name");
 		final DatatypeProperty dp_id_mock = context.mock(DatatypeProperty.class, "dp-id");
-		final ObjectProperty op_isAttributeOf_mock = context.mock(ObjectProperty.class, "op-isAttributeOf");
 		final ObjectProperty op_hasAttribute_mock = context.mock(ObjectProperty.class, "op-hasAttribute");
 
 		context.checking(new Expectations() {
@@ -89,11 +88,6 @@ public class SystemObjectOWLSchemaTest {
 
 				oneOf(attributeOWLSchema_mock).combine(attribute);
 				will(returnValue(i_attribute_mock));
-
-				oneOf(owlModel_mock).getObjectProperty_isAttributeOf();
-				will(returnValue(op_isAttributeOf_mock));
-
-				oneOf(i_attribute_mock).addProperty(op_isAttributeOf_mock, i_systemObject_mock);
 
 				oneOf(owlModel_mock).getObjectProperty_hasAttribute();
 				will(returnValue(op_hasAttribute_mock));

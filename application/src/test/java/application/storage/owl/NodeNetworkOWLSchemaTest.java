@@ -78,9 +78,7 @@ public class NodeNetworkOWLSchemaTest {
 		final Individual i_node_mock = context.mock(Individual.class, "i-node");
 		final Individual i_edge_mock = context.mock(Individual.class, "i-edge");
 		final ObjectProperty op_hasNode_mock = context.mock(ObjectProperty.class, "hasNode");
-		final ObjectProperty op_isNodeOf_mock = context.mock(ObjectProperty.class, "isNodeOf");
 		final ObjectProperty op_hasEdge_mock = context.mock(ObjectProperty.class, "hasEdge");
-		final ObjectProperty op_isEdgeOf_mock = context.mock(ObjectProperty.class, "isEdgeOf");
 
 		context.checking(new Expectations() {
 			{
@@ -102,11 +100,6 @@ public class NodeNetworkOWLSchemaTest {
 
 				oneOf(i_nodeNetwork_mock).addProperty(op_hasNode_mock, i_node_mock);
 
-				oneOf(owlModel_mock).getObjectProperty_isNodeOf();
-				will(returnValue(op_isNodeOf_mock));
-
-				oneOf(i_node_mock).addProperty(op_isNodeOf_mock, i_nodeNetwork_mock);
-
 				oneOf(nodeNetwork_mock).getEdges();
 				will(returnValue(edges));
 
@@ -117,11 +110,6 @@ public class NodeNetworkOWLSchemaTest {
 				will(returnValue(op_hasEdge_mock));
 
 				oneOf(i_nodeNetwork_mock).addProperty(op_hasEdge_mock, i_edge_mock);
-
-				oneOf(owlModel_mock).getObjectProperty_isEdgeOf();
-				will(returnValue(op_isEdgeOf_mock));
-
-				oneOf(i_edge_mock).addProperty(op_isEdgeOf_mock, i_nodeNetwork_mock);
 			}
 		});
 
@@ -233,8 +221,8 @@ public class NodeNetworkOWLSchemaTest {
 		owlSchema.combine(nodeNetwork);
 		OntModel model = owlModel.getOntologyModel();
 		assertNotNull(model);
-		assertEquals(331, model.listObjects().toList().size());
-		assertEquals(1537, model.listStatements().toList().size());
+		assertEquals(330, model.listObjects().toList().size());
+		assertEquals(1443, model.listStatements().toList().size());
 
 //		 TODO (2021-03-13 #31): удалить
 //		model.write(java.lang.System.out, "RDF/XML");

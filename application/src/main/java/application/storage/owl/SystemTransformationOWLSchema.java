@@ -38,15 +38,12 @@ public class SystemTransformationOWLSchema implements OWLSchema<SystemTransforma
 		ind_systemTransformation.addProperty(owlModel.getDataProperty_name(), name);
 
 		Individual ind_action = actionOWLSchema.combine(systemTransformation.getAction());
-		ind_action.addProperty(owlModel.getObjectProperty_isActionOf(), ind_systemTransformation);
 		ind_systemTransformation.addProperty(owlModel.getObjectProperty_hasAction(), ind_action);
 
 		Individual ind_systemTemplate = systemTemplateOWLSchema.combine(systemTransformation.getSystemTemplate());
-		ind_systemTemplate.addProperty(owlModel.getObjectProperty_isSystemTemplateOf(), ind_systemTransformation);
 		ind_systemTransformation.addProperty(owlModel.getObjectProperty_hasSystemTemplate(), ind_systemTemplate);
 
 		Individual ind_transformations = transformationsOWLSchema.combine(systemTransformation.getTransformations());
-		ind_transformations.addProperty(owlModel.getObjectProperty_areTransformationsOf(), ind_systemTransformation);
 		ind_systemTransformation.addProperty(owlModel.getObjectProperty_hasTransformations(), ind_transformations);
 
 		return ind_systemTransformation;

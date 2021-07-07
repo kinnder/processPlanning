@@ -68,19 +68,14 @@ public class SystemTransformationOWLSchemaTest {
 		final Action action_mock = context.mock(Action.class);
 		final SystemTemplate systemTemplate_mock = context.mock(SystemTemplate.class);
 		final Transformation[] transformations_mock = new Transformation[] {};
-		final SystemTransformation systemTransformation = new SystemTransformation("system-transformation", action_mock,
-				systemTemplate_mock, transformations_mock);
+		final SystemTransformation systemTransformation = new SystemTransformation("system-transformation", action_mock, systemTemplate_mock, transformations_mock);
 		final Individual i_systemTransformation_mock = context.mock(Individual.class, "i-systemTransformation");
 		final Individual i_action_mock = context.mock(Individual.class, "i-action");
 		final Individual i_systemTemplate_mock = context.mock(Individual.class, "i-systemTemplate");
 		final Individual i_transformations_mock = context.mock(Individual.class, "i-transformations");
 		final DatatypeProperty dp_name_mock = context.mock(DatatypeProperty.class, "dp-name");
-		final ObjectProperty op_isActionOf_mock = context.mock(ObjectProperty.class, "op-isActionOf");
 		final ObjectProperty op_hasAction_mock = context.mock(ObjectProperty.class, "op-hasAction");
-		final ObjectProperty op_isSystemTemplateOf_mock = context.mock(ObjectProperty.class, "op-isSystemTemplateOf");
 		final ObjectProperty op_hasSystemTemplate_mock = context.mock(ObjectProperty.class, "op-hasSystemTemplate");
-		final ObjectProperty op_areTransformationsOf_mock = context.mock(ObjectProperty.class,
-				"op-areTransformationsOf");
 		final ObjectProperty op_hasTransformations_mock = context.mock(ObjectProperty.class, "op-hasTransformations");
 
 		context.checking(new Expectations() {
@@ -100,11 +95,6 @@ public class SystemTransformationOWLSchemaTest {
 				oneOf(actionOWLSchema_mock).combine(action_mock);
 				will(returnValue(i_action_mock));
 
-				oneOf(owlModel_mock).getObjectProperty_isActionOf();
-				will(returnValue(op_isActionOf_mock));
-
-				oneOf(i_action_mock).addProperty(op_isActionOf_mock, i_systemTransformation_mock);
-
 				oneOf(owlModel_mock).getObjectProperty_hasAction();
 				will(returnValue(op_hasAction_mock));
 
@@ -113,11 +103,6 @@ public class SystemTransformationOWLSchemaTest {
 				oneOf(systemTemplateOWLSchema_mock).combine(systemTemplate_mock);
 				will(returnValue(i_systemTemplate_mock));
 
-				oneOf(owlModel_mock).getObjectProperty_isSystemTemplateOf();
-				will(returnValue(op_isSystemTemplateOf_mock));
-
-				oneOf(i_systemTemplate_mock).addProperty(op_isSystemTemplateOf_mock, i_systemTransformation_mock);
-
 				oneOf(owlModel_mock).getObjectProperty_hasSystemTemplate();
 				will(returnValue(op_hasSystemTemplate_mock));
 
@@ -125,11 +110,6 @@ public class SystemTransformationOWLSchemaTest {
 
 				oneOf(transformationsOWLSchema_mock).combine(transformations_mock);
 				will(returnValue(i_transformations_mock));
-
-				oneOf(owlModel_mock).getObjectProperty_areTransformationsOf();
-				will(returnValue(op_areTransformationsOf_mock));
-
-				oneOf(i_transformations_mock).addProperty(op_areTransformationsOf_mock, i_systemTransformation_mock);
 
 				oneOf(owlModel_mock).getObjectProperty_hasTransformations();
 				will(returnValue(op_hasTransformations_mock));

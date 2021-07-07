@@ -65,7 +65,6 @@ public class NodeOWLSchemaTest {
 		final DatatypeProperty dp_id_mock = context.mock(DatatypeProperty.class, "dp-id");
 		final DatatypeProperty dp_checked_mock = context.mock(DatatypeProperty.class, "dp-checked");
 		final ObjectProperty op_hasSystem_mock = context.mock(ObjectProperty.class, "op-hasSystem");
-		final ObjectProperty op_isSystemOf_mock = context.mock(ObjectProperty.class, "op-isSystemOf");
 
 		context.checking(new Expectations() {
 			{
@@ -93,11 +92,6 @@ public class NodeOWLSchemaTest {
 				will(returnValue(op_hasSystem_mock));
 
 				oneOf(i_node_mock).addProperty(op_hasSystem_mock, i_system_mock);
-
-				oneOf(owlModel_mock).getObjectProperty_isSystemOf();
-				will(returnValue(op_isSystemOf_mock));
-
-				oneOf(i_system_mock).addProperty(op_isSystemOf_mock, i_node_mock);
 			}
 		});
 

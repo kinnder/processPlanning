@@ -30,14 +30,12 @@ public class TaskDescriptionOWLSchema implements OWLSchema<TaskDescription> {
 		ind_initialSystem.addLabel("Initial system", "en");
 		ind_initialSystem.addLabel("Начальная система", "ru");
 		ind_taskDescription.addProperty(owlModel.getObjectProperty_hasInitialSystem(), ind_initialSystem);
-		ind_initialSystem.addProperty(owlModel.getObjectProperty_isInitialSystemOf(), ind_taskDescription);
 
 		Individual ind_finalSystem = systemOWLSchema.combine(taskDescription.getFinalSystem());
 		ind_finalSystem.setOntClass(owlModel.getClass_FinalSystem());
 		ind_finalSystem.addLabel("Final system", "en");
 		ind_finalSystem.addLabel("Конечная система", "ru");
 		ind_taskDescription.addProperty(owlModel.getObjectProperty_hasFinalSystem(), ind_finalSystem);
-		ind_finalSystem.addProperty(owlModel.getObjectProperty_isFinalSystemOf(), ind_taskDescription);
 
 		return ind_taskDescription;
 	}

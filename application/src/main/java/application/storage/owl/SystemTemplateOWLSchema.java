@@ -32,13 +32,11 @@ public class SystemTemplateOWLSchema implements OWLSchema<SystemTemplate> {
 
 		for (SystemObjectTemplate objectTemplate : systemTemplate.getObjectTemplates()) {
 			Individual ind_objectTemplate = systemObjectTemplateOWLSchema.combine(objectTemplate);
-			ind_objectTemplate.addProperty(owlModel.getObjectProperty_isObjectTemplateOf(), ind_systemTemplate);
 			ind_systemTemplate.addProperty(owlModel.getObjectProperty_hasObjectTemplate(), ind_objectTemplate);
 		}
 
 		for (LinkTemplate linkTemplate : systemTemplate.getLinkTemplates()) {
 			Individual ind_linkTemplate = linkTemplateOWLSchema.combine(linkTemplate);
-			ind_linkTemplate.addProperty(owlModel.getObjectProperty_isLinkTemplateOf(), ind_systemTemplate);
 			ind_systemTemplate.addProperty(owlModel.getObjectProperty_hasLinkTemplate(), ind_linkTemplate);
 		}
 

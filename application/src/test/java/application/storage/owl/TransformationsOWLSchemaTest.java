@@ -62,15 +62,11 @@ public class TransformationsOWLSchemaTest {
 
 	@Test
 	public void combine_attributeTransformation() {
-		final AttributeTransformation attributeTransformation_mock = context.mock(AttributeTransformation.class,
-				"attributeTransformation");
+		final AttributeTransformation attributeTransformation_mock = context.mock(AttributeTransformation.class, "attributeTransformation");
 		final Transformation[] transformations = new Transformation[] { attributeTransformation_mock };
 		final Individual i_transformations_mock = context.mock(Individual.class, "i-transformations");
 		final Individual i_attributeTransformation_mock = context.mock(Individual.class, "i-attributeTransformation");
-		final ObjectProperty op_isAttributeTransformationOf_mock = context.mock(ObjectProperty.class,
-				"op-isAttributeTransformationOf");
-		final ObjectProperty op_hasAttributeTransformation_mock = context.mock(ObjectProperty.class,
-				"op-hasAttributeTransformation");
+		final ObjectProperty op_hasAttributeTransformation_mock = context.mock(ObjectProperty.class, "op-hasAttributeTransformation");
 
 		context.checking(new Expectations() {
 			{
@@ -83,12 +79,6 @@ public class TransformationsOWLSchemaTest {
 
 				oneOf(attributeTransformationOWLSchema_mock).combine(attributeTransformation_mock);
 				will(returnValue(i_attributeTransformation_mock));
-
-				oneOf(owlModel_mock).getObjectProperty_isAttributeTransformationOf();
-				will(returnValue(op_isAttributeTransformationOf_mock));
-
-				oneOf(i_attributeTransformation_mock).addProperty(op_isAttributeTransformationOf_mock,
-						i_transformations_mock);
 
 				oneOf(owlModel_mock).getObjectProperty_hasAttributeTransformation();
 				will(returnValue(op_hasAttributeTransformation_mock));
@@ -107,10 +97,7 @@ public class TransformationsOWLSchemaTest {
 		final Transformation[] transformations = new Transformation[] { linkTransformation_mock };
 		final Individual i_transformations_mock = context.mock(Individual.class, "i-transformations");
 		final Individual i_linkTransformation_mock = context.mock(Individual.class, "i-linkTransformation");
-		final ObjectProperty op_isLinkTransformationOf_mock = context.mock(ObjectProperty.class,
-				"op-isLinkTransformationOf");
-		final ObjectProperty op_hasLinkTransformation_mock = context.mock(ObjectProperty.class,
-				"op-hasLinkTransformation");
+		final ObjectProperty op_hasLinkTransformation_mock = context.mock(ObjectProperty.class, "op-hasLinkTransformation");
 
 		context.checking(new Expectations() {
 			{
@@ -123,11 +110,6 @@ public class TransformationsOWLSchemaTest {
 
 				oneOf(linkTransformationOWLSchema_mock).combine(linkTransformation_mock);
 				will(returnValue(i_linkTransformation_mock));
-
-				oneOf(owlModel_mock).getObjectProperty_isLinkTransformationOf();
-				will(returnValue(op_isLinkTransformationOf_mock));
-
-				oneOf(i_linkTransformation_mock).addProperty(op_isLinkTransformationOf_mock, i_transformations_mock);
 
 				oneOf(owlModel_mock).getObjectProperty_hasLinkTransformation();
 				will(returnValue(op_hasLinkTransformation_mock));
@@ -145,7 +127,6 @@ public class TransformationsOWLSchemaTest {
 		final Transformation[] transformations = new Transformation[] { transformation_mock };
 		final Individual i_transformations_mock = context.mock(Individual.class, "i-transformations");
 		final Individual i_transformation_mock = context.mock(Individual.class, "i-transformation");
-		final ObjectProperty op_isTransformationOf_mock = context.mock(ObjectProperty.class, "op-isTransformationOf");
 		final ObjectProperty op_hasTransformation_mock = context.mock(ObjectProperty.class, "op-hasTransformation");
 		final DatatypeProperty dp_objectId_mock = context.mock(DatatypeProperty.class, "dp-objectId");
 
@@ -168,11 +149,6 @@ public class TransformationsOWLSchemaTest {
 				will(returnValue("transformation-objectId"));
 
 				oneOf(i_transformation_mock).addProperty(dp_objectId_mock, "transformation-objectId");
-
-				oneOf(owlModel_mock).getObjectProperty_isTransformationOf();
-				will(returnValue(op_isTransformationOf_mock));
-
-				oneOf(i_transformation_mock).addProperty(op_isTransformationOf_mock, i_transformations_mock);
 
 				oneOf(owlModel_mock).getObjectProperty_hasTransformation();
 				will(returnValue(op_hasTransformation_mock));

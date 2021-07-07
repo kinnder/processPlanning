@@ -32,13 +32,11 @@ public class SystemOWLSchema implements OWLSchema<System> {
 
 		for (SystemObject systemObject : system.getObjects()) {
 			Individual ind_systemObject = systemObjectOWLSchema.combine(systemObject);
-			ind_systemObject.addProperty(owlModel.getObjectProperty_isSystemObjectOf(), ind_system);
 			ind_system.addProperty(owlModel.getObjectProperty_hasSystemObject(), ind_systemObject);
 		}
 
 		for (Link link : system.getLinks()) {
 			Individual ind_link = linkOWLSchema.combine(link);
-			ind_link.addProperty(owlModel.getObjectProperty_isLinkOf(), ind_system);
 			ind_system.addProperty(owlModel.getObjectProperty_hasLink(), ind_link);
 		}
 

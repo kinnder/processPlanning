@@ -67,13 +67,8 @@ public class ActionOWLSchemaTest {
 		final Individual i_preConditionChecker_mock = context.mock(Individual.class, "i-preConditionChecker");
 		final Individual i_parameterUpdater_mock = context.mock(Individual.class, "i-parameterUdpater");
 		final DatatypeProperty dp_name_mock = context.mock(DatatypeProperty.class, "dp-name");
-		final ObjectProperty op_hasPreConditionChecker_mock = context.mock(ObjectProperty.class,
-				"op-hasPreConditionChecker");
-		final ObjectProperty op_isPreConditionChecker_mock = context.mock(ObjectProperty.class,
-				"op-isPreConditionChecker");
+		final ObjectProperty op_hasPreConditionChecker_mock = context.mock(ObjectProperty.class, "op-hasPreConditionChecker");
 		final ObjectProperty op_hasParameterUpdater_mock = context.mock(ObjectProperty.class, "op-hasParameterUpdater");
-		final ObjectProperty op_isParameterUpdaterOf_mock = context.mock(ObjectProperty.class,
-				"op-isParameterUpdaterOf");
 
 		context.checking(new Expectations() {
 			{
@@ -97,11 +92,6 @@ public class ActionOWLSchemaTest {
 
 				oneOf(i_action_mock).addProperty(op_hasPreConditionChecker_mock, i_preConditionChecker_mock);
 
-				oneOf(owlModel_mock).getObjectProperty_isPreConditionCheckerOf();
-				will(returnValue(op_isPreConditionChecker_mock));
-
-				oneOf(i_preConditionChecker_mock).addProperty(op_isPreConditionChecker_mock, i_action_mock);
-
 				oneOf(actionFunctionOWLSchema_mock).combine(actionParameterUpdater_mock);
 				will(returnValue(i_parameterUpdater_mock));
 
@@ -109,11 +99,6 @@ public class ActionOWLSchemaTest {
 				will(returnValue(op_hasParameterUpdater_mock));
 
 				oneOf(i_action_mock).addProperty(op_hasParameterUpdater_mock, i_parameterUpdater_mock);
-
-				oneOf(owlModel_mock).getObjectProperty_isParameterUpdaterOf();
-				will(returnValue(op_isParameterUpdaterOf_mock));
-
-				oneOf(i_parameterUpdater_mock).addProperty(op_isParameterUpdaterOf_mock, i_action_mock);
 			}
 		});
 

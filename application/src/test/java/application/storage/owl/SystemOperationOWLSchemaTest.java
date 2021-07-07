@@ -66,7 +66,6 @@ public class SystemOperationOWLSchemaTest {
 		final DatatypeProperty dp_key_mock = context.mock(DatatypeProperty.class, "dp-key");
 		final DatatypeProperty dp_value_mock = context.mock(DatatypeProperty.class, "dp-value");
 		final ObjectProperty op_hasParameter_mock = context.mock(ObjectProperty.class, "op-hasParameter");
-		final ObjectProperty op_isParameterOf_mock = context.mock(ObjectProperty.class, "op-isParameterOf");
 
 		context.checking(new Expectations() {
 			{
@@ -103,11 +102,6 @@ public class SystemOperationOWLSchemaTest {
 				will(returnValue(op_hasParameter_mock));
 
 				oneOf(i_systemOperation_mock).addProperty(op_hasParameter_mock, i_parameter_mock);
-
-				oneOf(owlModel_mock).getObjectProperty_isParameterOf();
-				will(returnValue(op_isParameterOf_mock));
-
-				oneOf(i_parameter_mock).addProperty(op_isParameterOf_mock, i_systemOperation_mock);
 			}
 		});
 

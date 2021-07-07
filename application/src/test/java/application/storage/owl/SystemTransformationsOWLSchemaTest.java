@@ -62,10 +62,7 @@ public class SystemTransformationsOWLSchemaTest {
 		final SystemTransformations systemTransformations = new SystemTransformations();
 		systemTransformations.add(systemTransformation_mock);
 
-		final ObjectProperty op_hasSystemTransformation_mock = context.mock(ObjectProperty.class,
-				"op-hasSystemTransformation");
-		final ObjectProperty op_isSystemTransformationOf_mock = context.mock(ObjectProperty.class,
-				"op-isSystemTransformationOf");
+		final ObjectProperty op_hasSystemTransformation_mock = context.mock(ObjectProperty.class, "op-hasSystemTransformation");
 		final Individual i_systemTransformations_mock = context.mock(Individual.class, "i-systemTransformations");
 		final Individual i_systemTransformation_mock = context.mock(Individual.class, "i-systemTransformation");
 
@@ -86,12 +83,6 @@ public class SystemTransformationsOWLSchemaTest {
 
 				oneOf(i_systemTransformations_mock).addProperty(op_hasSystemTransformation_mock,
 						i_systemTransformation_mock);
-
-				oneOf(owlModel_mock).getObjectProperty_isSystemTransformationOf();
-				will(returnValue(op_isSystemTransformationOf_mock));
-
-				oneOf(i_systemTransformation_mock).addProperty(op_isSystemTransformationOf_mock,
-						i_systemTransformations_mock);
 			}
 		});
 
@@ -168,8 +159,8 @@ public class SystemTransformationsOWLSchemaTest {
 
 		OntModel model = owlModel.getOntologyModel();
 		assertNotNull(model);
-		assertEquals(246, model.listObjects().toList().size());
-		assertEquals(805, model.listStatements().toList().size());
+		assertEquals(245, model.listObjects().toList().size());
+		assertEquals(780, model.listStatements().toList().size());
 
 		// TODO (2020-12-14 #31): удалить
 //		model.write(java.lang.System.out, "RDF/XML");

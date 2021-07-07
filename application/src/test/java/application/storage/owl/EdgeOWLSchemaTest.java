@@ -65,12 +65,9 @@ public class EdgeOWLSchemaTest {
 		final DatatypeProperty dp_beginNodeId_mock = context.mock(DatatypeProperty.class, "dp-beginNodeId");
 		final DatatypeProperty dp_endNodeId_mock = context.mock(DatatypeProperty.class, "dp-endNodeId");
 		final ObjectProperty op_hasSystemOperation_mock = context.mock(ObjectProperty.class, "op-hasSystemOperation");
-		final ObjectProperty op_isSystemOperationOf_mock = context.mock(ObjectProperty.class, "op-isSystemOperationOf");
 		final OntClass oc_node_mock = context.mock(OntClass.class, "oc-node");
 		final ObjectProperty op_hasBeginNode_mock = context.mock(ObjectProperty.class, "op-hasBeginNode");
-		final ObjectProperty op_isBeginNodeOf_mock = context.mock(ObjectProperty.class, "op-isBeginNodeOf");
 		final ObjectProperty op_hasEndNode_mock = context.mock(ObjectProperty.class, "op-hasEndNode");
-		final ObjectProperty op_isEndNodeOf_mock = context.mock(ObjectProperty.class, "op-isEndNodeOf");
 
 		final Individual i_beginNode_mock = context.mock(Individual.class, "i-beginNode");
 		final Statement st_beginNodeId_mock = context.mock(Statement.class, "st-beginNodeId");
@@ -111,11 +108,6 @@ public class EdgeOWLSchemaTest {
 
 				oneOf(i_edge_mock).addProperty(op_hasSystemOperation_mock, i_systemOperation_mock);
 
-				oneOf(owlModel_mock).getObjectProperty_isSystemOperationOf();
-				will(returnValue(op_isSystemOperationOf_mock));
-
-				oneOf(i_systemOperation_mock).addProperty(op_isSystemOperationOf_mock, i_edge_mock);
-
 				oneOf(owlModel_mock).getClass_Node();
 				will(returnValue(oc_node_mock));
 
@@ -136,11 +128,6 @@ public class EdgeOWLSchemaTest {
 
 				oneOf(i_edge_mock).addProperty(op_hasBeginNode_mock, i_beginNode_mock);
 
-				oneOf(owlModel_mock).getObjectProperty_isBeginNodeOf();
-				will(returnValue(op_isBeginNodeOf_mock));
-
-				oneOf(i_beginNode_mock).addProperty(op_isBeginNodeOf_mock, i_edge_mock);
-
 				oneOf(owlModel_mock).getDataProperty_id();
 				will(returnValue(dp_id_mock));
 
@@ -154,11 +141,6 @@ public class EdgeOWLSchemaTest {
 				will(returnValue(op_hasEndNode_mock));
 
 				oneOf(i_edge_mock).addProperty(op_hasEndNode_mock, i_endNode_mock);
-
-				oneOf(owlModel_mock).getObjectProperty_isEndNodeOf();
-				will(returnValue(op_isEndNodeOf_mock));
-
-				oneOf(i_endNode_mock).addProperty(op_isEndNodeOf_mock, i_edge_mock);
 			}
 		});
 

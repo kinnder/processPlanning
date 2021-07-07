@@ -37,16 +37,13 @@ public class TransformationsOWLSchema implements OWLSchema<Transformation[]> {
 			if (transformation instanceof AttributeTransformation) {
 				AttributeTransformation attributeTransformation = (AttributeTransformation) transformation;
 				Individual ind_attributeTransformation = attributeTransformationOWLSchema.combine(attributeTransformation);
-				ind_attributeTransformation.addProperty(owlModel.getObjectProperty_isAttributeTransformationOf(), ind_transformations);
 				ind_transformations.addProperty(owlModel.getObjectProperty_hasAttributeTransformation(), ind_attributeTransformation);
 			} else if (transformation instanceof LinkTransformation) {
 				LinkTransformation linkTransformation = (LinkTransformation) transformation;
 				Individual ind_linkTransformation = linkTransformationOWLSchema.combine(linkTransformation);
-				ind_linkTransformation.addProperty(owlModel.getObjectProperty_isLinkTransformationOf(), ind_transformations);
 				ind_transformations.addProperty(owlModel.getObjectProperty_hasLinkTransformation(), ind_linkTransformation);
 			} else {
 				Individual ind_transformation = combineTransformation(transformation);
-				ind_transformation.addProperty(owlModel.getObjectProperty_isTransformationOf(), ind_transformations);
 				ind_transformations.addProperty(owlModel.getObjectProperty_hasTransformation(), ind_transformation);
 			}
 		}

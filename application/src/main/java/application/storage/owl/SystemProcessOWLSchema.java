@@ -28,7 +28,6 @@ public class SystemProcessOWLSchema implements OWLSchema<SystemProcess> {
 		for (SystemOperation systemOperation : systemProcess) {
 			Individual ind_systemOperation = systemOperationOWLSchema.combine(systemOperation);
 			ind_process.addProperty(owlModel.getObjectProperty_hasSystemOperation(), ind_systemOperation);
-			ind_systemOperation.addProperty(owlModel.getObjectProperty_isSystemOperationOf(), ind_process);
 		}
 
 		return ind_process;

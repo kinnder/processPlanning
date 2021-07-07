@@ -32,7 +32,6 @@ public class SystemOperationOWLSchema implements OWLSchema<SystemOperation> {
 			ind_parameter.addProperty(owlModel.getDataProperty_key(), key);
 			ind_parameter.addProperty(owlModel.getDataProperty_value(), actionParameters.get(key));
 			ind_systemOperation.addProperty(owlModel.getObjectProperty_hasParameter(), ind_parameter);
-			ind_parameter.addProperty(owlModel.getObjectProperty_isParameterOf(), ind_systemOperation);
 		}
 
 		return ind_systemOperation;

@@ -30,12 +30,10 @@ public class ActionOWLSchema implements OWLSchema<Action> {
 		for (ActionFunction preConditionChecker : action.getPreConditionCheckers()) {
 			Individual ind_preConditionChecker = actionFunctionOWLSchema.combine((LuaScriptActionFunction) preConditionChecker);
 			ind_action.addProperty(owlModel.getObjectProperty_hasPreConditionChecker(), ind_preConditionChecker);
-			ind_preConditionChecker.addProperty(owlModel.getObjectProperty_isPreConditionCheckerOf(), ind_action);
 		}
 		for (ActionFunction parameterUpdater : action.getParameterUpdaters()) {
 			Individual ind_parameterUpdater = actionFunctionOWLSchema.combine((LuaScriptActionFunction) parameterUpdater);
 			ind_action.addProperty(owlModel.getObjectProperty_hasParameterUpdater(), ind_parameterUpdater);
-			ind_parameterUpdater.addProperty(owlModel.getObjectProperty_isParameterUpdaterOf(), ind_action);
 		}
 		return ind_action;
 	}

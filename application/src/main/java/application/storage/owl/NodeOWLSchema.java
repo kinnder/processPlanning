@@ -30,7 +30,6 @@ public class NodeOWLSchema implements OWLSchema<Node> {
 
 		Individual ind_system = systemOWLSchema.combine(node.getSystem());
 		ind_node.addProperty(owlModel.getObjectProperty_hasSystem(), ind_system);
-		ind_system.addProperty(owlModel.getObjectProperty_isSystemOf(), ind_node);
 
 		return ind_node;
 	}
