@@ -1,5 +1,8 @@
 package application.storage.owl;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.apache.jena.ontology.Individual;
 import planning.model.LinkTemplate;
 import planning.model.SystemObjectTemplate;
@@ -30,14 +33,27 @@ public class SystemTemplateOWLSchema implements OWLSchema<SystemTemplate> {
 		ind_systemTemplate.addLabel("System template", "en");
 		ind_systemTemplate.addLabel("Шаблон системы", "ru");
 
+		Map<String, Individual> ind_objectTemplates = new HashMap<String, Individual>();
+
 		for (SystemObjectTemplate objectTemplate : systemTemplate.getObjectTemplates()) {
 			Individual ind_objectTemplate = systemObjectTemplateOWLSchema.combine(objectTemplate);
 			ind_systemTemplate.addProperty(owlModel.getObjectProperty_hasObjectTemplate(), ind_objectTemplate);
+
+			ind_objectTemplates.put(objectTemplate.getId(), ind_objectTemplate);
 		}
 
 		for (LinkTemplate linkTemplate : systemTemplate.getLinkTemplates()) {
 			Individual ind_linkTemplate = linkTemplateOWLSchema.combine(linkTemplate);
 			ind_systemTemplate.addProperty(owlModel.getObjectProperty_hasLinkTemplate(), ind_linkTemplate);
+
+			String objectId1 = linkTemplate.getObjectId1();
+			if (objectId1 != null) {
+				ind_linkTemplate.addProperty(owlModel.getObjectProperty_hasObjectTemplate1(), ind_objectTemplates.get(objectId1));
+			}
+			String objectId2 = linkTemplate.getObjectId2();
+			if (objectId2 != null) {
+				ind_linkTemplate.addProperty(owlModel.getObjectProperty_hasObjectTemplate2(), ind_objectTemplates.get(objectId2));
+			}
 		}
 
 		return ind_systemTemplate;

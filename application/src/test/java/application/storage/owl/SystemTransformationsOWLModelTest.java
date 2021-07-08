@@ -74,6 +74,8 @@ public class SystemTransformationsOWLModelTest {
 		assertEquals(SystemTransformationsOWLModel.URI_hasLinkTemplate, testable.getObjectProperty_hasLinkTemplate().getURI());
 		assertEquals(SystemTransformationsOWLModel.URI_hasLinkTransformation, testable.getObjectProperty_hasLinkTransformation().getURI());
 		assertEquals(SystemTransformationsOWLModel.URI_hasObjectTemplate, testable.getObjectProperty_hasObjectTemplate().getURI());
+		assertEquals(SystemTransformationsOWLModel.URI_hasObjectTemplate1, testable.getObjectProperty_hasObjectTemplate1().getURI());
+		assertEquals(SystemTransformationsOWLModel.URI_hasObjectTemplate2, testable.getObjectProperty_hasObjectTemplate2().getURI());
 		assertEquals(SystemTransformationsOWLModel.URI_hasParameterUpdater, testable.getObjectProperty_hasParameterUpdater().getURI());
 		assertEquals(SystemTransformationsOWLModel.URI_hasPreConditionChecker, testable.getObjectProperty_hasPreConditionChecker().getURI());
 		assertEquals(SystemTransformationsOWLModel.URI_hasSystemTemplate, testable.getObjectProperty_hasSystemTemplate().getURI());
@@ -87,6 +89,8 @@ public class SystemTransformationsOWLModelTest {
 		assertEquals(SystemTransformationsOWLModel.URI_isLinkTemplateOf, testable.getObjectProperty_isLinkTemplateOf().getURI());
 		assertEquals(SystemTransformationsOWLModel.URI_isLinkTransformationOf, testable.getObjectProperty_isLinkTransformationOf().getURI());
 		assertEquals(SystemTransformationsOWLModel.URI_isObjectTemplateOf, testable.getObjectProperty_isObjectTemplateOf().getURI());
+		assertEquals(SystemTransformationsOWLModel.URI_isObjectTemplate1Of, testable.getObjectProperty_isObjectTemplate1Of().getURI());
+		assertEquals(SystemTransformationsOWLModel.URI_isObjectTemplate2Of, testable.getObjectProperty_isObjectTemplate2Of().getURI());
 		assertEquals(SystemTransformationsOWLModel.URI_isParameterUpdaterOf, testable.getObjectProperty_isParameterUpdaterOf().getURI());
 		assertEquals(SystemTransformationsOWLModel.URI_isPreConditionCheckerOf, testable.getObjectProperty_isPreConditionCheckerOf().getURI());
 		assertEquals(SystemTransformationsOWLModel.URI_isSystemTemplateOf, testable.getObjectProperty_isSystemTemplateOf().getURI());
@@ -133,6 +137,8 @@ public class SystemTransformationsOWLModelTest {
 		assertEquals(SystemTransformationsOWLModel.URI_hasLinkTemplate, testable.getObjectProperty_hasLinkTemplate().getURI());
 		assertEquals(SystemTransformationsOWLModel.URI_hasLinkTransformation, testable.getObjectProperty_hasLinkTransformation().getURI());
 		assertEquals(SystemTransformationsOWLModel.URI_hasObjectTemplate, testable.getObjectProperty_hasObjectTemplate().getURI());
+		assertEquals(SystemTransformationsOWLModel.URI_hasObjectTemplate1, testable.getObjectProperty_hasObjectTemplate1().getURI());
+		assertEquals(SystemTransformationsOWLModel.URI_hasObjectTemplate2, testable.getObjectProperty_hasObjectTemplate2().getURI());
 		assertEquals(SystemTransformationsOWLModel.URI_hasParameterUpdater, testable.getObjectProperty_hasParameterUpdater().getURI());
 		assertEquals(SystemTransformationsOWLModel.URI_hasPreConditionChecker, testable.getObjectProperty_hasPreConditionChecker().getURI());
 		assertEquals(SystemTransformationsOWLModel.URI_hasSystemTemplate, testable.getObjectProperty_hasSystemTemplate().getURI());
@@ -146,6 +152,8 @@ public class SystemTransformationsOWLModelTest {
 		assertEquals(SystemTransformationsOWLModel.URI_isLinkTemplateOf, testable.getObjectProperty_isLinkTemplateOf().getURI());
 		assertEquals(SystemTransformationsOWLModel.URI_isLinkTransformationOf, testable.getObjectProperty_isLinkTransformationOf().getURI());
 		assertEquals(SystemTransformationsOWLModel.URI_isObjectTemplateOf, testable.getObjectProperty_isObjectTemplateOf().getURI());
+		assertEquals(SystemTransformationsOWLModel.URI_isObjectTemplate1Of, testable.getObjectProperty_isObjectTemplate1Of().getURI());
+		assertEquals(SystemTransformationsOWLModel.URI_isObjectTemplate2Of, testable.getObjectProperty_isObjectTemplate2Of().getURI());
 		assertEquals(SystemTransformationsOWLModel.URI_isParameterUpdaterOf, testable.getObjectProperty_isParameterUpdaterOf().getURI());
 		assertEquals(SystemTransformationsOWLModel.URI_isPreConditionCheckerOf, testable.getObjectProperty_isPreConditionCheckerOf().getURI());
 		assertEquals(SystemTransformationsOWLModel.URI_isSystemTemplateOf, testable.getObjectProperty_isSystemTemplateOf().getURI());

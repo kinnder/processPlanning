@@ -104,6 +104,73 @@ public class SystemTemplateOWLSchemaTest {
 	}
 
 	@Test
+	public void combine_link_with_objects() {
+		final SystemObjectTemplate systemObjectTemplate1 = new SystemObjectTemplate("test-object-1-id");
+		final SystemObjectTemplate systemObjectTemplate2 = new SystemObjectTemplate("test-object-2-id");
+		final LinkTemplate linkTemplate = new LinkTemplate("test-link", "test-object-1-id", "test-object-2-id");
+		final SystemTemplate systemTemplate = new SystemTemplate();
+		systemTemplate.addObjectTemplate(systemObjectTemplate1);
+		systemTemplate.addObjectTemplate(systemObjectTemplate2);
+		systemTemplate.addLinkTemplate(linkTemplate);
+
+		final Individual i_systemTemplate_mock = context.mock(Individual.class, "i-systemTemplate");
+		final Individual i_systemObjectTemplate1_mock = context.mock(Individual.class, "i-systemObjectTemplate1");
+		final Individual i_systemObjectTemplate2_mock = context.mock(Individual.class, "i-systemObjectTemplate2");
+		final Individual i_linkTemplate_mock = context.mock(Individual.class, "i-linkTemplate");
+		final ObjectProperty op_hasSystemObjectTemplate_mock = context.mock(ObjectProperty.class, "op-hasSystemObjectTemplate");
+		final ObjectProperty op_hasSystemObjectTemplate1_mock = context.mock(ObjectProperty.class, "op-hasSystemObjectTemplate1");
+		final ObjectProperty op_hasSystemObjectTemplate2_mock = context.mock(ObjectProperty.class, "op-hasSystemObjectTemplate2");
+		final ObjectProperty op_hasLinkTemplate_mock = context.mock(ObjectProperty.class, "op-hasLinkTemplate");
+
+		context.checking(new Expectations() {
+			{
+				oneOf(owlModel_mock).newIndividual_SystemTemplate();
+				will(returnValue(i_systemTemplate_mock));
+
+				oneOf(i_systemTemplate_mock).addLabel("System template", "en");
+
+				oneOf(i_systemTemplate_mock).addLabel("Шаблон системы", "ru");
+
+				oneOf(systemObjectTemplateOWLSchema_mock).combine(systemObjectTemplate1);
+				will(returnValue(i_systemObjectTemplate1_mock));
+
+				oneOf(owlModel_mock).getObjectProperty_hasObjectTemplate();
+				will(returnValue(op_hasSystemObjectTemplate_mock));
+
+				oneOf(i_systemTemplate_mock).addProperty(op_hasSystemObjectTemplate_mock, i_systemObjectTemplate1_mock);
+
+				oneOf(systemObjectTemplateOWLSchema_mock).combine(systemObjectTemplate2);
+				will(returnValue(i_systemObjectTemplate2_mock));
+
+				oneOf(owlModel_mock).getObjectProperty_hasObjectTemplate();
+				will(returnValue(op_hasSystemObjectTemplate_mock));
+
+				oneOf(i_systemTemplate_mock).addProperty(op_hasSystemObjectTemplate_mock, i_systemObjectTemplate2_mock);
+
+				oneOf(linkTemplateOWLSchema_mock).combine(linkTemplate);
+				will(returnValue(i_linkTemplate_mock));
+
+				oneOf(owlModel_mock).getObjectProperty_hasLinkTemplate();
+				will(returnValue(op_hasLinkTemplate_mock));
+
+				oneOf(i_systemTemplate_mock).addProperty(op_hasLinkTemplate_mock, i_linkTemplate_mock);
+
+				oneOf(owlModel_mock).getObjectProperty_hasObjectTemplate1();
+				will(returnValue(op_hasSystemObjectTemplate1_mock));
+
+				oneOf(i_linkTemplate_mock).addProperty(op_hasSystemObjectTemplate1_mock, i_systemObjectTemplate1_mock);
+
+				oneOf(owlModel_mock).getObjectProperty_hasObjectTemplate2();
+				will(returnValue(op_hasSystemObjectTemplate2_mock));
+
+				oneOf(i_linkTemplate_mock).addProperty(op_hasSystemObjectTemplate2_mock, i_systemObjectTemplate2_mock);
+			}
+		});
+
+		assertEquals(i_systemTemplate_mock, testable.combine(systemTemplate));
+	}
+
+	@Test
 	public void parse() {
 		final Individual i_systemTemplate_mock = context.mock(Individual.class, "i-systemTemplate");
 		final OntClass oc_systemObjectTemplate_mock = context.mock(OntClass.class, "oc-systemObjectTemplate");

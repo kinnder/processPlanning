@@ -54,6 +54,14 @@ public class SystemTransformationsOWLModel implements OWLModel<SystemTransformat
 
 	static final String URI_hasObjectTemplate = NS + "#hasObjectTemplate";
 
+	static final String URI_isObjectTemplate1Of = NS + "#isObjectTemplate1Of";
+
+	static final String URI_hasObjectTemplate1 = NS + "#hasObjectTemplate1";
+
+	static final String URI_isObjectTemplate2Of = NS + "#isObjectTemplate2Of";
+
+	static final String URI_hasObjectTemplate2 = NS + "#hasObjectTemplate2";
+
 	static final String URI_isActionOf = NS + "#isActionOf";
 
 	static final String URI_hasAction = NS + "#hasAction";
@@ -259,6 +267,30 @@ public class SystemTransformationsOWLModel implements OWLModel<SystemTransformat
 
 	public ObjectProperty getObjectProperty_isObjectTemplateOf() {
 		return objectProperty_isObjectTemplateOf;
+	}
+
+	private ObjectProperty objectProperty_hasObjectTemplate1;
+
+	public ObjectProperty getObjectProperty_hasObjectTemplate1() {
+		return objectProperty_hasObjectTemplate1;
+	}
+
+	private ObjectProperty objectProperty_isObjectTemplate1Of;
+
+	public ObjectProperty getObjectProperty_isObjectTemplate1Of() {
+		return objectProperty_isObjectTemplate1Of;
+	}
+
+	private ObjectProperty objectProperty_hasObjectTemplate2;
+
+	public ObjectProperty getObjectProperty_hasObjectTemplate2() {
+		return objectProperty_hasObjectTemplate2;
+	}
+
+	private ObjectProperty objectProperty_isObjectTemplate2Of;
+
+	public ObjectProperty getObjectProperty_isObjectTemplate2Of() {
+		return objectProperty_isObjectTemplate2Of;
 	}
 
 	private ObjectProperty objectProperty_hasLinkTemplate;
@@ -542,7 +574,7 @@ public class SystemTransformationsOWLModel implements OWLModel<SystemTransformat
 		makeInverse(objectProperty_hasAction, objectProperty_isActionOf);
 
 		objectProperty_hasObjectTemplate = m.createObjectProperty(URI_hasObjectTemplate);
-		objectProperty_hasObjectTemplate.addLabel("has objectTemplate", "en");
+		objectProperty_hasObjectTemplate.addLabel("has object template", "en");
 		objectProperty_hasObjectTemplate.addLabel("имеет шаблон объекта", "ru");
 		objectProperty_hasObjectTemplate.addDomain(class_SystemTemplate);
 		objectProperty_hasObjectTemplate.addRange(class_ObjectTemplate);
@@ -554,6 +586,34 @@ public class SystemTransformationsOWLModel implements OWLModel<SystemTransformat
 		objectProperty_isObjectTemplateOf.addRange(class_SystemTemplate);
 
 		makeInverse(objectProperty_hasObjectTemplate, objectProperty_isObjectTemplateOf);
+
+		objectProperty_hasObjectTemplate1 = m.createObjectProperty(URI_hasObjectTemplate1);
+		objectProperty_hasObjectTemplate1.addLabel("has object template 1", "en");
+		objectProperty_hasObjectTemplate1.addLabel("имеет шаблон объекта 1", "ru");
+		objectProperty_hasObjectTemplate1.addDomain(class_LinkTemplate);
+		objectProperty_hasObjectTemplate1.addRange(class_ObjectTemplate);
+
+		objectProperty_isObjectTemplate1Of = m.createObjectProperty(URI_isObjectTemplate1Of);
+		objectProperty_isObjectTemplate1Of.addLabel("is object template 1 of", "en");
+		objectProperty_isObjectTemplate1Of.addLabel("является шаблоном объекта 1 для", "ru");
+		objectProperty_isObjectTemplate1Of.addDomain(class_ObjectTemplate);
+		objectProperty_isObjectTemplate1Of.addRange(class_LinkTemplate);
+
+		makeInverse(objectProperty_hasObjectTemplate1, objectProperty_isObjectTemplate1Of);
+
+		objectProperty_hasObjectTemplate2 = m.createObjectProperty(URI_hasObjectTemplate2);
+		objectProperty_hasObjectTemplate2.addLabel("has object template 2", "en");
+		objectProperty_hasObjectTemplate2.addLabel("имеет шаблон объекта 2", "ru");
+		objectProperty_hasObjectTemplate2.addDomain(class_LinkTemplate);
+		objectProperty_hasObjectTemplate2.addRange(class_ObjectTemplate);
+
+		objectProperty_isObjectTemplate2Of = m.createObjectProperty(URI_isObjectTemplate2Of);
+		objectProperty_isObjectTemplate2Of.addLabel("is object template 2 of", "en");
+		objectProperty_isObjectTemplate2Of.addLabel("является шаблоном объекта 2 для", "ru");
+		objectProperty_isObjectTemplate2Of.addDomain(class_ObjectTemplate);
+		objectProperty_isObjectTemplate2Of.addRange(class_LinkTemplate);
+
+		makeInverse(objectProperty_hasObjectTemplate2, objectProperty_isObjectTemplate2Of);
 
 		objectProperty_hasLinkTemplate = m.createObjectProperty(URI_hasLinkTemplate);
 		objectProperty_hasLinkTemplate.addLabel("has link template", "en");
@@ -770,6 +830,10 @@ public class SystemTransformationsOWLModel implements OWLModel<SystemTransformat
 		objectProperty_isLineOf = ontModel.getObjectProperty(URI_isLineOf);
 		objectProperty_hasObjectTemplate = ontModel.getObjectProperty(URI_hasObjectTemplate);
 		objectProperty_isObjectTemplateOf = ontModel.getObjectProperty(URI_isObjectTemplateOf);
+		objectProperty_hasObjectTemplate1 = ontModel.getObjectProperty(URI_hasObjectTemplate1);
+		objectProperty_isObjectTemplate1Of = ontModel.getObjectProperty(URI_isObjectTemplate1Of);
+		objectProperty_hasObjectTemplate2 = ontModel.getObjectProperty(URI_hasObjectTemplate2);
+		objectProperty_isObjectTemplate2Of = ontModel.getObjectProperty(URI_isObjectTemplate2Of);
 		objectProperty_hasLinkTemplate = ontModel.getObjectProperty(URI_hasLinkTemplate);
 		objectProperty_isLinkTemplateOf = ontModel.getObjectProperty(URI_isLinkTemplateOf);
 		objectProperty_hasAttributeTemplate = ontModel.getObjectProperty(URI_hasAttributeTemplate);
