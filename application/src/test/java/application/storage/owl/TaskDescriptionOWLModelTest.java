@@ -61,11 +61,15 @@ public class TaskDescriptionOWLModelTest {
 		assertEquals(TaskDescriptionOWLModel.URI_hasInitialSystem, testable.getObjectProperty_hasInitialSystem().getURI());
 		assertEquals(TaskDescriptionOWLModel.URI_hasLink, testable.getObjectProperty_hasLink().getURI());
 		assertEquals(TaskDescriptionOWLModel.URI_hasSystemObject, testable.getObjectProperty_hasSystemObject().getURI());
+		assertEquals(TaskDescriptionOWLModel.URI_hasSystemObject1, testable.getObjectProperty_hasSystemObject1().getURI());
+		assertEquals(TaskDescriptionOWLModel.URI_hasSystemObject2, testable.getObjectProperty_hasSystemObject2().getURI());
 		assertEquals(TaskDescriptionOWLModel.URI_isAttributeOf, testable.getObjectProperty_isAttributeOf().getURI());
 		assertEquals(TaskDescriptionOWLModel.URI_isFinalSystemOf, testable.getObjectProperty_isFinalSystemOf().getURI());
 		assertEquals(TaskDescriptionOWLModel.URI_isInitialSystemOf, testable.getObjectProperty_isInitialSystemOf().getURI());
 		assertEquals(TaskDescriptionOWLModel.URI_isLinkOf, testable.getObjectProperty_isLinkOf().getURI());
 		assertEquals(TaskDescriptionOWLModel.URI_isSystemObjectOf, testable.getObjectProperty_isSystemObjectOf().getURI());
+		assertEquals(TaskDescriptionOWLModel.URI_isSystemObject1Of, testable.getObjectProperty_isSystemObject1Of().getURI());
+		assertEquals(TaskDescriptionOWLModel.URI_isSystemObject2Of, testable.getObjectProperty_isSystemObject2Of().getURI());
 	}
 
 	@Test
@@ -94,11 +98,15 @@ public class TaskDescriptionOWLModelTest {
 		assertEquals(TaskDescriptionOWLModel.URI_hasInitialSystem, testable.getObjectProperty_hasInitialSystem().getURI());
 		assertEquals(TaskDescriptionOWLModel.URI_hasLink, testable.getObjectProperty_hasLink().getURI());
 		assertEquals(TaskDescriptionOWLModel.URI_hasSystemObject, testable.getObjectProperty_hasSystemObject().getURI());
+		assertEquals(TaskDescriptionOWLModel.URI_hasSystemObject1, testable.getObjectProperty_hasSystemObject1().getURI());
+		assertEquals(TaskDescriptionOWLModel.URI_hasSystemObject2, testable.getObjectProperty_hasSystemObject2().getURI());
 		assertEquals(TaskDescriptionOWLModel.URI_isAttributeOf, testable.getObjectProperty_isAttributeOf().getURI());
 		assertEquals(TaskDescriptionOWLModel.URI_isFinalSystemOf, testable.getObjectProperty_isFinalSystemOf().getURI());
 		assertEquals(TaskDescriptionOWLModel.URI_isInitialSystemOf, testable.getObjectProperty_isInitialSystemOf().getURI());
 		assertEquals(TaskDescriptionOWLModel.URI_isLinkOf, testable.getObjectProperty_isLinkOf().getURI());
 		assertEquals(TaskDescriptionOWLModel.URI_isSystemObjectOf, testable.getObjectProperty_isSystemObjectOf().getURI());
+		assertEquals(TaskDescriptionOWLModel.URI_isSystemObject1Of, testable.getObjectProperty_isSystemObject1Of().getURI());
+		assertEquals(TaskDescriptionOWLModel.URI_isSystemObject2Of, testable.getObjectProperty_isSystemObject2Of().getURI());
 	}
 
 	@Test

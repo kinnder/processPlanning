@@ -44,6 +44,14 @@ public class TaskDescriptionOWLModel implements OWLModel<TaskDescription>, OWLMo
 
 	static final String URI_isSystemObjectOf = NS + "#isSystemObjectOf";
 
+	static final String URI_hasSystemObject1 = NS + "#hasSystemObject1";
+
+	static final String URI_isSystemObject1Of = NS + "#isSystemObject1Of";
+
+	static final String URI_hasSystemObject2 = NS + "#hasSystemObject2";
+
+	static final String URI_isSystemObject2Of = NS + "#isSystemObject2Of";
+
 	static final String URI_hasLink = NS + "#hasLink";
 
 	static final String URI_isLinkOf = NS + "#isLinkOf";
@@ -205,6 +213,34 @@ public class TaskDescriptionOWLModel implements OWLModel<TaskDescription>, OWLMo
 		return objectProperty_isAttributeOf;
 	}
 
+	private ObjectProperty objectProperty_hasSystemObject1;
+
+	@Override
+	public ObjectProperty getObjectProperty_hasSystemObject1() {
+		return objectProperty_hasSystemObject1;
+	}
+
+	private ObjectProperty objectProperty_isSystemObject1Of;
+
+	@Override
+	public ObjectProperty getObjectProperty_isSystemObject1Of() {
+		return objectProperty_isSystemObject1Of;
+	}
+
+	private ObjectProperty objectProperty_hasSystemObject2;
+
+	@Override
+	public ObjectProperty getObjectProperty_hasSystemObject2() {
+		return objectProperty_hasSystemObject2;
+	}
+
+	private ObjectProperty objectProperty_isSystemObject2Of;
+
+	@Override
+	public ObjectProperty getObjectProperty_isSystemObject2Of() {
+		return objectProperty_isSystemObject2Of;
+	}
+
 	private DatatypeProperty dataProperty_name;
 
 	@Override
@@ -327,6 +363,9 @@ public class TaskDescriptionOWLModel implements OWLModel<TaskDescription>, OWLMo
 
 		makeInverse(objectProperty_hasFinalSystem, objectProperty_isFinalSystemOf);
 
+		// TODO (2021-07-08 #38): включить проверку copy-paste
+		// CPD-OFF
+		
 		objectProperty_hasSystemObject = m.createObjectProperty(URI_hasSystemObject);
 		objectProperty_hasSystemObject.addLabel("has system object", "en");
 		objectProperty_hasSystemObject.addLabel("имеет объект системы", "ru");
@@ -340,6 +379,36 @@ public class TaskDescriptionOWLModel implements OWLModel<TaskDescription>, OWLMo
 		objectProperty_isSystemObjectOf.addRange(class_System);
 
 		makeInverse(objectProperty_hasSystemObject, objectProperty_isSystemObjectOf);
+
+		objectProperty_hasSystemObject1 = m.createObjectProperty(URI_hasSystemObject1);
+		objectProperty_hasSystemObject1.addLabel("has system object 1", "en");
+		objectProperty_hasSystemObject1.addLabel("имеет объет системы 1", "ru");
+		objectProperty_hasSystemObject1.addDomain(class_Link);
+		objectProperty_hasSystemObject1.addRange(class_SystemObject);
+
+		objectProperty_isSystemObject1Of = m.createObjectProperty(URI_isSystemObject1Of);
+		objectProperty_isSystemObject1Of.addLabel("is system object 1 of", "en");
+		objectProperty_isSystemObject1Of.addLabel("является объектом системы 1 для", "ru");
+		objectProperty_isSystemObject1Of.addDomain(class_SystemObject);
+		objectProperty_isSystemObject1Of.addRange(class_Link);
+
+		makeInverse(objectProperty_hasSystemObject1, objectProperty_isSystemObject1Of);
+
+		objectProperty_hasSystemObject2 = m.createObjectProperty(URI_hasSystemObject2);
+		objectProperty_hasSystemObject2.addLabel("has system object 2", "en");
+		objectProperty_hasSystemObject2.addLabel("имеет объет системы 2", "ru");
+		objectProperty_hasSystemObject2.addDomain(class_Link);
+		objectProperty_hasSystemObject2.addRange(class_SystemObject);
+
+		objectProperty_isSystemObject2Of = m.createObjectProperty(URI_isSystemObject2Of);
+		objectProperty_isSystemObject2Of.addLabel("is system object 2 of", "en");
+		objectProperty_isSystemObject2Of.addLabel("является объектом системы 2 для", "ru");
+		objectProperty_isSystemObject2Of.addDomain(class_SystemObject);
+		objectProperty_isSystemObject2Of.addRange(class_Link);
+
+		makeInverse(objectProperty_hasSystemObject2, objectProperty_isSystemObject2Of);
+		
+		// CPD-ON
 
 		objectProperty_hasLink = m.createObjectProperty(URI_hasLink);
 		objectProperty_hasLink.addLabel("has link", "en");
@@ -420,6 +489,10 @@ public class TaskDescriptionOWLModel implements OWLModel<TaskDescription>, OWLMo
 		objectProperty_isFinalSystemOf = m.getObjectProperty(URI_isFinalSystemOf);
 		objectProperty_hasSystemObject = m.getObjectProperty(URI_hasSystemObject);
 		objectProperty_isSystemObjectOf = m.getObjectProperty(URI_isSystemObjectOf);
+		objectProperty_hasSystemObject1 = m.getObjectProperty(URI_hasSystemObject1);
+		objectProperty_isSystemObject1Of = m.getObjectProperty(URI_isSystemObject1Of);
+		objectProperty_hasSystemObject2 = m.getObjectProperty(URI_hasSystemObject2);
+		objectProperty_isSystemObject2Of = m.getObjectProperty(URI_isSystemObject2Of);
 		objectProperty_hasLink = m.getObjectProperty(URI_hasLink);
 		objectProperty_isLinkOf = m.getObjectProperty(URI_isLinkOf);
 		objectProperty_hasAttribute = m.getObjectProperty(URI_hasAttribute);

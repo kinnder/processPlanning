@@ -96,6 +96,14 @@ public class NodeNetworkOWLModel implements OWLModel<NodeNetwork>, OWLModelCommo
 
 	static final String URI_value = NS + "#value";
 
+	static final String URI_hasSystemObject1 = NS + "#hasSystemObject1";
+
+	static final String URI_isSystemObject1Of = NS + "#isSystemObject1Of";
+
+	static final String URI_hasSystemObject2 = NS + "#hasSystemObject2";
+
+	static final String URI_isSystemObject2Of = NS + "#isSystemObject2Of";
+
 	// TODO (2021-03-13 #31): включить проверку copy-paste
 	// CPD-OFF
 
@@ -240,6 +248,9 @@ public class NodeNetworkOWLModel implements OWLModel<NodeNetwork>, OWLModelCommo
 		objectProperty_isSystemOf.addDomain(class_System);
 		objectProperty_isSystemOf.addRange(class_Node);
 
+		// TODO (2021-07-08 #38): включить проверку copy-paste
+		// CPD-OFF
+
 		makeInverse(objectProperty_hasSystem, objectProperty_isSystemOf);
 
 		objectProperty_hasSystemObject = m.createObjectProperty(URI_hasSystemObject);
@@ -255,6 +266,36 @@ public class NodeNetworkOWLModel implements OWLModel<NodeNetwork>, OWLModelCommo
 		objectProperty_isSystemObjectOf.addRange(class_System);
 
 		makeInverse(objectProperty_hasSystemObject, objectProperty_isSystemObjectOf);
+
+		objectProperty_hasSystemObject1 = m.createObjectProperty(URI_hasSystemObject1);
+		objectProperty_hasSystemObject1.addLabel("has system object 1", "en");
+		objectProperty_hasSystemObject1.addLabel("имеет объет системы 1", "ru");
+		objectProperty_hasSystemObject1.addDomain(class_Link);
+		objectProperty_hasSystemObject1.addRange(class_SystemObject);
+
+		objectProperty_isSystemObject1Of = m.createObjectProperty(URI_isSystemObject1Of);
+		objectProperty_isSystemObject1Of.addLabel("is system object 1 of", "en");
+		objectProperty_isSystemObject1Of.addLabel("является объектом системы 1 для", "ru");
+		objectProperty_isSystemObject1Of.addDomain(class_SystemObject);
+		objectProperty_isSystemObject1Of.addRange(class_Link);
+
+		makeInverse(objectProperty_hasSystemObject1, objectProperty_isSystemObject1Of);
+
+		objectProperty_hasSystemObject2 = m.createObjectProperty(URI_hasSystemObject2);
+		objectProperty_hasSystemObject2.addLabel("has system object 2", "en");
+		objectProperty_hasSystemObject2.addLabel("имеет объет системы 2", "ru");
+		objectProperty_hasSystemObject2.addDomain(class_Link);
+		objectProperty_hasSystemObject2.addRange(class_SystemObject);
+
+		objectProperty_isSystemObject2Of = m.createObjectProperty(URI_isSystemObject2Of);
+		objectProperty_isSystemObject2Of.addLabel("is system object 2 of", "en");
+		objectProperty_isSystemObject2Of.addLabel("является объектом системы 2 для", "ru");
+		objectProperty_isSystemObject2Of.addDomain(class_SystemObject);
+		objectProperty_isSystemObject2Of.addRange(class_Link);
+
+		makeInverse(objectProperty_hasSystemObject2, objectProperty_isSystemObject2Of);
+
+		// CPD-ON
 
 		objectProperty_hasSystemOperation = m.createObjectProperty(URI_hasSystemOperation);
 		objectProperty_hasSystemOperation.addLabel("has system operation", "en");
@@ -394,6 +435,10 @@ public class NodeNetworkOWLModel implements OWLModel<NodeNetwork>, OWLModelCommo
 		objectProperty_hasEndNode = m.getObjectProperty(URI_hasEndNode);
 		objectProperty_isBeginNodeOf = m.getObjectProperty(URI_isBeginNodeOf);
 		objectProperty_isEndNodeOf = m.getObjectProperty(URI_isEndNodeOf);
+		objectProperty_hasSystemObject1 = m.getObjectProperty(URI_hasSystemObject1);
+		objectProperty_isSystemObject1Of = m.getObjectProperty(URI_isSystemObject1Of);
+		objectProperty_hasSystemObject2 = m.getObjectProperty(URI_hasSystemObject2);
+		objectProperty_isSystemObject2Of = m.getObjectProperty(URI_isSystemObject2Of);
 
 		dataProperty_beginNodeId = m.getDatatypeProperty(URI_beginNodeId);
 		dataProperty_checked = m.getDatatypeProperty(URI_checked);
@@ -730,5 +775,33 @@ public class NodeNetworkOWLModel implements OWLModel<NodeNetwork>, OWLModelCommo
 
 	public ObjectProperty getObjectProperty_isEndNodeOf() {
 		return objectProperty_isEndNodeOf;
+	}
+
+	private ObjectProperty objectProperty_hasSystemObject1;
+
+	@Override
+	public ObjectProperty getObjectProperty_hasSystemObject1() {
+		return objectProperty_hasSystemObject1;
+	}
+
+	private ObjectProperty objectProperty_isSystemObject1Of;
+
+	@Override
+	public ObjectProperty getObjectProperty_isSystemObject1Of() {
+		return objectProperty_isSystemObject1Of;
+	}
+
+	private ObjectProperty objectProperty_hasSystemObject2;
+
+	@Override
+	public ObjectProperty getObjectProperty_hasSystemObject2() {
+		return objectProperty_hasSystemObject2;
+	}
+
+	private ObjectProperty objectProperty_isSystemObject2Of;
+
+	@Override
+	public ObjectProperty getObjectProperty_isSystemObject2Of() {
+		return objectProperty_isSystemObject2Of;
 	}
 }

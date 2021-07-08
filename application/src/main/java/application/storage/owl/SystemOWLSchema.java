@@ -1,5 +1,8 @@
 package application.storage.owl;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.apache.jena.ontology.Individual;
 
 import planning.model.Link;
@@ -30,14 +33,27 @@ public class SystemOWLSchema implements OWLSchema<System> {
 		ind_system.addLabel("System", "en");
 		ind_system.addLabel("Система", "ru");
 
+		Map<String, Individual> ind_systemObjects = new HashMap<String, Individual>();
+
 		for (SystemObject systemObject : system.getObjects()) {
 			Individual ind_systemObject = systemObjectOWLSchema.combine(systemObject);
 			ind_system.addProperty(owlModel.getObjectProperty_hasSystemObject(), ind_systemObject);
+
+			ind_systemObjects.put(systemObject.getId(), ind_systemObject);
 		}
 
 		for (Link link : system.getLinks()) {
 			Individual ind_link = linkOWLSchema.combine(link);
 			ind_system.addProperty(owlModel.getObjectProperty_hasLink(), ind_link);
+
+			String objectId1 = link.getObjectId1();
+			if (objectId1 != null) {
+				ind_link.addProperty(owlModel.getObjectProperty_hasSystemObject1(), ind_systemObjects.get(objectId1));
+			}
+			String objectId2 = link.getObjectId2();
+			if (objectId2 != null) {
+				ind_link.addProperty(owlModel.getObjectProperty_hasSystemObject2(), ind_systemObjects.get(objectId2));
+			}
 		}
 
 		return ind_system;
