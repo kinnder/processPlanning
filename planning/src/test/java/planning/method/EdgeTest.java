@@ -77,6 +77,13 @@ public class EdgeTest {
 	}
 
 	@Test
+	public void setSystemOperation() {
+		final SystemOperation newSystemOperation_mock = context.mock(SystemOperation.class, "new-operation");
+		testable.setSystemOperation(newSystemOperation_mock);
+		assertEquals(newSystemOperation_mock, testable.getSystemOperation());
+	}
+
+	@Test
 	public void getId() {
 		testable = new Edge("id", beginNodeId, endNodeId, systemOperation_mock);
 		assertEquals("id", testable.getId());

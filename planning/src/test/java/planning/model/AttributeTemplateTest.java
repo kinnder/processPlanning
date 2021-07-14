@@ -64,4 +64,11 @@ public class AttributeTemplateTest {
 	public void getName() {
 		assertEquals("attribute", testable.getName());
 	}
+
+	@Test
+	public void getValue() {
+		Object value = new Object();
+		testable = new AttributeTemplate("attribute", value);
+		assertEquals(value, testable.getValue());
+	}
 }

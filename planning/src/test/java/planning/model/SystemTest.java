@@ -334,6 +334,15 @@ public class SystemTest {
 	}
 
 	@Test
+	public void addLink_lua() {
+		testable.addLink("link-name", "object-1-id", "object-2-id");
+
+		Collection<Link> links = testable.getLinks();
+		assertEquals(1, links.size());
+		assertTrue(links.contains(new Link("link-name", "object-1-id", "object-2-id")));
+	}
+
+	@Test
 	public void addLink_null_object1() {
 		final SystemObject object2_mock = context.mock(SystemObject.class, "object-2");
 

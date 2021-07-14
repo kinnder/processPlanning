@@ -77,6 +77,13 @@ public class NodeTest {
 	}
 
 	@Test
+	public void setSystem() {
+		final System new_system_mock = context.mock(System.class, "new-system");
+		testable.setSystem(new_system_mock);
+		assertEquals(new_system_mock, testable.getSystem());
+	}
+
+	@Test
 	public void hashCode_test() {
 		testable = new Node("id", system_mock);
 		assertEquals(3355, testable.hashCode());
