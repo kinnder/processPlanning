@@ -14,14 +14,14 @@ public class SystemTransformationOWLSchema implements OWLSchema<SystemTransforma
 
 	private TransformationsOWLSchema transformationsOWLSchema;
 
-	private SystemTransformationsOWLModel owlModel;
+	private PlanningOWLModel owlModel;
 
-	public SystemTransformationOWLSchema(SystemTransformationsOWLModel owlModel) {
+	public SystemTransformationOWLSchema(PlanningOWLModel owlModel) {
 		this(owlModel, new ActionOWLSchema(owlModel), new SystemTemplateOWLSchema(owlModel),
 				new TransformationsOWLSchema(owlModel));
 	}
 
-	SystemTransformationOWLSchema(SystemTransformationsOWLModel owlModel, ActionOWLSchema actionOWLSchema,
+	SystemTransformationOWLSchema(PlanningOWLModel owlModel, ActionOWLSchema actionOWLSchema,
 			SystemTemplateOWLSchema systemTemplateOWLSchema, TransformationsOWLSchema transformationOWLSchema) {
 		this.owlModel = owlModel;
 		this.actionOWLSchema = actionOWLSchema;

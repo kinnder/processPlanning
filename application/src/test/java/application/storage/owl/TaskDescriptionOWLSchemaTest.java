@@ -39,13 +39,13 @@ public class TaskDescriptionOWLSchemaTest {
 
 	TaskDescriptionOWLSchema testable;
 
-	TaskDescriptionOWLModel owlModel_mock;
+	PlanningOWLModel owlModel_mock;
 
 	SystemOWLSchema systemOWLSchema_mock;
 
 	@BeforeEach
 	public void setup() {
-		owlModel_mock = context.mock(TaskDescriptionOWLModel.class);
+		owlModel_mock = context.mock(PlanningOWLModel.class);
 		systemOWLSchema_mock = context.mock(SystemOWLSchema.class);
 
 		testable = new TaskDescriptionOWLSchema(owlModel_mock, systemOWLSchema_mock);
@@ -53,7 +53,7 @@ public class TaskDescriptionOWLSchemaTest {
 
 	@Test
 	public void newInstance() {
-		testable = new TaskDescriptionOWLSchema(new TaskDescriptionOWLModel());
+		testable = new TaskDescriptionOWLSchema(new PlanningOWLModel());
 	}
 
 	@Test
@@ -198,7 +198,7 @@ public class TaskDescriptionOWLSchemaTest {
 
 	@Test
 	public void combine_full() {
-		owlModel_mock = new TaskDescriptionOWLModel();
+		owlModel_mock = new PlanningOWLModel();
 		testable = new TaskDescriptionOWLSchema(owlModel_mock);
 
 		final TaskDescription taskDescription = AssemblyLine.getTaskDescription();
@@ -208,8 +208,8 @@ public class TaskDescriptionOWLSchemaTest {
 
 		OntModel model = owlModel_mock.getOntologyModel();
 		assertNotNull(model);
-		assertEquals(279, model.listObjects().toList().size());
-		assertEquals(1248, model.listStatements().toList().size());
+		assertEquals(487, model.listObjects().toList().size());
+		assertEquals(2474, model.listStatements().toList().size());
 
 		// TODO (2020-11-09 #31): удалить
 //		model.write(java.lang.System.out, "RDF/XML");
@@ -217,7 +217,7 @@ public class TaskDescriptionOWLSchemaTest {
 
 	@Test
 	public void parse_full() {
-		owlModel_mock = new TaskDescriptionOWLModel();
+		owlModel_mock = new PlanningOWLModel();
 		testable = new TaskDescriptionOWLSchema(owlModel_mock);
 
 		final TaskDescription taskDescription = AssemblyLine.getTaskDescription();

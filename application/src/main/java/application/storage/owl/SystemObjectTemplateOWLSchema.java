@@ -7,15 +7,15 @@ import planning.model.SystemObjectTemplate;
 
 public class SystemObjectTemplateOWLSchema implements OWLSchema<SystemObjectTemplate> {
 
-	private SystemTransformationsOWLModel owlModel;
+	private PlanningOWLModel owlModel;
 
 	private AttributeTemplateOWLSchema attributeTemplateOWLSchema;
 
-	public SystemObjectTemplateOWLSchema(SystemTransformationsOWLModel owlModel) {
+	public SystemObjectTemplateOWLSchema(PlanningOWLModel owlModel) {
 		this(owlModel, new AttributeTemplateOWLSchema(owlModel));
 	}
 
-	SystemObjectTemplateOWLSchema(SystemTransformationsOWLModel owlModel,
+	SystemObjectTemplateOWLSchema(PlanningOWLModel owlModel,
 			AttributeTemplateOWLSchema attributeTemplateOWLSchema) {
 		this.owlModel = owlModel;
 		this.attributeTemplateOWLSchema = attributeTemplateOWLSchema;

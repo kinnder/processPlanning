@@ -39,7 +39,7 @@ public class SystemTransformationOWLSchemaTest {
 
 	SystemTransformationOWLSchema testable;
 
-	SystemTransformationsOWLModel owlModel_mock;
+	PlanningOWLModel owlModel_mock;
 
 	ActionOWLSchema actionOWLSchema_mock;
 
@@ -49,7 +49,7 @@ public class SystemTransformationOWLSchemaTest {
 
 	@BeforeEach
 	public void setup() {
-		owlModel_mock = context.mock(SystemTransformationsOWLModel.class);
+		owlModel_mock = context.mock(PlanningOWLModel.class);
 		actionOWLSchema_mock = context.mock(ActionOWLSchema.class);
 		systemTemplateOWLSchema_mock = context.mock(SystemTemplateOWLSchema.class);
 		transformationsOWLSchema_mock = context.mock(TransformationsOWLSchema.class);
@@ -60,7 +60,7 @@ public class SystemTransformationOWLSchemaTest {
 
 	@Test
 	public void newInstance() {
-		testable = new SystemTransformationOWLSchema(new SystemTransformationsOWLModel());
+		testable = new SystemTransformationOWLSchema(new PlanningOWLModel());
 	}
 
 	@Test

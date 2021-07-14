@@ -7,15 +7,15 @@ import planning.model.System;
 
 public class NodeOWLSchema implements OWLSchema<Node> {
 
-	private NodeNetworkOWLModel owlModel;
+	private PlanningOWLModel owlModel;
 
 	private SystemOWLSchema systemOWLSchema;
 
-	public NodeOWLSchema(NodeNetworkOWLModel owlModel) {
+	public NodeOWLSchema(PlanningOWLModel owlModel) {
 		this(owlModel, new SystemOWLSchema(owlModel));
 	}
 
-	NodeOWLSchema(NodeNetworkOWLModel owlModel, SystemOWLSchema systemOWLSchema) {
+	NodeOWLSchema(PlanningOWLModel owlModel, SystemOWLSchema systemOWLSchema) {
 		this.owlModel = owlModel;
 		this.systemOWLSchema = systemOWLSchema;
 	}

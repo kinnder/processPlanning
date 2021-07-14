@@ -10,9 +10,9 @@ import planning.model.Attribute;
 
 public class AttributeOWLSchema implements OWLSchema<Attribute> {
 
-	private OWLModelCommonPart owlModel;
+	private PlanningOWLModel owlModel;
 
-	public AttributeOWLSchema(OWLModelCommonPart owlModel) {
+	public AttributeOWLSchema(PlanningOWLModel owlModel) {
 		this.owlModel = owlModel;
 	}
 

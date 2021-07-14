@@ -42,13 +42,13 @@ public class SystemProcessOWLSchemaTest {
 
 	SystemProcessOWLSchema testable;
 
-	SystemProcessOWLModel owlModel_mock;
+	PlanningOWLModel owlModel_mock;
 
 	SystemOperationOWLSchema systemOperationOWLSchema_mock;
 
 	@BeforeEach
 	public void setup() {
-		owlModel_mock = context.mock(SystemProcessOWLModel.class);
+		owlModel_mock = context.mock(PlanningOWLModel.class);
 		systemOperationOWLSchema_mock = context.mock(SystemOperationOWLSchema.class);
 
 		testable = new SystemProcessOWLSchema(owlModel_mock, systemOperationOWLSchema_mock);
@@ -56,7 +56,7 @@ public class SystemProcessOWLSchemaTest {
 
 	@Test
 	public void newInstance() {
-		testable = new SystemProcessOWLSchema(new SystemProcessOWLModel());
+		testable = new SystemProcessOWLSchema(new PlanningOWLModel());
 	}
 
 	@Test
@@ -147,15 +147,15 @@ public class SystemProcessOWLSchemaTest {
 		final Action action = new Action("test-action");
 		systemProcess.add(new SystemOperation(action, parameters));
 
-		SystemProcessOWLModel owlModel = new SystemProcessOWLModel();
+		PlanningOWLModel owlModel = new PlanningOWLModel();
 		SystemProcessOWLSchema owlSchema = new SystemProcessOWLSchema(owlModel);
 
 		owlModel.createOntologyModel();
 		owlSchema.combine(systemProcess);
 		OntModel model = owlModel.getOntologyModel();
 		assertNotNull(model);
-		assertEquals(68, model.listObjects().toList().size());
-		assertEquals(232, model.listStatements().toList().size());
+		assertEquals(322, model.listObjects().toList().size());
+		assertEquals(941, model.listStatements().toList().size());
 
 		// TODO (2020-11-09 #31): удалить
 //		model.write(System.out, "RDF/XML");
@@ -169,7 +169,7 @@ public class SystemProcessOWLSchemaTest {
 		final Action action = new Action("test-action");
 		systemProcess.add(new SystemOperation(action, parameters));
 
-		SystemProcessOWLModel owlModel = new SystemProcessOWLModel();
+		PlanningOWLModel owlModel = new PlanningOWLModel();
 		SystemProcessOWLSchema owlSchema = new SystemProcessOWLSchema(owlModel);
 
 		owlModel.createOntologyModel();

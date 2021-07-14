@@ -41,11 +41,11 @@ public class ActionFunctionOWLSchemaTest {
 
 	LuaScriptLineOWLSchema luaScriptLineOWLSchema_mock;
 
-	SystemTransformationsOWLModel owlModel_mock;
+	PlanningOWLModel owlModel_mock;
 
 	@BeforeEach
 	public void setup() {
-		owlModel_mock = context.mock(SystemTransformationsOWLModel.class);
+		owlModel_mock = context.mock(PlanningOWLModel.class);
 		luaScriptLineOWLSchema_mock = context.mock(LuaScriptLineOWLSchema.class);
 
 		testable = new ActionFunctionOWLSchema(owlModel_mock, luaScriptLineOWLSchema_mock);
@@ -53,7 +53,7 @@ public class ActionFunctionOWLSchemaTest {
 
 	@Test
 	public void newInstance() {
-		testable = new ActionFunctionOWLSchema(new SystemTransformationsOWLModel());
+		testable = new ActionFunctionOWLSchema(new PlanningOWLModel());
 	}
 
 	// TODO : пересмотреть положение globals

@@ -34,11 +34,11 @@ public class AttributeOWLSchemaTest {
 
 	AttributeOWLSchema testable;
 
-	TaskDescriptionOWLModel owlModel_mock;
+	PlanningOWLModel owlModel_mock;
 
 	@BeforeEach
 	public void setup() {
-		owlModel_mock = context.mock(TaskDescriptionOWLModel.class);
+		owlModel_mock = context.mock(PlanningOWLModel.class);
 
 		testable = new AttributeOWLSchema(owlModel_mock);
 	}

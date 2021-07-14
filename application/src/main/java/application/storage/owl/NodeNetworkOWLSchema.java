@@ -7,17 +7,17 @@ import planning.method.NodeNetwork;
 
 public class NodeNetworkOWLSchema implements OWLSchema<NodeNetwork> {
 
-	private NodeNetworkOWLModel owlModel;
+	private PlanningOWLModel owlModel;
 
 	private NodeOWLSchema nodeOWLSchema;
 
 	private EdgeOWLSchema edgeOWLSchema;
 
-	public NodeNetworkOWLSchema(NodeNetworkOWLModel owlModel) {
+	public NodeNetworkOWLSchema(PlanningOWLModel owlModel) {
 		this(owlModel, new NodeOWLSchema(owlModel), new EdgeOWLSchema(owlModel));
 	}
 
-	NodeNetworkOWLSchema(NodeNetworkOWLModel owlModel, NodeOWLSchema nodeOWLSchema, EdgeOWLSchema edgeOWLSchema) {
+	NodeNetworkOWLSchema(PlanningOWLModel owlModel, NodeOWLSchema nodeOWLSchema, EdgeOWLSchema edgeOWLSchema) {
 		this.owlModel = owlModel;
 		this.nodeOWLSchema = nodeOWLSchema;
 		this.edgeOWLSchema = edgeOWLSchema;

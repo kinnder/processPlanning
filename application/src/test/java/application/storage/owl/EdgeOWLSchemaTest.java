@@ -38,13 +38,13 @@ public class EdgeOWLSchemaTest {
 
 	EdgeOWLSchema testable;
 
-	NodeNetworkOWLModel owlModel_mock;
+	PlanningOWLModel owlModel_mock;
 
 	SystemOperationOWLSchema systemOperationOWLSchema_mock;
 
 	@BeforeEach
 	public void setup() {
-		owlModel_mock = context.mock(NodeNetworkOWLModel.class);
+		owlModel_mock = context.mock(PlanningOWLModel.class);
 		systemOperationOWLSchema_mock = context.mock(SystemOperationOWLSchema.class);
 
 		testable = new EdgeOWLSchema(owlModel_mock, systemOperationOWLSchema_mock);
@@ -52,7 +52,7 @@ public class EdgeOWLSchemaTest {
 
 	@Test
 	public void newInstance() {
-		testable = new EdgeOWLSchema(new NodeNetworkOWLModel());
+		testable = new EdgeOWLSchema(new PlanningOWLModel());
 	}
 
 	@Test

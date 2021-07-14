@@ -39,21 +39,21 @@ public class SystemTransformationsOWLSchemaTest {
 
 	SystemTransformationsOWLSchema testable;
 
-	SystemTransformationsOWLModel owlModel_mock;
+	PlanningOWLModel owlModel_mock;
 
 	SystemTransformationOWLSchema systemTransformationOWLSchema_mock;
 
 	@BeforeEach
 	public void setup() {
 		systemTransformationOWLSchema_mock = context.mock(SystemTransformationOWLSchema.class);
-		owlModel_mock = context.mock(SystemTransformationsOWLModel.class);
+		owlModel_mock = context.mock(PlanningOWLModel.class);
 
 		testable = new SystemTransformationsOWLSchema(owlModel_mock, systemTransformationOWLSchema_mock);
 	}
 
 	@Test
 	public void newInstance() {
-		testable = new SystemTransformationsOWLSchema(new SystemTransformationsOWLModel());
+		testable = new SystemTransformationsOWLSchema(new PlanningOWLModel());
 	}
 
 	@Test
@@ -151,7 +151,7 @@ public class SystemTransformationsOWLSchemaTest {
 		final SystemTransformations systemTransformations = new SystemTransformations();
 		systemTransformations.add(AssemblyLine.turnWithLoad());
 
-		final SystemTransformationsOWLModel owlModel = new SystemTransformationsOWLModel();
+		final PlanningOWLModel owlModel = new PlanningOWLModel();
 		final SystemTransformationsOWLSchema owlSchema = new SystemTransformationsOWLSchema(owlModel);
 
 		owlModel.createOntologyModel();
@@ -159,8 +159,8 @@ public class SystemTransformationsOWLSchemaTest {
 
 		OntModel model = owlModel.getOntologyModel();
 		assertNotNull(model);
-		assertEquals(257, model.listObjects().toList().size());
-		assertEquals(822, model.listStatements().toList().size());
+		assertEquals(390, model.listObjects().toList().size());
+		assertEquals(1251, model.listStatements().toList().size());
 
 		// TODO (2020-12-14 #31): удалить
 //		model.write(java.lang.System.out, "RDF/XML");
@@ -171,7 +171,7 @@ public class SystemTransformationsOWLSchemaTest {
 		final SystemTransformations systemTransformations = new SystemTransformations();
 		systemTransformations.add(AssemblyLine.turnWithLoad());
 
-		final SystemTransformationsOWLModel owlModel = new SystemTransformationsOWLModel();
+		final PlanningOWLModel owlModel = new PlanningOWLModel();
 		final SystemTransformationsOWLSchema owlSchema = new SystemTransformationsOWLSchema(owlModel);
 
 		owlModel.createOntologyModel();

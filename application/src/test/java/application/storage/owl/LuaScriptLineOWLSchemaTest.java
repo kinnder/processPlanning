@@ -32,11 +32,11 @@ public class LuaScriptLineOWLSchemaTest {
 
 	LuaScriptLineOWLSchema testable;
 
-	SystemTransformationsOWLModel owlModel_mock;
+	PlanningOWLModel owlModel_mock;
 
 	@BeforeEach
 	public void setup() {
-		owlModel_mock = context.mock(SystemTransformationsOWLModel.class);
+		owlModel_mock = context.mock(PlanningOWLModel.class);
 
 		testable = new LuaScriptLineOWLSchema(owlModel_mock);
 	}

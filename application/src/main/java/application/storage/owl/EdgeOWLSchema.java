@@ -7,15 +7,15 @@ import planning.model.SystemOperation;
 
 public class EdgeOWLSchema implements OWLSchema<Edge> {
 
-	private NodeNetworkOWLModel owlModel;
+	private PlanningOWLModel owlModel;
 
 	private SystemOperationOWLSchema systemOperationOWLSchema;
 
-	public EdgeOWLSchema(NodeNetworkOWLModel owlModel) {
+	public EdgeOWLSchema(PlanningOWLModel owlModel) {
 		this(owlModel, new SystemOperationOWLSchema(owlModel));
 	}
 
-	EdgeOWLSchema(NodeNetworkOWLModel owlModel, SystemOperationOWLSchema systemOperationOWLSchema) {
+	EdgeOWLSchema(PlanningOWLModel owlModel, SystemOperationOWLSchema systemOperationOWLSchema) {
 		this.owlModel = owlModel;
 		this.systemOperationOWLSchema = systemOperationOWLSchema;
 	}

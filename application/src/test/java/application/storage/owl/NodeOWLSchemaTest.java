@@ -39,13 +39,13 @@ public class NodeOWLSchemaTest {
 
 	NodeOWLSchema testable;
 
-	NodeNetworkOWLModel owlModel_mock;
+	PlanningOWLModel owlModel_mock;
 
 	SystemOWLSchema systemOWLSchema_mock;
 
 	@BeforeEach
 	public void setup() {
-		owlModel_mock = context.mock(NodeNetworkOWLModel.class);
+		owlModel_mock = context.mock(PlanningOWLModel.class);
 		systemOWLSchema_mock = context.mock(SystemOWLSchema.class);
 
 		testable = new NodeOWLSchema(owlModel_mock, systemOWLSchema_mock);
@@ -53,7 +53,7 @@ public class NodeOWLSchemaTest {
 
 	@Test
 	public void newInstance() {
-		testable = new NodeOWLSchema(new NodeNetworkOWLModel());
+		testable = new NodeOWLSchema(new PlanningOWLModel());
 	}
 
 	@Test

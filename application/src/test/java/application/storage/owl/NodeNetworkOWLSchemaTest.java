@@ -47,7 +47,7 @@ public class NodeNetworkOWLSchemaTest {
 
 	NodeNetworkOWLSchema testable;
 
-	NodeNetworkOWLModel owlModel_mock;
+	PlanningOWLModel owlModel_mock;
 
 	NodeOWLSchema nodeOWLSchema_mock;
 
@@ -55,7 +55,7 @@ public class NodeNetworkOWLSchemaTest {
 
 	@BeforeEach
 	public void setup() {
-		owlModel_mock = context.mock(NodeNetworkOWLModel.class);
+		owlModel_mock = context.mock(PlanningOWLModel.class);
 		nodeOWLSchema_mock = context.mock(NodeOWLSchema.class);
 		edgeOWLSchema_mock = context.mock(EdgeOWLSchema.class);
 
@@ -64,7 +64,7 @@ public class NodeNetworkOWLSchemaTest {
 
 	@Test
 	public void newInstance() {
-		testable = new NodeNetworkOWLSchema(new NodeNetworkOWLModel());
+		testable = new NodeNetworkOWLSchema(new PlanningOWLModel());
 	}
 
 	@Test
@@ -203,7 +203,7 @@ public class NodeNetworkOWLSchemaTest {
 
 	@Test
 	public void combine_full() {
-		final NodeNetworkOWLModel owlModel = new NodeNetworkOWLModel();
+		final PlanningOWLModel owlModel = new PlanningOWLModel();
 		final NodeNetworkOWLSchema owlSchema = new NodeNetworkOWLSchema(owlModel);
 
 		final NodeNetwork nodeNetwork = new NodeNetwork();
@@ -221,8 +221,8 @@ public class NodeNetworkOWLSchemaTest {
 		owlSchema.combine(nodeNetwork);
 		OntModel model = owlModel.getOntologyModel();
 		assertNotNull(model);
-		assertEquals(342, model.listObjects().toList().size());
-		assertEquals(1564, model.listStatements().toList().size());
+		assertEquals(504, model.listObjects().toList().size());
+		assertEquals(2524, model.listStatements().toList().size());
 
 //		 TODO (2021-03-13 #31): удалить
 //		model.write(java.lang.System.out, "RDF/XML");
@@ -230,7 +230,7 @@ public class NodeNetworkOWLSchemaTest {
 
 	@Test
 	public void parse_full() {
-		final NodeNetworkOWLModel owlModel = new NodeNetworkOWLModel();
+		final PlanningOWLModel owlModel = new PlanningOWLModel();
 		final NodeNetworkOWLSchema owlSchema = new NodeNetworkOWLSchema(owlModel);
 
 		final NodeNetwork nodeNetwork = new NodeNetwork();

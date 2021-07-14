@@ -10,17 +10,17 @@ import planning.model.Transformation;
 
 public class TransformationsOWLSchema implements OWLSchema<Transformation[]> {
 
-	private SystemTransformationsOWLModel owlModel;
+	private PlanningOWLModel owlModel;
 
 	private AttributeTransformationOWLSchema attributeTransformationOWLSchema;
 
 	private LinkTransformationOWLSchema linkTransformationOWLSchema;
 
-	public TransformationsOWLSchema(SystemTransformationsOWLModel owlModel) {
+	public TransformationsOWLSchema(PlanningOWLModel owlModel) {
 		this(owlModel, new AttributeTransformationOWLSchema(owlModel), new LinkTransformationOWLSchema(owlModel));
 	}
 
-	TransformationsOWLSchema(SystemTransformationsOWLModel owlModel,
+	TransformationsOWLSchema(PlanningOWLModel owlModel,
 			AttributeTransformationOWLSchema attributeTransformationOWLSchema,
 			LinkTransformationOWLSchema linkTransformationOWLSchema) {
 		this.owlModel = owlModel;

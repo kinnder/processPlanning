@@ -6,15 +6,15 @@ import planning.model.SystemProcess;
 
 public class SystemProcessOWLSchema implements OWLSchema<SystemProcess> {
 
-	private OWLModelCommonPart2 owlModel;
+	private PlanningOWLModel owlModel;
 
 	private SystemOperationOWLSchema systemOperationOWLSchema;
 
-	public SystemProcessOWLSchema(OWLModelCommonPart2 owlModel) {
+	public SystemProcessOWLSchema(PlanningOWLModel owlModel) {
 		this(owlModel, new SystemOperationOWLSchema(owlModel));
 	}
 
-	SystemProcessOWLSchema(OWLModelCommonPart2 owlModel, SystemOperationOWLSchema systemOperationOWLSchema) {
+	SystemProcessOWLSchema(PlanningOWLModel owlModel, SystemOperationOWLSchema systemOperationOWLSchema) {
 		this.owlModel = owlModel;
 		this.systemOperationOWLSchema = systemOperationOWLSchema;
 	}

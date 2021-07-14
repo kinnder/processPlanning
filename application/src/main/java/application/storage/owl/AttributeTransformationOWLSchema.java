@@ -10,9 +10,9 @@ import planning.model.AttributeTransformation;
 
 public class AttributeTransformationOWLSchema implements OWLSchema<AttributeTransformation> {
 
-	private SystemTransformationsOWLModel owlModel;
+	private PlanningOWLModel owlModel;
 
-	public AttributeTransformationOWLSchema(SystemTransformationsOWLModel owlModel) {
+	public AttributeTransformationOWLSchema(PlanningOWLModel owlModel) {
 		this.owlModel = owlModel;
 	}
 

@@ -40,18 +40,18 @@ public class SystemOperationOWLSchemaTest {
 
 	SystemOperationOWLSchema testable;
 
-	NodeNetworkOWLModel owlModel_mock;
+	PlanningOWLModel owlModel_mock;
 
 	@BeforeEach
 	public void setup() {
-		owlModel_mock = context.mock(NodeNetworkOWLModel.class);
+		owlModel_mock = context.mock(PlanningOWLModel.class);
 
 		testable = new SystemOperationOWLSchema(owlModel_mock);
 	}
 
 	@Test
 	public void newInstance() {
-		testable = new SystemOperationOWLSchema(new NodeNetworkOWLModel());
+		testable = new SystemOperationOWLSchema(new PlanningOWLModel());
 	}
 
 	@Test

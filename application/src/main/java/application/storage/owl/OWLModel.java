@@ -2,7 +2,7 @@ package application.storage.owl;
 
 import org.apache.jena.ontology.OntModel;
 
-public interface OWLModel<T> {
+public interface OWLModel {
 
 	OntModel createOntologyModelBase();
 
@@ -11,8 +11,6 @@ public interface OWLModel<T> {
 	void connectOntologyModel(OntModel ontModel);
 
 	OntModel getOntologyModel();
-
-	OWLSchema<T> getOWLSchema();
 
 	String getUniqueURI();
 }

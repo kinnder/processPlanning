@@ -7,15 +7,15 @@ import planning.model.LuaScriptActionFunction;
 
 public class ActionOWLSchema implements OWLSchema<Action> {
 
-	private SystemTransformationsOWLModel owlModel;
+	private PlanningOWLModel owlModel;
 
 	private ActionFunctionOWLSchema actionFunctionOWLSchema;
 
-	public ActionOWLSchema(SystemTransformationsOWLModel owlModel) {
+	public ActionOWLSchema(PlanningOWLModel owlModel) {
 		this(owlModel, new ActionFunctionOWLSchema(owlModel));
 	}
 
-	ActionOWLSchema(SystemTransformationsOWLModel owlModel, ActionFunctionOWLSchema actionFunctionOWLSchema) {
+	ActionOWLSchema(PlanningOWLModel owlModel, ActionFunctionOWLSchema actionFunctionOWLSchema) {
 		this.owlModel = owlModel;
 		this.actionFunctionOWLSchema = actionFunctionOWLSchema;
 	}

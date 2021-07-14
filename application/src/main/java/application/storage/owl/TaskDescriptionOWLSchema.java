@@ -6,15 +6,15 @@ import planning.model.System;
 
 public class TaskDescriptionOWLSchema implements OWLSchema<TaskDescription> {
 
-	private TaskDescriptionOWLModel owlModel;
+	private PlanningOWLModel owlModel;
 
 	private SystemOWLSchema systemOWLSchema;
 
-	public TaskDescriptionOWLSchema(TaskDescriptionOWLModel owlModel) {
+	public TaskDescriptionOWLSchema(PlanningOWLModel owlModel) {
 		this(owlModel, new SystemOWLSchema(owlModel));
 	}
 
-	TaskDescriptionOWLSchema(TaskDescriptionOWLModel owlModel, SystemOWLSchema systemOWLSchema) {
+	TaskDescriptionOWLSchema(PlanningOWLModel owlModel, SystemOWLSchema systemOWLSchema) {
 		this.owlModel = owlModel;
 		this.systemOWLSchema = systemOWLSchema;
 	}

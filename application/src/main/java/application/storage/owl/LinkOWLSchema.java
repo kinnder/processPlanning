@@ -7,9 +7,9 @@ import planning.model.Link;
 
 public class LinkOWLSchema implements OWLSchema<Link> {
 
-	private OWLModelCommonPart owlModel;
+	private PlanningOWLModel owlModel;
 
-	public LinkOWLSchema(OWLModelCommonPart owlModel) {
+	public LinkOWLSchema(PlanningOWLModel owlModel) {
 		this.owlModel = owlModel;
 	}
 

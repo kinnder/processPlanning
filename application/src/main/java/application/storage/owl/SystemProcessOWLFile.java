@@ -5,6 +5,7 @@ import planning.model.SystemProcess;
 public class SystemProcessOWLFile extends OWLFile<SystemProcess> {
 
 	public SystemProcessOWLFile() {
-		super(new SystemProcessOWLModel());
+		owlModel = new PlanningOWLModel();
+		owlSchema = new SystemProcessOWLSchema((PlanningOWLModel) owlModel);
 	}
 }

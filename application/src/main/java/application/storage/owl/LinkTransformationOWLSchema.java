@@ -7,9 +7,9 @@ import planning.model.LinkTransformation;
 
 public class LinkTransformationOWLSchema implements OWLSchema<LinkTransformation> {
 
-	private SystemTransformationsOWLModel owlModel;
+	private PlanningOWLModel owlModel;
 
-	public LinkTransformationOWLSchema(SystemTransformationsOWLModel owlModel) {
+	public LinkTransformationOWLSchema(PlanningOWLModel owlModel) {
 		this.owlModel = owlModel;
 	}
 

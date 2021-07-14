@@ -14,15 +14,15 @@ import planning.model.LuaScriptLine;
 
 public class ActionFunctionOWLSchema implements OWLSchema<ActionFunction> {
 
-	private SystemTransformationsOWLModel owlModel;
+	private PlanningOWLModel owlModel;
 
 	private LuaScriptLineOWLSchema luaScriptLineOWLSchema;
 
-	public ActionFunctionOWLSchema(SystemTransformationsOWLModel owlModel) {
+	public ActionFunctionOWLSchema(PlanningOWLModel owlModel) {
 		this(owlModel, new LuaScriptLineOWLSchema(owlModel));
 	}
 
-	ActionFunctionOWLSchema(SystemTransformationsOWLModel owlModel, LuaScriptLineOWLSchema luaScriptLineOWLSchema) {
+	ActionFunctionOWLSchema(PlanningOWLModel owlModel, LuaScriptLineOWLSchema luaScriptLineOWLSchema) {
 		this.owlModel = owlModel;
 		this.luaScriptLineOWLSchema = luaScriptLineOWLSchema;
 	}

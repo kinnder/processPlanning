@@ -13,10 +13,16 @@ import org.apache.jena.ontology.OntModel;
 
 public class OWLFile<T> {
 
-	private OWLModel<T> owlModel;
+	protected OWLModel owlModel;
 
-	public OWLFile(OWLModel<T> owlModel) {
+	protected OWLSchema<T> owlSchema;
+
+	public OWLFile() {
+	}
+
+	OWLFile(OWLModel owlModel, OWLSchema<T> owlSchema) {
 		this.owlModel = owlModel;
+		this.owlSchema = owlSchema;
 	}
 
 	public void save(T object, String path) throws IOException {
@@ -25,7 +31,7 @@ public class OWLFile<T> {
 
 	public void save(T object, Path path) throws IOException {
 		owlModel.createOntologyModel();
-		owlModel.getOWLSchema().combine(object);
+		owlSchema.combine(object);
 		try (OutputStream outputStream = new BufferedOutputStream(Files.newOutputStream(path))) {
 			// TODO (2021-04-02 #31): запись онтологии в файл выполняется очень медленно
 			owlModel.getOntologyModel().write(outputStream, "RDF/XML");
@@ -43,6 +49,6 @@ public class OWLFile<T> {
 		}
 		owlModel.connectOntologyModel(ontModel);
 		// TODO (2021-02-01 #31): загружаться должен основной индивид, не null
-		return owlModel.getOWLSchema().parse(null);
+		return owlSchema.parse(null);
 	}
 }

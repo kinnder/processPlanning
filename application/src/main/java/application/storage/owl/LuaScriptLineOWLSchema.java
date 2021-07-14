@@ -6,9 +6,9 @@ import planning.model.LuaScriptLine;
 
 public class LuaScriptLineOWLSchema implements OWLSchema<LuaScriptLine> {
 
-	private SystemTransformationsOWLModel owlModel;
+	private PlanningOWLModel owlModel;
 
-	public LuaScriptLineOWLSchema(SystemTransformationsOWLModel owlModel) {
+	public LuaScriptLineOWLSchema(PlanningOWLModel owlModel) {
 		this.owlModel = owlModel;
 	}
 

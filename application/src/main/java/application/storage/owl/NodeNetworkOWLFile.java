@@ -5,6 +5,7 @@ import planning.method.NodeNetwork;
 public class NodeNetworkOWLFile extends OWLFile<NodeNetwork> {
 
 	public NodeNetworkOWLFile() {
-		super(new NodeNetworkOWLModel());
+		owlModel = new PlanningOWLModel();
+		owlSchema = new NodeNetworkOWLSchema((PlanningOWLModel) owlModel);
 	}
 }

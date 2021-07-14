@@ -37,7 +37,7 @@ public class TransformationsOWLSchemaTest {
 		context.assertIsSatisfied();
 	}
 
-	SystemTransformationsOWLModel owlModel_mock;
+	PlanningOWLModel owlModel_mock;
 
 	AttributeTransformationOWLSchema attributeTransformationOWLSchema_mock;
 
@@ -47,7 +47,7 @@ public class TransformationsOWLSchemaTest {
 
 	@BeforeEach
 	public void setup() {
-		owlModel_mock = context.mock(SystemTransformationsOWLModel.class);
+		owlModel_mock = context.mock(PlanningOWLModel.class);
 		attributeTransformationOWLSchema_mock = context.mock(AttributeTransformationOWLSchema.class);
 		linkTransformationOWLSchema_mock = context.mock(LinkTransformationOWLSchema.class);
 
@@ -57,7 +57,7 @@ public class TransformationsOWLSchemaTest {
 
 	@Test
 	public void newInstance() {
-		testable = new TransformationsOWLSchema(new SystemTransformationsOWLModel());
+		testable = new TransformationsOWLSchema(new PlanningOWLModel());
 	}
 
 	@Test
