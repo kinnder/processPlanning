@@ -136,6 +136,7 @@ public class PlanningOWLModelTest {
 		assertEquals(PlanningOWLModel.URI_hasTransformation, testable.getObjectProperty_hasTransformation().getURI());
 		assertEquals(PlanningOWLModel.URI_hasTransformations, testable.getObjectProperty_hasTransformations().getURI());
 		assertEquals(PlanningOWLModel.URI_isActionOf, testable.getObjectProperty_isActionOf().getURI());
+		assertEquals(PlanningOWLModel.URI_isActionPerformedBy, testable.getObjectProperty_isActionPerformedBy().getURI());
 		assertEquals(PlanningOWLModel.URI_isAttributeOf, testable.getObjectProperty_isAttributeOf().getURI());
 		assertEquals(PlanningOWLModel.URI_isAttributeTemplateOf, testable.getObjectProperty_isAttributeTemplateOf().getURI());
 		assertEquals(PlanningOWLModel.URI_isAttributeTransformationOf, testable.getObjectProperty_isAttributeTransformationOf().getURI());
@@ -160,9 +161,12 @@ public class PlanningOWLModelTest {
 		assertEquals(PlanningOWLModel.URI_isSystemObject2Of, testable.getObjectProperty_isSystemObject2Of().getURI());
 		assertEquals(PlanningOWLModel.URI_isSystemOf, testable.getObjectProperty_isSystemOf().getURI());
 		assertEquals(PlanningOWLModel.URI_isSystemOperationOf, testable.getObjectProperty_isSystemOperationOf().getURI());
+		assertEquals(PlanningOWLModel.URI_isSystemOperationPerformedBy, testable.getObjectProperty_isSystemOperationPerformedBy().getURI());
 		assertEquals(PlanningOWLModel.URI_isSystemTemplateOf, testable.getObjectProperty_isSystemTemplateOf().getURI());
 		assertEquals(PlanningOWLModel.URI_isSystemTransformationOf, testable.getObjectProperty_isSystemTransformationOf().getURI());
 		assertEquals(PlanningOWLModel.URI_isTransformationOf, testable.getObjectProperty_isTransformationOf().getURI());
+		assertEquals(PlanningOWLModel.URI_performsAction, testable.getObjectProperty_performsAction().getURI());
+		assertEquals(PlanningOWLModel.URI_performsSystemOperation, testable.getObjectProperty_performsSystemOperation().getURI());
 	}
 
 	@Test
@@ -245,6 +249,7 @@ public class PlanningOWLModelTest {
 		assertEquals(PlanningOWLModel.URI_hasTransformation, testable.getObjectProperty_hasTransformation().getURI());
 		assertEquals(PlanningOWLModel.URI_hasTransformations, testable.getObjectProperty_hasTransformations().getURI());
 		assertEquals(PlanningOWLModel.URI_isActionOf, testable.getObjectProperty_isActionOf().getURI());
+		assertEquals(PlanningOWLModel.URI_isActionPerformedBy, testable.getObjectProperty_isActionPerformedBy().getURI());
 		assertEquals(PlanningOWLModel.URI_isAttributeOf, testable.getObjectProperty_isAttributeOf().getURI());
 		assertEquals(PlanningOWLModel.URI_isAttributeTemplateOf, testable.getObjectProperty_isAttributeTemplateOf().getURI());
 		assertEquals(PlanningOWLModel.URI_isAttributeTransformationOf, testable.getObjectProperty_isAttributeTransformationOf().getURI());
@@ -269,9 +274,12 @@ public class PlanningOWLModelTest {
 		assertEquals(PlanningOWLModel.URI_isSystemObject2Of, testable.getObjectProperty_isSystemObject2Of().getURI());
 		assertEquals(PlanningOWLModel.URI_isSystemOf, testable.getObjectProperty_isSystemOf().getURI());
 		assertEquals(PlanningOWLModel.URI_isSystemOperationOf, testable.getObjectProperty_isSystemOperationOf().getURI());
+		assertEquals(PlanningOWLModel.URI_isSystemOperationPerformedBy, testable.getObjectProperty_isSystemOperationPerformedBy().getURI());
 		assertEquals(PlanningOWLModel.URI_isSystemTemplateOf, testable.getObjectProperty_isSystemTemplateOf().getURI());
 		assertEquals(PlanningOWLModel.URI_isSystemTransformationOf, testable.getObjectProperty_isSystemTransformationOf().getURI());
 		assertEquals(PlanningOWLModel.URI_isTransformationOf, testable.getObjectProperty_isTransformationOf().getURI());
+		assertEquals(PlanningOWLModel.URI_performsAction, testable.getObjectProperty_performsAction().getURI());
+		assertEquals(PlanningOWLModel.URI_performsSystemOperation, testable.getObjectProperty_performsSystemOperation().getURI());
 	}
 
 	@Test

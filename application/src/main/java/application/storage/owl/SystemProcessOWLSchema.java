@@ -27,7 +27,7 @@ public class SystemProcessOWLSchema implements OWLSchema<SystemProcess> {
 
 		for (SystemOperation systemOperation : systemProcess) {
 			Individual ind_systemOperation = systemOperationOWLSchema.combine(systemOperation);
-			ind_process.addProperty(owlModel.getObjectProperty_hasSystemOperation(), ind_systemOperation);
+			ind_process.addProperty(owlModel.getObjectProperty_performsSystemOperation(), ind_systemOperation);
 		}
 
 		return ind_process;
@@ -39,7 +39,7 @@ public class SystemProcessOWLSchema implements OWLSchema<SystemProcess> {
 
 		owlModel.getClass_Process().listInstances().forEachRemaining((ind_process) -> {
 			owlModel.getClass_SystemOperation().listInstances().filterKeep((ind_systemOperation) -> {
-				return ind_process.hasProperty(owlModel.getObjectProperty_hasSystemOperation(), ind_systemOperation);
+				return ind_process.hasProperty(owlModel.getObjectProperty_performsSystemOperation(), ind_systemOperation);
 			}).forEachRemaining((ind_systemOperation) -> {
 				SystemOperation systemOperation = systemOperationOWLSchema.parse(ind_systemOperation.asIndividual());
 				systemProcess.add(systemOperation);

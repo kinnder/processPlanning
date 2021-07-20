@@ -212,6 +212,14 @@ public class PlanningOWLModel implements OWLModel {
 
 	static final String URI_isFinalSystemOf = NS + "#isFinalSystemOf";
 
+	static final String URI_performsAction = NS + "#performsAction";
+
+	static final String URI_isActionPerformedBy = NS + "#isActionPerformedBy";
+
+	static final String URI_performsSystemOperation = NS + "#performsSystemOperation";
+
+	static final String URI_isSystemOperationPerformedBy = NS + "#isSystemOperationPerformedBy";
+
 	// TODO (2020-12-17 #31): убрать linkTemplate из схемы objectTemplate
 
 	private void makeHierarchy(OntClass superClass, OntClass subClass) {
@@ -224,10 +232,11 @@ public class PlanningOWLModel implements OWLModel {
 		property2.addInverseOf(property1);
 	}
 
-	private void makeDisjoint(OntClass class1, OntClass class2) {
-		class1.addDisjointWith(class2);
-		class2.addDisjointWith(class1);
-	}
+	// TODO (2021-07-20 #42): disjoint with приводит к ошибке при работе reasoner
+//	private void makeDisjoint(OntClass class1, OntClass class2) {
+//		class1.addDisjointWith(class2);
+//		class2.addDisjointWith(class1);
+//	}
 
 	private DataRange createDataRange(RDFNode... members) {
 		DataRange d = m.createOntResource(DataRange.class, m.getProfile().DATARANGE(), null);
@@ -276,7 +285,8 @@ public class PlanningOWLModel implements OWLModel {
 		makeHierarchy(class_System, class_InitialSystem);
 		makeHierarchy(class_System, class_FinalSystem);
 
-		makeDisjoint(class_SystemOperation, class_Parameter);
+		// TODO (2021-07-20 #42): disjoint with приводит к ошибке при работе reasoner
+//		makeDisjoint(class_SystemOperation, class_Parameter);
 
 		createObjectProperty_hasAttribute();
 		createObjectProperty_isAttributeOf();
@@ -394,6 +404,14 @@ public class PlanningOWLModel implements OWLModel {
 		createObjectProperty_isFinalSystemOf();
 		makeInverse(objectProperty_hasFinalSystem, objectProperty_isFinalSystemOf);
 
+		createObjectProperty_performsAction();
+		createObjectProperty_isActionPerformedBy();
+		makeInverse(objectProperty_performsAction, objectProperty_isActionPerformedBy);
+
+		createObjectProperty_performsSystemOperation();
+		createObjectProperty_isSystemOperationPerformedBy();
+		makeInverse(objectProperty_performsSystemOperation, objectProperty_isSystemOperationPerformedBy);
+
 		createDataProperty_beginNodeId();
 		createDataProperty_checked();
 		createDataProperty_endNodeId();
@@ -408,6 +426,39 @@ public class PlanningOWLModel implements OWLModel {
 		createDataProperty_newValue();
 		createDataProperty_number();
 		createDataProperty_text();
+	}
+
+	private void createObjectProperty_isSystemOperationPerformedBy() {
+		objectProperty_isSystemOperationPerformedBy = m.createObjectProperty(URI_isSystemOperationPerformedBy);
+		objectProperty_isSystemOperationPerformedBy.addLabel("is system operation performed by", "en");
+		objectProperty_isSystemOperationPerformedBy.addLabel("является операцией системы выполняемой", "ru");
+		objectProperty_isSystemOperationPerformedBy.addDomain(class_SystemOperation);
+		objectProperty_isSystemOperationPerformedBy.addRange(class_Process);
+	}
+
+	private void createObjectProperty_performsSystemOperation() {
+		objectProperty_performsSystemOperation = m.createObjectProperty(URI_performsSystemOperation);
+		objectProperty_performsSystemOperation.addLabel("performs system operation", "en");
+		objectProperty_performsSystemOperation.addLabel("выполняет операцию системы", "ru");
+		objectProperty_performsSystemOperation.addDomain(class_Process);
+		objectProperty_performsSystemOperation.addRange(class_SystemOperation);
+
+	}
+
+	private void createObjectProperty_isActionPerformedBy() {
+		objectProperty_isActionPerformedBy = m.createObjectProperty(URI_isActionPerformedBy);
+		objectProperty_isActionPerformedBy.addLabel("is action performed by", "en");
+		objectProperty_isActionPerformedBy.addLabel("является действием выполняемым", "ru");
+		objectProperty_isActionPerformedBy.addDomain(class_Action);
+		objectProperty_isActionPerformedBy.addRange(class_SystemOperation);
+	}
+
+	private void createObjectProperty_performsAction() {
+		objectProperty_performsAction = m.createObjectProperty(URI_performsAction);
+		objectProperty_performsAction.addLabel("performs action", "en");
+		objectProperty_performsAction.addLabel("выполняет действие", "ru");
+		objectProperty_performsAction.addDomain(class_SystemOperation);
+		objectProperty_performsAction.addRange(class_Action);
 	}
 
 	private void createObjectProperty_isFinalSystemOf() {
@@ -947,7 +998,6 @@ public class PlanningOWLModel implements OWLModel {
 		objectProperty_isSystemOperationOf.addLabel("является операцией системы для", "ru");
 		objectProperty_isSystemOperationOf.addDomain(class_SystemOperation);
 		objectProperty_isSystemOperationOf.addRange(class_Edge);
-		objectProperty_isSystemOperationOf.addRange(class_Process);
 	}
 
 	private void createObjectProperty_hasSystemOperation() {
@@ -955,7 +1005,6 @@ public class PlanningOWLModel implements OWLModel {
 		objectProperty_hasSystemOperation.addLabel("has system operation", "en");
 		objectProperty_hasSystemOperation.addLabel("имеет операцию системы", "ru");
 		objectProperty_hasSystemOperation.addDomain(class_Edge);
-		objectProperty_hasSystemOperation.addDomain(class_Process);
 		objectProperty_hasSystemOperation.addRange(class_SystemOperation);
 	}
 
@@ -1225,6 +1274,7 @@ public class PlanningOWLModel implements OWLModel {
 		objectProperty_hasTransformation = m.getObjectProperty(URI_hasTransformation);
 		objectProperty_hasTransformations = m.getObjectProperty(URI_hasTransformations);
 		objectProperty_isActionOf = m.getObjectProperty(URI_isActionOf);
+		objectProperty_isActionPerformedBy = m.getObjectProperty(URI_isActionPerformedBy);
 		objectProperty_isAttributeOf = m.getObjectProperty(URI_isAttributeOf);
 		objectProperty_isAttributeTemplateOf = m.getObjectProperty(URI_isAttributeTemplateOf);
 		objectProperty_isAttributeTransformationOf = m.getObjectProperty(URI_isAttributeTransformationOf);
@@ -1249,9 +1299,12 @@ public class PlanningOWLModel implements OWLModel {
 		objectProperty_isSystemObjectOf = m.getObjectProperty(URI_isSystemObjectOf);
 		objectProperty_isSystemOf = m.getObjectProperty(URI_isSystemOf);
 		objectProperty_isSystemOperationOf = m.getObjectProperty(URI_isSystemOperationOf);
+		objectProperty_isSystemOperationPerformedBy = m.getObjectProperty(URI_isSystemOperationPerformedBy);
 		objectProperty_isSystemTemplateOf = m.getObjectProperty(URI_isSystemTemplateOf);
 		objectProperty_isSystemTransformationOf = m.getObjectProperty(URI_isSystemTransformationOf);
 		objectProperty_isTransformationOf = m.getObjectProperty(URI_isTransformationOf);
+		objectProperty_performsAction = m.getObjectProperty(URI_performsAction);
+		objectProperty_performsSystemOperation = m.getObjectProperty(URI_performsSystemOperation);
 
 		dataProperty_beginNodeId = m.getDatatypeProperty(URI_beginNodeId);
 		dataProperty_checked = m.getDatatypeProperty(URI_checked);
@@ -1963,5 +2016,29 @@ public class PlanningOWLModel implements OWLModel {
 
 	public ObjectProperty getObjectProperty_isFinalSystemOf() {
 		return objectProperty_isFinalSystemOf;
+	}
+
+	private ObjectProperty objectProperty_performsAction;
+
+	public ObjectProperty getObjectProperty_performsAction() {
+		return objectProperty_performsAction;
+	}
+
+	private ObjectProperty objectProperty_isActionPerformedBy;
+
+	public ObjectProperty getObjectProperty_isActionPerformedBy() {
+		return objectProperty_isActionPerformedBy;
+	}
+
+	private ObjectProperty objectProperty_performsSystemOperation;
+
+	public ObjectProperty getObjectProperty_performsSystemOperation() {
+		return objectProperty_performsSystemOperation;
+	}
+
+	private ObjectProperty objectProperty_isSystemOperationPerformedBy;
+
+	public ObjectProperty getObjectProperty_isSystemOperationPerformedBy() {
+		return objectProperty_isSystemOperationPerformedBy;
 	}
 }
