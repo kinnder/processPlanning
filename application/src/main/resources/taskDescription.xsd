@@ -33,7 +33,6 @@
 				<xs:element name="name" type="xs:string" />
 				<xs:element ref="id" />
 				<xs:element ref="attribute" minOccurs="0" maxOccurs="unbounded" />
-				<xs:element ref="link" minOccurs="0" maxOccurs="unbounded" />
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>

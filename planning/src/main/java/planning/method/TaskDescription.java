@@ -3,7 +3,6 @@ package planning.method;
 import planning.model.System;
 
 public class TaskDescription {
-	// TODO (2020-12-10 #31): удалить link из элемента SystemObject в схеме taskDescription.tsd 
 
 	private System initialSystem;
 

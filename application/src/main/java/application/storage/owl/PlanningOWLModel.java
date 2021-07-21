@@ -220,8 +220,6 @@ public class PlanningOWLModel implements OWLModel {
 
 	static final String URI_isSystemOperationPerformedBy = NS + "#isSystemOperationPerformedBy";
 
-	// TODO (2020-12-17 #31): убрать linkTemplate из схемы objectTemplate
-
 	private void makeHierarchy(OntClass superClass, OntClass subClass) {
 		superClass.addSubClass(subClass);
 		subClass.addSuperClass(superClass);
