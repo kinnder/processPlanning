@@ -2,8 +2,8 @@
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<xs:annotation>
 		<xs:documentation>xml.mherman.org</xs:documentation>
+		<xs:documentation>www.freeformatter.com</xs:documentation>
 	</xs:annotation>
-	<xs:import namespace="http://www.w3.org/2001/XMLSchema-instance" schemaLocation="xsi.xsd" />
 	<xs:element name="process">
 		<xs:complexType>
 			<xs:sequence>
