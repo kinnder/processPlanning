@@ -23,6 +23,8 @@ import application.command.NewTaskDescriptionCommand;
 import application.command.NewTaskDescriptionCommandDataMatcher;
 import application.command.PlanCommand;
 import application.command.PlanCommandDataMatcher;
+import application.command.VerifyCommand;
+import application.command.VerifyCommandDataMatcher;
 
 public class ApplicationTest {
 
@@ -48,18 +50,22 @@ public class ApplicationTest {
 
 	NewTaskDescriptionCommand newTaskDescriptionCommand_mock;
 
+	VerifyCommand verifyCommand_mock;
+
 	@BeforeEach
 	public void setup() {
 		helpCommand_mock = context.mock(HelpCommand.class);
 		planCommand_mock = context.mock(PlanCommand.class);
 		newSystemTransformationsCommand_mock = context.mock(NewSystemTransformationsCommand.class);
 		newTaskDescriptionCommand_mock = context.mock(NewTaskDescriptionCommand.class);
+		verifyCommand_mock = context.mock(VerifyCommand.class);
 
 		testable = new Application();
 		testable.commands.put(HelpCommand.NAME, helpCommand_mock);
 		testable.commands.put(PlanCommand.NAME, planCommand_mock);
 		testable.commands.put(NewSystemTransformationsCommand.NAME, newSystemTransformationsCommand_mock);
 		testable.commands.put(NewTaskDescriptionCommand.NAME, newTaskDescriptionCommand_mock);
+		testable.commands.put(VerifyCommand.NAME, verifyCommand_mock);
 	}
 
 	@Test
@@ -69,6 +75,7 @@ public class ApplicationTest {
 		assertTrue(testable.commands.get(PlanCommand.NAME) instanceof PlanCommand);
 		assertTrue(testable.commands.get(NewSystemTransformationsCommand.NAME) instanceof NewSystemTransformationsCommand);
 		assertTrue(testable.commands.get(NewSystemTransformationsCommand.NAME) instanceof NewSystemTransformationsCommand);
+		assertTrue(testable.commands.get(VerifyCommand.NAME) instanceof VerifyCommand);
 	}
 
 	@Test
@@ -84,6 +91,8 @@ public class ApplicationTest {
 				oneOf(newSystemTransformationsCommand_mock).registerUserInterface(ui_mock);
 
 				oneOf(newTaskDescriptionCommand_mock).registerUserInterface(ui_mock);
+
+				oneOf(verifyCommand_mock).registerUserInterface(ui_mock);
 			}
 		});
 
@@ -106,6 +115,7 @@ public class ApplicationTest {
 		new_td_option.setLongOpt("new-task-description");
 		new_td_option.setArgName("domain");
 		new_td_option.setOptionalArg(true);
+		Option verify_option = new Option("verify", "verify xml-files with according xml-schemas");
 
 		Options options = new Options();
 		options.addOption(h_option);
@@ -116,6 +126,7 @@ public class ApplicationTest {
 		options.addOption(plan_option);
 		options.addOption(new_st_option);
 		options.addOption(new_td_option);
+		options.addOption(verify_option);
 
 		context.checking(new Expectations() {
 			{
@@ -130,13 +141,14 @@ public class ApplicationTest {
 	public void run_PlanCommand() throws Exception {
 		context.checking(new Expectations() {
 			{
-				oneOf(planCommand_mock)
-						.execute(with(new PlanCommandDataMatcher().expectSystemTransformationsFile("st_file.xml")
-								.expectTaskDescriptionFile("td_file.xml").expectProcessFile("p_file.xml")));
+				oneOf(planCommand_mock).execute(with(new PlanCommandDataMatcher()
+						.expectSystemTransformationsFile("st_file.xml").expectTaskDescriptionFile("td_file.xml")
+						.expectProcessFile("p_file.xml").expectNodeNetworkFile("nn_file.xml")));
 			}
 		});
 
-		testable.run(new String[] { "-plan", "-taskDescription=td_file.xml", "-systemTransformations=st_file.xml", "-process=p_file.xml" });
+		testable.run(new String[] { "-plan", "-taskDescription=td_file.xml", "-systemTransformations=st_file.xml",
+				"-process=p_file.xml", "-nodeNetwork=nn_file.xml" });
 	}
 
 	@Test
@@ -162,6 +174,20 @@ public class ApplicationTest {
 		});
 
 		testable.run(new String[] { "-new_td", "materialPoints", "-taskDescription=td_file.xml" });
+	}
+
+	@Test
+	public void run_VerifyCommand() throws Exception {
+		context.checking(new Expectations() {
+			{
+				oneOf(verifyCommand_mock).execute(with(new VerifyCommandDataMatcher()
+						.expectSystemTransformationsFile("st_file.xml").expectTaskDescriptionFile("td_file.xml")
+						.expectProcessFile("p_file.xml").expectNodeNetworkFile("nn_file.xml")));
+			}
+		});
+
+		testable.run(new String[] { "-verify", "-taskDescription=td_file.xml", "-systemTransformations=st_file.xml",
+				"-process=p_file.xml", "-nodeNetwork=nn_file.xml" });
 	}
 
 	@Test

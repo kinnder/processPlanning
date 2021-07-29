@@ -2,42 +2,42 @@ package application.command;
 
 import utility.Matcher;
 
-public class PlanCommandDataMatcher extends Matcher<PlanCommandData> {
+public class VerifyCommandDataMatcher extends Matcher<VerifyCommandData> {
 
-	public PlanCommandDataMatcher expectProcessFile(String processFile) {
+	public VerifyCommandDataMatcher expectProcessFile(String processFile) {
 		addExpectation(new MatcherExpectation() {
 			@Override
-			public void trigger(PlanCommandData arg) throws MatcherException {
+			public void trigger(VerifyCommandData arg) throws MatcherException {
 				compare("processFile", processFile, arg.processFile);
 			}
 		});
 		return this;
 	}
 
-	public PlanCommandDataMatcher expectTaskDescriptionFile(String taskDescriptionFile) {
+	public VerifyCommandDataMatcher expectTaskDescriptionFile(String taskDescriptionFile) {
 		addExpectation(new MatcherExpectation() {
 			@Override
-			public void trigger(PlanCommandData arg) throws MatcherException {
+			public void trigger(VerifyCommandData arg) throws MatcherException {
 				compare("taskDescriptionFile", taskDescriptionFile, arg.taskDescriptionFile);
 			}
 		});
 		return this;
 	}
 
-	public PlanCommandDataMatcher expectSystemTransformationsFile(String systemTransformationsFile) {
+	public VerifyCommandDataMatcher expectSystemTransformationsFile(String systemTransformationsFile) {
 		addExpectation(new MatcherExpectation() {
 			@Override
-			public void trigger(PlanCommandData arg) throws MatcherException {
+			public void trigger(VerifyCommandData arg) throws MatcherException {
 				compare("systemTransformationsFile", systemTransformationsFile, arg.systemTransformationsFile);
 			}
 		});
 		return this;
 	}
 
-	public PlanCommandDataMatcher expectNodeNetworkFile(String nodeNetworkFile) {
+	public VerifyCommandDataMatcher expectNodeNetworkFile(String nodeNetworkFile) {
 		addExpectation(new MatcherExpectation() {
 			@Override
-			public void trigger(PlanCommandData arg) throws MatcherException {
+			public void trigger(VerifyCommandData arg) throws MatcherException {
 				compare("nodeNetworkFile", nodeNetworkFile, arg.nodeNetworkFile);
 			}
 		});

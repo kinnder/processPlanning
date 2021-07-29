@@ -1,8 +1,10 @@
 package application.storage;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.IOException;
+import java.io.InputStream;
 
 import org.jdom2.JDOMException;
 import org.jmock.Expectations;
@@ -250,5 +252,25 @@ public class PersistanceStorageTest {
 		});
 
 		testable.saveNodeNetwork(nodeNetwork_mock, path);
+	}
+
+	@Test
+	public void getResourceAsStream_TaskDescriptionXSD() {
+		assertTrue(testable.getResourceAsStream(PersistanceStorage.TASK_DESCRIPTION_XSD) instanceof InputStream);
+	}
+
+	@Test
+	public void getResourceAsStream_SystemTransformationsXSD() {
+		assertTrue(testable.getResourceAsStream(PersistanceStorage.SYSTEM_TRANSFORMATIONS_XSD) instanceof InputStream);
+	}
+
+	@Test
+	public void getResourceAsStream_ProcessXSD() {
+		assertTrue(testable.getResourceAsStream(PersistanceStorage.PROCESS_XSD) instanceof InputStream);
+	}
+
+	@Test
+	public void getResourceAsStream_NodeNetworkXSD() {
+		assertTrue(testable.getResourceAsStream(PersistanceStorage.NODE_NETWORK_XSD) instanceof InputStream);
 	}
 }

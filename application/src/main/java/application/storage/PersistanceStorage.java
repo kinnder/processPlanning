@@ -1,6 +1,7 @@
 package application.storage;
 
 import java.io.IOException;
+import java.io.InputStream;
 
 import org.apache.commons.io.FilenameUtils;
 import org.jdom2.JDOMException;
@@ -35,6 +36,14 @@ public class PersistanceStorage {
 	private NodeNetworkXMLFile nodeNetworkXMLFile;
 
 	private NodeNetworkOWLFile nodeNetworkOWLFile;
+
+	public static final String TASK_DESCRIPTION_XSD = "/taskDescription.xsd";
+
+	public static final String SYSTEM_TRANSFORMATIONS_XSD = "/systemTransformations.xsd";
+
+	public static final String NODE_NETWORK_XSD = "/nodeNetwork.xsd";
+
+	public static final String PROCESS_XSD = "/process.xsd";
 
 	public PersistanceStorage() {
 		this(new SystemTransformationsXMLFile(), new TaskDescriptionXMLFile(), new SystemProcessXMLFile(),
@@ -100,5 +109,9 @@ public class PersistanceStorage {
 			return taskOWLFile.load(path);
 		}
 		return taskXMLFile.load(path);
+	}
+
+	public InputStream getResourceAsStream(String resourcePath) {
+		return getClass().getResourceAsStream(resourcePath);
 	}
 }

@@ -18,6 +18,8 @@ import application.command.NewTaskDescriptionCommand;
 import application.command.NewTaskDescriptionCommandData;
 import application.command.PlanCommand;
 import application.command.PlanCommandData;
+import application.command.VerifyCommand;
+import application.command.VerifyCommandData;
 
 public class Application {
 
@@ -29,6 +31,7 @@ public class Application {
 		commands.put(PlanCommand.NAME, new PlanCommand());
 		commands.put(NewSystemTransformationsCommand.NAME, new NewSystemTransformationsCommand());
 		commands.put(NewTaskDescriptionCommand.NAME, new NewTaskDescriptionCommand());
+		commands.put(VerifyCommand.NAME, new VerifyCommand());
 	}
 
 	public void registerUserInterface(UserInterface ui) {
@@ -55,6 +58,7 @@ public class Application {
 		new_td_option.setLongOpt("new-task-description");
 		new_td_option.setArgName("domain");
 		new_td_option.setOptionalArg(true);
+		Option verify_option = new Option("verify", "verify xml-files with according xml-schemas");
 
 		Options options = new Options();
 		options.addOption(h_option);
@@ -65,6 +69,7 @@ public class Application {
 		options.addOption(plan_option);
 		options.addOption(new_st_option);
 		options.addOption(new_td_option);
+		options.addOption(verify_option);
 
 		CommandLineParser parser = new DefaultParser();
 		CommandLine line = parser.parse(options, args);
@@ -93,6 +98,14 @@ public class Application {
 			data.taskDescriptionFile = line.getOptionValue(td_option.getOpt(), "taskDescription.xml");
 			data.domain = line.getOptionValue(new_td_option.getOpt(), "unknown");
 			runCommand(NewTaskDescriptionCommand.NAME, data);
+		}
+		if (line.hasOption(verify_option.getOpt())) {
+			VerifyCommandData data = new VerifyCommandData();
+			data.taskDescriptionFile = line.getOptionValue(td_option.getOpt(), null);
+			data.systemTransformationsFile = line.getOptionValue(st_option.getOpt(), null);
+			data.processFile = line.getOptionValue(p_option.getOpt(), null);
+			data.nodeNetworkFile = line.getOptionValue(nn_option.getOpt(), null);
+			runCommand(VerifyCommand.NAME, data);
 		}
 	}
 
