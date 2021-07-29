@@ -102,23 +102,16 @@
 		<xs:complexType>
 			<xs:sequence>
 				<xs:element name="name" type="xs:string" />
-				<xs:element ref="preConditionChecker" minOccurs="0" maxOccurs="unbounded" />
-				<xs:element ref="parameterUpdater" minOccurs="0" maxOccurs="unbounded" />
+				<xs:element ref="actionFunction" minOccurs="0" maxOccurs="unbounded" />
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
-	<xs:element name="preConditionChecker">
+	<xs:element name="actionFunction">
 		<xs:complexType>
 			<xs:sequence>
-				<xs:element ref="line" maxOccurs="unbounded" />
+				<xs:element maxOccurs="unbounded" ref="line" />
 			</xs:sequence>
-		</xs:complexType>
-	</xs:element>
-	<xs:element name="parameterUpdater">
-		<xs:complexType>
-			<xs:sequence>
-				<xs:element ref="line" maxOccurs="unbounded" />
-			</xs:sequence>
+			<xs:attribute name="functionType" use="required" type="xs:NCName" />
 		</xs:complexType>
 	</xs:element>
 	<xs:element name="line">
