@@ -44,8 +44,33 @@ public class HelpCommandTest {
 
 		final StringBuilder sb = new StringBuilder();
 		sb.append("application builds plan for [taskDescription] with [systemTransformations] and puts result in [process]\n");
-		sb.append("usage:");
-		sb.append(String.format("%2s, %-21s %s\n", "short", "long", "description"));
+		sb.append("usage:\n");
+		sb.append(String.format("%6s, %-26s %s\n", "short", "long", "description"));
+
+		final UserInterface ui_mock = context.mock(UserInterface.class);
+
+		context.checking(new Expectations() {
+			{
+				oneOf(ui_mock).notifyHelpMessage(with(new HelpMessageEventMatcher().expectMessage(sb.toString())));
+			}
+		});
+		testable.registerUserInterface(ui_mock);
+
+		testable.execute((CommandData) data);
+	}
+
+	@Test
+	public void execute_option_without_long() throws Exception {
+		final Option option_mock = new Option("short", "description");
+		final Options options = new Options();
+		options.addOption(option_mock);
+		final HelpCommandData data = context.mock(HelpCommandData.class);
+		data.options = options;
+
+		final StringBuilder sb = new StringBuilder();
+		sb.append("application builds plan for [taskDescription] with [systemTransformations] and puts result in [process]\n");
+		sb.append("usage:\n");
+		sb.append(String.format("%6s, %-26s %s\n", "short", "", "description"));
 
 		final UserInterface ui_mock = context.mock(UserInterface.class);
 
