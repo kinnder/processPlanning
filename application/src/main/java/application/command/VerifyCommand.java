@@ -51,6 +51,7 @@ public class VerifyCommand extends Command {
 			String xsdPath = filesToValidate.get(xmlPath);
 			Source xml = new StreamSource(xmlPath);
 			Source xsd = new StreamSource(persistanceStorage.getResourceAsStream(xsdPath));
+			// TODO (2021-08-16 #43): вместо HelpMessageEvent использовать CommandStatusEvent
 			notifyHelpMessage(new HelpMessageEvent(String.format("verification of %s ...", xmlPath)));
 			if (verifyXMLSchema(xml, xsd)) {
 				notifyHelpMessage(new HelpMessageEvent(String.format("SUCCESS: %s is correct", xmlPath)));

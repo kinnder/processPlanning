@@ -8,6 +8,8 @@ import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.DefaultParser;
 import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
+import org.apache.commons.cli.UnrecognizedOptionException;
+
 import application.command.Command;
 import application.command.CommandData;
 import application.command.HelpCommand;
@@ -72,40 +74,46 @@ public class Application {
 		options.addOption(verify_option);
 
 		CommandLineParser parser = new DefaultParser();
-		CommandLine line = parser.parse(options, args);
-
-		if (line.hasOption(h_option.getOpt())) {
+		try {
+			CommandLine line = parser.parse(options, args);
+			if (line.hasOption(h_option.getOpt())) {
+				HelpCommandData data = new HelpCommandData();
+				data.options = options;
+				runCommand(HelpCommand.NAME, data);
+			}
+			if (line.hasOption(plan_option.getOpt())) {
+				PlanCommandData data = new PlanCommandData();
+				data.taskDescriptionFile = line.getOptionValue(td_option.getOpt(), "taskDescription.xml");
+				data.systemTransformationsFile = line.getOptionValue(st_option.getOpt(), "systemTransformations.xml");
+				data.processFile = line.getOptionValue(p_option.getOpt(), "process.xml");
+				data.nodeNetworkFile = line.getOptionValue(nn_option.getOpt(), "nodeNetwork.xml");
+				runCommand(PlanCommand.NAME, data);
+			}
+			if (line.hasOption(new_st_option.getOpt())) {
+				NewSystemTransformationsCommandData data = new NewSystemTransformationsCommandData();
+				data.systemTransformationsFile = line.getOptionValue(st_option.getOpt(), "systemTransformations.xml");
+				data.domain = line.getOptionValue(new_st_option.getOpt(), "unknown");
+				runCommand(NewSystemTransformationsCommand.NAME, data);
+			}
+			if (line.hasOption(new_td_option.getOpt())) {
+				NewTaskDescriptionCommandData data = new NewTaskDescriptionCommandData();
+				data.taskDescriptionFile = line.getOptionValue(td_option.getOpt(), "taskDescription.xml");
+				data.domain = line.getOptionValue(new_td_option.getOpt(), "unknown");
+				runCommand(NewTaskDescriptionCommand.NAME, data);
+			}
+			if (line.hasOption(verify_option.getOpt())) {
+				VerifyCommandData data = new VerifyCommandData();
+				data.taskDescriptionFile = line.getOptionValue(td_option.getOpt(), null);
+				data.systemTransformationsFile = line.getOptionValue(st_option.getOpt(), null);
+				data.processFile = line.getOptionValue(p_option.getOpt(), null);
+				data.nodeNetworkFile = line.getOptionValue(nn_option.getOpt(), null);
+				runCommand(VerifyCommand.NAME, data);
+			}
+		} catch (UnrecognizedOptionException e) {
+			// TODO (2021-08-17 #26 выводить сообщение об ошибке в интерфейс пользователя
 			HelpCommandData data = new HelpCommandData();
 			data.options = options;
 			runCommand(HelpCommand.NAME, data);
-		}
-		if (line.hasOption(plan_option.getOpt())) {
-			PlanCommandData data = new PlanCommandData();
-			data.taskDescriptionFile = line.getOptionValue(td_option.getOpt(), "taskDescription.xml");
-			data.systemTransformationsFile = line.getOptionValue(st_option.getOpt(), "systemTransformations.xml");
-			data.processFile = line.getOptionValue(p_option.getOpt(), "process.xml");
-			data.nodeNetworkFile = line.getOptionValue(nn_option.getOpt(), "nodeNetwork.xml");
-			runCommand(PlanCommand.NAME, data);
-		}
-		if (line.hasOption(new_st_option.getOpt())) {
-			NewSystemTransformationsCommandData data = new NewSystemTransformationsCommandData();
-			data.systemTransformationsFile = line.getOptionValue(st_option.getOpt(), "systemTransformations.xml");
-			data.domain = line.getOptionValue(new_st_option.getOpt(), "unknown");
-			runCommand(NewSystemTransformationsCommand.NAME, data);
-		}
-		if (line.hasOption(new_td_option.getOpt())) {
-			NewTaskDescriptionCommandData data = new NewTaskDescriptionCommandData();
-			data.taskDescriptionFile = line.getOptionValue(td_option.getOpt(), "taskDescription.xml");
-			data.domain = line.getOptionValue(new_td_option.getOpt(), "unknown");
-			runCommand(NewTaskDescriptionCommand.NAME, data);
-		}
-		if (line.hasOption(verify_option.getOpt())) {
-			VerifyCommandData data = new VerifyCommandData();
-			data.taskDescriptionFile = line.getOptionValue(td_option.getOpt(), null);
-			data.systemTransformationsFile = line.getOptionValue(st_option.getOpt(), null);
-			data.processFile = line.getOptionValue(p_option.getOpt(), null);
-			data.nodeNetworkFile = line.getOptionValue(nn_option.getOpt(), null);
-			runCommand(VerifyCommand.NAME, data);
 		}
 	}
 

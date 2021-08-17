@@ -221,4 +221,42 @@ public class ApplicationTest {
 			testable.runCommand("command", data_mock);
 		});
 	}
+
+	@Test
+	public void run_UnrecognizedOption() throws Exception {
+		Option h_option = new Option("h", "help", false, "prints usage");
+		Option td_option = new Option("td", "taskDescription", true, "file with description of the task");
+		Option st_option = new Option("st", "systemTransformations", true, "file with description of the system transformations");
+		Option p_option = new Option("p", "process", true, "output file with process");
+		Option nn_option = new Option("nn", "nodeNetwork", true, "output file with node network");
+		Option plan_option = new Option("plan", "plan process");
+		Option new_st_option = new Option("new_st", true, "create new file with predefined system transformations");
+		new_st_option.setLongOpt("new-system-transformations");
+		new_st_option.setArgName("domain");
+		new_st_option.setOptionalArg(true);
+		Option new_td_option = new Option("new_td", true, "create new file with predefined task description");
+		new_td_option.setLongOpt("new-task-description");
+		new_td_option.setArgName("domain");
+		new_td_option.setOptionalArg(true);
+		Option verify_option = new Option("verify", "verify xml-files with according xml-schemas");
+
+		Options options = new Options();
+		options.addOption(h_option);
+		options.addOption(td_option);
+		options.addOption(st_option);
+		options.addOption(p_option);
+		options.addOption(nn_option);
+		options.addOption(plan_option);
+		options.addOption(new_st_option);
+		options.addOption(new_td_option);
+		options.addOption(verify_option);
+
+		context.checking(new Expectations() {
+			{
+				oneOf(helpCommand_mock).execute(with(new HelpCommandDataMatcher().expectOptions(options)));
+			}
+		});
+
+		testable.run(new String[] { "-?"});
+	}
 }
