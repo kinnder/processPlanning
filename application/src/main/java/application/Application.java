@@ -110,7 +110,7 @@ public class Application {
 				runCommand(VerifyCommand.NAME, data);
 			}
 		} catch (UnrecognizedOptionException e) {
-			// TODO (2021-08-17 #26 выводить сообщение об ошибке в интерфейс пользователя
+			// TODO (2021-08-17 #26): выводить сообщение об ошибке в интерфейс пользователя
 			HelpCommandData data = new HelpCommandData();
 			data.options = options;
 			runCommand(HelpCommand.NAME, data);

@@ -1,6 +1,6 @@
 from subprocess import check_output
 
-application: str = 'application-0.0.1.jar'
+application: str = 'application-0.1.0.jar'
 
 task_domain: str = 'cuttingProcess'
 
