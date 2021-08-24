@@ -10,7 +10,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
-import application.UserInterface;
+import application.Application;
 import application.event.HelpMessageEventMatcher;
 
 public class HelpCommandTest {
@@ -29,9 +29,13 @@ public class HelpCommandTest {
 
 	HelpCommand testable;
 
+	Application application_mock;
+
 	@BeforeEach
 	public void setup() {
-		testable = new HelpCommand();
+		application_mock = context.mock(Application.class);
+
+		testable = new HelpCommand(application_mock);
 	}
 
 	@Test
@@ -47,14 +51,11 @@ public class HelpCommandTest {
 		sb.append("usage:\n");
 		sb.append(String.format("%6s, %-26s %s\n", "short", "long", "description"));
 
-		final UserInterface ui_mock = context.mock(UserInterface.class);
-
 		context.checking(new Expectations() {
 			{
-				oneOf(ui_mock).notifyHelpMessage(with(new HelpMessageEventMatcher().expectMessage(sb.toString())));
+				oneOf(application_mock).notifyHelpMessage(with(new HelpMessageEventMatcher().expectMessage(sb.toString())));
 			}
 		});
-		testable.registerUserInterface(ui_mock);
 
 		testable.execute((CommandData) data);
 	}
@@ -72,14 +73,11 @@ public class HelpCommandTest {
 		sb.append("usage:\n");
 		sb.append(String.format("%6s, %-26s %s\n", "short", "", "description"));
 
-		final UserInterface ui_mock = context.mock(UserInterface.class);
-
 		context.checking(new Expectations() {
 			{
-				oneOf(ui_mock).notifyHelpMessage(with(new HelpMessageEventMatcher().expectMessage(sb.toString())));
+				oneOf(application_mock).notifyHelpMessage(with(new HelpMessageEventMatcher().expectMessage(sb.toString())));
 			}
 		});
-		testable.registerUserInterface(ui_mock);
 
 		testable.execute((CommandData) data);
 	}

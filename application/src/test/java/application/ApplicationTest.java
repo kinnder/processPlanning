@@ -25,6 +25,9 @@ import application.command.PlanCommand;
 import application.command.PlanCommandDataMatcher;
 import application.command.VerifyCommand;
 import application.command.VerifyCommandDataMatcher;
+import application.event.CommandStatusEvent;
+import application.event.CommandStatusEventMatcher;
+import application.event.HelpMessageEvent;
 
 public class ApplicationTest {
 
@@ -82,21 +85,37 @@ public class ApplicationTest {
 	public void registerUserInterface() {
 		final UserInterface ui_mock = context.mock(UserInterface.class);
 
+		testable.registerUserInterface(ui_mock);
+	}
+
+	@Test
+	public void notifyHelpMessage() {
+		final UserInterface ui_mock = context.mock(UserInterface.class);
+		final HelpMessageEvent event_mock = context.mock(HelpMessageEvent.class);
+
 		context.checking(new Expectations() {
 			{
-				oneOf(helpCommand_mock).registerUserInterface(ui_mock);
-
-				oneOf(planCommand_mock).registerUserInterface(ui_mock);
-
-				oneOf(newSystemTransformationsCommand_mock).registerUserInterface(ui_mock);
-
-				oneOf(newTaskDescriptionCommand_mock).registerUserInterface(ui_mock);
-
-				oneOf(verifyCommand_mock).registerUserInterface(ui_mock);
+				oneOf(ui_mock).notifyHelpMessage(event_mock);
 			}
 		});
-
 		testable.registerUserInterface(ui_mock);
+
+		testable.notifyHelpMessage(event_mock);
+	}
+
+	@Test
+	public void notifyCommandStatus() {
+		final UserInterface ui_mock = context.mock(UserInterface.class);
+		final CommandStatusEvent event_mock = context.mock(CommandStatusEvent.class);
+
+		context.checking(new Expectations() {
+			{
+				oneOf(ui_mock).notifyCommandStatus(event_mock);
+			}
+		});
+		testable.registerUserInterface(ui_mock);
+
+		testable.notifyCommandStatus(event_mock);
 	}
 
 	@Test
@@ -207,7 +226,7 @@ public class ApplicationTest {
 
 	@Test
 	public void runCommand_throwException() throws Exception {
-		final Command command = new Command() {
+		final Command command = new Command(testable) {
 			@Override
 			public void execute(CommandData data) throws Exception {
 				throw new Exception("runtime exception");
@@ -251,11 +270,16 @@ public class ApplicationTest {
 		options.addOption(new_td_option);
 		options.addOption(verify_option);
 
+		UserInterface ui_mock = context.mock(UserInterface.class);
+
 		context.checking(new Expectations() {
 			{
+				oneOf(ui_mock).notifyCommandStatus(with(new CommandStatusEventMatcher().expectMessage("Unrecognized option: -?")));
+
 				oneOf(helpCommand_mock).execute(with(new HelpCommandDataMatcher().expectOptions(options)));
 			}
 		});
+		testable.registerUserInterface(ui_mock);
 
 		testable.run(new String[] { "-?"});
 	}

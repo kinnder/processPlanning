@@ -1,30 +1,13 @@
 package application.command;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import application.UserInterface;
-import application.event.CommandStatusEvent;
-import application.event.HelpMessageEvent;
+import application.Application;
 
 public abstract class Command {
 
-	private List<UserInterface> uis = new ArrayList<UserInterface>();
+	protected Application application;
 
-	public void registerUserInterface(UserInterface ui) {
-		uis.add(ui);
-	}
-
-	public void notifyHelpMessage(HelpMessageEvent event) {
-		for (UserInterface ui : uis) {
-			ui.notifyHelpMessage(event);
-		}
-	}
-
-	public void notifyCommandStatus(CommandStatusEvent event) {
-		for (UserInterface ui : uis) {
-			ui.notifyCommandStatus(event);
-		}
+	public Command(Application application) {
+		this.application = application;
 	}
 
 	public abstract void execute(CommandData data) throws Exception;

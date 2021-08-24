@@ -1,5 +1,6 @@
 package application.command;
 
+import application.Application;
 import application.event.CommandStatusEvent;
 import application.storage.PersistanceStorage;
 import planning.method.NodeNetwork;
@@ -12,6 +13,10 @@ public class PlanCommand extends Command {
 
 	public final static String NAME = "plan";
 
+	public PlanCommand(Application application) {
+		super(application);
+	}
+
 	@Override
 	public void execute(CommandData data) throws Exception {
 		execute((PlanCommandData) data);
@@ -20,7 +25,7 @@ public class PlanCommand extends Command {
 	PersistanceStorage persistanceStorage = new PersistanceStorage();
 
 	private void execute(PlanCommandData data) throws Exception {
-		notifyCommandStatus(new CommandStatusEvent("executing command: \"plan\"..."));
+		application.notifyCommandStatus(new CommandStatusEvent("executing command: \"plan\"..."));
 
 		SystemTransformations systemTransformations = persistanceStorage.loadSystemTransformations(data.systemTransformationsFile);
 
@@ -36,6 +41,6 @@ public class PlanCommand extends Command {
 
 		persistanceStorage.saveNodeNetwork(nodeNetwork, data.nodeNetworkFile);
 
-		notifyCommandStatus(new CommandStatusEvent("done"));
+		application.notifyCommandStatus(new CommandStatusEvent("done"));
 	}
 }

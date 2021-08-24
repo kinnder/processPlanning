@@ -1,6 +1,8 @@
 package application;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.cli.CommandLine;
@@ -22,6 +24,8 @@ import application.command.PlanCommand;
 import application.command.PlanCommandData;
 import application.command.VerifyCommand;
 import application.command.VerifyCommandData;
+import application.event.CommandStatusEvent;
+import application.event.HelpMessageEvent;
 
 public class Application {
 
@@ -29,16 +33,28 @@ public class Application {
 	Map<String, Command> commands = new HashMap<>();
 
 	public Application() {
-		commands.put(HelpCommand.NAME, new HelpCommand());
-		commands.put(PlanCommand.NAME, new PlanCommand());
-		commands.put(NewSystemTransformationsCommand.NAME, new NewSystemTransformationsCommand());
-		commands.put(NewTaskDescriptionCommand.NAME, new NewTaskDescriptionCommand());
-		commands.put(VerifyCommand.NAME, new VerifyCommand());
+		commands.put(HelpCommand.NAME, new HelpCommand(this));
+		commands.put(PlanCommand.NAME, new PlanCommand(this));
+		commands.put(NewSystemTransformationsCommand.NAME, new NewSystemTransformationsCommand(this));
+		commands.put(NewTaskDescriptionCommand.NAME, new NewTaskDescriptionCommand(this));
+		commands.put(VerifyCommand.NAME, new VerifyCommand(this));
 	}
 
+	private List<UserInterface> uis = new ArrayList<UserInterface>();
+
 	public void registerUserInterface(UserInterface ui) {
-		for (Command command : commands.values()) {
-			command.registerUserInterface(ui);
+		uis.add(ui);
+	}
+
+	public void notifyHelpMessage(HelpMessageEvent event) {
+		for (UserInterface ui : uis) {
+			ui.notifyHelpMessage(event);
+		}
+	}
+
+	public void notifyCommandStatus(CommandStatusEvent event) {
+		for (UserInterface ui : uis) {
+			ui.notifyCommandStatus(event);
 		}
 	}
 
@@ -110,7 +126,7 @@ public class Application {
 				runCommand(VerifyCommand.NAME, data);
 			}
 		} catch (UnrecognizedOptionException e) {
-			// TODO (2021-08-17 #26): выводить сообщение об ошибке в интерфейс пользователя
+			notifyCommandStatus(new CommandStatusEvent(e.getMessage()));
 			HelpCommandData data = new HelpCommandData();
 			data.options = options;
 			runCommand(HelpCommand.NAME, data);

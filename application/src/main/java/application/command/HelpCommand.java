@@ -4,11 +4,16 @@ import java.util.Optional;
 
 import org.apache.commons.cli.Option;
 
+import application.Application;
 import application.event.HelpMessageEvent;
 
 public class HelpCommand extends Command {
 
 	public final static String NAME = "help";
+
+	public HelpCommand (Application application) {
+		super(application);
+	}
 
 	@Override
 	public void execute(CommandData data) throws Exception {
@@ -27,6 +32,6 @@ public class HelpCommand extends Command {
 		}
 
 		HelpMessageEvent event = new HelpMessageEvent(sb.toString());
-		notifyHelpMessage(event);
+		application.notifyHelpMessage(event);
 	}
 }

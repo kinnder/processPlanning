@@ -10,7 +10,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
-import application.UserInterface;
+import application.Application;
 import application.event.CommandStatusEventMatcher;
 import application.storage.PersistanceStorage;
 import planning.method.NodeNetwork;
@@ -40,11 +40,14 @@ public class PlanCommandTest {
 
 	PersistanceStorage persistanceStorage_mock;
 
+	Application application_mock;
+
 	@BeforeEach
 	public void setup() {
 		persistanceStorage_mock = context.mock(PersistanceStorage.class);
+		application_mock = context.mock(Application.class);
 
-		testable = new PlanCommand();
+		testable = new PlanCommand(application_mock);
 		// TODO (2020-07-10 #22): перенести в конструктор
 		testable.persistanceStorage = persistanceStorage_mock;
 	}
@@ -70,11 +73,9 @@ public class PlanCommandTest {
 		final Action action_mock = context.mock(Action.class);
 		final Map<?, ?> actionParameters_mock = context.mock(Map.class);
 
-		final UserInterface ui_mock = context.mock(UserInterface.class);
-
 		context.checking(new Expectations() {
 			{
-				oneOf(ui_mock).notifyCommandStatus(
+				oneOf(application_mock).notifyCommandStatus(
 						with(new CommandStatusEventMatcher().expectMessage("executing command: \"plan\"...")));
 
 				oneOf(persistanceStorage_mock).loadSystemTransformations("systemTransformations.xml");
@@ -111,10 +112,9 @@ public class PlanCommandTest {
 
 				oneOf(persistanceStorage_mock).saveNodeNetwork(with(any(NodeNetwork.class)), with("nodeNetwork.xml"));
 
-				oneOf(ui_mock).notifyCommandStatus(with(new CommandStatusEventMatcher().expectMessage("done")));
+				oneOf(application_mock).notifyCommandStatus(with(new CommandStatusEventMatcher().expectMessage("done")));
 			}
 		});
-		testable.registerUserInterface(ui_mock);
 
 		testable.execute(data_mock);
 	}

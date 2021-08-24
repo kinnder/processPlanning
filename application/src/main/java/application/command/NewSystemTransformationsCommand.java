@@ -2,6 +2,7 @@ package application.command;
 
 import java.io.IOException;
 
+import application.Application;
 import application.domain.AssemblyLine;
 import application.domain.CuttingProcess;
 import application.domain.MaterialPoints;
@@ -15,13 +16,17 @@ public class NewSystemTransformationsCommand extends Command {
 
 	PersistanceStorage persistanceStorage = new PersistanceStorage();
 
+	public NewSystemTransformationsCommand(Application application) {
+		super(application);
+	}
+
 	@Override
 	public void execute(CommandData data) throws Exception {
 		execute((NewSystemTransformationsCommandData) data);
 	}
 
 	private void execute(NewSystemTransformationsCommandData data) throws IOException {
-		notifyCommandStatus(new CommandStatusEvent("executing command: \"new system transformation\"..."));
+		application.notifyCommandStatus(new CommandStatusEvent("executing command: \"new system transformation\"..."));
 
 		SystemTransformations systemTransformations;
 		switch (data.domain) {
@@ -41,6 +46,6 @@ public class NewSystemTransformationsCommand extends Command {
 
 		persistanceStorage.saveSystemTransformations(systemTransformations, data.systemTransformationsFile);
 
-		notifyCommandStatus(new CommandStatusEvent("done"));
+		application.notifyCommandStatus(new CommandStatusEvent("done"));
 	}
 }

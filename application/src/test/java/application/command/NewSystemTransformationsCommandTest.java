@@ -8,7 +8,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
-import application.UserInterface;
+import application.Application;
 import application.event.CommandStatusEventMatcher;
 import application.storage.PersistanceStorage;
 import planning.method.SystemTransformations;
@@ -31,11 +31,14 @@ public class NewSystemTransformationsCommandTest {
 
 	PersistanceStorage persistanceStorage_mock;
 
+	Application application_mock;
+
 	@BeforeEach
 	public void setup() {
 		persistanceStorage_mock = context.mock(PersistanceStorage.class);
+		application_mock = context.mock(Application.class);
 
-		testable = new NewSystemTransformationsCommand();
+		testable = new NewSystemTransformationsCommand(application_mock);
 		// TODO (2020-07-23 #28): перенести в конструктор
 		testable.persistanceStorage = persistanceStorage_mock;
 	}
@@ -45,21 +48,19 @@ public class NewSystemTransformationsCommandTest {
 		final NewSystemTransformationsCommandData data_mock = context.mock(NewSystemTransformationsCommandData.class);
 		data_mock.systemTransformationsFile = "systemTransformations.xml";
 		data_mock.domain = "unknown";
-		final UserInterface ui_mock = context.mock(UserInterface.class);
 
 		context.checking(new Expectations() {
 			{
-				oneOf(ui_mock).notifyCommandStatus(with(new CommandStatusEventMatcher()
+				oneOf(application_mock).notifyCommandStatus(with(new CommandStatusEventMatcher()
 						.expectMessage("executing command: \"new system transformation\"...")));
 
 				// TODO (2020-07-23 #28): добавить Matcher для сравнения SystemTransformations
 				oneOf(persistanceStorage_mock).saveSystemTransformations(with(any(SystemTransformations.class)),
 						with("systemTransformations.xml"));
 
-				oneOf(ui_mock).notifyCommandStatus(with(new CommandStatusEventMatcher().expectMessage("done")));
+				oneOf(application_mock).notifyCommandStatus(with(new CommandStatusEventMatcher().expectMessage("done")));
 			}
 		});
-		testable.registerUserInterface(ui_mock);
 
 		testable.execute(data_mock);
 	}
@@ -69,21 +70,19 @@ public class NewSystemTransformationsCommandTest {
 		final NewSystemTransformationsCommandData data_mock = context.mock(NewSystemTransformationsCommandData.class);
 		data_mock.systemTransformationsFile = "systemTransformations.xml";
 		data_mock.domain = "assemblyLine";
-		final UserInterface ui_mock = context.mock(UserInterface.class);
 
 		context.checking(new Expectations() {
 			{
-				oneOf(ui_mock).notifyCommandStatus(with(new CommandStatusEventMatcher()
+				oneOf(application_mock).notifyCommandStatus(with(new CommandStatusEventMatcher()
 						.expectMessage("executing command: \"new system transformation\"...")));
 
 				// TODO (2020-07-23 #28): добавить Matcher для сравнения SystemTransformations
 				oneOf(persistanceStorage_mock).saveSystemTransformations(with(any(SystemTransformations.class)),
 						with("systemTransformations.xml"));
 
-				oneOf(ui_mock).notifyCommandStatus(with(new CommandStatusEventMatcher().expectMessage("done")));
+				oneOf(application_mock).notifyCommandStatus(with(new CommandStatusEventMatcher().expectMessage("done")));
 			}
 		});
-		testable.registerUserInterface(ui_mock);
 
 		testable.execute(data_mock);
 	}
@@ -93,21 +92,19 @@ public class NewSystemTransformationsCommandTest {
 		final NewSystemTransformationsCommandData data_mock = context.mock(NewSystemTransformationsCommandData.class);
 		data_mock.systemTransformationsFile = "systemTransformations.xml";
 		data_mock.domain = "materialPoints";
-		final UserInterface ui_mock = context.mock(UserInterface.class);
 
 		context.checking(new Expectations() {
 			{
-				oneOf(ui_mock).notifyCommandStatus(with(new CommandStatusEventMatcher()
+				oneOf(application_mock).notifyCommandStatus(with(new CommandStatusEventMatcher()
 						.expectMessage("executing command: \"new system transformation\"...")));
 
 				// TODO (2020-07-23 #28): добавить Matcher для сравнения SystemTransformations
 				oneOf(persistanceStorage_mock).saveSystemTransformations(with(any(SystemTransformations.class)),
 						with("systemTransformations.xml"));
 
-				oneOf(ui_mock).notifyCommandStatus(with(new CommandStatusEventMatcher().expectMessage("done")));
+				oneOf(application_mock).notifyCommandStatus(with(new CommandStatusEventMatcher().expectMessage("done")));
 			}
 		});
-		testable.registerUserInterface(ui_mock);
 
 		testable.execute(data_mock);
 	}
@@ -117,21 +114,19 @@ public class NewSystemTransformationsCommandTest {
 		final NewSystemTransformationsCommandData data_mock = context.mock(NewSystemTransformationsCommandData.class);
 		data_mock.systemTransformationsFile = "systemTransformations.xml";
 		data_mock.domain = "cuttingProcess";
-		final UserInterface ui_mock = context.mock(UserInterface.class);
 
 		context.checking(new Expectations() {
 			{
-				oneOf(ui_mock).notifyCommandStatus(with(new CommandStatusEventMatcher()
+				oneOf(application_mock).notifyCommandStatus(with(new CommandStatusEventMatcher()
 						.expectMessage("executing command: \"new system transformation\"...")));
 
 				// TODO (2020-07-23 #28): добавить Matcher для сравнения SystemTransformations
 				oneOf(persistanceStorage_mock).saveSystemTransformations(with(any(SystemTransformations.class)),
 						with("systemTransformations.xml"));
 
-				oneOf(ui_mock).notifyCommandStatus(with(new CommandStatusEventMatcher().expectMessage("done")));
+				oneOf(application_mock).notifyCommandStatus(with(new CommandStatusEventMatcher().expectMessage("done")));
 			}
 		});
-		testable.registerUserInterface(ui_mock);
 
 		testable.execute(data_mock);
 	}

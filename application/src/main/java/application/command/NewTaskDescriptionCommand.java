@@ -2,6 +2,7 @@ package application.command;
 
 import java.io.IOException;
 
+import application.Application;
 import application.domain.AssemblyLine;
 import application.domain.CuttingProcess;
 import application.domain.MaterialPoints;
@@ -16,13 +17,17 @@ public class NewTaskDescriptionCommand extends Command {
 
 	PersistanceStorage persistanceStorage = new PersistanceStorage();
 
+	public NewTaskDescriptionCommand(Application application) {
+		super(application);
+	}
+
 	@Override
 	public void execute(CommandData data) throws Exception {
 		execute((NewTaskDescriptionCommandData) data);
 	}
 
 	private void execute(NewTaskDescriptionCommandData data) throws IOException {
-		notifyCommandStatus(new CommandStatusEvent("executing command: \"new task description\"..."));
+		application.notifyCommandStatus(new CommandStatusEvent("executing command: \"new task description\"..."));
 
 		TaskDescription taskDescription;
 		switch (data.domain) {
@@ -45,6 +50,6 @@ public class NewTaskDescriptionCommand extends Command {
 
 		persistanceStorage.saveTaskDescription(taskDescription, data.taskDescriptionFile);
 
-		notifyCommandStatus(new CommandStatusEvent("done"));
+		application.notifyCommandStatus(new CommandStatusEvent("done"));
 	}
 }

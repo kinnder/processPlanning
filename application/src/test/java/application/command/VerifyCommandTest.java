@@ -17,7 +17,7 @@ import org.junit.jupiter.api.extension.RegisterExtension;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
 
-import application.UserInterface;
+import application.Application;
 import application.event.CommandStatusEventMatcher;
 import application.event.HelpMessageEventMatcher;
 import application.storage.PersistanceStorage;
@@ -42,17 +42,21 @@ public class VerifyCommandTest {
 
 	SchemaFactory schemaFactory_mock;
 
+	Application application_mock;
+
 	@BeforeEach
 	public void setup() {
 		persistanceStorage_mock = context.mock(PersistanceStorage.class);
 		schemaFactory_mock = context.mock(SchemaFactory.class);
+		application_mock = context.mock(Application.class);
 
-		testable = new VerifyCommand();
+		testable = new VerifyCommand(application_mock);
 		// TODO (2021-07-29 #24): перенести в конструктор
 		testable.persistanceStorage = persistanceStorage_mock;
 		testable.factory = schemaFactory_mock;
 	}
 
+	// TODO (2021-08-24): разделить на несколько отдельных тестов
 	@Test
 	public void execute() throws Exception {
 		final VerifyCommandData data = new VerifyCommandData();
@@ -60,8 +64,6 @@ public class VerifyCommandTest {
 		data.taskDescriptionFile = "taskDescription.xml";
 		data.processFile = "process.xml";
 		data.nodeNetworkFile = "nodeNetwork.xml";
-
-		final UserInterface ui_mock = context.mock(UserInterface.class);
 
 		final InputStream taskDescriptionStream_mock = context.mock(InputStream.class, "taskDescriptionStream");
 		final Schema taskDescriptionSchema_mock = context.mock(Schema.class, "taskDescriptionSchema");
@@ -83,7 +85,7 @@ public class VerifyCommandTest {
 
 		context.checking(new Expectations() {
 			{
-				oneOf(ui_mock).notifyCommandStatus(
+				oneOf(application_mock).notifyCommandStatus(
 						with(new CommandStatusEventMatcher().expectMessage("executing command: \"verify\"...")));
 
 				// >> taskDescription
@@ -91,7 +93,7 @@ public class VerifyCommandTest {
 				oneOf(persistanceStorage_mock).getResourceAsStream(PersistanceStorage.TASK_DESCRIPTION_XSD);
 				will(returnValue(taskDescriptionStream_mock));
 
-				oneOf(ui_mock).notifyHelpMessage(
+				oneOf(application_mock).notifyHelpMessage(
 						with(new HelpMessageEventMatcher().expectMessage("verification of taskDescription.xml ...")));
 
 				oneOf(schemaFactory_mock).newSchema(with(any(Source.class)));
@@ -102,7 +104,7 @@ public class VerifyCommandTest {
 
 				oneOf(taskDescriptionValidator_mock).validate(with(any(Source.class)));
 
-				oneOf(ui_mock).notifyHelpMessage(
+				oneOf(application_mock).notifyHelpMessage(
 						with(new HelpMessageEventMatcher().expectMessage("SUCCESS: taskDescription.xml is correct")));
 
 				// << taskDescription
@@ -112,7 +114,7 @@ public class VerifyCommandTest {
 				oneOf(persistanceStorage_mock).getResourceAsStream(PersistanceStorage.NODE_NETWORK_XSD);
 				will(returnValue(nodeNetworkStream_mock));
 
-				oneOf(ui_mock).notifyHelpMessage(
+				oneOf(application_mock).notifyHelpMessage(
 						with(new HelpMessageEventMatcher().expectMessage("verification of nodeNetwork.xml ...")));
 
 				oneOf(schemaFactory_mock).newSchema(with(any(Source.class)));
@@ -123,7 +125,7 @@ public class VerifyCommandTest {
 
 				oneOf(nodeNetworkValidator_mock).validate(with(any(Source.class)));
 
-				oneOf(ui_mock).notifyHelpMessage(
+				oneOf(application_mock).notifyHelpMessage(
 						with(new HelpMessageEventMatcher().expectMessage("SUCCESS: nodeNetwork.xml is correct")));
 
 				// << nodeNetwork
@@ -133,7 +135,7 @@ public class VerifyCommandTest {
 				oneOf(persistanceStorage_mock).getResourceAsStream(PersistanceStorage.PROCESS_XSD);
 				will(returnValue(processStream_mock));
 
-				oneOf(ui_mock).notifyHelpMessage(
+				oneOf(application_mock).notifyHelpMessage(
 						with(new HelpMessageEventMatcher().expectMessage("verification of process.xml ...")));
 
 				oneOf(schemaFactory_mock).newSchema(with(any(Source.class)));
@@ -144,7 +146,7 @@ public class VerifyCommandTest {
 
 				oneOf(processValidator_mock).validate(with(any(Source.class)));
 
-				oneOf(ui_mock).notifyHelpMessage(
+				oneOf(application_mock).notifyHelpMessage(
 						with(new HelpMessageEventMatcher().expectMessage("SUCCESS: process.xml is correct")));
 
 				// << process
@@ -154,7 +156,7 @@ public class VerifyCommandTest {
 				oneOf(persistanceStorage_mock).getResourceAsStream(PersistanceStorage.SYSTEM_TRANSFORMATIONS_XSD);
 				will(returnValue(systemTransformationsStream_mock));
 
-				oneOf(ui_mock).notifyHelpMessage(with(
+				oneOf(application_mock).notifyHelpMessage(with(
 						new HelpMessageEventMatcher().expectMessage("verification of systemTransformations.xml ...")));
 
 				oneOf(schemaFactory_mock).newSchema(with(any(Source.class)));
@@ -165,15 +167,14 @@ public class VerifyCommandTest {
 
 				oneOf(systemTransformationsValidator_mock).validate(with(any(Source.class)));
 
-				oneOf(ui_mock).notifyHelpMessage(with(
+				oneOf(application_mock).notifyHelpMessage(with(
 						new HelpMessageEventMatcher().expectMessage("SUCCESS: systemTransformations.xml is correct")));
 
 				// << systemTransformations
 
-				oneOf(ui_mock).notifyCommandStatus(with(new CommandStatusEventMatcher().expectMessage("done")));
+				oneOf(application_mock).notifyCommandStatus(with(new CommandStatusEventMatcher().expectMessage("done")));
 			}
 		});
-		testable.registerUserInterface(ui_mock);
 
 		testable.execute(data);
 	}
@@ -182,17 +183,14 @@ public class VerifyCommandTest {
 	public void execute_no_files_specified() throws Exception {
 		final VerifyCommandData data = new VerifyCommandData();
 
-		final UserInterface ui_mock = context.mock(UserInterface.class);
-
 		context.checking(new Expectations() {
 			{
-				oneOf(ui_mock).notifyCommandStatus(
+				oneOf(application_mock).notifyCommandStatus(
 						with(new CommandStatusEventMatcher().expectMessage("executing command: \"verify\"...")));
 
-				oneOf(ui_mock).notifyCommandStatus(with(new CommandStatusEventMatcher().expectMessage("done")));
+				oneOf(application_mock).notifyCommandStatus(with(new CommandStatusEventMatcher().expectMessage("done")));
 			}
 		});
-		testable.registerUserInterface(ui_mock);
 
 		testable.execute(data);
 	}
@@ -202,15 +200,13 @@ public class VerifyCommandTest {
 		final VerifyCommandData data = new VerifyCommandData();
 		data.processFile = "process.xml";
 
-		final UserInterface ui_mock = context.mock(UserInterface.class);
-
 		final InputStream processStream_mock = context.mock(InputStream.class, "processStream");
 		final Schema processSchema_mock = context.mock(Schema.class, "processSchema");
 		final Validator processValidator_mock = context.mock(Validator.class, "processValidator");
 
 		context.checking(new Expectations() {
 			{
-				oneOf(ui_mock).notifyCommandStatus(
+				oneOf(application_mock).notifyCommandStatus(
 						with(new CommandStatusEventMatcher().expectMessage("executing command: \"verify\"...")));
 
 				// >> process
@@ -218,7 +214,7 @@ public class VerifyCommandTest {
 				oneOf(persistanceStorage_mock).getResourceAsStream(PersistanceStorage.PROCESS_XSD);
 				will(returnValue(processStream_mock));
 
-				oneOf(ui_mock).notifyHelpMessage(
+				oneOf(application_mock).notifyHelpMessage(
 						with(new HelpMessageEventMatcher().expectMessage("verification of process.xml ...")));
 
 				oneOf(schemaFactory_mock).newSchema(with(any(Source.class)));
@@ -230,18 +226,17 @@ public class VerifyCommandTest {
 				oneOf(processValidator_mock).validate(with(any(Source.class)));
 				will(throwException(new SAXParseException("test-message", "test-publicId", "test-systemId", 10, 20)));
 
-				oneOf(ui_mock).notifyHelpMessage(with(
+				oneOf(application_mock).notifyHelpMessage(with(
 						new HelpMessageEventMatcher().expectMessage("lineNumber: 10; columnNumber: 20; test-message")));
 
-				oneOf(ui_mock).notifyHelpMessage(
+				oneOf(application_mock).notifyHelpMessage(
 						with(new HelpMessageEventMatcher().expectMessage("FAIL: process.xml is not correct")));
 
 				// << process
 
-				oneOf(ui_mock).notifyCommandStatus(with(new CommandStatusEventMatcher().expectMessage("done")));
+				oneOf(application_mock).notifyCommandStatus(with(new CommandStatusEventMatcher().expectMessage("done")));
 			}
 		});
-		testable.registerUserInterface(ui_mock);
 
 		testable.execute(data);
 	}
@@ -251,15 +246,13 @@ public class VerifyCommandTest {
 		final VerifyCommandData data = new VerifyCommandData();
 		data.processFile = "process.xml";
 
-		final UserInterface ui_mock = context.mock(UserInterface.class);
-
 		final InputStream processStream_mock = context.mock(InputStream.class, "processStream");
 		final Schema processSchema_mock = context.mock(Schema.class, "processSchema");
 		final Validator processValidator_mock = context.mock(Validator.class, "processValidator");
 
 		context.checking(new Expectations() {
 			{
-				oneOf(ui_mock).notifyCommandStatus(
+				oneOf(application_mock).notifyCommandStatus(
 						with(new CommandStatusEventMatcher().expectMessage("executing command: \"verify\"...")));
 
 				// >> process
@@ -267,7 +260,7 @@ public class VerifyCommandTest {
 				oneOf(persistanceStorage_mock).getResourceAsStream(PersistanceStorage.PROCESS_XSD);
 				will(returnValue(processStream_mock));
 
-				oneOf(ui_mock).notifyHelpMessage(
+				oneOf(application_mock).notifyHelpMessage(
 						with(new HelpMessageEventMatcher().expectMessage("verification of process.xml ...")));
 
 				oneOf(schemaFactory_mock).newSchema(with(any(Source.class)));
@@ -279,17 +272,16 @@ public class VerifyCommandTest {
 				oneOf(processValidator_mock).validate(with(any(Source.class)));
 				will(throwException(new SAXException("test-message")));
 
-				oneOf(ui_mock).notifyHelpMessage(with(new HelpMessageEventMatcher().expectMessage("test-message")));
+				oneOf(application_mock).notifyHelpMessage(with(new HelpMessageEventMatcher().expectMessage("test-message")));
 
-				oneOf(ui_mock).notifyHelpMessage(
+				oneOf(application_mock).notifyHelpMessage(
 						with(new HelpMessageEventMatcher().expectMessage("FAIL: process.xml is not correct")));
 
 				// << process
 
-				oneOf(ui_mock).notifyCommandStatus(with(new CommandStatusEventMatcher().expectMessage("done")));
+				oneOf(application_mock).notifyCommandStatus(with(new CommandStatusEventMatcher().expectMessage("done")));
 			}
 		});
-		testable.registerUserInterface(ui_mock);
 
 		testable.execute(data);
 	}
