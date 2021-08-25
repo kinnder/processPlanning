@@ -19,7 +19,6 @@ import org.xml.sax.SAXParseException;
 
 import application.Application;
 import application.event.CommandStatusEventMatcher;
-import application.event.HelpMessageEventMatcher;
 import application.storage.PersistanceStorage;
 
 public class VerifyCommandTest {
@@ -94,8 +93,8 @@ public class VerifyCommandTest {
 				oneOf(persistanceStorage_mock).getResourceAsStream(PersistanceStorage.TASK_DESCRIPTION_XSD);
 				will(returnValue(taskDescriptionStream_mock));
 
-				oneOf(application_mock).notifyHelpMessage(
-						with(new HelpMessageEventMatcher().expectMessage("verification of taskDescription.xml ...")));
+				oneOf(application_mock).notifyCommandStatus(
+						with(new CommandStatusEventMatcher().expectMessage("verification of taskDescription.xml ...")));
 
 				oneOf(schemaFactory_mock).newSchema(with(any(Source.class)));
 				will(returnValue(taskDescriptionSchema_mock));
@@ -105,8 +104,8 @@ public class VerifyCommandTest {
 
 				oneOf(taskDescriptionValidator_mock).validate(with(any(Source.class)));
 
-				oneOf(application_mock).notifyHelpMessage(
-						with(new HelpMessageEventMatcher().expectMessage("SUCCESS: taskDescription.xml is correct")));
+				oneOf(application_mock).notifyCommandStatus(
+						with(new CommandStatusEventMatcher().expectMessage("SUCCESS: taskDescription.xml is correct")));
 
 				// << taskDescription
 
@@ -115,8 +114,8 @@ public class VerifyCommandTest {
 				oneOf(persistanceStorage_mock).getResourceAsStream(PersistanceStorage.NODE_NETWORK_XSD);
 				will(returnValue(nodeNetworkStream_mock));
 
-				oneOf(application_mock).notifyHelpMessage(
-						with(new HelpMessageEventMatcher().expectMessage("verification of nodeNetwork.xml ...")));
+				oneOf(application_mock).notifyCommandStatus(
+						with(new CommandStatusEventMatcher().expectMessage("verification of nodeNetwork.xml ...")));
 
 				oneOf(schemaFactory_mock).newSchema(with(any(Source.class)));
 				will(returnValue(nodeNetworkSchema_mock));
@@ -126,8 +125,8 @@ public class VerifyCommandTest {
 
 				oneOf(nodeNetworkValidator_mock).validate(with(any(Source.class)));
 
-				oneOf(application_mock).notifyHelpMessage(
-						with(new HelpMessageEventMatcher().expectMessage("SUCCESS: nodeNetwork.xml is correct")));
+				oneOf(application_mock).notifyCommandStatus(
+						with(new CommandStatusEventMatcher().expectMessage("SUCCESS: nodeNetwork.xml is correct")));
 
 				// << nodeNetwork
 
@@ -136,8 +135,8 @@ public class VerifyCommandTest {
 				oneOf(persistanceStorage_mock).getResourceAsStream(PersistanceStorage.PROCESS_XSD);
 				will(returnValue(processStream_mock));
 
-				oneOf(application_mock).notifyHelpMessage(
-						with(new HelpMessageEventMatcher().expectMessage("verification of process.xml ...")));
+				oneOf(application_mock).notifyCommandStatus(
+						with(new CommandStatusEventMatcher().expectMessage("verification of process.xml ...")));
 
 				oneOf(schemaFactory_mock).newSchema(with(any(Source.class)));
 				will(returnValue(processSchema_mock));
@@ -147,8 +146,8 @@ public class VerifyCommandTest {
 
 				oneOf(processValidator_mock).validate(with(any(Source.class)));
 
-				oneOf(application_mock).notifyHelpMessage(
-						with(new HelpMessageEventMatcher().expectMessage("SUCCESS: process.xml is correct")));
+				oneOf(application_mock).notifyCommandStatus(
+						with(new CommandStatusEventMatcher().expectMessage("SUCCESS: process.xml is correct")));
 
 				// << process
 
@@ -157,8 +156,8 @@ public class VerifyCommandTest {
 				oneOf(persistanceStorage_mock).getResourceAsStream(PersistanceStorage.SYSTEM_TRANSFORMATIONS_XSD);
 				will(returnValue(systemTransformationsStream_mock));
 
-				oneOf(application_mock).notifyHelpMessage(with(
-						new HelpMessageEventMatcher().expectMessage("verification of systemTransformations.xml ...")));
+				oneOf(application_mock).notifyCommandStatus(with(
+						new CommandStatusEventMatcher().expectMessage("verification of systemTransformations.xml ...")));
 
 				oneOf(schemaFactory_mock).newSchema(with(any(Source.class)));
 				will(returnValue(systemTransformationsSchema_mock));
@@ -168,8 +167,8 @@ public class VerifyCommandTest {
 
 				oneOf(systemTransformationsValidator_mock).validate(with(any(Source.class)));
 
-				oneOf(application_mock).notifyHelpMessage(with(
-						new HelpMessageEventMatcher().expectMessage("SUCCESS: systemTransformations.xml is correct")));
+				oneOf(application_mock).notifyCommandStatus(with(
+						new CommandStatusEventMatcher().expectMessage("SUCCESS: systemTransformations.xml is correct")));
 
 				// << systemTransformations
 
@@ -223,8 +222,8 @@ public class VerifyCommandTest {
 				oneOf(persistanceStorage_mock).getResourceAsStream(PersistanceStorage.PROCESS_XSD);
 				will(returnValue(processStream_mock));
 
-				oneOf(application_mock).notifyHelpMessage(
-						with(new HelpMessageEventMatcher().expectMessage("verification of process.xml ...")));
+				oneOf(application_mock).notifyCommandStatus(
+						with(new CommandStatusEventMatcher().expectMessage("verification of process.xml ...")));
 
 				oneOf(schemaFactory_mock).newSchema(with(any(Source.class)));
 				will(returnValue(processSchema_mock));
@@ -235,11 +234,11 @@ public class VerifyCommandTest {
 				oneOf(processValidator_mock).validate(with(any(Source.class)));
 				will(throwException(new SAXParseException("test-message", "test-publicId", "test-systemId", 10, 20)));
 
-				oneOf(application_mock).notifyHelpMessage(with(
-						new HelpMessageEventMatcher().expectMessage("lineNumber: 10; columnNumber: 20; test-message")));
+				oneOf(application_mock).notifyCommandStatus(with(
+						new CommandStatusEventMatcher().expectMessage("lineNumber: 10; columnNumber: 20; test-message")));
 
-				oneOf(application_mock).notifyHelpMessage(
-						with(new HelpMessageEventMatcher().expectMessage("FAIL: process.xml is not correct")));
+				oneOf(application_mock).notifyCommandStatus(
+						with(new CommandStatusEventMatcher().expectMessage("FAIL: process.xml is not correct")));
 
 				// << process
 
@@ -273,8 +272,8 @@ public class VerifyCommandTest {
 				oneOf(persistanceStorage_mock).getResourceAsStream(PersistanceStorage.PROCESS_XSD);
 				will(returnValue(processStream_mock));
 
-				oneOf(application_mock).notifyHelpMessage(
-						with(new HelpMessageEventMatcher().expectMessage("verification of process.xml ...")));
+				oneOf(application_mock).notifyCommandStatus(
+						with(new CommandStatusEventMatcher().expectMessage("verification of process.xml ...")));
 
 				oneOf(schemaFactory_mock).newSchema(with(any(Source.class)));
 				will(returnValue(processSchema_mock));
@@ -285,10 +284,10 @@ public class VerifyCommandTest {
 				oneOf(processValidator_mock).validate(with(any(Source.class)));
 				will(throwException(new SAXException("test-message")));
 
-				oneOf(application_mock).notifyHelpMessage(with(new HelpMessageEventMatcher().expectMessage("test-message")));
+				oneOf(application_mock).notifyCommandStatus(with(new CommandStatusEventMatcher().expectMessage("test-message")));
 
-				oneOf(application_mock).notifyHelpMessage(
-						with(new HelpMessageEventMatcher().expectMessage("FAIL: process.xml is not correct")));
+				oneOf(application_mock).notifyCommandStatus(
+						with(new CommandStatusEventMatcher().expectMessage("FAIL: process.xml is not correct")));
 
 				// << process
 

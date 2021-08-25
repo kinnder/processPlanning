@@ -15,7 +15,6 @@ import org.xml.sax.SAXParseException;
 
 import application.Application;
 import application.event.CommandStatusEvent;
-import application.event.HelpMessageEvent;
 import application.storage.PersistanceStorage;
 
 public class VerifyCommand extends Command {
@@ -55,12 +54,11 @@ public class VerifyCommand extends Command {
 			String xsdPath = filesToValidate.get(xmlPath);
 			Source xml = new StreamSource(xmlPath);
 			Source xsd = new StreamSource(persistanceStorage.getResourceAsStream(xsdPath));
-			// TODO (2021-08-16 #43): вместо HelpMessageEvent использовать CommandStatusEvent
-			application.notifyHelpMessage(new HelpMessageEvent(String.format("verification of %s ...", xmlPath)));
+			application.notifyCommandStatus(new CommandStatusEvent(String.format("verification of %s ...", xmlPath)));
 			if (verifyXMLSchema(xml, xsd)) {
-				application.notifyHelpMessage(new HelpMessageEvent(String.format("SUCCESS: %s is correct", xmlPath)));
+				application.notifyCommandStatus(new CommandStatusEvent(String.format("SUCCESS: %s is correct", xmlPath)));
 			} else {
-				application.notifyHelpMessage(new HelpMessageEvent(String.format("FAIL: %s is not correct", xmlPath)));
+				application.notifyCommandStatus(new CommandStatusEvent(String.format("FAIL: %s is not correct", xmlPath)));
 			}
 		}
 
@@ -72,10 +70,10 @@ public class VerifyCommand extends Command {
 			Validator validator = factory.newSchema(xsd).newValidator();
 			validator.validate(xml);
 		} catch (SAXParseException e) {
-			application.notifyHelpMessage(new HelpMessageEvent(String.format("lineNumber: %d; columnNumber: %d; %s", e.getLineNumber(), e.getColumnNumber(), e.getMessage())));
+			application.notifyCommandStatus(new CommandStatusEvent(String.format("lineNumber: %d; columnNumber: %d; %s", e.getLineNumber(), e.getColumnNumber(), e.getMessage())));
 			return false;
 		} catch (SAXException e) {
-			application.notifyHelpMessage(new HelpMessageEvent(e.getMessage()));
+			application.notifyCommandStatus(new CommandStatusEvent(e.getMessage()));
 			return false;
 		}
 		return true;
