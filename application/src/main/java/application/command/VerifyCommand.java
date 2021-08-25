@@ -31,8 +31,6 @@ public class VerifyCommand extends Command {
 		execute((VerifyCommandData) data);
 	}
 
-	PersistanceStorage persistanceStorage = new PersistanceStorage();
-
 	SchemaFactory factory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
 
 	private void execute(VerifyCommandData data) throws Exception {
@@ -52,6 +50,7 @@ public class VerifyCommand extends Command {
 			filesToValidate.put(data.processFile, PersistanceStorage.PROCESS_XSD);
 		}
 
+		PersistanceStorage persistanceStorage = application.getPersistanceStorage();
 		for (String xmlPath : filesToValidate.keySet()) {
 			String xsdPath = filesToValidate.get(xmlPath);
 			Source xml = new StreamSource(xmlPath);

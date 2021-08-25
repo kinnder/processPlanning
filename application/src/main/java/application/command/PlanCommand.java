@@ -22,13 +22,11 @@ public class PlanCommand extends Command {
 		execute((PlanCommandData) data);
 	}
 
-	PersistanceStorage persistanceStorage = new PersistanceStorage();
-
 	private void execute(PlanCommandData data) throws Exception {
 		application.notifyCommandStatus(new CommandStatusEvent("executing command: \"plan\"..."));
 
+		PersistanceStorage persistanceStorage = application.getPersistanceStorage();
 		SystemTransformations systemTransformations = persistanceStorage.loadSystemTransformations(data.systemTransformationsFile);
-
 		TaskDescription taskDescription = persistanceStorage.loadTaskDescription(data.taskDescriptionFile);
 
 		NodeNetwork nodeNetwork = new NodeNetwork();

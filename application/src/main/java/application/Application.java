@@ -26,6 +26,7 @@ import application.command.VerifyCommand;
 import application.command.VerifyCommandData;
 import application.event.CommandStatusEvent;
 import application.event.HelpMessageEvent;
+import application.storage.PersistanceStorage;
 
 public class Application {
 
@@ -56,6 +57,13 @@ public class Application {
 		for (UserInterface ui : uis) {
 			ui.notifyCommandStatus(event);
 		}
+	}
+
+	// TODO : move to constructor
+	PersistanceStorage persistanceStorage = new PersistanceStorage();
+
+	public PersistanceStorage getPersistanceStorage() {
+		return persistanceStorage;
 	}
 
 	public void run(String[] args) throws Exception {

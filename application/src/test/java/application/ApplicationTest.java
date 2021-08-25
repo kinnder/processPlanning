@@ -28,6 +28,7 @@ import application.command.VerifyCommandDataMatcher;
 import application.event.CommandStatusEvent;
 import application.event.CommandStatusEventMatcher;
 import application.event.HelpMessageEvent;
+import application.storage.PersistanceStorage;
 
 public class ApplicationTest {
 
@@ -282,5 +283,10 @@ public class ApplicationTest {
 		testable.registerUserInterface(ui_mock);
 
 		testable.run(new String[] { "-?"});
+	}
+
+	@Test
+	public void getPersistanceStorage() {
+		assertTrue(testable.getPersistanceStorage() instanceof PersistanceStorage);
 	}
 }

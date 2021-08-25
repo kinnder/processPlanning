@@ -29,18 +29,13 @@ public class NewSystemTransformationsCommandTest {
 
 	NewSystemTransformationsCommand testable;
 
-	PersistanceStorage persistanceStorage_mock;
-
 	Application application_mock;
 
 	@BeforeEach
 	public void setup() {
-		persistanceStorage_mock = context.mock(PersistanceStorage.class);
 		application_mock = context.mock(Application.class);
 
 		testable = new NewSystemTransformationsCommand(application_mock);
-		// TODO (2020-07-23 #28): перенести в конструктор
-		testable.persistanceStorage = persistanceStorage_mock;
 	}
 
 	@Test
@@ -48,11 +43,15 @@ public class NewSystemTransformationsCommandTest {
 		final NewSystemTransformationsCommandData data_mock = context.mock(NewSystemTransformationsCommandData.class);
 		data_mock.systemTransformationsFile = "systemTransformations.xml";
 		data_mock.domain = "unknown";
+		final PersistanceStorage persistanceStorage_mock = context.mock(PersistanceStorage.class);
 
 		context.checking(new Expectations() {
 			{
 				oneOf(application_mock).notifyCommandStatus(with(new CommandStatusEventMatcher()
 						.expectMessage("executing command: \"new system transformation\"...")));
+
+				oneOf(application_mock).getPersistanceStorage();
+				will(returnValue(persistanceStorage_mock));
 
 				// TODO (2020-07-23 #28): добавить Matcher для сравнения SystemTransformations
 				oneOf(persistanceStorage_mock).saveSystemTransformations(with(any(SystemTransformations.class)),
@@ -70,11 +69,15 @@ public class NewSystemTransformationsCommandTest {
 		final NewSystemTransformationsCommandData data_mock = context.mock(NewSystemTransformationsCommandData.class);
 		data_mock.systemTransformationsFile = "systemTransformations.xml";
 		data_mock.domain = "assemblyLine";
+		final PersistanceStorage persistanceStorage_mock = context.mock(PersistanceStorage.class);
 
 		context.checking(new Expectations() {
 			{
 				oneOf(application_mock).notifyCommandStatus(with(new CommandStatusEventMatcher()
 						.expectMessage("executing command: \"new system transformation\"...")));
+
+				oneOf(application_mock).getPersistanceStorage();
+				will(returnValue(persistanceStorage_mock));
 
 				// TODO (2020-07-23 #28): добавить Matcher для сравнения SystemTransformations
 				oneOf(persistanceStorage_mock).saveSystemTransformations(with(any(SystemTransformations.class)),
@@ -92,11 +95,15 @@ public class NewSystemTransformationsCommandTest {
 		final NewSystemTransformationsCommandData data_mock = context.mock(NewSystemTransformationsCommandData.class);
 		data_mock.systemTransformationsFile = "systemTransformations.xml";
 		data_mock.domain = "materialPoints";
+		final PersistanceStorage persistanceStorage_mock = context.mock(PersistanceStorage.class);
 
 		context.checking(new Expectations() {
 			{
 				oneOf(application_mock).notifyCommandStatus(with(new CommandStatusEventMatcher()
 						.expectMessage("executing command: \"new system transformation\"...")));
+
+				oneOf(application_mock).getPersistanceStorage();
+				will(returnValue(persistanceStorage_mock));
 
 				// TODO (2020-07-23 #28): добавить Matcher для сравнения SystemTransformations
 				oneOf(persistanceStorage_mock).saveSystemTransformations(with(any(SystemTransformations.class)),
@@ -114,11 +121,15 @@ public class NewSystemTransformationsCommandTest {
 		final NewSystemTransformationsCommandData data_mock = context.mock(NewSystemTransformationsCommandData.class);
 		data_mock.systemTransformationsFile = "systemTransformations.xml";
 		data_mock.domain = "cuttingProcess";
+		final PersistanceStorage persistanceStorage_mock = context.mock(PersistanceStorage.class);
 
 		context.checking(new Expectations() {
 			{
 				oneOf(application_mock).notifyCommandStatus(with(new CommandStatusEventMatcher()
 						.expectMessage("executing command: \"new system transformation\"...")));
+
+				oneOf(application_mock).getPersistanceStorage();
+				will(returnValue(persistanceStorage_mock));
 
 				// TODO (2020-07-23 #28): добавить Matcher для сравнения SystemTransformations
 				oneOf(persistanceStorage_mock).saveSystemTransformations(with(any(SystemTransformations.class)),

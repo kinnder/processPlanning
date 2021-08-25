@@ -15,8 +15,6 @@ public class NewTaskDescriptionCommand extends Command {
 
 	public static final String NAME = "new_td";
 
-	PersistanceStorage persistanceStorage = new PersistanceStorage();
-
 	public NewTaskDescriptionCommand(Application application) {
 		super(application);
 	}
@@ -48,6 +46,7 @@ public class NewTaskDescriptionCommand extends Command {
 			break;
 		}
 
+		PersistanceStorage persistanceStorage = application.getPersistanceStorage();
 		persistanceStorage.saveTaskDescription(taskDescription, data.taskDescriptionFile);
 
 		application.notifyCommandStatus(new CommandStatusEvent("done"));

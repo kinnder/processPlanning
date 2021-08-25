@@ -14,8 +14,6 @@ public class NewSystemTransformationsCommand extends Command {
 
 	public static final String NAME = "new_st";
 
-	PersistanceStorage persistanceStorage = new PersistanceStorage();
-
 	public NewSystemTransformationsCommand(Application application) {
 		super(application);
 	}
@@ -44,6 +42,7 @@ public class NewSystemTransformationsCommand extends Command {
 			break;
 		}
 
+		PersistanceStorage persistanceStorage = application.getPersistanceStorage();
 		persistanceStorage.saveSystemTransformations(systemTransformations, data.systemTransformationsFile);
 
 		application.notifyCommandStatus(new CommandStatusEvent("done"));

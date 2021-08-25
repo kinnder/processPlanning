@@ -38,18 +38,13 @@ public class PlanCommandTest {
 
 	PlanCommand testable;
 
-	PersistanceStorage persistanceStorage_mock;
-
 	Application application_mock;
 
 	@BeforeEach
 	public void setup() {
-		persistanceStorage_mock = context.mock(PersistanceStorage.class);
 		application_mock = context.mock(Application.class);
 
 		testable = new PlanCommand(application_mock);
-		// TODO (2020-07-10 #22): перенести в конструктор
-		testable.persistanceStorage = persistanceStorage_mock;
 	}
 
 	@Test
@@ -72,11 +67,15 @@ public class PlanCommandTest {
 		final System system_mock = context.mock(System.class, "system");
 		final Action action_mock = context.mock(Action.class);
 		final Map<?, ?> actionParameters_mock = context.mock(Map.class);
+		final PersistanceStorage persistanceStorage_mock = context.mock(PersistanceStorage.class);
 
 		context.checking(new Expectations() {
 			{
 				oneOf(application_mock).notifyCommandStatus(
 						with(new CommandStatusEventMatcher().expectMessage("executing command: \"plan\"...")));
+
+				oneOf(application_mock).getPersistanceStorage();
+				will(returnValue(persistanceStorage_mock));
 
 				oneOf(persistanceStorage_mock).loadSystemTransformations("systemTransformations.xml");
 				will(returnValue(systemTransformations));

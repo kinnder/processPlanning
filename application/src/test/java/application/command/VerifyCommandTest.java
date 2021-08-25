@@ -38,21 +38,17 @@ public class VerifyCommandTest {
 
 	VerifyCommand testable;
 
-	PersistanceStorage persistanceStorage_mock;
-
 	SchemaFactory schemaFactory_mock;
 
 	Application application_mock;
 
 	@BeforeEach
 	public void setup() {
-		persistanceStorage_mock = context.mock(PersistanceStorage.class);
 		schemaFactory_mock = context.mock(SchemaFactory.class);
 		application_mock = context.mock(Application.class);
 
 		testable = new VerifyCommand(application_mock);
 		// TODO (2021-07-29 #24): перенести в конструктор
-		testable.persistanceStorage = persistanceStorage_mock;
 		testable.factory = schemaFactory_mock;
 	}
 
@@ -83,10 +79,15 @@ public class VerifyCommandTest {
 		final Validator systemTransformationsValidator_mock = context.mock(Validator.class,
 				"systemTransformationsValidator");
 
+		final PersistanceStorage persistanceStorage_mock = context.mock(PersistanceStorage.class);
+
 		context.checking(new Expectations() {
 			{
 				oneOf(application_mock).notifyCommandStatus(
 						with(new CommandStatusEventMatcher().expectMessage("executing command: \"verify\"...")));
+
+				oneOf(application_mock).getPersistanceStorage();
+				will(returnValue(persistanceStorage_mock));
 
 				// >> taskDescription
 
@@ -182,11 +183,15 @@ public class VerifyCommandTest {
 	@Test
 	public void execute_no_files_specified() throws Exception {
 		final VerifyCommandData data = new VerifyCommandData();
+		final PersistanceStorage persistanceStorage_mock = context.mock(PersistanceStorage.class);
 
 		context.checking(new Expectations() {
 			{
 				oneOf(application_mock).notifyCommandStatus(
 						with(new CommandStatusEventMatcher().expectMessage("executing command: \"verify\"...")));
+
+				oneOf(application_mock).getPersistanceStorage();
+				will(returnValue(persistanceStorage_mock));
 
 				oneOf(application_mock).notifyCommandStatus(with(new CommandStatusEventMatcher().expectMessage("done")));
 			}
@@ -199,6 +204,7 @@ public class VerifyCommandTest {
 	public void execute_throwSAXParseException() throws Exception {
 		final VerifyCommandData data = new VerifyCommandData();
 		data.processFile = "process.xml";
+		final PersistanceStorage persistanceStorage_mock = context.mock(PersistanceStorage.class);
 
 		final InputStream processStream_mock = context.mock(InputStream.class, "processStream");
 		final Schema processSchema_mock = context.mock(Schema.class, "processSchema");
@@ -208,6 +214,9 @@ public class VerifyCommandTest {
 			{
 				oneOf(application_mock).notifyCommandStatus(
 						with(new CommandStatusEventMatcher().expectMessage("executing command: \"verify\"...")));
+
+				oneOf(application_mock).getPersistanceStorage();
+				will(returnValue(persistanceStorage_mock));
 
 				// >> process
 
@@ -245,6 +254,7 @@ public class VerifyCommandTest {
 	public void execute_throwSAXException() throws Exception {
 		final VerifyCommandData data = new VerifyCommandData();
 		data.processFile = "process.xml";
+		final PersistanceStorage persistanceStorage_mock = context.mock(PersistanceStorage.class);
 
 		final InputStream processStream_mock = context.mock(InputStream.class, "processStream");
 		final Schema processSchema_mock = context.mock(Schema.class, "processSchema");
@@ -254,6 +264,9 @@ public class VerifyCommandTest {
 			{
 				oneOf(application_mock).notifyCommandStatus(
 						with(new CommandStatusEventMatcher().expectMessage("executing command: \"verify\"...")));
+
+				oneOf(application_mock).getPersistanceStorage();
+				will(returnValue(persistanceStorage_mock));
 
 				// >> process
 
