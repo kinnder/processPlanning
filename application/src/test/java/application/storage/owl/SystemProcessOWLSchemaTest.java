@@ -156,9 +156,6 @@ public class SystemProcessOWLSchemaTest {
 		assertNotNull(model);
 		assertEquals(334, model.listObjects().toList().size());
 		assertEquals(968, model.listStatements().toList().size());
-
-		// TODO (2020-11-09 #31): удалить
-//		model.write(System.out, "RDF/XML");
 	}
 
 	@Test

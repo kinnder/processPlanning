@@ -210,9 +210,6 @@ public class TaskDescriptionOWLSchemaTest {
 		assertNotNull(model);
 		assertEquals(499, model.listObjects().toList().size());
 		assertEquals(2502, model.listStatements().toList().size());
-
-		// TODO (2020-11-09 #31): удалить
-//		model.write(java.lang.System.out, "RDF/XML");
 	}
 
 	@Test

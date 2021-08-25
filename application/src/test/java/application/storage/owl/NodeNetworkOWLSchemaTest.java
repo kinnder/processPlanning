@@ -223,9 +223,6 @@ public class NodeNetworkOWLSchemaTest {
 		assertNotNull(model);
 		assertEquals(516, model.listObjects().toList().size());
 		assertEquals(2551, model.listStatements().toList().size());
-
-//		 TODO (2021-03-13 #31): удалить
-//		model.write(java.lang.System.out, "RDF/XML");
 	}
 
 	@Test

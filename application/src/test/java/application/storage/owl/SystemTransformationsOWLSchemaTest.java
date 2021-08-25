@@ -161,9 +161,6 @@ public class SystemTransformationsOWLSchemaTest {
 		assertNotNull(model);
 		assertEquals(402, model.listObjects().toList().size());
 		assertEquals(1279, model.listStatements().toList().size());
-
-		// TODO (2020-12-14 #31): удалить
-//		model.write(java.lang.System.out, "RDF/XML");
 	}
 
 	@Test
