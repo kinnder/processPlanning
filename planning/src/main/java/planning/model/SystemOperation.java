@@ -23,7 +23,6 @@ public class SystemOperation {
 		return actionParameters;
 	}
 
-	// TODO (2020-07-05 #22): переименовать в getActionName
 	public String getName() {
 		return action.getName();
 	}
