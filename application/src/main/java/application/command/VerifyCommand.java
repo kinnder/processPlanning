@@ -49,11 +49,10 @@ public class VerifyCommand extends Command {
 			filesToValidate.put(data.processFile, PersistanceStorage.PROCESS_XSD);
 		}
 
-		PersistanceStorage persistanceStorage = application.getPersistanceStorage();
 		for (String xmlPath : filesToValidate.keySet()) {
 			String xsdPath = filesToValidate.get(xmlPath);
 			Source xml = new StreamSource(xmlPath);
-			Source xsd = new StreamSource(persistanceStorage.getResourceAsStream(xsdPath));
+			Source xsd = new StreamSource(application.getResourceAsStream(xsdPath));
 			application.notifyCommandStatus(new CommandStatusEvent(String.format("verification of %s ...", xmlPath)));
 			if (verifyXMLSchema(xml, xsd)) {
 				application.notifyCommandStatus(new CommandStatusEvent(String.format("SUCCESS: %s is correct", xmlPath)));

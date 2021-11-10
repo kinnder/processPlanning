@@ -78,19 +78,14 @@ public class VerifyCommandTest {
 		final Validator systemTransformationsValidator_mock = context.mock(Validator.class,
 				"systemTransformationsValidator");
 
-		final PersistanceStorage persistanceStorage_mock = context.mock(PersistanceStorage.class);
-
 		context.checking(new Expectations() {
 			{
 				oneOf(application_mock).notifyCommandStatus(
 						with(new CommandStatusEventMatcher().expectMessage("executing command: \"verify\"...")));
 
-				oneOf(application_mock).getPersistanceStorage();
-				will(returnValue(persistanceStorage_mock));
-
 				// >> taskDescription
 
-				oneOf(persistanceStorage_mock).getResourceAsStream(PersistanceStorage.TASK_DESCRIPTION_XSD);
+				oneOf(application_mock).getResourceAsStream(PersistanceStorage.TASK_DESCRIPTION_XSD);
 				will(returnValue(taskDescriptionStream_mock));
 
 				oneOf(application_mock).notifyCommandStatus(
@@ -111,7 +106,7 @@ public class VerifyCommandTest {
 
 				// >> nodeNetwork
 
-				oneOf(persistanceStorage_mock).getResourceAsStream(PersistanceStorage.NODE_NETWORK_XSD);
+				oneOf(application_mock).getResourceAsStream(PersistanceStorage.NODE_NETWORK_XSD);
 				will(returnValue(nodeNetworkStream_mock));
 
 				oneOf(application_mock).notifyCommandStatus(
@@ -132,7 +127,7 @@ public class VerifyCommandTest {
 
 				// >> process
 
-				oneOf(persistanceStorage_mock).getResourceAsStream(PersistanceStorage.PROCESS_XSD);
+				oneOf(application_mock).getResourceAsStream(PersistanceStorage.PROCESS_XSD);
 				will(returnValue(processStream_mock));
 
 				oneOf(application_mock).notifyCommandStatus(
@@ -153,7 +148,7 @@ public class VerifyCommandTest {
 
 				// >> systemTransformations
 
-				oneOf(persistanceStorage_mock).getResourceAsStream(PersistanceStorage.SYSTEM_TRANSFORMATIONS_XSD);
+				oneOf(application_mock).getResourceAsStream(PersistanceStorage.SYSTEM_TRANSFORMATIONS_XSD);
 				will(returnValue(systemTransformationsStream_mock));
 
 				oneOf(application_mock).notifyCommandStatus(with(
@@ -182,15 +177,11 @@ public class VerifyCommandTest {
 	@Test
 	public void execute_no_files_specified() throws Exception {
 		final VerifyCommandData data = new VerifyCommandData();
-		final PersistanceStorage persistanceStorage_mock = context.mock(PersistanceStorage.class);
 
 		context.checking(new Expectations() {
 			{
 				oneOf(application_mock).notifyCommandStatus(
 						with(new CommandStatusEventMatcher().expectMessage("executing command: \"verify\"...")));
-
-				oneOf(application_mock).getPersistanceStorage();
-				will(returnValue(persistanceStorage_mock));
 
 				oneOf(application_mock).notifyCommandStatus(with(new CommandStatusEventMatcher().expectMessage("done")));
 			}
@@ -203,7 +194,6 @@ public class VerifyCommandTest {
 	public void execute_throwSAXParseException() throws Exception {
 		final VerifyCommandData data = new VerifyCommandData();
 		data.processFile = "process.xml";
-		final PersistanceStorage persistanceStorage_mock = context.mock(PersistanceStorage.class);
 
 		final InputStream processStream_mock = context.mock(InputStream.class, "processStream");
 		final Schema processSchema_mock = context.mock(Schema.class, "processSchema");
@@ -214,12 +204,9 @@ public class VerifyCommandTest {
 				oneOf(application_mock).notifyCommandStatus(
 						with(new CommandStatusEventMatcher().expectMessage("executing command: \"verify\"...")));
 
-				oneOf(application_mock).getPersistanceStorage();
-				will(returnValue(persistanceStorage_mock));
-
 				// >> process
 
-				oneOf(persistanceStorage_mock).getResourceAsStream(PersistanceStorage.PROCESS_XSD);
+				oneOf(application_mock).getResourceAsStream(PersistanceStorage.PROCESS_XSD);
 				will(returnValue(processStream_mock));
 
 				oneOf(application_mock).notifyCommandStatus(
@@ -253,7 +240,6 @@ public class VerifyCommandTest {
 	public void execute_throwSAXException() throws Exception {
 		final VerifyCommandData data = new VerifyCommandData();
 		data.processFile = "process.xml";
-		final PersistanceStorage persistanceStorage_mock = context.mock(PersistanceStorage.class);
 
 		final InputStream processStream_mock = context.mock(InputStream.class, "processStream");
 		final Schema processSchema_mock = context.mock(Schema.class, "processSchema");
@@ -264,12 +250,9 @@ public class VerifyCommandTest {
 				oneOf(application_mock).notifyCommandStatus(
 						with(new CommandStatusEventMatcher().expectMessage("executing command: \"verify\"...")));
 
-				oneOf(application_mock).getPersistanceStorage();
-				will(returnValue(persistanceStorage_mock));
-
 				// >> process
 
-				oneOf(persistanceStorage_mock).getResourceAsStream(PersistanceStorage.PROCESS_XSD);
+				oneOf(application_mock).getResourceAsStream(PersistanceStorage.PROCESS_XSD);
 				will(returnValue(processStream_mock));
 
 				oneOf(application_mock).notifyCommandStatus(

@@ -12,7 +12,6 @@ import org.junit.jupiter.api.extension.RegisterExtension;
 
 import application.Application;
 import application.event.CommandStatusEventMatcher;
-import application.storage.PersistanceStorage;
 import planning.method.NodeNetwork;
 import planning.method.SystemTransformations;
 import planning.method.TaskDescription;
@@ -67,20 +66,16 @@ public class PlanCommandTest {
 		final System system_mock = context.mock(System.class, "system");
 		final Action action_mock = context.mock(Action.class);
 		final Map<?, ?> actionParameters_mock = context.mock(Map.class);
-		final PersistanceStorage persistanceStorage_mock = context.mock(PersistanceStorage.class);
 
 		context.checking(new Expectations() {
 			{
 				oneOf(application_mock).notifyCommandStatus(
 						with(new CommandStatusEventMatcher().expectMessage("executing command: \"plan\"...")));
 
-				oneOf(application_mock).getPersistanceStorage();
-				will(returnValue(persistanceStorage_mock));
-
-				oneOf(persistanceStorage_mock).loadSystemTransformations("systemTransformations.xml");
+				oneOf(application_mock).loadSystemTransformations("systemTransformations.xml");
 				will(returnValue(systemTransformations));
 
-				oneOf(persistanceStorage_mock).loadTaskDescription("taskDescription.xml");
+				oneOf(application_mock).loadTaskDescription("taskDescription.xml");
 				will(returnValue(taskDescription_mock));
 
 				oneOf(taskDescription_mock).getInitialSystem();
@@ -107,9 +102,9 @@ public class PlanCommandTest {
 				oneOf(system_mock).contains(finalSystem_mock);
 				will(returnValue(true));
 
-				oneOf(persistanceStorage_mock).saveSystemProcess(with(any(SystemProcess.class)), with("process.xml"));
+				oneOf(application_mock).saveSystemProcess(with(any(SystemProcess.class)), with("process.xml"));
 
-				oneOf(persistanceStorage_mock).saveNodeNetwork(with(any(NodeNetwork.class)), with("nodeNetwork.xml"));
+				oneOf(application_mock).saveNodeNetwork(with(any(NodeNetwork.class)), with("nodeNetwork.xml"));
 
 				oneOf(application_mock).notifyCommandStatus(with(new CommandStatusEventMatcher().expectMessage("done")));
 			}

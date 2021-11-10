@@ -7,7 +7,6 @@ import application.domain.AssemblyLine;
 import application.domain.CuttingProcess;
 import application.domain.MaterialPoints;
 import application.event.CommandStatusEvent;
-import application.storage.PersistanceStorage;
 import planning.method.TaskDescription;
 import planning.model.System;
 
@@ -46,8 +45,7 @@ public class NewTaskDescriptionCommand extends Command {
 			break;
 		}
 
-		PersistanceStorage persistanceStorage = application.getPersistanceStorage();
-		persistanceStorage.saveTaskDescription(taskDescription, data.taskDescriptionFile);
+		application.saveTaskDescription(taskDescription, data.taskDescriptionFile);
 
 		application.notifyCommandStatus(new CommandStatusEvent("done"));
 	}

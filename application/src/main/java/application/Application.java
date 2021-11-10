@@ -1,5 +1,7 @@
 package application;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -11,6 +13,7 @@ import org.apache.commons.cli.DefaultParser;
 import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.UnrecognizedOptionException;
+import org.jdom2.JDOMException;
 
 import application.command.Command;
 import application.command.CommandData;
@@ -27,6 +30,10 @@ import application.command.VerifyCommandData;
 import application.event.CommandStatusEvent;
 import application.event.HelpMessageEvent;
 import application.storage.PersistanceStorage;
+import planning.method.NodeNetwork;
+import planning.method.SystemTransformations;
+import planning.method.TaskDescription;
+import planning.model.SystemProcess;
 
 public class Application {
 
@@ -41,6 +48,7 @@ public class Application {
 		commands.put(VerifyCommand.NAME, new VerifyCommand(this));
 	}
 
+	// TODO : move to constructor
 	private List<UserInterface> uis = new ArrayList<UserInterface>();
 
 	public void registerUserInterface(UserInterface ui) {
@@ -62,8 +70,32 @@ public class Application {
 	// TODO : move to constructor
 	PersistanceStorage persistanceStorage = new PersistanceStorage();
 
-	public PersistanceStorage getPersistanceStorage() {
-		return persistanceStorage;
+	public void saveSystemTransformations(SystemTransformations systemTransformations, String path) throws IOException {
+		persistanceStorage.saveSystemTransformations(systemTransformations, path);
+	}
+
+	public void saveTaskDescription(TaskDescription taskDescription, String path) throws IOException {
+		persistanceStorage.saveTaskDescription(taskDescription, path);
+	}
+
+	public void saveSystemProcess(SystemProcess systemProcess, String path) throws IOException {
+		persistanceStorage.saveSystemProcess(systemProcess, path);
+	}
+
+	public void saveNodeNetwork(NodeNetwork nodeNetwork, String path) throws IOException {
+		persistanceStorage.saveNodeNetwork(nodeNetwork, path);
+	}
+
+	public SystemTransformations loadSystemTransformations(String path) throws IOException, JDOMException {
+		return persistanceStorage.loadSystemTransformations(path);
+	}
+
+	public TaskDescription loadTaskDescription(String path) throws IOException, JDOMException {
+		return persistanceStorage.loadTaskDescription(path);
+	}
+
+	public InputStream getResourceAsStream(String resourcePath) {
+		return persistanceStorage.getResourceAsStream(resourcePath);
 	}
 
 	public void run(String[] args) throws Exception {

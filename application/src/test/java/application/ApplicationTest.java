@@ -1,10 +1,15 @@
 package application;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.io.IOException;
+import java.io.InputStream;
+
 import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
+import org.jdom2.JDOMException;
 import org.jmock.Expectations;
 import org.jmock.imposters.ByteBuddyClassImposteriser;
 import org.jmock.junit5.JUnit5Mockery;
@@ -29,6 +34,10 @@ import application.event.CommandStatusEvent;
 import application.event.CommandStatusEventMatcher;
 import application.event.HelpMessageEvent;
 import application.storage.PersistanceStorage;
+import planning.method.NodeNetwork;
+import planning.method.SystemTransformations;
+import planning.method.TaskDescription;
+import planning.model.SystemProcess;
 
 public class ApplicationTest {
 
@@ -56,6 +65,8 @@ public class ApplicationTest {
 
 	VerifyCommand verifyCommand_mock;
 
+	PersistanceStorage persistanceStorage_mock;
+
 	@BeforeEach
 	public void setup() {
 		helpCommand_mock = context.mock(HelpCommand.class);
@@ -63,6 +74,7 @@ public class ApplicationTest {
 		newSystemTransformationsCommand_mock = context.mock(NewSystemTransformationsCommand.class);
 		newTaskDescriptionCommand_mock = context.mock(NewTaskDescriptionCommand.class);
 		verifyCommand_mock = context.mock(VerifyCommand.class);
+		persistanceStorage_mock = context.mock(PersistanceStorage.class);
 
 		testable = new Application();
 		testable.commands.put(HelpCommand.NAME, helpCommand_mock);
@@ -70,6 +82,8 @@ public class ApplicationTest {
 		testable.commands.put(NewSystemTransformationsCommand.NAME, newSystemTransformationsCommand_mock);
 		testable.commands.put(NewTaskDescriptionCommand.NAME, newTaskDescriptionCommand_mock);
 		testable.commands.put(VerifyCommand.NAME, verifyCommand_mock);
+
+		testable.persistanceStorage = persistanceStorage_mock;
 	}
 
 	@Test
@@ -286,7 +300,103 @@ public class ApplicationTest {
 	}
 
 	@Test
-	public void getPersistanceStorage() {
-		assertTrue(testable.getPersistanceStorage() instanceof PersistanceStorage);
+	public void saveSystemTransformations() throws IOException {
+		final SystemTransformations systemTransformations_mock = context.mock(SystemTransformations.class);
+		final String path = "path-to-file";
+
+		context.checking(new Expectations() {
+			{
+				oneOf(persistanceStorage_mock).saveSystemTransformations(systemTransformations_mock, path);
+			}
+		});
+
+		testable.saveSystemTransformations(systemTransformations_mock, path);
+	}
+
+	@Test
+	public void saveTaskDescription() throws IOException {
+		final TaskDescription taskDescription_mock = context.mock(TaskDescription.class);
+		final String path = "path-to-file";
+
+		context.checking(new Expectations() {
+			{
+				oneOf(persistanceStorage_mock).saveTaskDescription(taskDescription_mock, path);
+			}
+		});
+
+		testable.saveTaskDescription(taskDescription_mock, path);
+	}
+
+	@Test
+	public void saveSystemProcess() throws IOException {
+		final SystemProcess systemProcess_mock = context.mock(SystemProcess.class);
+		final String path = "path-to-file";
+
+		context.checking(new Expectations() {
+			{
+				oneOf(persistanceStorage_mock).saveSystemProcess(systemProcess_mock, path);
+			}
+		});
+
+		testable.saveSystemProcess(systemProcess_mock, path);
+	}
+
+	@Test
+	public void saveNodeNetwork() throws IOException {
+		final NodeNetwork nodeNetwork_mock = context.mock(NodeNetwork.class);
+		final String path = "path-to-file";
+
+		context.checking(new Expectations() {
+			{
+				oneOf(persistanceStorage_mock).saveNodeNetwork(nodeNetwork_mock, path);
+			}
+		});
+
+		testable.saveNodeNetwork(nodeNetwork_mock, path);
+	}
+
+	@Test
+	public void loadSystemTransformations() throws IOException, JDOMException {
+		final SystemTransformations systemTransformations_mock = context.mock(SystemTransformations.class);
+		final String path = "path-to-file";
+
+		context.checking(new Expectations() {
+			{
+				oneOf(persistanceStorage_mock).loadSystemTransformations(path);
+				will(returnValue(systemTransformations_mock));
+			}
+		});
+
+		assertEquals(systemTransformations_mock, testable.loadSystemTransformations(path));
+	}
+
+	@Test
+	public void loadTaskDescription() throws IOException, JDOMException {
+		final TaskDescription taskDescription_mock = context.mock(TaskDescription.class);
+		final String path = "path-to-file";
+
+		context.checking(new Expectations() {
+			{
+				oneOf(persistanceStorage_mock).loadTaskDescription(path);
+				will(returnValue(taskDescription_mock));
+			}
+		});
+
+		assertEquals(taskDescription_mock, testable.loadTaskDescription(path));
+	}
+
+	@Test
+	public void getResourceAsStream() {
+		final InputStream resource_mock = context.mock(InputStream.class);
+		final String path = "path-to-resource";
+
+		context.checking(new Expectations() {
+			{
+				oneOf(persistanceStorage_mock).getResourceAsStream(path);
+				will(returnValue(resource_mock));
+			}
+		});
+
+		assertEquals(resource_mock, testable.getResourceAsStream(path));
 	}
 }

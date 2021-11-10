@@ -2,7 +2,6 @@ package application.command;
 
 import application.Application;
 import application.event.CommandStatusEvent;
-import application.storage.PersistanceStorage;
 import planning.method.NodeNetwork;
 import planning.method.Planner;
 import planning.method.SystemTransformations;
@@ -25,9 +24,8 @@ public class PlanCommand extends Command {
 	private void execute(PlanCommandData data) throws Exception {
 		application.notifyCommandStatus(new CommandStatusEvent("executing command: \"plan\"..."));
 
-		PersistanceStorage persistanceStorage = application.getPersistanceStorage();
-		SystemTransformations systemTransformations = persistanceStorage.loadSystemTransformations(data.systemTransformationsFile);
-		TaskDescription taskDescription = persistanceStorage.loadTaskDescription(data.taskDescriptionFile);
+		SystemTransformations systemTransformations = application.loadSystemTransformations(data.systemTransformationsFile);
+		TaskDescription taskDescription = application.loadTaskDescription(data.taskDescriptionFile);
 
 		NodeNetwork nodeNetwork = new NodeNetwork();
 		// TODO : move to initialization
@@ -35,9 +33,9 @@ public class PlanCommand extends Command {
 		planner.plan();
 
 		SystemProcess process = planner.getShortestProcess();
-		persistanceStorage.saveSystemProcess(process, data.processFile);
+		application.saveSystemProcess(process, data.processFile);
 
-		persistanceStorage.saveNodeNetwork(nodeNetwork, data.nodeNetworkFile);
+		application.saveNodeNetwork(nodeNetwork, data.nodeNetworkFile);
 
 		application.notifyCommandStatus(new CommandStatusEvent("done"));
 	}

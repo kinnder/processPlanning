@@ -10,7 +10,6 @@ import org.junit.jupiter.api.extension.RegisterExtension;
 
 import application.Application;
 import application.event.CommandStatusEventMatcher;
-import application.storage.PersistanceStorage;
 import planning.method.TaskDescription;
 
 public class NewTaskDescriptionCommandTest {
@@ -43,18 +42,14 @@ public class NewTaskDescriptionCommandTest {
 		final NewTaskDescriptionCommandData data_mock = context.mock(NewTaskDescriptionCommandData.class);
 		data_mock.taskDescriptionFile = "taskDescription.xml";
 		data_mock.domain = "unknown";
-		final PersistanceStorage persistanceStorage_mock = context.mock(PersistanceStorage.class);
 
 		context.checking(new Expectations() {
 			{
 				oneOf(application_mock).notifyCommandStatus(with(new CommandStatusEventMatcher()
 						.expectMessage("executing command: \"new task description\"...")));
 
-				oneOf(application_mock).getPersistanceStorage();
-				will(returnValue(persistanceStorage_mock));
-
 				// TODO (2020-07-24 #29): добавить Matcher для сравнения TaskDescription
-				oneOf(persistanceStorage_mock).saveTaskDescription(with(any(TaskDescription.class)), with("taskDescription.xml"));
+				oneOf(application_mock).saveTaskDescription(with(any(TaskDescription.class)), with("taskDescription.xml"));
 
 				oneOf(application_mock).notifyCommandStatus(with(new CommandStatusEventMatcher().expectMessage("done")));
 			}
@@ -68,18 +63,14 @@ public class NewTaskDescriptionCommandTest {
 		final NewTaskDescriptionCommandData data_mock = context.mock(NewTaskDescriptionCommandData.class);
 		data_mock.taskDescriptionFile = "taskDescription.xml";
 		data_mock.domain = "assemblyLine";
-		final PersistanceStorage persistanceStorage_mock = context.mock(PersistanceStorage.class);
 
 		context.checking(new Expectations() {
 			{
 				oneOf(application_mock).notifyCommandStatus(with(new CommandStatusEventMatcher()
 						.expectMessage("executing command: \"new task description\"...")));
 
-				oneOf(application_mock).getPersistanceStorage();
-				will(returnValue(persistanceStorage_mock));
-
 				// TODO (2020-07-24 #29): добавить Matcher для сравнения TaskDescription
-				oneOf(persistanceStorage_mock).saveTaskDescription(with(any(TaskDescription.class)), with("taskDescription.xml"));
+				oneOf(application_mock).saveTaskDescription(with(any(TaskDescription.class)), with("taskDescription.xml"));
 
 				oneOf(application_mock).notifyCommandStatus(with(new CommandStatusEventMatcher().expectMessage("done")));
 			}
@@ -93,18 +84,14 @@ public class NewTaskDescriptionCommandTest {
 		final NewTaskDescriptionCommandData data_mock = context.mock(NewTaskDescriptionCommandData.class);
 		data_mock.taskDescriptionFile = "taskDescription.xml";
 		data_mock.domain = "cuttingProcess";
-		final PersistanceStorage persistanceStorage_mock = context.mock(PersistanceStorage.class);
 
 		context.checking(new Expectations() {
 			{
 				oneOf(application_mock).notifyCommandStatus(with(new CommandStatusEventMatcher()
 						.expectMessage("executing command: \"new task description\"...")));
 
-				oneOf(application_mock).getPersistanceStorage();
-				will(returnValue(persistanceStorage_mock));
-
 				// TODO (2020-07-24 #29): добавить Matcher для сравнения TaskDescription
-				oneOf(persistanceStorage_mock).saveTaskDescription(with(any(TaskDescription.class)), with("taskDescription.xml"));
+				oneOf(application_mock).saveTaskDescription(with(any(TaskDescription.class)), with("taskDescription.xml"));
 
 				oneOf(application_mock).notifyCommandStatus(with(new CommandStatusEventMatcher().expectMessage("done")));
 			}
@@ -118,18 +105,14 @@ public class NewTaskDescriptionCommandTest {
 		final NewTaskDescriptionCommandData data_mock = context.mock(NewTaskDescriptionCommandData.class);
 		data_mock.taskDescriptionFile = "taskDescription.xml";
 		data_mock.domain = "materialPoints";
-		final PersistanceStorage persistanceStorage_mock = context.mock(PersistanceStorage.class);
 
 		context.checking(new Expectations() {
 			{
 				oneOf(application_mock).notifyCommandStatus(with(new CommandStatusEventMatcher()
 						.expectMessage("executing command: \"new task description\"...")));
 
-				oneOf(application_mock).getPersistanceStorage();
-				will(returnValue(persistanceStorage_mock));
-
 				// TODO (2020-07-24 #29): добавить Matcher для сравнения TaskDescription
-				oneOf(persistanceStorage_mock).saveTaskDescription(with(any(TaskDescription.class)), with("taskDescription.xml"));
+				oneOf(application_mock).saveTaskDescription(with(any(TaskDescription.class)), with("taskDescription.xml"));
 
 				oneOf(application_mock).notifyCommandStatus(with(new CommandStatusEventMatcher().expectMessage("done")));
 			}

@@ -7,7 +7,6 @@ import application.domain.AssemblyLine;
 import application.domain.CuttingProcess;
 import application.domain.MaterialPoints;
 import application.event.CommandStatusEvent;
-import application.storage.PersistanceStorage;
 import planning.method.SystemTransformations;
 
 public class NewSystemTransformationsCommand extends Command {
@@ -42,8 +41,7 @@ public class NewSystemTransformationsCommand extends Command {
 			break;
 		}
 
-		PersistanceStorage persistanceStorage = application.getPersistanceStorage();
-		persistanceStorage.saveSystemTransformations(systemTransformations, data.systemTransformationsFile);
+		application.saveSystemTransformations(systemTransformations, data.systemTransformationsFile);
 
 		application.notifyCommandStatus(new CommandStatusEvent("done"));
 	}
