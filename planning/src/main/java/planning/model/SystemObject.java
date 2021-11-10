@@ -38,6 +38,10 @@ public class SystemObject implements Cloneable {
 		addAttribute(new Attribute(attributeName, attributeValue));
 	}
 
+	public void setAttribute(String attributeName, Object attributeValue) {
+		attributes.get(attributeName).setValue(attributeValue);
+	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj) {

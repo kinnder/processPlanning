@@ -211,4 +211,22 @@ public class SystemObjectTest {
 		SystemObjectTemplate objectTemplate = testable.createTemplate();
 		assertEquals(1, objectTemplate.getAttributeTemplates().size());
 	}
+
+	@Test
+	public void setAttribute() {
+		final Attribute attribute_mock = context.mock(Attribute.class);
+		final Object attributeValue = new Object();
+
+		context.checking(new Expectations() {
+			{
+				oneOf(attribute_mock).getName();
+				will(returnValue("attribute-name"));
+
+				oneOf(attribute_mock).setValue(attributeValue);
+			}
+		});
+		testable.addAttribute(attribute_mock);
+
+		testable.setAttribute("attribute-name", attributeValue);
+	}
 }
