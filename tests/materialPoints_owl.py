@@ -13,15 +13,18 @@ process_file: str = task_domain + '_p.' + file_format
 
 print(task_domain + ' ' + file_format + ' started')
 
-check_output(['java', '-jar', application,
+check_output(['java',
+              '-jar', application,
               '-new_td', task_domain,
               '-td', task_description_file])
 
-check_output(['java', '-jar', application,
+check_output(['java',
+              '-jar', application,
               '-new_st', task_domain,
               '-st', system_transformation_file])
 
-check_output(['java', '-jar', application,
+check_output(['java',
+              '-jar', application,
               '-plan',
               '-td', task_description_file,
               '-st', system_transformation_file,

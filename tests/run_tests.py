@@ -14,7 +14,8 @@ test_names = [
     'materialPoints_xml.py',
     'assemblyLine_owl.py',
     'cuttingProcess_owl.py',
-    'materialPoints_owl.py']
+    'materialPoints_owl.py',
+    'convertCommand.py']
 
 pathlib.Path(tests_location + "results\\").mkdir(parents=True, exist_ok=True)
 
