@@ -17,6 +17,8 @@ import org.jdom2.JDOMException;
 
 import application.command.Command;
 import application.command.CommandData;
+import application.command.ConvertCommand;
+import application.command.ConvertCommandData;
 import application.command.HelpCommand;
 import application.command.HelpCommandData;
 import application.command.NewSystemTransformationsCommand;
@@ -46,6 +48,7 @@ public class Application {
 		commands.put(NewSystemTransformationsCommand.NAME, new NewSystemTransformationsCommand(this));
 		commands.put(NewTaskDescriptionCommand.NAME, new NewTaskDescriptionCommand(this));
 		commands.put(VerifyCommand.NAME, new VerifyCommand(this));
+		commands.put(ConvertCommand.NAME, new ConvertCommand(this));
 	}
 
 	// TODO : move to constructor
@@ -94,6 +97,14 @@ public class Application {
 		return persistanceStorage.loadTaskDescription(path);
 	}
 
+	public NodeNetwork loadNodeNetwork(String path) throws IOException, JDOMException {
+		return persistanceStorage.loadNodeNetwork(path);
+	}
+
+	public SystemProcess loadSystemProcess(String path) throws IOException, JDOMException {
+		return persistanceStorage.loadSystemProcess(path);
+	}
+
 	public InputStream getResourceAsStream(String resourcePath) {
 		return persistanceStorage.getResourceAsStream(resourcePath);
 	}
@@ -117,6 +128,7 @@ public class Application {
 		new_td_option.setArgName("domain");
 		new_td_option.setOptionalArg(true);
 		Option verify_option = new Option("verify", "verify xml-files with according xml-schemas");
+		Option convert_option = new Option("convert", "convert files between formats: xml to owl and owl to xml");
 
 		Options options = new Options();
 		options.addOption(h_option);
@@ -128,6 +140,7 @@ public class Application {
 		options.addOption(new_st_option);
 		options.addOption(new_td_option);
 		options.addOption(verify_option);
+		options.addOption(convert_option);
 
 		CommandLineParser parser = new DefaultParser();
 		try {
@@ -164,6 +177,14 @@ public class Application {
 				data.processFile = line.getOptionValue(p_option.getOpt(), null);
 				data.nodeNetworkFile = line.getOptionValue(nn_option.getOpt(), null);
 				runCommand(VerifyCommand.NAME, data);
+			}
+			if (line.hasOption(convert_option.getOpt())) {
+				ConvertCommandData data = new ConvertCommandData();
+				data.taskDescriptionFile = line.getOptionValue(td_option.getOpt(), null);
+				data.systemTransformationsFile = line.getOptionValue(st_option.getOpt(), null);
+				data.processFile = line.getOptionValue(p_option.getOpt(), null);
+				data.nodeNetworkFile = line.getOptionValue(nn_option.getOpt(), null);
+				runCommand(ConvertCommand.NAME, data);
 			}
 		} catch (UnrecognizedOptionException e) {
 			notifyCommandStatus(new CommandStatusEvent(e.getMessage()));

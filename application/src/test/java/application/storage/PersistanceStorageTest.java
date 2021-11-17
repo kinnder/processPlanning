@@ -85,7 +85,7 @@ public class PersistanceStorageTest {
 	@Test
 	public void saveSystemTransformations_xml() throws IOException {
 		final SystemTransformations systemTransformations_mock = context.mock(SystemTransformations.class);
-		final String path = "path-to-file";
+		final String path = "path-to-file.xml";
 
 		context.checking(new Expectations() {
 			{
@@ -113,7 +113,7 @@ public class PersistanceStorageTest {
 	@Test
 	public void saveTaskDescription_xml() throws IOException {
 		final TaskDescription taskDescription_mock = context.mock(TaskDescription.class);
-		final String path = "path-to-file";
+		final String path = "path-to-file.xml";
 
 		context.checking(new Expectations() {
 			{
@@ -141,7 +141,7 @@ public class PersistanceStorageTest {
 	@Test
 	public void loadSystemTransformations_xml() throws IOException, JDOMException {
 		final SystemTransformations systemTransformations_mock = context.mock(SystemTransformations.class);
-		final String path = "path-to-file";
+		final String path = "path-to-file.xml";
 
 		context.checking(new Expectations() {
 			{
@@ -171,7 +171,7 @@ public class PersistanceStorageTest {
 	@Test
 	public void loadTaskDescription_xml() throws IOException, JDOMException {
 		final TaskDescription taskDescription_mock = context.mock(TaskDescription.class);
-		final String path = "path-to-file";
+		final String path = "path-to-file.xml";
 
 		context.checking(new Expectations() {
 			{
@@ -199,9 +199,69 @@ public class PersistanceStorageTest {
 	}
 
 	@Test
+	public void loadNodeNetwork_xml() throws IOException, JDOMException {
+		final NodeNetwork nodeNetwork_mock = context.mock(NodeNetwork.class);
+		final String path = "path-to-file.xml";
+
+		context.checking(new Expectations() {
+			{
+				oneOf(nodeNetworkXMLFile_mock).load(path);
+				will(returnValue(nodeNetwork_mock));
+			}
+		});
+
+		assertEquals(nodeNetwork_mock, testable.loadNodeNetwork(path));
+	}
+
+	@Test
+	public void loadNodeNetwork_owl() throws IOException, JDOMException {
+		final NodeNetwork nodeNetwork_mock = context.mock(NodeNetwork.class);
+		final String path = "path-to-file.owl";
+
+		context.checking(new Expectations() {
+			{
+				oneOf(nodeNetworkOWLFile_mock).load(path);
+				will(returnValue(nodeNetwork_mock));
+			}
+		});
+
+		assertEquals(nodeNetwork_mock, testable.loadNodeNetwork(path));
+	}
+
+	@Test
+	public void loadSystemProcess_xml() throws IOException, JDOMException {
+		final SystemProcess systemProcess_mock = context.mock(SystemProcess.class);
+		final String path = "path-to-file.xml";
+
+		context.checking(new Expectations() {
+			{
+				oneOf(systemProcessXMLFile_mock).load(path);
+				will(returnValue(systemProcess_mock));
+			}
+		});
+
+		assertEquals(systemProcess_mock, testable.loadSystemProcess(path));
+	}
+
+	@Test
+	public void loadSystemProcess_owl() throws IOException, JDOMException {
+		final SystemProcess systemProcess_mock = context.mock(SystemProcess.class);
+		final String path = "path-to-file.owl";
+
+		context.checking(new Expectations() {
+			{
+				oneOf(systemProcessOWLFile_mock).load(path);
+				will(returnValue(systemProcess_mock));
+			}
+		});
+
+		assertEquals(systemProcess_mock, testable.loadSystemProcess(path));
+	}
+
+	@Test
 	public void saveSystemProcess_xml() throws IOException {
 		final SystemProcess systemProcess_mock = context.mock(SystemProcess.class);
-		final String path = "path-to-file";
+		final String path = "path-to-file.xml";
 
 		context.checking(new Expectations() {
 			{
@@ -229,7 +289,7 @@ public class PersistanceStorageTest {
 	@Test
 	public void saveNodeNetwork_xml() throws IOException {
 		final NodeNetwork nodeNetwork_mock = context.mock(NodeNetwork.class);
-		final String path = "path-to-file";
+		final String path = "path-to-file.xml";
 
 		context.checking(new Expectations() {
 			{

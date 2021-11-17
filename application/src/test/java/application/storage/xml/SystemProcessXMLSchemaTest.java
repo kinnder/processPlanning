@@ -2,8 +2,12 @@ package application.storage.xml;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.jdom2.DataConversionException;
 import org.jdom2.Element;
 import org.jdom2.Namespace;
 import org.jmock.Expectations;
@@ -70,12 +74,30 @@ public class SystemProcessXMLSchemaTest {
 	}
 
 	@Test
-	public void parse() {
-		final Element element_mock = context.mock(Element.class);
+	public void parse() throws DataConversionException {
+		final Element root_mock = context.mock(Element.class, "processElement");
+		final Element element_mock = context.mock(Element.class, "operationElement");
+		List<Element> elements = new ArrayList<>();
+		elements.add(element_mock);
+		final SystemOperation systemOperation_mock = context.mock(SystemOperation.class);
 
-		assertThrows(UnsupportedOperationException.class, () -> {
-			testable.parse(element_mock);
+		context.checking(new Expectations() {
+			{
+				oneOf(systemOperationXMLSchema_mock).getSchemaName();
+				will(returnValue("operation"));
+
+				oneOf(root_mock).getChildren("operation");
+				will(returnValue(elements));
+
+				oneOf(systemOperationXMLSchema_mock).parse(element_mock);
+				will(returnValue(systemOperation_mock));
+			}
 		});
+
+		SystemProcess result = testable.parse(root_mock);
+		assertTrue(result instanceof SystemProcess);
+		assertEquals(1, result.size());
+		assertEquals(systemOperation_mock, result.get(0));
 	}
 
 	@Test

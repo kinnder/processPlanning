@@ -20,6 +20,8 @@ import org.junit.jupiter.api.extension.RegisterExtension;
 
 import application.command.Command;
 import application.command.CommandData;
+import application.command.ConvertCommand;
+import application.command.ConvertCommandDataMatcher;
 import application.command.HelpCommand;
 import application.command.HelpCommandDataMatcher;
 import application.command.NewSystemTransformationsCommand;
@@ -65,6 +67,8 @@ public class ApplicationTest {
 
 	VerifyCommand verifyCommand_mock;
 
+	ConvertCommand convertCommand_mock;
+
 	PersistanceStorage persistanceStorage_mock;
 
 	@BeforeEach
@@ -74,6 +78,7 @@ public class ApplicationTest {
 		newSystemTransformationsCommand_mock = context.mock(NewSystemTransformationsCommand.class);
 		newTaskDescriptionCommand_mock = context.mock(NewTaskDescriptionCommand.class);
 		verifyCommand_mock = context.mock(VerifyCommand.class);
+		convertCommand_mock = context.mock(ConvertCommand.class);
 		persistanceStorage_mock = context.mock(PersistanceStorage.class);
 
 		testable = new Application();
@@ -82,6 +87,7 @@ public class ApplicationTest {
 		testable.commands.put(NewSystemTransformationsCommand.NAME, newSystemTransformationsCommand_mock);
 		testable.commands.put(NewTaskDescriptionCommand.NAME, newTaskDescriptionCommand_mock);
 		testable.commands.put(VerifyCommand.NAME, verifyCommand_mock);
+		testable.commands.put(ConvertCommand.NAME, convertCommand_mock);
 
 		testable.persistanceStorage = persistanceStorage_mock;
 	}
@@ -94,6 +100,7 @@ public class ApplicationTest {
 		assertTrue(testable.commands.get(NewSystemTransformationsCommand.NAME) instanceof NewSystemTransformationsCommand);
 		assertTrue(testable.commands.get(NewSystemTransformationsCommand.NAME) instanceof NewSystemTransformationsCommand);
 		assertTrue(testable.commands.get(VerifyCommand.NAME) instanceof VerifyCommand);
+		assertTrue(testable.commands.get(ConvertCommand.NAME) instanceof ConvertCommand);
 	}
 
 	@Test
@@ -150,6 +157,7 @@ public class ApplicationTest {
 		new_td_option.setArgName("domain");
 		new_td_option.setOptionalArg(true);
 		Option verify_option = new Option("verify", "verify xml-files with according xml-schemas");
+		Option convert_option = new Option("convert", "convert files between formats: xml to owl and owl to xml");
 
 		Options options = new Options();
 		options.addOption(h_option);
@@ -161,6 +169,7 @@ public class ApplicationTest {
 		options.addOption(new_st_option);
 		options.addOption(new_td_option);
 		options.addOption(verify_option);
+		options.addOption(convert_option);
 
 		context.checking(new Expectations() {
 			{
@@ -225,6 +234,20 @@ public class ApplicationTest {
 	}
 
 	@Test
+	public void run_ConverCommand() throws Exception {
+		context.checking(new Expectations() {
+			{
+				oneOf(convertCommand_mock).execute(with(new ConvertCommandDataMatcher()
+						.expectSystemTransformationsFile("st_file.xml").expectTaskDescriptionFile("td_file.xml")
+						.expectProcessFile("p_file.xml").expectNodeNetworkFile("nn_file.xml")));
+			}
+		});
+
+		testable.run(new String[] { "-convert", "-taskDescription=td_file.xml", "-systemTransformations=st_file.xml",
+				"-process=p_file.xml", "-nodeNetwork=nn_file.xml" });
+	}
+
+	@Test
 	public void runCommand() throws Exception {
 		final Command command_mock = context.mock(Command.class);
 		final CommandData data_mock = context.mock(CommandData.class);
@@ -273,6 +296,7 @@ public class ApplicationTest {
 		new_td_option.setArgName("domain");
 		new_td_option.setOptionalArg(true);
 		Option verify_option = new Option("verify", "verify xml-files with according xml-schemas");
+		Option convert_option = new Option("convert", "convert files between formats: xml to owl and owl to xml");
 
 		Options options = new Options();
 		options.addOption(h_option);
@@ -284,6 +308,7 @@ public class ApplicationTest {
 		options.addOption(new_st_option);
 		options.addOption(new_td_option);
 		options.addOption(verify_option);
+		options.addOption(convert_option);
 
 		UserInterface ui_mock = context.mock(UserInterface.class);
 
@@ -296,7 +321,7 @@ public class ApplicationTest {
 		});
 		testable.registerUserInterface(ui_mock);
 
-		testable.run(new String[] { "-?"});
+		testable.run(new String[] { "-?" });
 	}
 
 	@Test
@@ -383,6 +408,36 @@ public class ApplicationTest {
 		});
 
 		assertEquals(taskDescription_mock, testable.loadTaskDescription(path));
+	}
+
+	@Test
+	public void loadNodeNetwork() throws IOException, JDOMException {
+		final NodeNetwork nodeNetwork_mock = context.mock(NodeNetwork.class);
+		final String path = "path-to-file";
+
+		context.checking(new Expectations() {
+			{
+				oneOf(persistanceStorage_mock).loadNodeNetwork(path);
+				will(returnValue(nodeNetwork_mock));
+			}
+		});
+
+		assertEquals(nodeNetwork_mock, testable.loadNodeNetwork(path));
+	}
+
+	@Test
+	public void loadSystemProcess() throws IOException, JDOMException {
+		final SystemProcess systemProcess_mock = context.mock(SystemProcess.class);
+		final String path = "path-to-file";
+
+		context.checking(new Expectations() {
+			{
+				oneOf(persistanceStorage_mock).loadSystemProcess(path);
+				will(returnValue(systemProcess_mock));
+			}
+		});
+
+		assertEquals(systemProcess_mock, testable.loadSystemProcess(path));
 	}
 
 	@Test

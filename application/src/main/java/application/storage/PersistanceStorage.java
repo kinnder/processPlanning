@@ -111,6 +111,20 @@ public class PersistanceStorage {
 		return taskXMLFile.load(path);
 	}
 
+	public NodeNetwork loadNodeNetwork(String path) throws IOException, JDOMException {
+		if ("owl".equals(FilenameUtils.getExtension(path))) {
+			return nodeNetworkOWLFile.load(path);
+		}
+		return nodeNetworkXMLFile.load(path);
+	}
+
+	public SystemProcess loadSystemProcess(String path) throws IOException, JDOMException {
+		if ("owl".equals(FilenameUtils.getExtension(path))) {
+			return processOWLFile.load(path);
+		}
+		return processXMLFile.load(path);
+	}
+
 	public InputStream getResourceAsStream(String resourcePath) {
 		return getClass().getResourceAsStream(resourcePath);
 	}

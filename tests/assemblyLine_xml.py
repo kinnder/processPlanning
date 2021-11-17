@@ -35,4 +35,16 @@ check_output(['java', '-jar', application,
               '-nn', node_network_file,
               '-p', process_file])
 
+with open(task_description_file):
+    pass
+
+with open(system_transformation_file):
+    pass
+
+with open(node_network_file):
+    pass
+
+with open(process_file):
+    pass
+
 print(task_domain + ' ' + file_format + ' completed')
