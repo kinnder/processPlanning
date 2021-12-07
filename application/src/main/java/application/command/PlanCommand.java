@@ -10,6 +10,7 @@ import planning.model.SystemProcess;
 
 public class PlanCommand extends Command {
 
+	// TODO (2021-12-07 #49): сделать абстрактный метод getName()
 	public final static String NAME = "plan";
 
 	public PlanCommand(Application application) {
@@ -22,6 +23,7 @@ public class PlanCommand extends Command {
 	}
 
 	private void execute(PlanCommandData data) throws Exception {
+		// TODO (2021-12-07 #49): перенести в Command
 		application.notifyCommandStatus(new CommandStatusEvent("executing command: \"plan\"..."));
 
 		SystemTransformations systemTransformations = application.loadSystemTransformations(data.systemTransformationsFile);
