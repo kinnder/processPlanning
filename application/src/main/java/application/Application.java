@@ -192,9 +192,17 @@ public class Application {
 			data.options = options;
 			runCommand(HelpCommand.NAME, data);
 		}
+		if (!commandWasExecuted) {
+			HelpCommandData data = new HelpCommandData();
+			data.options = options;
+			runCommand(HelpCommand.NAME, data);
+		}
 	}
+
+	private boolean commandWasExecuted = false;
 
 	public void runCommand(String name, CommandData data) throws Exception {
 		commands.get(name).execute(data);
+		commandWasExecuted = true;
 	}
 }
