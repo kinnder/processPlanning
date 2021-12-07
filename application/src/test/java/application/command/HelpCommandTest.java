@@ -49,7 +49,7 @@ public class HelpCommandTest {
 		final StringBuilder sb = new StringBuilder();
 		sb.append("application builds plan for [taskDescription] with [systemTransformations] and puts result in [process]\n");
 		sb.append("usage:\n");
-		sb.append(String.format("%6s, %-26s %s\n", "short", "long", "description"));
+		sb.append(String.format("%7s, %-26s %s\n", "short", "long", "description"));
 
 		context.checking(new Expectations() {
 			{
@@ -71,7 +71,7 @@ public class HelpCommandTest {
 		final StringBuilder sb = new StringBuilder();
 		sb.append("application builds plan for [taskDescription] with [systemTransformations] and puts result in [process]\n");
 		sb.append("usage:\n");
-		sb.append(String.format("%6s, %-26s %s\n", "short", "", "description"));
+		sb.append(String.format("%7s, %-26s %s\n", "short", "", "description"));
 
 		context.checking(new Expectations() {
 			{

@@ -28,7 +28,7 @@ public class HelpCommand extends Command {
 			String shortName = Optional.ofNullable(option.getOpt()).orElse("");
 			String longName = Optional.ofNullable(option.getLongOpt()).orElse("");
 			String description = Optional.ofNullable(option.getDescription()).orElse("");
-			sb.append(String.format("%6s, %-26s %s\n", shortName, longName, description));
+			sb.append(String.format("%7s, %-26s %s\n", shortName, longName, description));
 		}
 
 		HelpMessageEvent event = new HelpMessageEvent(sb.toString());
