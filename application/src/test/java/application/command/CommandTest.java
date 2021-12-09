@@ -1,8 +1,6 @@
 package application.command;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-
 import org.jmock.Expectations;
 import org.jmock.imposters.ByteBuddyClassImposteriser;
 import org.jmock.junit5.JUnit5Mockery;
@@ -56,7 +54,7 @@ public class CommandTest {
 	}
 
 	@Test
-	public void run() throws Exception {
+	public void run() {
 		final CommandData data_mock = context.mock(CommandData.class);
 
 		context.checking(new Expectations() {
@@ -75,7 +73,7 @@ public class CommandTest {
 	}
 
 	@Test
-	public void run_throwException() throws Exception {
+	public void run_throwException() {
 		testable = new Command(application_mock) {
 			@Override
 			public void execute(CommandData data) throws Exception {
@@ -91,11 +89,12 @@ public class CommandTest {
 						with(new CommandStatusEventMatcher().expectMessage("executing command: \"unknown\"...")));
 
 				// execute
+
+				oneOf(application_mock).notifyCommandStatus(
+						with(new CommandStatusEventMatcher().expectMessage("runtime exception")));
 			}
 		});
 
-		assertThrows(Exception.class, () -> {
-			testable.run(data_mock);
-		});
+		testable.run(data_mock);
 	}
 }

@@ -18,10 +18,14 @@ public abstract class Command {
 		this.name = name;
 	}
 
-	public void run(CommandData data) throws Exception {
-		application.notifyCommandStatus(new CommandStatusEvent(String.format("executing command: \"%s\"...", name)));
-		execute(data);
-		application.notifyCommandStatus(new CommandStatusEvent("done"));
+	public void run(CommandData data) {
+		try {
+			application.notifyCommandStatus(new CommandStatusEvent(String.format("executing command: \"%s\"...", name)));
+			execute(data);
+			application.notifyCommandStatus(new CommandStatusEvent("done"));
+		} catch (Exception e) {
+			application.notifyCommandStatus(new CommandStatusEvent(e.getMessage()));
+		}
 	}
 
 	public abstract void execute(CommandData data) throws Exception;
