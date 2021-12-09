@@ -9,7 +9,7 @@
 	</description>
 
 	<!-- <rule ref="category/java/design.xml/CyclomaticComplexity" /> -->
-	<!-- <rule ref="category/java/design.xml/SimplifyBooleanReturns" /> -->
+	<rule ref="category/java/design.xml/SimplifyBooleanReturns" />
 
 	<rule ref="category/java/bestpractices.xml">
 		<exclude name="MethodReturnsInternalArray" />
