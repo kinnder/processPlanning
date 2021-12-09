@@ -6,16 +6,13 @@ import application.Application;
 import application.domain.AssemblyLine;
 import application.domain.CuttingProcess;
 import application.domain.MaterialPoints;
-import application.event.CommandStatusEvent;
 import planning.method.TaskDescription;
 import planning.model.System;
 
 public class NewTaskDescriptionCommand extends Command {
 
-	public static final String NAME = "new_td";
-
 	public NewTaskDescriptionCommand(Application application) {
-		super(application);
+		super(application, "new_td");
 	}
 
 	@Override
@@ -24,8 +21,6 @@ public class NewTaskDescriptionCommand extends Command {
 	}
 
 	private void execute(NewTaskDescriptionCommandData data) throws IOException {
-		application.notifyCommandStatus(new CommandStatusEvent("executing command: \"new task description\"..."));
-
 		TaskDescription taskDescription;
 		switch (data.domain) {
 		case MaterialPoints.DOMAIN_NAME:
@@ -46,7 +41,5 @@ public class NewTaskDescriptionCommand extends Command {
 		}
 
 		application.saveTaskDescription(taskDescription, data.taskDescriptionFile);
-
-		application.notifyCommandStatus(new CommandStatusEvent("done"));
 	}
 }

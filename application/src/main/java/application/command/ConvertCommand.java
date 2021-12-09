@@ -3,7 +3,6 @@ package application.command;
 import org.apache.commons.io.FilenameUtils;
 
 import application.Application;
-import application.event.CommandStatusEvent;
 import planning.method.NodeNetwork;
 import planning.method.SystemTransformations;
 import planning.method.TaskDescription;
@@ -11,10 +10,8 @@ import planning.model.SystemProcess;
 
 public class ConvertCommand extends Command {
 
-	public static final String NAME = "convert";
-
 	public ConvertCommand(Application application) {
-		super(application);
+		super(application, "convert");
 	}
 
 	@Override
@@ -23,8 +20,6 @@ public class ConvertCommand extends Command {
 	}
 
 	private void execute(ConvertCommandData data) throws Exception {
-		application.notifyCommandStatus(new CommandStatusEvent("executing command: \"convert\"..."));
-
 		if (data.taskDescriptionFile != null) {
 			TaskDescription taskDescription = application.loadTaskDescription(data.taskDescriptionFile);
 			String targetFile = changeFileExtension(data.taskDescriptionFile);
@@ -48,8 +43,6 @@ public class ConvertCommand extends Command {
 			String targetFile = changeFileExtension(data.processFile);
 			application.saveSystemProcess(systemProcess, targetFile);
 		}
-
-		application.notifyCommandStatus(new CommandStatusEvent("done"));
 	}
 
 	public String changeFileExtension(String sourceFile) {

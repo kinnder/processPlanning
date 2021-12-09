@@ -1,5 +1,7 @@
 package application.command;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import java.io.InputStream;
 
 import javax.xml.transform.Source;
@@ -80,9 +82,6 @@ public class VerifyCommandTest {
 
 		context.checking(new Expectations() {
 			{
-				oneOf(application_mock).notifyCommandStatus(
-						with(new CommandStatusEventMatcher().expectMessage("executing command: \"verify\"...")));
-
 				// >> taskDescription
 
 				oneOf(application_mock).getResourceAsStream(PersistanceStorage.TASK_DESCRIPTION_XSD);
@@ -166,8 +165,6 @@ public class VerifyCommandTest {
 						new CommandStatusEventMatcher().expectMessage("SUCCESS: systemTransformations.xml is correct")));
 
 				// << systemTransformations
-
-				oneOf(application_mock).notifyCommandStatus(with(new CommandStatusEventMatcher().expectMessage("done")));
 			}
 		});
 
@@ -180,10 +177,7 @@ public class VerifyCommandTest {
 
 		context.checking(new Expectations() {
 			{
-				oneOf(application_mock).notifyCommandStatus(
-						with(new CommandStatusEventMatcher().expectMessage("executing command: \"verify\"...")));
-
-				oneOf(application_mock).notifyCommandStatus(with(new CommandStatusEventMatcher().expectMessage("done")));
+				//
 			}
 		});
 
@@ -201,9 +195,6 @@ public class VerifyCommandTest {
 
 		context.checking(new Expectations() {
 			{
-				oneOf(application_mock).notifyCommandStatus(
-						with(new CommandStatusEventMatcher().expectMessage("executing command: \"verify\"...")));
-
 				// >> process
 
 				oneOf(application_mock).getResourceAsStream(PersistanceStorage.PROCESS_XSD);
@@ -228,8 +219,6 @@ public class VerifyCommandTest {
 						with(new CommandStatusEventMatcher().expectMessage("FAIL: process.xml is not correct")));
 
 				// << process
-
-				oneOf(application_mock).notifyCommandStatus(with(new CommandStatusEventMatcher().expectMessage("done")));
 			}
 		});
 
@@ -247,9 +236,6 @@ public class VerifyCommandTest {
 
 		context.checking(new Expectations() {
 			{
-				oneOf(application_mock).notifyCommandStatus(
-						with(new CommandStatusEventMatcher().expectMessage("executing command: \"verify\"...")));
-
 				// >> process
 
 				oneOf(application_mock).getResourceAsStream(PersistanceStorage.PROCESS_XSD);
@@ -273,11 +259,14 @@ public class VerifyCommandTest {
 						with(new CommandStatusEventMatcher().expectMessage("FAIL: process.xml is not correct")));
 
 				// << process
-
-				oneOf(application_mock).notifyCommandStatus(with(new CommandStatusEventMatcher().expectMessage("done")));
 			}
 		});
 
 		testable.execute(data);
+	}
+
+	@Test
+	public void getName() {
+		assertEquals("verify", testable.getName());
 	}
 }

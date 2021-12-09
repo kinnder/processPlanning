@@ -3,10 +3,7 @@ package application;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.DefaultParser;
@@ -15,8 +12,6 @@ import org.apache.commons.cli.Options;
 import org.apache.commons.cli.UnrecognizedOptionException;
 import org.jdom2.JDOMException;
 
-import application.command.Command;
-import application.command.CommandData;
 import application.command.ConvertCommand;
 import application.command.ConvertCommandData;
 import application.command.HelpCommand;
@@ -39,19 +34,43 @@ import planning.model.SystemProcess;
 
 public class Application {
 
-	// TODO : move to constructor
-	Map<String, Command> commands = new HashMap<>();
+	private HelpCommand helpCommand;
+
+	private PlanCommand planCommand;
+
+	private NewSystemTransformationsCommand newSystemTransformationsCommand;
+
+	private NewTaskDescriptionCommand newTaskDescriptionCommand;
+
+	private VerifyCommand verifyCommand;
+
+	private ConvertCommand convertCommand;
 
 	public Application() {
-		commands.put(HelpCommand.NAME, new HelpCommand(this));
-		commands.put(PlanCommand.NAME, new PlanCommand(this));
-		commands.put(NewSystemTransformationsCommand.NAME, new NewSystemTransformationsCommand(this));
-		commands.put(NewTaskDescriptionCommand.NAME, new NewTaskDescriptionCommand(this));
-		commands.put(VerifyCommand.NAME, new VerifyCommand(this));
-		commands.put(ConvertCommand.NAME, new ConvertCommand(this));
+		helpCommand = new HelpCommand(this);
+		planCommand = new PlanCommand(this);
+		newSystemTransformationsCommand = new NewSystemTransformationsCommand(this);
+		newTaskDescriptionCommand = new NewTaskDescriptionCommand(this);
+		verifyCommand = new VerifyCommand(this);
+		convertCommand = new ConvertCommand(this);
+
+		persistanceStorage = new PersistanceStorage();
 	}
 
-	// TODO : move to constructor
+	Application(HelpCommand helpCommand, PlanCommand planCommand, NewSystemTransformationsCommand newSystemTransformationsCommand,
+			NewTaskDescriptionCommand newTaskDescriptionCommand,
+			VerifyCommand verifyCommand, ConvertCommand convertCommand,
+			PersistanceStorage persistanceStorage) {
+		this.helpCommand = helpCommand;
+		this.planCommand = planCommand;
+		this.newSystemTransformationsCommand = newSystemTransformationsCommand;
+		this.newTaskDescriptionCommand = newTaskDescriptionCommand;
+		this.verifyCommand = verifyCommand;
+		this.convertCommand = convertCommand;
+
+		this.persistanceStorage = persistanceStorage;
+	}
+
 	private List<UserInterface> uis = new ArrayList<UserInterface>();
 
 	public void registerUserInterface(UserInterface ui) {
@@ -70,8 +89,7 @@ public class Application {
 		}
 	}
 
-	// TODO : move to constructor
-	PersistanceStorage persistanceStorage = new PersistanceStorage();
+	private PersistanceStorage persistanceStorage;
 
 	public void saveSystemTransformations(SystemTransformations systemTransformations, String path) throws IOException {
 		persistanceStorage.saveSystemTransformations(systemTransformations, path);
@@ -143,66 +161,57 @@ public class Application {
 		options.addOption(convert_option);
 
 		CommandLineParser parser = new DefaultParser();
+		boolean showHelp = false;
 		try {
 			CommandLine line = parser.parse(options, args);
-			if (line.hasOption(h_option.getOpt())) {
-				HelpCommandData data = new HelpCommandData();
-				data.options = options;
-				runCommand(HelpCommand.NAME, data);
-			}
 			if (line.hasOption(plan_option.getOpt())) {
 				PlanCommandData data = new PlanCommandData();
 				data.taskDescriptionFile = line.getOptionValue(td_option.getOpt(), "taskDescription.xml");
 				data.systemTransformationsFile = line.getOptionValue(st_option.getOpt(), "systemTransformations.xml");
 				data.processFile = line.getOptionValue(p_option.getOpt(), "process.xml");
 				data.nodeNetworkFile = line.getOptionValue(nn_option.getOpt(), "nodeNetwork.xml");
-				runCommand(PlanCommand.NAME, data);
+				planCommand.run(data);
 			}
-			if (line.hasOption(new_st_option.getOpt())) {
+			else if (line.hasOption(new_st_option.getOpt())) {
 				NewSystemTransformationsCommandData data = new NewSystemTransformationsCommandData();
 				data.systemTransformationsFile = line.getOptionValue(st_option.getOpt(), "systemTransformations.xml");
 				data.domain = line.getOptionValue(new_st_option.getOpt(), "unknown");
-				runCommand(NewSystemTransformationsCommand.NAME, data);
+				newSystemTransformationsCommand.run(data);
 			}
-			if (line.hasOption(new_td_option.getOpt())) {
+			else if (line.hasOption(new_td_option.getOpt())) {
 				NewTaskDescriptionCommandData data = new NewTaskDescriptionCommandData();
 				data.taskDescriptionFile = line.getOptionValue(td_option.getOpt(), "taskDescription.xml");
 				data.domain = line.getOptionValue(new_td_option.getOpt(), "unknown");
-				runCommand(NewTaskDescriptionCommand.NAME, data);
+				newTaskDescriptionCommand.run(data);
 			}
-			if (line.hasOption(verify_option.getOpt())) {
+			else if (line.hasOption(verify_option.getOpt())) {
 				VerifyCommandData data = new VerifyCommandData();
 				data.taskDescriptionFile = line.getOptionValue(td_option.getOpt(), null);
 				data.systemTransformationsFile = line.getOptionValue(st_option.getOpt(), null);
 				data.processFile = line.getOptionValue(p_option.getOpt(), null);
 				data.nodeNetworkFile = line.getOptionValue(nn_option.getOpt(), null);
-				runCommand(VerifyCommand.NAME, data);
+				verifyCommand.run(data);
 			}
-			if (line.hasOption(convert_option.getOpt())) {
+			else if (line.hasOption(convert_option.getOpt())) {
 				ConvertCommandData data = new ConvertCommandData();
 				data.taskDescriptionFile = line.getOptionValue(td_option.getOpt(), null);
 				data.systemTransformationsFile = line.getOptionValue(st_option.getOpt(), null);
 				data.processFile = line.getOptionValue(p_option.getOpt(), null);
 				data.nodeNetworkFile = line.getOptionValue(nn_option.getOpt(), null);
-				runCommand(ConvertCommand.NAME, data);
+				convertCommand.run(data);
+			}
+			else {
+				showHelp = true;
 			}
 		} catch (UnrecognizedOptionException e) {
 			notifyCommandStatus(new CommandStatusEvent(e.getMessage()));
+			showHelp = true;
+		}
+
+		if (showHelp) {
 			HelpCommandData data = new HelpCommandData();
 			data.options = options;
-			runCommand(HelpCommand.NAME, data);
+			helpCommand.execute(data);
 		}
-		if (!commandWasExecuted) {
-			HelpCommandData data = new HelpCommandData();
-			data.options = options;
-			runCommand(HelpCommand.NAME, data);
-		}
-	}
-
-	private boolean commandWasExecuted = false;
-
-	public void runCommand(String name, CommandData data) throws Exception {
-		commands.get(name).execute(data);
-		commandWasExecuted = true;
 	}
 }

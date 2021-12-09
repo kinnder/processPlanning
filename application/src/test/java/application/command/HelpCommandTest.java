@@ -1,5 +1,7 @@
 package application.command;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
 import org.jmock.Expectations;
@@ -80,5 +82,10 @@ public class HelpCommandTest {
 		});
 
 		testable.execute((CommandData) data);
+	}
+
+	@Test
+	public void getName() {
+		assertEquals("help", testable.getName());
 	}
 }

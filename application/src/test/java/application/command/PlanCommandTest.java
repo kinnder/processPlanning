@@ -1,5 +1,7 @@
 package application.command;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import java.util.Map;
 
 import org.jmock.Expectations;
@@ -11,7 +13,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
 import application.Application;
-import application.event.CommandStatusEventMatcher;
 import planning.method.NodeNetwork;
 import planning.method.SystemTransformations;
 import planning.method.TaskDescription;
@@ -69,9 +70,6 @@ public class PlanCommandTest {
 
 		context.checking(new Expectations() {
 			{
-				oneOf(application_mock).notifyCommandStatus(
-						with(new CommandStatusEventMatcher().expectMessage("executing command: \"plan\"...")));
-
 				oneOf(application_mock).loadSystemTransformations("systemTransformations.xml");
 				will(returnValue(systemTransformations));
 
@@ -105,11 +103,14 @@ public class PlanCommandTest {
 				oneOf(application_mock).saveSystemProcess(with(any(SystemProcess.class)), with("process.xml"));
 
 				oneOf(application_mock).saveNodeNetwork(with(any(NodeNetwork.class)), with("nodeNetwork.xml"));
-
-				oneOf(application_mock).notifyCommandStatus(with(new CommandStatusEventMatcher().expectMessage("done")));
 			}
 		});
 
 		testable.execute(data_mock);
+	}
+
+	@Test
+	public void getName() {
+		assertEquals("plan", testable.getName());
 	}
 }

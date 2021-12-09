@@ -11,7 +11,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
 import application.Application;
-import application.event.CommandStatusEventMatcher;
 import planning.method.NodeNetwork;
 import planning.method.SystemTransformations;
 import planning.method.TaskDescription;
@@ -58,9 +57,6 @@ public class ConvertCommandTest {
 
 		context.checking(new Expectations() {
 			{
-				oneOf(application_mock).notifyCommandStatus(
-						with(new CommandStatusEventMatcher().expectMessage("executing command: \"convert\"...")));
-
 				// >> taskDescription
 
 				oneOf(application_mock).loadTaskDescription("taskDescription.xml");
@@ -97,9 +93,6 @@ public class ConvertCommandTest {
 				oneOf(application_mock).saveSystemProcess(systemProcess_mock, "processFile.owl");
 
 				// << processFile
-
-				oneOf(application_mock)
-						.notifyCommandStatus(with(new CommandStatusEventMatcher().expectMessage("done")));
 			}
 		});
 
@@ -112,11 +105,7 @@ public class ConvertCommandTest {
 
 		context.checking(new Expectations() {
 			{
-				oneOf(application_mock).notifyCommandStatus(
-						with(new CommandStatusEventMatcher().expectMessage("executing command: \"convert\"...")));
-
-				oneOf(application_mock)
-						.notifyCommandStatus(with(new CommandStatusEventMatcher().expectMessage("done")));
+				//
 			}
 		});
 
@@ -133,5 +122,10 @@ public class ConvertCommandTest {
 	public void changeFileExtension_owl_to_xml() {
 		final String fileName = "pathToFile.owl";
 		assertEquals("pathToFile.xml", testable.changeFileExtension(fileName));
+	}
+
+	@Test
+	public void getName() {
+		assertEquals("convert", testable.getName());
 	}
 }

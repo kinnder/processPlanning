@@ -6,15 +6,12 @@ import application.Application;
 import application.domain.AssemblyLine;
 import application.domain.CuttingProcess;
 import application.domain.MaterialPoints;
-import application.event.CommandStatusEvent;
 import planning.method.SystemTransformations;
 
 public class NewSystemTransformationsCommand extends Command {
 
-	public static final String NAME = "new_st";
-
 	public NewSystemTransformationsCommand(Application application) {
-		super(application);
+		super(application, "new_st");
 	}
 
 	@Override
@@ -23,8 +20,6 @@ public class NewSystemTransformationsCommand extends Command {
 	}
 
 	private void execute(NewSystemTransformationsCommandData data) throws IOException {
-		application.notifyCommandStatus(new CommandStatusEvent("executing command: \"new system transformation\"..."));
-
 		SystemTransformations systemTransformations;
 		switch (data.domain) {
 		case MaterialPoints.DOMAIN_NAME:
@@ -42,7 +37,5 @@ public class NewSystemTransformationsCommand extends Command {
 		}
 
 		application.saveSystemTransformations(systemTransformations, data.systemTransformationsFile);
-
-		application.notifyCommandStatus(new CommandStatusEvent("done"));
 	}
 }

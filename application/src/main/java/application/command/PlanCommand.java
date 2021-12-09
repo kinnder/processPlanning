@@ -1,7 +1,6 @@
 package application.command;
 
 import application.Application;
-import application.event.CommandStatusEvent;
 import planning.method.NodeNetwork;
 import planning.method.Planner;
 import planning.method.SystemTransformations;
@@ -10,11 +9,8 @@ import planning.model.SystemProcess;
 
 public class PlanCommand extends Command {
 
-	// TODO (2021-12-07 #49): сделать абстрактный метод getName()
-	public final static String NAME = "plan";
-
 	public PlanCommand(Application application) {
-		super(application);
+		super(application, "plan");
 	}
 
 	@Override
@@ -23,9 +19,6 @@ public class PlanCommand extends Command {
 	}
 
 	private void execute(PlanCommandData data) throws Exception {
-		// TODO (2021-12-07 #49): перенести в Command
-		application.notifyCommandStatus(new CommandStatusEvent("executing command: \"plan\"..."));
-
 		SystemTransformations systemTransformations = application.loadSystemTransformations(data.systemTransformationsFile);
 		TaskDescription taskDescription = application.loadTaskDescription(data.taskDescriptionFile);
 
@@ -38,7 +31,5 @@ public class PlanCommand extends Command {
 		application.saveSystemProcess(process, data.processFile);
 
 		application.saveNodeNetwork(nodeNetwork, data.nodeNetworkFile);
-
-		application.notifyCommandStatus(new CommandStatusEvent("done"));
 	}
 }

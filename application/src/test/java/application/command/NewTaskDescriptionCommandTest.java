@@ -1,5 +1,7 @@
 package application.command;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import org.jmock.Expectations;
 import org.jmock.imposters.ByteBuddyClassImposteriser;
 import org.jmock.junit5.JUnit5Mockery;
@@ -9,7 +11,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
 import application.Application;
-import application.event.CommandStatusEventMatcher;
 import planning.method.TaskDescription;
 
 public class NewTaskDescriptionCommandTest {
@@ -45,13 +46,8 @@ public class NewTaskDescriptionCommandTest {
 
 		context.checking(new Expectations() {
 			{
-				oneOf(application_mock).notifyCommandStatus(with(new CommandStatusEventMatcher()
-						.expectMessage("executing command: \"new task description\"...")));
-
 				// TODO (2020-07-24 #29): добавить Matcher для сравнения TaskDescription
 				oneOf(application_mock).saveTaskDescription(with(any(TaskDescription.class)), with("taskDescription.xml"));
-
-				oneOf(application_mock).notifyCommandStatus(with(new CommandStatusEventMatcher().expectMessage("done")));
 			}
 		});
 
@@ -66,13 +62,8 @@ public class NewTaskDescriptionCommandTest {
 
 		context.checking(new Expectations() {
 			{
-				oneOf(application_mock).notifyCommandStatus(with(new CommandStatusEventMatcher()
-						.expectMessage("executing command: \"new task description\"...")));
-
 				// TODO (2020-07-24 #29): добавить Matcher для сравнения TaskDescription
 				oneOf(application_mock).saveTaskDescription(with(any(TaskDescription.class)), with("taskDescription.xml"));
-
-				oneOf(application_mock).notifyCommandStatus(with(new CommandStatusEventMatcher().expectMessage("done")));
 			}
 		});
 
@@ -87,13 +78,8 @@ public class NewTaskDescriptionCommandTest {
 
 		context.checking(new Expectations() {
 			{
-				oneOf(application_mock).notifyCommandStatus(with(new CommandStatusEventMatcher()
-						.expectMessage("executing command: \"new task description\"...")));
-
 				// TODO (2020-07-24 #29): добавить Matcher для сравнения TaskDescription
 				oneOf(application_mock).saveTaskDescription(with(any(TaskDescription.class)), with("taskDescription.xml"));
-
-				oneOf(application_mock).notifyCommandStatus(with(new CommandStatusEventMatcher().expectMessage("done")));
 			}
 		});
 
@@ -108,16 +94,16 @@ public class NewTaskDescriptionCommandTest {
 
 		context.checking(new Expectations() {
 			{
-				oneOf(application_mock).notifyCommandStatus(with(new CommandStatusEventMatcher()
-						.expectMessage("executing command: \"new task description\"...")));
-
 				// TODO (2020-07-24 #29): добавить Matcher для сравнения TaskDescription
 				oneOf(application_mock).saveTaskDescription(with(any(TaskDescription.class)), with("taskDescription.xml"));
-
-				oneOf(application_mock).notifyCommandStatus(with(new CommandStatusEventMatcher().expectMessage("done")));
 			}
 		});
 
 		testable.execute(data_mock);
+	}
+
+	@Test
+	public void getName() {
+		assertEquals("new_td", testable.getName());
 	}
 }

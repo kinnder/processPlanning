@@ -1,5 +1,9 @@
 package application.command;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import org.jmock.Expectations;
 import org.jmock.imposters.ByteBuddyClassImposteriser;
 import org.jmock.junit5.JUnit5Mockery;
 import org.junit.jupiter.api.AfterEach;
@@ -8,6 +12,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
 import application.Application;
+import application.event.CommandStatusEventMatcher;
 
 public class CommandTest {
 
@@ -43,5 +48,54 @@ public class CommandTest {
 		final CommandData data_mock = context.mock(CommandData.class);
 
 		testable.execute(data_mock);
+	}
+
+	@Test
+	public void getName() {
+		assertEquals("unknown", testable.getName());
+	}
+
+	@Test
+	public void run() throws Exception {
+		final CommandData data_mock = context.mock(CommandData.class);
+
+		context.checking(new Expectations() {
+			{
+				oneOf(application_mock).notifyCommandStatus(
+						with(new CommandStatusEventMatcher().expectMessage("executing command: \"unknown\"...")));
+
+				// execute
+
+				oneOf(application_mock).notifyCommandStatus(
+						with(new CommandStatusEventMatcher().expectMessage("done")));
+			}
+		});
+
+		testable.run(data_mock);
+	}
+
+	@Test
+	public void run_throwException() throws Exception {
+		testable = new Command(application_mock) {
+			@Override
+			public void execute(CommandData data) throws Exception {
+				throw new Exception("runtime exception");
+			}
+		};
+
+		final CommandData data_mock = context.mock(CommandData.class);
+
+		context.checking(new Expectations() {
+			{
+				oneOf(application_mock).notifyCommandStatus(
+						with(new CommandStatusEventMatcher().expectMessage("executing command: \"unknown\"...")));
+
+				// execute
+			}
+		});
+
+		assertThrows(Exception.class, () -> {
+			testable.run(data_mock);
+		});
 	}
 }

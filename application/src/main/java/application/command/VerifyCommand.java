@@ -19,10 +19,8 @@ import application.storage.PersistanceStorage;
 
 public class VerifyCommand extends Command {
 
-	public static final String NAME = "verify";
-
 	public VerifyCommand(Application application) {
-		super(application);
+		super(application, "verify");
 	}
 
 	@Override
@@ -33,8 +31,6 @@ public class VerifyCommand extends Command {
 	SchemaFactory factory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
 
 	private void execute(VerifyCommandData data) throws Exception {
-		application.notifyCommandStatus(new CommandStatusEvent("executing command: \"verify\"..."));
-
 		Map<String, String> filesToValidate = new HashMap<String, String>();
 		if (data.taskDescriptionFile != null) {
 			filesToValidate.put(data.taskDescriptionFile, PersistanceStorage.TASK_DESCRIPTION_XSD);
@@ -60,8 +56,6 @@ public class VerifyCommand extends Command {
 				application.notifyCommandStatus(new CommandStatusEvent(String.format("FAIL: %s is not correct", xmlPath)));
 			}
 		}
-
-		application.notifyCommandStatus(new CommandStatusEvent("done"));
 	}
 
 	private boolean verifyXMLSchema(Source xml, Source xsd) throws IOException {

@@ -1,9 +1,6 @@
 package application;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -18,8 +15,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
-import application.command.Command;
-import application.command.CommandData;
 import application.command.ConvertCommand;
 import application.command.ConvertCommandDataMatcher;
 import application.command.HelpCommand;
@@ -81,26 +76,13 @@ public class ApplicationTest {
 		convertCommand_mock = context.mock(ConvertCommand.class);
 		persistanceStorage_mock = context.mock(PersistanceStorage.class);
 
-		testable = new Application();
-		testable.commands.put(HelpCommand.NAME, helpCommand_mock);
-		testable.commands.put(PlanCommand.NAME, planCommand_mock);
-		testable.commands.put(NewSystemTransformationsCommand.NAME, newSystemTransformationsCommand_mock);
-		testable.commands.put(NewTaskDescriptionCommand.NAME, newTaskDescriptionCommand_mock);
-		testable.commands.put(VerifyCommand.NAME, verifyCommand_mock);
-		testable.commands.put(ConvertCommand.NAME, convertCommand_mock);
-
-		testable.persistanceStorage = persistanceStorage_mock;
+		testable = new Application(helpCommand_mock, planCommand_mock, newSystemTransformationsCommand_mock,
+				newTaskDescriptionCommand_mock, verifyCommand_mock, convertCommand_mock, persistanceStorage_mock);
 	}
 
 	@Test
 	public void newInstance() {
 		testable = new Application();
-		assertTrue(testable.commands.get(HelpCommand.NAME) instanceof HelpCommand);
-		assertTrue(testable.commands.get(PlanCommand.NAME) instanceof PlanCommand);
-		assertTrue(testable.commands.get(NewSystemTransformationsCommand.NAME) instanceof NewSystemTransformationsCommand);
-		assertTrue(testable.commands.get(NewSystemTransformationsCommand.NAME) instanceof NewSystemTransformationsCommand);
-		assertTrue(testable.commands.get(VerifyCommand.NAME) instanceof VerifyCommand);
-		assertTrue(testable.commands.get(ConvertCommand.NAME) instanceof ConvertCommand);
 	}
 
 	@Test
@@ -184,7 +166,7 @@ public class ApplicationTest {
 	public void run_PlanCommand() throws Exception {
 		context.checking(new Expectations() {
 			{
-				oneOf(planCommand_mock).execute(with(new PlanCommandDataMatcher()
+				oneOf(planCommand_mock).run(with(new PlanCommandDataMatcher()
 						.expectSystemTransformationsFile("st_file.xml").expectTaskDescriptionFile("td_file.xml")
 						.expectProcessFile("p_file.xml").expectNodeNetworkFile("nn_file.xml")));
 			}
@@ -199,7 +181,7 @@ public class ApplicationTest {
 		context.checking(new Expectations() {
 			{
 				oneOf(newSystemTransformationsCommand_mock)
-						.execute(with(new NewSystemTransformationsCommandDataMatcher()
+						.run(with(new NewSystemTransformationsCommandDataMatcher()
 								.expectSystemTransformationsFile("st_file.xml").expectDomain("unknown")));
 			}
 		});
@@ -211,7 +193,7 @@ public class ApplicationTest {
 	public void run_NewTaskDescriptionCommand() throws Exception {
 		context.checking(new Expectations() {
 			{
-				oneOf(newTaskDescriptionCommand_mock).execute(with(new NewTaskDescriptionCommandDataMatcher()
+				oneOf(newTaskDescriptionCommand_mock).run(with(new NewTaskDescriptionCommandDataMatcher()
 						.expectTaskDescriptionFile("td_file.xml").expectDomain("materialPoints")));
 			}
 		});
@@ -223,7 +205,7 @@ public class ApplicationTest {
 	public void run_VerifyCommand() throws Exception {
 		context.checking(new Expectations() {
 			{
-				oneOf(verifyCommand_mock).execute(with(new VerifyCommandDataMatcher()
+				oneOf(verifyCommand_mock).run(with(new VerifyCommandDataMatcher()
 						.expectSystemTransformationsFile("st_file.xml").expectTaskDescriptionFile("td_file.xml")
 						.expectProcessFile("p_file.xml").expectNodeNetworkFile("nn_file.xml")));
 			}
@@ -237,7 +219,7 @@ public class ApplicationTest {
 	public void run_ConvertCommand() throws Exception {
 		context.checking(new Expectations() {
 			{
-				oneOf(convertCommand_mock).execute(with(new ConvertCommandDataMatcher()
+				oneOf(convertCommand_mock).run(with(new ConvertCommandDataMatcher()
 						.expectSystemTransformationsFile("st_file.xml").expectTaskDescriptionFile("td_file.xml")
 						.expectProcessFile("p_file.xml").expectNodeNetworkFile("nn_file.xml")));
 			}
@@ -245,38 +227,6 @@ public class ApplicationTest {
 
 		testable.run(new String[] { "-convert", "-taskDescription=td_file.xml", "-systemTransformations=st_file.xml",
 				"-process=p_file.xml", "-nodeNetwork=nn_file.xml" });
-	}
-
-	@Test
-	public void runCommand() throws Exception {
-		final Command command_mock = context.mock(Command.class);
-		final CommandData data_mock = context.mock(CommandData.class);
-
-		context.checking(new Expectations() {
-			{
-				oneOf(command_mock).execute(data_mock);
-			}
-		});
-		testable.commands.put("command", command_mock);
-
-		testable.runCommand("command", data_mock);
-	}
-
-	@Test
-	public void runCommand_throwException() throws Exception {
-		final Command command = new Command(testable) {
-			@Override
-			public void execute(CommandData data) throws Exception {
-				throw new Exception("runtime exception");
-			}
-		};
-		final CommandData data_mock = context.mock(CommandData.class);
-
-		testable.commands.put("command", command);
-
-		assertThrows(Exception.class, () -> {
-			testable.runCommand("command", data_mock);
-		});
 	}
 
 	@Test
@@ -325,7 +275,7 @@ public class ApplicationTest {
 	}
 
 	@Test
-	public void runCommand_commandNotSpecified() throws Exception {
+	public void run_commandNotSpecified() throws Exception {
 		Option h_option = new Option("h", "help", false, "prints usage");
 		Option td_option = new Option("td", "taskDescription", true, "file with description of the task");
 		Option st_option = new Option("st", "systemTransformations", true, "file with description of the system transformations");

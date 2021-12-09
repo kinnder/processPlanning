@@ -1,5 +1,7 @@
 package application.command;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import org.jmock.Expectations;
 import org.jmock.imposters.ByteBuddyClassImposteriser;
 import org.jmock.junit5.JUnit5Mockery;
@@ -9,7 +11,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
 import application.Application;
-import application.event.CommandStatusEventMatcher;
 import planning.method.SystemTransformations;
 
 public class NewSystemTransformationsCommandTest {
@@ -45,14 +46,9 @@ public class NewSystemTransformationsCommandTest {
 
 		context.checking(new Expectations() {
 			{
-				oneOf(application_mock).notifyCommandStatus(with(new CommandStatusEventMatcher()
-						.expectMessage("executing command: \"new system transformation\"...")));
-
 				// TODO (2020-07-23 #28): добавить Matcher для сравнения SystemTransformations
 				oneOf(application_mock).saveSystemTransformations(with(any(SystemTransformations.class)),
 						with("systemTransformations.xml"));
-
-				oneOf(application_mock).notifyCommandStatus(with(new CommandStatusEventMatcher().expectMessage("done")));
 			}
 		});
 
@@ -67,14 +63,9 @@ public class NewSystemTransformationsCommandTest {
 
 		context.checking(new Expectations() {
 			{
-				oneOf(application_mock).notifyCommandStatus(with(new CommandStatusEventMatcher()
-						.expectMessage("executing command: \"new system transformation\"...")));
-
 				// TODO (2020-07-23 #28): добавить Matcher для сравнения SystemTransformations
 				oneOf(application_mock).saveSystemTransformations(with(any(SystemTransformations.class)),
 						with("systemTransformations.xml"));
-
-				oneOf(application_mock).notifyCommandStatus(with(new CommandStatusEventMatcher().expectMessage("done")));
 			}
 		});
 
@@ -89,14 +80,9 @@ public class NewSystemTransformationsCommandTest {
 
 		context.checking(new Expectations() {
 			{
-				oneOf(application_mock).notifyCommandStatus(with(new CommandStatusEventMatcher()
-						.expectMessage("executing command: \"new system transformation\"...")));
-
 				// TODO (2020-07-23 #28): добавить Matcher для сравнения SystemTransformations
 				oneOf(application_mock).saveSystemTransformations(with(any(SystemTransformations.class)),
 						with("systemTransformations.xml"));
-
-				oneOf(application_mock).notifyCommandStatus(with(new CommandStatusEventMatcher().expectMessage("done")));
 			}
 		});
 
@@ -111,17 +97,17 @@ public class NewSystemTransformationsCommandTest {
 
 		context.checking(new Expectations() {
 			{
-				oneOf(application_mock).notifyCommandStatus(with(new CommandStatusEventMatcher()
-						.expectMessage("executing command: \"new system transformation\"...")));
-
 				// TODO (2020-07-23 #28): добавить Matcher для сравнения SystemTransformations
 				oneOf(application_mock).saveSystemTransformations(with(any(SystemTransformations.class)),
 						with("systemTransformations.xml"));
-
-				oneOf(application_mock).notifyCommandStatus(with(new CommandStatusEventMatcher().expectMessage("done")));
 			}
 		});
 
 		testable.execute(data_mock);
+	}
+
+	@Test
+	public void getName() {
+		assertEquals("new_st", testable.getName());
 	}
 }
