@@ -24,7 +24,7 @@ public abstract class Command {
 			execute(data);
 			application.notifyCommandStatus(new CommandStatusEvent("done"));
 		} catch (Exception e) {
-			application.notifyCommandStatus(new CommandStatusEvent(e.getMessage()));
+			application.notifyCommandStatus(new CommandStatusEvent(e.toString()));
 			application.notifyCommandStatus(new CommandStatusEvent("error"));
 		}
 	}
