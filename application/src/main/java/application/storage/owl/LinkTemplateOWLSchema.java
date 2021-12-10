@@ -20,13 +20,13 @@ public class LinkTemplateOWLSchema implements OWLSchema<LinkTemplate> {
 		ind_linkTemplate.addLabel(String.format("Link template \"%s\"", name), "en");
 		ind_linkTemplate.addLabel(String.format("Шаблон связи \"%s\"", name), "ru");
 		ind_linkTemplate.addProperty(owlModel.getDataProperty_name(), name);
-		String objectId1 = linkTemplate.getObjectId1();
-		if (objectId1 != null) {
-			ind_linkTemplate.addProperty(owlModel.getDataProperty_objectId1(), objectId1);
+		String id1 = linkTemplate.getId1();
+		if (id1 != null) {
+			ind_linkTemplate.addProperty(owlModel.getDataProperty_id1(), id1);
 		}
-		String objectId2 = linkTemplate.getObjectId2();
-		if (objectId2 != null) {
-			ind_linkTemplate.addProperty(owlModel.getDataProperty_objectId2(), objectId2);
+		String id2 = linkTemplate.getId2();
+		if (id2 != null) {
+			ind_linkTemplate.addProperty(owlModel.getDataProperty_id2(), id2);
 		}
 		return ind_linkTemplate;
 	}
@@ -34,8 +34,8 @@ public class LinkTemplateOWLSchema implements OWLSchema<LinkTemplate> {
 	@Override
 	public LinkTemplate parse(Individual ind_linkTemplate) {
 		String name = ind_linkTemplate.getProperty(owlModel.getDataProperty_name()).getString();
-		Statement objectId1Property = ind_linkTemplate.getProperty(owlModel.getDataProperty_objectId1());
-		Statement objectId2Property = ind_linkTemplate.getProperty(owlModel.getDataProperty_objectId2());
+		Statement objectId1Property = ind_linkTemplate.getProperty(owlModel.getDataProperty_id1());
+		Statement objectId2Property = ind_linkTemplate.getProperty(owlModel.getDataProperty_id2());
 		String objectId1 = objectId1Property == null ? null : objectId1Property.getString();
 		String objectId2 = objectId2Property == null ? null : objectId2Property.getString();
 		return new LinkTemplate(name, objectId1, objectId2);

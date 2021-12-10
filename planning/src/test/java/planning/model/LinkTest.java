@@ -82,25 +82,25 @@ public class LinkTest {
 	}
 
 	@Test
-	public void getObjectId1() {
-		assertEquals("id-1", testable.getObjectId1());
+	public void getId1() {
+		assertEquals("id-1", testable.getId1());
 	}
 
 	@Test
-	public void setObjectId1() {
-		testable.setObjectId1("new-id-1");
-		assertEquals("new-id-1", testable.getObjectId1());
+	public void setId1() {
+		testable.setId1("new-id-1");
+		assertEquals("new-id-1", testable.getId1());
 	}
 
 	@Test
-	public void getObjectId2() {
-		assertEquals("id-2", testable.getObjectId2());
+	public void getId2() {
+		assertEquals("id-2", testable.getId2());
 	}
 
 	@Test
-	public void setObjectId2() {
-		testable.setObjectId2("new-id-2");
-		assertEquals("new-id-2", testable.getObjectId2());
+	public void setId2() {
+		testable.setId2("new-id-2");
+		assertEquals("new-id-2", testable.getId2());
 	}
 
 	@Test

@@ -46,13 +46,13 @@ public class SystemTemplateOWLSchema implements OWLSchema<SystemTemplate> {
 			Individual ind_linkTemplate = linkTemplateOWLSchema.combine(linkTemplate);
 			ind_systemTemplate.addProperty(owlModel.getObjectProperty_hasLinkTemplate(), ind_linkTemplate);
 
-			String objectId1 = linkTemplate.getObjectId1();
-			if (objectId1 != null) {
-				ind_linkTemplate.addProperty(owlModel.getObjectProperty_hasObjectTemplate1(), ind_objectTemplates.get(objectId1));
+			String id1 = linkTemplate.getId1();
+			if (id1 != null) {
+				ind_linkTemplate.addProperty(owlModel.getObjectProperty_hasObjectTemplate1(), ind_objectTemplates.get(id1));
 			}
-			String objectId2 = linkTemplate.getObjectId2();
-			if (objectId2 != null) {
-				ind_linkTemplate.addProperty(owlModel.getObjectProperty_hasObjectTemplate2(), ind_objectTemplates.get(objectId2));
+			String id2 = linkTemplate.getId2();
+			if (id2 != null) {
+				ind_linkTemplate.addProperty(owlModel.getObjectProperty_hasObjectTemplate2(), ind_objectTemplates.get(id2));
 			}
 		}
 

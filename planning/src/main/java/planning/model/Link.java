@@ -6,16 +6,16 @@ import java.util.Set;
 
 public class Link implements Cloneable {
 
-	private String objectId1;
+	private String id1;
 
-	private String objectId2;
+	private String id2;
 
 	private String name;
 
-	public Link(String name, String objectId1, String objectId2) {
+	public Link(String name, String id1, String id2) {
 		this.name = name;
-		this.objectId1 = objectId1;
-		this.objectId2 = objectId2;
+		this.id1 = id1;
+		this.id2 = id2;
 	}
 
 	@Override
@@ -28,8 +28,7 @@ public class Link implements Cloneable {
 		}
 		if (obj instanceof Link) {
 			Link link = (Link) obj;
-			return name.equals(link.name) && Objects.equals(objectId1, link.objectId1)
-					&& Objects.equals(objectId2, link.objectId2);
+			return Objects.equals(name, link.name) && Objects.equals(id1, link.id1) && Objects.equals(id2, link.id2);
 		}
 		return false;
 	}
@@ -38,8 +37,8 @@ public class Link implements Cloneable {
 	public Link clone() throws CloneNotSupportedException {
 		Link clone = (Link) super.clone();
 		clone.name = name;
-		clone.objectId1 = objectId1;
-		clone.objectId2 = objectId2;
+		clone.id1 = id1;
+		clone.id2 = id2;
 		return clone;
 	}
 
@@ -47,34 +46,34 @@ public class Link implements Cloneable {
 		return name;
 	}
 
-	public String getObjectId1() {
-		return objectId1;
+	public String getId1() {
+		return id1;
 	}
 
-	public void setObjectId1(String objectId1) {
-		this.objectId1 = objectId1;
+	public void setId1(String id1) {
+		this.id1 = id1;
 	}
 
-	public String getObjectId2() {
-		return objectId2;
+	public String getId2() {
+		return id2;
 	}
 
-	public void setObjectId2(String objectId2) {
-		this.objectId2 = objectId2;
+	public void setId2(String id2) {
+		this.id2 = id2;
 	}
 
 	public LinkTemplate createTemplate() {
-		return new LinkTemplate(name, objectId1, objectId2);
+		return new LinkTemplate(name, id1, id2);
 	}
 
 	public Set<String> getIds() {
-		Set<String> linkIds = new HashSet<>();
-		if (objectId1 != null) {
-			linkIds.add(objectId1);
+		Set<String> ids = new HashSet<>();
+		if (id1 != null) {
+			ids.add(id1);
 		}
-		if (objectId2 != null) {
-			linkIds.add(objectId2);
+		if (id2 != null) {
+			ids.add(id2);
 		}
-		return linkIds;
+		return ids;
 	}
 }

@@ -66,8 +66,8 @@
 		<xs:complexType>
 			<xs:sequence>
 				<xs:element name="name" type="xs:string" />
-				<xs:element name="objectId1" type="xs:string" minOccurs="0" />
-				<xs:element name="objectId2" type="xs:string" minOccurs="0" />
+				<xs:element name="id1" type="xs:string" minOccurs="0" />
+				<xs:element name="id2" type="xs:string" minOccurs="0" />
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>

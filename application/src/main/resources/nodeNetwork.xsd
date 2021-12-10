@@ -51,25 +51,21 @@
 		<xs:complexType>
 			<xs:sequence>
 				<xs:element ref="name" />
-				<xs:element ref="objectId1" />
-				<xs:element minOccurs="0" ref="objectId2" />
+				<xs:element name="id1" type="xs:string" />
+				<xs:element name="id2" type="xs:string" minOccurs="0" />
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
-	<xs:element name="objectId1" type="xs:string" />
-	<xs:element name="objectId2" type="xs:string" />
 	<xs:element name="edge">
 		<xs:complexType>
 			<xs:sequence>
 				<xs:element ref="id" />
-				<xs:element ref="beginNodeId" />
-				<xs:element ref="endNodeId" />
+				<xs:element name="beginNodeId" type="xs:string" />
+				<xs:element name="endNodeId" type="xs:string" />
 				<xs:element ref="operation" />
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
-	<xs:element name="beginNodeId" type="xs:string" />
-	<xs:element name="endNodeId" type="xs:string" />
 	<xs:element name="operation">
 		<xs:complexType>
 			<xs:sequence>

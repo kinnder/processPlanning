@@ -128,13 +128,13 @@ public class LinkTemplateTest {
 	}
 
 	@Test
-	public void getObjectId1() {
-		assertEquals("id-template-1", testable.getObjectId1());
+	public void getId1() {
+		assertEquals("id-template-1", testable.getId1());
 	}
 
 	@Test
-	public void getObjectId2() {
-		assertEquals("id-template-2", testable.getObjectId2());
+	public void getId2() {
+		assertEquals("id-template-2", testable.getId2());
 	}
 
 	@Test

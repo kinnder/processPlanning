@@ -9,9 +9,9 @@ public class LinkTemplateXMLSchema implements XMLSchema<LinkTemplate> {
 
 	final private static String TAG_name = "name";
 
-	final private static String TAG_objectId1 = "objectId1";
+	final private static String TAG_id1 = "id1";
 
-	final private static String TAG_objectId2 = "objectId2";
+	final private static String TAG_id2 = "id2";
 
 	final private static String TAG_linkTemplate = "linkTemplate";
 
@@ -23,9 +23,9 @@ public class LinkTemplateXMLSchema implements XMLSchema<LinkTemplate> {
 	@Override
 	public LinkTemplate parse(Element root) throws DataConversionException {
 		String name = root.getChildText(TAG_name);
-		String objectId1 = root.getChildText(TAG_objectId1);
-		String objectId2 = root.getChildText(TAG_objectId2);
-		return new LinkTemplate(name, objectId1, objectId2);
+		String id1 = root.getChildText(TAG_id1);
+		String id2 = root.getChildText(TAG_id2);
+		return new LinkTemplate(name, id1, id2);
 	}
 
 	@Override
@@ -36,16 +36,16 @@ public class LinkTemplateXMLSchema implements XMLSchema<LinkTemplate> {
 			child.setText(linkTemplate.getName());
 			root.addContent(child);
 		}
-		String objectId1 = linkTemplate.getObjectId1();
-		if (objectId1 != null) {
-			Element child = new Element(TAG_objectId1);
-			child.setText(objectId1);
+		String id1 = linkTemplate.getId1();
+		if (id1 != null) {
+			Element child = new Element(TAG_id1);
+			child.setText(id1);
 			root.addContent(child);
 		}
-		String objectId2 = linkTemplate.getObjectId2();
-		if (objectId2 != null) {
-			Element child = new Element(TAG_objectId2);
-			child.setText(objectId2);
+		String id2 = linkTemplate.getId2();
+		if (id2 != null) {
+			Element child = new Element(TAG_id2);
+			child.setText(id2);
 			root.addContent(child);
 		}
 		return root;

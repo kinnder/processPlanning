@@ -88,9 +88,9 @@ public class PlanningOWLModel implements OWLModel {
 
 	static final String URI_name = NS + "#name";
 
-	static final String URI_objectId1 = NS + "#objectId1";
+	static final String URI_id1 = NS + "#id1";
 
-	static final String URI_objectId2 = NS + "#objectId2";
+	static final String URI_id2 = NS + "#id2";
 
 	static final String URI_value = NS + "#value";
 
@@ -416,8 +416,8 @@ public class PlanningOWLModel implements OWLModel {
 		createDataProperty_id();
 		createDataProperty_key();
 		createDataProperty_name();
-		createDataProperty_objectId1();
-		createDataProperty_objectId2();
+		createDataProperty_id1();
+		createDataProperty_id2();
 		createDataProperty_value();
 		createDataProperty_objectId();
 		createDataProperty_oldValue();
@@ -881,22 +881,22 @@ public class PlanningOWLModel implements OWLModel {
 		dataProperty_value.addRange(createDataRange(XSD.xstring, XSD.xboolean, XSD.xint));
 	}
 
-	private void createDataProperty_objectId2() {
-		dataProperty_objectId2 = m.createDatatypeProperty(URI_objectId2);
-		dataProperty_objectId2.addLabel("objectId2", "en");
-		dataProperty_objectId2.addLabel("идентификатор объекта 2", "ru");
-		dataProperty_objectId2.addDomain(class_Link);
-		dataProperty_objectId2.addDomain(class_LinkTemplate);
-		dataProperty_objectId2.addRange(XSD.xstring);
+	private void createDataProperty_id2() {
+		dataProperty_id2 = m.createDatatypeProperty(URI_id2);
+		dataProperty_id2.addLabel("id2", "en");
+		dataProperty_id2.addLabel("идентификатор объекта 2", "ru");
+		dataProperty_id2.addDomain(class_Link);
+		dataProperty_id2.addDomain(class_LinkTemplate);
+		dataProperty_id2.addRange(XSD.xstring);
 	}
 
-	private void createDataProperty_objectId1() {
-		dataProperty_objectId1 = m.createDatatypeProperty(URI_objectId1);
-		dataProperty_objectId1.addLabel("objectId1", "en");
-		dataProperty_objectId1.addLabel("идентификатор объекта 1", "ru");
-		dataProperty_objectId1.addDomain(class_Link);
-		dataProperty_objectId1.addDomain(class_LinkTemplate);
-		dataProperty_objectId1.addRange(XSD.xstring);
+	private void createDataProperty_id1() {
+		dataProperty_id1 = m.createDatatypeProperty(URI_id1);
+		dataProperty_id1.addLabel("id1", "en");
+		dataProperty_id1.addLabel("идентификатор объекта 1", "ru");
+		dataProperty_id1.addDomain(class_Link);
+		dataProperty_id1.addDomain(class_LinkTemplate);
+		dataProperty_id1.addRange(XSD.xstring);
 	}
 
 	private void createDataProperty_name() {
@@ -1313,8 +1313,8 @@ public class PlanningOWLModel implements OWLModel {
 		dataProperty_newValue = m.getDatatypeProperty(URI_newValue);
 		dataProperty_number = m.getDatatypeProperty(URI_number);
 		dataProperty_objectId = m.getDatatypeProperty(URI_objectId);
-		dataProperty_objectId1 = m.getDatatypeProperty(URI_objectId1);
-		dataProperty_objectId2 = m.getDatatypeProperty(URI_objectId2);
+		dataProperty_id1 = m.getDatatypeProperty(URI_id1);
+		dataProperty_id2 = m.getDatatypeProperty(URI_id2);
 		dataProperty_oldValue = m.getDatatypeProperty(URI_oldValue);
 		dataProperty_text = m.getDatatypeProperty(URI_text);
 		dataProperty_value = m.getDatatypeProperty(URI_value);
@@ -1934,16 +1934,16 @@ public class PlanningOWLModel implements OWLModel {
 		return dataProperty_value;
 	}
 
-	private DatatypeProperty dataProperty_objectId1;
+	private DatatypeProperty dataProperty_id1;
 
-	public DatatypeProperty getDataProperty_objectId1() {
-		return dataProperty_objectId1;
+	public DatatypeProperty getDataProperty_id1() {
+		return dataProperty_id1;
 	}
 
-	private DatatypeProperty dataProperty_objectId2;
+	private DatatypeProperty dataProperty_id2;
 
-	public DatatypeProperty getDataProperty_objectId2() {
-		return dataProperty_objectId2;
+	public DatatypeProperty getDataProperty_id2() {
+		return dataProperty_id2;
 	}
 
 	private DatatypeProperty dataProperty_oldValue;

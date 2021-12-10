@@ -46,13 +46,13 @@ public class SystemOWLSchema implements OWLSchema<System> {
 			Individual ind_link = linkOWLSchema.combine(link);
 			ind_system.addProperty(owlModel.getObjectProperty_hasLink(), ind_link);
 
-			String objectId1 = link.getObjectId1();
-			if (objectId1 != null) {
-				ind_link.addProperty(owlModel.getObjectProperty_hasSystemObject1(), ind_systemObjects.get(objectId1));
+			String id1 = link.getId1();
+			if (id1 != null) {
+				ind_link.addProperty(owlModel.getObjectProperty_hasSystemObject1(), ind_systemObjects.get(id1));
 			}
-			String objectId2 = link.getObjectId2();
-			if (objectId2 != null) {
-				ind_link.addProperty(owlModel.getObjectProperty_hasSystemObject2(), ind_systemObjects.get(objectId2));
+			String id2 = link.getId2();
+			if (id2 != null) {
+				ind_link.addProperty(owlModel.getObjectProperty_hasSystemObject2(), ind_systemObjects.get(id2));
 			}
 		}
 

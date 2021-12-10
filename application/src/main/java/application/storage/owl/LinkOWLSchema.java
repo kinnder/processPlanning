@@ -20,13 +20,13 @@ public class LinkOWLSchema implements OWLSchema<Link> {
 		ind_link.addLabel(String.format("Link \"%s\"", name), "en");
 		ind_link.addLabel(String.format("Связь \"%s\"", name), "ru");
 		ind_link.addProperty(owlModel.getDataProperty_name(), name);
-		String objectId1 = link.getObjectId1();
-		if (objectId1 != null) {
-			ind_link.addProperty(owlModel.getDataProperty_objectId1(), objectId1);
+		String id1 = link.getId1();
+		if (id1 != null) {
+			ind_link.addProperty(owlModel.getDataProperty_id1(), id1);
 		}
-		String objectId2 = link.getObjectId2();
-		if (objectId2 != null) {
-			ind_link.addProperty(owlModel.getDataProperty_objectId2(), objectId2);
+		String id2 = link.getId2();
+		if (id2 != null) {
+			ind_link.addProperty(owlModel.getDataProperty_id2(), id2);
 		}
 		return ind_link;
 	}
@@ -34,8 +34,8 @@ public class LinkOWLSchema implements OWLSchema<Link> {
 	@Override
 	public Link parse(Individual ind_link) {
 		String name = ind_link.getProperty(owlModel.getDataProperty_name()).getString();
-		Statement objectId1Property = ind_link.getProperty(owlModel.getDataProperty_objectId1());
-		Statement objectId2Property = ind_link.getProperty(owlModel.getDataProperty_objectId2());
+		Statement objectId1Property = ind_link.getProperty(owlModel.getDataProperty_id1());
+		Statement objectId2Property = ind_link.getProperty(owlModel.getDataProperty_id2());
 		String objectId1 = objectId1Property == null ? null : objectId1Property.getString();
 		String objectId2 = objectId2Property == null ? null : objectId2Property.getString();
 

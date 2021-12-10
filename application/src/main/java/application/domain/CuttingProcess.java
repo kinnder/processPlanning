@@ -390,7 +390,7 @@ public class CuttingProcess {
 				+ "', cylinderSurface_new:getId(), requirement_r_actual:getId())");
 		script.append("\n");
 		script.append("system:getLink('" + LINK_IS_DIAMETER_REQUIREMENT
-				+ "', requirement_r_actual:getId(), nil):setObjectId2(cylinderSurface_new:getId())");
+				+ "', requirement_r_actual:getId(), nil):setId2(cylinderSurface_new:getId())");
 		script.append("\n");
 		script.append("system:addLink('" + LINK_IS_LENGTH_REQUIREMENT + "', cylinderSurface_new:getId(), nil)");
 		script.append("\n");
