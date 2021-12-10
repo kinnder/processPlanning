@@ -24,10 +24,10 @@ public class SystemObjectTemplateOWLSchema implements OWLSchema<SystemObjectTemp
 	@Override
 	public Individual combine(SystemObjectTemplate objectTemplate) {
 		Individual ind_objectTemplate = owlModel.newIndividual_ObjectTemplate();
-		String objectId = objectTemplate.getId();
-		ind_objectTemplate.addLabel(String.format("Шаблон объекта \"%s\"", objectId), "ru");
-		ind_objectTemplate.addLabel(String.format("Object template \"%s\"", objectId), "en");
-		ind_objectTemplate.addProperty(owlModel.getDataProperty_objectId(), objectId);
+		String id = objectTemplate.getId();
+		ind_objectTemplate.addLabel(String.format("Шаблон объекта \"%s\"", id), "ru");
+		ind_objectTemplate.addLabel(String.format("Object template \"%s\"", id), "en");
+		ind_objectTemplate.addProperty(owlModel.getDataProperty_id(), id);
 
 		for (AttributeTemplate attributeTemplate : objectTemplate.getAttributeTemplates()) {
 			Individual ind_attributeTemplate = attributeTemplateOWLSchema.combine(attributeTemplate);
@@ -38,9 +38,9 @@ public class SystemObjectTemplateOWLSchema implements OWLSchema<SystemObjectTemp
 
 	@Override
 	public SystemObjectTemplate parse(Individual ind_objectTemplate) {
-		String objectId = ind_objectTemplate.getProperty(owlModel.getDataProperty_objectId()).getString();
+		String id = ind_objectTemplate.getProperty(owlModel.getDataProperty_id()).getString();
 
-		SystemObjectTemplate objectTemplate = new SystemObjectTemplate(objectId);
+		SystemObjectTemplate objectTemplate = new SystemObjectTemplate(id);
 
 		owlModel.getClass_AttributeTemplate().listInstances().filterKeep((ind_attributeTemplate) -> {
 			return ind_objectTemplate.hasProperty(owlModel.getObjectProperty_hasAttributeTemplate(), ind_attributeTemplate);

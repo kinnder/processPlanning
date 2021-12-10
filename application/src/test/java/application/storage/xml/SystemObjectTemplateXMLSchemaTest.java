@@ -60,8 +60,8 @@ public class SystemObjectTemplateXMLSchemaTest {
 
 		context.checking(new Expectations() {
 			{
-				oneOf(root_mock).getChildText("objectId");
-				will(returnValue("objectId"));
+				oneOf(root_mock).getChildText("id");
+				will(returnValue("object-id"));
 
 				oneOf(attributeTemplateXMLSchema_mock).getSchemaName();
 				will(returnValue("attributeTemplate"));
@@ -88,7 +88,7 @@ public class SystemObjectTemplateXMLSchemaTest {
 		context.checking(new Expectations() {
 			{
 				oneOf(systemObjectTemplate_mock).getId();
-				will(returnValue("id"));
+				will(returnValue("object-id"));
 
 				oneOf(systemObjectTemplate_mock).getAttributeTemplates();
 				will(returnValue(attributeTemplates));
@@ -99,7 +99,7 @@ public class SystemObjectTemplateXMLSchemaTest {
 		});
 
 		Element element = testable.combine(systemObjectTemplate_mock);
-		assertEquals("id", element.getChildText("objectId"));
+		assertEquals("object-id", element.getChildText("id"));
 		assertNotNull(element.getChild("attributeTemplate"));
 	}
 

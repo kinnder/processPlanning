@@ -128,7 +128,7 @@ public class TransformationsOWLSchemaTest {
 		final Individual i_transformations_mock = context.mock(Individual.class, "i-transformations");
 		final Individual i_transformation_mock = context.mock(Individual.class, "i-transformation");
 		final ObjectProperty op_hasTransformation_mock = context.mock(ObjectProperty.class, "op-hasTransformation");
-		final DatatypeProperty dp_objectId_mock = context.mock(DatatypeProperty.class, "dp-objectId");
+		final DatatypeProperty dp_id_mock = context.mock(DatatypeProperty.class, "dp-id");
 
 		context.checking(new Expectations() {
 			{
@@ -142,13 +142,13 @@ public class TransformationsOWLSchemaTest {
 				oneOf(owlModel_mock).newIndividual_Transformation();
 				will(returnValue(i_transformation_mock));
 
-				oneOf(owlModel_mock).getDataProperty_objectId();
-				will(returnValue(dp_objectId_mock));
+				oneOf(owlModel_mock).getDataProperty_id();
+				will(returnValue(dp_id_mock));
 
-				oneOf(transformation_mock).getObjectId();
-				will(returnValue("transformation-objectId"));
+				oneOf(transformation_mock).getId();
+				will(returnValue("transformation-id"));
 
-				oneOf(i_transformation_mock).addProperty(dp_objectId_mock, "transformation-objectId");
+				oneOf(i_transformation_mock).addProperty(dp_id_mock, "transformation-id");
 
 				oneOf(owlModel_mock).getObjectProperty_hasTransformation();
 				will(returnValue(op_hasTransformation_mock));
@@ -281,8 +281,8 @@ public class TransformationsOWLSchemaTest {
 		final OntClass oc_linkTransformation_mock = context.mock(OntClass.class, "oc-linkTransformation");
 		final OntClass oc_attributeTransformation_mock = context.mock(OntClass.class, "oc-attributeTransformation");
 		final OntClass oc_transformation_mock = context.mock(OntClass.class, "oc-transformation");
-		final DatatypeProperty dp_objectId_mock = context.mock(DatatypeProperty.class, "dp-objectId");
-		final Statement st_objectId_mock = context.mock(Statement.class, "st-objectId");
+		final DatatypeProperty dp_id_mock = context.mock(DatatypeProperty.class, "dp-id");
+		final Statement st_id_mock = context.mock(Statement.class, "st-id");
 
 		final ExtendedIterator<Individual> attributeTransformationIterator = new NiceIterator<Individual>();
 
@@ -321,18 +321,18 @@ public class TransformationsOWLSchemaTest {
 				oneOf(i_transformation_mock).asIndividual();
 				will(returnValue(i_transformation_mock));
 
-				oneOf(owlModel_mock).getDataProperty_objectId();
-				will(returnValue(dp_objectId_mock));
+				oneOf(owlModel_mock).getDataProperty_id();
+				will(returnValue(dp_id_mock));
 
-				oneOf(i_transformation_mock).getProperty(dp_objectId_mock);
-				will(returnValue(st_objectId_mock));
+				oneOf(i_transformation_mock).getProperty(dp_id_mock);
+				will(returnValue(st_id_mock));
 
-				oneOf(st_objectId_mock).getString();
-				will(returnValue("transformation-objectId"));
+				oneOf(st_id_mock).getString();
+				will(returnValue("transformation-id"));
 			}
 		});
 
 		Transformation[] result = testable.parse(i_transformations_mock);
-		assertEquals("transformation-objectId", result[0].getObjectId());
+		assertEquals("transformation-id", result[0].getId());
 	}
 }

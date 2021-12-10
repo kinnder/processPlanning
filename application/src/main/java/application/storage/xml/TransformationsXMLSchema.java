@@ -14,7 +14,7 @@ public class TransformationsXMLSchema implements XMLSchema<Transformation[]> {
 
 	final private static String TAG_transformations = "transformations";
 
-	final private static String TAG_objectId = "objectId";
+	final private static String TAG_id = "id";
 
 	final private static String TAG_transformation = "transformation";
 
@@ -69,10 +69,10 @@ public class TransformationsXMLSchema implements XMLSchema<Transformation[]> {
 
 	// TODO : remove this or update systemTransformations.xsd
 	public Element combineTransformation(Transformation transformation) {
-		Element objectId = new Element(TAG_objectId);
-		objectId.setText(transformation.getObjectId());
+		Element id = new Element(TAG_id);
+		id.setText(transformation.getId());
 		Element root = new Element(TAG_transformation);
-		root.addContent(objectId);
+		root.addContent(id);
 		return root;
 	}
 }

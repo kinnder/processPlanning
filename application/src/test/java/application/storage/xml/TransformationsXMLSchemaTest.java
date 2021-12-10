@@ -109,7 +109,7 @@ public class TransformationsXMLSchemaTest {
 
 				// <-- combineTransformation
 
-				oneOf(transformation_mock).getObjectId();
+				oneOf(transformation_mock).getId();
 
 				// combineTransformation -->
 			}
@@ -127,13 +127,13 @@ public class TransformationsXMLSchemaTest {
 
 		context.checking(new Expectations() {
 			{
-				oneOf(transformation_mock).getObjectId();
-				will(returnValue("id"));
+				oneOf(transformation_mock).getId();
+				will(returnValue("object-id"));
 			}
 		});
 
 		Element element = testable.combineTransformation(transformation_mock);
-		assertEquals("id", element.getChildText("objectId"));
+		assertEquals("object-id", element.getChildText("id"));
 	}
 
 	@Test

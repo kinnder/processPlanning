@@ -98,7 +98,6 @@ public class PlanningOWLModelTest {
 		assertEquals(PlanningOWLModel.URI_name, testable.getDataProperty_name().getURI());
 		assertEquals(PlanningOWLModel.URI_newValue, testable.getDataProperty_newValue().getURI());
 		assertEquals(PlanningOWLModel.URI_number, testable.getDataProperty_number().getURI());
-		assertEquals(PlanningOWLModel.URI_objectId, testable.getDataProperty_objectId().getURI());
 		assertEquals(PlanningOWLModel.URI_id1, testable.getDataProperty_id1().getURI());
 		assertEquals(PlanningOWLModel.URI_id2, testable.getDataProperty_id2().getURI());
 		assertEquals(PlanningOWLModel.URI_oldValue, testable.getDataProperty_oldValue().getURI());
@@ -211,7 +210,6 @@ public class PlanningOWLModelTest {
 		assertEquals(PlanningOWLModel.URI_name, testable.getDataProperty_name().getURI());
 		assertEquals(PlanningOWLModel.URI_newValue, testable.getDataProperty_newValue().getURI());
 		assertEquals(PlanningOWLModel.URI_number, testable.getDataProperty_number().getURI());
-		assertEquals(PlanningOWLModel.URI_objectId, testable.getDataProperty_objectId().getURI());
 		assertEquals(PlanningOWLModel.URI_id1, testable.getDataProperty_id1().getURI());
 		assertEquals(PlanningOWLModel.URI_id2, testable.getDataProperty_id2().getURI());
 		assertEquals(PlanningOWLModel.URI_oldValue, testable.getDataProperty_oldValue().getURI());

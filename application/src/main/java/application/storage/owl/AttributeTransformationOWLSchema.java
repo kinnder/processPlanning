@@ -22,7 +22,7 @@ public class AttributeTransformationOWLSchema implements OWLSchema<AttributeTran
 		String name = attributeTransformation.getAttributeName();
 		ind_attributeTransformation.addLabel(String.format("Трансформация атрибута \"%s\"", name), "ru");
 		ind_attributeTransformation.addLabel(String.format("Attribute transformation \"%s\"", name), "en");
-		ind_attributeTransformation.addProperty(owlModel.getDataProperty_objectId(), attributeTransformation.getObjectId());
+		ind_attributeTransformation.addProperty(owlModel.getDataProperty_id(), attributeTransformation.getId());
 		ind_attributeTransformation.addProperty(owlModel.getDataProperty_name(), name);
 		Object value = attributeTransformation.getAttributeValue();
 		if (value instanceof Boolean) {
@@ -38,22 +38,22 @@ public class AttributeTransformationOWLSchema implements OWLSchema<AttributeTran
 	@Override
 	public AttributeTransformation parse(Individual ind_attributeTransformation) {
 		String name = ind_attributeTransformation.getProperty(owlModel.getDataProperty_name()).getString();
-		String objectId = ind_attributeTransformation.getProperty(owlModel.getDataProperty_objectId()).getString();
+		String id = ind_attributeTransformation.getProperty(owlModel.getDataProperty_id()).getString();
 
 		Statement valueStatement = ind_attributeTransformation.getProperty(owlModel.getDataProperty_value());
 		if (valueStatement != null) {
 			Literal valueLiteral = valueStatement.getLiteral();
 			RDFDatatype valueType = valueLiteral.getDatatype();
 			if (valueType == XSDDatatype.XSDboolean) {
-				return new AttributeTransformation(objectId, name, valueLiteral.getBoolean());
+				return new AttributeTransformation(id, name, valueLiteral.getBoolean());
 			}
 			if (valueType == XSDDatatype.XSDstring) {
-				return new AttributeTransformation(objectId, name, valueLiteral.getString());
+				return new AttributeTransformation(id, name, valueLiteral.getString());
 			}
 			if (valueType == XSDDatatype.XSDinteger) {
-				return new AttributeTransformation(objectId, name, valueLiteral.getInt());
+				return new AttributeTransformation(id, name, valueLiteral.getInt());
 			}
 		}
-		return new AttributeTransformation(objectId, name, null);
+		return new AttributeTransformation(id, name, null);
 	}
 }

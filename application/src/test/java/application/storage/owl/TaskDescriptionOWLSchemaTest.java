@@ -208,8 +208,8 @@ public class TaskDescriptionOWLSchemaTest {
 
 		OntModel model = owlModel_mock.getOntologyModel();
 		assertNotNull(model);
-		assertEquals(499, model.listObjects().toList().size());
-		assertEquals(2502, model.listStatements().toList().size());
+		assertEquals(497, model.listObjects().toList().size());
+		assertEquals(2532, model.listStatements().toList().size());
 	}
 
 	@Test

@@ -38,7 +38,7 @@ public class TransformationTest {
 	}
 
 	@Test
-	public void getObjectId() {
-		assertEquals("id", testable.getObjectId());
+	public void getId() {
+		assertEquals("id", testable.getId());
 	}
 }

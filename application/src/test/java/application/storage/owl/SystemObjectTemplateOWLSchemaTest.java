@@ -63,7 +63,7 @@ public class SystemObjectTemplateOWLSchemaTest {
 		systemObjectTemplate.addAttributeTemplate(attributeTemplate);
 		final Individual i_systemObjectTemplate_mock = context.mock(Individual.class, "i-systemObjectTemplate");
 		final Individual i_attributeTemplate_mock = context.mock(Individual.class, "i-attributeTemplate");
-		final DatatypeProperty dp_objectId_mock = context.mock(DatatypeProperty.class, "dp-objectId");
+		final DatatypeProperty dp_id_mock = context.mock(DatatypeProperty.class, "dp-id");
 		final ObjectProperty op_hasAttributeTemplate_mock = context.mock(ObjectProperty.class, "op-hasAttributeTemplate");
 
 		context.checking(new Expectations() {
@@ -75,10 +75,10 @@ public class SystemObjectTemplateOWLSchemaTest {
 
 				oneOf(i_systemObjectTemplate_mock).addLabel("Object template \"template-id\"", "en");
 
-				oneOf(owlModel_mock).getDataProperty_objectId();
-				will(returnValue(dp_objectId_mock));
+				oneOf(owlModel_mock).getDataProperty_id();
+				will(returnValue(dp_id_mock));
 
-				oneOf(i_systemObjectTemplate_mock).addProperty(dp_objectId_mock, "template-id");
+				oneOf(i_systemObjectTemplate_mock).addProperty(dp_id_mock, "template-id");
 
 				oneOf(attributeTemplateOWLSchema_mock).combine(attributeTemplate);
 				will(returnValue(i_attributeTemplate_mock));
@@ -97,8 +97,8 @@ public class SystemObjectTemplateOWLSchemaTest {
 	public void parse() {
 		final Individual i_systemObjectTemplate_mock = context.mock(Individual.class, "i-systemObjectTemplate");
 		final AttributeTemplate attributeTemplate_mock = context.mock(AttributeTemplate.class);
-		final DatatypeProperty dp_objectId_mock = context.mock(DatatypeProperty.class, "dp-objectId");
-		final Statement st_objectId_mock = context.mock(Statement.class, "st-objectId");
+		final DatatypeProperty dp_id_mock = context.mock(DatatypeProperty.class, "dp-id");
+		final Statement st_id_mock = context.mock(Statement.class, "st-id");
 		final OntClass oc_attributeTemplate_mock = context.mock(OntClass.class, "oc-attributeTemplate");
 		final ObjectProperty op_hasAttributeTemplate_mock = context.mock(ObjectProperty.class,
 				"op-hasAttributeTemplate");
@@ -109,13 +109,13 @@ public class SystemObjectTemplateOWLSchemaTest {
 
 		context.checking(new Expectations() {
 			{
-				oneOf(owlModel_mock).getDataProperty_objectId();
-				will(returnValue(dp_objectId_mock));
+				oneOf(owlModel_mock).getDataProperty_id();
+				will(returnValue(dp_id_mock));
 
-				oneOf(i_systemObjectTemplate_mock).getProperty(dp_objectId_mock);
-				will(returnValue(st_objectId_mock));
+				oneOf(i_systemObjectTemplate_mock).getProperty(dp_id_mock);
+				will(returnValue(st_id_mock));
 
-				oneOf(st_objectId_mock).getString();
+				oneOf(st_id_mock).getString();
 				will(returnValue("template-id"));
 
 				oneOf(owlModel_mock).getClass_AttributeTemplate();

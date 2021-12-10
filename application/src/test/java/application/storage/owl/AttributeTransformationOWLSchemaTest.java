@@ -45,11 +45,10 @@ public class AttributeTransformationOWLSchemaTest {
 
 	@Test
 	public void combine() {
-		final AttributeTransformation attributeTransformation = new AttributeTransformation("attribute-objectId",
-				"attribute-name", null);
+		final AttributeTransformation attributeTransformation = new AttributeTransformation("attribute-id", "attribute-name", null);
 		final Individual i_attributeTransformation_mock = context.mock(Individual.class, "i-attributeTransformation");
 		final DatatypeProperty dp_name_mock = context.mock(DatatypeProperty.class, "dp-name");
-		final DatatypeProperty dp_objectId_mock = context.mock(DatatypeProperty.class, "dp-objectId");
+		final DatatypeProperty dp_id_mock = context.mock(DatatypeProperty.class, "dp-id");
 
 		context.checking(new Expectations() {
 			{
@@ -60,10 +59,10 @@ public class AttributeTransformationOWLSchemaTest {
 
 				oneOf(i_attributeTransformation_mock).addLabel("Attribute transformation \"attribute-name\"", "en");
 
-				oneOf(owlModel_mock).getDataProperty_objectId();
-				will(returnValue(dp_objectId_mock));
+				oneOf(owlModel_mock).getDataProperty_id();
+				will(returnValue(dp_id_mock));
 
-				oneOf(i_attributeTransformation_mock).addProperty(dp_objectId_mock, "attribute-objectId");
+				oneOf(i_attributeTransformation_mock).addProperty(dp_id_mock, "attribute-id");
 
 				oneOf(owlModel_mock).getDataProperty_name();
 				will(returnValue(dp_name_mock));
@@ -77,11 +76,10 @@ public class AttributeTransformationOWLSchemaTest {
 
 	@Test
 	public void combine_boolean() {
-		final AttributeTransformation attributeTransformation = new AttributeTransformation("attribute-objectId",
-				"attribute-name", Boolean.valueOf(true));
+		final AttributeTransformation attributeTransformation = new AttributeTransformation("attribute-id", "attribute-name", Boolean.valueOf(true));
 		final Individual i_attributeTransformation_mock = context.mock(Individual.class, "i-attributeTransformation");
 		final DatatypeProperty dp_name_mock = context.mock(DatatypeProperty.class, "dp-name");
-		final DatatypeProperty dp_objectId_mock = context.mock(DatatypeProperty.class, "dp-objectId");
+		final DatatypeProperty dp_id_mock = context.mock(DatatypeProperty.class, "dp-id");
 		final DatatypeProperty dp_value_mock = context.mock(DatatypeProperty.class, "dp-value");
 
 		context.checking(new Expectations() {
@@ -93,10 +91,10 @@ public class AttributeTransformationOWLSchemaTest {
 
 				oneOf(i_attributeTransformation_mock).addLabel("Attribute transformation \"attribute-name\"", "en");
 
-				oneOf(owlModel_mock).getDataProperty_objectId();
-				will(returnValue(dp_objectId_mock));
+				oneOf(owlModel_mock).getDataProperty_id();
+				will(returnValue(dp_id_mock));
 
-				oneOf(i_attributeTransformation_mock).addProperty(dp_objectId_mock, "attribute-objectId");
+				oneOf(i_attributeTransformation_mock).addProperty(dp_id_mock, "attribute-id");
 
 				oneOf(owlModel_mock).getDataProperty_name();
 				will(returnValue(dp_name_mock));
@@ -115,11 +113,10 @@ public class AttributeTransformationOWLSchemaTest {
 
 	@Test
 	public void combine_integer() {
-		final AttributeTransformation attributeTransformation = new AttributeTransformation("attribute-objectId",
-				"attribute-name", Integer.valueOf(100));
+		final AttributeTransformation attributeTransformation = new AttributeTransformation("attribute-id", "attribute-name", Integer.valueOf(100));
 		final Individual i_attributeTransformation_mock = context.mock(Individual.class, "i-attributeTransformation");
 		final DatatypeProperty dp_name_mock = context.mock(DatatypeProperty.class, "dp-name");
-		final DatatypeProperty dp_objectId_mock = context.mock(DatatypeProperty.class, "dp-objectId");
+		final DatatypeProperty dp_id_mock = context.mock(DatatypeProperty.class, "dp-id");
 		final DatatypeProperty dp_value_mock = context.mock(DatatypeProperty.class, "dp-value");
 
 		context.checking(new Expectations() {
@@ -131,10 +128,10 @@ public class AttributeTransformationOWLSchemaTest {
 
 				oneOf(i_attributeTransformation_mock).addLabel("Attribute transformation \"attribute-name\"", "en");
 
-				oneOf(owlModel_mock).getDataProperty_objectId();
-				will(returnValue(dp_objectId_mock));
+				oneOf(owlModel_mock).getDataProperty_id();
+				will(returnValue(dp_id_mock));
 
-				oneOf(i_attributeTransformation_mock).addProperty(dp_objectId_mock, "attribute-objectId");
+				oneOf(i_attributeTransformation_mock).addProperty(dp_id_mock, "attribute-id");
 
 				oneOf(owlModel_mock).getDataProperty_name();
 				will(returnValue(dp_name_mock));
@@ -153,11 +150,10 @@ public class AttributeTransformationOWLSchemaTest {
 
 	@Test
 	public void combine_string() {
-		final AttributeTransformation attributeTransformation = new AttributeTransformation("attribute-objectId",
-				"attribute-name", "attribute-value");
+		final AttributeTransformation attributeTransformation = new AttributeTransformation("attribute-id", "attribute-name", "attribute-value");
 		final Individual i_attributeTransformation_mock = context.mock(Individual.class, "i-attributeTransformation");
 		final DatatypeProperty dp_name_mock = context.mock(DatatypeProperty.class, "dp-name");
-		final DatatypeProperty dp_objectId_mock = context.mock(DatatypeProperty.class, "dp-objectId");
+		final DatatypeProperty dp_id_mock = context.mock(DatatypeProperty.class, "dp-id");
 		final DatatypeProperty dp_value_mock = context.mock(DatatypeProperty.class, "dp-value");
 
 		context.checking(new Expectations() {
@@ -169,10 +165,10 @@ public class AttributeTransformationOWLSchemaTest {
 
 				oneOf(i_attributeTransformation_mock).addLabel("Attribute transformation \"attribute-name\"", "en");
 
-				oneOf(owlModel_mock).getDataProperty_objectId();
-				will(returnValue(dp_objectId_mock));
+				oneOf(owlModel_mock).getDataProperty_id();
+				will(returnValue(dp_id_mock));
 
-				oneOf(i_attributeTransformation_mock).addProperty(dp_objectId_mock, "attribute-objectId");
+				oneOf(i_attributeTransformation_mock).addProperty(dp_id_mock, "attribute-id");
 
 				oneOf(owlModel_mock).getDataProperty_name();
 				will(returnValue(dp_name_mock));
@@ -182,8 +178,7 @@ public class AttributeTransformationOWLSchemaTest {
 				oneOf(owlModel_mock).getDataProperty_value();
 				will(returnValue(dp_value_mock));
 
-				oneOf(i_attributeTransformation_mock).addProperty(dp_value_mock, "attribute-value",
-						XSDDatatype.XSDstring);
+				oneOf(i_attributeTransformation_mock).addProperty(dp_value_mock, "attribute-value", XSDDatatype.XSDstring);
 			}
 		});
 
@@ -194,10 +189,10 @@ public class AttributeTransformationOWLSchemaTest {
 	public void parse() {
 		final Individual i_attributeTransformation_mock = context.mock(Individual.class, "i-attributeTransformation");
 		final DatatypeProperty dp_name_mock = context.mock(DatatypeProperty.class, "dp-name");
-		final DatatypeProperty dp_objectId_mock = context.mock(DatatypeProperty.class, "dp-objectId");
+		final DatatypeProperty dp_id_mock = context.mock(DatatypeProperty.class, "dp-id");
 		final DatatypeProperty dp_value_mock = context.mock(DatatypeProperty.class, "dp-value");
 		final Statement st_name_mock = context.mock(Statement.class, "st-name");
-		final Statement st_objectId_mock = context.mock(Statement.class, "st-objectId");
+		final Statement st_id_mock = context.mock(Statement.class, "st-id");
 
 		context.checking(new Expectations() {
 			{
@@ -210,14 +205,14 @@ public class AttributeTransformationOWLSchemaTest {
 				oneOf(st_name_mock).getString();
 				will(returnValue("attribute-name"));
 
-				oneOf(owlModel_mock).getDataProperty_objectId();
-				will(returnValue(dp_objectId_mock));
+				oneOf(owlModel_mock).getDataProperty_id();
+				will(returnValue(dp_id_mock));
 
-				oneOf(i_attributeTransformation_mock).getProperty(dp_objectId_mock);
-				will(returnValue(st_objectId_mock));
+				oneOf(i_attributeTransformation_mock).getProperty(dp_id_mock);
+				will(returnValue(st_id_mock));
 
-				oneOf(st_objectId_mock).getString();
-				will(returnValue("attribute-objectId"));
+				oneOf(st_id_mock).getString();
+				will(returnValue("attribute-id"));
 
 				oneOf(owlModel_mock).getDataProperty_value();
 				will(returnValue(dp_value_mock));
@@ -229,7 +224,7 @@ public class AttributeTransformationOWLSchemaTest {
 
 		AttributeTransformation result = testable.parse(i_attributeTransformation_mock);
 		assertEquals("attribute-name", result.getAttributeName());
-		assertEquals("attribute-objectId", result.getObjectId());
+		assertEquals("attribute-id", result.getId());
 		assertNull(result.getAttributeValue());
 	}
 
@@ -237,10 +232,10 @@ public class AttributeTransformationOWLSchemaTest {
 	public void parse_boolean() {
 		final Individual i_attributeTransformation_mock = context.mock(Individual.class, "i-attributeTransformation");
 		final DatatypeProperty dp_name_mock = context.mock(DatatypeProperty.class, "dp-name");
-		final DatatypeProperty dp_objectId_mock = context.mock(DatatypeProperty.class, "dp-objectId");
+		final DatatypeProperty dp_id_mock = context.mock(DatatypeProperty.class, "dp-id");
 		final DatatypeProperty dp_value_mock = context.mock(DatatypeProperty.class, "dp-value");
 		final Statement st_name_mock = context.mock(Statement.class, "st-name");
-		final Statement st_objectId_mock = context.mock(Statement.class, "st-objectId");
+		final Statement st_id_mock = context.mock(Statement.class, "st-id");
 		final Statement st_value_mock = context.mock(Statement.class, "st-value");
 		final Literal l_value_mock = context.mock(Literal.class, "l-value");
 
@@ -255,14 +250,14 @@ public class AttributeTransformationOWLSchemaTest {
 				oneOf(st_name_mock).getString();
 				will(returnValue("attribute-name"));
 
-				oneOf(owlModel_mock).getDataProperty_objectId();
-				will(returnValue(dp_objectId_mock));
+				oneOf(owlModel_mock).getDataProperty_id();
+				will(returnValue(dp_id_mock));
 
-				oneOf(i_attributeTransformation_mock).getProperty(dp_objectId_mock);
-				will(returnValue(st_objectId_mock));
+				oneOf(i_attributeTransformation_mock).getProperty(dp_id_mock);
+				will(returnValue(st_id_mock));
 
-				oneOf(st_objectId_mock).getString();
-				will(returnValue("attribute-objectId"));
+				oneOf(st_id_mock).getString();
+				will(returnValue("attribute-id"));
 
 				oneOf(owlModel_mock).getDataProperty_value();
 				will(returnValue(dp_value_mock));
@@ -283,7 +278,7 @@ public class AttributeTransformationOWLSchemaTest {
 
 		AttributeTransformation result = testable.parse(i_attributeTransformation_mock);
 		assertEquals("attribute-name", result.getAttributeName());
-		assertEquals("attribute-objectId", result.getObjectId());
+		assertEquals("attribute-id", result.getId());
 		assertEquals(true, result.getAttributeValue());
 	}
 
@@ -291,10 +286,10 @@ public class AttributeTransformationOWLSchemaTest {
 	public void parse_string() {
 		final Individual i_attributeTransformation_mock = context.mock(Individual.class, "i-attributeTransformation");
 		final DatatypeProperty dp_name_mock = context.mock(DatatypeProperty.class, "dp-name");
-		final DatatypeProperty dp_objectId_mock = context.mock(DatatypeProperty.class, "dp-objectId");
+		final DatatypeProperty dp_id_mock = context.mock(DatatypeProperty.class, "dp-id");
 		final DatatypeProperty dp_value_mock = context.mock(DatatypeProperty.class, "dp-value");
 		final Statement st_name_mock = context.mock(Statement.class, "st-name");
-		final Statement st_objectId_mock = context.mock(Statement.class, "st-objectId");
+		final Statement st_id_mock = context.mock(Statement.class, "st-id");
 		final Statement st_value_mock = context.mock(Statement.class, "st-value");
 		final Literal l_value_mock = context.mock(Literal.class, "l-value");
 
@@ -309,14 +304,14 @@ public class AttributeTransformationOWLSchemaTest {
 				oneOf(st_name_mock).getString();
 				will(returnValue("attribute-name"));
 
-				oneOf(owlModel_mock).getDataProperty_objectId();
-				will(returnValue(dp_objectId_mock));
+				oneOf(owlModel_mock).getDataProperty_id();
+				will(returnValue(dp_id_mock));
 
-				oneOf(i_attributeTransformation_mock).getProperty(dp_objectId_mock);
-				will(returnValue(st_objectId_mock));
+				oneOf(i_attributeTransformation_mock).getProperty(dp_id_mock);
+				will(returnValue(st_id_mock));
 
-				oneOf(st_objectId_mock).getString();
-				will(returnValue("attribute-objectId"));
+				oneOf(st_id_mock).getString();
+				will(returnValue("attribute-id"));
 
 				oneOf(owlModel_mock).getDataProperty_value();
 				will(returnValue(dp_value_mock));
@@ -337,7 +332,7 @@ public class AttributeTransformationOWLSchemaTest {
 
 		AttributeTransformation result = testable.parse(i_attributeTransformation_mock);
 		assertEquals("attribute-name", result.getAttributeName());
-		assertEquals("attribute-objectId", result.getObjectId());
+		assertEquals("attribute-id", result.getId());
 		assertEquals("attribute-value", result.getAttributeValue());
 	}
 
@@ -345,10 +340,10 @@ public class AttributeTransformationOWLSchemaTest {
 	public void parse_integer() {
 		final Individual i_attributeTransformation_mock = context.mock(Individual.class, "i-attributeTransformation");
 		final DatatypeProperty dp_name_mock = context.mock(DatatypeProperty.class, "dp-name");
-		final DatatypeProperty dp_objectId_mock = context.mock(DatatypeProperty.class, "dp-objectId");
+		final DatatypeProperty dp_id_mock = context.mock(DatatypeProperty.class, "dp-id");
 		final DatatypeProperty dp_value_mock = context.mock(DatatypeProperty.class, "dp-value");
 		final Statement st_name_mock = context.mock(Statement.class, "st-name");
-		final Statement st_objectId_mock = context.mock(Statement.class, "st-objectId");
+		final Statement st_id_mock = context.mock(Statement.class, "st-id");
 		final Statement st_value_mock = context.mock(Statement.class, "st-value");
 		final Literal l_value_mock = context.mock(Literal.class, "l-value");
 
@@ -363,14 +358,14 @@ public class AttributeTransformationOWLSchemaTest {
 				oneOf(st_name_mock).getString();
 				will(returnValue("attribute-name"));
 
-				oneOf(owlModel_mock).getDataProperty_objectId();
-				will(returnValue(dp_objectId_mock));
+				oneOf(owlModel_mock).getDataProperty_id();
+				will(returnValue(dp_id_mock));
 
-				oneOf(i_attributeTransformation_mock).getProperty(dp_objectId_mock);
-				will(returnValue(st_objectId_mock));
+				oneOf(i_attributeTransformation_mock).getProperty(dp_id_mock);
+				will(returnValue(st_id_mock));
 
-				oneOf(st_objectId_mock).getString();
-				will(returnValue("attribute-objectId"));
+				oneOf(st_id_mock).getString();
+				will(returnValue("attribute-id"));
 
 				oneOf(owlModel_mock).getDataProperty_value();
 				will(returnValue(dp_value_mock));
@@ -391,7 +386,7 @@ public class AttributeTransformationOWLSchemaTest {
 
 		AttributeTransformation result = testable.parse(i_attributeTransformation_mock);
 		assertEquals("attribute-name", result.getAttributeName());
-		assertEquals("attribute-objectId", result.getObjectId());
+		assertEquals("attribute-id", result.getId());
 		assertEquals(100, result.getAttributeValue());
 	}
 
@@ -399,10 +394,10 @@ public class AttributeTransformationOWLSchemaTest {
 	public void parse_unsupported_type() {
 		final Individual i_attributeTransformation_mock = context.mock(Individual.class, "i-attributeTransformation");
 		final DatatypeProperty dp_name_mock = context.mock(DatatypeProperty.class, "dp-name");
-		final DatatypeProperty dp_objectId_mock = context.mock(DatatypeProperty.class, "dp-objectId");
+		final DatatypeProperty dp_id_mock = context.mock(DatatypeProperty.class, "dp-id");
 		final DatatypeProperty dp_value_mock = context.mock(DatatypeProperty.class, "dp-value");
 		final Statement st_name_mock = context.mock(Statement.class, "st-name");
-		final Statement st_objectId_mock = context.mock(Statement.class, "st-objectId");
+		final Statement st_id_mock = context.mock(Statement.class, "st-id");
 		final Statement st_value_mock = context.mock(Statement.class, "st-value");
 		final Literal l_value_mock = context.mock(Literal.class, "l-value");
 
@@ -417,14 +412,14 @@ public class AttributeTransformationOWLSchemaTest {
 				oneOf(st_name_mock).getString();
 				will(returnValue("attribute-name"));
 
-				oneOf(owlModel_mock).getDataProperty_objectId();
-				will(returnValue(dp_objectId_mock));
+				oneOf(owlModel_mock).getDataProperty_id();
+				will(returnValue(dp_id_mock));
 
-				oneOf(i_attributeTransformation_mock).getProperty(dp_objectId_mock);
-				will(returnValue(st_objectId_mock));
+				oneOf(i_attributeTransformation_mock).getProperty(dp_id_mock);
+				will(returnValue(st_id_mock));
 
-				oneOf(st_objectId_mock).getString();
-				will(returnValue("attribute-objectId"));
+				oneOf(st_id_mock).getString();
+				will(returnValue("attribute-id"));
 
 				oneOf(owlModel_mock).getDataProperty_value();
 				will(returnValue(dp_value_mock));
@@ -442,7 +437,7 @@ public class AttributeTransformationOWLSchemaTest {
 
 		AttributeTransformation result = testable.parse(i_attributeTransformation_mock);
 		assertEquals("attribute-name", result.getAttributeName());
-		assertEquals("attribute-objectId", result.getObjectId());
+		assertEquals("attribute-id", result.getId());
 		assertNull(result.getAttributeValue());
 	}
 }

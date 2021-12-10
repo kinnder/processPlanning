@@ -32,7 +32,7 @@
 	<xs:element name="objectTemplate">
 		<xs:complexType>
 			<xs:sequence>
-				<xs:element ref="objectId" />
+				<xs:element ref="id" />
 				<xs:element ref="attributeTemplate" minOccurs="0" maxOccurs="unbounded" />
 			</xs:sequence>
 		</xs:complexType>
@@ -46,7 +46,7 @@
 		</xs:complexType>
 	</xs:element>
 	<xs:element name="name" type="xs:string" />
-	<xs:element name="objectId" type="xs:string" />
+	<xs:element name="id" type="xs:string" />
 	<xs:element name="id1" type="xs:string" />
 	<xs:element name="id2" type="xs:string" />
 	<xs:element name="value">
@@ -86,7 +86,7 @@
 	<xs:element name="linkTransformation">
 		<xs:complexType>
 			<xs:sequence>
-				<xs:element ref="objectId" />
+				<xs:element ref="id" />
 				<xs:element ref="name" />
 				<xs:element name="oldValue" type="xs:string" minOccurs="0" />
 				<xs:element name="newValue" type="xs:string" minOccurs="0" />
@@ -96,7 +96,7 @@
 	<xs:element name="attributeTransformation">
 		<xs:complexType>
 			<xs:sequence>
-				<xs:element ref="objectId" />
+				<xs:element ref="id" />
 				<xs:element ref="name" />
 				<xs:element ref="value" />
 			</xs:sequence>

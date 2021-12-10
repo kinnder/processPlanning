@@ -53,13 +53,13 @@ public class TransformationsOWLSchema implements OWLSchema<Transformation[]> {
 	// TODO (2021-01-13 #31): remove this or update systemTransformations.xsd
 	public Individual combineTransformation(Transformation transformation) {
 		Individual ind_transformation = owlModel.newIndividual_Transformation();
-		ind_transformation.addProperty(owlModel.getDataProperty_objectId(), transformation.getObjectId());
+		ind_transformation.addProperty(owlModel.getDataProperty_id(), transformation.getId());
 		return ind_transformation;
 	}
 
 	public Transformation parseTransformation(Individual ind_transformation) {
-		String objectId = ind_transformation.getProperty(owlModel.getDataProperty_objectId()).getString();
-		return new Transformation(objectId);
+		String id = ind_transformation.getProperty(owlModel.getDataProperty_id()).getString();
+		return new Transformation(id);
 	}
 
 	@Override

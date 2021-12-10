@@ -19,7 +19,7 @@ public class LinkTransformationOWLSchema implements OWLSchema<LinkTransformation
 		String name = linkTransformation.getLinkName();
 		ind_linkTransformation.addLabel(String.format("Link transformation \"%s\"", name), "en");
 		ind_linkTransformation.addLabel(String.format("Трансформация связи \"%s\"", name), "ru");
-		ind_linkTransformation.addProperty(owlModel.getDataProperty_objectId(), linkTransformation.getObjectId());
+		ind_linkTransformation.addProperty(owlModel.getDataProperty_id(), linkTransformation.getId());
 		ind_linkTransformation.addProperty(owlModel.getDataProperty_name(), name);
 		String objectIdOld = linkTransformation.getLinkObjectId2Old();
 		if (objectIdOld != null) {
@@ -34,12 +34,12 @@ public class LinkTransformationOWLSchema implements OWLSchema<LinkTransformation
 
 	@Override
 	public LinkTransformation parse(Individual ind_linkTransformation) {
-		String objectId = ind_linkTransformation.getProperty(owlModel.getDataProperty_objectId()).getString();
+		String id = ind_linkTransformation.getProperty(owlModel.getDataProperty_id()).getString();
 		String name = ind_linkTransformation.getProperty(owlModel.getDataProperty_name()).getString();
 		Statement oldValueProperty = ind_linkTransformation.getProperty(owlModel.getDataProperty_oldValue());
 		Statement newValueProperty = ind_linkTransformation.getProperty(owlModel.getDataProperty_newValue());
 		String oldValue = oldValueProperty == null ? null : oldValueProperty.getString();
 		String newValue = newValueProperty == null ? null : newValueProperty.getString();
-		return new LinkTransformation(objectId, name, oldValue, newValue);
+		return new LinkTransformation(id, name, oldValue, newValue);
 	}
 }

@@ -43,11 +43,11 @@ public class LinkTransformationXMLSchemaTest {
 
 		context.checking(new Expectations() {
 			{
-				oneOf(root_mock).getChildText("objectId");
-				will(returnValue("objectId"));
+				oneOf(root_mock).getChildText("id");
+				will(returnValue("l-id"));
 
 				oneOf(root_mock).getChildText("name");
-				will(returnValue("name"));
+				will(returnValue("l-name"));
 
 				oneOf(root_mock).getChildText("oldValue");
 				will(returnValue("oldValue"));
@@ -66,11 +66,11 @@ public class LinkTransformationXMLSchemaTest {
 
 		context.checking(new Expectations() {
 			{
-				oneOf(linkTransformation_mock).getObjectId();
-				will(returnValue("id"));
+				oneOf(linkTransformation_mock).getId();
+				will(returnValue("l-id"));
 
 				oneOf(linkTransformation_mock).getLinkName();
-				will(returnValue("name"));
+				will(returnValue("l-name"));
 
 				oneOf(linkTransformation_mock).getLinkObjectId2Old();
 				will(returnValue("old-link-value"));
@@ -81,8 +81,8 @@ public class LinkTransformationXMLSchemaTest {
 		});
 
 		Element element = testable.combine(linkTransformation_mock);
-		assertEquals("id", element.getChildText("objectId"));
-		assertEquals("name", element.getChildText("name"));
+		assertEquals("l-id", element.getChildText("id"));
+		assertEquals("l-name", element.getChildText("name"));
 		assertEquals("old-link-value", element.getChildText("oldValue"));
 		assertEquals("new-link-value", element.getChildText("newValue"));
 	}
@@ -93,11 +93,11 @@ public class LinkTransformationXMLSchemaTest {
 
 		context.checking(new Expectations() {
 			{
-				oneOf(linkTransformation_mock).getObjectId();
-				will(returnValue("id"));
+				oneOf(linkTransformation_mock).getId();
+				will(returnValue("l-id"));
 
 				oneOf(linkTransformation_mock).getLinkName();
-				will(returnValue("name"));
+				will(returnValue("l-name"));
 
 				oneOf(linkTransformation_mock).getLinkObjectId2Old();
 				will(returnValue("old-link-value"));
@@ -108,8 +108,8 @@ public class LinkTransformationXMLSchemaTest {
 		});
 
 		Element element = testable.combine(linkTransformation_mock);
-		assertEquals("id", element.getChildText("objectId"));
-		assertEquals("name", element.getChildText("name"));
+		assertEquals("l-id", element.getChildText("id"));
+		assertEquals("l-name", element.getChildText("name"));
 		assertEquals("old-link-value", element.getChildText("oldValue"));
 		assertNull(element.getChild("newValue"));
 	}
@@ -120,11 +120,11 @@ public class LinkTransformationXMLSchemaTest {
 
 		context.checking(new Expectations() {
 			{
-				oneOf(linkTransformation_mock).getObjectId();
-				will(returnValue("id"));
+				oneOf(linkTransformation_mock).getId();
+				will(returnValue("l-id"));
 
 				oneOf(linkTransformation_mock).getLinkName();
-				will(returnValue("name"));
+				will(returnValue("l-name"));
 
 				oneOf(linkTransformation_mock).getLinkObjectId2Old();
 				will(returnValue(null));
@@ -135,8 +135,8 @@ public class LinkTransformationXMLSchemaTest {
 		});
 
 		Element element = testable.combine(linkTransformation_mock);
-		assertEquals("id", element.getChildText("objectId"));
-		assertEquals("name", element.getChildText("name"));
+		assertEquals("l-id", element.getChildText("id"));
+		assertEquals("l-name", element.getChildText("name"));
 		assertNull(element.getChild("oldValue"));
 		assertEquals("new-link-value", element.getChildText("newValue"));
 	}

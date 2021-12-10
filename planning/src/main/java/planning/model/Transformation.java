@@ -2,16 +2,16 @@ package planning.model;
 
 public class Transformation {
 
-	private String objectId;
+	private String id;
 
-	public Transformation(String objectId) {
-		this.objectId = objectId;
+	public Transformation(String id) {
+		this.id = id;
 	}
 
 	public void applyTo(SystemVariant systemVariant) {
 	}
 
-	public String getObjectId() {
-		return objectId;
+	public String getId() {
+		return id;
 	}
 }

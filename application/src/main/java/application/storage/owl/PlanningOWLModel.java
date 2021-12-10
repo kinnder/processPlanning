@@ -188,8 +188,6 @@ public class PlanningOWLModel implements OWLModel {
 
 	static final String URI_Action = NS + "#Action";
 
-	static final String URI_objectId = NS + "#objectId";
-
 	static final String URI_oldValue = NS + "#oldValue";
 
 	static final String URI_newValue = NS + "#newValue";
@@ -419,7 +417,6 @@ public class PlanningOWLModel implements OWLModel {
 		createDataProperty_id1();
 		createDataProperty_id2();
 		createDataProperty_value();
-		createDataProperty_objectId();
 		createDataProperty_oldValue();
 		createDataProperty_newValue();
 		createDataProperty_number();
@@ -539,17 +536,6 @@ public class PlanningOWLModel implements OWLModel {
 		dataProperty_oldValue.addLabel("старое значение", "ru");
 		dataProperty_oldValue.addDomain(class_LinkTransformation);
 		dataProperty_oldValue.addRange(XSD.xstring);
-	}
-
-	private void createDataProperty_objectId() {
-		dataProperty_objectId = m.createDatatypeProperty(URI_objectId);
-		dataProperty_objectId.addLabel("objectId", "en");
-		dataProperty_objectId.addLabel("идентификатор объекта", "ru");
-		dataProperty_objectId.addDomain(class_AttributeTransformation);
-		dataProperty_objectId.addDomain(class_LinkTransformation);
-		dataProperty_objectId.addDomain(class_Transformation);
-		dataProperty_objectId.addDomain(class_ObjectTemplate);
-		dataProperty_objectId.addRange(XSD.xstring);
 	}
 
 	private void createObjectProperty_isLineOf() {
@@ -931,6 +917,10 @@ public class PlanningOWLModel implements OWLModel {
 		dataProperty_id.addDomain(class_Edge);
 		dataProperty_id.addDomain(class_Node);
 		dataProperty_id.addDomain(class_SystemObject);
+		dataProperty_id.addDomain(class_AttributeTransformation);
+		dataProperty_id.addDomain(class_LinkTransformation);
+		dataProperty_id.addDomain(class_Transformation);
+		dataProperty_id.addDomain(class_ObjectTemplate);
 		dataProperty_id.addRange(XSD.xstring);
 	}
 
@@ -1312,7 +1302,6 @@ public class PlanningOWLModel implements OWLModel {
 		dataProperty_name = m.getDatatypeProperty(URI_name);
 		dataProperty_newValue = m.getDatatypeProperty(URI_newValue);
 		dataProperty_number = m.getDatatypeProperty(URI_number);
-		dataProperty_objectId = m.getDatatypeProperty(URI_objectId);
 		dataProperty_id1 = m.getDatatypeProperty(URI_id1);
 		dataProperty_id2 = m.getDatatypeProperty(URI_id2);
 		dataProperty_oldValue = m.getDatatypeProperty(URI_oldValue);
@@ -1920,12 +1909,6 @@ public class PlanningOWLModel implements OWLModel {
 
 	public DatatypeProperty getDataProperty_name() {
 		return dataProperty_name;
-	}
-
-	private DatatypeProperty dataProperty_objectId;
-
-	public DatatypeProperty getDataProperty_objectId() {
-		return dataProperty_objectId;
 	}
 
 	private DatatypeProperty dataProperty_value;

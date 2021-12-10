@@ -13,20 +13,20 @@ public class SystemObjectTemplate {
 
 	private Map<String, AttributeTemplate> attributeTemplates = new HashMap<>();
 
-	private String objectId;
+	private String id;
 
 	public String getId() {
-		return objectId;
+		return id;
 	}
 
 	public Set<String> getIds() {
-		Set<String> objectIds = new HashSet<>();
-		objectIds.add(objectId);
-		return objectIds;
+		Set<String> ids = new HashSet<>();
+		ids.add(id);
+		return ids;
 	}
 
-	public SystemObjectTemplate(String objectId) {
-		this.objectId = objectId;
+	public SystemObjectTemplate(String id) {
+		this.id = id;
 	}
 
 	public void addAttributeTemplate(AttributeTemplate attributeTemplate) {

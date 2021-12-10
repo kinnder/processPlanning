@@ -221,8 +221,8 @@ public class NodeNetworkOWLSchemaTest {
 		owlSchema.combine(nodeNetwork);
 		OntModel model = owlModel.getOntologyModel();
 		assertNotNull(model);
-		assertEquals(516, model.listObjects().toList().size());
-		assertEquals(2551, model.listStatements().toList().size());
+		assertEquals(514, model.listObjects().toList().size());
+		assertEquals(2593, model.listStatements().toList().size());
 	}
 
 	@Test

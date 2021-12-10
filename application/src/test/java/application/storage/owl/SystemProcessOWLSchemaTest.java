@@ -154,8 +154,8 @@ public class SystemProcessOWLSchemaTest {
 		owlSchema.combine(systemProcess);
 		OntModel model = owlModel.getOntologyModel();
 		assertNotNull(model);
-		assertEquals(334, model.listObjects().toList().size());
-		assertEquals(968, model.listStatements().toList().size());
+		assertEquals(332, model.listObjects().toList().size());
+		assertEquals(962, model.listStatements().toList().size());
 	}
 
 	@Test

@@ -53,11 +53,11 @@ public class AttributeTransformationXMLSchemaTest {
 
 		context.checking(new Expectations() {
 			{
-				oneOf(root_mock).getChildText("objectId");
-				will(returnValue("objectId"));
+				oneOf(root_mock).getChildText("id");
+				will(returnValue("a-id"));
 
 				oneOf(root_mock).getChildText("name");
-				will(returnValue("name"));
+				will(returnValue("a-name"));
 
 				oneOf(valueXMLSchema_mock).getSchemaName();
 				will(returnValue("value"));
@@ -81,11 +81,11 @@ public class AttributeTransformationXMLSchemaTest {
 
 		context.checking(new Expectations() {
 			{
-				oneOf(attributeTransformation_mock).getObjectId();
-				will(returnValue("id"));
+				oneOf(attributeTransformation_mock).getId();
+				will(returnValue("a-id"));
 
 				oneOf(attributeTransformation_mock).getAttributeName();
-				will(returnValue("name"));
+				will(returnValue("a-name"));
 
 				oneOf(attributeTransformation_mock).getAttributeValue();
 				will(returnValue(value_mock));
@@ -96,8 +96,8 @@ public class AttributeTransformationXMLSchemaTest {
 		});
 
 		Element element = testable.combine(attributeTransformation_mock);
-		assertEquals("id", element.getChildText("objectId"));
-		assertEquals("name", element.getChildText("name"));
+		assertEquals("a-id", element.getChildText("id"));
+		assertEquals("a-name", element.getChildText("name"));
 		assertEquals(value, element.getChild("value"));
 	}
 

@@ -9,7 +9,7 @@ public class AttributeTransformationXMLSchema implements XMLSchema<AttributeTran
 
 	final private static String TAG_attributeTransformation = "attributeTransformation";
 
-	final private static String TAG_objectId = "objectId";
+	final private static String TAG_id = "id";
 
 	final private static String TAG_name = "name";
 
@@ -30,21 +30,21 @@ public class AttributeTransformationXMLSchema implements XMLSchema<AttributeTran
 
 	@Override
 	public AttributeTransformation parse(Element root) throws DataConversionException {
-		String objectId = root.getChildText(TAG_objectId);
+		String id = root.getChildText(TAG_id);
 		String name = root.getChildText(TAG_name);
 		Object value = valueXMLSchema.parse(root.getChild(valueXMLSchema.getSchemaName()));
-		return new AttributeTransformation(objectId, name, value);
+		return new AttributeTransformation(id, name, value);
 	}
 
 	@Override
 	public Element combine(AttributeTransformation transformation) {
-		Element objectId = new Element(TAG_objectId);
-		objectId.setText(transformation.getObjectId());
+		Element id = new Element(TAG_id);
+		id.setText(transformation.getId());
 		Element name = new Element(TAG_name);
 		name.setText(transformation.getAttributeName());
 		Element value = valueXMLSchema.combine(transformation.getAttributeValue());
 		Element root = new Element(TAG_attributeTransformation);
-		root.addContent(objectId);
+		root.addContent(id);
 		root.addContent(name);
 		root.addContent(value);
 		return root;

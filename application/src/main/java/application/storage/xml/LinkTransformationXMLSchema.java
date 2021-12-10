@@ -9,7 +9,7 @@ public class LinkTransformationXMLSchema implements XMLSchema<LinkTransformation
 
 	final private static String TAG_linkTransformation = "linkTransformation";
 
-	final private static String TAG_objectId = "objectId";
+	final private static String TAG_id = "id";
 
 	final private static String TAG_name = "name";
 
@@ -24,19 +24,19 @@ public class LinkTransformationXMLSchema implements XMLSchema<LinkTransformation
 
 	@Override
 	public LinkTransformation parse(Element root) throws DataConversionException {
-		String objectId = root.getChildText(TAG_objectId);
+		String id = root.getChildText(TAG_id);
 		String name = root.getChildText(TAG_name);
 		String oldValue = root.getChildText(TAG_oldValue);
 		String newValue = root.getChildText(TAG_newValue);
-		return new LinkTransformation(objectId, name, oldValue, newValue);
+		return new LinkTransformation(id, name, oldValue, newValue);
 	}
 
 	@Override
 	public Element combine(LinkTransformation transformation) {
 		Element root = new Element(TAG_linkTransformation);
-		Element objectId = new Element(TAG_objectId);
-		objectId.setText(transformation.getObjectId());
-		root.addContent(objectId);
+		Element id = new Element(TAG_id);
+		id.setText(transformation.getId());
+		root.addContent(id);
 		Element name = new Element(TAG_name);
 		name.setText(transformation.getLinkName());
 		root.addContent(name);

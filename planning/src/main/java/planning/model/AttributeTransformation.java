@@ -6,15 +6,15 @@ public class AttributeTransformation extends Transformation {
 
 	private Object attributeValue;
 
-	public AttributeTransformation(String objectId, String attributeName, Object attributeValue) {
-		super(objectId);
+	public AttributeTransformation(String id, String attributeName, Object attributeValue) {
+		super(id);
 		this.attributeName = attributeName;
 		this.attributeValue = attributeValue;
 	}
 
 	@Override
 	public void applyTo(SystemVariant systemVariant) {
-		SystemObject object = systemVariant.getObjectByIdMatch(getObjectId());
+		SystemObject object = systemVariant.getObjectByIdMatch(getId());
 		Attribute attribute = object.getAttribute(attributeName);
 		attribute.setValue(attributeValue);
 	}

@@ -159,8 +159,8 @@ public class SystemTransformationsOWLSchemaTest {
 
 		OntModel model = owlModel.getOntologyModel();
 		assertNotNull(model);
-		assertEquals(402, model.listObjects().toList().size());
-		assertEquals(1279, model.listStatements().toList().size());
+		assertEquals(400, model.listObjects().toList().size());
+		assertEquals(1291, model.listStatements().toList().size());
 	}
 
 	@Test
