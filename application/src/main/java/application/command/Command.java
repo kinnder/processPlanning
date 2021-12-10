@@ -1,5 +1,7 @@
 package application.command;
 
+import org.slf4j.LoggerFactory;
+
 import application.Application;
 import application.event.CommandStatusEvent;
 
@@ -24,8 +26,8 @@ public abstract class Command {
 			execute(data);
 			application.notifyCommandStatus(new CommandStatusEvent("done"));
 		} catch (Exception e) {
-			application.notifyCommandStatus(new CommandStatusEvent(e.toString()));
 			application.notifyCommandStatus(new CommandStatusEvent("error"));
+			LoggerFactory.getLogger(getClass()).error("", e);
 		}
 	}
 

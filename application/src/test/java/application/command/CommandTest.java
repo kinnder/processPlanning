@@ -91,9 +91,6 @@ public class CommandTest {
 				// execute
 
 				oneOf(application_mock).notifyCommandStatus(
-						with(new CommandStatusEventMatcher().expectMessage("java.lang.Exception: runtime exception")));
-
-				oneOf(application_mock).notifyCommandStatus(
 						with(new CommandStatusEventMatcher().expectMessage("error")));
 			}
 		});
