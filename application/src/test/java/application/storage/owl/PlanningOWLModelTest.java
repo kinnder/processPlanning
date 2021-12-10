@@ -96,11 +96,11 @@ public class PlanningOWLModelTest {
 		assertEquals(PlanningOWLModel.URI_id, testable.getDataProperty_id().getURI());
 		assertEquals(PlanningOWLModel.URI_key, testable.getDataProperty_key().getURI());
 		assertEquals(PlanningOWLModel.URI_name, testable.getDataProperty_name().getURI());
-		assertEquals(PlanningOWLModel.URI_newValue, testable.getDataProperty_newValue().getURI());
+		assertEquals(PlanningOWLModel.URI_id2New, testable.getDataProperty_id2New().getURI());
 		assertEquals(PlanningOWLModel.URI_number, testable.getDataProperty_number().getURI());
 		assertEquals(PlanningOWLModel.URI_id1, testable.getDataProperty_id1().getURI());
 		assertEquals(PlanningOWLModel.URI_id2, testable.getDataProperty_id2().getURI());
-		assertEquals(PlanningOWLModel.URI_oldValue, testable.getDataProperty_oldValue().getURI());
+		assertEquals(PlanningOWLModel.URI_id2Old, testable.getDataProperty_id2Old().getURI());
 		assertEquals(PlanningOWLModel.URI_text, testable.getDataProperty_text().getURI());
 		assertEquals(PlanningOWLModel.URI_value, testable.getDataProperty_value().getURI());
 
@@ -208,11 +208,11 @@ public class PlanningOWLModelTest {
 		assertEquals(PlanningOWLModel.URI_id, testable.getDataProperty_id().getURI());
 		assertEquals(PlanningOWLModel.URI_key, testable.getDataProperty_key().getURI());
 		assertEquals(PlanningOWLModel.URI_name, testable.getDataProperty_name().getURI());
-		assertEquals(PlanningOWLModel.URI_newValue, testable.getDataProperty_newValue().getURI());
+		assertEquals(PlanningOWLModel.URI_id2New, testable.getDataProperty_id2New().getURI());
 		assertEquals(PlanningOWLModel.URI_number, testable.getDataProperty_number().getURI());
 		assertEquals(PlanningOWLModel.URI_id1, testable.getDataProperty_id1().getURI());
 		assertEquals(PlanningOWLModel.URI_id2, testable.getDataProperty_id2().getURI());
-		assertEquals(PlanningOWLModel.URI_oldValue, testable.getDataProperty_oldValue().getURI());
+		assertEquals(PlanningOWLModel.URI_id2Old, testable.getDataProperty_id2Old().getURI());
 		assertEquals(PlanningOWLModel.URI_text, testable.getDataProperty_text().getURI());
 		assertEquals(PlanningOWLModel.URI_value, testable.getDataProperty_value().getURI());
 

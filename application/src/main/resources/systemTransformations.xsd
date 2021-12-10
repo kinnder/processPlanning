@@ -88,11 +88,13 @@
 			<xs:sequence>
 				<xs:element ref="id" />
 				<xs:element ref="name" />
-				<xs:element name="oldValue" type="xs:string" minOccurs="0" />
-				<xs:element name="newValue" type="xs:string" minOccurs="0" />
+				<xs:element ref="id2Old" minOccurs="0" />
+				<xs:element ref="id2New" minOccurs="0" />
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
+	<xs:element name="id2Old" type="xs:string" />
+	<xs:element name="id2New" type="xs:string" />
 	<xs:element name="attributeTransformation">
 		<xs:complexType>
 			<xs:sequence>

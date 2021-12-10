@@ -13,9 +13,9 @@ public class LinkTransformationXMLSchema implements XMLSchema<LinkTransformation
 
 	final private static String TAG_name = "name";
 
-	final private static String TAG_oldValue = "oldValue";
+	final private static String TAG_id2Old = "id2Old";
 
-	final private static String TAG_newValue = "newValue";
+	final private static String TAG_id2New = "id2New";
 
 	@Override
 	public String getSchemaName() {
@@ -26,9 +26,9 @@ public class LinkTransformationXMLSchema implements XMLSchema<LinkTransformation
 	public LinkTransformation parse(Element root) throws DataConversionException {
 		String id = root.getChildText(TAG_id);
 		String name = root.getChildText(TAG_name);
-		String oldValue = root.getChildText(TAG_oldValue);
-		String newValue = root.getChildText(TAG_newValue);
-		return new LinkTransformation(id, name, oldValue, newValue);
+		String id2Old = root.getChildText(TAG_id2Old);
+		String id2New = root.getChildText(TAG_id2New);
+		return new LinkTransformation(id, name, id2Old, id2New);
 	}
 
 	@Override
@@ -41,15 +41,15 @@ public class LinkTransformationXMLSchema implements XMLSchema<LinkTransformation
 		name.setText(transformation.getLinkName());
 		root.addContent(name);
 		String value;
-		value = transformation.getLinkObjectId2Old();
+		value = transformation.getId2Old();
 		if (value != null) {
-			Element element = new Element(TAG_oldValue);
+			Element element = new Element(TAG_id2Old);
 			element.setText(value);
 			root.addContent(element);
 		}
-		value = transformation.getLinkObjectId2New();
+		value = transformation.getId2New();
 		if (value != null) {
-			Element element = new Element(TAG_newValue);
+			Element element = new Element(TAG_id2New);
 			element.setText(value);
 			root.addContent(element);
 		}

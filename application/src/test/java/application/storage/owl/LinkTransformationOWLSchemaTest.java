@@ -47,8 +47,8 @@ public class LinkTransformationOWLSchemaTest {
 		final Individual i_linkTransformation_mock = context.mock(Individual.class, "i-linkTransformation");
 		final DatatypeProperty dp_name_mock = context.mock(DatatypeProperty.class, "dp-name");
 		final DatatypeProperty dp_id_mock = context.mock(DatatypeProperty.class, "dp-id");
-		final DatatypeProperty dp_oldValue_mock = context.mock(DatatypeProperty.class, "dp-oldValue");
-		final DatatypeProperty dp_newValue_mock = context.mock(DatatypeProperty.class, "dp-newValue");
+		final DatatypeProperty dp_id2Old_mock = context.mock(DatatypeProperty.class, "dp-id2Old");
+		final DatatypeProperty dp_id2New_mock = context.mock(DatatypeProperty.class, "dp-id2New");
 
 		context.checking(new Expectations() {
 			{
@@ -69,15 +69,15 @@ public class LinkTransformationOWLSchemaTest {
 
 				oneOf(i_linkTransformation_mock).addProperty(dp_name_mock, "link-name");
 
-				oneOf(owlModel_mock).getDataProperty_oldValue();
-				will(returnValue(dp_oldValue_mock));
+				oneOf(owlModel_mock).getDataProperty_id2Old();
+				will(returnValue(dp_id2Old_mock));
 
-				oneOf(i_linkTransformation_mock).addProperty(dp_oldValue_mock, "link-id-old");
+				oneOf(i_linkTransformation_mock).addProperty(dp_id2Old_mock, "link-id-old");
 
-				oneOf(owlModel_mock).getDataProperty_newValue();
-				will(returnValue(dp_newValue_mock));
+				oneOf(owlModel_mock).getDataProperty_id2New();
+				will(returnValue(dp_id2New_mock));
 
-				oneOf(i_linkTransformation_mock).addProperty(dp_newValue_mock, "link-id-new");
+				oneOf(i_linkTransformation_mock).addProperty(dp_id2New_mock, "link-id-new");
 			}
 		});
 
@@ -120,12 +120,12 @@ public class LinkTransformationOWLSchemaTest {
 		final Individual i_linkTransformation_mock = context.mock(Individual.class, "i-linkTransformation");
 		final DatatypeProperty dp_name_mock = context.mock(DatatypeProperty.class, "dp-name");
 		final DatatypeProperty dp_id_mock = context.mock(DatatypeProperty.class, "dp-id");
-		final DatatypeProperty dp_oldValue_mock = context.mock(DatatypeProperty.class, "dp-oldValue");
-		final DatatypeProperty dp_newValue_mock = context.mock(DatatypeProperty.class, "dp-newValue");
+		final DatatypeProperty dp_id2Old_mock = context.mock(DatatypeProperty.class, "dp-id2Old");
+		final DatatypeProperty dp_id2New_mock = context.mock(DatatypeProperty.class, "dp-id2New");
 		final Statement st_name_mock = context.mock(Statement.class, "st-name");
 		final Statement st_id_mock = context.mock(Statement.class, "st-id");
-		final Statement st_oldValue_mock = context.mock(Statement.class, "st-oldValue");
-		final Statement st_newValue_mock = context.mock(Statement.class, "st-newValue");
+		final Statement st_id2Old_mock = context.mock(Statement.class, "st-id2Old");
+		final Statement st_id2New_mock = context.mock(Statement.class, "st-id2New");
 
 		context.checking(new Expectations() {
 			{
@@ -147,22 +147,22 @@ public class LinkTransformationOWLSchemaTest {
 				oneOf(st_name_mock).getString();
 				will(returnValue("link-name"));
 
-				oneOf(owlModel_mock).getDataProperty_oldValue();
-				will(returnValue(dp_oldValue_mock));
+				oneOf(owlModel_mock).getDataProperty_id2Old();
+				will(returnValue(dp_id2Old_mock));
 
-				oneOf(i_linkTransformation_mock).getProperty(dp_oldValue_mock);
-				will(returnValue(st_oldValue_mock));
+				oneOf(i_linkTransformation_mock).getProperty(dp_id2Old_mock);
+				will(returnValue(st_id2Old_mock));
 
-				oneOf(st_oldValue_mock).getString();
+				oneOf(st_id2Old_mock).getString();
 				will(returnValue("link-id-old"));
 
-				oneOf(owlModel_mock).getDataProperty_newValue();
-				will(returnValue(dp_newValue_mock));
+				oneOf(owlModel_mock).getDataProperty_id2New();
+				will(returnValue(dp_id2New_mock));
 
-				oneOf(i_linkTransformation_mock).getProperty(dp_newValue_mock);
-				will(returnValue(st_newValue_mock));
+				oneOf(i_linkTransformation_mock).getProperty(dp_id2New_mock);
+				will(returnValue(st_id2New_mock));
 
-				oneOf(st_newValue_mock).getString();
+				oneOf(st_id2New_mock).getString();
 				will(returnValue("link-id-new"));
 			}
 		});
@@ -170,8 +170,8 @@ public class LinkTransformationOWLSchemaTest {
 		LinkTransformation result = testable.parse(i_linkTransformation_mock);
 		assertEquals("link-name", result.getLinkName());
 		assertEquals("link-id", result.getId());
-		assertEquals("link-id-old", result.getLinkObjectId2Old());
-		assertEquals("link-id-new", result.getLinkObjectId2New());
+		assertEquals("link-id-old", result.getId2Old());
+		assertEquals("link-id-new", result.getId2New());
 	}
 
 	@Test
@@ -179,8 +179,8 @@ public class LinkTransformationOWLSchemaTest {
 		final Individual i_linkTransformation_mock = context.mock(Individual.class, "i-linkTransformation");
 		final DatatypeProperty dp_name_mock = context.mock(DatatypeProperty.class, "dp-name");
 		final DatatypeProperty dp_id_mock = context.mock(DatatypeProperty.class, "dp-id");
-		final DatatypeProperty dp_oldValue_mock = context.mock(DatatypeProperty.class, "dp-oldValue");
-		final DatatypeProperty dp_newValue_mock = context.mock(DatatypeProperty.class, "dp-newValue");
+		final DatatypeProperty dp_id2Old_mock = context.mock(DatatypeProperty.class, "dp-id2Old");
+		final DatatypeProperty dp_id2New_mock = context.mock(DatatypeProperty.class, "dp-id2New");
 		final Statement st_name_mock = context.mock(Statement.class, "st-name");
 		final Statement st_id_mock = context.mock(Statement.class, "st-id");
 
@@ -204,16 +204,16 @@ public class LinkTransformationOWLSchemaTest {
 				oneOf(st_name_mock).getString();
 				will(returnValue("link-name"));
 
-				oneOf(owlModel_mock).getDataProperty_oldValue();
-				will(returnValue(dp_oldValue_mock));
+				oneOf(owlModel_mock).getDataProperty_id2Old();
+				will(returnValue(dp_id2Old_mock));
 
-				oneOf(i_linkTransformation_mock).getProperty(dp_oldValue_mock);
+				oneOf(i_linkTransformation_mock).getProperty(dp_id2Old_mock);
 				will(returnValue(null));
 
-				oneOf(owlModel_mock).getDataProperty_newValue();
-				will(returnValue(dp_newValue_mock));
+				oneOf(owlModel_mock).getDataProperty_id2New();
+				will(returnValue(dp_id2New_mock));
 
-				oneOf(i_linkTransformation_mock).getProperty(dp_newValue_mock);
+				oneOf(i_linkTransformation_mock).getProperty(dp_id2New_mock);
 				will(returnValue(null));
 			}
 		});
@@ -221,7 +221,7 @@ public class LinkTransformationOWLSchemaTest {
 		LinkTransformation result = testable.parse(i_linkTransformation_mock);
 		assertEquals("link-name", result.getLinkName());
 		assertEquals("link-id", result.getId());
-		assertNull(result.getLinkObjectId2Old());
-		assertNull(result.getLinkObjectId2New());
+		assertNull(result.getId2Old());
+		assertNull(result.getId2New());
 	}
 }

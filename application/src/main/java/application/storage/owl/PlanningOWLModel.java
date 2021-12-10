@@ -188,9 +188,9 @@ public class PlanningOWLModel implements OWLModel {
 
 	static final String URI_Action = NS + "#Action";
 
-	static final String URI_oldValue = NS + "#oldValue";
+	static final String URI_id2Old = NS + "#id2Old";
 
-	static final String URI_newValue = NS + "#newValue";
+	static final String URI_id2New = NS + "#id2New";
 
 	static final String URI_text = NS + "#text";
 
@@ -417,8 +417,8 @@ public class PlanningOWLModel implements OWLModel {
 		createDataProperty_id1();
 		createDataProperty_id2();
 		createDataProperty_value();
-		createDataProperty_oldValue();
-		createDataProperty_newValue();
+		createDataProperty_id2Old();
+		createDataProperty_id2New();
 		createDataProperty_number();
 		createDataProperty_text();
 	}
@@ -522,20 +522,20 @@ public class PlanningOWLModel implements OWLModel {
 		dataProperty_number.addRange(XSD.integer);
 	}
 
-	private void createDataProperty_newValue() {
-		dataProperty_newValue = m.createDatatypeProperty(URI_newValue);
-		dataProperty_newValue.addLabel("new value", "en");
-		dataProperty_newValue.addLabel("новое значение", "ru");
-		dataProperty_newValue.addDomain(class_LinkTransformation);
-		dataProperty_newValue.addRange(XSD.xstring);
+	private void createDataProperty_id2New() {
+		dataProperty_id2New = m.createDatatypeProperty(URI_id2New);
+		dataProperty_id2New.addLabel("id2 new", "en");
+		dataProperty_id2New.addLabel("id2 новое", "ru");
+		dataProperty_id2New.addDomain(class_LinkTransformation);
+		dataProperty_id2New.addRange(XSD.xstring);
 	}
 
-	private void createDataProperty_oldValue() {
-		dataProperty_oldValue = m.createDatatypeProperty(URI_oldValue);
-		dataProperty_oldValue.addLabel("old value", "en");
-		dataProperty_oldValue.addLabel("старое значение", "ru");
-		dataProperty_oldValue.addDomain(class_LinkTransformation);
-		dataProperty_oldValue.addRange(XSD.xstring);
+	private void createDataProperty_id2Old() {
+		dataProperty_id2Old = m.createDatatypeProperty(URI_id2Old);
+		dataProperty_id2Old.addLabel("id2 old", "en");
+		dataProperty_id2Old.addLabel("id2 старое", "ru");
+		dataProperty_id2Old.addDomain(class_LinkTransformation);
+		dataProperty_id2Old.addRange(XSD.xstring);
 	}
 
 	private void createObjectProperty_isLineOf() {
@@ -1300,11 +1300,11 @@ public class PlanningOWLModel implements OWLModel {
 		dataProperty_id = m.getDatatypeProperty(URI_id);
 		dataProperty_key = m.getDatatypeProperty(URI_key);
 		dataProperty_name = m.getDatatypeProperty(URI_name);
-		dataProperty_newValue = m.getDatatypeProperty(URI_newValue);
+		dataProperty_id2New = m.getDatatypeProperty(URI_id2New);
 		dataProperty_number = m.getDatatypeProperty(URI_number);
 		dataProperty_id1 = m.getDatatypeProperty(URI_id1);
 		dataProperty_id2 = m.getDatatypeProperty(URI_id2);
-		dataProperty_oldValue = m.getDatatypeProperty(URI_oldValue);
+		dataProperty_id2Old = m.getDatatypeProperty(URI_id2Old);
 		dataProperty_text = m.getDatatypeProperty(URI_text);
 		dataProperty_value = m.getDatatypeProperty(URI_value);
 	}
@@ -1929,16 +1929,16 @@ public class PlanningOWLModel implements OWLModel {
 		return dataProperty_id2;
 	}
 
-	private DatatypeProperty dataProperty_oldValue;
+	private DatatypeProperty dataProperty_id2Old;
 
-	public DatatypeProperty getDataProperty_oldValue() {
-		return dataProperty_oldValue;
+	public DatatypeProperty getDataProperty_id2Old() {
+		return dataProperty_id2Old;
 	}
 
-	private DatatypeProperty dataProperty_newValue;
+	private DatatypeProperty dataProperty_id2New;
 
-	public DatatypeProperty getDataProperty_newValue() {
-		return dataProperty_newValue;
+	public DatatypeProperty getDataProperty_id2New() {
+		return dataProperty_id2New;
 	}
 
 	private DatatypeProperty dataProperty_number;

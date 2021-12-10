@@ -71,12 +71,17 @@ public class LinkTransformationTest {
 	}
 
 	@Test
-	public void getLinkObjectId2New() {
-		assertEquals("link-new-value", testable.getLinkObjectId2New());
+	public void getId1() {
+		assertEquals("id-template", testable.getId1());
 	}
 
 	@Test
-	public void getLinkObjectId2Old() {
-		assertEquals("link-old-value", testable.getLinkObjectId2Old());
+	public void getId2New() {
+		assertEquals("link-new-value", testable.getId2New());
+	}
+
+	@Test
+	public void getId2Old() {
+		assertEquals("link-old-value", testable.getId2Old());
 	}
 }
