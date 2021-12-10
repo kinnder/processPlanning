@@ -14,7 +14,7 @@
 	<xs:element name="systemTransformation">
 		<xs:complexType>
 			<xs:sequence>
-				<xs:element name="name" type="xs:string" />
+				<xs:element ref="name" />
 				<xs:element ref="systemTemplate" />
 				<xs:element ref="transformations" />
 				<xs:element ref="action" />
@@ -32,7 +32,7 @@
 	<xs:element name="objectTemplate">
 		<xs:complexType>
 			<xs:sequence>
-				<xs:element name="objectId" type="xs:string" />
+				<xs:element ref="objectId" />
 				<xs:element ref="attributeTemplate" minOccurs="0" maxOccurs="unbounded" />
 			</xs:sequence>
 		</xs:complexType>
@@ -40,11 +40,15 @@
 	<xs:element name="attributeTemplate">
 		<xs:complexType>
 			<xs:sequence>
-				<xs:element name="name" type="xs:string" />
+				<xs:element ref="name" />
 				<xs:element ref="value" minOccurs="0" />
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
+	<xs:element name="name" type="xs:string" />
+	<xs:element name="objectId" type="xs:string" />
+	<xs:element name="id1" type="xs:string" />
+	<xs:element name="id2" type="xs:string" />
 	<xs:element name="value">
 		<xs:complexType>
 			<xs:simpleContent>
@@ -65,9 +69,9 @@
 	<xs:element name="linkTemplate">
 		<xs:complexType>
 			<xs:sequence>
-				<xs:element name="name" type="xs:string" />
-				<xs:element name="id1" type="xs:string" minOccurs="0" />
-				<xs:element name="id2" type="xs:string" minOccurs="0" />
+				<xs:element ref="name" />
+				<xs:element ref="id1" minOccurs="0" />
+				<xs:element ref="id2" minOccurs="0" />
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
@@ -82,8 +86,8 @@
 	<xs:element name="linkTransformation">
 		<xs:complexType>
 			<xs:sequence>
-				<xs:element name="objectId" type="xs:string" />
-				<xs:element name="name" type="xs:string" />
+				<xs:element ref="objectId" />
+				<xs:element ref="name" />
 				<xs:element name="oldValue" type="xs:string" minOccurs="0" />
 				<xs:element name="newValue" type="xs:string" minOccurs="0" />
 			</xs:sequence>
@@ -92,8 +96,8 @@
 	<xs:element name="attributeTransformation">
 		<xs:complexType>
 			<xs:sequence>
-				<xs:element name="objectId" type="xs:string" />
-				<xs:element name="name" type="xs:string" />
+				<xs:element ref="objectId" />
+				<xs:element ref="name" />
 				<xs:element ref="value" />
 			</xs:sequence>
 		</xs:complexType>
@@ -101,7 +105,7 @@
 	<xs:element name="action">
 		<xs:complexType>
 			<xs:sequence>
-				<xs:element name="name" type="xs:string" />
+				<xs:element ref="name" />
 				<xs:element ref="actionFunction" minOccurs="0" maxOccurs="unbounded" />
 			</xs:sequence>
 		</xs:complexType>
@@ -109,9 +113,9 @@
 	<xs:element name="actionFunction">
 		<xs:complexType>
 			<xs:sequence>
-				<xs:element maxOccurs="unbounded" ref="line" />
+				<xs:element ref="line" maxOccurs="unbounded" />
 			</xs:sequence>
-			<xs:attribute name="functionType" use="required" type="xs:NCName" />
+			<xs:attribute name="functionType" type="xs:NCName" use="required" />
 		</xs:complexType>
 	</xs:element>
 	<xs:element name="line">

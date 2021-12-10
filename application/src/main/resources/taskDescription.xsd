@@ -30,8 +30,8 @@
 	<xs:element name="systemObject">
 		<xs:complexType>
 			<xs:sequence>
-				<xs:element name="name" type="xs:string" />
-				<xs:element name="id" type="xs:string" />
+				<xs:element ref="name" />
+				<xs:element ref="id" />
 				<xs:element ref="attribute" minOccurs="0" maxOccurs="unbounded" />
 			</xs:sequence>
 		</xs:complexType>
@@ -39,7 +39,7 @@
 	<xs:element name="attribute">
 		<xs:complexType>
 			<xs:sequence>
-				<xs:element name="name" type="xs:string" />
+				<xs:element ref="name" />
 				<xs:element ref="value" />
 			</xs:sequence>
 		</xs:complexType>
@@ -64,10 +64,14 @@
 	<xs:element name="link">
 		<xs:complexType>
 			<xs:sequence>
-				<xs:element name="name" type="xs:string" />
-				<xs:element name="id1" type="xs:string" minOccurs="0" />
-				<xs:element name="id2" type="xs:string" minOccurs="0" />
+				<xs:element ref="name" />
+				<xs:element ref="id1" minOccurs="0" />
+				<xs:element ref="id2" minOccurs="0" />
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
+	<xs:element name="name" type="xs:string" />
+	<xs:element name="id" type="xs:string" />
+	<xs:element name="id1" type="xs:string" />
+	<xs:element name="id2" type="xs:string" />
 </xs:schema>

@@ -7,8 +7,8 @@
 	<xs:element name="nodeNetwork">
 		<xs:complexType>
 			<xs:sequence>
-				<xs:element maxOccurs="unbounded" ref="node" />
-				<xs:element maxOccurs="unbounded" ref="edge" />
+				<xs:element ref="node" maxOccurs="unbounded" />
+				<xs:element ref="edge" maxOccurs="unbounded" />
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
@@ -25,8 +25,8 @@
 	<xs:element name="system">
 		<xs:complexType>
 			<xs:sequence>
-				<xs:element maxOccurs="unbounded" ref="systemObject" />
-				<xs:element maxOccurs="unbounded" ref="link" />
+				<xs:element ref="systemObject" maxOccurs="unbounded" />
+				<xs:element ref="link" maxOccurs="unbounded" />
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
@@ -35,7 +35,7 @@
 			<xs:sequence>
 				<xs:element ref="name" />
 				<xs:element ref="id" />
-				<xs:element minOccurs="0" maxOccurs="unbounded" ref="attribute" />
+				<xs:element ref="attribute" minOccurs="0" maxOccurs="unbounded" />
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
@@ -51,8 +51,8 @@
 		<xs:complexType>
 			<xs:sequence>
 				<xs:element ref="name" />
-				<xs:element name="id1" type="xs:string" />
-				<xs:element name="id2" type="xs:string" minOccurs="0" />
+				<xs:element ref="id1" />
+				<xs:element ref="id2" minOccurs="0" />
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
@@ -60,8 +60,8 @@
 		<xs:complexType>
 			<xs:sequence>
 				<xs:element ref="id" />
-				<xs:element name="beginNodeId" type="xs:string" />
-				<xs:element name="endNodeId" type="xs:string" />
+				<xs:element ref="beginNodeId" />
+				<xs:element ref="endNodeId" />
 				<xs:element ref="operation" />
 			</xs:sequence>
 		</xs:complexType>
@@ -77,7 +77,7 @@
 	<xs:element name="parameters">
 		<xs:complexType>
 			<xs:sequence>
-				<xs:element minOccurs="0" maxOccurs="unbounded" ref="parameter" />
+				<xs:element ref="parameter" minOccurs="0" maxOccurs="unbounded" />
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
@@ -90,6 +90,10 @@
 		</xs:complexType>
 	</xs:element>
 	<xs:element name="id" type="xs:string" />
+	<xs:element name="id1" type="xs:string" />
+	<xs:element name="id2" type="xs:string" />
+	<xs:element name="beginNodeId" type="xs:string" />
+	<xs:element name="endNodeId" type="xs:string" />
 	<xs:element name="name" type="xs:NCName" />
 	<xs:element name="value">
 		<xs:complexType>
