@@ -41,6 +41,7 @@ public class ActionXMLSchema implements XMLSchema<Action> {
 		Action action = new Action(name);
 		List<Element> elements = root.getChildren(actionFunctionXMLSchema.getSchemaName());
 		for (Element element : elements) {
+			// TODO (2021-12-15 #50): добавить значения functionType в xsd-схему
 			ActionFunction actionFunction = actionFunctionXMLSchema.parse(element);
 			String functionType = element.getAttributeValue(TAG_functionType);
 			if (VALUE_preConditionChecker.equals(functionType)) {

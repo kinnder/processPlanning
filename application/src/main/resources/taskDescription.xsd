@@ -5,8 +5,10 @@
 	</xs:annotation>
 	<xs:element name="taskDescription">
 		<xs:annotation>
-			<xs:documentation>Задание на проектирование</xs:documentation>
-			<xs:documentation>Задание на проектирование состоит из описания начальной системы и описания конечной системы</xs:documentation>
+			<xs:documentation>Описание задания</xs:documentation>
+			<xs:documentation>Задание на проектирование состоит из описания
+				начальной системы и описания конечной системы
+			</xs:documentation>
 		</xs:annotation>
 		<xs:complexType>
 			<xs:sequence>
@@ -18,7 +20,9 @@
 	<xs:element name="initialSystem">
 		<xs:annotation>
 			<xs:documentation>Начальная система</xs:documentation>
-			<xs:documentation>Система состоит из множества объектов и связей между ними</xs:documentation>
+			<xs:documentation>Система состоит из множества объектов и связей
+				между ними
+			</xs:documentation>
 		</xs:annotation>
 		<xs:complexType>
 			<xs:sequence>
@@ -30,7 +34,9 @@
 	<xs:element name="finalSystem">
 		<xs:annotation>
 			<xs:documentation>Конечная система</xs:documentation>
-			<xs:documentation>Система состоит из множества объектов и связей между ними</xs:documentation>
+			<xs:documentation>Система состоит из множества объектов и связей
+				между ними
+			</xs:documentation>
 		</xs:annotation>
 		<xs:complexType>
 			<xs:sequence>
@@ -41,8 +47,10 @@
 	</xs:element>
 	<xs:element name="systemObject">
 		<xs:annotation>
-			<xs:documentation>Объект</xs:documentation>
-			<xs:documentation>Объект описывается уникальным идентификатором, именем и множеством его атрибутов</xs:documentation>
+			<xs:documentation>Объект системы</xs:documentation>
+			<xs:documentation>Объект описывается уникальным идентификатором,
+				именем и множеством его атрибутов
+			</xs:documentation>
 		</xs:annotation>
 		<xs:complexType>
 			<xs:sequence>
@@ -55,7 +63,8 @@
 	<xs:element name="attribute">
 		<xs:annotation>
 			<xs:documentation>Атрибут</xs:documentation>
-			<xs:documentation>Атрибут описывается парой имя и значение</xs:documentation>
+			<xs:documentation>Атрибут описывается парой имя и значение
+			</xs:documentation>
 		</xs:annotation>
 		<xs:complexType>
 			<xs:sequence>
@@ -67,7 +76,9 @@
 	<xs:element name="value">
 		<xs:annotation>
 			<xs:documentation>Значение</xs:documentation>
-			<xs:documentation>Значение состоит из текстового представления значения и типа данных из предложенного списка</xs:documentation>
+			<xs:documentation>Значение состоит из текстового представления
+				значения и типа данных из предложенного списка
+			</xs:documentation>
 		</xs:annotation>
 		<xs:complexType>
 			<xs:simpleContent>
@@ -88,7 +99,9 @@
 	<xs:element name="link">
 		<xs:annotation>
 			<xs:documentation>Связь</xs:documentation>
-			<xs:documentation>Связь описывается именем, а также двумя идентификаторами объектов, которые она связывает</xs:documentation>
+			<xs:documentation>Связь описывается именем, а также двумя
+				идентификаторами объектов, которые она связывает
+			</xs:documentation>
 		</xs:annotation>
 		<xs:complexType>
 			<xs:sequence>

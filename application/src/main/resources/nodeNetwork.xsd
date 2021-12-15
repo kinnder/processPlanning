@@ -5,6 +5,12 @@
 		<xs:documentation>www.freeformatter.com</xs:documentation>
 	</xs:annotation>
 	<xs:element name="nodeNetwork">
+		<xs:annotation>
+			<xs:documentation>Сеть узлов</xs:documentation>
+			<xs:documentation>Сеть узлов содержит дерево решений и состоит из
+				списка узлов и списка ребер
+			</xs:documentation>
+		</xs:annotation>
 		<xs:complexType>
 			<xs:sequence>
 				<xs:element ref="node" maxOccurs="unbounded" />
@@ -13,6 +19,12 @@
 		</xs:complexType>
 	</xs:element>
 	<xs:element name="node">
+		<xs:annotation>
+			<xs:documentation>Узел</xs:documentation>
+			<xs:documentation>Узел определяется уникальным идентификатором,
+				флагом состоянием - проверен и системой
+			</xs:documentation>
+		</xs:annotation>
 		<xs:complexType>
 			<xs:sequence>
 				<xs:element ref="id" />
@@ -23,6 +35,12 @@
 	</xs:element>
 	<xs:element name="checked" type="xs:boolean" />
 	<xs:element name="system">
+		<xs:annotation>
+			<xs:documentation>Система</xs:documentation>
+			<xs:documentation>Система состоит из множества объектов и связей
+				между ними
+			</xs:documentation>
+		</xs:annotation>
 		<xs:complexType>
 			<xs:sequence>
 				<xs:element ref="systemObject" maxOccurs="unbounded" />
@@ -31,6 +49,12 @@
 		</xs:complexType>
 	</xs:element>
 	<xs:element name="systemObject">
+		<xs:annotation>
+			<xs:documentation>Объект системы</xs:documentation>
+			<xs:documentation>Объект описывается уникальным идентификатором,
+				именем и множеством его атрибутов
+			</xs:documentation>
+		</xs:annotation>
 		<xs:complexType>
 			<xs:sequence>
 				<xs:element ref="name" />
@@ -40,6 +64,11 @@
 		</xs:complexType>
 	</xs:element>
 	<xs:element name="attribute">
+		<xs:annotation>
+			<xs:documentation>Атрибут</xs:documentation>
+			<xs:documentation>Атрибут описывается парой имя и значение
+			</xs:documentation>
+		</xs:annotation>
 		<xs:complexType>
 			<xs:sequence>
 				<xs:element ref="name" />
@@ -48,6 +77,12 @@
 		</xs:complexType>
 	</xs:element>
 	<xs:element name="link">
+		<xs:annotation>
+			<xs:documentation>Связь</xs:documentation>
+			<xs:documentation>Связь описывается именем, а также двумя
+				идентификаторами объектов, которые она связывает
+			</xs:documentation>
+		</xs:annotation>
 		<xs:complexType>
 			<xs:sequence>
 				<xs:element ref="name" />
@@ -57,6 +92,13 @@
 		</xs:complexType>
 	</xs:element>
 	<xs:element name="edge">
+		<xs:annotation>
+			<xs:documentation>Ребро</xs:documentation>
+			<xs:documentation>Ребро соединяет два узла дерева решений. Ребро
+				определяется уникальным идентификатором, идентификатором начального
+				узла, идентификатором конечного узла и выполняемой операцией
+			</xs:documentation>
+		</xs:annotation>
 		<xs:complexType>
 			<xs:sequence>
 				<xs:element ref="id" />
@@ -67,6 +109,11 @@
 		</xs:complexType>
 	</xs:element>
 	<xs:element name="operation">
+		<xs:annotation>
+			<xs:documentation>Операция системы</xs:documentation>
+			<xs:documentation>Операция системы содержит название и параметры
+			</xs:documentation>
+		</xs:annotation>
 		<xs:complexType>
 			<xs:sequence>
 				<xs:element ref="name" />
@@ -75,6 +122,11 @@
 		</xs:complexType>
 	</xs:element>
 	<xs:element name="parameters">
+		<xs:annotation>
+			<xs:documentation>Параметры</xs:documentation>
+			<xs:documentation>Параметры содержат список параметров системы
+			</xs:documentation>
+		</xs:annotation>
 		<xs:complexType>
 			<xs:sequence>
 				<xs:element ref="parameter" minOccurs="0" maxOccurs="unbounded" />
@@ -82,6 +134,12 @@
 		</xs:complexType>
 	</xs:element>
 	<xs:element name="parameter">
+		<xs:annotation>
+			<xs:documentation>Параметр</xs:documentation>
+			<xs:documentation>Параметр определяет параметр операции и состоит из
+				названия и значения
+			</xs:documentation>
+		</xs:annotation>
 		<xs:complexType>
 			<xs:sequence>
 				<xs:element ref="name" />
@@ -96,6 +154,12 @@
 	<xs:element name="endNodeId" type="xs:string" />
 	<xs:element name="name" type="xs:NCName" />
 	<xs:element name="value">
+		<xs:annotation>
+			<xs:documentation>Значение</xs:documentation>
+			<xs:documentation>Значение состоит из текстового представления
+				значения и типа данных из предложенного списка
+			</xs:documentation>
+		</xs:annotation>
 		<xs:complexType>
 			<xs:simpleContent>
 				<xs:extension base="xs:string">

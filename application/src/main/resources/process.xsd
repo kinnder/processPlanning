@@ -5,6 +5,10 @@
 		<xs:documentation>www.freeformatter.com</xs:documentation>
 	</xs:annotation>
 	<xs:element name="process">
+		<xs:annotation>
+			<xs:documentation>Процесс</xs:documentation>
+			<xs:documentation>Процесс содержит список операций</xs:documentation>
+		</xs:annotation>
 		<xs:complexType>
 			<xs:sequence>
 				<xs:element ref="operation" maxOccurs="unbounded" />
@@ -12,6 +16,11 @@
 		</xs:complexType>
 	</xs:element>
 	<xs:element name="operation">
+		<xs:annotation>
+			<xs:documentation>Операция системы</xs:documentation>
+			<xs:documentation>Операция системы содержит название и параметры
+			</xs:documentation>
+		</xs:annotation>
 		<xs:complexType>
 			<xs:sequence>
 				<xs:element ref="name" />
@@ -20,13 +29,24 @@
 		</xs:complexType>
 	</xs:element>
 	<xs:element name="parameters">
+		<xs:annotation>
+			<xs:documentation>Параметры</xs:documentation>
+			<xs:documentation>Параметры содержат список параметров системы
+			</xs:documentation>
+		</xs:annotation>
 		<xs:complexType>
 			<xs:sequence>
-				<xs:element ref="parameter" minOccurs="0" maxOccurs="unbounded"	/>
+				<xs:element ref="parameter" minOccurs="0" maxOccurs="unbounded" />
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
 	<xs:element name="parameter">
+		<xs:annotation>
+			<xs:documentation>Параметр</xs:documentation>
+			<xs:documentation>Параметр определяет параметр операции и состоит из
+				названия и значения
+			</xs:documentation>
+		</xs:annotation>
 		<xs:complexType>
 			<xs:sequence>
 				<xs:element ref="name" />
@@ -35,6 +55,12 @@
 		</xs:complexType>
 	</xs:element>
 	<xs:element name="value">
+		<xs:annotation>
+			<xs:documentation>Значение</xs:documentation>
+			<xs:documentation>Значение состоит из текстового представления
+				значения и типа данных из предложенного списка
+			</xs:documentation>
+		</xs:annotation>
 		<xs:complexType>
 			<xs:simpleContent>
 				<xs:extension base="xs:string">

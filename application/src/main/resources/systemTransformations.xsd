@@ -5,6 +5,10 @@
 		<xs:documentation>www.freeformatter.com</xs:documentation>
 	</xs:annotation>
 	<xs:element name="systemTransformations">
+		<xs:annotation>
+			<xs:documentation>Трансформации системы</xs:documentation>
+			<xs:documentation>Множество трансформаций системы</xs:documentation>
+		</xs:annotation>
 		<xs:complexType>
 			<xs:sequence>
 				<xs:element ref="systemTransformation" maxOccurs="unbounded" />
@@ -12,6 +16,16 @@
 		</xs:complexType>
 	</xs:element>
 	<xs:element name="systemTransformation">
+		<xs:annotation>
+			<xs:documentation>Трансформация системы</xs:documentation>
+			<xs:documentation>Трансформация системы состоит из названия, шаблона
+				системы, списка трансформаций объектов системы и действия. Шаблон
+				системы используется для определения возможности выполнения
+				трансформации. Трансформации применяются к объектам системы.
+				Действие определяет выполняемую операцию, а также содержит список
+				функций на встроенном скриптовом языке
+			</xs:documentation>
+		</xs:annotation>
 		<xs:complexType>
 			<xs:sequence>
 				<xs:element ref="name" />
@@ -22,6 +36,12 @@
 		</xs:complexType>
 	</xs:element>
 	<xs:element name="systemTemplate">
+		<xs:annotation>
+			<xs:documentation>Шаблон системы</xs:documentation>
+			<xs:documentation>Шаблон системы содержит список шаблонов объектов и
+				список шаблонов связей
+			</xs:documentation>
+		</xs:annotation>
 		<xs:complexType>
 			<xs:sequence>
 				<xs:element ref="objectTemplate" maxOccurs="unbounded" />
@@ -30,6 +50,13 @@
 		</xs:complexType>
 	</xs:element>
 	<xs:element name="objectTemplate">
+		<xs:annotation>
+			<xs:documentation>Шаблон объекта</xs:documentation>
+			<xs:documentation>Шаблон объекта содержит идентификатор объекта и
+				список шаблонов атрибутов. Идентификатор объекта используется для
+				обозначения объекта в трансформации
+			</xs:documentation>
+		</xs:annotation>
 		<xs:complexType>
 			<xs:sequence>
 				<xs:element ref="id" />
@@ -38,6 +65,12 @@
 		</xs:complexType>
 	</xs:element>
 	<xs:element name="attributeTemplate">
+		<xs:annotation>
+			<xs:documentation>Шаблон атрибута</xs:documentation>
+			<xs:documentation>Шаблон атрибута состоит из названия атрибута, а
+				также необязательного поля значения
+			</xs:documentation>
+		</xs:annotation>
 		<xs:complexType>
 			<xs:sequence>
 				<xs:element ref="name" />
@@ -50,6 +83,12 @@
 	<xs:element name="id1" type="xs:string" />
 	<xs:element name="id2" type="xs:string" />
 	<xs:element name="value">
+		<xs:annotation>
+			<xs:documentation>Значение</xs:documentation>
+			<xs:documentation>Значение состоит из текстового представления
+				значения и типа данных из предложенного списка
+			</xs:documentation>
+		</xs:annotation>
 		<xs:complexType>
 			<xs:simpleContent>
 				<xs:extension base="xs:string">
@@ -67,6 +106,12 @@
 		</xs:complexType>
 	</xs:element>
 	<xs:element name="linkTemplate">
+		<xs:annotation>
+			<xs:documentation>Шаблон связи</xs:documentation>
+			<xs:documentation>Шаблон связи состоит из названия связи и
+				необязательных идентификаторов объектов
+			</xs:documentation>
+		</xs:annotation>
 		<xs:complexType>
 			<xs:sequence>
 				<xs:element ref="name" />
@@ -76,6 +121,12 @@
 		</xs:complexType>
 	</xs:element>
 	<xs:element name="transformations">
+		<xs:annotation>
+			<xs:documentation>Трансформации</xs:documentation>
+			<xs:documentation>Трансформации состоят из списка трансформаций
+				связей и списка трансформаций атрибутов
+			</xs:documentation>
+		</xs:annotation>
 		<xs:complexType>
 			<xs:choice maxOccurs="unbounded">
 				<xs:element ref="attributeTransformation" />
@@ -84,6 +135,13 @@
 		</xs:complexType>
 	</xs:element>
 	<xs:element name="linkTransformation">
+		<xs:annotation>
+			<xs:documentation>Трансформация связи</xs:documentation>
+			<xs:documentation>Трансформация связи содержит идентификатор первого
+				объекта, название связи, старое значение идентификатора второго
+				объекта, новое значение идентификатора первого объекта
+			</xs:documentation>
+		</xs:annotation>
 		<xs:complexType>
 			<xs:sequence>
 				<xs:element ref="id" />
@@ -96,6 +154,12 @@
 	<xs:element name="id2Old" type="xs:string" />
 	<xs:element name="id2New" type="xs:string" />
 	<xs:element name="attributeTransformation">
+		<xs:annotation>
+			<xs:documentation>Трансформация атрибута</xs:documentation>
+			<xs:documentation>Трансформация атрибута содержит идентификатор
+				объекта, название атрибута, а также новое значение атрибута
+			</xs:documentation>
+		</xs:annotation>
 		<xs:complexType>
 			<xs:sequence>
 				<xs:element ref="id" />
@@ -105,6 +169,12 @@
 		</xs:complexType>
 	</xs:element>
 	<xs:element name="action">
+		<xs:annotation>
+			<xs:documentation>Действие</xs:documentation>
+			<xs:documentation>Действие состоит из названия, а также списка
+				функций
+			</xs:documentation>
+		</xs:annotation>
 		<xs:complexType>
 			<xs:sequence>
 				<xs:element ref="name" />
@@ -113,6 +183,14 @@
 		</xs:complexType>
 	</xs:element>
 	<xs:element name="actionFunction">
+		<xs:annotation>
+			<xs:documentation>Функция действия</xs:documentation>
+			<xs:documentation>Функция действия содержит код на скриптовом языке
+				LUA. Тип функции указывается в атрибуте и определяет назначение
+				функции - обновление параметров, либо проверка применимости
+				трансформации
+			</xs:documentation>
+		</xs:annotation>
 		<xs:complexType>
 			<xs:sequence>
 				<xs:element ref="line" maxOccurs="unbounded" />
@@ -121,6 +199,11 @@
 		</xs:complexType>
 	</xs:element>
 	<xs:element name="line">
+		<xs:annotation>
+			<xs:documentation>Линия</xs:documentation>
+			<xs:documentation>Линия определяет строку кода скриптового языка
+			</xs:documentation>
+		</xs:annotation>
 		<xs:complexType>
 			<xs:simpleContent>
 				<xs:extension base="xs:string">
