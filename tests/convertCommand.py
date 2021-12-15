@@ -3,7 +3,7 @@ from os.path import getsize
 from subprocess import check_output
 from sys import exit
 
-application: str = 'application-0.1.0.jar'
+application: str = 'application-0.2.0.jar'
 
 task_domain: str = 'assemblyLine'
 
