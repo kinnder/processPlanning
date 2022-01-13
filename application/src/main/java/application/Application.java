@@ -4,11 +4,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
-import org.apache.commons.cli.CommandLine;
-import org.apache.commons.cli.CommandLineParser;
-import org.apache.commons.cli.DefaultParser;
-import org.apache.commons.cli.Option;
-import org.apache.commons.cli.Options;
+
 import org.apache.commons.cli.UnrecognizedOptionException;
 import org.jdom2.JDOMException;
 
@@ -27,6 +23,7 @@ import application.command.VerifyCommandData;
 import application.event.CommandStatusEvent;
 import application.event.HelpMessageEvent;
 import application.storage.PersistanceStorage;
+import application.ui.MainViewFrame;
 import planning.method.NodeNetwork;
 import planning.method.SystemTransformations;
 import planning.method.TaskDescription;
@@ -127,91 +124,90 @@ public class Application {
 		return persistanceStorage.getResourceAsStream(resourcePath);
 	}
 
+	private ApplicationArguments applicationArguments = new ApplicationArguments();
+
+	public ApplicationArguments getArguments() {
+		return applicationArguments;
+	}
+
 	public void run(String[] args) throws Exception {
-		// TODO (2020-07-29 #30): переделать работу с аргументами командной строки
-		// https://commons.apache.org/proper/commons-cli/usage.html
-		// executable [global options] <command> [command options] <arguments>
-		Option h_option = new Option("h", "help", false, "prints usage");
-		Option td_option = new Option("td", "taskDescription", true, "file with description of the task");
-		Option st_option = new Option("st", "systemTransformations", true, "file with description of the system transformations");
-		Option p_option = new Option("p", "process", true, "output file with process");
-		Option nn_option = new Option("nn", "nodeNetwork", true, "output file with node network");
-		Option plan_option = new Option("plan", "plan process");
-		Option new_st_option = new Option("new_st", true, "create new file with predefined system transformations");
-		new_st_option.setLongOpt("new-system-transformations");
-		new_st_option.setArgName("domain");
-		new_st_option.setOptionalArg(true);
-		Option new_td_option = new Option("new_td", true, "create new file with predefined task description");
-		new_td_option.setLongOpt("new-task-description");
-		new_td_option.setArgName("domain");
-		new_td_option.setOptionalArg(true);
-		Option verify_option = new Option("verify", "verify xml-files with according xml-schemas");
-		Option convert_option = new Option("convert", "convert files between formats: xml to owl and owl to xml");
-
-		Options options = new Options();
-		options.addOption(h_option);
-		options.addOption(td_option);
-		options.addOption(st_option);
-		options.addOption(p_option);
-		options.addOption(nn_option);
-		options.addOption(plan_option);
-		options.addOption(new_st_option);
-		options.addOption(new_td_option);
-		options.addOption(verify_option);
-		options.addOption(convert_option);
-
-		CommandLineParser parser = new DefaultParser();
-		boolean showHelp = false;
 		try {
-			CommandLine line = parser.parse(options, args);
-			if (line.hasOption(plan_option.getOpt())) {
-				PlanCommandData data = new PlanCommandData();
-				data.taskDescriptionFile = line.getOptionValue(td_option.getOpt(), "taskDescription.xml");
-				data.systemTransformationsFile = line.getOptionValue(st_option.getOpt(), "systemTransformations.xml");
-				data.processFile = line.getOptionValue(p_option.getOpt(), "process.xml");
-				data.nodeNetworkFile = line.getOptionValue(nn_option.getOpt(), "nodeNetwork.xml");
-				planCommand.run(data);
-			}
-			else if (line.hasOption(new_st_option.getOpt())) {
-				NewSystemTransformationsCommandData data = new NewSystemTransformationsCommandData();
-				data.systemTransformationsFile = line.getOptionValue(st_option.getOpt(), "systemTransformations.xml");
-				data.domain = line.getOptionValue(new_st_option.getOpt(), "unknown");
-				newSystemTransformationsCommand.run(data);
-			}
-			else if (line.hasOption(new_td_option.getOpt())) {
-				NewTaskDescriptionCommandData data = new NewTaskDescriptionCommandData();
-				data.taskDescriptionFile = line.getOptionValue(td_option.getOpt(), "taskDescription.xml");
-				data.domain = line.getOptionValue(new_td_option.getOpt(), "unknown");
-				newTaskDescriptionCommand.run(data);
-			}
-			else if (line.hasOption(verify_option.getOpt())) {
-				VerifyCommandData data = new VerifyCommandData();
-				data.taskDescriptionFile = line.getOptionValue(td_option.getOpt(), null);
-				data.systemTransformationsFile = line.getOptionValue(st_option.getOpt(), null);
-				data.processFile = line.getOptionValue(p_option.getOpt(), null);
-				data.nodeNetworkFile = line.getOptionValue(nn_option.getOpt(), null);
-				verifyCommand.run(data);
-			}
-			else if (line.hasOption(convert_option.getOpt())) {
-				ConvertCommandData data = new ConvertCommandData();
-				data.taskDescriptionFile = line.getOptionValue(td_option.getOpt(), null);
-				data.systemTransformationsFile = line.getOptionValue(st_option.getOpt(), null);
-				data.processFile = line.getOptionValue(p_option.getOpt(), null);
-				data.nodeNetworkFile = line.getOptionValue(nn_option.getOpt(), null);
-				convertCommand.run(data);
-			}
-			else {
-				showHelp = true;
+			applicationArguments.parseArguments(args);
+
+			if(applicationArguments.hasArgument_gui()) {
+				runGUIMode();
+			} else {
+				runCLIMode();
 			}
 		} catch (UnrecognizedOptionException e) {
 			notifyCommandStatus(new CommandStatusEvent(e.getMessage()));
-			showHelp = true;
+			showHelp();
+		}
+	}
+
+	private void runGUIMode() throws Exception {
+		for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+			if ("Nimbus".equals(info.getName())) {
+				javax.swing.UIManager.setLookAndFeel(info.getClassName());
+				break;
+			}
 		}
 
-		if (showHelp) {
-			HelpCommandData data = new HelpCommandData();
-			data.options = options;
-			helpCommand.execute(data);
+		MainViewFrame mainView = new MainViewFrame();
+		mainView.setApplication(this);
+		mainView.updateComponents();
+		java.awt.EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				mainView.setVisible(true);
+			}
+		});
+	}
+
+	private void runCLIMode() throws Exception {
+		if (applicationArguments.hasArgument_plan()) {
+			PlanCommandData data = new PlanCommandData();
+			data.taskDescriptionFile = applicationArguments.getArgument_td("taskDescription.xml");
+			data.systemTransformationsFile = applicationArguments.getArgument_st("systemTransformations.xml");
+			data.processFile = applicationArguments.getArgument_p("process.xml");
+			data.nodeNetworkFile = applicationArguments.getArgument_nn("nodeNetwork.xml");
+			planCommand.run(data);
 		}
+		else if (applicationArguments.hasArgument_new_st()) {
+			NewSystemTransformationsCommandData data = new NewSystemTransformationsCommandData();
+			data.systemTransformationsFile = applicationArguments.getArgument_st("systemTransformations.xml");
+			data.domain = applicationArguments.getArgument_new_st("unknown");
+			newSystemTransformationsCommand.run(data);
+		}
+		else if (applicationArguments.hasArgument_new_td()) {
+			NewTaskDescriptionCommandData data = new NewTaskDescriptionCommandData();
+			data.taskDescriptionFile = applicationArguments.getArgument_td("taskDescription.xml");
+			data.domain = applicationArguments.getArgument_new_td("unknown");
+			newTaskDescriptionCommand.run(data);
+		}
+		else if (applicationArguments.hasArgument_verify()) {
+			VerifyCommandData data = new VerifyCommandData();
+			data.taskDescriptionFile = applicationArguments.getArgument_td(null);
+			data.systemTransformationsFile = applicationArguments.getArgument_st(null);
+			data.processFile = applicationArguments.getArgument_p(null);
+			data.nodeNetworkFile = applicationArguments.getArgument_nn(null);
+			verifyCommand.run(data);
+		}
+		else if (applicationArguments.hasArgument_convert()) {
+			ConvertCommandData data = new ConvertCommandData();
+			data.taskDescriptionFile = applicationArguments.getArgument_td(null);
+			data.systemTransformationsFile = applicationArguments.getArgument_st(null);
+			data.processFile = applicationArguments.getArgument_p(null);
+			data.nodeNetworkFile = applicationArguments.getArgument_nn(null);
+			convertCommand.run(data);
+		}
+		else {
+			showHelp();
+		}
+	}
+
+	private void showHelp() throws Exception {
+		HelpCommandData data = new HelpCommandData();
+		data.options = applicationArguments.getOptions();
+		helpCommand.execute(data);
 	}
 }

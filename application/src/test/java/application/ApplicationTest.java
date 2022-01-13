@@ -140,6 +140,7 @@ public class ApplicationTest {
 		new_td_option.setOptionalArg(true);
 		Option verify_option = new Option("verify", "verify xml-files with according xml-schemas");
 		Option convert_option = new Option("convert", "convert files between formats: xml to owl and owl to xml");
+		Option gui_option = new Option("gui", "show graphical user interface");
 
 		Options options = new Options();
 		options.addOption(h_option);
@@ -152,6 +153,7 @@ public class ApplicationTest {
 		options.addOption(new_td_option);
 		options.addOption(verify_option);
 		options.addOption(convert_option);
+		options.addOption(gui_option);
 
 		context.checking(new Expectations() {
 			{
@@ -247,6 +249,7 @@ public class ApplicationTest {
 		new_td_option.setOptionalArg(true);
 		Option verify_option = new Option("verify", "verify xml-files with according xml-schemas");
 		Option convert_option = new Option("convert", "convert files between formats: xml to owl and owl to xml");
+		Option gui_option = new Option("gui", "show graphical user interface");
 
 		Options options = new Options();
 		options.addOption(h_option);
@@ -259,6 +262,7 @@ public class ApplicationTest {
 		options.addOption(new_td_option);
 		options.addOption(verify_option);
 		options.addOption(convert_option);
+		options.addOption(gui_option);
 
 		UserInterface ui_mock = context.mock(UserInterface.class);
 
@@ -292,6 +296,7 @@ public class ApplicationTest {
 		new_td_option.setOptionalArg(true);
 		Option verify_option = new Option("verify", "verify xml-files with according xml-schemas");
 		Option convert_option = new Option("convert", "convert files between formats: xml to owl and owl to xml");
+		Option gui_option = new Option("gui", "show graphical user interface");
 
 		Options options = new Options();
 		options.addOption(h_option);
@@ -304,6 +309,7 @@ public class ApplicationTest {
 		options.addOption(new_td_option);
 		options.addOption(verify_option);
 		options.addOption(convert_option);
+		options.addOption(gui_option);
 
 		UserInterface ui_mock = context.mock(UserInterface.class);
 
