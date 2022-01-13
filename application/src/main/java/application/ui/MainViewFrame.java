@@ -6,11 +6,17 @@ package application.ui;
 
 import application.Application;
 import application.ApplicationArguments;
+import application.command.PlanCommandData;
+import java.awt.event.ActionEvent;
+import java.beans.PropertyChangeListener;
+import javax.swing.Action;
 
 /**
  *
  * @author kinnd
  */
+// TODO (2022-01-13 #61): включить проверку PMD
+@SuppressWarnings("unused")
 public class MainViewFrame extends javax.swing.JFrame {
 
     /**
@@ -46,12 +52,12 @@ public class MainViewFrame extends javax.swing.JFrame {
         jMenuItem7 = new javax.swing.JMenuItem();
         jMenuItem8 = new javax.swing.JMenuItem();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Process Engineering");
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"domain", "unknown"},
+                {"domain", null},
                 {"systemTransformationsFile", "systemTransformations.xml"},
                 {"taskDescriptionFile", "taskDescription.xml"},
                 {"processFile", "process.xml"},
@@ -65,6 +71,7 @@ public class MainViewFrame extends javax.swing.JFrame {
                 false, true
             };
 
+@Override
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
@@ -79,6 +86,12 @@ public class MainViewFrame extends javax.swing.JFrame {
         jMenu1.setText("Application");
 
         jMenuItem1.setText("Exit");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+@Override
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
         jMenu1.add(jMenuItem1);
 
         jMenuBar1.add(jMenu1);
@@ -95,6 +108,12 @@ public class MainViewFrame extends javax.swing.JFrame {
         jMenu2.add(jMenuItem4);
 
         jMenuItem5.setText("Plan");
+        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
+@Override
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem5ActionPerformed(evt);
+            }
+        });
         jMenu2.add(jMenuItem5);
 
         jMenuItem6.setText("Verify");
@@ -132,6 +151,21 @@ public class MainViewFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        // exit-button:
+        this.dispose();
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+        // plan-button:
+        PlanCommandData data = new PlanCommandData();
+	data.taskDescriptionFile = getModelValue_TaskDescription();
+	data.systemTransformationsFile = getModelValue_SystemTransformations();
+	data.processFile = getModelValue_Process();
+	data.nodeNetworkFile = getModelValue_NodeNetwork();
+        application.getPlanCommand().run(data);
+    }//GEN-LAST:event_jMenuItem5ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -161,6 +195,7 @@ public class MainViewFrame extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+@Override
             public void run() {
                 new MainViewFrame().setVisible(true);
             }
@@ -186,7 +221,7 @@ public class MainViewFrame extends javax.swing.JFrame {
     private javax.swing.JTextArea jTextArea1;
     // End of variables declaration//GEN-END:variables
 
-	private Application application;
+	private Application application = new Application();
 
 	public void setApplication(Application application) {
 		this.application = application;
@@ -194,10 +229,50 @@ public class MainViewFrame extends javax.swing.JFrame {
 
 	public void updateComponents() {
 		ApplicationArguments appArgs = application.getArguments();
-		jTable1.getModel().setValueAt(appArgs.getArgument_domain("unknown"), 0, 1);
-		jTable1.getModel().setValueAt(appArgs.getArgument_st("systemTransformations.xml"), 1, 1);
-		jTable1.getModel().setValueAt(appArgs.getArgument_td("taskDescription.xml"), 2, 1);
-		jTable1.getModel().setValueAt(appArgs.getArgument_p("process.xml"), 3, 1);
-		jTable1.getModel().setValueAt(appArgs.getArgument_nn("nodeNetwork.xml"), 4, 1);
+                setModelValue_Domain(appArgs.getArgument_domain("unknown"));
+		setModelValue_SystemTransformations(appArgs.getArgument_st("systemTransformations.xml"));
+		setModelValue_TaskDescription(appArgs.getArgument_td("taskDescription.xml"));
+		setModelValue_Process(appArgs.getArgument_p("process.xml"));
+		setModelValue_NodeNetwork(appArgs.getArgument_nn("nodeNetwork.xml"));
+	}
+
+	private void setModelValue_Domain(String value) {
+		jTable1.getModel().setValueAt(value, 0, 1);
+	}
+
+	private String getModelValue_Domain() {
+		return (String) jTable1.getModel().getValueAt(0, 1);
+	}
+
+	private void setModelValue_SystemTransformations(String value) {
+		jTable1.getModel().setValueAt(value, 1, 1);
+	}
+
+	private String getModelValue_SystemTransformations() {
+		return (String) jTable1.getModel().getValueAt(1, 1);
+	}
+
+	private void setModelValue_TaskDescription(String value) {
+		jTable1.getModel().setValueAt(value, 2, 1);
+	}
+
+	private String getModelValue_TaskDescription() {
+		return (String) jTable1.getModel().getValueAt(2, 1);
+	}
+
+	private void setModelValue_Process(String value) {
+		jTable1.getModel().setValueAt(value, 3, 1);
+	}
+
+	private String getModelValue_Process() {
+		return (String) jTable1.getModel().getValueAt(3, 1);
+	}
+
+	private void setModelValue_NodeNetwork(String value) {
+		jTable1.getModel().setValueAt(value, 4, 1);
+	}
+
+	private String getModelValue_NodeNetwork() {
+		return (String) jTable1.getModel().getValueAt(4, 1);
 	}
 }

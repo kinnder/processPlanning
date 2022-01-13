@@ -157,11 +157,16 @@ public class Application {
 		mainView.setApplication(this);
 		mainView.updateComponents();
 		java.awt.EventQueue.invokeLater(new Runnable() {
+			@Override
 			public void run() {
 				mainView.setVisible(true);
 			}
 		});
 	}
+
+        public PlanCommand getPlanCommand() {
+            return planCommand;
+        }
 
 	private void runCLIMode() throws Exception {
 		if (applicationArguments.hasArgument_plan()) {
