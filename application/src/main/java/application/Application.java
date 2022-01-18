@@ -164,9 +164,25 @@ public class Application {
 		});
 	}
 
-        public PlanCommand getPlanCommand() {
-            return planCommand;
-        }
+	public PlanCommand getPlanCommand() {
+		return planCommand;
+	}
+
+	public VerifyCommand getVerifyCommand() {
+		return verifyCommand;
+	}
+
+	public NewTaskDescriptionCommand getNewTaskDescriptionCommand() {
+		return newTaskDescriptionCommand;
+	}
+
+	public NewSystemTransformationsCommand getNewSystemTransformationsCommand() {
+		return newSystemTransformationsCommand;
+	}
+
+	public ConvertCommand getConvertCommand() {
+		return convertCommand;
+	}
 
 	private void runCLIMode() throws Exception {
 		if (applicationArguments.hasArgument_plan()) {
@@ -210,7 +226,7 @@ public class Application {
 		}
 	}
 
-	private void showHelp() throws Exception {
+	public void showHelp() throws Exception {
 		HelpCommandData data = new HelpCommandData();
 		data.options = applicationArguments.getOptions();
 		helpCommand.execute(data);

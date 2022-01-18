@@ -6,9 +6,15 @@ package application.ui;
 
 import application.Application;
 import application.ApplicationArguments;
+import application.command.ConvertCommandData;
+import application.command.NewSystemTransformationsCommandData;
+import application.command.NewTaskDescriptionCommandData;
 import application.command.PlanCommandData;
+import application.command.VerifyCommandData;
 import java.awt.event.ActionEvent;
 import java.beans.PropertyChangeListener;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.Action;
 
 /**
@@ -71,7 +77,7 @@ public class MainViewFrame extends javax.swing.JFrame {
                 false, true
             };
 
-@Override
+            @Override
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
@@ -87,7 +93,7 @@ public class MainViewFrame extends javax.swing.JFrame {
 
         jMenuItem1.setText("Exit");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
-@Override
+        	@Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem1ActionPerformed(evt);
             }
@@ -99,17 +105,35 @@ public class MainViewFrame extends javax.swing.JFrame {
         jMenu2.setText("Commands");
 
         jMenuItem2.setText("Convert");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+        	@Override
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
         jMenu2.add(jMenuItem2);
 
         jMenuItem3.setText("New Transformations");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+        	@Override
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
         jMenu2.add(jMenuItem3);
 
         jMenuItem4.setText("New Task");
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+        	@Override
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem4ActionPerformed(evt);
+            }
+        });
         jMenu2.add(jMenuItem4);
 
         jMenuItem5.setText("Plan");
         jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
-@Override
+        	@Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem5ActionPerformed(evt);
             }
@@ -117,6 +141,12 @@ public class MainViewFrame extends javax.swing.JFrame {
         jMenu2.add(jMenuItem5);
 
         jMenuItem6.setText("Verify");
+        jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
+        	@Override
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem6ActionPerformed(evt);
+            }
+        });
         jMenu2.add(jMenuItem6);
 
         jMenuBar1.add(jMenu2);
@@ -124,9 +154,21 @@ public class MainViewFrame extends javax.swing.JFrame {
         jMenu3.setText("Help");
 
         jMenuItem7.setText("Commands");
+        jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
+        	@Override
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem7ActionPerformed(evt);
+            }
+        });
         jMenu3.add(jMenuItem7);
 
         jMenuItem8.setText("About");
+        jMenuItem8.addActionListener(new java.awt.event.ActionListener() {
+        	@Override
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem8ActionPerformed(evt);
+            }
+        });
         jMenu3.add(jMenuItem8);
 
         jMenuBar1.add(jMenu3);
@@ -165,6 +207,61 @@ public class MainViewFrame extends javax.swing.JFrame {
 	data.nodeNetworkFile = getModelValue_NodeNetwork();
         application.getPlanCommand().run(data);
     }//GEN-LAST:event_jMenuItem5ActionPerformed
+
+    private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
+        // verify-button:
+        VerifyCommandData data = new VerifyCommandData();
+	data.taskDescriptionFile = getModelValue_TaskDescription();
+	data.systemTransformationsFile = getModelValue_SystemTransformations();
+	data.processFile = getModelValue_Process();
+	data.nodeNetworkFile = getModelValue_NodeNetwork();
+        application.getVerifyCommand().run(data);
+    }//GEN-LAST:event_jMenuItem6ActionPerformed
+
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+        // new-task-button:
+        NewTaskDescriptionCommandData data = new NewTaskDescriptionCommandData();
+	data.taskDescriptionFile = getModelValue_TaskDescription();
+	data.domain = getModelValue_Domain();
+        application.getNewTaskDescriptionCommand().run(data);
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
+
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+        // new-system-transformation-button:
+        NewSystemTransformationsCommandData data = new NewSystemTransformationsCommandData();
+	data.systemTransformationsFile = getModelValue_SystemTransformations();
+	data.domain = getModelValue_Domain();
+	application.getNewSystemTransformationsCommand().run(data);
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        // convert-button:
+        ConvertCommandData data = new ConvertCommandData();
+	data.taskDescriptionFile = getModelValue_TaskDescription();
+	data.systemTransformationsFile = getModelValue_SystemTransformations();
+	data.processFile = getModelValue_Process();
+	data.nodeNetworkFile = getModelValue_NodeNetwork();
+	application.getConvertCommand().run(data);
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
+        try {
+            // commands-button:
+            application.showHelp();
+        } catch (Exception ex) {
+            Logger.getLogger(MainViewFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jMenuItem7ActionPerformed
+
+    private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
+        // about-button:
+        java.awt.EventQueue.invokeLater(new Runnable() {
+        	@Override
+            public void run() {
+                new AboutFrame().setVisible(true);
+            }
+        });
+    }//GEN-LAST:event_jMenuItem8ActionPerformed
 
     /**
      * @param args the command line arguments
