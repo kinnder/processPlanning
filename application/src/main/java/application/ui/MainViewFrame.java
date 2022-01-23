@@ -330,7 +330,7 @@ public class MainViewFrame extends javax.swing.JFrame implements UserInterface {
 
 	public void updateComponents() {
 		ApplicationArguments appArgs = application.getArguments();
-                setModelValue_Domain(appArgs.getArgument_domain("unknown"));
+                setModelValue_Domain(appArgs.getArgument_d("unknown"));
 		setModelValue_SystemTransformations(appArgs.getArgument_st("systemTransformations.xml"));
 		setModelValue_TaskDescription(appArgs.getArgument_td("taskDescription.xml"));
 		setModelValue_Process(appArgs.getArgument_p("process.xml"));

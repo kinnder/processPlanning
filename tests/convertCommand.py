@@ -13,12 +13,14 @@ print('convert command test started')
 
 check_output(['java',
               '-jar', application,
-              '-new_td', task_domain,
+              '-new_td',
+              '-d', task_domain,
               '-td', 'al_td.xml'])
 
 check_output(['java',
               '-jar', application,
-              '-new_st', task_domain,
+              '-new_st',
+              '-d', task_domain,
               '-st', 'al_st.xml'])
 
 check_output(['java',

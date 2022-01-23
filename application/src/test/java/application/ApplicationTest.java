@@ -27,6 +27,9 @@ import application.command.PlanCommand;
 import application.command.PlanCommandDataMatcher;
 import application.command.VerifyCommand;
 import application.command.VerifyCommandDataMatcher;
+import application.domain.AssemblyLine;
+import application.domain.CuttingProcess;
+import application.domain.MaterialPoints;
 import application.event.CommandStatusEvent;
 import application.event.CommandStatusEventMatcher;
 import application.event.HelpMessageEvent;
@@ -125,22 +128,17 @@ public class ApplicationTest {
 	@Test
 	public void run_HelpCommand() throws Exception {
 		Option h_option = new Option("h", "help", false, "prints usage");
-		Option td_option = new Option("td", "taskDescription", true, "file with description of the task");
-		Option st_option = new Option("st", "systemTransformations", true, "file with description of the system transformations");
+		Option td_option = new Option("td", "task-description", true, "file with description of the task");
+		Option st_option = new Option("st", "system-transformations", true, "file with description of the system transformations");
 		Option p_option = new Option("p", "process", true, "output file with process");
-		Option nn_option = new Option("nn", "nodeNetwork", true, "output file with node network");
+		Option nn_option = new Option("nn", "node-network", true, "output file with node network");
 		Option plan_option = new Option("plan", "plan process");
-		Option new_st_option = new Option("new_st", true, "create new file with predefined system transformations");
-		new_st_option.setLongOpt("new-system-transformations");
-		new_st_option.setArgName("domain");
-		new_st_option.setOptionalArg(true);
-		Option new_td_option = new Option("new_td", true, "create new file with predefined task description");
-		new_td_option.setLongOpt("new-task-description");
-		new_td_option.setArgName("domain");
-		new_td_option.setOptionalArg(true);
+		Option new_st_option = new Option("new_st", "new-system-transformations", false, "create new file with predefined system transformations");
+		Option new_td_option = new Option("new_td", "new-task-description", false, "create new file with predefined task description");
 		Option verify_option = new Option("verify", "verify xml-files with according xml-schemas");
 		Option convert_option = new Option("convert", "convert files between formats: xml to owl and owl to xml");
 		Option gui_option = new Option("gui", "show graphical user interface");
+		Option d_option = new Option("d", "domain", true, String.format("defines domain for predefined data: %s, %s or %s", MaterialPoints.DOMAIN_NAME, CuttingProcess.DOMAIN_NAME, AssemblyLine.DOMAIN_NAME));
 
 		Options options = new Options();
 		options.addOption(h_option);
@@ -154,6 +152,7 @@ public class ApplicationTest {
 		options.addOption(verify_option);
 		options.addOption(convert_option);
 		options.addOption(gui_option);
+		options.addOption(d_option);
 
 		context.checking(new Expectations() {
 			{
@@ -174,8 +173,8 @@ public class ApplicationTest {
 			}
 		});
 
-		testable.run(new String[] { "-plan", "-taskDescription=td_file.xml", "-systemTransformations=st_file.xml",
-				"-process=p_file.xml", "-nodeNetwork=nn_file.xml" });
+		testable.run(new String[] { "-plan", "-task-description=td_file.xml", "-system-transformations=st_file.xml",
+				"-process=p_file.xml", "-node-network=nn_file.xml" });
 	}
 
 	@Test
@@ -188,7 +187,7 @@ public class ApplicationTest {
 			}
 		});
 
-		testable.run(new String[] { "-new_st", "-systemTransformations=st_file.xml" });
+		testable.run(new String[] { "-new_st", "-system-transformations=st_file.xml" });
 	}
 
 	@Test
@@ -200,7 +199,7 @@ public class ApplicationTest {
 			}
 		});
 
-		testable.run(new String[] { "-new_td", "materialPoints", "-taskDescription=td_file.xml" });
+		testable.run(new String[] { "-new_td", "-domain=materialPoints", "-task-description=td_file.xml" });
 	}
 
 	@Test
@@ -213,8 +212,8 @@ public class ApplicationTest {
 			}
 		});
 
-		testable.run(new String[] { "-verify", "-taskDescription=td_file.xml", "-systemTransformations=st_file.xml",
-				"-process=p_file.xml", "-nodeNetwork=nn_file.xml" });
+		testable.run(new String[] { "-verify", "-task-description=td_file.xml", "-system-transformations=st_file.xml",
+				"-process=p_file.xml", "-node-network=nn_file.xml" });
 	}
 
 	@Test
@@ -227,29 +226,24 @@ public class ApplicationTest {
 			}
 		});
 
-		testable.run(new String[] { "-convert", "-taskDescription=td_file.xml", "-systemTransformations=st_file.xml",
-				"-process=p_file.xml", "-nodeNetwork=nn_file.xml" });
+		testable.run(new String[] { "-convert", "-task-description=td_file.xml", "-system-transformations=st_file.xml",
+				"-process=p_file.xml", "-node-network=nn_file.xml" });
 	}
 
 	@Test
 	public void run_UnrecognizedOption() throws Exception {
 		Option h_option = new Option("h", "help", false, "prints usage");
-		Option td_option = new Option("td", "taskDescription", true, "file with description of the task");
-		Option st_option = new Option("st", "systemTransformations", true, "file with description of the system transformations");
+		Option td_option = new Option("td", "task-description", true, "file with description of the task");
+		Option st_option = new Option("st", "system-transformations", true, "file with description of the system transformations");
 		Option p_option = new Option("p", "process", true, "output file with process");
-		Option nn_option = new Option("nn", "nodeNetwork", true, "output file with node network");
+		Option nn_option = new Option("nn", "node-network", true, "output file with node network");
 		Option plan_option = new Option("plan", "plan process");
-		Option new_st_option = new Option("new_st", true, "create new file with predefined system transformations");
-		new_st_option.setLongOpt("new-system-transformations");
-		new_st_option.setArgName("domain");
-		new_st_option.setOptionalArg(true);
-		Option new_td_option = new Option("new_td", true, "create new file with predefined task description");
-		new_td_option.setLongOpt("new-task-description");
-		new_td_option.setArgName("domain");
-		new_td_option.setOptionalArg(true);
+		Option new_st_option = new Option("new_st", "new-system-transformations", false, "create new file with predefined system transformations");
+		Option new_td_option = new Option("new_td", "new-task-description", false, "create new file with predefined task description");
 		Option verify_option = new Option("verify", "verify xml-files with according xml-schemas");
 		Option convert_option = new Option("convert", "convert files between formats: xml to owl and owl to xml");
 		Option gui_option = new Option("gui", "show graphical user interface");
+		Option d_option = new Option("d", "domain", true, String.format("defines domain for predefined data: %s, %s or %s", MaterialPoints.DOMAIN_NAME, CuttingProcess.DOMAIN_NAME, AssemblyLine.DOMAIN_NAME));
 
 		Options options = new Options();
 		options.addOption(h_option);
@@ -263,6 +257,7 @@ public class ApplicationTest {
 		options.addOption(verify_option);
 		options.addOption(convert_option);
 		options.addOption(gui_option);
+		options.addOption(d_option);
 
 		UserInterfaceImp ui_mock = context.mock(UserInterfaceImp.class);
 
@@ -281,22 +276,17 @@ public class ApplicationTest {
 	@Test
 	public void run_commandNotSpecified() throws Exception {
 		Option h_option = new Option("h", "help", false, "prints usage");
-		Option td_option = new Option("td", "taskDescription", true, "file with description of the task");
-		Option st_option = new Option("st", "systemTransformations", true, "file with description of the system transformations");
+		Option td_option = new Option("td", "task-description", true, "file with description of the task");
+		Option st_option = new Option("st", "system-transformations", true, "file with description of the system transformations");
 		Option p_option = new Option("p", "process", true, "output file with process");
-		Option nn_option = new Option("nn", "nodeNetwork", true, "output file with node network");
+		Option nn_option = new Option("nn", "node-network", true, "output file with node network");
 		Option plan_option = new Option("plan", "plan process");
-		Option new_st_option = new Option("new_st", true, "create new file with predefined system transformations");
-		new_st_option.setLongOpt("new-system-transformations");
-		new_st_option.setArgName("domain");
-		new_st_option.setOptionalArg(true);
-		Option new_td_option = new Option("new_td", true, "create new file with predefined task description");
-		new_td_option.setLongOpt("new-task-description");
-		new_td_option.setArgName("domain");
-		new_td_option.setOptionalArg(true);
+		Option new_st_option = new Option("new_st", "new-system-transformations", false, "create new file with predefined system transformations");
+		Option new_td_option = new Option("new_td", "new-task-description", false, "create new file with predefined task description");
 		Option verify_option = new Option("verify", "verify xml-files with according xml-schemas");
 		Option convert_option = new Option("convert", "convert files between formats: xml to owl and owl to xml");
 		Option gui_option = new Option("gui", "show graphical user interface");
+		Option d_option = new Option("d", "domain", true, String.format("defines domain for predefined data: %s, %s or %s", MaterialPoints.DOMAIN_NAME, CuttingProcess.DOMAIN_NAME, AssemblyLine.DOMAIN_NAME));
 
 		Options options = new Options();
 		options.addOption(h_option);
@@ -310,6 +300,7 @@ public class ApplicationTest {
 		options.addOption(verify_option);
 		options.addOption(convert_option);
 		options.addOption(gui_option);
+		options.addOption(d_option);
 
 		UserInterfaceImp ui_mock = context.mock(UserInterfaceImp.class);
 

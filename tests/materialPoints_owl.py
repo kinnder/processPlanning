@@ -15,12 +15,14 @@ print(task_domain + ' ' + file_format + ' started')
 
 check_output(['java',
               '-jar', application,
-              '-new_td', task_domain,
+              '-new_td',
+              '-d', task_domain,
               '-td', task_description_file])
 
 check_output(['java',
               '-jar', application,
-              '-new_st', task_domain,
+              '-new_st',
+              '-d', task_domain,
               '-st', system_transformation_file])
 
 check_output(['java',

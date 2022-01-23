@@ -197,13 +197,13 @@ public class Application {
 		else if (applicationArguments.hasArgument_new_st()) {
 			NewSystemTransformationsCommandData data = new NewSystemTransformationsCommandData();
 			data.systemTransformationsFile = applicationArguments.getArgument_st("systemTransformations.xml");
-			data.domain = applicationArguments.getArgument_new_st("unknown");
+			data.domain = applicationArguments.getArgument_d("unknown");
 			newSystemTransformationsCommand.run(data);
 		}
 		else if (applicationArguments.hasArgument_new_td()) {
 			NewTaskDescriptionCommandData data = new NewTaskDescriptionCommandData();
 			data.taskDescriptionFile = applicationArguments.getArgument_td("taskDescription.xml");
-			data.domain = applicationArguments.getArgument_new_td("unknown");
+			data.domain = applicationArguments.getArgument_d("unknown");
 			newTaskDescriptionCommand.run(data);
 		}
 		else if (applicationArguments.hasArgument_verify()) {
