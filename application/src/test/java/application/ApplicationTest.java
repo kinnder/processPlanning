@@ -87,14 +87,14 @@ public class ApplicationTest {
 
 	@Test
 	public void registerUserInterface() {
-		final UserInterface ui_mock = context.mock(UserInterface.class);
+		final UserInterfaceImp ui_mock = context.mock(UserInterfaceImp.class);
 
 		testable.registerUserInterface(ui_mock);
 	}
 
 	@Test
 	public void notifyHelpMessage() {
-		final UserInterface ui_mock = context.mock(UserInterface.class);
+		final UserInterfaceImp ui_mock = context.mock(UserInterfaceImp.class);
 		final HelpMessageEvent event_mock = context.mock(HelpMessageEvent.class);
 
 		context.checking(new Expectations() {
@@ -109,7 +109,7 @@ public class ApplicationTest {
 
 	@Test
 	public void notifyCommandStatus() {
-		final UserInterface ui_mock = context.mock(UserInterface.class);
+		final UserInterfaceImp ui_mock = context.mock(UserInterfaceImp.class);
 		final CommandStatusEvent event_mock = context.mock(CommandStatusEvent.class);
 
 		context.checking(new Expectations() {
@@ -264,7 +264,7 @@ public class ApplicationTest {
 		options.addOption(convert_option);
 		options.addOption(gui_option);
 
-		UserInterface ui_mock = context.mock(UserInterface.class);
+		UserInterfaceImp ui_mock = context.mock(UserInterfaceImp.class);
 
 		context.checking(new Expectations() {
 			{
@@ -311,7 +311,7 @@ public class ApplicationTest {
 		options.addOption(convert_option);
 		options.addOption(gui_option);
 
-		UserInterface ui_mock = context.mock(UserInterface.class);
+		UserInterfaceImp ui_mock = context.mock(UserInterfaceImp.class);
 
 		context.checking(new Expectations() {
 			{

@@ -6,7 +6,7 @@ public class Main {
 
 	public static void main(String[] args) {
 		try {
-			UserInterface ui = new UserInterface(System.out);
+			UserInterfaceImp ui = new UserInterfaceImp(System.out);
 			Application application = new Application();
 			application.registerUserInterface(ui);
 			application.run(args);

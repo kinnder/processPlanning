@@ -162,6 +162,7 @@ public class Application {
 				mainView.setVisible(true);
 			}
 		});
+		registerUserInterface(mainView);
 	}
 
 	public PlanCommand getPlanCommand() {

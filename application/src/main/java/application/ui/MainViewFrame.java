@@ -6,11 +6,15 @@ package application.ui;
 
 import application.Application;
 import application.ApplicationArguments;
+import application.UserInterface;
 import application.command.ConvertCommandData;
 import application.command.NewSystemTransformationsCommandData;
 import application.command.NewTaskDescriptionCommandData;
 import application.command.PlanCommandData;
 import application.command.VerifyCommandData;
+import application.event.CommandStatusEvent;
+import application.event.HelpMessageEvent;
+
 import java.awt.event.ActionEvent;
 import java.beans.PropertyChangeListener;
 import java.util.logging.Level;
@@ -23,7 +27,7 @@ import javax.swing.Action;
  */
 // TODO (2022-01-13 #61): включить проверку PMD
 @SuppressWarnings("unused")
-public class MainViewFrame extends javax.swing.JFrame {
+public class MainViewFrame extends javax.swing.JFrame implements UserInterface {
 
     /**
      * Creates new form MainViewFrame
@@ -371,5 +375,19 @@ public class MainViewFrame extends javax.swing.JFrame {
 
 	private String getModelValue_NodeNetwork() {
 		return (String) jTable1.getModel().getValueAt(4, 1);
+	}
+
+	@Override
+	public void notifyHelpMessage(HelpMessageEvent event) {
+		// TODO Auto-generated method stub
+                jTextArea1.append(event.message);
+                jTextArea1.append("\n");
+	}
+
+	@Override
+	public void notifyCommandStatus(CommandStatusEvent event) {
+		// TODO Auto-generated method stub
+                jTextArea1.append(event.message);
+                jTextArea1.append("\n");
 	}
 }
