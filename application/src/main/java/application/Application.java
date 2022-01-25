@@ -13,22 +13,17 @@ import org.jdom2.JDOMException;
 import application.command.Command;
 import application.command.CommandData;
 import application.command.ConvertCommand;
-import application.command.ConvertCommandData;
 import application.command.HelpCommand;
 import application.command.HelpCommandData;
 import application.command.NewSystemTransformationsCommand;
-import application.command.NewSystemTransformationsCommandData;
 import application.command.NewTaskDescriptionCommand;
-import application.command.NewTaskDescriptionCommandData;
 import application.command.PlanCommand;
-import application.command.PlanCommandData;
 import application.command.VerifyCommand;
-import application.command.VerifyCommandData;
 import application.event.CommandStatusEvent;
 import application.event.HelpMessageEvent;
 import application.storage.PersistanceStorage;
 import application.ui.UserInterface;
-import application.ui.cli.UserInterfaceImp;
+import application.ui.cli.MainShell;
 import application.ui.gui.MainViewFrame;
 import planning.method.NodeNetwork;
 import planning.method.SystemTransformations;
@@ -54,10 +49,10 @@ public class Application {
 		persistanceStorage = new PersistanceStorage();
 	}
 
-	Application(HelpCommand helpCommand, PlanCommand planCommand, NewSystemTransformationsCommand newSystemTransformationsCommand,
-			NewTaskDescriptionCommand newTaskDescriptionCommand,
-			VerifyCommand verifyCommand, ConvertCommand convertCommand,
-			PersistanceStorage persistanceStorage) {
+	Application(HelpCommand helpCommand, PlanCommand planCommand,
+			NewSystemTransformationsCommand newSystemTransformationsCommand,
+			NewTaskDescriptionCommand newTaskDescriptionCommand, VerifyCommand verifyCommand,
+			ConvertCommand convertCommand, PersistanceStorage persistanceStorage) {
 
 		registerCommand(helpCommand);
 		registerCommand(planCommand);
@@ -135,7 +130,7 @@ public class Application {
 		try {
 			applicationArguments.parseArguments(args);
 
-			if(applicationArguments.hasArgument_gui()) {
+			if (applicationArguments.hasArgument_gui()) {
 				runGUIMode();
 			} else {
 				runCLIMode();
@@ -146,24 +141,30 @@ public class Application {
 		}
 	}
 
-	private void runGUIMode() throws Exception {
+	private void initializeLookAndFeel() throws Exception {
 		for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
 			if ("Nimbus".equals(info.getName())) {
 				javax.swing.UIManager.setLookAndFeel(info.getClassName());
 				break;
 			}
 		}
+	}
 
-		MainViewFrame mainView = new MainViewFrame();
-		mainView.setApplication(this);
-		mainView.updateComponents();
+	private void runGUIMode() throws Exception {
+		initializeLookAndFeel();
+
+		MainViewFrame view = new MainViewFrame();
+		view.setApplication(this);
+		view.updateComponents();
+
+		registerUserInterface(view);
+
 		java.awt.EventQueue.invokeLater(new Runnable() {
 			@Override
 			public void run() {
-				mainView.setVisible(true);
+				view.setVisible(true);
 			}
 		});
-		registerUserInterface(mainView);
 	}
 
 	public void runCommand(String commandName, CommandData commandData) {
@@ -172,48 +173,12 @@ public class Application {
 	}
 
 	private void runCLIMode() throws Exception {
-		UserInterfaceImp ui = new UserInterfaceImp(System.out);
-		registerUserInterface(ui);
+		MainShell shell = new MainShell(System.out);
+		shell.setApplication(this);
 
-		if (applicationArguments.hasArgument_plan()) {
-			PlanCommandData data = new PlanCommandData();
-			data.taskDescriptionFile = applicationArguments.getArgument_td("taskDescription.xml");
-			data.systemTransformationsFile = applicationArguments.getArgument_st("systemTransformations.xml");
-			data.processFile = applicationArguments.getArgument_p("process.xml");
-			data.nodeNetworkFile = applicationArguments.getArgument_nn("nodeNetwork.xml");
-			runCommand(PlanCommand.NAME, data);
-		}
-		else if (applicationArguments.hasArgument_new_st()) {
-			NewSystemTransformationsCommandData data = new NewSystemTransformationsCommandData();
-			data.systemTransformationsFile = applicationArguments.getArgument_st("systemTransformations.xml");
-			data.domain = applicationArguments.getArgument_d("unknown");
-			runCommand(NewSystemTransformationsCommand.NAME, data);
-		}
-		else if (applicationArguments.hasArgument_new_td()) {
-			NewTaskDescriptionCommandData data = new NewTaskDescriptionCommandData();
-			data.taskDescriptionFile = applicationArguments.getArgument_td("taskDescription.xml");
-			data.domain = applicationArguments.getArgument_d("unknown");
-			runCommand(NewTaskDescriptionCommand.NAME, data);
-		}
-		else if (applicationArguments.hasArgument_verify()) {
-			VerifyCommandData data = new VerifyCommandData();
-			data.taskDescriptionFile = applicationArguments.getArgument_td(null);
-			data.systemTransformationsFile = applicationArguments.getArgument_st(null);
-			data.processFile = applicationArguments.getArgument_p(null);
-			data.nodeNetworkFile = applicationArguments.getArgument_nn(null);
-			runCommand(VerifyCommand.NAME, data);
-		}
-		else if (applicationArguments.hasArgument_convert()) {
-			ConvertCommandData data = new ConvertCommandData();
-			data.taskDescriptionFile = applicationArguments.getArgument_td(null);
-			data.systemTransformationsFile = applicationArguments.getArgument_st(null);
-			data.processFile = applicationArguments.getArgument_p(null);
-			data.nodeNetworkFile = applicationArguments.getArgument_nn(null);
-			runCommand(ConvertCommand.NAME, data);
-		}
-		else {
-			showHelp();
-		}
+		registerUserInterface(shell);
+
+		shell.run();
 	}
 
 	public void showHelp() throws Exception {

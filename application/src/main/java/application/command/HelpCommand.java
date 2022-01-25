@@ -7,6 +7,7 @@ import org.apache.commons.cli.Option;
 import application.Application;
 import application.event.HelpMessageEvent;
 
+//TODO (2022-01-25 #61): переименовать в UsageHelp
 public class HelpCommand extends Command {
 
 	public static final String NAME = "help";

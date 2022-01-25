@@ -12,9 +12,8 @@ import org.junit.jupiter.api.extension.RegisterExtension;
 
 import application.event.CommandStatusEvent;
 import application.event.HelpMessageEvent;
-import application.ui.cli.UserInterfaceImp;
 
-public class UserInterfaceImpTest {
+public class MainShellTest {
 
 	@RegisterExtension
 	JUnit5Mockery context = new JUnit5Mockery() {
@@ -28,7 +27,7 @@ public class UserInterfaceImpTest {
 		context.assertIsSatisfied();
 	}
 
-	UserInterfaceImp testable;
+	MainShell testable;
 
 	PrintStream printStream_mock;
 
@@ -36,7 +35,7 @@ public class UserInterfaceImpTest {
 	public void setup() {
 		printStream_mock = context.mock(PrintStream.class);
 
-		testable = new UserInterfaceImp(printStream_mock);
+		testable = new MainShell(printStream_mock);
 	}
 
 	@Test

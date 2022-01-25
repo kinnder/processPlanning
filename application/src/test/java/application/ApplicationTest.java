@@ -34,7 +34,7 @@ import application.event.CommandStatusEvent;
 import application.event.CommandStatusEventMatcher;
 import application.event.HelpMessageEvent;
 import application.storage.PersistanceStorage;
-import application.ui.cli.UserInterfaceImp;
+import application.ui.cli.MainShell;
 import planning.method.NodeNetwork;
 import planning.method.SystemTransformations;
 import planning.method.TaskDescription;
@@ -113,14 +113,14 @@ public class ApplicationTest {
 
 	@Test
 	public void registerUserInterface() {
-		final UserInterfaceImp ui_mock = context.mock(UserInterfaceImp.class);
+		final MainShell ui_mock = context.mock(MainShell.class);
 
 		testable.registerUserInterface(ui_mock);
 	}
 
 	@Test
 	public void notifyHelpMessage() {
-		final UserInterfaceImp ui_mock = context.mock(UserInterfaceImp.class);
+		final MainShell ui_mock = context.mock(MainShell.class);
 		final HelpMessageEvent event_mock = context.mock(HelpMessageEvent.class);
 
 		context.checking(new Expectations() {
@@ -135,7 +135,7 @@ public class ApplicationTest {
 
 	@Test
 	public void notifyCommandStatus() {
-		final UserInterfaceImp ui_mock = context.mock(UserInterfaceImp.class);
+		final MainShell ui_mock = context.mock(MainShell.class);
 		final CommandStatusEvent event_mock = context.mock(CommandStatusEvent.class);
 
 		context.checking(new Expectations() {
@@ -282,7 +282,7 @@ public class ApplicationTest {
 		options.addOption(gui_option);
 		options.addOption(d_option);
 
-		UserInterfaceImp ui_mock = context.mock(UserInterfaceImp.class);
+		MainShell ui_mock = context.mock(MainShell.class);
 
 		context.checking(new Expectations() {
 			{
@@ -325,7 +325,7 @@ public class ApplicationTest {
 		options.addOption(gui_option);
 		options.addOption(d_option);
 
-		UserInterfaceImp ui_mock = context.mock(UserInterfaceImp.class);
+		MainShell ui_mock = context.mock(MainShell.class);
 
 		context.checking(new Expectations() {
 			{
