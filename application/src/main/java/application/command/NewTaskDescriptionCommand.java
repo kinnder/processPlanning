@@ -11,8 +11,10 @@ import planning.model.System;
 
 public class NewTaskDescriptionCommand extends Command {
 
+	public static final String NAME = "new_td";
+
 	public NewTaskDescriptionCommand(Application application) {
-		super(application, "new_td");
+		super(application, NAME);
 	}
 
 	@Override

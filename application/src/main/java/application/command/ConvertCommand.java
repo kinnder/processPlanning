@@ -10,8 +10,10 @@ import planning.model.SystemProcess;
 
 public class ConvertCommand extends Command {
 
+	public static final String NAME = "convert";
+
 	public ConvertCommand(Application application) {
-		super(application, "convert");
+		super(application, NAME);
 	}
 
 	@Override

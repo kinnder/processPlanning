@@ -79,6 +79,28 @@ public class ApplicationTest {
 		convertCommand_mock = context.mock(ConvertCommand.class);
 		persistanceStorage_mock = context.mock(PersistanceStorage.class);
 
+		context.checking(new Expectations() {
+			{
+				oneOf(helpCommand_mock).getName();
+				will(returnValue(HelpCommand.NAME));
+
+				oneOf(planCommand_mock).getName();
+				will(returnValue(PlanCommand.NAME));
+
+				oneOf(newSystemTransformationsCommand_mock).getName();
+				will(returnValue(NewSystemTransformationsCommand.NAME));
+
+				oneOf(newTaskDescriptionCommand_mock).getName();
+				will(returnValue(NewTaskDescriptionCommand.NAME));
+
+				oneOf(verifyCommand_mock).getName();
+				will(returnValue(VerifyCommand.NAME));
+
+				oneOf(convertCommand_mock).getName();
+				will(returnValue(ConvertCommand.NAME));
+			}
+		});
+
 		testable = new Application(helpCommand_mock, planCommand_mock, newSystemTransformationsCommand_mock,
 				newTaskDescriptionCommand_mock, verifyCommand_mock, convertCommand_mock, persistanceStorage_mock);
 	}

@@ -19,8 +19,10 @@ import application.storage.PersistanceStorage;
 
 public class VerifyCommand extends Command {
 
+	public static final String NAME = "verify";
+
 	public VerifyCommand(Application application) {
-		super(application, "verify");
+		super(application, NAME);
 	}
 
 	@Override

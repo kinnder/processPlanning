@@ -9,8 +9,10 @@ import application.event.HelpMessageEvent;
 
 public class HelpCommand extends Command {
 
+	public static final String NAME = "help";
+
 	public HelpCommand (Application application) {
-		super(application, "help");
+		super(application, NAME);
 	}
 
 	@Override

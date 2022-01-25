@@ -7,10 +7,15 @@ package application.ui;
 import application.Application;
 import application.ApplicationArguments;
 import application.UserInterface;
+import application.command.ConvertCommand;
 import application.command.ConvertCommandData;
+import application.command.NewSystemTransformationsCommand;
 import application.command.NewSystemTransformationsCommandData;
+import application.command.NewTaskDescriptionCommand;
 import application.command.NewTaskDescriptionCommandData;
+import application.command.PlanCommand;
 import application.command.PlanCommandData;
+import application.command.VerifyCommand;
 import application.command.VerifyCommandData;
 import application.event.CommandStatusEvent;
 import application.event.HelpMessageEvent;
@@ -204,48 +209,48 @@ public class MainViewFrame extends javax.swing.JFrame implements UserInterface {
 
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
         // plan-button:
-        PlanCommandData data = new PlanCommandData();
-	data.taskDescriptionFile = getModelValue_TaskDescription();
-	data.systemTransformationsFile = getModelValue_SystemTransformations();
-	data.processFile = getModelValue_Process();
-	data.nodeNetworkFile = getModelValue_NodeNetwork();
-        application.getPlanCommand().run(data);
+		PlanCommandData data = new PlanCommandData();
+		data.taskDescriptionFile = getModelValue_TaskDescription();
+		data.systemTransformationsFile = getModelValue_SystemTransformations();
+		data.processFile = getModelValue_Process();
+		data.nodeNetworkFile = getModelValue_NodeNetwork();
+		application.runCommand(PlanCommand.NAME, data);
     }//GEN-LAST:event_jMenuItem5ActionPerformed
 
     private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
         // verify-button:
-        VerifyCommandData data = new VerifyCommandData();
-	data.taskDescriptionFile = getModelValue_TaskDescription();
-	data.systemTransformationsFile = getModelValue_SystemTransformations();
-	data.processFile = getModelValue_Process();
-	data.nodeNetworkFile = getModelValue_NodeNetwork();
-        application.getVerifyCommand().run(data);
+		VerifyCommandData data = new VerifyCommandData();
+		data.taskDescriptionFile = getModelValue_TaskDescription();
+		data.systemTransformationsFile = getModelValue_SystemTransformations();
+		data.processFile = getModelValue_Process();
+		data.nodeNetworkFile = getModelValue_NodeNetwork();
+		application.runCommand(VerifyCommand.NAME, data);
     }//GEN-LAST:event_jMenuItem6ActionPerformed
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
         // new-task-button:
-        NewTaskDescriptionCommandData data = new NewTaskDescriptionCommandData();
-	data.taskDescriptionFile = getModelValue_TaskDescription();
-	data.domain = getModelValue_Domain();
-        application.getNewTaskDescriptionCommand().run(data);
+		NewTaskDescriptionCommandData data = new NewTaskDescriptionCommandData();
+		data.taskDescriptionFile = getModelValue_TaskDescription();
+		data.domain = getModelValue_Domain();
+		application.runCommand(NewTaskDescriptionCommand.NAME, data);
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
         // new-system-transformation-button:
-        NewSystemTransformationsCommandData data = new NewSystemTransformationsCommandData();
-	data.systemTransformationsFile = getModelValue_SystemTransformations();
-	data.domain = getModelValue_Domain();
-	application.getNewSystemTransformationsCommand().run(data);
+		NewSystemTransformationsCommandData data = new NewSystemTransformationsCommandData();
+		data.systemTransformationsFile = getModelValue_SystemTransformations();
+		data.domain = getModelValue_Domain();
+		application.runCommand(NewSystemTransformationsCommand.NAME, data);
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
         // convert-button:
-        ConvertCommandData data = new ConvertCommandData();
-	data.taskDescriptionFile = getModelValue_TaskDescription();
-	data.systemTransformationsFile = getModelValue_SystemTransformations();
-	data.processFile = getModelValue_Process();
-	data.nodeNetworkFile = getModelValue_NodeNetwork();
-	application.getConvertCommand().run(data);
+		ConvertCommandData data = new ConvertCommandData();
+		data.taskDescriptionFile = getModelValue_TaskDescription();
+		data.systemTransformationsFile = getModelValue_SystemTransformations();
+		data.processFile = getModelValue_Process();
+		data.nodeNetworkFile = getModelValue_NodeNetwork();
+		application.runCommand(ConvertCommand.NAME, data);
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed

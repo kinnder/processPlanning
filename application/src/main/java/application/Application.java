@@ -3,11 +3,15 @@ package application;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.cli.UnrecognizedOptionException;
 import org.jdom2.JDOMException;
 
+import application.command.Command;
+import application.command.CommandData;
 import application.command.ConvertCommand;
 import application.command.ConvertCommandData;
 import application.command.HelpCommand;
@@ -31,25 +35,19 @@ import planning.model.SystemProcess;
 
 public class Application {
 
-	private HelpCommand helpCommand;
+	private Map<String, Command> commands = new HashMap<>();
 
-	private PlanCommand planCommand;
-
-	private NewSystemTransformationsCommand newSystemTransformationsCommand;
-
-	private NewTaskDescriptionCommand newTaskDescriptionCommand;
-
-	private VerifyCommand verifyCommand;
-
-	private ConvertCommand convertCommand;
+	private void registerCommand(Command command) {
+		commands.put(command.getName(), command);
+	}
 
 	public Application() {
-		helpCommand = new HelpCommand(this);
-		planCommand = new PlanCommand(this);
-		newSystemTransformationsCommand = new NewSystemTransformationsCommand(this);
-		newTaskDescriptionCommand = new NewTaskDescriptionCommand(this);
-		verifyCommand = new VerifyCommand(this);
-		convertCommand = new ConvertCommand(this);
+		registerCommand(new HelpCommand(this));
+		registerCommand(new PlanCommand(this));
+		registerCommand(new NewSystemTransformationsCommand(this));
+		registerCommand(new NewTaskDescriptionCommand(this));
+		registerCommand(new VerifyCommand(this));
+		registerCommand(new ConvertCommand(this));
 
 		persistanceStorage = new PersistanceStorage();
 	}
@@ -58,12 +56,13 @@ public class Application {
 			NewTaskDescriptionCommand newTaskDescriptionCommand,
 			VerifyCommand verifyCommand, ConvertCommand convertCommand,
 			PersistanceStorage persistanceStorage) {
-		this.helpCommand = helpCommand;
-		this.planCommand = planCommand;
-		this.newSystemTransformationsCommand = newSystemTransformationsCommand;
-		this.newTaskDescriptionCommand = newTaskDescriptionCommand;
-		this.verifyCommand = verifyCommand;
-		this.convertCommand = convertCommand;
+
+		registerCommand(helpCommand);
+		registerCommand(planCommand);
+		registerCommand(newSystemTransformationsCommand);
+		registerCommand(newTaskDescriptionCommand);
+		registerCommand(verifyCommand);
+		registerCommand(convertCommand);
 
 		this.persistanceStorage = persistanceStorage;
 	}
@@ -165,24 +164,9 @@ public class Application {
 		registerUserInterface(mainView);
 	}
 
-	public PlanCommand getPlanCommand() {
-		return planCommand;
-	}
-
-	public VerifyCommand getVerifyCommand() {
-		return verifyCommand;
-	}
-
-	public NewTaskDescriptionCommand getNewTaskDescriptionCommand() {
-		return newTaskDescriptionCommand;
-	}
-
-	public NewSystemTransformationsCommand getNewSystemTransformationsCommand() {
-		return newSystemTransformationsCommand;
-	}
-
-	public ConvertCommand getConvertCommand() {
-		return convertCommand;
+	public void runCommand(String commandName, CommandData commandData) {
+		Command command = commands.get(commandName);
+		command.run(commandData);
 	}
 
 	private void runCLIMode() throws Exception {
@@ -192,19 +176,19 @@ public class Application {
 			data.systemTransformationsFile = applicationArguments.getArgument_st("systemTransformations.xml");
 			data.processFile = applicationArguments.getArgument_p("process.xml");
 			data.nodeNetworkFile = applicationArguments.getArgument_nn("nodeNetwork.xml");
-			planCommand.run(data);
+			runCommand(PlanCommand.NAME, data);
 		}
 		else if (applicationArguments.hasArgument_new_st()) {
 			NewSystemTransformationsCommandData data = new NewSystemTransformationsCommandData();
 			data.systemTransformationsFile = applicationArguments.getArgument_st("systemTransformations.xml");
 			data.domain = applicationArguments.getArgument_d("unknown");
-			newSystemTransformationsCommand.run(data);
+			runCommand(NewSystemTransformationsCommand.NAME, data);
 		}
 		else if (applicationArguments.hasArgument_new_td()) {
 			NewTaskDescriptionCommandData data = new NewTaskDescriptionCommandData();
 			data.taskDescriptionFile = applicationArguments.getArgument_td("taskDescription.xml");
 			data.domain = applicationArguments.getArgument_d("unknown");
-			newTaskDescriptionCommand.run(data);
+			runCommand(NewTaskDescriptionCommand.NAME, data);
 		}
 		else if (applicationArguments.hasArgument_verify()) {
 			VerifyCommandData data = new VerifyCommandData();
@@ -212,7 +196,7 @@ public class Application {
 			data.systemTransformationsFile = applicationArguments.getArgument_st(null);
 			data.processFile = applicationArguments.getArgument_p(null);
 			data.nodeNetworkFile = applicationArguments.getArgument_nn(null);
-			verifyCommand.run(data);
+			runCommand(VerifyCommand.NAME, data);
 		}
 		else if (applicationArguments.hasArgument_convert()) {
 			ConvertCommandData data = new ConvertCommandData();
@@ -220,7 +204,7 @@ public class Application {
 			data.systemTransformationsFile = applicationArguments.getArgument_st(null);
 			data.processFile = applicationArguments.getArgument_p(null);
 			data.nodeNetworkFile = applicationArguments.getArgument_nn(null);
-			convertCommand.run(data);
+			runCommand(ConvertCommand.NAME, data);
 		}
 		else {
 			showHelp();
@@ -230,6 +214,6 @@ public class Application {
 	public void showHelp() throws Exception {
 		HelpCommandData data = new HelpCommandData();
 		data.options = applicationArguments.getOptions();
-		helpCommand.execute(data);
+		commands.get(HelpCommand.NAME).execute(data);
 	}
 }

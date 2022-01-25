@@ -9,8 +9,10 @@ import planning.model.SystemProcess;
 
 public class PlanCommand extends Command {
 
+	public static final String NAME = "plan";
+
 	public PlanCommand(Application application) {
-		super(application, "plan");
+		super(application, NAME);
 	}
 
 	@Override

@@ -10,8 +10,10 @@ import planning.method.SystemTransformations;
 
 public class NewSystemTransformationsCommand extends Command {
 
+	public static final String NAME = "new_st";
+
 	public NewSystemTransformationsCommand(Application application) {
-		super(application, "new_st");
+		super(application, NAME);
 	}
 
 	@Override
