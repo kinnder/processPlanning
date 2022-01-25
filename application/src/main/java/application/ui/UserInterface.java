@@ -1,4 +1,4 @@
-package application;
+package application.ui;
 
 import application.event.CommandStatusEvent;
 import application.event.HelpMessageEvent;

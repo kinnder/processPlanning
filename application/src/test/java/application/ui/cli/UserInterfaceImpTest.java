@@ -1,4 +1,4 @@
-package application;
+package application.ui.cli;
 
 import java.io.PrintStream;
 
@@ -12,6 +12,7 @@ import org.junit.jupiter.api.extension.RegisterExtension;
 
 import application.event.CommandStatusEvent;
 import application.event.HelpMessageEvent;
+import application.ui.cli.UserInterfaceImp;
 
 public class UserInterfaceImpTest {
 

@@ -27,7 +27,9 @@ import application.command.VerifyCommandData;
 import application.event.CommandStatusEvent;
 import application.event.HelpMessageEvent;
 import application.storage.PersistanceStorage;
-import application.ui.MainViewFrame;
+import application.ui.UserInterface;
+import application.ui.cli.UserInterfaceImp;
+import application.ui.gui.MainViewFrame;
 import planning.method.NodeNetwork;
 import planning.method.SystemTransformations;
 import planning.method.TaskDescription;
@@ -170,6 +172,9 @@ public class Application {
 	}
 
 	private void runCLIMode() throws Exception {
+		UserInterfaceImp ui = new UserInterfaceImp(System.out);
+		registerUserInterface(ui);
+
 		if (applicationArguments.hasArgument_plan()) {
 			PlanCommandData data = new PlanCommandData();
 			data.taskDescriptionFile = applicationArguments.getArgument_td("taskDescription.xml");

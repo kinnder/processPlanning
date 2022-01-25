@@ -2,11 +2,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package application.ui;
+package application.ui.gui;
 
 import application.Application;
 import application.ApplicationArguments;
-import application.UserInterface;
 import application.command.ConvertCommand;
 import application.command.ConvertCommandData;
 import application.command.NewSystemTransformationsCommand;
@@ -19,6 +18,7 @@ import application.command.VerifyCommand;
 import application.command.VerifyCommandData;
 import application.event.CommandStatusEvent;
 import application.event.HelpMessageEvent;
+import application.ui.UserInterface;
 
 import java.awt.event.ActionEvent;
 import java.beans.PropertyChangeListener;
@@ -335,7 +335,7 @@ public class MainViewFrame extends javax.swing.JFrame implements UserInterface {
 
 	public void updateComponents() {
 		ApplicationArguments appArgs = application.getArguments();
-                setModelValue_Domain(appArgs.getArgument_d("unknown"));
+		setModelValue_Domain(appArgs.getArgument_d("unknown"));
 		setModelValue_SystemTransformations(appArgs.getArgument_st("systemTransformations.xml"));
 		setModelValue_TaskDescription(appArgs.getArgument_td("taskDescription.xml"));
 		setModelValue_Process(appArgs.getArgument_p("process.xml"));

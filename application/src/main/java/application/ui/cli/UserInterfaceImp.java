@@ -1,9 +1,10 @@
-package application;
+package application.ui.cli;
 
 import java.io.PrintStream;
 
 import application.event.CommandStatusEvent;
 import application.event.HelpMessageEvent;
+import application.ui.UserInterface;
 
 public class UserInterfaceImp implements UserInterface {
 

@@ -34,6 +34,7 @@ import application.event.CommandStatusEvent;
 import application.event.CommandStatusEventMatcher;
 import application.event.HelpMessageEvent;
 import application.storage.PersistanceStorage;
+import application.ui.cli.UserInterfaceImp;
 import planning.method.NodeNetwork;
 import planning.method.SystemTransformations;
 import planning.method.TaskDescription;
