@@ -20,11 +20,8 @@ import application.event.CommandStatusEvent;
 import application.event.HelpMessageEvent;
 import application.ui.UserInterface;
 
-import java.awt.event.ActionEvent;
-import java.beans.PropertyChangeListener;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.Action;
 
 /**
  *
@@ -34,12 +31,11 @@ import javax.swing.Action;
 @SuppressWarnings("unused")
 public class MainViewFrame extends javax.swing.JFrame implements UserInterface {
 
-    /**
-     * Creates new form MainViewFrame
-     */
-    public MainViewFrame() {
-        initComponents();
-    }
+	private static final long serialVersionUID = 514069652804189117L;
+
+	public MainViewFrame() {
+		initComponents();
+	}
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -51,26 +47,27 @@ public class MainViewFrame extends javax.swing.JFrame implements UserInterface {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jtParameters = new javax.swing.JTable();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        jtaLog = new javax.swing.JTextArea();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
+        jmiExit = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
-        jMenuItem2 = new javax.swing.JMenuItem();
-        jMenuItem3 = new javax.swing.JMenuItem();
-        jMenuItem4 = new javax.swing.JMenuItem();
-        jMenuItem5 = new javax.swing.JMenuItem();
-        jMenuItem6 = new javax.swing.JMenuItem();
+        jmiConvert = new javax.swing.JMenuItem();
+        jmiNewTransformations = new javax.swing.JMenuItem();
+        jmiNewTask = new javax.swing.JMenuItem();
+        jmiPlan = new javax.swing.JMenuItem();
+        jmiVerify = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
-        jMenuItem7 = new javax.swing.JMenuItem();
-        jMenuItem8 = new javax.swing.JMenuItem();
+        jmiUsage = new javax.swing.JMenuItem();
+        jmiAbout = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Process Engineering");
+        setName("jfMainView"); // NOI18N
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jtParameters.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {"domain", null},
                 {"systemTransformationsFile", "systemTransformations.xml"},
@@ -86,99 +83,90 @@ public class MainViewFrame extends javax.swing.JFrame implements UserInterface {
                 false, true
             };
 
-            @Override
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
-        jTable1.getTableHeader().setReorderingAllowed(false);
-        jScrollPane1.setViewportView(jTable1);
+        jtParameters.getTableHeader().setReorderingAllowed(false);
+        jScrollPane1.setViewportView(jtParameters);
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane2.setViewportView(jTextArea1);
+        jtaLog.setColumns(20);
+        jtaLog.setRows(5);
+        jScrollPane2.setViewportView(jtaLog);
 
         jMenu1.setText("Application");
 
-        jMenuItem1.setText("Exit");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
-        	@Override
+        jmiExit.setText("Exit");
+        jmiExit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
+                jmiExitActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem1);
+        jMenu1.add(jmiExit);
 
         jMenuBar1.add(jMenu1);
 
         jMenu2.setText("Commands");
 
-        jMenuItem2.setText("Convert");
-        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
-        	@Override
+        jmiConvert.setText("Convert");
+        jmiConvert.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem2ActionPerformed(evt);
+                jmiConvertActionPerformed(evt);
             }
         });
-        jMenu2.add(jMenuItem2);
+        jMenu2.add(jmiConvert);
 
-        jMenuItem3.setText("New Transformations");
-        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
-        	@Override
+        jmiNewTransformations.setText("New Transformations");
+        jmiNewTransformations.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem3ActionPerformed(evt);
+                jmiNewTransformationsActionPerformed(evt);
             }
         });
-        jMenu2.add(jMenuItem3);
+        jMenu2.add(jmiNewTransformations);
 
-        jMenuItem4.setText("New Task");
-        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
-        	@Override
+        jmiNewTask.setText("New Task");
+        jmiNewTask.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem4ActionPerformed(evt);
+                jmiNewTaskActionPerformed(evt);
             }
         });
-        jMenu2.add(jMenuItem4);
+        jMenu2.add(jmiNewTask);
 
-        jMenuItem5.setText("Plan");
-        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
-        	@Override
+        jmiPlan.setText("Plan");
+        jmiPlan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem5ActionPerformed(evt);
+                jmiPlanActionPerformed(evt);
             }
         });
-        jMenu2.add(jMenuItem5);
+        jMenu2.add(jmiPlan);
 
-        jMenuItem6.setText("Verify");
-        jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
-        	@Override
+        jmiVerify.setText("Verify");
+        jmiVerify.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem6ActionPerformed(evt);
+                jmiVerifyActionPerformed(evt);
             }
         });
-        jMenu2.add(jMenuItem6);
+        jMenu2.add(jmiVerify);
 
         jMenuBar1.add(jMenu2);
 
         jMenu3.setText("Help");
 
-        jMenuItem7.setText("Commands");
-        jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
-        	@Override
+        jmiUsage.setText("Usage");
+        jmiUsage.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem7ActionPerformed(evt);
+                jmiUsageActionPerformed(evt);
             }
         });
-        jMenu3.add(jMenuItem7);
+        jMenu3.add(jmiUsage);
 
-        jMenuItem8.setText("About");
-        jMenuItem8.addActionListener(new java.awt.event.ActionListener() {
-        	@Override
+        jmiAbout.setText("About");
+        jmiAbout.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem8ActionPerformed(evt);
+                jmiAboutActionPerformed(evt);
             }
         });
-        jMenu3.add(jMenuItem8);
+        jMenu3.add(jmiAbout);
 
         jMenuBar1.add(jMenu3);
 
@@ -202,12 +190,12 @@ public class MainViewFrame extends javax.swing.JFrame implements UserInterface {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+    private void jmiExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiExitActionPerformed
         // exit-button:
         this.dispose();
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
+    }//GEN-LAST:event_jmiExitActionPerformed
 
-    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+    private void jmiPlanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiPlanActionPerformed
         // plan-button:
 		PlanCommandData data = new PlanCommandData();
 		data.taskDescriptionFile = getModelValue_TaskDescription();
@@ -215,9 +203,9 @@ public class MainViewFrame extends javax.swing.JFrame implements UserInterface {
 		data.processFile = getModelValue_Process();
 		data.nodeNetworkFile = getModelValue_NodeNetwork();
 		application.runCommand(PlanCommand.NAME, data);
-    }//GEN-LAST:event_jMenuItem5ActionPerformed
+    }//GEN-LAST:event_jmiPlanActionPerformed
 
-    private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
+    private void jmiVerifyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiVerifyActionPerformed
         // verify-button:
 		VerifyCommandData data = new VerifyCommandData();
 		data.taskDescriptionFile = getModelValue_TaskDescription();
@@ -225,25 +213,25 @@ public class MainViewFrame extends javax.swing.JFrame implements UserInterface {
 		data.processFile = getModelValue_Process();
 		data.nodeNetworkFile = getModelValue_NodeNetwork();
 		application.runCommand(VerifyCommand.NAME, data);
-    }//GEN-LAST:event_jMenuItem6ActionPerformed
+    }//GEN-LAST:event_jmiVerifyActionPerformed
 
-    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+    private void jmiNewTaskActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiNewTaskActionPerformed
         // new-task-button:
 		NewTaskDescriptionCommandData data = new NewTaskDescriptionCommandData();
 		data.taskDescriptionFile = getModelValue_TaskDescription();
 		data.domain = getModelValue_Domain();
 		application.runCommand(NewTaskDescriptionCommand.NAME, data);
-    }//GEN-LAST:event_jMenuItem4ActionPerformed
+    }//GEN-LAST:event_jmiNewTaskActionPerformed
 
-    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+    private void jmiNewTransformationsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiNewTransformationsActionPerformed
         // new-system-transformation-button:
 		NewSystemTransformationsCommandData data = new NewSystemTransformationsCommandData();
 		data.systemTransformationsFile = getModelValue_SystemTransformations();
 		data.domain = getModelValue_Domain();
 		application.runCommand(NewSystemTransformationsCommand.NAME, data);
-    }//GEN-LAST:event_jMenuItem3ActionPerformed
+    }//GEN-LAST:event_jmiNewTransformationsActionPerformed
 
-    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+    private void jmiConvertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiConvertActionPerformed
         // convert-button:
 		ConvertCommandData data = new ConvertCommandData();
 		data.taskDescriptionFile = getModelValue_TaskDescription();
@@ -251,18 +239,18 @@ public class MainViewFrame extends javax.swing.JFrame implements UserInterface {
 		data.processFile = getModelValue_Process();
 		data.nodeNetworkFile = getModelValue_NodeNetwork();
 		application.runCommand(ConvertCommand.NAME, data);
-    }//GEN-LAST:event_jMenuItem2ActionPerformed
+    }//GEN-LAST:event_jmiConvertActionPerformed
 
-    private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
+    private void jmiUsageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiUsageActionPerformed
         try {
             // commands-button:
             application.showHelp();
         } catch (Exception ex) {
             Logger.getLogger(MainViewFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_jMenuItem7ActionPerformed
+    }//GEN-LAST:event_jmiUsageActionPerformed
 
-    private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
+    private void jmiAboutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiAboutActionPerformed
         // about-button:
         java.awt.EventQueue.invokeLater(new Runnable() {
         	@Override
@@ -270,7 +258,7 @@ public class MainViewFrame extends javax.swing.JFrame implements UserInterface {
                 new AboutFrame().setVisible(true);
             }
         });
-    }//GEN-LAST:event_jMenuItem8ActionPerformed
+    }//GEN-LAST:event_jmiAboutActionPerformed
 
     /**
      * @param args the command line arguments
@@ -313,18 +301,18 @@ public class MainViewFrame extends javax.swing.JFrame implements UserInterface {
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItem4;
-    private javax.swing.JMenuItem jMenuItem5;
-    private javax.swing.JMenuItem jMenuItem6;
-    private javax.swing.JMenuItem jMenuItem7;
-    private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JMenuItem jmiAbout;
+    private javax.swing.JMenuItem jmiConvert;
+    private javax.swing.JMenuItem jmiExit;
+    private javax.swing.JMenuItem jmiNewTask;
+    private javax.swing.JMenuItem jmiNewTransformations;
+    private javax.swing.JMenuItem jmiPlan;
+    private javax.swing.JMenuItem jmiUsage;
+    private javax.swing.JMenuItem jmiVerify;
+    private javax.swing.JTable jtParameters;
+    private javax.swing.JTextArea jtaLog;
     // End of variables declaration//GEN-END:variables
 
 	private Application application = new Application();
@@ -343,56 +331,54 @@ public class MainViewFrame extends javax.swing.JFrame implements UserInterface {
 	}
 
 	private void setModelValue_Domain(String value) {
-		jTable1.getModel().setValueAt(value, 0, 1);
+		jtParameters.getModel().setValueAt(value, 0, 1);
 	}
 
 	private String getModelValue_Domain() {
-		return (String) jTable1.getModel().getValueAt(0, 1);
+		return (String) jtParameters.getModel().getValueAt(0, 1);
 	}
 
 	private void setModelValue_SystemTransformations(String value) {
-		jTable1.getModel().setValueAt(value, 1, 1);
+		jtParameters.getModel().setValueAt(value, 1, 1);
 	}
 
 	private String getModelValue_SystemTransformations() {
-		return (String) jTable1.getModel().getValueAt(1, 1);
+		return (String) jtParameters.getModel().getValueAt(1, 1);
 	}
 
 	private void setModelValue_TaskDescription(String value) {
-		jTable1.getModel().setValueAt(value, 2, 1);
+		jtParameters.getModel().setValueAt(value, 2, 1);
 	}
 
 	private String getModelValue_TaskDescription() {
-		return (String) jTable1.getModel().getValueAt(2, 1);
+		return (String) jtParameters.getModel().getValueAt(2, 1);
 	}
 
 	private void setModelValue_Process(String value) {
-		jTable1.getModel().setValueAt(value, 3, 1);
+		jtParameters.getModel().setValueAt(value, 3, 1);
 	}
 
 	private String getModelValue_Process() {
-		return (String) jTable1.getModel().getValueAt(3, 1);
+		return (String) jtParameters.getModel().getValueAt(3, 1);
 	}
 
 	private void setModelValue_NodeNetwork(String value) {
-		jTable1.getModel().setValueAt(value, 4, 1);
+		jtParameters.getModel().setValueAt(value, 4, 1);
 	}
 
 	private String getModelValue_NodeNetwork() {
-		return (String) jTable1.getModel().getValueAt(4, 1);
+		return (String) jtParameters.getModel().getValueAt(4, 1);
 	}
 
 	@Override
 	public void notifyHelpMessage(HelpMessageEvent event) {
-		// TODO Auto-generated method stub
-                jTextArea1.append(event.message);
-                jTextArea1.append("\n");
+		jtaLog.append(event.message);
+		jtaLog.append("\n");
 	}
 
 	@Override
 	public void notifyCommandStatus(CommandStatusEvent event) {
-		// TODO Auto-generated method stub
-                jTextArea1.append(event.message);
-                jTextArea1.append("\n");
+		jtaLog.append(event.message);
+		jtaLog.append("\n");
 	}
 }
