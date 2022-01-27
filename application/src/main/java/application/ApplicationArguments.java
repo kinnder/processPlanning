@@ -84,10 +84,6 @@ public class ApplicationArguments {
 		return line.hasOption(h_option.getOpt());
 	}
 
-	public boolean hasArgument_td() {
-		return line.hasOption(td_option.getOpt());
-	}
-
 	public boolean hasArgument_gui() {
 		return line.hasOption(gui_option.getOpt());
 	}
