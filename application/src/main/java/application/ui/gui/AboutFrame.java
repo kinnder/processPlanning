@@ -38,6 +38,7 @@ public class AboutFrame extends javax.swing.JFrame {
 
         jbOk.setText("jButton1");
         jbOk.addActionListener(new java.awt.event.ActionListener() {
+        	@Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbOkActionPerformed(evt);
             }

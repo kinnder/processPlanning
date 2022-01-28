@@ -83,6 +83,7 @@ public class MainViewFrame extends javax.swing.JFrame implements UserInterface {
                 false, true
             };
 
+            @Override
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
@@ -98,6 +99,7 @@ public class MainViewFrame extends javax.swing.JFrame implements UserInterface {
 
         jmiExit.setText("Exit");
         jmiExit.addActionListener(new java.awt.event.ActionListener() {
+        	@Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jmiExitActionPerformed(evt);
             }
@@ -110,6 +112,7 @@ public class MainViewFrame extends javax.swing.JFrame implements UserInterface {
 
         jmiConvert.setText("Convert");
         jmiConvert.addActionListener(new java.awt.event.ActionListener() {
+        	@Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jmiConvertActionPerformed(evt);
             }
@@ -118,6 +121,7 @@ public class MainViewFrame extends javax.swing.JFrame implements UserInterface {
 
         jmiNewTransformations.setText("New Transformations");
         jmiNewTransformations.addActionListener(new java.awt.event.ActionListener() {
+        	@Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jmiNewTransformationsActionPerformed(evt);
             }
@@ -126,6 +130,7 @@ public class MainViewFrame extends javax.swing.JFrame implements UserInterface {
 
         jmiNewTask.setText("New Task");
         jmiNewTask.addActionListener(new java.awt.event.ActionListener() {
+        	@Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jmiNewTaskActionPerformed(evt);
             }
@@ -134,6 +139,7 @@ public class MainViewFrame extends javax.swing.JFrame implements UserInterface {
 
         jmiPlan.setText("Plan");
         jmiPlan.addActionListener(new java.awt.event.ActionListener() {
+        	@Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jmiPlanActionPerformed(evt);
             }
@@ -142,6 +148,7 @@ public class MainViewFrame extends javax.swing.JFrame implements UserInterface {
 
         jmiVerify.setText("Verify");
         jmiVerify.addActionListener(new java.awt.event.ActionListener() {
+        	@Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jmiVerifyActionPerformed(evt);
             }
@@ -154,6 +161,7 @@ public class MainViewFrame extends javax.swing.JFrame implements UserInterface {
 
         jmiUsage.setText("Usage");
         jmiUsage.addActionListener(new java.awt.event.ActionListener() {
+        	@Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jmiUsageActionPerformed(evt);
             }
@@ -162,6 +170,7 @@ public class MainViewFrame extends javax.swing.JFrame implements UserInterface {
 
         jmiAbout.setText("About");
         jmiAbout.addActionListener(new java.awt.event.ActionListener() {
+        	@Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jmiAboutActionPerformed(evt);
             }
