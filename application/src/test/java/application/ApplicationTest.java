@@ -16,17 +16,12 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
 import application.command.ConvertCommand;
-import application.command.ConvertCommandDataMatcher;
 import application.command.HelpCommand;
 import application.command.HelpCommandDataMatcher;
 import application.command.NewSystemTransformationsCommand;
-import application.command.NewSystemTransformationsCommandDataMatcher;
 import application.command.NewTaskDescriptionCommand;
-import application.command.NewTaskDescriptionCommandDataMatcher;
 import application.command.PlanCommand;
-import application.command.PlanCommandDataMatcher;
 import application.command.VerifyCommand;
-import application.command.VerifyCommandDataMatcher;
 import application.domain.AssemblyLine;
 import application.domain.CuttingProcess;
 import application.domain.MaterialPoints;
@@ -184,73 +179,6 @@ public class ApplicationTest {
 		});
 
 		testable.run(new String[] { "-h" });
-	}
-
-	@Test
-	public void run_PlanCommand() throws Exception {
-		context.checking(new Expectations() {
-			{
-				oneOf(planCommand_mock).run(with(new PlanCommandDataMatcher()
-						.expectSystemTransformationsFile("st_file.xml").expectTaskDescriptionFile("td_file.xml")
-						.expectProcessFile("p_file.xml").expectNodeNetworkFile("nn_file.xml")));
-			}
-		});
-
-		testable.run(new String[] { "-plan", "-task-description=td_file.xml", "-system-transformations=st_file.xml",
-				"-process=p_file.xml", "-node-network=nn_file.xml" });
-	}
-
-	@Test
-	public void run_NewSystemTransformationsCommand() throws Exception {
-		context.checking(new Expectations() {
-			{
-				oneOf(newSystemTransformationsCommand_mock)
-						.run(with(new NewSystemTransformationsCommandDataMatcher()
-								.expectSystemTransformationsFile("st_file.xml").expectDomain("unknown")));
-			}
-		});
-
-		testable.run(new String[] { "-new_st", "-system-transformations=st_file.xml" });
-	}
-
-	@Test
-	public void run_NewTaskDescriptionCommand() throws Exception {
-		context.checking(new Expectations() {
-			{
-				oneOf(newTaskDescriptionCommand_mock).run(with(new NewTaskDescriptionCommandDataMatcher()
-						.expectTaskDescriptionFile("td_file.xml").expectDomain("materialPoints")));
-			}
-		});
-
-		testable.run(new String[] { "-new_td", "-domain=materialPoints", "-task-description=td_file.xml" });
-	}
-
-	@Test
-	public void run_VerifyCommand() throws Exception {
-		context.checking(new Expectations() {
-			{
-				oneOf(verifyCommand_mock).run(with(new VerifyCommandDataMatcher()
-						.expectSystemTransformationsFile("st_file.xml").expectTaskDescriptionFile("td_file.xml")
-						.expectProcessFile("p_file.xml").expectNodeNetworkFile("nn_file.xml")));
-			}
-		});
-
-		testable.run(new String[] { "-verify", "-task-description=td_file.xml", "-system-transformations=st_file.xml",
-				"-process=p_file.xml", "-node-network=nn_file.xml" });
-	}
-
-	@Test
-	public void run_ConvertCommand() throws Exception {
-		context.checking(new Expectations() {
-			{
-				oneOf(convertCommand_mock).run(with(new ConvertCommandDataMatcher()
-						.expectSystemTransformationsFile("st_file.xml").expectTaskDescriptionFile("td_file.xml")
-						.expectProcessFile("p_file.xml").expectNodeNetworkFile("nn_file.xml")));
-			}
-		});
-
-		testable.run(new String[] { "-convert", "-task-description=td_file.xml", "-system-transformations=st_file.xml",
-				"-process=p_file.xml", "-node-network=nn_file.xml" });
 	}
 
 	@Test

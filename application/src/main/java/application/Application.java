@@ -173,8 +173,7 @@ public class Application {
 	}
 
 	private void runCLIMode() throws Exception {
-		MainShell shell = new MainShell(System.out);
-		shell.setApplication(this);
+		MainShell shell = new MainShell(this, System.out);
 
 		registerUserInterface(shell);
 

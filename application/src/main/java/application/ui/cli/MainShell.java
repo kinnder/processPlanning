@@ -22,8 +22,11 @@ public class MainShell implements UserInterface {
 
 	private PrintStream printStream;
 
-	public MainShell(PrintStream printStream) {
+	private Application application;
+
+	public MainShell(Application application, PrintStream printStream) {
 		this.printStream = printStream;
+		this.application = application;
 	}
 
 	@Override
@@ -36,12 +39,6 @@ public class MainShell implements UserInterface {
 		printStream.println(event.message);
 	}
 
-	private Application application = new Application();
-
-	public void setApplication(Application application) {
-		this.application = application;
-	}
-
 	public void run() throws Exception {
 		ApplicationArguments applicationArguments = application.getArguments();
 
@@ -52,36 +49,31 @@ public class MainShell implements UserInterface {
 			data.processFile = applicationArguments.getArgument_p("process.xml");
 			data.nodeNetworkFile = applicationArguments.getArgument_nn("nodeNetwork.xml");
 			application.runCommand(PlanCommand.NAME, data);
-		}
-		else if (applicationArguments.hasArgument_new_st()) {
+		} else if (applicationArguments.hasArgument_new_st()) {
 			NewSystemTransformationsCommandData data = new NewSystemTransformationsCommandData();
 			data.systemTransformationsFile = applicationArguments.getArgument_st("systemTransformations.xml");
 			data.domain = applicationArguments.getArgument_d("unknown");
 			application.runCommand(NewSystemTransformationsCommand.NAME, data);
-		}
-		else if (applicationArguments.hasArgument_new_td()) {
+		} else if (applicationArguments.hasArgument_new_td()) {
 			NewTaskDescriptionCommandData data = new NewTaskDescriptionCommandData();
 			data.taskDescriptionFile = applicationArguments.getArgument_td("taskDescription.xml");
 			data.domain = applicationArguments.getArgument_d("unknown");
 			application.runCommand(NewTaskDescriptionCommand.NAME, data);
-		}
-		else if (applicationArguments.hasArgument_verify()) {
+		} else if (applicationArguments.hasArgument_verify()) {
 			VerifyCommandData data = new VerifyCommandData();
 			data.taskDescriptionFile = applicationArguments.getArgument_td(null);
 			data.systemTransformationsFile = applicationArguments.getArgument_st(null);
 			data.processFile = applicationArguments.getArgument_p(null);
 			data.nodeNetworkFile = applicationArguments.getArgument_nn(null);
 			application.runCommand(VerifyCommand.NAME, data);
-		}
-		else if (applicationArguments.hasArgument_convert()) {
+		} else if (applicationArguments.hasArgument_convert()) {
 			ConvertCommandData data = new ConvertCommandData();
 			data.taskDescriptionFile = applicationArguments.getArgument_td(null);
 			data.systemTransformationsFile = applicationArguments.getArgument_st(null);
 			data.processFile = applicationArguments.getArgument_p(null);
 			data.nodeNetworkFile = applicationArguments.getArgument_nn(null);
 			application.runCommand(ConvertCommand.NAME, data);
-		}
-		else {
+		} else {
 			application.showHelp();
 		}
 	}
