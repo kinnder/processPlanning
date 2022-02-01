@@ -23,8 +23,8 @@ import application.event.CommandStatusEvent;
 import application.event.HelpMessageEvent;
 import application.storage.PersistanceStorage;
 import application.ui.UserInterface;
-import application.ui.cli.MainShell;
-import application.ui.gui.MainViewFrame;
+import application.ui.UserInterfaceBuilder;
+import application.ui.UserInterfaceBuilder.UserInterfaceType;
 import planning.method.NodeNetwork;
 import planning.method.SystemTransformations;
 import planning.method.TaskDescription;
@@ -38,6 +38,8 @@ public class Application {
 		commands.put(command.getName(), command);
 	}
 
+	private UserInterfaceBuilder userInterfaceBuilder;
+
 	public Application() {
 		registerCommand(new HelpCommand(this));
 		registerCommand(new PlanCommand(this));
@@ -47,12 +49,15 @@ public class Application {
 		registerCommand(new ConvertCommand(this));
 
 		persistanceStorage = new PersistanceStorage();
+		applicationArguments = new ApplicationArguments();
+		userInterfaceBuilder = new UserInterfaceBuilder();
 	}
 
 	Application(HelpCommand helpCommand, PlanCommand planCommand,
 			NewSystemTransformationsCommand newSystemTransformationsCommand,
 			NewTaskDescriptionCommand newTaskDescriptionCommand, VerifyCommand verifyCommand,
-			ConvertCommand convertCommand, PersistanceStorage persistanceStorage) {
+			ConvertCommand convertCommand, PersistanceStorage persistanceStorage,
+			ApplicationArguments applicationArguments, UserInterfaceBuilder userInterfaceBuilder) {
 
 		registerCommand(helpCommand);
 		registerCommand(planCommand);
@@ -62,6 +67,8 @@ public class Application {
 		registerCommand(convertCommand);
 
 		this.persistanceStorage = persistanceStorage;
+		this.applicationArguments = applicationArguments;
+		this.userInterfaceBuilder = userInterfaceBuilder;
 	}
 
 	private List<UserInterface> uis = new ArrayList<UserInterface>();
@@ -120,64 +127,35 @@ public class Application {
 		return persistanceStorage.getResourceAsStream(resourcePath);
 	}
 
-	private ApplicationArguments applicationArguments = new ApplicationArguments();
+	private ApplicationArguments applicationArguments;
 
 	public ApplicationArguments getArguments() {
 		return applicationArguments;
 	}
 
+	private UserInterface createUserInterface(UserInterfaceType type) {
+		UserInterface ui = userInterfaceBuilder.build(type);
+		registerUserInterface(ui);
+		ui.setApplication(this);
+		return ui;
+	}
+
 	public void run(String[] args) throws Exception {
 		try {
 			applicationArguments.parseArguments(args);
-
-			if (applicationArguments.hasArgument_gui()) {
-				runGUIMode();
-			} else {
-				runCLIMode();
-			}
+			UserInterface ui = createUserInterface(
+					applicationArguments.hasArgument_gui() ? UserInterfaceType.gui : UserInterfaceType.cli);
+			ui.run();
 		} catch (UnrecognizedOptionException e) {
+			createUserInterface(UserInterfaceType.cli);
 			notifyCommandStatus(new CommandStatusEvent(e.getMessage()));
 			showHelp();
 		}
 	}
 
-	private void initializeLookAndFeel() throws Exception {
-		for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-			if ("Nimbus".equals(info.getName())) {
-				javax.swing.UIManager.setLookAndFeel(info.getClassName());
-				break;
-			}
-		}
-	}
-
-	private void runGUIMode() throws Exception {
-		initializeLookAndFeel();
-
-		MainViewFrame view = new MainViewFrame();
-		view.setApplication(this);
-		view.updateComponents();
-
-		registerUserInterface(view);
-
-		java.awt.EventQueue.invokeLater(new Runnable() {
-			@Override
-			public void run() {
-				view.setVisible(true);
-			}
-		});
-	}
-
 	public void runCommand(String commandName, CommandData commandData) {
 		Command command = commands.get(commandName);
 		command.run(commandData);
-	}
-
-	private void runCLIMode() throws Exception {
-		MainShell shell = new MainShell(this, System.out);
-
-		registerUserInterface(shell);
-
-		shell.run();
 	}
 
 	public void showHelp() throws Exception {

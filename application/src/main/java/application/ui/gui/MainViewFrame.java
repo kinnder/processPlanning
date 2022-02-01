@@ -326,6 +326,7 @@ public class MainViewFrame extends javax.swing.JFrame implements UserInterface {
 
 	private Application application = new Application();
 
+	@Override
 	public void setApplication(Application application) {
 		this.application = application;
 	}
@@ -389,5 +390,21 @@ public class MainViewFrame extends javax.swing.JFrame implements UserInterface {
 	public void notifyCommandStatus(CommandStatusEvent event) {
 		jtaLog.append(event.message);
 		jtaLog.append("\n");
+	}
+
+	public static void initializeLookAndFeel() throws Exception {
+		for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+			if ("Nimbus".equals(info.getName())) {
+				javax.swing.UIManager.setLookAndFeel(info.getClassName());
+				break;
+			}
+		}
+	}
+
+	@Override
+	public void run() throws Exception {
+		initializeLookAndFeel();
+		updateComponents();
+		setVisible(true);
 	}
 }

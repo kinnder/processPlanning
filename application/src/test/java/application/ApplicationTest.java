@@ -4,8 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.io.IOException;
 import java.io.InputStream;
 
-import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
+import org.apache.commons.cli.UnrecognizedOptionException;
 import org.jdom2.JDOMException;
 import org.jmock.Expectations;
 import org.jmock.imposters.ByteBuddyClassImposteriser;
@@ -21,15 +21,15 @@ import application.command.HelpCommandDataMatcher;
 import application.command.NewSystemTransformationsCommand;
 import application.command.NewTaskDescriptionCommand;
 import application.command.PlanCommand;
+import application.command.PlanCommandData;
 import application.command.VerifyCommand;
-import application.domain.AssemblyLine;
-import application.domain.CuttingProcess;
-import application.domain.MaterialPoints;
 import application.event.CommandStatusEvent;
 import application.event.CommandStatusEventMatcher;
 import application.event.HelpMessageEvent;
 import application.storage.PersistanceStorage;
-import application.ui.cli.MainShell;
+import application.ui.UserInterface;
+import application.ui.UserInterfaceBuilder;
+import application.ui.UserInterfaceBuilder.UserInterfaceType;
 import planning.method.NodeNetwork;
 import planning.method.SystemTransformations;
 import planning.method.TaskDescription;
@@ -65,6 +65,10 @@ public class ApplicationTest {
 
 	PersistanceStorage persistanceStorage_mock;
 
+	ApplicationArguments applicationArguments_mock;
+
+	UserInterfaceBuilder userInterfaceBuilder_mock;
+
 	@BeforeEach
 	public void setup() {
 		helpCommand_mock = context.mock(HelpCommand.class);
@@ -74,6 +78,8 @@ public class ApplicationTest {
 		verifyCommand_mock = context.mock(VerifyCommand.class);
 		convertCommand_mock = context.mock(ConvertCommand.class);
 		persistanceStorage_mock = context.mock(PersistanceStorage.class);
+		applicationArguments_mock = context.mock(ApplicationArguments.class);
+		userInterfaceBuilder_mock = context.mock(UserInterfaceBuilder.class);
 
 		context.checking(new Expectations() {
 			{
@@ -98,7 +104,8 @@ public class ApplicationTest {
 		});
 
 		testable = new Application(helpCommand_mock, planCommand_mock, newSystemTransformationsCommand_mock,
-				newTaskDescriptionCommand_mock, verifyCommand_mock, convertCommand_mock, persistanceStorage_mock);
+				newTaskDescriptionCommand_mock, verifyCommand_mock, convertCommand_mock, persistanceStorage_mock,
+				applicationArguments_mock, userInterfaceBuilder_mock);
 	}
 
 	@Test
@@ -108,14 +115,14 @@ public class ApplicationTest {
 
 	@Test
 	public void registerUserInterface() {
-		final MainShell ui_mock = context.mock(MainShell.class);
+		final UserInterface ui_mock = context.mock(UserInterface.class);
 
 		testable.registerUserInterface(ui_mock);
 	}
 
 	@Test
 	public void notifyHelpMessage() {
-		final MainShell ui_mock = context.mock(MainShell.class);
+		final UserInterface ui_mock = context.mock(UserInterface.class);
 		final HelpMessageEvent event_mock = context.mock(HelpMessageEvent.class);
 
 		context.checking(new Expectations() {
@@ -130,7 +137,7 @@ public class ApplicationTest {
 
 	@Test
 	public void notifyCommandStatus() {
-		final MainShell ui_mock = context.mock(MainShell.class);
+		final UserInterface ui_mock = context.mock(UserInterface.class);
 		final CommandStatusEvent event_mock = context.mock(CommandStatusEvent.class);
 
 		context.checking(new Expectations() {
@@ -144,125 +151,80 @@ public class ApplicationTest {
 	}
 
 	@Test
-	public void run_HelpCommand() throws Exception {
-		Option h_option = new Option("h", "help", false, "prints usage");
-		Option td_option = new Option("td", "task-description", true, "file with description of the task");
-		Option st_option = new Option("st", "system-transformations", true, "file with description of the system transformations");
-		Option p_option = new Option("p", "process", true, "output file with process");
-		Option nn_option = new Option("nn", "node-network", true, "output file with node network");
-		Option plan_option = new Option("plan", "plan process");
-		Option new_st_option = new Option("new_st", "new-system-transformations", false, "create new file with predefined system transformations");
-		Option new_td_option = new Option("new_td", "new-task-description", false, "create new file with predefined task description");
-		Option verify_option = new Option("verify", "verify xml-files with according xml-schemas");
-		Option convert_option = new Option("convert", "convert files between formats: xml to owl and owl to xml");
-		Option gui_option = new Option("gui", "show graphical user interface");
-		Option d_option = new Option("d", "domain", true, String.format("defines domain for predefined data: %s, %s or %s", MaterialPoints.DOMAIN_NAME, CuttingProcess.DOMAIN_NAME, AssemblyLine.DOMAIN_NAME));
-
-		Options options = new Options();
-		options.addOption(h_option);
-		options.addOption(td_option);
-		options.addOption(st_option);
-		options.addOption(p_option);
-		options.addOption(nn_option);
-		options.addOption(plan_option);
-		options.addOption(new_st_option);
-		options.addOption(new_td_option);
-		options.addOption(verify_option);
-		options.addOption(convert_option);
-		options.addOption(gui_option);
-		options.addOption(d_option);
+	public void run_gui() throws Exception {
+		final String[] args = new String[] { "-gui" };
+		final UserInterface ui_mock = context.mock(UserInterface.class);
 
 		context.checking(new Expectations() {
 			{
-				oneOf(helpCommand_mock).execute(with(new HelpCommandDataMatcher().expectOptions(options)));
+				oneOf(applicationArguments_mock).parseArguments(args);
+
+				oneOf(applicationArguments_mock).hasArgument_gui();
+				will(returnValue(true));
+
+				oneOf(userInterfaceBuilder_mock).build(UserInterfaceType.gui);
+				will(returnValue(ui_mock));
+
+				oneOf(ui_mock).setApplication(testable);
+
+				oneOf(ui_mock).run();
 			}
 		});
 
-		testable.run(new String[] { "-h" });
+		testable.run(args);
+	}
+
+	@Test
+	public void run_cli() throws Exception {
+		final String[] args = new String[] { "-h" };
+		final UserInterface ui_mock = context.mock(UserInterface.class);
+
+		context.checking(new Expectations() {
+			{
+				oneOf(applicationArguments_mock).parseArguments(args);
+
+				oneOf(applicationArguments_mock).hasArgument_gui();
+				will(returnValue(false));
+
+				oneOf(userInterfaceBuilder_mock).build(UserInterfaceType.cli);
+				will(returnValue(ui_mock));
+
+				oneOf(ui_mock).setApplication(testable);
+
+				oneOf(ui_mock).run();
+			}
+		});
+
+		testable.run(args);
 	}
 
 	@Test
 	public void run_UnrecognizedOption() throws Exception {
-		Option h_option = new Option("h", "help", false, "prints usage");
-		Option td_option = new Option("td", "task-description", true, "file with description of the task");
-		Option st_option = new Option("st", "system-transformations", true, "file with description of the system transformations");
-		Option p_option = new Option("p", "process", true, "output file with process");
-		Option nn_option = new Option("nn", "node-network", true, "output file with node network");
-		Option plan_option = new Option("plan", "plan process");
-		Option new_st_option = new Option("new_st", "new-system-transformations", false, "create new file with predefined system transformations");
-		Option new_td_option = new Option("new_td", "new-task-description", false, "create new file with predefined task description");
-		Option verify_option = new Option("verify", "verify xml-files with according xml-schemas");
-		Option convert_option = new Option("convert", "convert files between formats: xml to owl and owl to xml");
-		Option gui_option = new Option("gui", "show graphical user interface");
-		Option d_option = new Option("d", "domain", true, String.format("defines domain for predefined data: %s, %s or %s", MaterialPoints.DOMAIN_NAME, CuttingProcess.DOMAIN_NAME, AssemblyLine.DOMAIN_NAME));
-
-		Options options = new Options();
-		options.addOption(h_option);
-		options.addOption(td_option);
-		options.addOption(st_option);
-		options.addOption(p_option);
-		options.addOption(nn_option);
-		options.addOption(plan_option);
-		options.addOption(new_st_option);
-		options.addOption(new_td_option);
-		options.addOption(verify_option);
-		options.addOption(convert_option);
-		options.addOption(gui_option);
-		options.addOption(d_option);
-
-		MainShell ui_mock = context.mock(MainShell.class);
+		final String[] args = new String[] { "-?" };
+		final Options options_mock = new Options();
+		final UserInterface ui_mock = context.mock(UserInterface.class);
 
 		context.checking(new Expectations() {
 			{
-				oneOf(ui_mock).notifyCommandStatus(with(new CommandStatusEventMatcher().expectMessage("Unrecognized option: -?")));
+				oneOf(applicationArguments_mock).parseArguments(args);
+				will(throwException(new UnrecognizedOptionException("Unrecognized option: -?")));
 
-				oneOf(helpCommand_mock).execute(with(new HelpCommandDataMatcher().expectOptions(options)));
+				oneOf(userInterfaceBuilder_mock).build(UserInterfaceType.cli);
+				will(returnValue(ui_mock));
+
+				oneOf(ui_mock).setApplication(testable);
+
+				oneOf(ui_mock).notifyCommandStatus(
+						with(new CommandStatusEventMatcher().expectMessage("Unrecognized option: -?")));
+
+				oneOf(applicationArguments_mock).getOptions();
+				will(returnValue(options_mock));
+
+				oneOf(helpCommand_mock).execute(with(new HelpCommandDataMatcher().expectOptions(options_mock)));
 			}
 		});
-		testable.registerUserInterface(ui_mock);
 
-		testable.run(new String[] { "-?" });
-	}
-
-	@Test
-	public void run_commandNotSpecified() throws Exception {
-		Option h_option = new Option("h", "help", false, "prints usage");
-		Option td_option = new Option("td", "task-description", true, "file with description of the task");
-		Option st_option = new Option("st", "system-transformations", true, "file with description of the system transformations");
-		Option p_option = new Option("p", "process", true, "output file with process");
-		Option nn_option = new Option("nn", "node-network", true, "output file with node network");
-		Option plan_option = new Option("plan", "plan process");
-		Option new_st_option = new Option("new_st", "new-system-transformations", false, "create new file with predefined system transformations");
-		Option new_td_option = new Option("new_td", "new-task-description", false, "create new file with predefined task description");
-		Option verify_option = new Option("verify", "verify xml-files with according xml-schemas");
-		Option convert_option = new Option("convert", "convert files between formats: xml to owl and owl to xml");
-		Option gui_option = new Option("gui", "show graphical user interface");
-		Option d_option = new Option("d", "domain", true, String.format("defines domain for predefined data: %s, %s or %s", MaterialPoints.DOMAIN_NAME, CuttingProcess.DOMAIN_NAME, AssemblyLine.DOMAIN_NAME));
-
-		Options options = new Options();
-		options.addOption(h_option);
-		options.addOption(td_option);
-		options.addOption(st_option);
-		options.addOption(p_option);
-		options.addOption(nn_option);
-		options.addOption(plan_option);
-		options.addOption(new_st_option);
-		options.addOption(new_td_option);
-		options.addOption(verify_option);
-		options.addOption(convert_option);
-		options.addOption(gui_option);
-		options.addOption(d_option);
-
-		MainShell ui_mock = context.mock(MainShell.class);
-
-		context.checking(new Expectations() {
-			{
-				oneOf(helpCommand_mock).execute(with(new HelpCommandDataMatcher().expectOptions(options)));
-			}
-		});
-		testable.registerUserInterface(ui_mock);
-
-		testable.run(new String[] { "" });
+		testable.run(args);
 	}
 
 	@Test
@@ -394,5 +356,39 @@ public class ApplicationTest {
 		});
 
 		assertEquals(resource_mock, testable.getResourceAsStream(path));
+	}
+
+	@Test
+	public void showHelp() throws Exception {
+		final Options options_mock = new Options();
+
+		context.checking(new Expectations() {
+			{
+				oneOf(applicationArguments_mock).getOptions();
+				will(returnValue(options_mock));
+
+				oneOf(helpCommand_mock).execute(with(new HelpCommandDataMatcher().expectOptions(options_mock)));
+			}
+		});
+
+		testable.showHelp();
+	}
+
+	@Test
+	public void getArguments() {
+		assertEquals(applicationArguments_mock, testable.getArguments());
+	}
+
+	@Test
+	public void runCommand() {
+		final PlanCommandData planCommandData = new PlanCommandData();
+
+		context.checking(new Expectations() {
+			{
+				oneOf(planCommand_mock).run(planCommandData);
+			}
+		});
+
+		testable.runCommand(PlanCommand.NAME, planCommandData);
 	}
 }

@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 import org.jmock.imposters.ByteBuddyClassImposteriser;
@@ -12,6 +13,10 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
+
+import application.domain.AssemblyLine;
+import application.domain.CuttingProcess;
+import application.domain.MaterialPoints;
 
 public class ApplicationArgumentsTest {
 
@@ -208,7 +213,42 @@ public class ApplicationArgumentsTest {
 
 	@Test
 	public void getOptions() {
-		final Options options = testable.getOptions();
-		assertEquals(12, options.getOptions().size());
+		final Option h_option = new Option("h", "help", false, "prints usage");
+		final Option td_option = new Option("td", "task-description", true, "file with description of the task");
+		final Option st_option = new Option("st", "system-transformations", true, "file with description of the system transformations");
+		final Option p_option = new Option("p", "process", true, "output file with process");
+		final Option nn_option = new Option("nn", "node-network", true, "output file with node network");
+		final Option plan_option = new Option("plan", "plan process");
+		final Option new_st_option = new Option("new_st", "new-system-transformations", false, "create new file with predefined system transformations");
+		final Option new_td_option = new Option("new_td", "new-task-description", false, "create new file with predefined task description");
+		final Option verify_option = new Option("verify", "verify xml-files with according xml-schemas");
+		final Option convert_option = new Option("convert", "convert files between formats: xml to owl and owl to xml");
+		final Option gui_option = new Option("gui", "show graphical user interface");
+		final Option d_option = new Option("d", "domain", true, String.format("defines domain for predefined data: %s, %s or %s", MaterialPoints.DOMAIN_NAME, CuttingProcess.DOMAIN_NAME, AssemblyLine.DOMAIN_NAME));
+
+		final Options options_expected = new Options();
+		options_expected.addOption(h_option);
+		options_expected.addOption(td_option);
+		options_expected.addOption(st_option);
+		options_expected.addOption(p_option);
+		options_expected.addOption(nn_option);
+		options_expected.addOption(plan_option);
+		options_expected.addOption(new_st_option);
+		options_expected.addOption(new_td_option);
+		options_expected.addOption(verify_option);
+		options_expected.addOption(convert_option);
+		options_expected.addOption(gui_option);
+		options_expected.addOption(d_option);
+
+		final Options options_actual = testable.getOptions();
+		assertEquals(12, options_actual.getOptions().size());
+
+		for (Option option_expected : options_expected.getOptions()) {
+			Option option_actual = options_actual.getOption(option_expected.getOpt());
+			assertEquals(option_expected.getOpt(), option_actual.getOpt());
+			assertEquals(option_expected.getLongOpt(), option_actual.getLongOpt());
+			assertEquals(option_expected.getDescription(), option_actual.getDescription());
+			assertEquals(option_expected.hasArg(), option_actual.hasArg());
+		}
 	}
 }
