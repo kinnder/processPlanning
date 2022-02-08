@@ -41,6 +41,7 @@ public class MainViewFrame extends javax.swing.JFrame implements UserInterface {
 		jtaLog = new javax.swing.JTextArea();
 		jMenuBar1 = new javax.swing.JMenuBar();
 		jMenu1 = new javax.swing.JMenu();
+		jmiOptions = new javax.swing.JMenuItem();
 		jmiExit = new javax.swing.JMenuItem();
 		jMenu2 = new javax.swing.JMenu();
 		jmiConvert = new javax.swing.JMenuItem();
@@ -77,6 +78,16 @@ public class MainViewFrame extends javax.swing.JFrame implements UserInterface {
 		jScrollPane2.setViewportView(jtaLog);
 
 		jMenu1.setText("Application");
+
+		jmiOptions.setText("Options");
+
+		jmiOptions.addActionListener(new java.awt.event.ActionListener() {
+			@Override
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
+				jmiOptionsActionPerformed(evt);
+			}
+		});
+		jMenu1.add(jmiOptions);
 
 		jmiExit.setText("Exit");
 		jmiExit.addActionListener(new java.awt.event.ActionListener() {
@@ -178,6 +189,18 @@ public class MainViewFrame extends javax.swing.JFrame implements UserInterface {
 	}// </editor-fold>//GEN-END:initComponents
 
 	@SuppressWarnings("unused")
+	private void jmiOptionsActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jmiOptionsActionPerformed
+		java.awt.EventQueue.invokeLater(new Runnable() {
+			@Override
+			public void run() {
+				OptionsFrame optionsFrame = new OptionsFrame();
+				optionsFrame.setApplication(application);
+				optionsFrame.setVisible(true);
+			}
+		});
+	}// GEN-LAST:event_jmiOptionsActionPerformed
+
+	@SuppressWarnings("unused")
 	private void jmiExitActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jmiExitActionPerformed
 		this.dispose();
 	}// GEN-LAST:event_jmiExitActionPerformed
@@ -268,6 +291,7 @@ public class MainViewFrame extends javax.swing.JFrame implements UserInterface {
 	private javax.swing.JMenuItem jmiExit;
 	private javax.swing.JMenuItem jmiNewTask;
 	private javax.swing.JMenuItem jmiNewTransformations;
+	private javax.swing.JMenuItem jmiOptions;
 	private javax.swing.JMenuItem jmiPlan;
 	private javax.swing.JMenuItem jmiUsage;
 	private javax.swing.JMenuItem jmiVerify;
