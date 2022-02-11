@@ -1,5 +1,7 @@
 package application;
 
+import java.util.Optional;
+
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.DefaultParser;
@@ -78,6 +80,11 @@ public class ApplicationArguments {
 	public void parseArguments(String[] arguments) throws ParseException {
 		CommandLineParser parser = new DefaultParser();
 		line = parser.parse(options, arguments);
+		domain = Optional.ofNullable(line.getOptionValue(d_option.getOpt()));
+		systemTransformations = Optional.ofNullable(line.getOptionValue(st_option.getOpt()));
+		nodeNetwork = Optional.ofNullable(line.getOptionValue(nn_option.getOpt()));
+		taskDescription = Optional.ofNullable(line.getOptionValue(td_option.getOpt()));
+		process = Optional.ofNullable(line.getOptionValue(p_option.getOpt()));
 	}
 
 	public boolean hasArgument_h() {
@@ -112,23 +119,53 @@ public class ApplicationArguments {
 		return options;
 	}
 
+	private Optional<String> taskDescription = Optional.empty();
+
 	public String getArgument_td(String defaultValue) {
-		return line.getOptionValue(td_option.getOpt(), defaultValue);
+		return taskDescription.orElse(defaultValue);
 	}
+
+	public void setArgument_td(String value) {
+		taskDescription = Optional.ofNullable(value);
+	}
+
+	private Optional<String> systemTransformations = Optional.empty();
 
 	public String getArgument_st(String defaultValue) {
-		return line.getOptionValue(st_option.getOpt(), defaultValue);
+		return systemTransformations.orElse(defaultValue);
 	}
+
+	public void setArgument_st(String value) {
+		systemTransformations = Optional.ofNullable(value);
+	}
+
+	private Optional<String> process = Optional.empty();
 
 	public String getArgument_p(String defaultValue) {
-		return line.getOptionValue(p_option.getOpt(), defaultValue);
+		return process.orElse(defaultValue);
 	}
+
+	public void setArgument_p(String value) {
+		process = Optional.ofNullable(value);
+	}
+
+	private Optional<String> nodeNetwork = Optional.empty();
 
 	public String getArgument_nn(String defaultValue) {
-		return line.getOptionValue(nn_option.getOpt(), defaultValue);
+		return nodeNetwork.orElse(defaultValue);
 	}
 
+	public void setArgument_nn(String value) {
+		nodeNetwork = Optional.ofNullable(value);
+	}
+
+	private Optional<String> domain = Optional.empty();
+
 	public String getArgument_d(String defaultValue) {
-		return line.getOptionValue(d_option.getOpt(), defaultValue);
+		return domain.orElse(defaultValue);
+	}
+
+	public void setArgument_d(String value) {
+		domain = Optional.ofNullable(value);
 	}
 }

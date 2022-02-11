@@ -13,12 +13,17 @@ import org.jdom2.JDOMException;
 import application.command.Command;
 import application.command.CommandData;
 import application.command.ConvertCommand;
+import application.command.ConvertCommandData;
 import application.command.HelpCommand;
 import application.command.HelpCommandData;
 import application.command.NewSystemTransformationsCommand;
+import application.command.NewSystemTransformationsCommandData;
 import application.command.NewTaskDescriptionCommand;
+import application.command.NewTaskDescriptionCommandData;
 import application.command.PlanCommand;
+import application.command.PlanCommandData;
 import application.command.VerifyCommand;
+import application.command.VerifyCommandData;
 import application.event.CommandStatusEvent;
 import application.event.HelpMessageEvent;
 import application.storage.PersistanceStorage;
@@ -156,6 +161,47 @@ public class Application {
 	public void runCommand(String commandName, CommandData commandData) {
 		Command command = commands.get(commandName);
 		command.run(commandData);
+	}
+
+	public void plan() {
+		PlanCommandData data = new PlanCommandData();
+		data.taskDescriptionFile = applicationArguments.getArgument_td("taskDescription.xml");
+		data.systemTransformationsFile = applicationArguments.getArgument_st("systemTransformations.xml");
+		data.processFile = applicationArguments.getArgument_p("process.xml");
+		data.nodeNetworkFile = applicationArguments.getArgument_nn("nodeNetwork.xml");
+		runCommand(PlanCommand.NAME, data);
+	}
+
+	public void verify() {
+		VerifyCommandData data = new VerifyCommandData();
+		data.taskDescriptionFile = applicationArguments.getArgument_td(null);
+		data.systemTransformationsFile = applicationArguments.getArgument_st(null);
+		data.processFile = applicationArguments.getArgument_p(null);
+		data.nodeNetworkFile = applicationArguments.getArgument_nn(null);
+		runCommand(VerifyCommand.NAME, data);
+	}
+
+	public void newTaskDescription() {
+		NewTaskDescriptionCommandData data = new NewTaskDescriptionCommandData();
+		data.taskDescriptionFile = applicationArguments.getArgument_td("taskDescription.xml");
+		data.domain = applicationArguments.getArgument_d("unknown");
+		runCommand(NewTaskDescriptionCommand.NAME, data);
+	}
+
+	public void newSystemTransformations() {
+		NewSystemTransformationsCommandData data = new NewSystemTransformationsCommandData();
+		data.systemTransformationsFile = applicationArguments.getArgument_st("systemTransformations.xml");
+		data.domain = applicationArguments.getArgument_d("unknown");
+		runCommand(NewSystemTransformationsCommand.NAME, data);
+	}
+
+	public void convert() {
+		ConvertCommandData data = new ConvertCommandData();
+		data.taskDescriptionFile = applicationArguments.getArgument_td(null);
+		data.systemTransformationsFile = applicationArguments.getArgument_st(null);
+		data.processFile = applicationArguments.getArgument_p(null);
+		data.nodeNetworkFile = applicationArguments.getArgument_nn(null);
+		runCommand(ConvertCommand.NAME, data);
 	}
 
 	public void showHelp() throws Exception {

@@ -12,16 +12,6 @@ import org.junit.jupiter.api.extension.RegisterExtension;
 
 import application.Application;
 import application.ApplicationArguments;
-import application.command.ConvertCommand;
-import application.command.ConvertCommandDataMatcher;
-import application.command.NewSystemTransformationsCommand;
-import application.command.NewSystemTransformationsCommandDataMatcher;
-import application.command.NewTaskDescriptionCommand;
-import application.command.NewTaskDescriptionCommandDataMatcher;
-import application.command.PlanCommand;
-import application.command.PlanCommandDataMatcher;
-import application.command.VerifyCommand;
-import application.command.VerifyCommandDataMatcher;
 import application.event.CommandStatusEvent;
 import application.event.HelpMessageEvent;
 
@@ -94,22 +84,7 @@ public class MainShellTest {
 				oneOf(applicationArguments_mock).hasArgument_plan();
 				will(returnValue(true));
 
-				oneOf(applicationArguments_mock).getArgument_td("taskDescription.xml");
-				will(returnValue("td_file.xml"));
-
-				oneOf(applicationArguments_mock).getArgument_st("systemTransformations.xml");
-				will(returnValue("st_file.xml"));
-
-				oneOf(applicationArguments_mock).getArgument_p("process.xml");
-				will(returnValue("p_file.xml"));
-
-				oneOf(applicationArguments_mock).getArgument_nn("nodeNetwork.xml");
-				will(returnValue("nn_file.xml"));
-
-				oneOf(application_mock).runCommand(with(PlanCommand.NAME),
-						with(new PlanCommandDataMatcher().expectSystemTransformationsFile("st_file.xml")
-								.expectTaskDescriptionFile("td_file.xml").expectProcessFile("p_file.xml")
-								.expectNodeNetworkFile("nn_file.xml")));
+				oneOf(application_mock).plan();
 			}
 		});
 
@@ -131,15 +106,7 @@ public class MainShellTest {
 				oneOf(applicationArguments_mock).hasArgument_new_st();
 				will(returnValue(true));
 
-				oneOf(applicationArguments_mock).getArgument_st("systemTransformations.xml");
-				will(returnValue("st_file.xml"));
-
-				oneOf(applicationArguments_mock).getArgument_d("unknown");
-				will(returnValue("assemblyLine"));
-
-				oneOf(application_mock).runCommand(with(NewSystemTransformationsCommand.NAME),
-						with(new NewSystemTransformationsCommandDataMatcher()
-								.expectSystemTransformationsFile("st_file.xml").expectDomain("assemblyLine")));
+				oneOf(application_mock).newSystemTransformations();
 			}
 		});
 
@@ -164,15 +131,7 @@ public class MainShellTest {
 				oneOf(applicationArguments_mock).hasArgument_new_td();
 				will(returnValue(true));
 
-				oneOf(applicationArguments_mock).getArgument_td("taskDescription.xml");
-				will(returnValue("td_file.xml"));
-
-				oneOf(applicationArguments_mock).getArgument_d("unknown");
-				will(returnValue("materialPoints"));
-
-				oneOf(application_mock).runCommand(with(NewTaskDescriptionCommand.NAME),
-						with(new NewTaskDescriptionCommandDataMatcher().expectTaskDescriptionFile("td_file.xml")
-								.expectDomain("materialPoints")));
+				oneOf(application_mock).newTaskDescription();
 			}
 		});
 
@@ -200,22 +159,7 @@ public class MainShellTest {
 				oneOf(applicationArguments_mock).hasArgument_verify();
 				will(returnValue(true));
 
-				oneOf(applicationArguments_mock).getArgument_td(null);
-				will(returnValue("td_file.xml"));
-
-				oneOf(applicationArguments_mock).getArgument_st(null);
-				will(returnValue("st_file.xml"));
-
-				oneOf(applicationArguments_mock).getArgument_p(null);
-				will(returnValue("p_file.xml"));
-
-				oneOf(applicationArguments_mock).getArgument_nn(null);
-				will(returnValue("nn_file.xml"));
-
-				oneOf(application_mock).runCommand(with(VerifyCommand.NAME),
-						with(new VerifyCommandDataMatcher().expectSystemTransformationsFile("st_file.xml")
-								.expectTaskDescriptionFile("td_file.xml").expectProcessFile("p_file.xml")
-								.expectNodeNetworkFile("nn_file.xml")));
+				oneOf(application_mock).verify();
 			}
 		});
 
@@ -246,22 +190,7 @@ public class MainShellTest {
 				oneOf(applicationArguments_mock).hasArgument_convert();
 				will(returnValue(true));
 
-				oneOf(applicationArguments_mock).getArgument_td(null);
-				will(returnValue("td_file.xml"));
-
-				oneOf(applicationArguments_mock).getArgument_st(null);
-				will(returnValue("st_file.xml"));
-
-				oneOf(applicationArguments_mock).getArgument_p(null);
-				will(returnValue("p_file.xml"));
-
-				oneOf(applicationArguments_mock).getArgument_nn(null);
-				will(returnValue("nn_file.xml"));
-
-				oneOf(application_mock).runCommand(with(ConvertCommand.NAME),
-						with(new ConvertCommandDataMatcher().expectSystemTransformationsFile("st_file.xml")
-								.expectTaskDescriptionFile("td_file.xml").expectProcessFile("p_file.xml")
-								.expectNodeNetworkFile("nn_file.xml")));
+				oneOf(application_mock).convert();
 			}
 		});
 

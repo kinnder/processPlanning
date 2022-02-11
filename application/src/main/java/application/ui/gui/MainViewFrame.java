@@ -1,17 +1,6 @@
 package application.ui.gui;
 
 import application.Application;
-import application.ApplicationArguments;
-import application.command.ConvertCommand;
-import application.command.ConvertCommandData;
-import application.command.NewSystemTransformationsCommand;
-import application.command.NewSystemTransformationsCommandData;
-import application.command.NewTaskDescriptionCommand;
-import application.command.NewTaskDescriptionCommandData;
-import application.command.PlanCommand;
-import application.command.PlanCommandData;
-import application.command.VerifyCommand;
-import application.command.VerifyCommandData;
 import application.event.CommandStatusEvent;
 import application.event.HelpMessageEvent;
 import application.ui.UserInterface;
@@ -34,10 +23,7 @@ public class MainViewFrame extends javax.swing.JFrame implements UserInterface {
 	 */
 	// <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
 	private void initComponents() {
-
 		jScrollPane1 = new javax.swing.JScrollPane();
-		jtParameters = new javax.swing.JTable();
-		jScrollPane2 = new javax.swing.JScrollPane();
 		jtaLog = new javax.swing.JTextArea();
 		jMenuBar1 = new javax.swing.JMenuBar();
 		jMenu1 = new javax.swing.JMenu();
@@ -57,30 +43,14 @@ public class MainViewFrame extends javax.swing.JFrame implements UserInterface {
 		setTitle("Process Engineering");
 		setName("jfMainView"); // NOI18N
 
-		jtParameters.setModel(new javax.swing.table.DefaultTableModel(
-				new Object[][] { { "domain", null }, { "systemTransformationsFile", "systemTransformations.xml" },
-						{ "taskDescriptionFile", "taskDescription.xml" }, { "processFile", "process.xml" },
-						{ "nodeNetworkFile", "nodeNetwork.xml" } },
-				new String[] { "Parameter", "Value" }) {
-			private static final long serialVersionUID = 528688809035163326L;
-			boolean[] canEdit = new boolean[] { false, true };
-
-			@Override
-			public boolean isCellEditable(int rowIndex, int columnIndex) {
-				return canEdit[columnIndex];
-			}
-		});
-		jtParameters.getTableHeader().setReorderingAllowed(false);
-		jScrollPane1.setViewportView(jtParameters);
-
+		jtaLog.setEditable(false);
 		jtaLog.setColumns(20);
 		jtaLog.setRows(5);
-		jScrollPane2.setViewportView(jtaLog);
+		jScrollPane1.setViewportView(jtaLog);
 
 		jMenu1.setText("Application");
 
 		jmiOptions.setText("Options");
-
 		jmiOptions.addActionListener(new java.awt.event.ActionListener() {
 			@Override
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -176,14 +146,10 @@ public class MainViewFrame extends javax.swing.JFrame implements UserInterface {
 		javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
 		getContentPane().setLayout(layout);
 		layout.setHorizontalGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-				.addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
-				.addComponent(jScrollPane2));
-		layout.setVerticalGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-				.addGroup(layout.createSequentialGroup()
-						.addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 114,
-								javax.swing.GroupLayout.PREFERRED_SIZE)
-						.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-						.addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 99, Short.MAX_VALUE)));
+				.addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE));
+		layout.setVerticalGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addComponent(
+				jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 219,
+				Short.MAX_VALUE));
 
 		pack();
 	}// </editor-fold>//GEN-END:initComponents
@@ -195,6 +161,7 @@ public class MainViewFrame extends javax.swing.JFrame implements UserInterface {
 			public void run() {
 				OptionsFrame optionsFrame = new OptionsFrame();
 				optionsFrame.setApplication(application);
+				optionsFrame.updateComponents();
 				optionsFrame.setVisible(true);
 			}
 		});
@@ -207,48 +174,27 @@ public class MainViewFrame extends javax.swing.JFrame implements UserInterface {
 
 	@SuppressWarnings("unused")
 	private void jmiPlanActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jmiPlanActionPerformed
-		PlanCommandData data = new PlanCommandData();
-		data.taskDescriptionFile = getModelValue_TaskDescription();
-		data.systemTransformationsFile = getModelValue_SystemTransformations();
-		data.processFile = getModelValue_Process();
-		data.nodeNetworkFile = getModelValue_NodeNetwork();
-		application.runCommand(PlanCommand.NAME, data);
+		application.plan();
 	}// GEN-LAST:event_jmiPlanActionPerformed
 
 	@SuppressWarnings("unused")
 	private void jmiVerifyActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jmiVerifyActionPerformed
-		VerifyCommandData data = new VerifyCommandData();
-		data.taskDescriptionFile = getModelValue_TaskDescription();
-		data.systemTransformationsFile = getModelValue_SystemTransformations();
-		data.processFile = getModelValue_Process();
-		data.nodeNetworkFile = getModelValue_NodeNetwork();
-		application.runCommand(VerifyCommand.NAME, data);
+		application.verify();
 	}// GEN-LAST:event_jmiVerifyActionPerformed
 
 	@SuppressWarnings("unused")
 	private void jmiNewTaskActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jmiNewTaskActionPerformed
-		NewTaskDescriptionCommandData data = new NewTaskDescriptionCommandData();
-		data.taskDescriptionFile = getModelValue_TaskDescription();
-		data.domain = getModelValue_Domain();
-		application.runCommand(NewTaskDescriptionCommand.NAME, data);
+		application.newTaskDescription();
 	}// GEN-LAST:event_jmiNewTaskActionPerformed
 
 	@SuppressWarnings("unused")
 	private void jmiNewTransformationsActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jmiNewTransformationsActionPerformed
-		NewSystemTransformationsCommandData data = new NewSystemTransformationsCommandData();
-		data.systemTransformationsFile = getModelValue_SystemTransformations();
-		data.domain = getModelValue_Domain();
-		application.runCommand(NewSystemTransformationsCommand.NAME, data);
+		application.newSystemTransformations();
 	}// GEN-LAST:event_jmiNewTransformationsActionPerformed
 
 	@SuppressWarnings("unused")
 	private void jmiConvertActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jmiConvertActionPerformed
-		ConvertCommandData data = new ConvertCommandData();
-		data.taskDescriptionFile = getModelValue_TaskDescription();
-		data.systemTransformationsFile = getModelValue_SystemTransformations();
-		data.processFile = getModelValue_Process();
-		data.nodeNetworkFile = getModelValue_NodeNetwork();
-		application.runCommand(ConvertCommand.NAME, data);
+		application.convert();
 	}// GEN-LAST:event_jmiConvertActionPerformed
 
 	@SuppressWarnings("unused")
@@ -285,7 +231,6 @@ public class MainViewFrame extends javax.swing.JFrame implements UserInterface {
 	private javax.swing.JMenu jMenu3;
 	private javax.swing.JMenuBar jMenuBar1;
 	private javax.swing.JScrollPane jScrollPane1;
-	private javax.swing.JScrollPane jScrollPane2;
 	private javax.swing.JMenuItem jmiAbout;
 	private javax.swing.JMenuItem jmiConvert;
 	private javax.swing.JMenuItem jmiExit;
@@ -295,7 +240,6 @@ public class MainViewFrame extends javax.swing.JFrame implements UserInterface {
 	private javax.swing.JMenuItem jmiPlan;
 	private javax.swing.JMenuItem jmiUsage;
 	private javax.swing.JMenuItem jmiVerify;
-	private javax.swing.JTable jtParameters;
 	private javax.swing.JTextArea jtaLog;
 	// End of variables declaration//GEN-END:variables
 
@@ -304,55 +248,6 @@ public class MainViewFrame extends javax.swing.JFrame implements UserInterface {
 	@Override
 	public void setApplication(Application application) {
 		this.application = application;
-	}
-
-	public void updateComponents() {
-		ApplicationArguments appArgs = application.getArguments();
-		setModelValue_Domain(appArgs.getArgument_d("unknown"));
-		setModelValue_SystemTransformations(appArgs.getArgument_st("systemTransformations.xml"));
-		setModelValue_TaskDescription(appArgs.getArgument_td("taskDescription.xml"));
-		setModelValue_Process(appArgs.getArgument_p("process.xml"));
-		setModelValue_NodeNetwork(appArgs.getArgument_nn("nodeNetwork.xml"));
-	}
-
-	private void setModelValue_Domain(String value) {
-		jtParameters.getModel().setValueAt(value, 0, 1);
-	}
-
-	private String getModelValue_Domain() {
-		return (String) jtParameters.getModel().getValueAt(0, 1);
-	}
-
-	private void setModelValue_SystemTransformations(String value) {
-		jtParameters.getModel().setValueAt(value, 1, 1);
-	}
-
-	private String getModelValue_SystemTransformations() {
-		return (String) jtParameters.getModel().getValueAt(1, 1);
-	}
-
-	private void setModelValue_TaskDescription(String value) {
-		jtParameters.getModel().setValueAt(value, 2, 1);
-	}
-
-	private String getModelValue_TaskDescription() {
-		return (String) jtParameters.getModel().getValueAt(2, 1);
-	}
-
-	private void setModelValue_Process(String value) {
-		jtParameters.getModel().setValueAt(value, 3, 1);
-	}
-
-	private String getModelValue_Process() {
-		return (String) jtParameters.getModel().getValueAt(3, 1);
-	}
-
-	private void setModelValue_NodeNetwork(String value) {
-		jtParameters.getModel().setValueAt(value, 4, 1);
-	}
-
-	private String getModelValue_NodeNetwork() {
-		return (String) jtParameters.getModel().getValueAt(4, 1);
 	}
 
 	@Override
@@ -379,7 +274,6 @@ public class MainViewFrame extends javax.swing.JFrame implements UserInterface {
 	@Override
 	public void run() throws Exception {
 		initializeLookAndFeel();
-		updateComponents();
 		setVisible(true);
 	}
 }
