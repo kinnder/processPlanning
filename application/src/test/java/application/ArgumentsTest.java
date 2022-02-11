@@ -18,7 +18,7 @@ import application.domain.AssemblyLine;
 import application.domain.CuttingProcess;
 import application.domain.MaterialPoints;
 
-public class ApplicationArgumentsTest {
+public class ArgumentsTest {
 
 	@RegisterExtension
 	JUnit5Mockery context = new JUnit5Mockery() {
@@ -32,16 +32,16 @@ public class ApplicationArgumentsTest {
 		context.assertIsSatisfied();
 	}
 
-	ApplicationArguments testable;
+	Arguments testable;
 
 	@BeforeEach
 	public void setup() {
-		testable = new ApplicationArguments();
+		testable = new Arguments();
 	}
 
 	@Test
 	public void newInstance() {
-		testable = new ApplicationArguments();
+		testable = new Arguments();
 
 		assertFalse(testable.hasArgument_h());
 	}

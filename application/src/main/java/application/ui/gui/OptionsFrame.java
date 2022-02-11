@@ -1,7 +1,7 @@
 package application.ui.gui;
 
 import application.Application;
-import application.ApplicationArguments;
+import application.Arguments;
 
 public class OptionsFrame extends javax.swing.JFrame {
 
@@ -98,12 +98,12 @@ public class OptionsFrame extends javax.swing.JFrame {
 
 	@SuppressWarnings("unused")
 	private void jbOKActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jbOKActionPerformed
-		ApplicationArguments appArgs = application.getArguments();
-		appArgs.setArgument_d(getModelValue_Domain());
-		appArgs.setArgument_st(getModelValue_SystemTransformations());
-		appArgs.setArgument_td(getModelValue_TaskDescription());
-		appArgs.setArgument_p(getModelValue_Process());
-		appArgs.setArgument_nn(getModelValue_NodeNetwork());
+		Arguments arguments = application.getArguments();
+		arguments.setArgument_d(getModelValue_Domain());
+		arguments.setArgument_st(getModelValue_SystemTransformations());
+		arguments.setArgument_td(getModelValue_TaskDescription());
+		arguments.setArgument_p(getModelValue_Process());
+		arguments.setArgument_nn(getModelValue_NodeNetwork());
 		this.dispose();
 	}// GEN-LAST:event_jbOKActionPerformed
 
@@ -131,12 +131,12 @@ public class OptionsFrame extends javax.swing.JFrame {
 	}
 
 	public void updateComponents() {
-		ApplicationArguments appArgs = application.getArguments();
-		setModelValue_Domain(appArgs.getArgument_d("unknown"));
-		setModelValue_SystemTransformations(appArgs.getArgument_st("systemTransformations.xml"));
-		setModelValue_TaskDescription(appArgs.getArgument_td("taskDescription.xml"));
-		setModelValue_Process(appArgs.getArgument_p("process.xml"));
-		setModelValue_NodeNetwork(appArgs.getArgument_nn("nodeNetwork.xml"));
+		Arguments arguments = application.getArguments();
+		setModelValue_Domain(arguments.getArgument_d("unknown"));
+		setModelValue_SystemTransformations(arguments.getArgument_st("systemTransformations.xml"));
+		setModelValue_TaskDescription(arguments.getArgument_td("taskDescription.xml"));
+		setModelValue_Process(arguments.getArgument_p("process.xml"));
+		setModelValue_NodeNetwork(arguments.getArgument_nn("nodeNetwork.xml"));
 	}
 
 	private void setModelValue_Domain(String value) {

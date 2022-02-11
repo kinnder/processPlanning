@@ -3,7 +3,7 @@ package application.ui.cli;
 import java.io.PrintStream;
 
 import application.Application;
-import application.ApplicationArguments;
+import application.Arguments;
 import application.event.CommandStatusEvent;
 import application.event.HelpMessageEvent;
 import application.ui.UserInterface;
@@ -30,17 +30,17 @@ public class MainShell implements UserInterface {
 
 	@Override
 	public void run() throws Exception {
-		ApplicationArguments applicationArguments = application.getArguments();
+		Arguments arguments = application.getArguments();
 
-		if (applicationArguments.hasArgument_plan()) {
+		if (arguments.hasArgument_plan()) {
 			application.plan();
-		} else if (applicationArguments.hasArgument_new_st()) {
+		} else if (arguments.hasArgument_new_st()) {
 			application.newSystemTransformations();
-		} else if (applicationArguments.hasArgument_new_td()) {
+		} else if (arguments.hasArgument_new_td()) {
 			application.newTaskDescription();
-		} else if (applicationArguments.hasArgument_verify()) {
+		} else if (arguments.hasArgument_verify()) {
 			application.verify();
-		} else if (applicationArguments.hasArgument_convert()) {
+		} else if (arguments.hasArgument_convert()) {
 			application.convert();
 		} else {
 			application.showHelp();

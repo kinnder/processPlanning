@@ -70,7 +70,7 @@ public class ApplicationTest {
 
 	PersistanceStorage persistanceStorage_mock;
 
-	ApplicationArguments applicationArguments_mock;
+	Arguments arguments_mock;
 
 	UserInterfaceBuilder userInterfaceBuilder_mock;
 
@@ -83,7 +83,7 @@ public class ApplicationTest {
 		verifyCommand_mock = context.mock(VerifyCommand.class);
 		convertCommand_mock = context.mock(ConvertCommand.class);
 		persistanceStorage_mock = context.mock(PersistanceStorage.class);
-		applicationArguments_mock = context.mock(ApplicationArguments.class);
+		arguments_mock = context.mock(Arguments.class);
 		userInterfaceBuilder_mock = context.mock(UserInterfaceBuilder.class);
 
 		context.checking(new Expectations() {
@@ -110,7 +110,7 @@ public class ApplicationTest {
 
 		testable = new Application(helpCommand_mock, planCommand_mock, newSystemTransformationsCommand_mock,
 				newTaskDescriptionCommand_mock, verifyCommand_mock, convertCommand_mock, persistanceStorage_mock,
-				applicationArguments_mock, userInterfaceBuilder_mock);
+				arguments_mock, userInterfaceBuilder_mock);
 	}
 
 	@Test
@@ -162,9 +162,9 @@ public class ApplicationTest {
 
 		context.checking(new Expectations() {
 			{
-				oneOf(applicationArguments_mock).parseArguments(args);
+				oneOf(arguments_mock).parseArguments(args);
 
-				oneOf(applicationArguments_mock).hasArgument_gui();
+				oneOf(arguments_mock).hasArgument_gui();
 				will(returnValue(true));
 
 				oneOf(userInterfaceBuilder_mock).build(UserInterfaceType.gui);
@@ -186,9 +186,9 @@ public class ApplicationTest {
 
 		context.checking(new Expectations() {
 			{
-				oneOf(applicationArguments_mock).parseArguments(args);
+				oneOf(arguments_mock).parseArguments(args);
 
-				oneOf(applicationArguments_mock).hasArgument_gui();
+				oneOf(arguments_mock).hasArgument_gui();
 				will(returnValue(false));
 
 				oneOf(userInterfaceBuilder_mock).build(UserInterfaceType.cli);
@@ -211,7 +211,7 @@ public class ApplicationTest {
 
 		context.checking(new Expectations() {
 			{
-				oneOf(applicationArguments_mock).parseArguments(args);
+				oneOf(arguments_mock).parseArguments(args);
 				will(throwException(new UnrecognizedOptionException("Unrecognized option: -?")));
 
 				oneOf(userInterfaceBuilder_mock).build(UserInterfaceType.cli);
@@ -222,7 +222,7 @@ public class ApplicationTest {
 				oneOf(ui_mock).notifyCommandStatus(
 						with(new CommandStatusEventMatcher().expectMessage("Unrecognized option: -?")));
 
-				oneOf(applicationArguments_mock).getOptions();
+				oneOf(arguments_mock).getOptions();
 				will(returnValue(options_mock));
 
 				oneOf(helpCommand_mock).execute(with(new HelpCommandDataMatcher().expectOptions(options_mock)));
@@ -369,7 +369,7 @@ public class ApplicationTest {
 
 		context.checking(new Expectations() {
 			{
-				oneOf(applicationArguments_mock).getOptions();
+				oneOf(arguments_mock).getOptions();
 				will(returnValue(options_mock));
 
 				oneOf(helpCommand_mock).execute(with(new HelpCommandDataMatcher().expectOptions(options_mock)));
@@ -381,7 +381,7 @@ public class ApplicationTest {
 
 	@Test
 	public void getArguments() {
-		assertEquals(applicationArguments_mock, testable.getArguments());
+		assertEquals(arguments_mock, testable.getArguments());
 	}
 
 	@Test
@@ -401,16 +401,16 @@ public class ApplicationTest {
 	public void plan() {
 		context.checking(new Expectations() {
 			{
-				oneOf(applicationArguments_mock).getArgument_td("taskDescription.xml");
+				oneOf(arguments_mock).getArgument_td("taskDescription.xml");
 				will(returnValue("td_file.xml"));
 
-				oneOf(applicationArguments_mock).getArgument_st("systemTransformations.xml");
+				oneOf(arguments_mock).getArgument_st("systemTransformations.xml");
 				will(returnValue("st_file.xml"));
 
-				oneOf(applicationArguments_mock).getArgument_p("process.xml");
+				oneOf(arguments_mock).getArgument_p("process.xml");
 				will(returnValue("p_file.xml"));
 
-				oneOf(applicationArguments_mock).getArgument_nn("nodeNetwork.xml");
+				oneOf(arguments_mock).getArgument_nn("nodeNetwork.xml");
 				will(returnValue("nn_file.xml"));
 
 				oneOf(planCommand_mock).run(with(new PlanCommandDataMatcher()
@@ -426,16 +426,16 @@ public class ApplicationTest {
 	public void verify() {
 		context.checking(new Expectations() {
 			{
-				oneOf(applicationArguments_mock).getArgument_td(null);
+				oneOf(arguments_mock).getArgument_td(null);
 				will(returnValue("td_file.xml"));
 
-				oneOf(applicationArguments_mock).getArgument_st(null);
+				oneOf(arguments_mock).getArgument_st(null);
 				will(returnValue("st_file.xml"));
 
-				oneOf(applicationArguments_mock).getArgument_p(null);
+				oneOf(arguments_mock).getArgument_p(null);
 				will(returnValue("p_file.xml"));
 
-				oneOf(applicationArguments_mock).getArgument_nn(null);
+				oneOf(arguments_mock).getArgument_nn(null);
 				will(returnValue("nn_file.xml"));
 
 				oneOf(verifyCommand_mock).run(with(new VerifyCommandDataMatcher()
@@ -451,10 +451,10 @@ public class ApplicationTest {
 	public void newTaskDescription() {
 		context.checking(new Expectations() {
 			{
-				oneOf(applicationArguments_mock).getArgument_td("taskDescription.xml");
+				oneOf(arguments_mock).getArgument_td("taskDescription.xml");
 				will(returnValue("td_file.xml"));
 
-				oneOf(applicationArguments_mock).getArgument_d("unknown");
+				oneOf(arguments_mock).getArgument_d("unknown");
 				will(returnValue("materialPoints"));
 
 				oneOf(newTaskDescriptionCommand_mock).run(with(new NewTaskDescriptionCommandDataMatcher()
@@ -469,10 +469,10 @@ public class ApplicationTest {
 	public void newSystemTransformations() {
 		context.checking(new Expectations() {
 			{
-				oneOf(applicationArguments_mock).getArgument_st("systemTransformations.xml");
+				oneOf(arguments_mock).getArgument_st("systemTransformations.xml");
 				will(returnValue("st_file.xml"));
 
-				oneOf(applicationArguments_mock).getArgument_d("unknown");
+				oneOf(arguments_mock).getArgument_d("unknown");
 				will(returnValue("assemblyLine"));
 
 				oneOf(newSystemTransformationsCommand_mock).run(with(new NewSystemTransformationsCommandDataMatcher()
@@ -487,16 +487,16 @@ public class ApplicationTest {
 	public void convert() {
 		context.checking(new Expectations() {
 			{
-				oneOf(applicationArguments_mock).getArgument_td(null);
+				oneOf(arguments_mock).getArgument_td(null);
 				will(returnValue("td_file.xml"));
 
-				oneOf(applicationArguments_mock).getArgument_st(null);
+				oneOf(arguments_mock).getArgument_st(null);
 				will(returnValue("st_file.xml"));
 
-				oneOf(applicationArguments_mock).getArgument_p(null);
+				oneOf(arguments_mock).getArgument_p(null);
 				will(returnValue("p_file.xml"));
 
-				oneOf(applicationArguments_mock).getArgument_nn(null);
+				oneOf(arguments_mock).getArgument_nn(null);
 				will(returnValue("nn_file.xml"));
 
 				oneOf(convertCommand_mock).run(with(new ConvertCommandDataMatcher()

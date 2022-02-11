@@ -13,7 +13,7 @@ import application.domain.AssemblyLine;
 import application.domain.CuttingProcess;
 import application.domain.MaterialPoints;
 
-public class ApplicationArguments {
+public class Arguments {
 
 	private Options options;
 
@@ -41,7 +41,7 @@ public class ApplicationArguments {
 
 	private Option d_option;
 
-	public ApplicationArguments() {
+	public Arguments() {
 		// TODO (2020-07-29 #30): переделать работу с аргументами командной строки
 		// https://commons.apache.org/proper/commons-cli/usage.html
 		// executable [global options] <command> [command options] <arguments>

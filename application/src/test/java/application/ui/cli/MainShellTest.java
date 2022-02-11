@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
 import application.Application;
-import application.ApplicationArguments;
+import application.Arguments;
 import application.event.CommandStatusEvent;
 import application.event.HelpMessageEvent;
 
@@ -74,14 +74,14 @@ public class MainShellTest {
 
 	@Test
 	public void run_PlanCommand() throws Exception {
-		final ApplicationArguments applicationArguments_mock = context.mock(ApplicationArguments.class);
+		final Arguments arguments_mock = context.mock(Arguments.class);
 
 		context.checking(new Expectations() {
 			{
 				oneOf(application_mock).getArguments();
-				will(returnValue(applicationArguments_mock));
+				will(returnValue(arguments_mock));
 
-				oneOf(applicationArguments_mock).hasArgument_plan();
+				oneOf(arguments_mock).hasArgument_plan();
 				will(returnValue(true));
 
 				oneOf(application_mock).plan();
@@ -93,17 +93,17 @@ public class MainShellTest {
 
 	@Test
 	public void run_NewSystemTransformationsCommand() throws Exception {
-		final ApplicationArguments applicationArguments_mock = context.mock(ApplicationArguments.class);
+		final Arguments arguments_mock = context.mock(Arguments.class);
 
 		context.checking(new Expectations() {
 			{
 				oneOf(application_mock).getArguments();
-				will(returnValue(applicationArguments_mock));
+				will(returnValue(arguments_mock));
 
-				oneOf(applicationArguments_mock).hasArgument_plan();
+				oneOf(arguments_mock).hasArgument_plan();
 				will(returnValue(false));
 
-				oneOf(applicationArguments_mock).hasArgument_new_st();
+				oneOf(arguments_mock).hasArgument_new_st();
 				will(returnValue(true));
 
 				oneOf(application_mock).newSystemTransformations();
@@ -115,20 +115,20 @@ public class MainShellTest {
 
 	@Test
 	public void run_NewTaskDescriptionCommand() throws Exception {
-		final ApplicationArguments applicationArguments_mock = context.mock(ApplicationArguments.class);
+		final Arguments arguments_mock = context.mock(Arguments.class);
 
 		context.checking(new Expectations() {
 			{
 				oneOf(application_mock).getArguments();
-				will(returnValue(applicationArguments_mock));
+				will(returnValue(arguments_mock));
 
-				oneOf(applicationArguments_mock).hasArgument_plan();
+				oneOf(arguments_mock).hasArgument_plan();
 				will(returnValue(false));
 
-				oneOf(applicationArguments_mock).hasArgument_new_st();
+				oneOf(arguments_mock).hasArgument_new_st();
 				will(returnValue(false));
 
-				oneOf(applicationArguments_mock).hasArgument_new_td();
+				oneOf(arguments_mock).hasArgument_new_td();
 				will(returnValue(true));
 
 				oneOf(application_mock).newTaskDescription();
@@ -140,23 +140,23 @@ public class MainShellTest {
 
 	@Test
 	public void run_VerifyCommand() throws Exception {
-		final ApplicationArguments applicationArguments_mock = context.mock(ApplicationArguments.class);
+		final Arguments arguments_mock = context.mock(Arguments.class);
 
 		context.checking(new Expectations() {
 			{
 				oneOf(application_mock).getArguments();
-				will(returnValue(applicationArguments_mock));
+				will(returnValue(arguments_mock));
 
-				oneOf(applicationArguments_mock).hasArgument_plan();
+				oneOf(arguments_mock).hasArgument_plan();
 				will(returnValue(false));
 
-				oneOf(applicationArguments_mock).hasArgument_new_st();
+				oneOf(arguments_mock).hasArgument_new_st();
 				will(returnValue(false));
 
-				oneOf(applicationArguments_mock).hasArgument_new_td();
+				oneOf(arguments_mock).hasArgument_new_td();
 				will(returnValue(false));
 
-				oneOf(applicationArguments_mock).hasArgument_verify();
+				oneOf(arguments_mock).hasArgument_verify();
 				will(returnValue(true));
 
 				oneOf(application_mock).verify();
@@ -168,26 +168,26 @@ public class MainShellTest {
 
 	@Test
 	public void run_ConvertCommand() throws Exception {
-		final ApplicationArguments applicationArguments_mock = context.mock(ApplicationArguments.class);
+		final Arguments arguments_mock = context.mock(Arguments.class);
 
 		context.checking(new Expectations() {
 			{
 				oneOf(application_mock).getArguments();
-				will(returnValue(applicationArguments_mock));
+				will(returnValue(arguments_mock));
 
-				oneOf(applicationArguments_mock).hasArgument_plan();
+				oneOf(arguments_mock).hasArgument_plan();
 				will(returnValue(false));
 
-				oneOf(applicationArguments_mock).hasArgument_new_st();
+				oneOf(arguments_mock).hasArgument_new_st();
 				will(returnValue(false));
 
-				oneOf(applicationArguments_mock).hasArgument_new_td();
+				oneOf(arguments_mock).hasArgument_new_td();
 				will(returnValue(false));
 
-				oneOf(applicationArguments_mock).hasArgument_verify();
+				oneOf(arguments_mock).hasArgument_verify();
 				will(returnValue(false));
 
-				oneOf(applicationArguments_mock).hasArgument_convert();
+				oneOf(arguments_mock).hasArgument_convert();
 				will(returnValue(true));
 
 				oneOf(application_mock).convert();
@@ -199,26 +199,26 @@ public class MainShellTest {
 
 	@Test
 	public void run_HelpCommand() throws Exception {
-		final ApplicationArguments applicationArguments_mock = context.mock(ApplicationArguments.class);
+		final Arguments arguments_mock = context.mock(Arguments.class);
 
 		context.checking(new Expectations() {
 			{
 				oneOf(application_mock).getArguments();
-				will(returnValue(applicationArguments_mock));
+				will(returnValue(arguments_mock));
 
-				oneOf(applicationArguments_mock).hasArgument_plan();
+				oneOf(arguments_mock).hasArgument_plan();
 				will(returnValue(false));
 
-				oneOf(applicationArguments_mock).hasArgument_new_st();
+				oneOf(arguments_mock).hasArgument_new_st();
 				will(returnValue(false));
 
-				oneOf(applicationArguments_mock).hasArgument_new_td();
+				oneOf(arguments_mock).hasArgument_new_td();
 				will(returnValue(false));
 
-				oneOf(applicationArguments_mock).hasArgument_verify();
+				oneOf(arguments_mock).hasArgument_verify();
 				will(returnValue(false));
 
-				oneOf(applicationArguments_mock).hasArgument_convert();
+				oneOf(arguments_mock).hasArgument_convert();
 				will(returnValue(false));
 
 				oneOf(application_mock).showHelp();

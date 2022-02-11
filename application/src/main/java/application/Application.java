@@ -54,15 +54,15 @@ public class Application {
 		registerCommand(new ConvertCommand(this));
 
 		persistanceStorage = new PersistanceStorage();
-		applicationArguments = new ApplicationArguments();
+		arguments = new Arguments();
 		userInterfaceBuilder = new UserInterfaceBuilder();
 	}
 
 	Application(HelpCommand helpCommand, PlanCommand planCommand,
 			NewSystemTransformationsCommand newSystemTransformationsCommand,
 			NewTaskDescriptionCommand newTaskDescriptionCommand, VerifyCommand verifyCommand,
-			ConvertCommand convertCommand, PersistanceStorage persistanceStorage,
-			ApplicationArguments applicationArguments, UserInterfaceBuilder userInterfaceBuilder) {
+			ConvertCommand convertCommand, PersistanceStorage persistanceStorage, Arguments arguments,
+			UserInterfaceBuilder userInterfaceBuilder) {
 
 		registerCommand(helpCommand);
 		registerCommand(planCommand);
@@ -72,7 +72,7 @@ public class Application {
 		registerCommand(convertCommand);
 
 		this.persistanceStorage = persistanceStorage;
-		this.applicationArguments = applicationArguments;
+		this.arguments = arguments;
 		this.userInterfaceBuilder = userInterfaceBuilder;
 	}
 
@@ -132,10 +132,10 @@ public class Application {
 		return persistanceStorage.getResourceAsStream(resourcePath);
 	}
 
-	private ApplicationArguments applicationArguments;
+	private Arguments arguments;
 
-	public ApplicationArguments getArguments() {
-		return applicationArguments;
+	public Arguments getArguments() {
+		return arguments;
 	}
 
 	private UserInterface createUserInterface(UserInterfaceType type) {
@@ -147,9 +147,9 @@ public class Application {
 
 	public void run(String[] args) throws Exception {
 		try {
-			applicationArguments.parseArguments(args);
+			arguments.parseArguments(args);
 			UserInterface ui = createUserInterface(
-					applicationArguments.hasArgument_gui() ? UserInterfaceType.gui : UserInterfaceType.cli);
+					arguments.hasArgument_gui() ? UserInterfaceType.gui : UserInterfaceType.cli);
 			ui.run();
 		} catch (UnrecognizedOptionException e) {
 			createUserInterface(UserInterfaceType.cli);
@@ -165,48 +165,48 @@ public class Application {
 
 	public void plan() {
 		PlanCommandData data = new PlanCommandData();
-		data.taskDescriptionFile = applicationArguments.getArgument_td("taskDescription.xml");
-		data.systemTransformationsFile = applicationArguments.getArgument_st("systemTransformations.xml");
-		data.processFile = applicationArguments.getArgument_p("process.xml");
-		data.nodeNetworkFile = applicationArguments.getArgument_nn("nodeNetwork.xml");
+		data.taskDescriptionFile = arguments.getArgument_td("taskDescription.xml");
+		data.systemTransformationsFile = arguments.getArgument_st("systemTransformations.xml");
+		data.processFile = arguments.getArgument_p("process.xml");
+		data.nodeNetworkFile = arguments.getArgument_nn("nodeNetwork.xml");
 		runCommand(PlanCommand.NAME, data);
 	}
 
 	public void verify() {
 		VerifyCommandData data = new VerifyCommandData();
-		data.taskDescriptionFile = applicationArguments.getArgument_td(null);
-		data.systemTransformationsFile = applicationArguments.getArgument_st(null);
-		data.processFile = applicationArguments.getArgument_p(null);
-		data.nodeNetworkFile = applicationArguments.getArgument_nn(null);
+		data.taskDescriptionFile = arguments.getArgument_td(null);
+		data.systemTransformationsFile = arguments.getArgument_st(null);
+		data.processFile = arguments.getArgument_p(null);
+		data.nodeNetworkFile = arguments.getArgument_nn(null);
 		runCommand(VerifyCommand.NAME, data);
 	}
 
 	public void newTaskDescription() {
 		NewTaskDescriptionCommandData data = new NewTaskDescriptionCommandData();
-		data.taskDescriptionFile = applicationArguments.getArgument_td("taskDescription.xml");
-		data.domain = applicationArguments.getArgument_d("unknown");
+		data.taskDescriptionFile = arguments.getArgument_td("taskDescription.xml");
+		data.domain = arguments.getArgument_d("unknown");
 		runCommand(NewTaskDescriptionCommand.NAME, data);
 	}
 
 	public void newSystemTransformations() {
 		NewSystemTransformationsCommandData data = new NewSystemTransformationsCommandData();
-		data.systemTransformationsFile = applicationArguments.getArgument_st("systemTransformations.xml");
-		data.domain = applicationArguments.getArgument_d("unknown");
+		data.systemTransformationsFile = arguments.getArgument_st("systemTransformations.xml");
+		data.domain = arguments.getArgument_d("unknown");
 		runCommand(NewSystemTransformationsCommand.NAME, data);
 	}
 
 	public void convert() {
 		ConvertCommandData data = new ConvertCommandData();
-		data.taskDescriptionFile = applicationArguments.getArgument_td(null);
-		data.systemTransformationsFile = applicationArguments.getArgument_st(null);
-		data.processFile = applicationArguments.getArgument_p(null);
-		data.nodeNetworkFile = applicationArguments.getArgument_nn(null);
+		data.taskDescriptionFile = arguments.getArgument_td(null);
+		data.systemTransformationsFile = arguments.getArgument_st(null);
+		data.processFile = arguments.getArgument_p(null);
+		data.nodeNetworkFile = arguments.getArgument_nn(null);
 		runCommand(ConvertCommand.NAME, data);
 	}
 
 	public void showHelp() throws Exception {
 		HelpCommandData data = new HelpCommandData();
-		data.options = applicationArguments.getOptions();
+		data.options = arguments.getOptions();
 		commands.get(HelpCommand.NAME).execute(data);
 	}
 }
