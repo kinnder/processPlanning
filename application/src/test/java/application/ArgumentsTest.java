@@ -136,6 +136,20 @@ public class ArgumentsTest {
 	}
 
 	@Test
+	public void setArgument_td() {
+		testable.setArgument_td("td_file.xml");
+
+		assertEquals("td_file.xml", testable.getArgument_td("default"));
+	}
+
+	@Test
+	public void setArgument_td_null() {
+		testable.setArgument_td(null);
+
+		assertEquals("default", testable.getArgument_td("default"));
+	}
+
+	@Test
 	public void getArgument_st() throws ParseException {
 		testable.parseArguments(new String[] { "-st", "st_file.xml" });
 
@@ -151,6 +165,20 @@ public class ArgumentsTest {
 
 	@Test
 	public void getArgument_st_default() {
+		assertEquals("default", testable.getArgument_st("default"));
+	}
+
+	@Test
+	public void setArgument_st() {
+		testable.setArgument_st("st_file.xml");
+
+		assertEquals("st_file.xml", testable.getArgument_st("default"));
+	}
+
+	@Test
+	public void setArgument_st_null() {
+		testable.setArgument_st(null);
+
 		assertEquals("default", testable.getArgument_st("default"));
 	}
 
@@ -174,6 +202,20 @@ public class ArgumentsTest {
 	}
 
 	@Test
+	public void setArgument_p() {
+		testable.setArgument_p("process.xml");
+
+		assertEquals("process.xml", testable.getArgument_p("default"));
+	}
+
+	@Test
+	public void setArgument_p_null() {
+		testable.setArgument_p(null);
+
+		assertEquals("default", testable.getArgument_p("default"));
+	}
+
+	@Test
 	public void getArgument_nn() throws ParseException {
 		testable.parseArguments(new String[] { "-nn", "nn_file.xml" });
 
@@ -193,6 +235,20 @@ public class ArgumentsTest {
 	}
 
 	@Test
+	public void setArgument_nn() {
+		testable.setArgument_nn("nn_file.xml");
+
+		assertEquals("nn_file.xml", testable.getArgument_nn("default"));
+	}
+
+	@Test
+	public void setArgument_nn_null() {
+		testable.setArgument_nn(null);
+
+		assertEquals("default", testable.getArgument_nn("default"));
+	}
+
+	@Test
 	public void getArgument_d() throws ParseException {
 		testable.parseArguments(new String[] { "-d", "assemblyLine" });
 
@@ -208,6 +264,20 @@ public class ArgumentsTest {
 
 	@Test
 	public void getArgument_d_default() {
+		assertEquals("default", testable.getArgument_d("default"));
+	}
+
+	@Test
+	public void setArgument_d() {
+		testable.setArgument_d("assemblyLine");
+
+		assertEquals("assemblyLine", testable.getArgument_d("default"));
+	}
+
+	@Test
+	public void setArgument_d_null() {
+		testable.setArgument_d(null);
+
 		assertEquals("default", testable.getArgument_d("default"));
 	}
 
