@@ -13,9 +13,9 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
 import application.Application;
-import application.event.HelpMessageEventMatcher;
+import application.event.UsageHelpMessageEventMatcher;
 
-public class HelpCommandTest {
+public class UsageHelpCommandTest {
 
 	@RegisterExtension
 	JUnit5Mockery context = new JUnit5Mockery() {
@@ -29,7 +29,7 @@ public class HelpCommandTest {
 		context.assertIsSatisfied();
 	}
 
-	HelpCommand testable;
+	UsageHelpCommand testable;
 
 	Application application_mock;
 
@@ -37,7 +37,7 @@ public class HelpCommandTest {
 	public void setup() {
 		application_mock = context.mock(Application.class);
 
-		testable = new HelpCommand(application_mock);
+		testable = new UsageHelpCommand(application_mock);
 	}
 
 	@Test
@@ -45,7 +45,7 @@ public class HelpCommandTest {
 		final Option option_mock = new Option("short", "long", false, "description");
 		final Options options = new Options();
 		options.addOption(option_mock);
-		final HelpCommandData data = context.mock(HelpCommandData.class);
+		final UsageHelpCommandData data = context.mock(UsageHelpCommandData.class);
 		data.options = options;
 
 		final StringBuilder sb = new StringBuilder();
@@ -55,7 +55,7 @@ public class HelpCommandTest {
 
 		context.checking(new Expectations() {
 			{
-				oneOf(application_mock).notifyHelpMessage(with(new HelpMessageEventMatcher().expectMessage(sb.toString())));
+				oneOf(application_mock).notifyUsageHelpMessage(with(new UsageHelpMessageEventMatcher().expectMessage(sb.toString())));
 			}
 		});
 
@@ -67,7 +67,7 @@ public class HelpCommandTest {
 		final Option option_mock = new Option("short", "description");
 		final Options options = new Options();
 		options.addOption(option_mock);
-		final HelpCommandData data = context.mock(HelpCommandData.class);
+		final UsageHelpCommandData data = context.mock(UsageHelpCommandData.class);
 		data.options = options;
 
 		final StringBuilder sb = new StringBuilder();
@@ -77,7 +77,7 @@ public class HelpCommandTest {
 
 		context.checking(new Expectations() {
 			{
-				oneOf(application_mock).notifyHelpMessage(with(new HelpMessageEventMatcher().expectMessage(sb.toString())));
+				oneOf(application_mock).notifyUsageHelpMessage(with(new UsageHelpMessageEventMatcher().expectMessage(sb.toString())));
 			}
 		});
 
@@ -86,6 +86,6 @@ public class HelpCommandTest {
 
 	@Test
 	public void getName() {
-		assertEquals("help", testable.getName());
+		assertEquals("usageHelp", testable.getName());
 	}
 }

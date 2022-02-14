@@ -5,23 +5,22 @@ import java.util.Optional;
 import org.apache.commons.cli.Option;
 
 import application.Application;
-import application.event.HelpMessageEvent;
+import application.event.UsageHelpMessageEvent;
 
-//TODO (2022-01-25 #61): переименовать в UsageHelp
-public class HelpCommand extends Command {
+public class UsageHelpCommand extends Command {
 
-	public static final String NAME = "help";
+	public static final String NAME = "usageHelp";
 
-	public HelpCommand (Application application) {
+	public UsageHelpCommand (Application application) {
 		super(application, NAME);
 	}
 
 	@Override
 	public void execute(CommandData data) throws Exception {
-		execute((HelpCommandData) data);
+		execute((UsageHelpCommandData) data);
 	}
 
-	private void execute(HelpCommandData data) throws Exception {
+	private void execute(UsageHelpCommandData data) throws Exception {
 		StringBuilder sb = new StringBuilder();
 		sb.append("application builds plan for [taskDescription] with [systemTransformations] and puts result in [process]\n");
 		sb.append("usage:\n");
@@ -32,7 +31,7 @@ public class HelpCommand extends Command {
 			sb.append(String.format("%7s, %-26s %s\n", shortName, longName, description));
 		}
 
-		HelpMessageEvent event = new HelpMessageEvent(sb.toString());
-		application.notifyHelpMessage(event);
+		UsageHelpMessageEvent event = new UsageHelpMessageEvent(sb.toString());
+		application.notifyUsageHelpMessage(event);
 	}
 }

@@ -2,7 +2,7 @@ package application.ui.gui;
 
 import application.Application;
 import application.event.CommandStatusEvent;
-import application.event.HelpMessageEvent;
+import application.event.UsageHelpMessageEvent;
 import application.ui.UserInterface;
 
 import java.util.logging.Level;
@@ -200,7 +200,7 @@ public class MainViewFrame extends javax.swing.JFrame implements UserInterface {
 	@SuppressWarnings("unused")
 	private void jmiUsageActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jmiUsageActionPerformed
 		try {
-			application.showHelp();
+			application.usageHelp();
 		} catch (Exception ex) {
 			Logger.getLogger(MainViewFrame.class.getName()).log(Level.SEVERE, null, ex);
 		}
@@ -251,7 +251,7 @@ public class MainViewFrame extends javax.swing.JFrame implements UserInterface {
 	}
 
 	@Override
-	public void notifyHelpMessage(HelpMessageEvent event) {
+	public void notifyUsageHelpMessage(UsageHelpMessageEvent event) {
 		jtaLog.append(event.message);
 		jtaLog.append("\n");
 	}

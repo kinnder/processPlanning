@@ -2,11 +2,11 @@ package application.ui;
 
 import application.Application;
 import application.event.CommandStatusEvent;
-import application.event.HelpMessageEvent;
+import application.event.UsageHelpMessageEvent;
 
 public interface UserInterface {
 
-	void notifyHelpMessage(HelpMessageEvent event);
+	void notifyUsageHelpMessage(UsageHelpMessageEvent event);
 
 	void notifyCommandStatus(CommandStatusEvent event);
 

@@ -14,8 +14,8 @@ import application.command.Command;
 import application.command.CommandData;
 import application.command.ConvertCommand;
 import application.command.ConvertCommandData;
-import application.command.HelpCommand;
-import application.command.HelpCommandData;
+import application.command.UsageHelpCommand;
+import application.command.UsageHelpCommandData;
 import application.command.NewSystemTransformationsCommand;
 import application.command.NewSystemTransformationsCommandData;
 import application.command.NewTaskDescriptionCommand;
@@ -25,7 +25,7 @@ import application.command.PlanCommandData;
 import application.command.VerifyCommand;
 import application.command.VerifyCommandData;
 import application.event.CommandStatusEvent;
-import application.event.HelpMessageEvent;
+import application.event.UsageHelpMessageEvent;
 import application.storage.PersistanceStorage;
 import application.ui.UserInterface;
 import application.ui.UserInterfaceBuilder;
@@ -46,7 +46,7 @@ public class Application {
 	private UserInterfaceBuilder userInterfaceBuilder;
 
 	public Application() {
-		registerCommand(new HelpCommand(this));
+		registerCommand(new UsageHelpCommand(this));
 		registerCommand(new PlanCommand(this));
 		registerCommand(new NewSystemTransformationsCommand(this));
 		registerCommand(new NewTaskDescriptionCommand(this));
@@ -58,13 +58,13 @@ public class Application {
 		userInterfaceBuilder = new UserInterfaceBuilder();
 	}
 
-	Application(HelpCommand helpCommand, PlanCommand planCommand,
+	Application(UsageHelpCommand usageHelpCommand, PlanCommand planCommand,
 			NewSystemTransformationsCommand newSystemTransformationsCommand,
 			NewTaskDescriptionCommand newTaskDescriptionCommand, VerifyCommand verifyCommand,
 			ConvertCommand convertCommand, PersistanceStorage persistanceStorage, Arguments arguments,
 			UserInterfaceBuilder userInterfaceBuilder) {
 
-		registerCommand(helpCommand);
+		registerCommand(usageHelpCommand);
 		registerCommand(planCommand);
 		registerCommand(newSystemTransformationsCommand);
 		registerCommand(newTaskDescriptionCommand);
@@ -82,9 +82,9 @@ public class Application {
 		uis.add(ui);
 	}
 
-	public void notifyHelpMessage(HelpMessageEvent event) {
+	public void notifyUsageHelpMessage(UsageHelpMessageEvent event) {
 		for (UserInterface ui : uis) {
-			ui.notifyHelpMessage(event);
+			ui.notifyUsageHelpMessage(event);
 		}
 	}
 
@@ -154,7 +154,7 @@ public class Application {
 		} catch (UnrecognizedOptionException e) {
 			createUserInterface(UserInterfaceType.cli);
 			notifyCommandStatus(new CommandStatusEvent(e.getMessage()));
-			showHelp();
+			usageHelp();
 		}
 	}
 
@@ -204,9 +204,9 @@ public class Application {
 		runCommand(ConvertCommand.NAME, data);
 	}
 
-	public void showHelp() throws Exception {
-		HelpCommandData data = new HelpCommandData();
+	public void usageHelp() throws Exception {
+		UsageHelpCommandData data = new UsageHelpCommandData();
 		data.options = arguments.getOptions();
-		commands.get(HelpCommand.NAME).execute(data);
+		commands.get(UsageHelpCommand.NAME).execute(data);
 	}
 }

@@ -17,8 +17,8 @@ import org.junit.jupiter.api.extension.RegisterExtension;
 
 import application.command.ConvertCommand;
 import application.command.ConvertCommandDataMatcher;
-import application.command.HelpCommand;
-import application.command.HelpCommandDataMatcher;
+import application.command.UsageHelpCommand;
+import application.command.UsageHelpCommandDataMatcher;
 import application.command.NewSystemTransformationsCommand;
 import application.command.NewSystemTransformationsCommandDataMatcher;
 import application.command.NewTaskDescriptionCommand;
@@ -30,7 +30,7 @@ import application.command.VerifyCommand;
 import application.command.VerifyCommandDataMatcher;
 import application.event.CommandStatusEvent;
 import application.event.CommandStatusEventMatcher;
-import application.event.HelpMessageEvent;
+import application.event.UsageHelpMessageEvent;
 import application.storage.PersistanceStorage;
 import application.ui.UserInterface;
 import application.ui.UserInterfaceBuilder;
@@ -56,7 +56,7 @@ public class ApplicationTest {
 
 	Application testable;
 
-	HelpCommand helpCommand_mock;
+	UsageHelpCommand usageHelpCommand_mock;
 
 	PlanCommand planCommand_mock;
 
@@ -76,7 +76,7 @@ public class ApplicationTest {
 
 	@BeforeEach
 	public void setup() {
-		helpCommand_mock = context.mock(HelpCommand.class);
+		usageHelpCommand_mock = context.mock(UsageHelpCommand.class);
 		planCommand_mock = context.mock(PlanCommand.class);
 		newSystemTransformationsCommand_mock = context.mock(NewSystemTransformationsCommand.class);
 		newTaskDescriptionCommand_mock = context.mock(NewTaskDescriptionCommand.class);
@@ -88,8 +88,8 @@ public class ApplicationTest {
 
 		context.checking(new Expectations() {
 			{
-				oneOf(helpCommand_mock).getName();
-				will(returnValue(HelpCommand.NAME));
+				oneOf(usageHelpCommand_mock).getName();
+				will(returnValue(UsageHelpCommand.NAME));
 
 				oneOf(planCommand_mock).getName();
 				will(returnValue(PlanCommand.NAME));
@@ -108,7 +108,7 @@ public class ApplicationTest {
 			}
 		});
 
-		testable = new Application(helpCommand_mock, planCommand_mock, newSystemTransformationsCommand_mock,
+		testable = new Application(usageHelpCommand_mock, planCommand_mock, newSystemTransformationsCommand_mock,
 				newTaskDescriptionCommand_mock, verifyCommand_mock, convertCommand_mock, persistanceStorage_mock,
 				arguments_mock, userInterfaceBuilder_mock);
 	}
@@ -128,16 +128,16 @@ public class ApplicationTest {
 	@Test
 	public void notifyHelpMessage() {
 		final UserInterface ui_mock = context.mock(UserInterface.class);
-		final HelpMessageEvent event_mock = context.mock(HelpMessageEvent.class);
+		final UsageHelpMessageEvent event_mock = context.mock(UsageHelpMessageEvent.class);
 
 		context.checking(new Expectations() {
 			{
-				oneOf(ui_mock).notifyHelpMessage(event_mock);
+				oneOf(ui_mock).notifyUsageHelpMessage(event_mock);
 			}
 		});
 		testable.registerUserInterface(ui_mock);
 
-		testable.notifyHelpMessage(event_mock);
+		testable.notifyUsageHelpMessage(event_mock);
 	}
 
 	@Test
@@ -225,7 +225,7 @@ public class ApplicationTest {
 				oneOf(arguments_mock).getOptions();
 				will(returnValue(options_mock));
 
-				oneOf(helpCommand_mock).execute(with(new HelpCommandDataMatcher().expectOptions(options_mock)));
+				oneOf(usageHelpCommand_mock).execute(with(new UsageHelpCommandDataMatcher().expectOptions(options_mock)));
 			}
 		});
 
@@ -364,7 +364,7 @@ public class ApplicationTest {
 	}
 
 	@Test
-	public void showHelp() throws Exception {
+	public void usageHelp() throws Exception {
 		final Options options_mock = new Options();
 
 		context.checking(new Expectations() {
@@ -372,11 +372,11 @@ public class ApplicationTest {
 				oneOf(arguments_mock).getOptions();
 				will(returnValue(options_mock));
 
-				oneOf(helpCommand_mock).execute(with(new HelpCommandDataMatcher().expectOptions(options_mock)));
+				oneOf(usageHelpCommand_mock).execute(with(new UsageHelpCommandDataMatcher().expectOptions(options_mock)));
 			}
 		});
 
-		testable.showHelp();
+		testable.usageHelp();
 	}
 
 	@Test

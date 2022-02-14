@@ -7,7 +7,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
-public class HelpCommandDataTest {
+public class UsageHelpCommandDataTest {
 
 	@RegisterExtension
 	JUnit5Mockery context = new JUnit5Mockery() {
@@ -21,11 +21,11 @@ public class HelpCommandDataTest {
 		context.assertIsSatisfied();
 	}
 
-	HelpCommandData testable;
+	UsageHelpCommandData testable;
 
 	@BeforeEach
 	public void setup() {
-		testable = new HelpCommandData();
+		testable = new UsageHelpCommandData();
 	}
 
 	@Test

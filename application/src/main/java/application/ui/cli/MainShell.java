@@ -5,7 +5,7 @@ import java.io.PrintStream;
 import application.Application;
 import application.Arguments;
 import application.event.CommandStatusEvent;
-import application.event.HelpMessageEvent;
+import application.event.UsageHelpMessageEvent;
 import application.ui.UserInterface;
 
 public class MainShell implements UserInterface {
@@ -19,7 +19,7 @@ public class MainShell implements UserInterface {
 	}
 
 	@Override
-	public void notifyHelpMessage(HelpMessageEvent event) {
+	public void notifyUsageHelpMessage(UsageHelpMessageEvent event) {
 		printStream.println(event.message);
 	}
 
@@ -43,7 +43,7 @@ public class MainShell implements UserInterface {
 		} else if (arguments.hasArgument_convert()) {
 			application.convert();
 		} else {
-			application.showHelp();
+			application.usageHelp();
 		}
 	}
 

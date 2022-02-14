@@ -5,12 +5,12 @@ import org.apache.commons.cli.Options;
 
 import utility.Matcher;
 
-public class HelpCommandDataMatcher extends Matcher<HelpCommandData> {
+public class UsageHelpCommandDataMatcher extends Matcher<UsageHelpCommandData> {
 
-	public HelpCommandDataMatcher expectOptions(Options options) {
+	public UsageHelpCommandDataMatcher expectOptions(Options options) {
 		addExpectation(new MatcherExpectation() {
 			@Override
-			public void trigger(HelpCommandData arg) throws MatcherException {
+			public void trigger(UsageHelpCommandData arg) throws MatcherException {
 				compare("options.getOptions().size()", options.getOptions().size(), arg.options.getOptions().size());
 				for (Option expected : options.getOptions()) {
 					Option actual = arg.options.getOption(expected.getOpt());
