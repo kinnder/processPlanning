@@ -5,7 +5,7 @@ import java.util.Optional;
 import org.apache.commons.cli.Option;
 
 import application.Application;
-import application.event.UsageHelpMessageEvent;
+import application.event.UserMessageEvent;
 
 public class UsageHelpCommand extends Command {
 
@@ -31,7 +31,7 @@ public class UsageHelpCommand extends Command {
 			sb.append(String.format("%7s, %-26s %s\n", shortName, longName, description));
 		}
 
-		UsageHelpMessageEvent event = new UsageHelpMessageEvent(sb.toString());
-		application.notifyUsageHelpMessage(event);
+		UserMessageEvent event = new UserMessageEvent(sb.toString());
+		application.notifyUserMessage(event);
 	}
 }

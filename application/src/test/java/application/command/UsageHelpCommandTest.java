@@ -13,7 +13,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
 import application.Application;
-import application.event.UsageHelpMessageEventMatcher;
+import application.event.UserMessageEventMatcher;
 
 public class UsageHelpCommandTest {
 
@@ -55,7 +55,7 @@ public class UsageHelpCommandTest {
 
 		context.checking(new Expectations() {
 			{
-				oneOf(application_mock).notifyUsageHelpMessage(with(new UsageHelpMessageEventMatcher().expectMessage(sb.toString())));
+				oneOf(application_mock).notifyUserMessage(with(new UserMessageEventMatcher().expectMessage(sb.toString())));
 			}
 		});
 
@@ -77,7 +77,7 @@ public class UsageHelpCommandTest {
 
 		context.checking(new Expectations() {
 			{
-				oneOf(application_mock).notifyUsageHelpMessage(with(new UsageHelpMessageEventMatcher().expectMessage(sb.toString())));
+				oneOf(application_mock).notifyUserMessage(with(new UserMessageEventMatcher().expectMessage(sb.toString())));
 			}
 		});
 

@@ -13,7 +13,7 @@ import org.junit.jupiter.api.extension.RegisterExtension;
 import application.Application;
 import application.Arguments;
 import application.event.CommandStatusEvent;
-import application.event.UsageHelpMessageEvent;
+import application.event.UserMessageEvent;
 
 public class MainShellTest {
 
@@ -45,8 +45,8 @@ public class MainShellTest {
 	}
 
 	@Test
-	public void notifyHelpMessage() {
-		final UsageHelpMessageEvent event_mock = context.mock(UsageHelpMessageEvent.class);
+	public void notifyUserMessage() {
+		final UserMessageEvent event_mock = context.mock(UserMessageEvent.class);
 		event_mock.message = "message";
 
 		context.checking(new Expectations() {
@@ -55,7 +55,7 @@ public class MainShellTest {
 			}
 		});
 
-		testable.notifyUsageHelpMessage(event_mock);
+		testable.notifyUserMessage(event_mock);
 	}
 
 	@Test

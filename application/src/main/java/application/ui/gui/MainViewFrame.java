@@ -2,7 +2,7 @@ package application.ui.gui;
 
 import application.Application;
 import application.event.CommandStatusEvent;
-import application.event.UsageHelpMessageEvent;
+import application.event.UserMessageEvent;
 import application.ui.UserInterface;
 
 import java.util.logging.Level;
@@ -251,7 +251,7 @@ public class MainViewFrame extends javax.swing.JFrame implements UserInterface {
 	}
 
 	@Override
-	public void notifyUsageHelpMessage(UsageHelpMessageEvent event) {
+	public void notifyUserMessage(UserMessageEvent event) {
 		jtaLog.append(event.message);
 		jtaLog.append("\n");
 	}

@@ -9,7 +9,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
-public class UsageHelpMessageEventTest {
+public class UserMessageEventTest {
 
 	@RegisterExtension
 	JUnit5Mockery context = new JUnit5Mockery() {
@@ -23,14 +23,14 @@ public class UsageHelpMessageEventTest {
 		context.assertIsSatisfied();
 	}
 
-	UsageHelpMessageEvent testable;
+	UserMessageEvent testable;
 
 	String message;
 
 	@BeforeEach
 	public void setup() {
 		message = "message";
-		testable = new UsageHelpMessageEvent(message);
+		testable = new UserMessageEvent(message);
 	}
 
 	@Test

@@ -25,7 +25,7 @@ import application.command.PlanCommandData;
 import application.command.VerifyCommand;
 import application.command.VerifyCommandData;
 import application.event.CommandStatusEvent;
-import application.event.UsageHelpMessageEvent;
+import application.event.UserMessageEvent;
 import application.storage.PersistanceStorage;
 import application.ui.UserInterface;
 import application.ui.UserInterfaceBuilder;
@@ -82,9 +82,9 @@ public class Application {
 		uis.add(ui);
 	}
 
-	public void notifyUsageHelpMessage(UsageHelpMessageEvent event) {
+	public void notifyUserMessage(UserMessageEvent event) {
 		for (UserInterface ui : uis) {
-			ui.notifyUsageHelpMessage(event);
+			ui.notifyUserMessage(event);
 		}
 	}
 

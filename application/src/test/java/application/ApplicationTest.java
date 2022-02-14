@@ -30,7 +30,7 @@ import application.command.VerifyCommand;
 import application.command.VerifyCommandDataMatcher;
 import application.event.CommandStatusEvent;
 import application.event.CommandStatusEventMatcher;
-import application.event.UsageHelpMessageEvent;
+import application.event.UserMessageEvent;
 import application.storage.PersistanceStorage;
 import application.ui.UserInterface;
 import application.ui.UserInterfaceBuilder;
@@ -126,18 +126,18 @@ public class ApplicationTest {
 	}
 
 	@Test
-	public void notifyHelpMessage() {
+	public void notifyUserMessage() {
 		final UserInterface ui_mock = context.mock(UserInterface.class);
-		final UsageHelpMessageEvent event_mock = context.mock(UsageHelpMessageEvent.class);
+		final UserMessageEvent event_mock = context.mock(UserMessageEvent.class);
 
 		context.checking(new Expectations() {
 			{
-				oneOf(ui_mock).notifyUsageHelpMessage(event_mock);
+				oneOf(ui_mock).notifyUserMessage(event_mock);
 			}
 		});
 		testable.registerUserInterface(ui_mock);
 
-		testable.notifyUsageHelpMessage(event_mock);
+		testable.notifyUserMessage(event_mock);
 	}
 
 	@Test
