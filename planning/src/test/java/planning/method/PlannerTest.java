@@ -278,4 +278,10 @@ public class PlannerTest {
 		assertEquals(1, process.size());
 		assertEquals(systemOperation_mock, process.get(0));
 	}
+
+	@Test
+	public void getShortestProcess_noFinalNode() {
+		SystemProcess process = testable.getShortestProcess();
+		assertEquals(0, process.size());
+	}
 }

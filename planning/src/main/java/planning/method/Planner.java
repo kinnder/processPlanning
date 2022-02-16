@@ -59,6 +59,9 @@ public class Planner {
 	}
 
 	public SystemProcess getShortestProcess() {
+		if (finalNode == null) {
+			return new SystemProcess();
+		}
 		GraphPath<Node, Edge> path = nodeNetwork.getShortestPath(initialNode, finalNode);
 		SystemProcess process = new SystemProcess();
 		for (Edge edge : path.getEdgeList()) {
