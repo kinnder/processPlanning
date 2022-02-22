@@ -9,6 +9,7 @@ import java.util.Map;
 
 import org.apache.commons.cli.UnrecognizedOptionException;
 import org.jdom2.JDOMException;
+import org.slf4j.LoggerFactory;
 
 import application.command.Command;
 import application.command.CommandData;
@@ -204,9 +205,14 @@ public class Application {
 		runCommand(ConvertCommand.NAME, data);
 	}
 
-	public void usageHelp() throws Exception {
+	public void usageHelp() {
 		UsageHelpCommandData data = new UsageHelpCommandData();
 		data.options = arguments.getOptions();
-		commands.get(UsageHelpCommand.NAME).execute(data);
+		try {
+			commands.get(UsageHelpCommand.NAME).execute(data);
+		} catch (Exception e) {
+			notifyCommandStatus(new CommandStatusEvent("error"));
+			LoggerFactory.getLogger(getClass()).error("", e);
+		}
 	}
 }

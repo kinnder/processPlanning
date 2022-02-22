@@ -1,19 +1,36 @@
 package application.ui.gui;
 
+import java.awt.event.ActionEvent;
+
+import javax.swing.AbstractAction;
+import javax.swing.Action;
+import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
+import javax.swing.UIManager.LookAndFeelInfo;
+
 import application.Application;
 import application.event.CommandStatusEvent;
 import application.event.UserMessageEvent;
 import application.ui.UserInterface;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 public class MainViewFrame extends javax.swing.JFrame implements UserInterface {
-
 	private static final long serialVersionUID = 514069652804189117L;
 
 	public MainViewFrame() {
 		initComponents();
+		setActions();
+	}
+
+	private void setActions() {
+		jmiAbout.setAction(aboutAction);
+		jmiConvert.setAction(convertAction);
+		jmiExit.setAction(exitAction);
+		jmiNewTaskDescription.setAction(newTaskDescriptionAction);
+		jmiNewSystemTransformations.setAction(newSystemTransformationsAction);
+		jmiOptions.setAction(optionsAction);
+		jmiPlan.setAction(planAction);
+		jmiUsage.setAction(usageAction);
+		jmiVerify.setAction(verifyAction);
 	}
 
 	/**
@@ -23,6 +40,7 @@ public class MainViewFrame extends javax.swing.JFrame implements UserInterface {
 	 */
 	// <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
 	private void initComponents() {
+
 		jScrollPane1 = new javax.swing.JScrollPane();
 		jtaLog = new javax.swing.JTextArea();
 		jMenuBar1 = new javax.swing.JMenuBar();
@@ -31,8 +49,8 @@ public class MainViewFrame extends javax.swing.JFrame implements UserInterface {
 		jmiExit = new javax.swing.JMenuItem();
 		jMenu2 = new javax.swing.JMenu();
 		jmiConvert = new javax.swing.JMenuItem();
-		jmiNewTransformations = new javax.swing.JMenuItem();
-		jmiNewTask = new javax.swing.JMenuItem();
+		jmiNewSystemTransformations = new javax.swing.JMenuItem();
+		jmiNewTaskDescription = new javax.swing.JMenuItem();
 		jmiPlan = new javax.swing.JMenuItem();
 		jmiVerify = new javax.swing.JMenuItem();
 		jMenu3 = new javax.swing.JMenu();
@@ -51,21 +69,9 @@ public class MainViewFrame extends javax.swing.JFrame implements UserInterface {
 		jMenu1.setText("Application");
 
 		jmiOptions.setText("Options");
-		jmiOptions.addActionListener(new java.awt.event.ActionListener() {
-			@Override
-			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				jmiOptionsActionPerformed(evt);
-			}
-		});
 		jMenu1.add(jmiOptions);
 
 		jmiExit.setText("Exit");
-		jmiExit.addActionListener(new java.awt.event.ActionListener() {
-			@Override
-			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				jmiExitActionPerformed(evt);
-			}
-		});
 		jMenu1.add(jmiExit);
 
 		jMenuBar1.add(jMenu1);
@@ -73,48 +79,18 @@ public class MainViewFrame extends javax.swing.JFrame implements UserInterface {
 		jMenu2.setText("Commands");
 
 		jmiConvert.setText("Convert");
-		jmiConvert.addActionListener(new java.awt.event.ActionListener() {
-			@Override
-			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				jmiConvertActionPerformed(evt);
-			}
-		});
 		jMenu2.add(jmiConvert);
 
-		jmiNewTransformations.setText("New Transformations");
-		jmiNewTransformations.addActionListener(new java.awt.event.ActionListener() {
-			@Override
-			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				jmiNewTransformationsActionPerformed(evt);
-			}
-		});
-		jMenu2.add(jmiNewTransformations);
+		jmiNewSystemTransformations.setText("New Transformations");
+		jMenu2.add(jmiNewSystemTransformations);
 
-		jmiNewTask.setText("New Task");
-		jmiNewTask.addActionListener(new java.awt.event.ActionListener() {
-			@Override
-			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				jmiNewTaskActionPerformed(evt);
-			}
-		});
-		jMenu2.add(jmiNewTask);
+		jmiNewTaskDescription.setText("New Task");
+		jMenu2.add(jmiNewTaskDescription);
 
 		jmiPlan.setText("Plan");
-		jmiPlan.addActionListener(new java.awt.event.ActionListener() {
-			@Override
-			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				jmiPlanActionPerformed(evt);
-			}
-		});
 		jMenu2.add(jmiPlan);
 
 		jmiVerify.setText("Verify");
-		jmiVerify.addActionListener(new java.awt.event.ActionListener() {
-			@Override
-			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				jmiVerifyActionPerformed(evt);
-			}
-		});
 		jMenu2.add(jmiVerify);
 
 		jMenuBar1.add(jMenu2);
@@ -122,21 +98,9 @@ public class MainViewFrame extends javax.swing.JFrame implements UserInterface {
 		jMenu3.setText("Help");
 
 		jmiUsage.setText("Usage");
-		jmiUsage.addActionListener(new java.awt.event.ActionListener() {
-			@Override
-			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				jmiUsageActionPerformed(evt);
-			}
-		});
 		jMenu3.add(jmiUsage);
 
 		jmiAbout.setText("About");
-		jmiAbout.addActionListener(new java.awt.event.ActionListener() {
-			@Override
-			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				jmiAboutActionPerformed(evt);
-			}
-		});
 		jMenu3.add(jmiAbout);
 
 		jMenuBar1.add(jMenu3);
@@ -154,74 +118,97 @@ public class MainViewFrame extends javax.swing.JFrame implements UserInterface {
 		pack();
 	}// </editor-fold>//GEN-END:initComponents
 
-	@SuppressWarnings("unused")
-	private void jmiOptionsActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jmiOptionsActionPerformed
-		java.awt.EventQueue.invokeLater(new Runnable() {
-			@Override
-			public void run() {
+	Action optionsAction = new AbstractAction("Options...") {
+		private static final long serialVersionUID = 7353392578629559123L;
+
+		@Override
+		public void actionPerformed(ActionEvent evt) {
+			SwingUtilities.invokeLater(() -> {
 				OptionsFrame optionsFrame = new OptionsFrame();
 				optionsFrame.setApplication(application);
 				optionsFrame.updateComponents();
 				optionsFrame.setVisible(true);
-			}
-		});
-	}// GEN-LAST:event_jmiOptionsActionPerformed
-
-	@SuppressWarnings("unused")
-	private void jmiExitActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jmiExitActionPerformed
-		this.dispose();
-	}// GEN-LAST:event_jmiExitActionPerformed
-
-	@SuppressWarnings("unused")
-	private void jmiPlanActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jmiPlanActionPerformed
-		application.plan();
-	}// GEN-LAST:event_jmiPlanActionPerformed
-
-	@SuppressWarnings("unused")
-	private void jmiVerifyActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jmiVerifyActionPerformed
-		application.verify();
-	}// GEN-LAST:event_jmiVerifyActionPerformed
-
-	@SuppressWarnings("unused")
-	private void jmiNewTaskActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jmiNewTaskActionPerformed
-		application.newTaskDescription();
-	}// GEN-LAST:event_jmiNewTaskActionPerformed
-
-	@SuppressWarnings("unused")
-	private void jmiNewTransformationsActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jmiNewTransformationsActionPerformed
-		application.newSystemTransformations();
-	}// GEN-LAST:event_jmiNewTransformationsActionPerformed
-
-	@SuppressWarnings("unused")
-	private void jmiConvertActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jmiConvertActionPerformed
-		application.convert();
-	}// GEN-LAST:event_jmiConvertActionPerformed
-
-	@SuppressWarnings("unused")
-	private void jmiUsageActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jmiUsageActionPerformed
-		try {
-			application.usageHelp();
-		} catch (Exception ex) {
-			Logger.getLogger(MainViewFrame.class.getName()).log(Level.SEVERE, null, ex);
+			});
 		}
-	}// GEN-LAST:event_jmiUsageActionPerformed
+	};
 
-	@SuppressWarnings("unused")
-	private void jmiAboutActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jmiAboutActionPerformed
-		java.awt.EventQueue.invokeLater(new Runnable() {
-			@Override
-			public void run() {
+	Action exitAction = new AbstractAction("Exit") {
+		private static final long serialVersionUID = 553215988718603009L;
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			dispose();
+		}
+	};
+
+	Action planAction = new AbstractAction("Plan") {
+		private static final long serialVersionUID = 5229889242759466230L;
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			application.plan();
+		}
+	};
+
+	Action verifyAction = new AbstractAction("Verify") {
+		private static final long serialVersionUID = 7353392578629559123L;
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			application.verify();
+		}
+	};
+
+	Action newTaskDescriptionAction = new AbstractAction("New Task") {
+		private static final long serialVersionUID = -6559945594959339816L;
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			application.newTaskDescription();
+		}
+	};
+
+	Action newSystemTransformationsAction = new AbstractAction("New Transformations") {
+		private static final long serialVersionUID = 8677870804332905954L;
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			application.newSystemTransformations();
+		}
+	};
+
+	Action convertAction = new AbstractAction("Convert") {
+		private static final long serialVersionUID = -5142639452014173083L;
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			application.convert();
+		}
+	};
+
+	Action usageAction = new AbstractAction("Usage") {
+		private static final long serialVersionUID = -5027301856157970456L;
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			application.usageHelp();
+		}
+	};
+
+	Action aboutAction = new AbstractAction("About") {
+		private static final long serialVersionUID = -968420889758107148L;
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			SwingUtilities.invokeLater(() -> {
 				new AboutFrame().setVisible(true);
-			}
-		});
-	}// GEN-LAST:event_jmiAboutActionPerformed
+			});
+		}
+	};
 
 	public static void main(String args[]) {
-		java.awt.EventQueue.invokeLater(new Runnable() {
-			@Override
-			public void run() {
-				new MainViewFrame().setVisible(true);
-			}
+		SwingUtilities.invokeLater(() -> {
+			new MainViewFrame().setVisible(true);
 		});
 	}
 
@@ -234,8 +221,8 @@ public class MainViewFrame extends javax.swing.JFrame implements UserInterface {
 	private javax.swing.JMenuItem jmiAbout;
 	private javax.swing.JMenuItem jmiConvert;
 	private javax.swing.JMenuItem jmiExit;
-	private javax.swing.JMenuItem jmiNewTask;
-	private javax.swing.JMenuItem jmiNewTransformations;
+	private javax.swing.JMenuItem jmiNewSystemTransformations;
+	private javax.swing.JMenuItem jmiNewTaskDescription;
 	private javax.swing.JMenuItem jmiOptions;
 	private javax.swing.JMenuItem jmiPlan;
 	private javax.swing.JMenuItem jmiUsage;
@@ -263,7 +250,7 @@ public class MainViewFrame extends javax.swing.JFrame implements UserInterface {
 	}
 
 	public static void initializeLookAndFeel() throws Exception {
-		for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+		for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
 			if ("Nimbus".equals(info.getName())) {
 				javax.swing.UIManager.setLookAndFeel(info.getClassName());
 				break;

@@ -13,17 +13,11 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Options"/>
               </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jmiOptionsActionPerformed"/>
-              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jmiExit">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Exit"/>
               </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jmiExitActionPerformed"/>
-              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>
@@ -36,41 +30,26 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Convert"/>
               </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jmiConvertActionPerformed"/>
-              </Events>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jmiNewTransformations">
+            <MenuItem class="javax.swing.JMenuItem" name="jmiNewSystemTransformations">
               <Properties>
                 <Property name="text" type="java.lang.String" value="New Transformations"/>
               </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jmiNewTransformationsActionPerformed"/>
-              </Events>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jmiNewTask">
+            <MenuItem class="javax.swing.JMenuItem" name="jmiNewTaskDescription">
               <Properties>
                 <Property name="text" type="java.lang.String" value="New Task"/>
               </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jmiNewTaskActionPerformed"/>
-              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jmiPlan">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Plan"/>
               </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jmiPlanActionPerformed"/>
-              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jmiVerify">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Verify"/>
               </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jmiVerifyActionPerformed"/>
-              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>
@@ -83,17 +62,11 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Usage"/>
               </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jmiUsageActionPerformed"/>
-              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jmiAbout">
               <Properties>
                 <Property name="text" type="java.lang.String" value="About"/>
               </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jmiAboutActionPerformed"/>
-              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>

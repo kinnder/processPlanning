@@ -1,5 +1,7 @@
 package application.ui.gui;
 
+import javax.swing.SwingUtilities;
+
 public class AboutFrame extends javax.swing.JFrame {
 
 	private static final long serialVersionUID = 8304157905705554451L;
@@ -68,11 +70,8 @@ public class AboutFrame extends javax.swing.JFrame {
 	}// GEN-LAST:event_jbOkActionPerformed
 
 	public static void main(String args[]) {
-		java.awt.EventQueue.invokeLater(new Runnable() {
-			@Override
-			public void run() {
-				new AboutFrame().setVisible(true);
-			}
+		SwingUtilities.invokeLater(() -> {
+			new AboutFrame().setVisible(true);
 		});
 	}
 
