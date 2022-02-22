@@ -2,6 +2,7 @@ package application.ui.gui;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.awt.GraphicsEnvironment;
 import java.awt.event.ActionEvent;
 
 import javax.swing.Action;
@@ -12,10 +13,12 @@ import org.jmock.junit5.JUnit5Mockery;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.DisabledIf;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
 import application.Application;
 
+@DisabledIf("isHeadless")
 public class MainViewFrameTest {
 
 	@RegisterExtension
@@ -24,6 +27,10 @@ public class MainViewFrameTest {
 			setImposteriser(ByteBuddyClassImposteriser.INSTANCE);
 		}
 	};
+
+	static boolean isHeadless() {
+		return GraphicsEnvironment.isHeadless();
+	}
 
 	@AfterEach
 	public void teardown() {

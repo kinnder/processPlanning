@@ -8,6 +8,7 @@ import org.jmock.junit5.JUnit5Mockery;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.DisabledIf;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
 import application.ui.UserInterfaceBuilder.UserInterfaceType;
@@ -23,6 +24,10 @@ public class UserInterfaceBuilderTest {
 		}
 	};
 
+	static boolean isHeadless() {
+		return GraphicsEnvironment.isHeadless();
+	}
+
 	@AfterEach
 	public void teardown() {
 		context.assertIsSatisfied();
@@ -36,11 +41,10 @@ public class UserInterfaceBuilderTest {
 	}
 
 	@Test
+	@DisabledIf("isHeadless")
 	public void build_gui() {
-		if (!GraphicsEnvironment.isHeadless()) {
-			UserInterface result = testable.build(UserInterfaceType.gui);
-			assertTrue(result instanceof MainViewFrame);
-		}
+		UserInterface result = testable.build(UserInterfaceType.gui);
+		assertTrue(result instanceof MainViewFrame);
 	}
 
 	@Test
