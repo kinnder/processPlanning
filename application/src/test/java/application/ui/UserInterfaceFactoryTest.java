@@ -11,11 +11,11 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.condition.DisabledIf;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
-import application.ui.UserInterfaceBuilder.UserInterfaceType;
+import application.ui.UserInterfaceFactory.UserInterfaceType;
 import application.ui.cli.MainShell;
 import application.ui.gui.MainViewFrame;
 
-public class UserInterfaceBuilderTest {
+public class UserInterfaceFactoryTest {
 
 	@RegisterExtension
 	JUnit5Mockery context = new JUnit5Mockery() {
@@ -33,23 +33,23 @@ public class UserInterfaceBuilderTest {
 		context.assertIsSatisfied();
 	}
 
-	UserInterfaceBuilder testable;
+	UserInterfaceFactory testable;
 
 	@BeforeEach
 	public void setup() {
-		testable = new UserInterfaceBuilder();
+		testable = new UserInterfaceFactory();
 	}
 
 	@Test
 	@DisabledIf("isHeadless")
-	public void build_gui() {
-		UserInterface result = testable.build(UserInterfaceType.gui);
+	public void createMainView_gui() {
+		UserInterface result = testable.createMainView(UserInterfaceType.gui);
 		assertTrue(result instanceof MainViewFrame);
 	}
 
 	@Test
-	public void build_cli() {
-		UserInterface result = testable.build(UserInterfaceType.cli);
+	public void createMainView_cli() {
+		UserInterface result = testable.createMainView(UserInterfaceType.cli);
 		assertTrue(result instanceof MainShell);
 	}
 }

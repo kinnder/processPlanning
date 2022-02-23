@@ -201,7 +201,8 @@ public class MainViewFrame extends javax.swing.JFrame implements UserInterface {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			SwingUtilities.invokeLater(() -> {
-				new AboutFrame().setVisible(true);
+				AboutFrame aboutFrame = new AboutFrame();
+				aboutFrame.setVisible(true);
 			});
 		}
 	};
@@ -252,7 +253,7 @@ public class MainViewFrame extends javax.swing.JFrame implements UserInterface {
 	public static void initializeLookAndFeel() throws Exception {
 		for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
 			if ("Nimbus".equals(info.getName())) {
-				javax.swing.UIManager.setLookAndFeel(info.getClassName());
+				UIManager.setLookAndFeel(info.getClassName());
 				break;
 			}
 		}

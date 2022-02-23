@@ -82,6 +82,13 @@ public class MainViewFrameTest {
 	}
 
 	@Test
+	public void exitAction_actionPerformed() {
+		final ActionEvent actionEvent_mock = context.mock(ActionEvent.class);
+
+		testable.exitAction.actionPerformed(actionEvent_mock);
+	}
+
+	@Test
 	public void newSystemTransformationAction_name() {
 		assertEquals("New Transformations", testable.newSystemTransformationsAction.getValue(Action.NAME));
 	}

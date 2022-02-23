@@ -33,8 +33,8 @@ import application.event.CommandStatusEventMatcher;
 import application.event.UserMessageEvent;
 import application.storage.PersistanceStorage;
 import application.ui.UserInterface;
-import application.ui.UserInterfaceBuilder;
-import application.ui.UserInterfaceBuilder.UserInterfaceType;
+import application.ui.UserInterfaceFactory;
+import application.ui.UserInterfaceFactory.UserInterfaceType;
 import planning.method.NodeNetwork;
 import planning.method.SystemTransformations;
 import planning.method.TaskDescription;
@@ -72,7 +72,7 @@ public class ApplicationTest {
 
 	Arguments arguments_mock;
 
-	UserInterfaceBuilder userInterfaceBuilder_mock;
+	UserInterfaceFactory userInterFactory_mock;
 
 	@BeforeEach
 	public void setup() {
@@ -84,7 +84,7 @@ public class ApplicationTest {
 		convertCommand_mock = context.mock(ConvertCommand.class);
 		persistanceStorage_mock = context.mock(PersistanceStorage.class);
 		arguments_mock = context.mock(Arguments.class);
-		userInterfaceBuilder_mock = context.mock(UserInterfaceBuilder.class);
+		userInterFactory_mock = context.mock(UserInterfaceFactory.class);
 
 		context.checking(new Expectations() {
 			{
@@ -110,7 +110,7 @@ public class ApplicationTest {
 
 		testable = new Application(usageHelpCommand_mock, planCommand_mock, newSystemTransformationsCommand_mock,
 				newTaskDescriptionCommand_mock, verifyCommand_mock, convertCommand_mock, persistanceStorage_mock,
-				arguments_mock, userInterfaceBuilder_mock);
+				arguments_mock, userInterFactory_mock);
 	}
 
 	@Test
@@ -167,7 +167,7 @@ public class ApplicationTest {
 				oneOf(arguments_mock).hasArgument_gui();
 				will(returnValue(true));
 
-				oneOf(userInterfaceBuilder_mock).build(UserInterfaceType.gui);
+				oneOf(userInterFactory_mock).createMainView(UserInterfaceType.gui);
 				will(returnValue(ui_mock));
 
 				oneOf(ui_mock).setApplication(testable);
@@ -191,7 +191,7 @@ public class ApplicationTest {
 				oneOf(arguments_mock).hasArgument_gui();
 				will(returnValue(false));
 
-				oneOf(userInterfaceBuilder_mock).build(UserInterfaceType.cli);
+				oneOf(userInterFactory_mock).createMainView(UserInterfaceType.cli);
 				will(returnValue(ui_mock));
 
 				oneOf(ui_mock).setApplication(testable);
@@ -214,7 +214,7 @@ public class ApplicationTest {
 				oneOf(arguments_mock).parseArguments(args);
 				will(throwException(new UnrecognizedOptionException("Unrecognized option: -?")));
 
-				oneOf(userInterfaceBuilder_mock).build(UserInterfaceType.cli);
+				oneOf(userInterFactory_mock).createMainView(UserInterfaceType.cli);
 				will(returnValue(ui_mock));
 
 				oneOf(ui_mock).setApplication(testable);

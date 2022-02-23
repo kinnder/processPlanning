@@ -29,8 +29,8 @@ import application.event.CommandStatusEvent;
 import application.event.UserMessageEvent;
 import application.storage.PersistanceStorage;
 import application.ui.UserInterface;
-import application.ui.UserInterfaceBuilder;
-import application.ui.UserInterfaceBuilder.UserInterfaceType;
+import application.ui.UserInterfaceFactory;
+import application.ui.UserInterfaceFactory.UserInterfaceType;
 import planning.method.NodeNetwork;
 import planning.method.SystemTransformations;
 import planning.method.TaskDescription;
@@ -44,7 +44,7 @@ public class Application {
 		commands.put(command.getName(), command);
 	}
 
-	private UserInterfaceBuilder userInterfaceBuilder;
+	private UserInterfaceFactory userInterfaceFactory;
 
 	public Application() {
 		registerCommand(new UsageHelpCommand(this));
@@ -56,14 +56,14 @@ public class Application {
 
 		persistanceStorage = new PersistanceStorage();
 		arguments = new Arguments();
-		userInterfaceBuilder = new UserInterfaceBuilder();
+		userInterfaceFactory = new UserInterfaceFactory();
 	}
 
 	Application(UsageHelpCommand usageHelpCommand, PlanCommand planCommand,
 			NewSystemTransformationsCommand newSystemTransformationsCommand,
 			NewTaskDescriptionCommand newTaskDescriptionCommand, VerifyCommand verifyCommand,
 			ConvertCommand convertCommand, PersistanceStorage persistanceStorage, Arguments arguments,
-			UserInterfaceBuilder userInterfaceBuilder) {
+			UserInterfaceFactory userInterfaceFactory) {
 
 		registerCommand(usageHelpCommand);
 		registerCommand(planCommand);
@@ -74,7 +74,7 @@ public class Application {
 
 		this.persistanceStorage = persistanceStorage;
 		this.arguments = arguments;
-		this.userInterfaceBuilder = userInterfaceBuilder;
+		this.userInterfaceFactory = userInterfaceFactory;
 	}
 
 	private List<UserInterface> uis = new ArrayList<UserInterface>();
@@ -140,7 +140,7 @@ public class Application {
 	}
 
 	private UserInterface createUserInterface(UserInterfaceType type) {
-		UserInterface ui = userInterfaceBuilder.build(type);
+		UserInterface ui = userInterfaceFactory.createMainView(type);
 		registerUserInterface(ui);
 		ui.setApplication(this);
 		return ui;
