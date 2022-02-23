@@ -40,8 +40,7 @@ public class MainShellTest {
 		printStream_mock = context.mock(PrintStream.class);
 		application_mock = context.mock(Application.class);
 
-		testable = new MainShell(printStream_mock);
-		testable.setApplication(application_mock);
+		testable = new MainShell(application_mock, printStream_mock);
 	}
 
 	@Test

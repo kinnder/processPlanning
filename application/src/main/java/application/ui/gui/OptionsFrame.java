@@ -7,7 +7,9 @@ public class OptionsFrame extends javax.swing.JFrame {
 
 	private static final long serialVersionUID = -2436536972189436722L;
 
-	public OptionsFrame() {
+	public OptionsFrame(Application application) {
+		this.application = application;
+
 		initComponents();
 	}
 
@@ -111,7 +113,7 @@ public class OptionsFrame extends javax.swing.JFrame {
 		java.awt.EventQueue.invokeLater(new Runnable() {
 			@Override
 			public void run() {
-				new OptionsFrame().setVisible(true);
+				new OptionsFrame(new Application()).setVisible(true);
 			}
 		});
 	}
@@ -124,11 +126,7 @@ public class OptionsFrame extends javax.swing.JFrame {
 	private javax.swing.JTable jtParameters;
 	// End of variables declaration//GEN-END:variables
 
-	private Application application = new Application();
-
-	public void setApplication(Application application) {
-		this.application = application;
-	}
+	private Application application;
 
 	public void updateComponents() {
 		Arguments arguments = application.getArguments();

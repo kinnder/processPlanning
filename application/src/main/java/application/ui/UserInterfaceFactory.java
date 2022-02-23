@@ -1,5 +1,6 @@
 package application.ui;
 
+import application.Application;
 import application.ui.cli.MainShell;
 import application.ui.gui.AboutFrame;
 import application.ui.gui.MainViewFrame;
@@ -11,17 +12,17 @@ public class UserInterfaceFactory {
 		cli, gui
 	};
 
-	public UserInterface createMainView(UserInterfaceType type) {
+	public UserInterface createMainView(Application application, UserInterfaceType type) {
 		switch (type) {
 		case gui:
-			return new MainViewFrame();
+			return new MainViewFrame(application);
 		default:
-			return new MainShell(System.out);
+			return new MainShell(application, System.out);
 		}
 	}
 
-	public OptionsFrame createOptionsView() {
-		return new OptionsFrame();
+	public OptionsFrame createOptionsView(Application application) {
+		return new OptionsFrame(application);
 	}
 
 	public AboutFrame createAboutView() {

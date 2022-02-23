@@ -14,8 +14,9 @@ public class MainShell implements UserInterface {
 
 	private Application application;
 
-	public MainShell(PrintStream printStream) {
+	public MainShell(Application application, PrintStream printStream) {
 		this.printStream = printStream;
+		this.application = application;
 	}
 
 	@Override
@@ -45,10 +46,5 @@ public class MainShell implements UserInterface {
 		} else {
 			application.usageHelp();
 		}
-	}
-
-	@Override
-	public void setApplication(Application application) {
-		this.application = application;
 	}
 }

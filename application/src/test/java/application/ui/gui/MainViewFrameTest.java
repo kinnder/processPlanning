@@ -17,6 +17,9 @@ import org.junit.jupiter.api.condition.DisabledIf;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
 import application.Application;
+import application.event.CommandStatusEvent;
+import application.event.UserMessageEvent;
+import application.ui.UserInterfaceFactory;
 
 @DisabledIf("isHeadless")
 public class MainViewFrameTest {
@@ -41,16 +44,19 @@ public class MainViewFrameTest {
 
 	Application application_mock;
 
+	UserInterfaceFactory userInterfaceFactory_mock;
+
 	@BeforeEach
 	public void setup() {
 		application_mock = context.mock(Application.class);
+		userInterfaceFactory_mock = context.mock(UserInterfaceFactory.class);
 
-		testable = new MainViewFrame();
-		testable.setApplication(application_mock);
+		testable = new MainViewFrame(application_mock, userInterfaceFactory_mock);
 	}
 
 	@Test
 	public void newInstance() {
+		testable = new MainViewFrame(application_mock);
 	}
 
 	@Test
@@ -181,5 +187,19 @@ public class MainViewFrameTest {
 		});
 
 		testable.verifyAction.actionPerformed(actionEvent_mock);
+	}
+
+	@Test
+	public void notifyUserMessage() {
+		final UserMessageEvent event = new UserMessageEvent("user message");
+
+		testable.notifyUserMessage(event);
+	}
+
+	@Test
+	public void notifyCommandStatus() {
+		final CommandStatusEvent event = new CommandStatusEvent("done");
+
+		testable.notifyCommandStatus(event);
 	}
 }

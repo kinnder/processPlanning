@@ -17,9 +17,16 @@ import application.ui.UserInterfaceFactory;
 public class MainViewFrame extends javax.swing.JFrame implements UserInterface {
 	private static final long serialVersionUID = 514069652804189117L;
 
-	UserInterfaceFactory userInterfaceFactory = new UserInterfaceFactory();
+	private UserInterfaceFactory userInterfaceFactory;
 
-	public MainViewFrame() {
+	public MainViewFrame(Application application) {
+		this(application, new UserInterfaceFactory());
+	}
+
+	MainViewFrame(Application application, UserInterfaceFactory userInterfaceFactory) {
+		this.application = application;
+		this.userInterfaceFactory = userInterfaceFactory;
+
 		initComponents();
 		setActions();
 	}
@@ -127,8 +134,7 @@ public class MainViewFrame extends javax.swing.JFrame implements UserInterface {
 		@Override
 		public void actionPerformed(ActionEvent evt) {
 			SwingUtilities.invokeLater(() -> {
-				OptionsFrame optionsFrame = userInterfaceFactory.createOptionsView();
-				optionsFrame.setApplication(application);
+				OptionsFrame optionsFrame = userInterfaceFactory.createOptionsView(application);
 				optionsFrame.updateComponents();
 				optionsFrame.setVisible(true);
 			});
@@ -212,7 +218,7 @@ public class MainViewFrame extends javax.swing.JFrame implements UserInterface {
 
 	public static void main(String args[]) {
 		SwingUtilities.invokeLater(() -> {
-			new MainViewFrame().setVisible(true);
+			new MainViewFrame(new Application()).setVisible(true);
 		});
 	}
 
@@ -234,12 +240,7 @@ public class MainViewFrame extends javax.swing.JFrame implements UserInterface {
 	private javax.swing.JTextArea jtaLog;
 	// End of variables declaration//GEN-END:variables
 
-	private Application application = new Application();
-
-	@Override
-	public void setApplication(Application application) {
-		this.application = application;
-	}
+	private Application application;
 
 	@Override
 	public void notifyUserMessage(UserMessageEvent event) {

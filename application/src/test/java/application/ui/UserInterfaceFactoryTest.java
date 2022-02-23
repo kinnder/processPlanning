@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.condition.DisabledIf;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
+import application.Application;
 import application.ui.UserInterfaceFactory.UserInterfaceType;
 import application.ui.cli.MainShell;
 import application.ui.gui.AboutFrame;
@@ -45,20 +46,26 @@ public class UserInterfaceFactoryTest {
 	@Test
 	@DisabledIf("isHeadless")
 	public void createMainView_gui() {
-		UserInterface result = testable.createMainView(UserInterfaceType.gui);
+		final Application application_mock = context.mock(Application.class);
+
+		UserInterface result = testable.createMainView(application_mock, UserInterfaceType.gui);
 		assertTrue(result instanceof MainViewFrame);
 	}
 
 	@Test
 	public void createMainView_cli() {
-		UserInterface result = testable.createMainView(UserInterfaceType.cli);
+		final Application application_mock = context.mock(Application.class);
+
+		UserInterface result = testable.createMainView(application_mock, UserInterfaceType.cli);
 		assertTrue(result instanceof MainShell);
 	}
 
 	@Test
 	@DisabledIf("isHeadless")
 	public void createOptionsView_gui() {
-		OptionsFrame result = testable.createOptionsView();
+		final Application application_mock = context.mock(Application.class);
+
+		OptionsFrame result = testable.createOptionsView(application_mock);
 		assertTrue(result instanceof OptionsFrame);
 	}
 

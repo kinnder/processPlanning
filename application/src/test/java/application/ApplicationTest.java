@@ -167,10 +167,8 @@ public class ApplicationTest {
 				oneOf(arguments_mock).hasArgument_gui();
 				will(returnValue(true));
 
-				oneOf(userInterFactory_mock).createMainView(UserInterfaceType.gui);
+				oneOf(userInterFactory_mock).createMainView(testable, UserInterfaceType.gui);
 				will(returnValue(ui_mock));
-
-				oneOf(ui_mock).setApplication(testable);
 
 				oneOf(ui_mock).run();
 			}
@@ -191,10 +189,8 @@ public class ApplicationTest {
 				oneOf(arguments_mock).hasArgument_gui();
 				will(returnValue(false));
 
-				oneOf(userInterFactory_mock).createMainView(UserInterfaceType.cli);
+				oneOf(userInterFactory_mock).createMainView(testable, UserInterfaceType.cli);
 				will(returnValue(ui_mock));
-
-				oneOf(ui_mock).setApplication(testable);
 
 				oneOf(ui_mock).run();
 			}
@@ -214,10 +210,8 @@ public class ApplicationTest {
 				oneOf(arguments_mock).parseArguments(args);
 				will(throwException(new UnrecognizedOptionException("Unrecognized option: -?")));
 
-				oneOf(userInterFactory_mock).createMainView(UserInterfaceType.cli);
+				oneOf(userInterFactory_mock).createMainView(testable, UserInterfaceType.cli);
 				will(returnValue(ui_mock));
-
-				oneOf(ui_mock).setApplication(testable);
 
 				oneOf(ui_mock).notifyCommandStatus(with(new CommandStatusEventMatcher().expectMessage("Unrecognized option: -?")));
 

@@ -140,9 +140,8 @@ public class Application {
 	}
 
 	private UserInterface createUserInterface(UserInterfaceType type) {
-		UserInterface ui = userInterfaceFactory.createMainView(type);
+		UserInterface ui = userInterfaceFactory.createMainView(this, type);
 		registerUserInterface(ui);
-		ui.setApplication(this);
 		return ui;
 	}
 
