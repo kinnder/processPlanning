@@ -12,9 +12,12 @@ import application.Application;
 import application.event.CommandStatusEvent;
 import application.event.UserMessageEvent;
 import application.ui.UserInterface;
+import application.ui.UserInterfaceFactory;
 
 public class MainViewFrame extends javax.swing.JFrame implements UserInterface {
 	private static final long serialVersionUID = 514069652804189117L;
+
+	UserInterfaceFactory userInterfaceFactory = new UserInterfaceFactory();
 
 	public MainViewFrame() {
 		initComponents();
@@ -124,7 +127,7 @@ public class MainViewFrame extends javax.swing.JFrame implements UserInterface {
 		@Override
 		public void actionPerformed(ActionEvent evt) {
 			SwingUtilities.invokeLater(() -> {
-				OptionsFrame optionsFrame = new OptionsFrame();
+				OptionsFrame optionsFrame = userInterfaceFactory.createOptionsView();
 				optionsFrame.setApplication(application);
 				optionsFrame.updateComponents();
 				optionsFrame.setVisible(true);
@@ -201,7 +204,7 @@ public class MainViewFrame extends javax.swing.JFrame implements UserInterface {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			SwingUtilities.invokeLater(() -> {
-				AboutFrame aboutFrame = new AboutFrame();
+				AboutFrame aboutFrame = userInterfaceFactory.createAboutView();
 				aboutFrame.setVisible(true);
 			});
 		}
