@@ -13,7 +13,7 @@ import org.junit.jupiter.api.extension.RegisterExtension;
 
 import application.Application;
 import application.ui.UserInterfaceFactory.UserInterfaceType;
-import application.ui.cli.MainShell;
+import application.ui.cli.MainViewShell;
 import application.ui.gui.AboutFrame;
 import application.ui.gui.MainViewFrame;
 import application.ui.gui.OptionsFrame;
@@ -57,7 +57,7 @@ public class UserInterfaceFactoryTest {
 		final Application application_mock = context.mock(Application.class);
 
 		UserInterface result = testable.createMainView(application_mock, UserInterfaceType.cli);
-		assertTrue(result instanceof MainShell);
+		assertTrue(result instanceof MainViewShell);
 	}
 
 	@Test

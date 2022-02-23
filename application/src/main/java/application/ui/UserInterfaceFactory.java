@@ -1,7 +1,7 @@
 package application.ui;
 
 import application.Application;
-import application.ui.cli.MainShell;
+import application.ui.cli.MainViewShell;
 import application.ui.gui.AboutFrame;
 import application.ui.gui.MainViewFrame;
 import application.ui.gui.OptionsFrame;
@@ -17,7 +17,7 @@ public class UserInterfaceFactory {
 		case gui:
 			return new MainViewFrame(application);
 		default:
-			return new MainShell(application, System.out);
+			return new MainViewShell(application, System.out);
 		}
 	}
 

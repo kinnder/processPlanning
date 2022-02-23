@@ -8,13 +8,13 @@ import application.event.CommandStatusEvent;
 import application.event.UserMessageEvent;
 import application.ui.UserInterface;
 
-public class MainShell implements UserInterface {
+public class MainViewShell implements UserInterface {
 
 	private PrintStream printStream;
 
 	private Application application;
 
-	public MainShell(Application application, PrintStream printStream) {
+	public MainViewShell(Application application, PrintStream printStream) {
 		this.printStream = printStream;
 		this.application = application;
 	}

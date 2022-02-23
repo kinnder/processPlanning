@@ -15,7 +15,7 @@ import application.Arguments;
 import application.event.CommandStatusEvent;
 import application.event.UserMessageEvent;
 
-public class MainShellTest {
+public class MainViewShellTest {
 
 	@RegisterExtension
 	JUnit5Mockery context = new JUnit5Mockery() {
@@ -29,7 +29,7 @@ public class MainShellTest {
 		context.assertIsSatisfied();
 	}
 
-	MainShell testable;
+	MainViewShell testable;
 
 	PrintStream printStream_mock;
 
@@ -40,7 +40,7 @@ public class MainShellTest {
 		printStream_mock = context.mock(PrintStream.class);
 		application_mock = context.mock(Application.class);
 
-		testable = new MainShell(application_mock, printStream_mock);
+		testable = new MainViewShell(application_mock, printStream_mock);
 	}
 
 	@Test
