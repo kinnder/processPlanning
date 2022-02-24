@@ -65,6 +65,23 @@ public class MainViewFrameTest {
 	}
 
 	@Test
+	public void aboutAction_actionPerformed() {
+		final ActionEvent actionEvent_mock = context.mock(ActionEvent.class);
+		final AboutFrame aboutFrame_mock = context.mock(AboutFrame.class);
+
+		context.checking(new Expectations() {
+			{
+				oneOf(userInterfaceFactory_mock).createAboutView();
+				will(returnValue(aboutFrame_mock));
+
+				oneOf(aboutFrame_mock).setVisible(true);
+			}
+		});
+
+		testable.aboutAction.actionPerformed(actionEvent_mock);
+	}
+
+	@Test
 	public void convertAction_name() {
 		assertEquals("Convert", testable.convertAction.getValue(Action.NAME));
 	}
@@ -133,6 +150,25 @@ public class MainViewFrameTest {
 	@Test
 	public void optionsAction_name() {
 		assertEquals("Options...", testable.optionsAction.getValue(Action.NAME));
+	}
+
+	@Test
+	public void optionsAction_actionPerformed() {
+		final ActionEvent actionEvent_mock = context.mock(ActionEvent.class);
+		final OptionsFrame optionsFrame_mock = context.mock(OptionsFrame.class);
+
+		context.checking(new Expectations() {
+			{
+				oneOf(userInterfaceFactory_mock).createOptionsView(application_mock);
+				will(returnValue(optionsFrame_mock));
+
+				oneOf(optionsFrame_mock).updateComponents();
+
+				oneOf(optionsFrame_mock).setVisible(true);
+			}
+		});
+
+		testable.optionsAction.actionPerformed(actionEvent_mock);
 	}
 
 	@Test

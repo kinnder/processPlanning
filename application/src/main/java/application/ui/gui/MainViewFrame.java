@@ -133,11 +133,9 @@ public class MainViewFrame extends javax.swing.JFrame implements UserInterface {
 
 		@Override
 		public void actionPerformed(ActionEvent evt) {
-			SwingUtilities.invokeLater(() -> {
-				OptionsFrame optionsFrame = userInterfaceFactory.createOptionsView(application);
-				optionsFrame.updateComponents();
-				optionsFrame.setVisible(true);
-			});
+			OptionsFrame optionsFrame = userInterfaceFactory.createOptionsView(application);
+			optionsFrame.updateComponents();
+			optionsFrame.setVisible(true);
 		}
 	};
 
@@ -209,14 +207,13 @@ public class MainViewFrame extends javax.swing.JFrame implements UserInterface {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			SwingUtilities.invokeLater(() -> {
-				AboutFrame aboutFrame = userInterfaceFactory.createAboutView();
-				aboutFrame.setVisible(true);
-			});
+			AboutFrame aboutFrame = userInterfaceFactory.createAboutView();
+			aboutFrame.setVisible(true);
 		}
 	};
 
-	public static void main(String args[]) {
+	public static void main(String args[]) throws Exception {
+		initializeLookAndFeel();
 		SwingUtilities.invokeLater(() -> {
 			new MainViewFrame(new Application()).setVisible(true);
 		});
