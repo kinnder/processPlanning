@@ -1,5 +1,8 @@
 package application.ui.gui;
 
+import java.awt.event.ActionEvent;
+import javax.swing.AbstractAction;
+import javax.swing.Action;
 import javax.swing.SwingUtilities;
 
 public class AboutFrame extends javax.swing.JFrame {
@@ -8,6 +11,11 @@ public class AboutFrame extends javax.swing.JFrame {
 
 	public AboutFrame() {
 		initComponents();
+		setActions();
+	}
+
+	private void setActions() {
+		jbOk.setAction(okAction);
 	}
 
 	/**
@@ -29,12 +37,6 @@ public class AboutFrame extends javax.swing.JFrame {
 		setResizable(false);
 
 		jbOk.setText("Ok");
-		jbOk.addActionListener(new java.awt.event.ActionListener() {
-			@Override
-			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				jbOkActionPerformed(evt);
-			}
-		});
 
 		jlVersion.setText("Version");
 
@@ -64,10 +66,14 @@ public class AboutFrame extends javax.swing.JFrame {
 		pack();
 	}// </editor-fold>//GEN-END:initComponents
 
-	@SuppressWarnings("unused")
-	private void jbOkActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jbOkActionPerformed
-		this.dispose();
-	}// GEN-LAST:event_jbOkActionPerformed
+	Action okAction = new AbstractAction("Ok") {
+		private static final long serialVersionUID = 8778056317506828817L;
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			dispose();
+		}
+	};
 
 	public static void main(String args[]) {
 		SwingUtilities.invokeLater(() -> {

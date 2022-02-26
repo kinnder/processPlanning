@@ -2,6 +2,10 @@ package application.ui.gui;
 
 import application.Application;
 import application.Arguments;
+import java.awt.event.ActionEvent;
+import javax.swing.AbstractAction;
+import javax.swing.Action;
+import javax.swing.SwingUtilities;
 
 public class OptionsFrame extends javax.swing.JFrame {
 
@@ -11,6 +15,12 @@ public class OptionsFrame extends javax.swing.JFrame {
 		this.application = application;
 
 		initComponents();
+		setActions();
+	}
+
+	private void setActions() {
+		jbOk.setAction(okAction);
+		jbCancel.setAction(cancelAction);
 	}
 
 	/**
@@ -24,16 +34,15 @@ public class OptionsFrame extends javax.swing.JFrame {
 		jScrollPane1 = new javax.swing.JScrollPane();
 		jtParameters = new javax.swing.JTable();
 		jPanel1 = new javax.swing.JPanel();
-		jbOK = new javax.swing.JButton();
+		jbOk = new javax.swing.JButton();
 		jbCancel = new javax.swing.JButton();
 
 		setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 		setTitle("Options");
 
-		jtParameters.setModel(new javax.swing.table.DefaultTableModel(
-				new Object[][] { { "domain", null }, { "systemTransformationsFile", "systemTransformations.xml" },
-						{ "taskDescriptionFile", "taskDescription.xml" }, { "processFile", "process.xml" },
-						{ "nodeNetworkFile", "nodeNetwork.xml" } },
+		jtParameters.setModel(new javax.swing.table.DefaultTableModel(new Object[][] { { "domain", "argument_d" },
+				{ "systemTransformationsFile", "argument_st" }, { "taskDescriptionFile", "argument_td" },
+				{ "processFile", "argument_p" }, { "nodeNetworkFile", "argument_nn" } },
 				new String[] { "Parameter", "Value" }) {
 			private static final long serialVersionUID = 52437947893455554L;
 			boolean[] canEdit = new boolean[] { false, true };
@@ -46,21 +55,9 @@ public class OptionsFrame extends javax.swing.JFrame {
 		jtParameters.getTableHeader().setReorderingAllowed(false);
 		jScrollPane1.setViewportView(jtParameters);
 
-		jbOK.setText("OK");
-		jbOK.addActionListener(new java.awt.event.ActionListener() {
-			@Override
-			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				jbOKActionPerformed(evt);
-			}
-		});
+		jbOk.setText("Ok");
 
 		jbCancel.setText("Cancel");
-		jbCancel.addActionListener(new java.awt.event.ActionListener() {
-			@Override
-			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				jbCancelActionPerformed(evt);
-			}
-		});
 
 		javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
 		jPanel1.setLayout(jPanel1Layout);
@@ -68,14 +65,14 @@ public class OptionsFrame extends javax.swing.JFrame {
 				.setHorizontalGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
 						.addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
 								.addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-								.addComponent(jbOK).addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+								.addComponent(jbOk).addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
 								.addComponent(jbCancel).addContainerGap()));
 		jPanel1Layout.setVerticalGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
 				.addGroup(javax.swing.GroupLayout.Alignment.TRAILING,
 						jPanel1Layout.createSequentialGroup()
 								.addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 								.addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-										.addComponent(jbOK).addComponent(jbCancel))
+										.addComponent(jbOk).addComponent(jbCancel))
 								.addContainerGap()));
 
 		javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -93,28 +90,33 @@ public class OptionsFrame extends javax.swing.JFrame {
 		pack();
 	}// </editor-fold>//GEN-END:initComponents
 
-	@SuppressWarnings("unused")
-	private void jbCancelActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jbCancelActionPerformed
-		this.dispose();
-	}// GEN-LAST:event_jbCancelActionPerformed
+	Action cancelAction = new AbstractAction("Cancel") {
+		private static final long serialVersionUID = 6271527864501074421L;
 
-	@SuppressWarnings("unused")
-	private void jbOKActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jbOKActionPerformed
-		Arguments arguments = application.getArguments();
-		arguments.setArgument_d(getModelValue_Domain());
-		arguments.setArgument_st(getModelValue_SystemTransformations());
-		arguments.setArgument_td(getModelValue_TaskDescription());
-		arguments.setArgument_p(getModelValue_Process());
-		arguments.setArgument_nn(getModelValue_NodeNetwork());
-		this.dispose();
-	}// GEN-LAST:event_jbOKActionPerformed
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			dispose();
+		}
+	};
+
+	Action okAction = new AbstractAction("Ok") {
+		private static final long serialVersionUID = -9086207599483480412L;
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			Arguments arguments = application.getArguments();
+			arguments.setArgument_d(getModelValue_Domain());
+			arguments.setArgument_st(getModelValue_SystemTransformations());
+			arguments.setArgument_td(getModelValue_TaskDescription());
+			arguments.setArgument_p(getModelValue_Process());
+			arguments.setArgument_nn(getModelValue_NodeNetwork());
+			dispose();
+		}
+	};
 
 	public static void main(String args[]) {
-		java.awt.EventQueue.invokeLater(new Runnable() {
-			@Override
-			public void run() {
-				new OptionsFrame(new Application()).setVisible(true);
-			}
+		SwingUtilities.invokeLater(() -> {
+			new OptionsFrame(new Application()).setVisible(true);
 		});
 	}
 
@@ -122,7 +124,7 @@ public class OptionsFrame extends javax.swing.JFrame {
 	private javax.swing.JPanel jPanel1;
 	private javax.swing.JScrollPane jScrollPane1;
 	private javax.swing.JButton jbCancel;
-	private javax.swing.JButton jbOK;
+	private javax.swing.JButton jbOk;
 	private javax.swing.JTable jtParameters;
 	// End of variables declaration//GEN-END:variables
 

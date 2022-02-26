@@ -64,9 +64,6 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Ok"/>
       </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbOkActionPerformed"/>
-      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jlVersion">
       <Properties>
