@@ -13,11 +13,13 @@ import org.jmock.junit5.JUnit5Mockery;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.DisabledIf;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
 import application.Application;
 import application.Arguments;
 
+@DisabledIf("isHeadless")
 public class OptionsFrameTest {
 
 	@RegisterExtension
