@@ -3,6 +3,7 @@ package application.storage.xml;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.jdom2.Element;
 import org.jmock.Expectations;
@@ -122,6 +123,12 @@ public class ValueXMLSchemaTest {
 		Element element = testable.combine(value);
 		assertEquals("true", element.getText());
 		assertEquals("boolean", element.getAttributeValue("type"));
+	}
+
+	@Test
+	public void combine_with_null() {
+		Element element = testable.combine(null);
+		assertTrue(element.getText().isEmpty());
 	}
 
 	@Test

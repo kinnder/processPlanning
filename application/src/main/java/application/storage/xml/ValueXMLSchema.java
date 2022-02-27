@@ -1,5 +1,7 @@
 package application.storage.xml;
 
+import java.util.Objects;
+
 import org.jdom2.Element;
 
 public class ValueXMLSchema implements XMLSchema<Object> {
@@ -44,7 +46,9 @@ public class ValueXMLSchema implements XMLSchema<Object> {
 		} else if (value instanceof Integer) {
 			root.setAttribute(TAG_type, TAG_integer);
 		}
-		root.setText(value.toString());
+		if (Objects.nonNull(value)) {
+			root.setText(value.toString());
+		}
 		return root;
 	}
 }
