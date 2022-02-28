@@ -73,6 +73,7 @@ public class MainViewFrame extends javax.swing.JFrame implements UserInterface {
 
 		jtaLog.setEditable(false);
 		jtaLog.setColumns(20);
+		jtaLog.setFont(new java.awt.Font("Monospaced", 0, 12)); // NOI18N
 		jtaLog.setRows(5);
 		jScrollPane1.setViewportView(jtaLog);
 
