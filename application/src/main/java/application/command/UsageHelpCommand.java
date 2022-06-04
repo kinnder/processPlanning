@@ -3,8 +3,10 @@ package application.command;
 import java.util.Optional;
 
 import org.apache.commons.cli.Option;
+import org.slf4j.LoggerFactory;
 
 import application.Application;
+import application.event.CommandStatusEvent;
 import application.event.UserMessageEvent;
 
 public class UsageHelpCommand extends Command {
@@ -13,6 +15,16 @@ public class UsageHelpCommand extends Command {
 
 	public UsageHelpCommand (Application application) {
 		super(application, NAME);
+	}
+
+	@Override
+	public void run(CommandData data) {
+		try {
+			execute(data);
+		} catch (Exception e) {
+			application.notifyCommandStatus(new CommandStatusEvent("error"));
+			LoggerFactory.getLogger(getClass()).error("", e);
+		}
 	}
 
 	@Override

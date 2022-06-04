@@ -2,17 +2,10 @@ package application;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.commons.cli.UnrecognizedOptionException;
 import org.jdom2.JDOMException;
-import org.slf4j.LoggerFactory;
-
-import application.command.Command;
 import application.command.CommandData;
+import application.command.CommandManager;
 import application.command.ConvertCommand;
 import application.command.ConvertCommandData;
 import application.command.UsageHelpCommand;
@@ -30,6 +23,7 @@ import application.event.UserMessageEvent;
 import application.storage.PersistanceStorage;
 import application.ui.UserInterface;
 import application.ui.UserInterfaceFactory;
+import application.ui.UserInterfaceManager;
 import application.ui.UserInterfaceFactory.UserInterfaceType;
 import planning.method.NodeNetwork;
 import planning.method.SystemTransformations;
@@ -38,21 +32,19 @@ import planning.model.SystemProcess;
 
 public class Application {
 
-	private Map<String, Command> commands = new HashMap<>();
+	private CommandManager commandManager = new CommandManager();
 
-	private void registerCommand(Command command) {
-		commands.put(command.getName(), command);
-	}
+	private UserInterfaceManager userInterfaceManager = new UserInterfaceManager();
 
 	private UserInterfaceFactory userInterfaceFactory;
 
 	public Application() {
-		registerCommand(new UsageHelpCommand(this));
-		registerCommand(new PlanCommand(this));
-		registerCommand(new NewSystemTransformationsCommand(this));
-		registerCommand(new NewTaskDescriptionCommand(this));
-		registerCommand(new VerifyCommand(this));
-		registerCommand(new ConvertCommand(this));
+		commandManager.registerCommand(new UsageHelpCommand(this));
+		commandManager.registerCommand(new PlanCommand(this));
+		commandManager.registerCommand(new NewSystemTransformationsCommand(this));
+		commandManager.registerCommand(new NewTaskDescriptionCommand(this));
+		commandManager.registerCommand(new VerifyCommand(this));
+		commandManager.registerCommand(new ConvertCommand(this));
 
 		persistanceStorage = new PersistanceStorage();
 		arguments = new Arguments();
@@ -65,34 +57,24 @@ public class Application {
 			ConvertCommand convertCommand, PersistanceStorage persistanceStorage, Arguments arguments,
 			UserInterfaceFactory userInterfaceFactory) {
 
-		registerCommand(usageHelpCommand);
-		registerCommand(planCommand);
-		registerCommand(newSystemTransformationsCommand);
-		registerCommand(newTaskDescriptionCommand);
-		registerCommand(verifyCommand);
-		registerCommand(convertCommand);
+		commandManager.registerCommand(usageHelpCommand);
+		commandManager.registerCommand(planCommand);
+		commandManager.registerCommand(newSystemTransformationsCommand);
+		commandManager.registerCommand(newTaskDescriptionCommand);
+		commandManager.registerCommand(verifyCommand);
+		commandManager.registerCommand(convertCommand);
 
 		this.persistanceStorage = persistanceStorage;
 		this.arguments = arguments;
 		this.userInterfaceFactory = userInterfaceFactory;
 	}
 
-	private List<UserInterface> uis = new ArrayList<UserInterface>();
-
-	public void registerUserInterface(UserInterface ui) {
-		uis.add(ui);
-	}
-
 	public void notifyUserMessage(UserMessageEvent event) {
-		for (UserInterface ui : uis) {
-			ui.notifyUserMessage(event);
-		}
+		userInterfaceManager.notifyUserMessage(event);
 	}
 
 	public void notifyCommandStatus(CommandStatusEvent event) {
-		for (UserInterface ui : uis) {
-			ui.notifyCommandStatus(event);
-		}
+		userInterfaceManager.notifyCommandStatus(event);
 	}
 
 	private PersistanceStorage persistanceStorage;
@@ -139,9 +121,13 @@ public class Application {
 		return arguments;
 	}
 
+	public void registerUserInterface(UserInterface ui) {
+		userInterfaceManager.registerUserInterface(ui);
+	}
+
 	private UserInterface createUserInterface(UserInterfaceType type) {
 		UserInterface ui = userInterfaceFactory.createMainView(this, type);
-		registerUserInterface(ui);
+		userInterfaceManager.registerUserInterface(ui);
 		return ui;
 	}
 
@@ -159,8 +145,7 @@ public class Application {
 	}
 
 	public void runCommand(String commandName, CommandData commandData) {
-		Command command = commands.get(commandName);
-		command.run(commandData);
+		commandManager.runCommand(commandName, commandData);
 	}
 
 	public void plan() {
@@ -207,11 +192,6 @@ public class Application {
 	public void usageHelp() {
 		UsageHelpCommandData data = new UsageHelpCommandData();
 		data.options = arguments.getOptions();
-		try {
-			commands.get(UsageHelpCommand.NAME).execute(data);
-		} catch (Exception e) {
-			notifyCommandStatus(new CommandStatusEvent("error"));
-			LoggerFactory.getLogger(getClass()).error("", e);
-		}
+		runCommand(UsageHelpCommand.NAME, data);
 	}
 }

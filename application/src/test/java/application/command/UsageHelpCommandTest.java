@@ -13,6 +13,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
 import application.Application;
+import application.event.CommandStatusEventMatcher;
 import application.event.UserMessageEventMatcher;
 
 public class UsageHelpCommandTest {
@@ -87,5 +88,52 @@ public class UsageHelpCommandTest {
 	@Test
 	public void getName() {
 		assertEquals("usageHelp", testable.getName());
+	}
+
+	@Test
+	public void run() {
+		final Option option_mock = new Option("short", "long", false, "description");
+		final Options options = new Options();
+		options.addOption(option_mock);
+		final UsageHelpCommandData data = context.mock(UsageHelpCommandData.class);
+		data.options = options;
+
+		final StringBuilder sb = new StringBuilder();
+		sb.append("application builds plan for [taskDescription] with [systemTransformations] and puts result in [process]\n");
+		sb.append("usage:\n");
+		sb.append(String.format("%7s, %-26s %s\n", "short", "long", "description"));
+
+		context.checking(new Expectations() {
+			{
+				oneOf(application_mock).notifyUserMessage(with(new UserMessageEventMatcher().expectMessage(sb.toString())));
+			}
+		});
+
+		testable.run(data);
+	}
+
+	@Test
+	public void run_throwException() {
+		final Option option_mock = new Option("short", "long", false, "description");
+		final Options options = new Options();
+		options.addOption(option_mock);
+		final UsageHelpCommandData data = context.mock(UsageHelpCommandData.class);
+		data.options = options;
+
+		final StringBuilder sb = new StringBuilder();
+		sb.append("application builds plan for [taskDescription] with [systemTransformations] and puts result in [process]\n");
+		sb.append("usage:\n");
+		sb.append(String.format("%7s, %-26s %s\n", "short", "long", "description"));
+
+		context.checking(new Expectations() {
+			{
+				oneOf(application_mock).notifyUserMessage(with(new UserMessageEventMatcher().expectMessage(sb.toString())));
+				will(throwException(new Exception("error")));
+
+				oneOf(application_mock).notifyCommandStatus(with(new CommandStatusEventMatcher().expectMessage("error")));
+			}
+		});
+
+		testable.run(data);
 	}
 }

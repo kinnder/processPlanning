@@ -218,7 +218,7 @@ public class ApplicationTest {
 				oneOf(arguments_mock).getOptions();
 				will(returnValue(options_mock));
 
-				oneOf(usageHelpCommand_mock).execute(with(new UsageHelpCommandDataMatcher().expectOptions(options_mock)));
+				oneOf(usageHelpCommand_mock).run(with(new UsageHelpCommandDataMatcher().expectOptions(options_mock)));
 			}
 		});
 
@@ -365,30 +365,9 @@ public class ApplicationTest {
 				oneOf(arguments_mock).getOptions();
 				will(returnValue(options_mock));
 
-				oneOf(usageHelpCommand_mock).execute(with(new UsageHelpCommandDataMatcher().expectOptions(options_mock)));
+				oneOf(usageHelpCommand_mock).run(with(new UsageHelpCommandDataMatcher().expectOptions(options_mock)));
 			}
 		});
-
-		testable.usageHelp();
-	}
-
-	@Test
-	public void usageHelp_throwException() throws Exception {
-		final Options options_mock = new Options();
-		final UserInterface ui_mock = context.mock(UserInterface.class);
-
-		context.checking(new Expectations() {
-			{
-				oneOf(arguments_mock).getOptions();
-				will(returnValue(options_mock));
-
-				oneOf(usageHelpCommand_mock).execute(with(new UsageHelpCommandDataMatcher().expectOptions(options_mock)));
-				will(throwException(new Exception("runtime exception")));
-
-				oneOf(ui_mock).notifyCommandStatus(with(new CommandStatusEventMatcher().expectMessage("error")));
-			}
-		});
-		testable.registerUserInterface(ui_mock);
 
 		testable.usageHelp();
 	}
