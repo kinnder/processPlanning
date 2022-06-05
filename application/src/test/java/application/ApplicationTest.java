@@ -15,6 +15,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
+import application.command.CommandManager;
 import application.command.ConvertCommand;
 import application.command.ConvertCommandDataMatcher;
 import application.command.UsageHelpCommand;
@@ -24,7 +25,6 @@ import application.command.NewSystemTransformationsCommandDataMatcher;
 import application.command.NewTaskDescriptionCommand;
 import application.command.NewTaskDescriptionCommandDataMatcher;
 import application.command.PlanCommand;
-import application.command.PlanCommandData;
 import application.command.PlanCommandDataMatcher;
 import application.command.VerifyCommand;
 import application.command.VerifyCommandDataMatcher;
@@ -55,61 +55,22 @@ public class ApplicationTest {
 
 	Application testable;
 
-	UsageHelpCommand usageHelpCommand_mock;
-
-	PlanCommand planCommand_mock;
-
-	NewSystemTransformationsCommand newSystemTransformationsCommand_mock;
-
-	NewTaskDescriptionCommand newTaskDescriptionCommand_mock;
-
-	VerifyCommand verifyCommand_mock;
-
-	ConvertCommand convertCommand_mock;
-
 	PersistanceStorage persistanceStorage_mock;
 
 	Arguments arguments_mock;
 
 	UserInterfaceManager userInterfaceManager_mock;
 
+	CommandManager commandManager_mock;
+
 	@BeforeEach
 	public void setup() {
-		usageHelpCommand_mock = context.mock(UsageHelpCommand.class);
-		planCommand_mock = context.mock(PlanCommand.class);
-		newSystemTransformationsCommand_mock = context.mock(NewSystemTransformationsCommand.class);
-		newTaskDescriptionCommand_mock = context.mock(NewTaskDescriptionCommand.class);
-		verifyCommand_mock = context.mock(VerifyCommand.class);
-		convertCommand_mock = context.mock(ConvertCommand.class);
 		persistanceStorage_mock = context.mock(PersistanceStorage.class);
 		arguments_mock = context.mock(Arguments.class);
 		userInterfaceManager_mock = context.mock(UserInterfaceManager.class);
+		commandManager_mock = context.mock(CommandManager.class);
 
-		context.checking(new Expectations() {
-			{
-				oneOf(usageHelpCommand_mock).getName();
-				will(returnValue(UsageHelpCommand.NAME));
-
-				oneOf(planCommand_mock).getName();
-				will(returnValue(PlanCommand.NAME));
-
-				oneOf(newSystemTransformationsCommand_mock).getName();
-				will(returnValue(NewSystemTransformationsCommand.NAME));
-
-				oneOf(newTaskDescriptionCommand_mock).getName();
-				will(returnValue(NewTaskDescriptionCommand.NAME));
-
-				oneOf(verifyCommand_mock).getName();
-				will(returnValue(VerifyCommand.NAME));
-
-				oneOf(convertCommand_mock).getName();
-				will(returnValue(ConvertCommand.NAME));
-			}
-		});
-
-		testable = new Application(usageHelpCommand_mock, planCommand_mock, newSystemTransformationsCommand_mock,
-				newTaskDescriptionCommand_mock, verifyCommand_mock, convertCommand_mock, persistanceStorage_mock,
-				arguments_mock, userInterfaceManager_mock);
+		testable = new Application(commandManager_mock, persistanceStorage_mock, arguments_mock, userInterfaceManager_mock);
 	}
 
 	@Test
@@ -200,7 +161,7 @@ public class ApplicationTest {
 				oneOf(arguments_mock).getOptions();
 				will(returnValue(options_mock));
 
-				oneOf(usageHelpCommand_mock).run(with(new UsageHelpCommandDataMatcher().expectOptions(options_mock)));
+				oneOf(commandManager_mock).runCommand(with(UsageHelpCommand.NAME), with(new UsageHelpCommandDataMatcher().expectOptions(options_mock)));
 			}
 		});
 
@@ -347,7 +308,7 @@ public class ApplicationTest {
 				oneOf(arguments_mock).getOptions();
 				will(returnValue(options_mock));
 
-				oneOf(usageHelpCommand_mock).run(with(new UsageHelpCommandDataMatcher().expectOptions(options_mock)));
+				oneOf(commandManager_mock).runCommand(with(UsageHelpCommand.NAME), with(new UsageHelpCommandDataMatcher().expectOptions(options_mock)));
 			}
 		});
 
@@ -357,19 +318,6 @@ public class ApplicationTest {
 	@Test
 	public void getArguments() {
 		assertEquals(arguments_mock, testable.getArguments());
-	}
-
-	@Test
-	public void runCommand() {
-		final PlanCommandData planCommandData = new PlanCommandData();
-
-		context.checking(new Expectations() {
-			{
-				oneOf(planCommand_mock).run(planCommandData);
-			}
-		});
-
-		testable.runCommand(PlanCommand.NAME, planCommandData);
 	}
 
 	@Test
@@ -388,9 +336,10 @@ public class ApplicationTest {
 				oneOf(arguments_mock).getArgument_nn("nodeNetwork.xml");
 				will(returnValue("nn_file.xml"));
 
-				oneOf(planCommand_mock).run(with(new PlanCommandDataMatcher()
-						.expectSystemTransformationsFile("st_file.xml").expectTaskDescriptionFile("td_file.xml")
-						.expectProcessFile("p_file.xml").expectNodeNetworkFile("nn_file.xml")));
+				oneOf(commandManager_mock).runCommand(with(PlanCommand.NAME),
+						with(new PlanCommandDataMatcher().expectSystemTransformationsFile("st_file.xml")
+								.expectTaskDescriptionFile("td_file.xml").expectProcessFile("p_file.xml")
+								.expectNodeNetworkFile("nn_file.xml")));
 			}
 		});
 
@@ -413,9 +362,10 @@ public class ApplicationTest {
 				oneOf(arguments_mock).getArgument_nn(null);
 				will(returnValue("nn_file.xml"));
 
-				oneOf(verifyCommand_mock).run(with(new VerifyCommandDataMatcher()
-						.expectSystemTransformationsFile("st_file.xml").expectTaskDescriptionFile("td_file.xml")
-						.expectProcessFile("p_file.xml").expectNodeNetworkFile("nn_file.xml")));
+				oneOf(commandManager_mock).runCommand(with(VerifyCommand.NAME),
+						with(new VerifyCommandDataMatcher().expectSystemTransformationsFile("st_file.xml")
+								.expectTaskDescriptionFile("td_file.xml").expectProcessFile("p_file.xml")
+								.expectNodeNetworkFile("nn_file.xml")));
 			}
 		});
 
@@ -432,8 +382,9 @@ public class ApplicationTest {
 				oneOf(arguments_mock).getArgument_d("unknown");
 				will(returnValue("materialPoints"));
 
-				oneOf(newTaskDescriptionCommand_mock).run(with(new NewTaskDescriptionCommandDataMatcher()
-						.expectTaskDescriptionFile("td_file.xml").expectDomain("materialPoints")));
+				oneOf(commandManager_mock).runCommand(with(NewTaskDescriptionCommand.NAME),
+						with(new NewTaskDescriptionCommandDataMatcher().expectTaskDescriptionFile("td_file.xml")
+								.expectDomain("materialPoints")));
 			}
 		});
 
@@ -450,8 +401,9 @@ public class ApplicationTest {
 				oneOf(arguments_mock).getArgument_d("unknown");
 				will(returnValue("assemblyLine"));
 
-				oneOf(newSystemTransformationsCommand_mock).run(with(new NewSystemTransformationsCommandDataMatcher()
-						.expectSystemTransformationsFile("st_file.xml").expectDomain("assemblyLine")));
+				oneOf(commandManager_mock).runCommand(with(NewSystemTransformationsCommand.NAME),
+						with(new NewSystemTransformationsCommandDataMatcher()
+								.expectSystemTransformationsFile("st_file.xml").expectDomain("assemblyLine")));
 			}
 		});
 
@@ -474,9 +426,10 @@ public class ApplicationTest {
 				oneOf(arguments_mock).getArgument_nn(null);
 				will(returnValue("nn_file.xml"));
 
-				oneOf(convertCommand_mock).run(with(new ConvertCommandDataMatcher()
-						.expectSystemTransformationsFile("st_file.xml").expectTaskDescriptionFile("td_file.xml")
-						.expectProcessFile("p_file.xml").expectNodeNetworkFile("nn_file.xml")));
+				oneOf(commandManager_mock).runCommand(with(ConvertCommand.NAME),
+						with(new ConvertCommandDataMatcher().expectSystemTransformationsFile("st_file.xml")
+								.expectTaskDescriptionFile("td_file.xml").expectProcessFile("p_file.xml")
+								.expectNodeNetworkFile("nn_file.xml")));
 			}
 		});
 

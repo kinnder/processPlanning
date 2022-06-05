@@ -8,6 +8,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
+import application.Application;
+
 public class CommandManagerTest {
 
 	@RegisterExtension
@@ -24,9 +26,13 @@ public class CommandManagerTest {
 
 	CommandManager testable;
 
+	Application application_mock;
+
 	@BeforeEach
 	public void setup() {
-		testable = new CommandManager();
+		application_mock = context.mock(Application.class);
+
+		testable = new CommandManager(application_mock);
 	}
 
 	@Test

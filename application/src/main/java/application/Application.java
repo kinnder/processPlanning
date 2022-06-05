@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import org.apache.commons.cli.UnrecognizedOptionException;
 import org.jdom2.JDOMException;
-import application.command.CommandData;
 import application.command.CommandManager;
 import application.command.ConvertCommand;
 import application.command.ConvertCommandData;
@@ -30,41 +29,24 @@ import planning.model.SystemProcess;
 
 public class Application {
 
-	private CommandManager commandManager = new CommandManager();
+	private CommandManager commandManager;
 
 	private UserInterfaceManager userInterfaceManager;
 
 	public Application() {
-		commandManager.registerCommand(new UsageHelpCommand(this));
-		commandManager.registerCommand(new PlanCommand(this));
-		commandManager.registerCommand(new NewSystemTransformationsCommand(this));
-		commandManager.registerCommand(new NewTaskDescriptionCommand(this));
-		commandManager.registerCommand(new VerifyCommand(this));
-		commandManager.registerCommand(new ConvertCommand(this));
-
 		persistanceStorage = new PersistanceStorage();
 		arguments = new Arguments();
 
 		userInterfaceManager = new UserInterfaceManager(this);
+		commandManager = new CommandManager(this);
 	}
 
-	Application(UsageHelpCommand usageHelpCommand, PlanCommand planCommand,
-			NewSystemTransformationsCommand newSystemTransformationsCommand,
-			NewTaskDescriptionCommand newTaskDescriptionCommand, VerifyCommand verifyCommand,
-			ConvertCommand convertCommand, PersistanceStorage persistanceStorage, Arguments arguments,
-			UserInterfaceManager userInterfaceManager) {
-
-		commandManager.registerCommand(usageHelpCommand);
-		commandManager.registerCommand(planCommand);
-		commandManager.registerCommand(newSystemTransformationsCommand);
-		commandManager.registerCommand(newTaskDescriptionCommand);
-		commandManager.registerCommand(verifyCommand);
-		commandManager.registerCommand(convertCommand);
-
+	Application(CommandManager commandManager, PersistanceStorage persistanceStorage, Arguments arguments, UserInterfaceManager userInterfaceManager) {
 		this.persistanceStorage = persistanceStorage;
 		this.arguments = arguments;
 
 		this.userInterfaceManager = userInterfaceManager;
+		this.commandManager = commandManager;
 	}
 
 	public void notifyUserMessage(UserMessageEvent event) {
@@ -131,17 +113,13 @@ public class Application {
 		}
 	}
 
-	public void runCommand(String commandName, CommandData commandData) {
-		commandManager.runCommand(commandName, commandData);
-	}
-
 	public void plan() {
 		PlanCommandData data = new PlanCommandData();
 		data.taskDescriptionFile = arguments.getArgument_td("taskDescription.xml");
 		data.systemTransformationsFile = arguments.getArgument_st("systemTransformations.xml");
 		data.processFile = arguments.getArgument_p("process.xml");
 		data.nodeNetworkFile = arguments.getArgument_nn("nodeNetwork.xml");
-		runCommand(PlanCommand.NAME, data);
+		commandManager.runCommand(PlanCommand.NAME, data);
 	}
 
 	public void verify() {
@@ -150,21 +128,21 @@ public class Application {
 		data.systemTransformationsFile = arguments.getArgument_st(null);
 		data.processFile = arguments.getArgument_p(null);
 		data.nodeNetworkFile = arguments.getArgument_nn(null);
-		runCommand(VerifyCommand.NAME, data);
+		commandManager.runCommand(VerifyCommand.NAME, data);
 	}
 
 	public void newTaskDescription() {
 		NewTaskDescriptionCommandData data = new NewTaskDescriptionCommandData();
 		data.taskDescriptionFile = arguments.getArgument_td("taskDescription.xml");
 		data.domain = arguments.getArgument_d("unknown");
-		runCommand(NewTaskDescriptionCommand.NAME, data);
+		commandManager.runCommand(NewTaskDescriptionCommand.NAME, data);
 	}
 
 	public void newSystemTransformations() {
 		NewSystemTransformationsCommandData data = new NewSystemTransformationsCommandData();
 		data.systemTransformationsFile = arguments.getArgument_st("systemTransformations.xml");
 		data.domain = arguments.getArgument_d("unknown");
-		runCommand(NewSystemTransformationsCommand.NAME, data);
+		commandManager.runCommand(NewSystemTransformationsCommand.NAME, data);
 	}
 
 	public void convert() {
@@ -173,12 +151,12 @@ public class Application {
 		data.systemTransformationsFile = arguments.getArgument_st(null);
 		data.processFile = arguments.getArgument_p(null);
 		data.nodeNetworkFile = arguments.getArgument_nn(null);
-		runCommand(ConvertCommand.NAME, data);
+		commandManager.runCommand(ConvertCommand.NAME, data);
 	}
 
 	public void usageHelp() {
 		UsageHelpCommandData data = new UsageHelpCommandData();
 		data.options = arguments.getOptions();
-		runCommand(UsageHelpCommand.NAME, data);
+		commandManager.runCommand(UsageHelpCommand.NAME, data);
 	}
 }
