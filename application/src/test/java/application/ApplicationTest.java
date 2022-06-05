@@ -32,9 +32,8 @@ import application.event.CommandStatusEvent;
 import application.event.CommandStatusEventMatcher;
 import application.event.UserMessageEvent;
 import application.storage.PersistanceStorage;
-import application.ui.UserInterface;
-import application.ui.UserInterfaceFactory;
 import application.ui.UserInterfaceFactory.UserInterfaceType;
+import application.ui.UserInterfaceManager;
 import planning.method.NodeNetwork;
 import planning.method.SystemTransformations;
 import planning.method.TaskDescription;
@@ -72,7 +71,7 @@ public class ApplicationTest {
 
 	Arguments arguments_mock;
 
-	UserInterfaceFactory userInterFactory_mock;
+	UserInterfaceManager userInterfaceManager_mock;
 
 	@BeforeEach
 	public void setup() {
@@ -84,7 +83,7 @@ public class ApplicationTest {
 		convertCommand_mock = context.mock(ConvertCommand.class);
 		persistanceStorage_mock = context.mock(PersistanceStorage.class);
 		arguments_mock = context.mock(Arguments.class);
-		userInterFactory_mock = context.mock(UserInterfaceFactory.class);
+		userInterfaceManager_mock = context.mock(UserInterfaceManager.class);
 
 		context.checking(new Expectations() {
 			{
@@ -110,7 +109,7 @@ public class ApplicationTest {
 
 		testable = new Application(usageHelpCommand_mock, planCommand_mock, newSystemTransformationsCommand_mock,
 				newTaskDescriptionCommand_mock, verifyCommand_mock, convertCommand_mock, persistanceStorage_mock,
-				arguments_mock, userInterFactory_mock);
+				arguments_mock, userInterfaceManager_mock);
 	}
 
 	@Test
@@ -119,38 +118,27 @@ public class ApplicationTest {
 	}
 
 	@Test
-	public void registerUserInterface() {
-		final UserInterface ui_mock = context.mock(UserInterface.class);
-
-		testable.registerUserInterface(ui_mock);
-	}
-
-	@Test
 	public void notifyUserMessage() {
-		final UserInterface ui_mock = context.mock(UserInterface.class);
 		final UserMessageEvent event_mock = context.mock(UserMessageEvent.class);
 
 		context.checking(new Expectations() {
 			{
-				oneOf(ui_mock).notifyUserMessage(event_mock);
+				oneOf(userInterfaceManager_mock).notifyUserMessage(event_mock);
 			}
 		});
-		testable.registerUserInterface(ui_mock);
 
 		testable.notifyUserMessage(event_mock);
 	}
 
 	@Test
 	public void notifyCommandStatus() {
-		final UserInterface ui_mock = context.mock(UserInterface.class);
 		final CommandStatusEvent event_mock = context.mock(CommandStatusEvent.class);
 
 		context.checking(new Expectations() {
 			{
-				oneOf(ui_mock).notifyCommandStatus(event_mock);
+				oneOf(userInterfaceManager_mock).notifyCommandStatus(event_mock);
 			}
 		});
-		testable.registerUserInterface(ui_mock);
 
 		testable.notifyCommandStatus(event_mock);
 	}
@@ -158,7 +146,6 @@ public class ApplicationTest {
 	@Test
 	public void run_gui() throws Exception {
 		final String[] args = new String[] { "-gui" };
-		final UserInterface ui_mock = context.mock(UserInterface.class);
 
 		context.checking(new Expectations() {
 			{
@@ -167,10 +154,9 @@ public class ApplicationTest {
 				oneOf(arguments_mock).hasArgument_gui();
 				will(returnValue(true));
 
-				oneOf(userInterFactory_mock).createMainView(testable, UserInterfaceType.gui);
-				will(returnValue(ui_mock));
+				oneOf(userInterfaceManager_mock).createUserInterface(UserInterfaceType.gui);
 
-				oneOf(ui_mock).run();
+				oneOf(userInterfaceManager_mock).runUserInterfaces();
 			}
 		});
 
@@ -180,7 +166,6 @@ public class ApplicationTest {
 	@Test
 	public void run_cli() throws Exception {
 		final String[] args = new String[] { "-h" };
-		final UserInterface ui_mock = context.mock(UserInterface.class);
 
 		context.checking(new Expectations() {
 			{
@@ -189,10 +174,9 @@ public class ApplicationTest {
 				oneOf(arguments_mock).hasArgument_gui();
 				will(returnValue(false));
 
-				oneOf(userInterFactory_mock).createMainView(testable, UserInterfaceType.cli);
-				will(returnValue(ui_mock));
+				oneOf(userInterfaceManager_mock).createUserInterface(UserInterfaceType.cli);
 
-				oneOf(ui_mock).run();
+				oneOf(userInterfaceManager_mock).runUserInterfaces();
 			}
 		});
 
@@ -203,17 +187,15 @@ public class ApplicationTest {
 	public void run_UnrecognizedOption() throws Exception {
 		final String[] args = new String[] { "-?" };
 		final Options options_mock = new Options();
-		final UserInterface ui_mock = context.mock(UserInterface.class);
 
 		context.checking(new Expectations() {
 			{
 				oneOf(arguments_mock).parseArguments(args);
 				will(throwException(new UnrecognizedOptionException("Unrecognized option: -?")));
 
-				oneOf(userInterFactory_mock).createMainView(testable, UserInterfaceType.cli);
-				will(returnValue(ui_mock));
+				oneOf(userInterfaceManager_mock).createUserInterface(UserInterfaceType.cli);
 
-				oneOf(ui_mock).notifyCommandStatus(with(new CommandStatusEventMatcher().expectMessage("Unrecognized option: -?")));
+				oneOf(userInterfaceManager_mock).notifyCommandStatus(with(new CommandStatusEventMatcher().expectMessage("Unrecognized option: -?")));
 
 				oneOf(arguments_mock).getOptions();
 				will(returnValue(options_mock));

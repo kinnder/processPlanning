@@ -8,8 +8,10 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
+import application.Application;
 import application.event.CommandStatusEvent;
 import application.event.UserMessageEvent;
+import application.ui.UserInterfaceFactory.UserInterfaceType;
 
 public class UserInterfaceManagerTest {
 
@@ -27,9 +29,21 @@ public class UserInterfaceManagerTest {
 
 	UserInterfaceManager testable;
 
+	Application application_mock;
+
+	UserInterfaceFactory userInterfaceFactory_mock;
+
 	@BeforeEach
 	public void setup() {
-		testable = new UserInterfaceManager();
+		application_mock = context.mock(Application.class);
+		userInterfaceFactory_mock = context.mock(UserInterfaceFactory.class);
+
+		testable = new UserInterfaceManager(application_mock, userInterfaceFactory_mock);
+	}
+
+	@Test
+	public void newInstance() {
+		testable = new UserInterfaceManager(application_mock);
 	}
 
 	@Test
@@ -67,5 +81,33 @@ public class UserInterfaceManagerTest {
 		testable.registerUserInterface(ui_mock);
 
 		testable.notifyCommandStatus(event_mock);
+	}
+
+	@Test
+	public void runUserInterfaces() throws Exception {
+		final UserInterface ui_mock = context.mock(UserInterface.class);
+
+		context.checking(new Expectations() {
+			{
+				oneOf(ui_mock).run();
+			}
+		});
+		testable.registerUserInterface(ui_mock);
+
+		testable.runUserInterfaces();
+	}
+
+	@Test
+	public void createUserInterface() {
+		final UserInterface ui_mock = context.mock(UserInterface.class);
+
+		context.checking(new Expectations() {
+			{
+				oneOf(userInterfaceFactory_mock).createMainView(application_mock, UserInterfaceType.cli);
+				will(returnValue(ui_mock));
+			}
+		});
+
+		testable.createUserInterface(UserInterfaceType.cli);
 	}
 }

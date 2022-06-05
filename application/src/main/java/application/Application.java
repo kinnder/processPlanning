@@ -21,8 +21,6 @@ import application.command.VerifyCommandData;
 import application.event.CommandStatusEvent;
 import application.event.UserMessageEvent;
 import application.storage.PersistanceStorage;
-import application.ui.UserInterface;
-import application.ui.UserInterfaceFactory;
 import application.ui.UserInterfaceManager;
 import application.ui.UserInterfaceFactory.UserInterfaceType;
 import planning.method.NodeNetwork;
@@ -34,9 +32,7 @@ public class Application {
 
 	private CommandManager commandManager = new CommandManager();
 
-	private UserInterfaceManager userInterfaceManager = new UserInterfaceManager();
-
-	private UserInterfaceFactory userInterfaceFactory;
+	private UserInterfaceManager userInterfaceManager;
 
 	public Application() {
 		commandManager.registerCommand(new UsageHelpCommand(this));
@@ -48,14 +44,15 @@ public class Application {
 
 		persistanceStorage = new PersistanceStorage();
 		arguments = new Arguments();
-		userInterfaceFactory = new UserInterfaceFactory();
+
+		userInterfaceManager = new UserInterfaceManager(this);
 	}
 
 	Application(UsageHelpCommand usageHelpCommand, PlanCommand planCommand,
 			NewSystemTransformationsCommand newSystemTransformationsCommand,
 			NewTaskDescriptionCommand newTaskDescriptionCommand, VerifyCommand verifyCommand,
 			ConvertCommand convertCommand, PersistanceStorage persistanceStorage, Arguments arguments,
-			UserInterfaceFactory userInterfaceFactory) {
+			UserInterfaceManager userInterfaceManager) {
 
 		commandManager.registerCommand(usageHelpCommand);
 		commandManager.registerCommand(planCommand);
@@ -66,7 +63,8 @@ public class Application {
 
 		this.persistanceStorage = persistanceStorage;
 		this.arguments = arguments;
-		this.userInterfaceFactory = userInterfaceFactory;
+
+		this.userInterfaceManager = userInterfaceManager;
 	}
 
 	public void notifyUserMessage(UserMessageEvent event) {
@@ -121,24 +119,13 @@ public class Application {
 		return arguments;
 	}
 
-	public void registerUserInterface(UserInterface ui) {
-		userInterfaceManager.registerUserInterface(ui);
-	}
-
-	private UserInterface createUserInterface(UserInterfaceType type) {
-		UserInterface ui = userInterfaceFactory.createMainView(this, type);
-		userInterfaceManager.registerUserInterface(ui);
-		return ui;
-	}
-
 	public void run(String[] args) throws Exception {
 		try {
 			arguments.parseArguments(args);
-			UserInterface ui = createUserInterface(
-					arguments.hasArgument_gui() ? UserInterfaceType.gui : UserInterfaceType.cli);
-			ui.run();
+			userInterfaceManager.createUserInterface(arguments.hasArgument_gui() ? UserInterfaceType.gui : UserInterfaceType.cli);
+			userInterfaceManager.runUserInterfaces();
 		} catch (UnrecognizedOptionException e) {
-			createUserInterface(UserInterfaceType.cli);
+			userInterfaceManager.createUserInterface(UserInterfaceType.cli);
 			notifyCommandStatus(new CommandStatusEvent(e.getMessage()));
 			usageHelp();
 		}
