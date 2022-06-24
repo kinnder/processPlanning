@@ -10,4 +10,6 @@ public interface UserInterface {
 	void notifyCommandStatus(CommandStatusEvent event);
 
 	void run() throws Exception;
+
+	void stop();
 }

@@ -110,4 +110,18 @@ public class UserInterfaceManagerTest {
 
 		testable.createUserInterface(UserInterfaceType.cli);
 	}
+
+	@Test
+	public void stop() throws Exception {
+		final UserInterface ui_mock = context.mock(UserInterface.class);
+
+		context.checking(new Expectations() {
+			{
+				oneOf(ui_mock).stop();
+			}
+		});
+		testable.registerUserInterface(ui_mock);
+
+		testable.stop();
+	}
 }

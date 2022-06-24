@@ -162,6 +162,10 @@ public class ApplicationTest {
 				will(returnValue(options_mock));
 
 				oneOf(commandManager_mock).runCommand(with(UsageHelpCommand.NAME), with(new UsageHelpCommandDataMatcher().expectOptions(options_mock)));
+
+				oneOf(commandManager_mock).stop();
+
+				oneOf(userInterfaceManager_mock).stop();
 			}
 		});
 
@@ -434,5 +438,18 @@ public class ApplicationTest {
 		});
 
 		testable.convert();
+	}
+
+	@Test
+	public void stop() {
+		context.checking(new Expectations() {
+			{
+				oneOf(commandManager_mock).stop();
+
+				oneOf(userInterfaceManager_mock).stop();
+			}
+		});
+
+		testable.stop();
 	}
 }

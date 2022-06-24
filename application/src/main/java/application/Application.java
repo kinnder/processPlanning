@@ -110,7 +110,13 @@ public class Application {
 			userInterfaceManager.createUserInterface(UserInterfaceType.cli);
 			notifyCommandStatus(new CommandStatusEvent(e.getMessage()));
 			usageHelp();
+			stop();
 		}
+	}
+
+	public void stop() {
+		commandManager.stop();
+		userInterfaceManager.stop();
 	}
 
 	public void plan() {

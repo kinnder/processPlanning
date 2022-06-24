@@ -145,7 +145,7 @@ public class MainViewFrame extends javax.swing.JFrame implements UserInterface {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			dispose();
+			application.stop();
 		}
 	};
 
@@ -265,5 +265,10 @@ public class MainViewFrame extends javax.swing.JFrame implements UserInterface {
 	public void run() throws Exception {
 		initializeLookAndFeel();
 		setVisible(true);
+	}
+
+	@Override
+	public void stop() {
+		dispose();
 	}
 }

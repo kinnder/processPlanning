@@ -108,6 +108,12 @@ public class MainViewFrameTest {
 	public void exitAction_actionPerformed() {
 		final ActionEvent actionEvent_mock = context.mock(ActionEvent.class);
 
+		context.checking(new Expectations() {
+			{
+				oneOf(application_mock).stop();
+			}
+		});
+
 		testable.exitAction.actionPerformed(actionEvent_mock);
 	}
 
@@ -237,5 +243,10 @@ public class MainViewFrameTest {
 		final CommandStatusEvent event = new CommandStatusEvent("done");
 
 		testable.notifyCommandStatus(event);
+	}
+
+	@Test
+	public void stop() {
+		testable.stop();
 	}
 }

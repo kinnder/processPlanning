@@ -52,4 +52,10 @@ public class UserInterfaceManager {
 		UserInterface ui = userInterfaceFactory.createMainView(application, type);
 		registerUserInterface(ui);
 	}
+
+	public void stop() {
+		for (UserInterface ui : uis) {
+			ui.stop();
+		}
+	}
 }

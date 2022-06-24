@@ -47,4 +47,8 @@ public class MainViewShell implements UserInterface {
 			application.usageHelp();
 		}
 	}
+
+	@Override
+	public void stop() {
+	}
 }

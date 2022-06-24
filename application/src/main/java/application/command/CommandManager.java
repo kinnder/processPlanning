@@ -26,4 +26,7 @@ public class CommandManager {
 		Command command = commands.get(commandName);
 		command.run(commandData);
 	}
+
+	public void stop() {
+	}
 }

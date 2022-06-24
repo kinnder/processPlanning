@@ -66,4 +66,9 @@ public class CommandManagerTest {
 
 		testable.runCommand("command-name", commandData_mock);
 	}
+
+	@Test
+	public void stop() {
+		testable.stop();
+	}
 }

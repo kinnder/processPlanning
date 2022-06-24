@@ -226,4 +226,9 @@ public class MainViewShellTest {
 
 		testable.run();
 	}
+
+	@Test
+	public void stop() {
+		testable.stop();
+	}
 }
