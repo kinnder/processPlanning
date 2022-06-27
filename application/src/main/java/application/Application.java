@@ -29,10 +29,6 @@ import planning.model.SystemProcess;
 
 public class Application {
 
-	private CommandManager commandManager;
-
-	private UserInterfaceManager userInterfaceManager;
-
 	public Application() {
 		persistanceStorage = new PersistanceStorage();
 		arguments = new Arguments();
@@ -48,6 +44,26 @@ public class Application {
 		this.userInterfaceManager = userInterfaceManager;
 		this.commandManager = commandManager;
 	}
+
+	public void run(String[] args) throws Exception {
+		try {
+			arguments.parseArguments(args);
+			userInterfaceManager.createUserInterface(arguments.hasArgument_gui() ? UserInterfaceType.gui : UserInterfaceType.cli);
+			userInterfaceManager.runUserInterfaces();
+		} catch (UnrecognizedOptionException e) {
+			userInterfaceManager.createUserInterface(UserInterfaceType.cli);
+			notifyCommandStatus(new CommandStatusEvent(e.getMessage()));
+			usageHelp();
+			stop();
+		}
+	}
+
+	public void stop() {
+		commandManager.stop();
+		userInterfaceManager.stop();
+	}
+
+	private UserInterfaceManager userInterfaceManager;
 
 	public void notifyUserMessage(UserMessageEvent event) {
 		userInterfaceManager.notifyUserMessage(event);
@@ -101,23 +117,7 @@ public class Application {
 		return arguments;
 	}
 
-	public void run(String[] args) throws Exception {
-		try {
-			arguments.parseArguments(args);
-			userInterfaceManager.createUserInterface(arguments.hasArgument_gui() ? UserInterfaceType.gui : UserInterfaceType.cli);
-			userInterfaceManager.runUserInterfaces();
-		} catch (UnrecognizedOptionException e) {
-			userInterfaceManager.createUserInterface(UserInterfaceType.cli);
-			notifyCommandStatus(new CommandStatusEvent(e.getMessage()));
-			usageHelp();
-			stop();
-		}
-	}
-
-	public void stop() {
-		commandManager.stop();
-		userInterfaceManager.stop();
-	}
+	private CommandManager commandManager;
 
 	public void plan() {
 		PlanCommandData data = new PlanCommandData();
