@@ -1,6 +1,9 @@
 package application.command;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import java.util.concurrent.Future;
+
 import org.jmock.Expectations;
 import org.jmock.imposters.ByteBuddyClassImposteriser;
 import org.jmock.junit5.JUnit5Mockery;
@@ -10,6 +13,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
 import application.Application;
+import application.event.CommandStatusEvent.Type;
 import application.event.CommandStatusEventMatcher;
 
 public class CommandTest {
@@ -67,12 +71,12 @@ public class CommandTest {
 		context.checking(new Expectations() {
 			{
 				oneOf(application_mock).notifyCommandStatus(
-						with(new CommandStatusEventMatcher().expectMessage("executing command: \"unknown\"...")));
+						with(new CommandStatusEventMatcher().expectType(Type.Started).expectCommandName("unknown")));
 
 				// execute
 
 				oneOf(application_mock).notifyCommandStatus(
-						with(new CommandStatusEventMatcher().expectMessage("done")));
+						with(new CommandStatusEventMatcher().expectType(Type.Finished).expectCommandName("unknown")));
 			}
 		});
 		testable.prepare(data_mock);
@@ -94,16 +98,111 @@ public class CommandTest {
 		context.checking(new Expectations() {
 			{
 				oneOf(application_mock).notifyCommandStatus(
-						with(new CommandStatusEventMatcher().expectMessage("executing command: \"unknown\"...")));
+						with(new CommandStatusEventMatcher().expectType(Type.Started).expectCommandName("unknown")));
 
 				// execute
 
 				oneOf(application_mock).notifyCommandStatus(
-						with(new CommandStatusEventMatcher().expectMessage("error")));
+						with(new CommandStatusEventMatcher().expectType(Type.Errored).expectCommandName("unknown")));
 			}
 		});
 		testable.prepare(data_mock);
 
 		testable.run();
+	}
+
+	@Test
+	public void started() {
+		context.checking(new Expectations() {
+			{
+				oneOf(application_mock).notifyCommandStatus(
+						with(new CommandStatusEventMatcher().expectType(Type.Started).expectCommandName("unknown")));
+			}
+		});
+
+		testable.started();
+	}
+
+	@Test
+	public void finished() {
+		context.checking(new Expectations() {
+			{
+				oneOf(application_mock).notifyCommandStatus(
+						with(new CommandStatusEventMatcher().expectType(Type.Finished).expectCommandName("unknown")));
+			}
+		});
+
+		testable.finished();
+	}
+
+	@Test
+	public void cancelled() {
+		context.checking(new Expectations() {
+			{
+				oneOf(application_mock).notifyCommandStatus(
+						with(new CommandStatusEventMatcher().expectType(Type.Cancelled).expectCommandName("unknown")));
+			}
+		});
+
+		testable.cancelled();
+	}
+
+	@Test
+	public void errored() {
+		context.checking(new Expectations() {
+			{
+				oneOf(application_mock).notifyCommandStatus(
+						with(new CommandStatusEventMatcher().expectType(Type.Errored).expectCommandName("unknown")));
+			}
+		});
+
+		testable.errored();
+	}
+
+	@Test
+	public void status() {
+		context.checking(new Expectations() {
+			{
+				oneOf(application_mock).notifyCommandStatus(
+						with(new CommandStatusEventMatcher().expectType(Type.Status).expectCommandName("unknown")));
+			}
+		});
+
+		testable.status();
+	}
+
+	@Test
+	public void cancel() {
+		final Future<?> future_mock = context.mock(Future.class);
+
+		context.checking(new Expectations() {
+			{
+				oneOf(future_mock).isDone();
+				will(returnValue(false));
+
+				oneOf(application_mock).notifyCommandStatus(
+						with(new CommandStatusEventMatcher().expectType(Type.Cancelled).expectCommandName("unknown")));
+
+				oneOf(future_mock).cancel(true);
+			}
+		});
+		testable.thisFuture = future_mock;
+
+		testable.cancel();
+	}
+
+	@Test
+	public void cancel_isDone() {
+		final Future<?> future_mock = context.mock(Future.class);
+
+		context.checking(new Expectations() {
+			{
+				oneOf(future_mock).isDone();
+				will(returnValue(true));
+			}
+		});
+		testable.thisFuture = future_mock;
+
+		testable.cancel();
 	}
 }

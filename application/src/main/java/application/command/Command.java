@@ -1,5 +1,7 @@
 package application.command;
 
+import java.util.concurrent.Future;
+
 import org.slf4j.LoggerFactory;
 
 import application.Application;
@@ -29,16 +31,45 @@ public abstract class Command implements Runnable {
 	@Override
 	public void run() {
 		try {
-			application.notifyCommandStatus(new CommandStatusEvent(String.format("executing command: \"%s\"...", name)));
+			started();
 			execute(data);
-			application.notifyCommandStatus(new CommandStatusEvent("done"));
+			finished();
 		} catch (Exception e) {
-			application.notifyCommandStatus(new CommandStatusEvent("error"));
+			errored();
 			LoggerFactory.getLogger(getClass()).error("", e);
 		}
 	}
 
 	public abstract void execute(CommandData data) throws Exception;
+
+	public Future<?> thisFuture;
+
+	public void cancel() {
+		if (!thisFuture.isDone()) {
+			cancelled();
+			thisFuture.cancel(true);
+		}
+	}
+
+	public void started() {
+		application.notifyCommandStatus(CommandStatusEvent.started(name));
+	}
+
+	public void finished() {
+		application.notifyCommandStatus(CommandStatusEvent.finished(name));
+	}
+
+	public void cancelled() {
+		application.notifyCommandStatus(CommandStatusEvent.cancelled(name));
+	}
+
+	public void errored() {
+		application.notifyCommandStatus(CommandStatusEvent.errored(name));
+	}
+
+	public void status() {
+		application.notifyCommandStatus(CommandStatusEvent.status(name));
+	}
 
 	public String getName() {
 		return name;
