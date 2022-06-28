@@ -108,8 +108,9 @@ public class UsageHelpCommandTest {
 				oneOf(application_mock).notifyUserMessage(with(new UserMessageEventMatcher().expectMessage(sb.toString())));
 			}
 		});
+		testable.prepare(data);
 
-		testable.run(data);
+		testable.run();
 	}
 
 	@Test
@@ -133,7 +134,8 @@ public class UsageHelpCommandTest {
 				oneOf(application_mock).notifyCommandStatus(with(new CommandStatusEventMatcher().expectMessage("error")));
 			}
 		});
+		testable.prepare(data);
 
-		testable.run(data);
+		testable.run();
 	}
 }

@@ -54,6 +54,13 @@ public class CommandTest {
 	}
 
 	@Test
+	public void prepare() {
+		final CommandData data_mock = context.mock(CommandData.class);
+
+		testable.prepare(data_mock);
+	}
+
+	@Test
 	public void run() {
 		final CommandData data_mock = context.mock(CommandData.class);
 
@@ -68,8 +75,9 @@ public class CommandTest {
 						with(new CommandStatusEventMatcher().expectMessage("done")));
 			}
 		});
+		testable.prepare(data_mock);
 
-		testable.run(data_mock);
+		testable.run();
 	}
 
 	@Test
@@ -94,7 +102,8 @@ public class CommandTest {
 						with(new CommandStatusEventMatcher().expectMessage("error")));
 			}
 		});
+		testable.prepare(data_mock);
 
-		testable.run(data_mock);
+		testable.run();
 	}
 }

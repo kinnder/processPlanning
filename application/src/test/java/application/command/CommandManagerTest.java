@@ -59,7 +59,9 @@ public class CommandManagerTest {
 				oneOf(command_mock).getName();
 				will(returnValue("command-name"));
 
-				oneOf(command_mock).run(commandData_mock);
+				oneOf(command_mock).prepare(commandData_mock);
+
+				oneOf(command_mock).run();
 			}
 		});
 		testable.registerCommand(command_mock);

@@ -24,7 +24,8 @@ public class CommandManager {
 
 	public void runCommand(String commandName, CommandData commandData) {
 		Command command = commands.get(commandName);
-		command.run(commandData);
+		command.prepare(commandData);
+		command.run();
 	}
 
 	public void stop() {

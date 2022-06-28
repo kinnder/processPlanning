@@ -18,7 +18,7 @@ public class UsageHelpCommand extends Command {
 	}
 
 	@Override
-	public void run(CommandData data) {
+	public void run() {
 		try {
 			execute(data);
 		} catch (Exception e) {

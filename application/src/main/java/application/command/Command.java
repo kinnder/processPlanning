@@ -5,7 +5,7 @@ import org.slf4j.LoggerFactory;
 import application.Application;
 import application.event.CommandStatusEvent;
 
-public abstract class Command {
+public abstract class Command implements Runnable {
 
 	private String name;
 
@@ -20,7 +20,14 @@ public abstract class Command {
 		this.name = name;
 	}
 
-	public void run(CommandData data) {
+	protected CommandData data;
+
+	public void prepare(CommandData data) {
+		this.data = data;
+	}
+
+	@Override
+	public void run() {
 		try {
 			application.notifyCommandStatus(new CommandStatusEvent(String.format("executing command: \"%s\"...", name)));
 			execute(data);
