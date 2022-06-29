@@ -3,12 +3,8 @@ package application.event;
 public class CommandStatusEvent extends Event {
 
 	public enum Type {
-		Cancelled, Errored, Finished, Started, Status
+		Cancel, Cancelled, Errored, Finished, Start, Started, Status
 	};
-
-	Type type;
-
-	String commandName;
 
 	public static CommandStatusEvent cancelled(String commandName) {
 		return new CommandStatusEvent(Type.Cancelled, commandName, "cancelled");
@@ -30,6 +26,10 @@ public class CommandStatusEvent extends Event {
 	public static CommandStatusEvent status(String commandName) {
 		return new CommandStatusEvent(Type.Status, commandName, "status");
 	}
+
+	public String commandName;
+
+	public Type type;
 
 	public CommandStatusEvent(String message) {
 		super(message);

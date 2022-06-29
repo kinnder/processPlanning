@@ -9,6 +9,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
+import application.event.Event.Type;
+
 public class EventTest {
 
 	@RegisterExtension
@@ -25,16 +27,30 @@ public class EventTest {
 
 	Event testable;
 
-	String message;
-
 	@BeforeEach
 	public void setup() {
-		message = "message";
-		testable = new Event(message);
 	}
 
 	@Test
 	public void newInstance() {
-		assertEquals(testable.message, message);
+		testable = new Event("message");
+
+		assertEquals("message", testable.message);
+		assertEquals(Type.Unknown, testable.type);
+	}
+
+	@Test
+	public void newInstance_2() {
+		testable = new Event(Type.StopApplication);
+
+		assertEquals(Type.StopApplication, testable.type);
+	}
+
+	@Test
+	public void stopApplication() {
+		testable = Event.stopApplication();
+
+		assertEquals(null, testable.message);
+		assertEquals(Type.StopApplication, testable.type);
 	}
 }
