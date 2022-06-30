@@ -6,7 +6,6 @@ import org.apache.commons.cli.Option;
 import org.slf4j.LoggerFactory;
 
 import application.Application;
-import application.event.CommandStatusEvent;
 import application.event.UserMessageEvent;
 
 public class UsageHelpCommand extends Command {
@@ -22,7 +21,7 @@ public class UsageHelpCommand extends Command {
 		try {
 			execute(data);
 		} catch (Exception e) {
-			application.notifyCommandStatus(new CommandStatusEvent("error"));
+			errored();
 			LoggerFactory.getLogger(getClass()).error("", e);
 		}
 	}
@@ -44,6 +43,6 @@ public class UsageHelpCommand extends Command {
 		}
 
 		UserMessageEvent event = new UserMessageEvent(sb.toString());
-		application.notifyUserMessage(event);
+		application.notifyEvent(event);
 	}
 }

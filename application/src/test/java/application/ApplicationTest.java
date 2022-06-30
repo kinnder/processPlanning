@@ -79,7 +79,7 @@ public class ApplicationTest {
 	}
 
 	@Test
-	public void notifyUserMessage() {
+	public void notifyEvent_UserMessageEvent() {
 		final UserMessageEvent event_mock = context.mock(UserMessageEvent.class);
 
 		context.checking(new Expectations() {
@@ -88,11 +88,11 @@ public class ApplicationTest {
 			}
 		});
 
-		testable.notifyUserMessage(event_mock);
+		testable.notifyEvent(event_mock);
 	}
 
 	@Test
-	public void notifyCommandStatus() {
+	public void notifyEvent_CommandStatusEvent() {
 		final CommandStatusEvent event_mock = context.mock(CommandStatusEvent.class);
 
 		context.checking(new Expectations() {
@@ -101,11 +101,11 @@ public class ApplicationTest {
 			}
 		});
 
-		testable.notifyCommandStatus(event_mock);
+		testable.notifyEvent(event_mock);
 	}
 
 	@Test
-	public void run_gui() throws Exception {
+	public void start_gui() throws Exception {
 		final String[] args = new String[] { "-gui" };
 
 		context.checking(new Expectations() {
@@ -121,11 +121,11 @@ public class ApplicationTest {
 			}
 		});
 
-		testable.run(args);
+		testable.start(args);
 	}
 
 	@Test
-	public void run_cli() throws Exception {
+	public void start_cli() throws Exception {
 		final String[] args = new String[] { "-h" };
 
 		context.checking(new Expectations() {
@@ -141,11 +141,11 @@ public class ApplicationTest {
 			}
 		});
 
-		testable.run(args);
+		testable.start(args);
 	}
 
 	@Test
-	public void run_UnrecognizedOption() throws Exception {
+	public void start_UnrecognizedOption() throws Exception {
 		final String[] args = new String[] { "-?" };
 		final Options options_mock = new Options();
 
@@ -169,7 +169,7 @@ public class ApplicationTest {
 			}
 		});
 
-		testable.run(args);
+		testable.start(args);
 	}
 
 	@Test

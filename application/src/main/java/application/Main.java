@@ -7,7 +7,7 @@ public class Main {
 	public static void main(String[] args) {
 		try {
 			Application application = new Application();
-			application.run(args);
+			application.start(args);
 		} catch (Exception e) {
 			LoggerFactory.getLogger(Main.class).error("", e);
 		}

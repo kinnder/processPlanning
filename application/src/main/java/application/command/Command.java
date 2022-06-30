@@ -52,23 +52,23 @@ public abstract class Command implements Runnable {
 	}
 
 	public void started() {
-		application.notifyCommandStatus(CommandStatusEvent.started(name));
+		application.notifyEvent(CommandStatusEvent.started(name));
 	}
 
 	public void finished() {
-		application.notifyCommandStatus(CommandStatusEvent.finished(name));
+		application.notifyEvent(CommandStatusEvent.finished(name));
 	}
 
 	public void cancelled() {
-		application.notifyCommandStatus(CommandStatusEvent.cancelled(name));
+		application.notifyEvent(CommandStatusEvent.cancelled(name));
 	}
 
 	public void errored() {
-		application.notifyCommandStatus(CommandStatusEvent.errored(name));
+		application.notifyEvent(CommandStatusEvent.errored(name));
 	}
 
 	public void status() {
-		application.notifyCommandStatus(CommandStatusEvent.status(name));
+		application.notifyEvent(CommandStatusEvent.status(name));
 	}
 
 	public String getName() {

@@ -18,6 +18,7 @@ import application.command.PlanCommandData;
 import application.command.VerifyCommand;
 import application.command.VerifyCommandData;
 import application.event.CommandStatusEvent;
+import application.event.Event;
 import application.event.UserMessageEvent;
 import application.storage.PersistanceStorage;
 import application.ui.UserInterfaceManager;
@@ -45,14 +46,14 @@ public class Application {
 		this.commandManager = commandManager;
 	}
 
-	public void run(String[] args) throws Exception {
+	public void start(String[] args) throws Exception {
 		try {
 			arguments.parseArguments(args);
 			userInterfaceManager.createUserInterface(arguments.hasArgument_gui() ? UserInterfaceType.gui : UserInterfaceType.cli);
 			userInterfaceManager.runUserInterfaces();
 		} catch (UnrecognizedOptionException e) {
 			userInterfaceManager.createUserInterface(UserInterfaceType.cli);
-			notifyCommandStatus(new CommandStatusEvent(e.getMessage()));
+			notifyEvent(new CommandStatusEvent(e.getMessage()));
 			usageHelp();
 			stop();
 		}
@@ -65,12 +66,13 @@ public class Application {
 
 	private UserInterfaceManager userInterfaceManager;
 
-	public void notifyUserMessage(UserMessageEvent event) {
-		userInterfaceManager.notifyUserMessage(event);
-	}
-
-	public void notifyCommandStatus(CommandStatusEvent event) {
-		userInterfaceManager.notifyCommandStatus(event);
+	public void notifyEvent(Event event) {
+		if (event instanceof CommandStatusEvent) {
+			userInterfaceManager.notifyCommandStatus((CommandStatusEvent) event);
+		}
+		if (event instanceof UserMessageEvent) {
+			userInterfaceManager.notifyUserMessage((UserMessageEvent) event);
+		}
 	}
 
 	private PersistanceStorage persistanceStorage;
