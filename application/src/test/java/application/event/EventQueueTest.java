@@ -60,11 +60,11 @@ public class EventQueueTest {
 	}
 
 	@Test
-	public void run_CommandStatusEvent() {
+	public void run_CommandEvent() {
 		ExecutorService executor = Executors.newSingleThreadExecutor();
 		executor.submit(testable);
 
-		CommandStatusEvent event = new CommandStatusEvent("test-event");
+		CommandEvent event = new CommandEvent("test-event");
 		testable.pushEvent(event);
 
 		testable.stop();
@@ -72,11 +72,11 @@ public class EventQueueTest {
 	}
 
 	@Test
-	public void run_UserMessageEvent() {
+	public void run_UserEvent() {
 		ExecutorService executor = Executors.newSingleThreadExecutor();
 		executor.submit(testable);
 
-		UserMessageEvent event = new UserMessageEvent("test-event");
+		UserEvent event = new UserEvent("test-event");
 		testable.pushEvent(event);
 
 		testable.stop();

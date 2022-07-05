@@ -17,8 +17,8 @@ import org.junit.jupiter.api.condition.DisabledIf;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
 import application.Application;
-import application.event.CommandStatusEvent;
-import application.event.UserMessageEvent;
+import application.event.CommandEvent;
+import application.event.UserEvent;
 import application.ui.UserInterfaceFactory;
 
 @DisabledIf("isHeadless")
@@ -232,17 +232,17 @@ public class MainViewFrameTest {
 	}
 
 	@Test
-	public void notifyUserMessage() {
-		final UserMessageEvent event = new UserMessageEvent("user message");
+	public void notifyUserEvent() {
+		final UserEvent event = new UserEvent("user message");
 
-		testable.notifyUserMessage(event);
+		testable.notifyUserEvent(event);
 	}
 
 	@Test
-	public void notifyCommandStatus() {
-		final CommandStatusEvent event = new CommandStatusEvent("done");
+	public void notifyCommandEvent() {
+		final CommandEvent event = new CommandEvent("done");
 
-		testable.notifyCommandStatus(event);
+		testable.notifyCommandEvent(event);
 	}
 
 	@Test

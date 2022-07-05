@@ -6,7 +6,7 @@ import org.apache.commons.cli.Option;
 import org.slf4j.LoggerFactory;
 
 import application.Application;
-import application.event.UserMessageEvent;
+import application.event.UserEvent;
 
 public class UsageHelpCommand extends Command {
 
@@ -42,7 +42,6 @@ public class UsageHelpCommand extends Command {
 			sb.append(String.format("%7s, %-26s %s\n", shortName, longName, description));
 		}
 
-		UserMessageEvent event = new UserMessageEvent(sb.toString());
-		application.notifyEvent(event);
+		application.notifyEvent(UserEvent.info(sb.toString()));
 	}
 }

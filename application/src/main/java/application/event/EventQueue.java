@@ -15,10 +15,10 @@ public class EventQueue implements Runnable {
 	public void run() {
 		while (isRunning) {
 			Event event = pullEvent();
-			if (event instanceof CommandStatusEvent) {
-				processEvent((CommandStatusEvent) event);
-			} else if (event instanceof UserMessageEvent) {
-				processEvent((UserMessageEvent) event);
+			if (event instanceof CommandEvent) {
+				processEvent((CommandEvent) event);
+			} else if (event instanceof UserEvent) {
+				processEvent((UserEvent) event);
 			} else {
 				processEvent(event);
 			}
@@ -35,10 +35,10 @@ public class EventQueue implements Runnable {
 		}
 	}
 
-	protected void processEvent(CommandStatusEvent event) {
+	protected void processEvent(CommandEvent event) {
 	}
 
-	protected void processEvent(UserMessageEvent event) {
+	protected void processEvent(UserEvent event) {
 	}
 
 	private List<Event> queue = new ArrayList<Event>();

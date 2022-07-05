@@ -5,7 +5,7 @@ import java.util.concurrent.Future;
 import org.slf4j.LoggerFactory;
 
 import application.Application;
-import application.event.CommandStatusEvent;
+import application.event.CommandEvent;
 
 public abstract class Command implements Runnable {
 
@@ -52,23 +52,23 @@ public abstract class Command implements Runnable {
 	}
 
 	public void started() {
-		application.notifyEvent(CommandStatusEvent.started(name));
+		application.notifyEvent(CommandEvent.started(name));
 	}
 
 	public void finished() {
-		application.notifyEvent(CommandStatusEvent.finished(name));
+		application.notifyEvent(CommandEvent.finished(name));
 	}
 
 	public void cancelled() {
-		application.notifyEvent(CommandStatusEvent.cancelled(name));
+		application.notifyEvent(CommandEvent.cancelled(name));
 	}
 
 	public void errored() {
-		application.notifyEvent(CommandStatusEvent.errored(name));
+		application.notifyEvent(CommandEvent.errored(name));
 	}
 
-	public void status() {
-		application.notifyEvent(CommandStatusEvent.status(name));
+	public void status(String message) {
+		application.notifyEvent(CommandEvent.status(name, message));
 	}
 
 	public String getName() {

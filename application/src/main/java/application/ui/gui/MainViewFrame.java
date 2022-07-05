@@ -9,8 +9,8 @@ import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
 
 import application.Application;
-import application.event.CommandStatusEvent;
-import application.event.UserMessageEvent;
+import application.event.CommandEvent;
+import application.event.UserEvent;
 import application.ui.UserInterface;
 import application.ui.UserInterfaceFactory;
 
@@ -241,13 +241,13 @@ public class MainViewFrame extends javax.swing.JFrame implements UserInterface {
 	private Application application;
 
 	@Override
-	public void notifyUserMessage(UserMessageEvent event) {
+	public void notifyUserEvent(UserEvent event) {
 		jtaLog.append(event.message);
 		jtaLog.append("\n");
 	}
 
 	@Override
-	public void notifyCommandStatus(CommandStatusEvent event) {
+	public void notifyCommandEvent(CommandEvent event) {
 		jtaLog.append(event.message);
 		jtaLog.append("\n");
 	}

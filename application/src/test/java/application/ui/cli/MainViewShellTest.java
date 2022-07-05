@@ -12,8 +12,8 @@ import org.junit.jupiter.api.extension.RegisterExtension;
 
 import application.Application;
 import application.Arguments;
-import application.event.CommandStatusEvent;
-import application.event.UserMessageEvent;
+import application.event.CommandEvent;
+import application.event.UserEvent;
 
 public class MainViewShellTest {
 
@@ -44,8 +44,8 @@ public class MainViewShellTest {
 	}
 
 	@Test
-	public void notifyUserMessage() {
-		final UserMessageEvent event_mock = context.mock(UserMessageEvent.class);
+	public void notifyUserEvent() {
+		final UserEvent event_mock = context.mock(UserEvent.class);
 		event_mock.message = "message";
 
 		context.checking(new Expectations() {
@@ -54,12 +54,12 @@ public class MainViewShellTest {
 			}
 		});
 
-		testable.notifyUserMessage(event_mock);
+		testable.notifyUserEvent(event_mock);
 	}
 
 	@Test
-	public void notifyCommandStatus() {
-		final CommandStatusEvent event_mock = context.mock(CommandStatusEvent.class);
+	public void notifyCommandEvent() {
+		final CommandEvent event_mock = context.mock(CommandEvent.class);
 		event_mock.message = "message";
 
 		context.checking(new Expectations() {
@@ -68,7 +68,7 @@ public class MainViewShellTest {
 			}
 		});
 
-		testable.notifyCommandStatus(event_mock);
+		testable.notifyCommandEvent(event_mock);
 	}
 
 	@Test

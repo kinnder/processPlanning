@@ -17,9 +17,9 @@ import application.command.PlanCommand;
 import application.command.PlanCommandData;
 import application.command.VerifyCommand;
 import application.command.VerifyCommandData;
-import application.event.CommandStatusEvent;
+import application.event.CommandEvent;
 import application.event.Event;
-import application.event.UserMessageEvent;
+import application.event.UserEvent;
 import application.storage.PersistanceStorage;
 import application.ui.UserInterfaceManager;
 import application.ui.UserInterfaceFactory.UserInterfaceType;
@@ -53,7 +53,7 @@ public class Application {
 			userInterfaceManager.runUserInterfaces();
 		} catch (UnrecognizedOptionException e) {
 			userInterfaceManager.createUserInterface(UserInterfaceType.cli);
-			notifyEvent(new CommandStatusEvent(e.getMessage()));
+			notifyEvent(UserEvent.error(e.getMessage()));
 			usageHelp();
 			stop();
 		}
@@ -67,12 +67,8 @@ public class Application {
 	private UserInterfaceManager userInterfaceManager;
 
 	public void notifyEvent(Event event) {
-		if (event instanceof CommandStatusEvent) {
-			userInterfaceManager.notifyCommandStatus((CommandStatusEvent) event);
-		}
-		if (event instanceof UserMessageEvent) {
-			userInterfaceManager.notifyUserMessage((UserMessageEvent) event);
-		}
+		userInterfaceManager.notifyEvent(event);
+		commandManager.notifyEvent(event);
 	}
 
 	private PersistanceStorage persistanceStorage;
@@ -127,7 +123,7 @@ public class Application {
 		data.systemTransformationsFile = arguments.getArgument_st("systemTransformations.xml");
 		data.processFile = arguments.getArgument_p("process.xml");
 		data.nodeNetworkFile = arguments.getArgument_nn("nodeNetwork.xml");
-		commandManager.runCommand(PlanCommand.NAME, data);
+		notifyEvent(CommandEvent.start(PlanCommand.NAME, data));
 	}
 
 	public void verify() {
@@ -136,21 +132,21 @@ public class Application {
 		data.systemTransformationsFile = arguments.getArgument_st(null);
 		data.processFile = arguments.getArgument_p(null);
 		data.nodeNetworkFile = arguments.getArgument_nn(null);
-		commandManager.runCommand(VerifyCommand.NAME, data);
+		notifyEvent(CommandEvent.start(VerifyCommand.NAME, data));
 	}
 
 	public void newTaskDescription() {
 		NewTaskDescriptionCommandData data = new NewTaskDescriptionCommandData();
 		data.taskDescriptionFile = arguments.getArgument_td("taskDescription.xml");
 		data.domain = arguments.getArgument_d("unknown");
-		commandManager.runCommand(NewTaskDescriptionCommand.NAME, data);
+		notifyEvent(CommandEvent.start(NewTaskDescriptionCommand.NAME, data));
 	}
 
 	public void newSystemTransformations() {
 		NewSystemTransformationsCommandData data = new NewSystemTransformationsCommandData();
 		data.systemTransformationsFile = arguments.getArgument_st("systemTransformations.xml");
 		data.domain = arguments.getArgument_d("unknown");
-		commandManager.runCommand(NewSystemTransformationsCommand.NAME, data);
+		notifyEvent(CommandEvent.start(NewSystemTransformationsCommand.NAME, data));
 	}
 
 	public void convert() {
@@ -159,12 +155,12 @@ public class Application {
 		data.systemTransformationsFile = arguments.getArgument_st(null);
 		data.processFile = arguments.getArgument_p(null);
 		data.nodeNetworkFile = arguments.getArgument_nn(null);
-		commandManager.runCommand(ConvertCommand.NAME, data);
+		notifyEvent(CommandEvent.start(ConvertCommand.NAME, data));
 	}
 
 	public void usageHelp() {
 		UsageHelpCommandData data = new UsageHelpCommandData();
 		data.options = arguments.getOptions();
-		commandManager.runCommand(UsageHelpCommand.NAME, data);
+		notifyEvent(CommandEvent.start(UsageHelpCommand.NAME, data));
 	}
 }

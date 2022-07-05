@@ -9,8 +9,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
 import application.Application;
-import application.event.CommandStatusEvent;
-import application.event.UserMessageEvent;
+import application.event.CommandEvent;
+import application.event.UserEvent;
 import application.ui.UserInterfaceFactory.UserInterfaceType;
 
 public class UserInterfaceManagerTest {
@@ -54,33 +54,63 @@ public class UserInterfaceManagerTest {
 	}
 
 	@Test
-	public void notifyUserMessage() {
+	public void notifyEvent_CommandEvent() {
 		final UserInterface ui_mock = context.mock(UserInterface.class);
-		final UserMessageEvent event_mock = context.mock(UserMessageEvent.class);
+		final CommandEvent event_mock = context.mock(CommandEvent.class);
 
 		context.checking(new Expectations() {
 			{
-				oneOf(ui_mock).notifyUserMessage(event_mock);
+				oneOf(ui_mock).notifyCommandEvent(event_mock);
 			}
 		});
 		testable.registerUserInterface(ui_mock);
 
-		testable.notifyUserMessage(event_mock);
+		testable.notifyEvent(event_mock);
 	}
 
 	@Test
-	public void notifyCommandStatus() {
+	public void notifyEvent_UserEvent() {
 		final UserInterface ui_mock = context.mock(UserInterface.class);
-		final CommandStatusEvent event_mock = context.mock(CommandStatusEvent.class);
+		final UserEvent event_mock = context.mock(UserEvent.class);
 
 		context.checking(new Expectations() {
 			{
-				oneOf(ui_mock).notifyCommandStatus(event_mock);
+				oneOf(ui_mock).notifyUserEvent(event_mock);
 			}
 		});
 		testable.registerUserInterface(ui_mock);
 
-		testable.notifyCommandStatus(event_mock);
+		testable.notifyEvent(event_mock);
+	}
+
+	@Test
+	public void notifyUserEvent() {
+		final UserInterface ui_mock = context.mock(UserInterface.class);
+		final UserEvent event_mock = context.mock(UserEvent.class);
+
+		context.checking(new Expectations() {
+			{
+				oneOf(ui_mock).notifyUserEvent(event_mock);
+			}
+		});
+		testable.registerUserInterface(ui_mock);
+
+		testable.notifyUserEvent(event_mock);
+	}
+
+	@Test
+	public void notifyCommandEvent() {
+		final UserInterface ui_mock = context.mock(UserInterface.class);
+		final CommandEvent event_mock = context.mock(CommandEvent.class);
+
+		context.checking(new Expectations() {
+			{
+				oneOf(ui_mock).notifyCommandEvent(event_mock);
+			}
+		});
+		testable.registerUserInterface(ui_mock);
+
+		testable.notifyCommandEvent(event_mock);
 	}
 
 	@Test

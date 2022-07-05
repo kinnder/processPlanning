@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
 import application.Application;
+import application.event.CommandEvent;
 
 public class CommandManagerTest {
 
@@ -47,6 +48,26 @@ public class CommandManagerTest {
 		});
 
 		testable.registerCommand(command_mock);
+	}
+
+	@Test
+	public void notifyEvent_CommandEvent_Start() {
+		final Command command_mock = context.mock(Command.class);
+		final CommandData commandData_mock = context.mock(CommandData.class);
+
+		context.checking(new Expectations() {
+			{
+				oneOf(command_mock).getName();
+				will(returnValue("command-name"));
+
+				oneOf(command_mock).prepare(commandData_mock);
+
+				oneOf(command_mock).run();
+			}
+		});
+		testable.registerCommand(command_mock);
+
+		testable.notifyEvent(CommandEvent.start("command-name", commandData_mock));
 	}
 
 	@Test

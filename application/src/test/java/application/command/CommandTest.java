@@ -13,8 +13,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
 import application.Application;
-import application.event.CommandStatusEvent.Type;
-import application.event.CommandStatusEventMatcher;
+import application.event.CommandEvent.Type;
+import application.event.CommandEventMatcher;
 
 public class CommandTest {
 
@@ -71,12 +71,12 @@ public class CommandTest {
 		context.checking(new Expectations() {
 			{
 				oneOf(application_mock).notifyEvent(
-						with(new CommandStatusEventMatcher().expectType(Type.Started).expectCommandName("unknown")));
+						with(new CommandEventMatcher().expectType(Type.Started).expectCommandName("unknown")));
 
 				// execute
 
 				oneOf(application_mock).notifyEvent(
-						with(new CommandStatusEventMatcher().expectType(Type.Finished).expectCommandName("unknown")));
+						with(new CommandEventMatcher().expectType(Type.Finished).expectCommandName("unknown")));
 			}
 		});
 		testable.prepare(data_mock);
@@ -98,12 +98,12 @@ public class CommandTest {
 		context.checking(new Expectations() {
 			{
 				oneOf(application_mock).notifyEvent(
-						with(new CommandStatusEventMatcher().expectType(Type.Started).expectCommandName("unknown")));
+						with(new CommandEventMatcher().expectType(Type.Started).expectCommandName("unknown")));
 
 				// execute
 
 				oneOf(application_mock).notifyEvent(
-						with(new CommandStatusEventMatcher().expectType(Type.Errored).expectCommandName("unknown")));
+						with(new CommandEventMatcher().expectType(Type.Errored).expectCommandName("unknown")));
 			}
 		});
 		testable.prepare(data_mock);
@@ -116,7 +116,7 @@ public class CommandTest {
 		context.checking(new Expectations() {
 			{
 				oneOf(application_mock).notifyEvent(
-						with(new CommandStatusEventMatcher().expectType(Type.Started).expectCommandName("unknown")));
+						with(new CommandEventMatcher().expectType(Type.Started).expectCommandName("unknown")));
 			}
 		});
 
@@ -128,7 +128,7 @@ public class CommandTest {
 		context.checking(new Expectations() {
 			{
 				oneOf(application_mock).notifyEvent(
-						with(new CommandStatusEventMatcher().expectType(Type.Finished).expectCommandName("unknown")));
+						with(new CommandEventMatcher().expectType(Type.Finished).expectCommandName("unknown")));
 			}
 		});
 
@@ -140,7 +140,7 @@ public class CommandTest {
 		context.checking(new Expectations() {
 			{
 				oneOf(application_mock).notifyEvent(
-						with(new CommandStatusEventMatcher().expectType(Type.Cancelled).expectCommandName("unknown")));
+						with(new CommandEventMatcher().expectType(Type.Cancelled).expectCommandName("unknown")));
 			}
 		});
 
@@ -152,7 +152,7 @@ public class CommandTest {
 		context.checking(new Expectations() {
 			{
 				oneOf(application_mock).notifyEvent(
-						with(new CommandStatusEventMatcher().expectType(Type.Errored).expectCommandName("unknown")));
+						with(new CommandEventMatcher().expectType(Type.Errored).expectCommandName("unknown")));
 			}
 		});
 
@@ -164,11 +164,11 @@ public class CommandTest {
 		context.checking(new Expectations() {
 			{
 				oneOf(application_mock).notifyEvent(
-						with(new CommandStatusEventMatcher().expectType(Type.Status).expectCommandName("unknown")));
+						with(new CommandEventMatcher().expectType(Type.Status).expectCommandName("unknown").expectMessage("test-message")));
 			}
 		});
 
-		testable.status();
+		testable.status("test-message");
 	}
 
 	@Test
@@ -181,7 +181,7 @@ public class CommandTest {
 				will(returnValue(false));
 
 				oneOf(application_mock).notifyEvent(
-						with(new CommandStatusEventMatcher().expectType(Type.Cancelled).expectCommandName("unknown")));
+						with(new CommandEventMatcher().expectType(Type.Cancelled).expectCommandName("unknown")));
 
 				oneOf(future_mock).cancel(true);
 			}

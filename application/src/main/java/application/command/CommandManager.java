@@ -4,6 +4,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 import application.Application;
+import application.event.CommandEvent;
+import application.event.Event;
+import application.event.UserEvent;
 
 public class CommandManager {
 
@@ -26,6 +29,40 @@ public class CommandManager {
 		Command command = commands.get(commandName);
 		command.prepare(commandData);
 		command.run();
+	}
+
+	public void notifyEvent(Event event) {
+		if (event instanceof CommandEvent) {
+			notifyCommandEvent((CommandEvent) event);
+		}
+		if (event instanceof UserEvent) {
+			notifyUserEvent((UserEvent) event);
+		}
+	}
+
+	public void notifyUserEvent(UserEvent event) {
+	}
+
+	public void notifyCommandEvent(CommandEvent event) {
+		switch (event.type) {
+		case Cancel:
+			break;
+		case Cancelled:
+			break;
+		case Errored:
+			break;
+		case Finished:
+			break;
+		case Start:
+			runCommand(event.commandName, event.commandData);
+			break;
+		case Started:
+			break;
+		case Status:
+			break;
+		default:
+			break;
+		}
 	}
 
 	public void stop() {

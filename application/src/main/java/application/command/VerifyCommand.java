@@ -14,7 +14,6 @@ import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
 
 import application.Application;
-import application.event.CommandStatusEvent;
 import application.storage.PersistanceStorage;
 
 public class VerifyCommand extends Command {
@@ -51,11 +50,11 @@ public class VerifyCommand extends Command {
 			String xsdPath = filesToValidate.get(xmlPath);
 			Source xml = new StreamSource(xmlPath);
 			Source xsd = new StreamSource(application.getResourceAsStream(xsdPath));
-			application.notifyEvent(new CommandStatusEvent(String.format("verification of %s ...", xmlPath)));
+			status(String.format("verification of %s ...", xmlPath));
 			if (verifyXMLSchema(xml, xsd)) {
-				application.notifyEvent(new CommandStatusEvent(String.format("SUCCESS: %s is correct", xmlPath)));
+				status(String.format("SUCCESS: %s is correct", xmlPath));
 			} else {
-				application.notifyEvent(new CommandStatusEvent(String.format("FAIL: %s is not correct", xmlPath)));
+				status(String.format("FAIL: %s is not correct", xmlPath));
 			}
 		}
 	}
@@ -65,10 +64,10 @@ public class VerifyCommand extends Command {
 			Validator validator = factory.newSchema(xsd).newValidator();
 			validator.validate(xml);
 		} catch (SAXParseException e) {
-			application.notifyEvent(new CommandStatusEvent(String.format("lineNumber: %d; columnNumber: %d; %s", e.getLineNumber(), e.getColumnNumber(), e.getMessage())));
+			status(String.format("lineNumber: %d; columnNumber: %d; %s", e.getLineNumber(), e.getColumnNumber(), e.getMessage()));
 			return false;
 		} catch (SAXException e) {
-			application.notifyEvent(new CommandStatusEvent(e.getMessage()));
+			status(e.getMessage());
 			return false;
 		}
 		return true;

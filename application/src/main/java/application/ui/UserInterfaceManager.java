@@ -4,8 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import application.Application;
-import application.event.CommandStatusEvent;
-import application.event.UserMessageEvent;
+import application.event.CommandEvent;
+import application.event.Event;
+import application.event.UserEvent;
 import application.ui.UserInterfaceFactory.UserInterfaceType;
 
 public class UserInterfaceManager {
@@ -30,15 +31,24 @@ public class UserInterfaceManager {
 		uis.add(ui);
 	}
 
-	public void notifyUserMessage(UserMessageEvent event) {
-		for (UserInterface ui : uis) {
-			ui.notifyUserMessage(event);
+	public void notifyEvent(Event event) {
+		if (event instanceof CommandEvent) {
+			notifyCommandEvent((CommandEvent) event);
+		}
+		if (event instanceof UserEvent) {
+			notifyUserEvent((UserEvent) event);
 		}
 	}
 
-	public void notifyCommandStatus(CommandStatusEvent event) {
+	public void notifyUserEvent(UserEvent event) {
 		for (UserInterface ui : uis) {
-			ui.notifyCommandStatus(event);
+			ui.notifyUserEvent(event);
+		}
+	}
+
+	public void notifyCommandEvent(CommandEvent event) {
+		for (UserInterface ui : uis) {
+			ui.notifyCommandEvent(event);
 		}
 	}
 
