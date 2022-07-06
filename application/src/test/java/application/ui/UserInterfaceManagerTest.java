@@ -57,10 +57,11 @@ public class UserInterfaceManagerTest {
 	public void notifyEvent_CommandEvent() {
 		final UserInterface ui_mock = context.mock(UserInterface.class);
 		final CommandEvent event_mock = context.mock(CommandEvent.class);
+		event_mock.message = "event-message";
 
 		context.checking(new Expectations() {
 			{
-				oneOf(ui_mock).notifyCommandEvent(event_mock);
+				oneOf(ui_mock).displayMessage("event-message");
 			}
 		});
 		testable.registerUserInterface(ui_mock);
@@ -72,10 +73,11 @@ public class UserInterfaceManagerTest {
 	public void notifyEvent_UserEvent() {
 		final UserInterface ui_mock = context.mock(UserInterface.class);
 		final UserEvent event_mock = context.mock(UserEvent.class);
+		event_mock.message = "event-message";
 
 		context.checking(new Expectations() {
 			{
-				oneOf(ui_mock).notifyUserEvent(event_mock);
+				oneOf(ui_mock).displayMessage("event-message");
 			}
 		});
 		testable.registerUserInterface(ui_mock);
@@ -87,10 +89,11 @@ public class UserInterfaceManagerTest {
 	public void notifyUserEvent() {
 		final UserInterface ui_mock = context.mock(UserInterface.class);
 		final UserEvent event_mock = context.mock(UserEvent.class);
+		event_mock.message = "event-message";
 
 		context.checking(new Expectations() {
 			{
-				oneOf(ui_mock).notifyUserEvent(event_mock);
+				oneOf(ui_mock).displayMessage("event-message");
 			}
 		});
 		testable.registerUserInterface(ui_mock);
@@ -102,10 +105,11 @@ public class UserInterfaceManagerTest {
 	public void notifyCommandEvent() {
 		final UserInterface ui_mock = context.mock(UserInterface.class);
 		final CommandEvent event_mock = context.mock(CommandEvent.class);
+		event_mock.message = "event-message";
 
 		context.checking(new Expectations() {
 			{
-				oneOf(ui_mock).notifyCommandEvent(event_mock);
+				oneOf(ui_mock).displayMessage("event-message");
 			}
 		});
 		testable.registerUserInterface(ui_mock);

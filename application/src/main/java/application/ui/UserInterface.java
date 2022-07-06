@@ -1,13 +1,8 @@
 package application.ui;
 
-import application.event.CommandEvent;
-import application.event.UserEvent;
-
 public interface UserInterface {
 
-	void notifyUserEvent(UserEvent event);
-
-	void notifyCommandEvent(CommandEvent event);
+	void displayMessage(String message);
 
 	void run() throws Exception;
 

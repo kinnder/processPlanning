@@ -4,8 +4,6 @@ import java.io.PrintStream;
 
 import application.Application;
 import application.Arguments;
-import application.event.CommandEvent;
-import application.event.UserEvent;
 import application.ui.UserInterface;
 
 public class MainViewShell implements UserInterface {
@@ -20,13 +18,8 @@ public class MainViewShell implements UserInterface {
 	}
 
 	@Override
-	public void notifyUserEvent(UserEvent event) {
-		printStream.println(event.message);
-	}
-
-	@Override
-	public void notifyCommandEvent(CommandEvent event) {
-		printStream.println(event.message);
+	public void displayMessage(String message) {
+		printStream.println(message);
 	}
 
 	@Override

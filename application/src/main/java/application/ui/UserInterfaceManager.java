@@ -42,13 +42,13 @@ public class UserInterfaceManager {
 
 	public void notifyUserEvent(UserEvent event) {
 		for (UserInterface ui : uis) {
-			ui.notifyUserEvent(event);
+			ui.displayMessage(event.message);
 		}
 	}
 
 	public void notifyCommandEvent(CommandEvent event) {
 		for (UserInterface ui : uis) {
-			ui.notifyCommandEvent(event);
+			ui.displayMessage(event.message);
 		}
 	}
 
