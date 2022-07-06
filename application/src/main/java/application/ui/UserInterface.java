@@ -4,7 +4,7 @@ public interface UserInterface {
 
 	void displayMessage(String message);
 
-	void run() throws Exception;
+	void start() throws Exception;
 
 	void stop();
 }

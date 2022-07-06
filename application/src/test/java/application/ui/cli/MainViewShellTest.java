@@ -53,7 +53,7 @@ public class MainViewShellTest {
 	}
 
 	@Test
-	public void run_PlanCommand() throws Exception {
+	public void start_PlanCommand() throws Exception {
 		final Arguments arguments_mock = context.mock(Arguments.class);
 
 		context.checking(new Expectations() {
@@ -68,11 +68,11 @@ public class MainViewShellTest {
 			}
 		});
 
-		testable.run();
+		testable.start();
 	}
 
 	@Test
-	public void run_NewSystemTransformationsCommand() throws Exception {
+	public void start_NewSystemTransformationsCommand() throws Exception {
 		final Arguments arguments_mock = context.mock(Arguments.class);
 
 		context.checking(new Expectations() {
@@ -90,11 +90,11 @@ public class MainViewShellTest {
 			}
 		});
 
-		testable.run();
+		testable.start();
 	}
 
 	@Test
-	public void run_NewTaskDescriptionCommand() throws Exception {
+	public void start_NewTaskDescriptionCommand() throws Exception {
 		final Arguments arguments_mock = context.mock(Arguments.class);
 
 		context.checking(new Expectations() {
@@ -115,11 +115,11 @@ public class MainViewShellTest {
 			}
 		});
 
-		testable.run();
+		testable.start();
 	}
 
 	@Test
-	public void run_VerifyCommand() throws Exception {
+	public void start_VerifyCommand() throws Exception {
 		final Arguments arguments_mock = context.mock(Arguments.class);
 
 		context.checking(new Expectations() {
@@ -143,11 +143,11 @@ public class MainViewShellTest {
 			}
 		});
 
-		testable.run();
+		testable.start();
 	}
 
 	@Test
-	public void run_ConvertCommand() throws Exception {
+	public void start_ConvertCommand() throws Exception {
 		final Arguments arguments_mock = context.mock(Arguments.class);
 
 		context.checking(new Expectations() {
@@ -174,11 +174,11 @@ public class MainViewShellTest {
 			}
 		});
 
-		testable.run();
+		testable.start();
 	}
 
 	@Test
-	public void run_HelpCommand() throws Exception {
+	public void start_HelpCommand() throws Exception {
 		final Arguments arguments_mock = context.mock(Arguments.class);
 
 		context.checking(new Expectations() {
@@ -205,7 +205,7 @@ public class MainViewShellTest {
 			}
 		});
 
-		testable.run();
+		testable.start();
 	}
 
 	@Test

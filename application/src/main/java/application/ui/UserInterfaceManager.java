@@ -76,9 +76,9 @@ public class UserInterfaceManager {
 		}
 	}
 
-	public void runUserInterfaces() throws Exception {
+	public void start() throws Exception {
 		for (UserInterface ui : uis) {
-			ui.run();
+			ui.start();
 		}
 	}
 

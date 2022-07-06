@@ -50,7 +50,7 @@ public class Application {
 		try {
 			arguments.parseArguments(args);
 			userInterfaceManager.createUserInterface(arguments.hasArgument_gui() ? UserInterfaceType.gui : UserInterfaceType.cli);
-			userInterfaceManager.runUserInterfaces();
+			userInterfaceManager.start();
 		} catch (UnrecognizedOptionException e) {
 			userInterfaceManager.createUserInterface(UserInterfaceType.cli);
 			notifyEvent(UserEvent.error(e.getMessage()));

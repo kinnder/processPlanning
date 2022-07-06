@@ -23,7 +23,7 @@ public class MainViewShell implements UserInterface {
 	}
 
 	@Override
-	public void run() throws Exception {
+	public void start() throws Exception {
 		Arguments arguments = application.getArguments();
 
 		if (arguments.hasArgument_plan()) {

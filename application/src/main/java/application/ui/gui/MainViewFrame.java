@@ -254,7 +254,7 @@ public class MainViewFrame extends javax.swing.JFrame implements UserInterface {
 	}
 
 	@Override
-	public void run() throws Exception {
+	public void start() throws Exception {
 		initializeLookAndFeel();
 		setVisible(true);
 	}

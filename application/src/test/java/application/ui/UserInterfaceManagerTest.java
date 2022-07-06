@@ -221,17 +221,17 @@ public class UserInterfaceManagerTest {
 	}
 
 	@Test
-	public void runUserInterfaces() throws Exception {
+	public void start() throws Exception {
 		final UserInterface ui_mock = context.mock(UserInterface.class);
 
 		context.checking(new Expectations() {
 			{
-				oneOf(ui_mock).run();
+				oneOf(ui_mock).start();
 			}
 		});
 		testable.registerUserInterface(ui_mock);
 
-		testable.runUserInterfaces();
+		testable.start();
 	}
 
 	@Test

@@ -117,7 +117,7 @@ public class ApplicationTest {
 
 				oneOf(userInterfaceManager_mock).createUserInterface(UserInterfaceType.gui);
 
-				oneOf(userInterfaceManager_mock).runUserInterfaces();
+				oneOf(userInterfaceManager_mock).start();
 			}
 		});
 
@@ -137,7 +137,7 @@ public class ApplicationTest {
 
 				oneOf(userInterfaceManager_mock).createUserInterface(UserInterfaceType.cli);
 
-				oneOf(userInterfaceManager_mock).runUserInterfaces();
+				oneOf(userInterfaceManager_mock).start();
 			}
 		});
 
