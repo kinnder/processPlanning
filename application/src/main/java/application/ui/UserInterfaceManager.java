@@ -41,14 +41,38 @@ public class UserInterfaceManager {
 	}
 
 	public void notifyUserEvent(UserEvent event) {
-		for (UserInterface ui : uis) {
-			ui.displayMessage(event.message);
-		}
+		displayMessage(event.message);
 	}
 
 	public void notifyCommandEvent(CommandEvent event) {
+		switch (event.type) {
+		case Cancel:
+			break;
+		case Cancelled:
+			displayMessage(event.message);
+			break;
+		case Errored:
+			displayMessage(event.message);
+			break;
+		case Finished:
+			displayMessage(event.message);
+			break;
+		case Start:
+			break;
+		case Started:
+			displayMessage(event.message);
+			break;
+		case Status:
+			displayMessage(event.message);
+			break;
+		default:
+			break;
+		}
+	}
+
+	private void displayMessage(String message) {
 		for (UserInterface ui : uis) {
-			ui.displayMessage(event.message);
+			ui.displayMessage(message);
 		}
 	}
 
