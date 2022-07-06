@@ -10,6 +10,8 @@ import org.junit.jupiter.api.extension.RegisterExtension;
 
 import application.Application;
 import application.event.CommandEvent;
+import application.event.CommandEvent.Type;
+import application.event.UserEvent;
 
 public class CommandManagerTest {
 
@@ -51,7 +53,44 @@ public class CommandManagerTest {
 	}
 
 	@Test
-	public void processEvent_CommandEvent_Start() {
+	public void processUserEvent() {
+		testable.processEvent(UserEvent.info("test-message"));
+	}
+
+	@Test
+	public void processCommandEvent_Cancel() {
+		final CommandEvent event_mock = context.mock(CommandEvent.class);
+		event_mock.type = Type.Cancel;
+
+		testable.processEvent(event_mock);
+	}
+
+	@Test
+	public void processCommandEvent_Cancelled() {
+		final CommandEvent event_mock = context.mock(CommandEvent.class);
+		event_mock.type = Type.Cancelled;
+
+		testable.processEvent(event_mock);
+	}
+
+	@Test
+	public void processCommandEvent_Errored() {
+		final CommandEvent event_mock = context.mock(CommandEvent.class);
+		event_mock.type = Type.Errored;
+
+		testable.processEvent(event_mock);
+	}
+
+	@Test
+	public void processCommandEvent_Finished() {
+		final CommandEvent event_mock = context.mock(CommandEvent.class);
+		event_mock.type = Type.Finished;
+
+		testable.processEvent(event_mock);
+	}
+
+	@Test
+	public void processCommandEvent_Start() {
 		final Command command_mock = context.mock(Command.class);
 		final CommandData commandData_mock = context.mock(CommandData.class);
 
@@ -68,6 +107,22 @@ public class CommandManagerTest {
 		testable.registerCommand(command_mock);
 
 		testable.processEvent(CommandEvent.start("command-name", commandData_mock));
+	}
+
+	@Test
+	public void processCommandEvent_Started() {
+		final CommandEvent event_mock = context.mock(CommandEvent.class);
+		event_mock.type = Type.Started;
+
+		testable.processEvent(event_mock);
+	}
+
+	@Test
+	public void processCommandEvent_Status() {
+		final CommandEvent event_mock = context.mock(CommandEvent.class);
+		event_mock.type = Type.Status;
+
+		testable.processEvent(event_mock);
 	}
 
 	@Test
