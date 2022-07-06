@@ -42,6 +42,6 @@ public class UsageHelpCommand extends Command {
 			sb.append(String.format("%7s, %-26s %s\n", shortName, longName, description));
 		}
 
-		application.notifyEvent(UserEvent.info(sb.toString()));
+		application.pushEvent(UserEvent.info(sb.toString()));
 	}
 }

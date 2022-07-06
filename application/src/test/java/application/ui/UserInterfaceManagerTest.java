@@ -55,24 +55,7 @@ public class UserInterfaceManagerTest {
 	}
 
 	@Test
-	public void notifyEvent_CommandEvent() {
-		final UserInterface ui_mock = context.mock(UserInterface.class);
-		final CommandEvent event_mock = context.mock(CommandEvent.class);
-		event_mock.message = "event-message";
-		event_mock.type = Type.Status;
-
-		context.checking(new Expectations() {
-			{
-				oneOf(ui_mock).displayMessage("event-message");
-			}
-		});
-		testable.registerUserInterface(ui_mock);
-
-		testable.notifyEvent(event_mock);
-	}
-
-	@Test
-	public void notifyEvent_UserEvent() {
+	public void processUserEvent() {
 		final UserInterface ui_mock = context.mock(UserInterface.class);
 		final UserEvent event_mock = context.mock(UserEvent.class);
 		event_mock.message = "event-message";
@@ -84,27 +67,11 @@ public class UserInterfaceManagerTest {
 		});
 		testable.registerUserInterface(ui_mock);
 
-		testable.notifyEvent(event_mock);
+		testable.processEvent(event_mock);
 	}
 
 	@Test
-	public void notifyUserEvent() {
-		final UserInterface ui_mock = context.mock(UserInterface.class);
-		final UserEvent event_mock = context.mock(UserEvent.class);
-		event_mock.message = "event-message";
-
-		context.checking(new Expectations() {
-			{
-				oneOf(ui_mock).displayMessage("event-message");
-			}
-		});
-		testable.registerUserInterface(ui_mock);
-
-		testable.notifyUserEvent(event_mock);
-	}
-
-	@Test
-	public void notifyCommandEvent_Cancel() {
+	public void processCommandEvent_Cancel() {
 		final UserInterface ui_mock = context.mock(UserInterface.class);
 		final CommandEvent event_mock = context.mock(CommandEvent.class);
 		event_mock.message = "event-message";
@@ -116,11 +83,11 @@ public class UserInterfaceManagerTest {
 		});
 		testable.registerUserInterface(ui_mock);
 
-		testable.notifyCommandEvent(event_mock);
+		testable.processEvent(event_mock);
 	}
 
 	@Test
-	public void notifyCommandEvent_Cancelled() {
+	public void processCommandEvent_Cancelled() {
 		final UserInterface ui_mock = context.mock(UserInterface.class);
 		final CommandEvent event_mock = context.mock(CommandEvent.class);
 		event_mock.message = "event-message";
@@ -133,11 +100,11 @@ public class UserInterfaceManagerTest {
 		});
 		testable.registerUserInterface(ui_mock);
 
-		testable.notifyCommandEvent(event_mock);
+		testable.processEvent(event_mock);
 	}
 
 	@Test
-	public void notifyCommandEvent_Errored() {
+	public void processCommandEvent_Errored() {
 		final UserInterface ui_mock = context.mock(UserInterface.class);
 		final CommandEvent event_mock = context.mock(CommandEvent.class);
 		event_mock.message = "event-message";
@@ -150,11 +117,11 @@ public class UserInterfaceManagerTest {
 		});
 		testable.registerUserInterface(ui_mock);
 
-		testable.notifyCommandEvent(event_mock);
+		testable.processEvent(event_mock);
 	}
 
 	@Test
-	public void notifyCommandEvent_Finished() {
+	public void processCommandEvent_Finished() {
 		final UserInterface ui_mock = context.mock(UserInterface.class);
 		final CommandEvent event_mock = context.mock(CommandEvent.class);
 		event_mock.message = "event-message";
@@ -167,11 +134,11 @@ public class UserInterfaceManagerTest {
 		});
 		testable.registerUserInterface(ui_mock);
 
-		testable.notifyCommandEvent(event_mock);
+		testable.processEvent(event_mock);
 	}
 
 	@Test
-	public void notifyCommandEvent_Start() {
+	public void processCommandEvent_Start() {
 		final UserInterface ui_mock = context.mock(UserInterface.class);
 		final CommandEvent event_mock = context.mock(CommandEvent.class);
 		event_mock.message = "event-message";
@@ -183,11 +150,11 @@ public class UserInterfaceManagerTest {
 		});
 		testable.registerUserInterface(ui_mock);
 
-		testable.notifyCommandEvent(event_mock);
+		testable.processEvent(event_mock);
 	}
 
 	@Test
-	public void notifyCommandEvent_Started() {
+	public void processCommandEvent_Started() {
 		final UserInterface ui_mock = context.mock(UserInterface.class);
 		final CommandEvent event_mock = context.mock(CommandEvent.class);
 		event_mock.message = "event-message";
@@ -200,11 +167,11 @@ public class UserInterfaceManagerTest {
 		});
 		testable.registerUserInterface(ui_mock);
 
-		testable.notifyCommandEvent(event_mock);
+		testable.processEvent(event_mock);
 	}
 
 	@Test
-	public void notifyCommandEvent_Status() {
+	public void processCommandEvent_Status() {
 		final UserInterface ui_mock = context.mock(UserInterface.class);
 		final CommandEvent event_mock = context.mock(CommandEvent.class);
 		event_mock.message = "event-message";
@@ -217,7 +184,7 @@ public class UserInterfaceManagerTest {
 		});
 		testable.registerUserInterface(ui_mock);
 
-		testable.notifyCommandEvent(event_mock);
+		testable.processEvent(event_mock);
 	}
 
 	@Test

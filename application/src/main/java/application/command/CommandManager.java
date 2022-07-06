@@ -5,10 +5,10 @@ import java.util.Map;
 
 import application.Application;
 import application.event.CommandEvent;
-import application.event.Event;
+import application.event.EventQueue;
 import application.event.UserEvent;
 
-public class CommandManager {
+public class CommandManager extends EventQueue {
 
 	private Map<String, Command> commands = new HashMap<>();
 
@@ -31,19 +31,8 @@ public class CommandManager {
 		command.run();
 	}
 
-	public void notifyEvent(Event event) {
-		if (event instanceof CommandEvent) {
-			notifyCommandEvent((CommandEvent) event);
-		}
-		if (event instanceof UserEvent) {
-			notifyUserEvent((UserEvent) event);
-		}
-	}
-
-	public void notifyUserEvent(UserEvent event) {
-	}
-
-	public void notifyCommandEvent(CommandEvent event) {
+	@Override
+	protected void processEvent(CommandEvent event) {
 		switch (event.type) {
 		case Cancel:
 			break;
@@ -65,6 +54,12 @@ public class CommandManager {
 		}
 	}
 
-	public void stop() {
+	@Override
+	protected void processEvent(UserEvent event) {
+	}
+
+	@Override
+	public synchronized void stop() {
+		super.stop();
 	}
 }

@@ -5,11 +5,11 @@ import java.util.List;
 
 import application.Application;
 import application.event.CommandEvent;
-import application.event.Event;
+import application.event.EventQueue;
 import application.event.UserEvent;
 import application.ui.UserInterfaceFactory.UserInterfaceType;
 
-public class UserInterfaceManager {
+public class UserInterfaceManager extends EventQueue {
 
 	private List<UserInterface> uis = new ArrayList<UserInterface>();
 
@@ -31,20 +31,25 @@ public class UserInterfaceManager {
 		uis.add(ui);
 	}
 
-	public void notifyEvent(Event event) {
-		if (event instanceof CommandEvent) {
-			notifyCommandEvent((CommandEvent) event);
-		}
-		if (event instanceof UserEvent) {
-			notifyUserEvent((UserEvent) event);
+	private void displayMessage(String message) {
+		for (UserInterface ui : uis) {
+			ui.displayMessage(message);
 		}
 	}
 
-	public void notifyUserEvent(UserEvent event) {
-		displayMessage(event.message);
+	public void start() throws Exception {
+		for (UserInterface ui : uis) {
+			ui.start();
+		}
 	}
 
-	public void notifyCommandEvent(CommandEvent event) {
+	public void createUserInterface(UserInterfaceType type) {
+		UserInterface ui = userInterfaceFactory.createMainView(application, type);
+		registerUserInterface(ui);
+	}
+
+	@Override
+	protected void processEvent(CommandEvent event) {
 		switch (event.type) {
 		case Cancel:
 			break;
@@ -70,26 +75,16 @@ public class UserInterfaceManager {
 		}
 	}
 
-	private void displayMessage(String message) {
-		for (UserInterface ui : uis) {
-			ui.displayMessage(message);
-		}
+	@Override
+	protected void processEvent(UserEvent event) {
+		displayMessage(event.message);
 	}
 
-	public void start() throws Exception {
-		for (UserInterface ui : uis) {
-			ui.start();
-		}
-	}
-
-	public void createUserInterface(UserInterfaceType type) {
-		UserInterface ui = userInterfaceFactory.createMainView(application, type);
-		registerUserInterface(ui);
-	}
-
-	public void stop() {
+	@Override
+	public synchronized void stop() {
 		for (UserInterface ui : uis) {
 			ui.stop();
 		}
+		super.stop();
 	}
 }

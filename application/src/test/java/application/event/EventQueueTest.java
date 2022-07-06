@@ -32,7 +32,15 @@ public class EventQueueTest {
 
 	@BeforeEach
 	public void setup() {
-		testable = new EventQueue();
+		testable = new EventQueue() {
+			@Override
+			protected void processEvent(CommandEvent event) {
+			}
+
+			@Override
+			protected void processEvent(UserEvent event) {
+			}
+		};
 	}
 
 	@Test

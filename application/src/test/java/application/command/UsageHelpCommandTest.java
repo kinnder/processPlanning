@@ -57,7 +57,7 @@ public class UsageHelpCommandTest {
 
 		context.checking(new Expectations() {
 			{
-				oneOf(application_mock).notifyEvent(with(new UserEventMatcher().expectType(Type.Info).expectMessage(message)));
+				oneOf(application_mock).pushEvent(with(new UserEventMatcher().expectType(Type.Info).expectMessage(message)));
 			}
 		});
 
@@ -78,7 +78,7 @@ public class UsageHelpCommandTest {
 
 		context.checking(new Expectations() {
 			{
-				oneOf(application_mock).notifyEvent(with(new UserEventMatcher().expectType(Type.Info).expectMessage(message)));
+				oneOf(application_mock).pushEvent(with(new UserEventMatcher().expectType(Type.Info).expectMessage(message)));
 			}
 		});
 
@@ -104,7 +104,7 @@ public class UsageHelpCommandTest {
 
 		context.checking(new Expectations() {
 			{
-				oneOf(application_mock).notifyEvent(with(new UserEventMatcher().expectType(Type.Info).expectMessage(message)));
+				oneOf(application_mock).pushEvent(with(new UserEventMatcher().expectType(Type.Info).expectMessage(message)));
 			}
 		});
 		testable.prepare(data);
@@ -126,10 +126,10 @@ public class UsageHelpCommandTest {
 
 		context.checking(new Expectations() {
 			{
-				oneOf(application_mock).notifyEvent(with(new UserEventMatcher().expectType(Type.Info).expectMessage(message)));
+				oneOf(application_mock).pushEvent(with(new UserEventMatcher().expectType(Type.Info).expectMessage(message)));
 				will(throwException(new Exception("error")));
 
-				oneOf(application_mock).notifyEvent(with(new CommandEventMatcher().expectType(CommandEvent.Type.Errored).expectMessage("error")));
+				oneOf(application_mock).pushEvent(with(new CommandEventMatcher().expectType(CommandEvent.Type.Errored).expectMessage("error")));
 			}
 		});
 		testable.prepare(data);

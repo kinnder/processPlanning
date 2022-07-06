@@ -3,7 +3,7 @@ package application.event;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EventQueue implements Runnable {
+public abstract class EventQueue implements Runnable {
 
 	private boolean isRunning = true;
 
@@ -25,7 +25,7 @@ public class EventQueue implements Runnable {
 		}
 	}
 
-	protected void processEvent(Event event) {
+	private void processEvent(Event event) {
 		switch (event.type) {
 		case StopApplication:
 			isRunning = false;
@@ -33,12 +33,6 @@ public class EventQueue implements Runnable {
 		default:
 			break;
 		}
-	}
-
-	protected void processEvent(CommandEvent event) {
-	}
-
-	protected void processEvent(UserEvent event) {
 	}
 
 	private List<Event> queue = new ArrayList<Event>();
@@ -57,6 +51,10 @@ public class EventQueue implements Runnable {
 		}
 		return queue.remove(0);
 	}
+
+	abstract protected void processEvent(CommandEvent event);
+
+	abstract protected void processEvent(UserEvent event);
 
 	public synchronized void stop() {
 		pushEvent(Event.stopApplication());

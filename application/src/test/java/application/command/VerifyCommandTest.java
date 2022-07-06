@@ -86,7 +86,7 @@ public class VerifyCommandTest {
 				oneOf(application_mock).getResourceAsStream(PersistanceStorage.TASK_DESCRIPTION_XSD);
 				will(returnValue(taskDescriptionStream_mock));
 
-				oneOf(application_mock).notifyEvent(with(new CommandEventMatcher().expectType(Type.Status)
+				oneOf(application_mock).pushEvent(with(new CommandEventMatcher().expectType(Type.Status)
 						.expectCommandName("verify").expectMessage("verification of taskDescription.xml ...")));
 
 				oneOf(schemaFactory_mock).newSchema(with(any(Source.class)));
@@ -97,7 +97,7 @@ public class VerifyCommandTest {
 
 				oneOf(taskDescriptionValidator_mock).validate(with(any(Source.class)));
 
-				oneOf(application_mock).notifyEvent(with(new CommandEventMatcher().expectType(Type.Status)
+				oneOf(application_mock).pushEvent(with(new CommandEventMatcher().expectType(Type.Status)
 						.expectCommandName("verify").expectMessage("SUCCESS: taskDescription.xml is correct")));
 
 				// << taskDescription
@@ -107,7 +107,7 @@ public class VerifyCommandTest {
 				oneOf(application_mock).getResourceAsStream(PersistanceStorage.NODE_NETWORK_XSD);
 				will(returnValue(nodeNetworkStream_mock));
 
-				oneOf(application_mock).notifyEvent(with(new CommandEventMatcher().expectType(Type.Status)
+				oneOf(application_mock).pushEvent(with(new CommandEventMatcher().expectType(Type.Status)
 						.expectCommandName("verify").expectMessage("verification of nodeNetwork.xml ...")));
 
 				oneOf(schemaFactory_mock).newSchema(with(any(Source.class)));
@@ -118,7 +118,7 @@ public class VerifyCommandTest {
 
 				oneOf(nodeNetworkValidator_mock).validate(with(any(Source.class)));
 
-				oneOf(application_mock).notifyEvent(with(new CommandEventMatcher().expectType(Type.Status)
+				oneOf(application_mock).pushEvent(with(new CommandEventMatcher().expectType(Type.Status)
 						.expectCommandName("verify").expectMessage("SUCCESS: nodeNetwork.xml is correct")));
 
 				// << nodeNetwork
@@ -128,7 +128,7 @@ public class VerifyCommandTest {
 				oneOf(application_mock).getResourceAsStream(PersistanceStorage.PROCESS_XSD);
 				will(returnValue(processStream_mock));
 
-				oneOf(application_mock).notifyEvent(with(new CommandEventMatcher().expectType(Type.Status)
+				oneOf(application_mock).pushEvent(with(new CommandEventMatcher().expectType(Type.Status)
 						.expectCommandName("verify").expectMessage("verification of process.xml ...")));
 
 				oneOf(schemaFactory_mock).newSchema(with(any(Source.class)));
@@ -139,7 +139,7 @@ public class VerifyCommandTest {
 
 				oneOf(processValidator_mock).validate(with(any(Source.class)));
 
-				oneOf(application_mock).notifyEvent(with(new CommandEventMatcher().expectType(Type.Status)
+				oneOf(application_mock).pushEvent(with(new CommandEventMatcher().expectType(Type.Status)
 						.expectCommandName("verify").expectMessage("SUCCESS: process.xml is correct")));
 
 				// << process
@@ -149,7 +149,7 @@ public class VerifyCommandTest {
 				oneOf(application_mock).getResourceAsStream(PersistanceStorage.SYSTEM_TRANSFORMATIONS_XSD);
 				will(returnValue(systemTransformationsStream_mock));
 
-				oneOf(application_mock).notifyEvent(with(new CommandEventMatcher().expectType(Type.Status)
+				oneOf(application_mock).pushEvent(with(new CommandEventMatcher().expectType(Type.Status)
 						.expectCommandName("verify").expectMessage("verification of systemTransformations.xml ...")));
 
 				oneOf(schemaFactory_mock).newSchema(with(any(Source.class)));
@@ -160,7 +160,7 @@ public class VerifyCommandTest {
 
 				oneOf(systemTransformationsValidator_mock).validate(with(any(Source.class)));
 
-				oneOf(application_mock).notifyEvent(with(new CommandEventMatcher().expectType(Type.Status)
+				oneOf(application_mock).pushEvent(with(new CommandEventMatcher().expectType(Type.Status)
 						.expectCommandName("verify").expectMessage("SUCCESS: systemTransformations.xml is correct")));
 
 				// << systemTransformations
@@ -199,7 +199,7 @@ public class VerifyCommandTest {
 				oneOf(application_mock).getResourceAsStream(PersistanceStorage.PROCESS_XSD);
 				will(returnValue(processStream_mock));
 
-				oneOf(application_mock).notifyEvent(with(new CommandEventMatcher().expectType(Type.Status)
+				oneOf(application_mock).pushEvent(with(new CommandEventMatcher().expectType(Type.Status)
 						.expectCommandName("verify").expectMessage("verification of process.xml ...")));
 
 				oneOf(schemaFactory_mock).newSchema(with(any(Source.class)));
@@ -211,10 +211,10 @@ public class VerifyCommandTest {
 				oneOf(processValidator_mock).validate(with(any(Source.class)));
 				will(throwException(new SAXParseException("test-message", "test-publicId", "test-systemId", 10, 20)));
 
-				oneOf(application_mock).notifyEvent(with(new CommandEventMatcher().expectType(Type.Status)
+				oneOf(application_mock).pushEvent(with(new CommandEventMatcher().expectType(Type.Status)
 						.expectCommandName("verify").expectMessage("lineNumber: 10; columnNumber: 20; test-message")));
 
-				oneOf(application_mock).notifyEvent(with(new CommandEventMatcher().expectType(Type.Status)
+				oneOf(application_mock).pushEvent(with(new CommandEventMatcher().expectType(Type.Status)
 						.expectCommandName("verify").expectMessage("FAIL: process.xml is not correct")));
 
 				// << process
@@ -240,7 +240,7 @@ public class VerifyCommandTest {
 				oneOf(application_mock).getResourceAsStream(PersistanceStorage.PROCESS_XSD);
 				will(returnValue(processStream_mock));
 
-				oneOf(application_mock).notifyEvent(with(new CommandEventMatcher().expectType(Type.Status)
+				oneOf(application_mock).pushEvent(with(new CommandEventMatcher().expectType(Type.Status)
 						.expectCommandName("verify").expectMessage("verification of process.xml ...")));
 
 				oneOf(schemaFactory_mock).newSchema(with(any(Source.class)));
@@ -252,10 +252,10 @@ public class VerifyCommandTest {
 				oneOf(processValidator_mock).validate(with(any(Source.class)));
 				will(throwException(new SAXException("test-message")));
 
-				oneOf(application_mock).notifyEvent(with(new CommandEventMatcher().expectType(Type.Status)
+				oneOf(application_mock).pushEvent(with(new CommandEventMatcher().expectType(Type.Status)
 						.expectCommandName("verify").expectMessage("test-message")));
 
-				oneOf(application_mock).notifyEvent(with(new CommandEventMatcher().expectType(Type.Status)
+				oneOf(application_mock).pushEvent(with(new CommandEventMatcher().expectType(Type.Status)
 						.expectCommandName("verify").expectMessage("FAIL: process.xml is not correct")));
 
 				// << process

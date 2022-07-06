@@ -70,12 +70,12 @@ public class CommandTest {
 
 		context.checking(new Expectations() {
 			{
-				oneOf(application_mock).notifyEvent(
+				oneOf(application_mock).pushEvent(
 						with(new CommandEventMatcher().expectType(Type.Started).expectCommandName("unknown")));
 
 				// execute
 
-				oneOf(application_mock).notifyEvent(
+				oneOf(application_mock).pushEvent(
 						with(new CommandEventMatcher().expectType(Type.Finished).expectCommandName("unknown")));
 			}
 		});
@@ -97,12 +97,12 @@ public class CommandTest {
 
 		context.checking(new Expectations() {
 			{
-				oneOf(application_mock).notifyEvent(
+				oneOf(application_mock).pushEvent(
 						with(new CommandEventMatcher().expectType(Type.Started).expectCommandName("unknown")));
 
 				// execute
 
-				oneOf(application_mock).notifyEvent(
+				oneOf(application_mock).pushEvent(
 						with(new CommandEventMatcher().expectType(Type.Errored).expectCommandName("unknown")));
 			}
 		});
@@ -115,7 +115,7 @@ public class CommandTest {
 	public void started() {
 		context.checking(new Expectations() {
 			{
-				oneOf(application_mock).notifyEvent(
+				oneOf(application_mock).pushEvent(
 						with(new CommandEventMatcher().expectType(Type.Started).expectCommandName("unknown")));
 			}
 		});
@@ -127,7 +127,7 @@ public class CommandTest {
 	public void finished() {
 		context.checking(new Expectations() {
 			{
-				oneOf(application_mock).notifyEvent(
+				oneOf(application_mock).pushEvent(
 						with(new CommandEventMatcher().expectType(Type.Finished).expectCommandName("unknown")));
 			}
 		});
@@ -139,7 +139,7 @@ public class CommandTest {
 	public void cancelled() {
 		context.checking(new Expectations() {
 			{
-				oneOf(application_mock).notifyEvent(
+				oneOf(application_mock).pushEvent(
 						with(new CommandEventMatcher().expectType(Type.Cancelled).expectCommandName("unknown")));
 			}
 		});
@@ -151,7 +151,7 @@ public class CommandTest {
 	public void errored() {
 		context.checking(new Expectations() {
 			{
-				oneOf(application_mock).notifyEvent(
+				oneOf(application_mock).pushEvent(
 						with(new CommandEventMatcher().expectType(Type.Errored).expectCommandName("unknown")));
 			}
 		});
@@ -163,7 +163,7 @@ public class CommandTest {
 	public void status() {
 		context.checking(new Expectations() {
 			{
-				oneOf(application_mock).notifyEvent(
+				oneOf(application_mock).pushEvent(
 						with(new CommandEventMatcher().expectType(Type.Status).expectCommandName("unknown").expectMessage("test-message")));
 			}
 		});
@@ -180,7 +180,7 @@ public class CommandTest {
 				oneOf(future_mock).isDone();
 				will(returnValue(false));
 
-				oneOf(application_mock).notifyEvent(
+				oneOf(application_mock).pushEvent(
 						with(new CommandEventMatcher().expectType(Type.Cancelled).expectCommandName("unknown")));
 
 				oneOf(future_mock).cancel(true);

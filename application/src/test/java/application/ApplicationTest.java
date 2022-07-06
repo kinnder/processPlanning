@@ -3,6 +3,7 @@ package application;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.concurrent.ExecutorService;
 
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.UnrecognizedOptionException;
@@ -59,14 +60,17 @@ public class ApplicationTest {
 
 	CommandManager commandManager_mock;
 
+	ExecutorService executorService_mock;
+
 	@BeforeEach
 	public void setup() {
 		persistanceStorage_mock = context.mock(PersistanceStorage.class);
 		arguments_mock = context.mock(Arguments.class);
 		userInterfaceManager_mock = context.mock(UserInterfaceManager.class);
 		commandManager_mock = context.mock(CommandManager.class);
+		executorService_mock = context.mock(ExecutorService.class);
 
-		testable = new Application(commandManager_mock, persistanceStorage_mock, arguments_mock, userInterfaceManager_mock);
+		testable = new Application(commandManager_mock, persistanceStorage_mock, arguments_mock, userInterfaceManager_mock, executorService_mock);
 	}
 
 	@Test
@@ -75,33 +79,33 @@ public class ApplicationTest {
 	}
 
 	@Test
-	public void notifyEvent_UserEvent() {
+	public void pushEvent_UserEvent() {
 		final UserEvent event_mock = context.mock(UserEvent.class);
 
 		context.checking(new Expectations() {
 			{
-				oneOf(userInterfaceManager_mock).notifyEvent(event_mock);
+				oneOf(userInterfaceManager_mock).pushEvent(event_mock);
 
-				oneOf(commandManager_mock).notifyEvent(event_mock);
+				oneOf(commandManager_mock).pushEvent(event_mock);
 			}
 		});
 
-		testable.notifyEvent(event_mock);
+		testable.pushEvent(event_mock);
 	}
 
 	@Test
-	public void notifyEvent_CommandEvent() {
+	public void pushEvent_CommandEvent() {
 		final CommandEvent event_mock = context.mock(CommandEvent.class);
 
 		context.checking(new Expectations() {
 			{
-				oneOf(userInterfaceManager_mock).notifyEvent(event_mock);
+				oneOf(userInterfaceManager_mock).pushEvent(event_mock);
 
-				oneOf(commandManager_mock).notifyEvent(event_mock);
+				oneOf(commandManager_mock).pushEvent(event_mock);
 			}
 		});
 
-		testable.notifyEvent(event_mock);
+		testable.pushEvent(event_mock);
 	}
 
 	@Test
@@ -118,6 +122,13 @@ public class ApplicationTest {
 				oneOf(userInterfaceManager_mock).createUserInterface(UserInterfaceType.gui);
 
 				oneOf(userInterfaceManager_mock).start();
+
+				oneOf(executorService_mock).submit(userInterfaceManager_mock);
+
+				oneOf(executorService_mock).submit(commandManager_mock);
+
+				oneOf(arguments_mock).hasArgument_gui();
+				will(returnValue(true));
 			}
 		});
 
@@ -138,6 +149,19 @@ public class ApplicationTest {
 				oneOf(userInterfaceManager_mock).createUserInterface(UserInterfaceType.cli);
 
 				oneOf(userInterfaceManager_mock).start();
+
+				oneOf(executorService_mock).submit(userInterfaceManager_mock);
+
+				oneOf(executorService_mock).submit(commandManager_mock);
+
+				oneOf(arguments_mock).hasArgument_gui();
+				will(returnValue(false));
+
+				oneOf(commandManager_mock).stop();
+
+				oneOf(userInterfaceManager_mock).stop();
+
+				oneOf(executorService_mock).shutdown();
 			}
 		});
 
@@ -156,24 +180,32 @@ public class ApplicationTest {
 
 				oneOf(userInterfaceManager_mock).createUserInterface(UserInterfaceType.cli);
 
-				oneOf(userInterfaceManager_mock).notifyEvent(
+				oneOf(userInterfaceManager_mock).start();
+
+				oneOf(executorService_mock).submit(userInterfaceManager_mock);
+
+				oneOf(executorService_mock).submit(commandManager_mock);
+
+				oneOf(userInterfaceManager_mock).pushEvent(
 						with(new UserEventMatcher().expectType(Type.Error).expectMessage("Unrecognized option: -?")));
 
-				oneOf(commandManager_mock).notifyEvent(
+				oneOf(commandManager_mock).pushEvent(
 						with(new UserEventMatcher().expectType(Type.Error).expectMessage("Unrecognized option: -?")));
 
 				oneOf(arguments_mock).getOptions();
 				will(returnValue(options_mock));
 
-				oneOf(userInterfaceManager_mock).notifyEvent(with(new CommandEventMatcher()
+				oneOf(userInterfaceManager_mock).pushEvent(with(new CommandEventMatcher()
 						.expectType(CommandEvent.Type.Start).expectCommandName(UsageHelpCommand.NAME)));
 
-				oneOf(commandManager_mock).notifyEvent(with(new CommandEventMatcher()
-						.expectType(CommandEvent.Type.Start).expectCommandName(UsageHelpCommand.NAME)));
+				oneOf(commandManager_mock).pushEvent(with(new CommandEventMatcher().expectType(CommandEvent.Type.Start)
+						.expectCommandName(UsageHelpCommand.NAME)));
 
 				oneOf(commandManager_mock).stop();
 
 				oneOf(userInterfaceManager_mock).stop();
+
+				oneOf(executorService_mock).shutdown();
 			}
 		});
 
@@ -320,10 +352,10 @@ public class ApplicationTest {
 				oneOf(arguments_mock).getOptions();
 				will(returnValue(options_mock));
 
-				oneOf(userInterfaceManager_mock).notifyEvent(with(new CommandEventMatcher()
+				oneOf(userInterfaceManager_mock).pushEvent(with(new CommandEventMatcher()
 						.expectType(CommandEvent.Type.Start).expectCommandName(UsageHelpCommand.NAME)));
 
-				oneOf(commandManager_mock).notifyEvent(with(new CommandEventMatcher()
+				oneOf(commandManager_mock).pushEvent(with(new CommandEventMatcher()
 						.expectType(CommandEvent.Type.Start).expectCommandName(UsageHelpCommand.NAME)));
 			}
 		});
@@ -352,10 +384,10 @@ public class ApplicationTest {
 				oneOf(arguments_mock).getArgument_nn("nodeNetwork.xml");
 				will(returnValue("nn_file.xml"));
 
-				oneOf(userInterfaceManager_mock).notifyEvent(with(new CommandEventMatcher()
+				oneOf(userInterfaceManager_mock).pushEvent(with(new CommandEventMatcher()
 						.expectType(CommandEvent.Type.Start).expectCommandName(PlanCommand.NAME)));
 
-				oneOf(commandManager_mock).notifyEvent(with(new CommandEventMatcher()
+				oneOf(commandManager_mock).pushEvent(with(new CommandEventMatcher()
 						.expectType(CommandEvent.Type.Start).expectCommandName(PlanCommand.NAME)));
 			}
 		});
@@ -379,10 +411,10 @@ public class ApplicationTest {
 				oneOf(arguments_mock).getArgument_nn(null);
 				will(returnValue("nn_file.xml"));
 
-				oneOf(userInterfaceManager_mock).notifyEvent(with(new CommandEventMatcher()
+				oneOf(userInterfaceManager_mock).pushEvent(with(new CommandEventMatcher()
 						.expectType(CommandEvent.Type.Start).expectCommandName(VerifyCommand.NAME)));
 
-				oneOf(commandManager_mock).notifyEvent(with(new CommandEventMatcher()
+				oneOf(commandManager_mock).pushEvent(with(new CommandEventMatcher()
 						.expectType(CommandEvent.Type.Start).expectCommandName(VerifyCommand.NAME)));
 			}
 		});
@@ -400,10 +432,10 @@ public class ApplicationTest {
 				oneOf(arguments_mock).getArgument_d("unknown");
 				will(returnValue("materialPoints"));
 
-				oneOf(userInterfaceManager_mock).notifyEvent(with(new CommandEventMatcher()
+				oneOf(userInterfaceManager_mock).pushEvent(with(new CommandEventMatcher()
 						.expectType(CommandEvent.Type.Start).expectCommandName(NewTaskDescriptionCommand.NAME)));
 
-				oneOf(commandManager_mock).notifyEvent(with(new CommandEventMatcher()
+				oneOf(commandManager_mock).pushEvent(with(new CommandEventMatcher()
 						.expectType(CommandEvent.Type.Start).expectCommandName(NewTaskDescriptionCommand.NAME)));
 			}
 		});
@@ -421,10 +453,10 @@ public class ApplicationTest {
 				oneOf(arguments_mock).getArgument_d("unknown");
 				will(returnValue("assemblyLine"));
 
-				oneOf(userInterfaceManager_mock).notifyEvent(with(new CommandEventMatcher()
+				oneOf(userInterfaceManager_mock).pushEvent(with(new CommandEventMatcher()
 						.expectType(CommandEvent.Type.Start).expectCommandName(NewSystemTransformationsCommand.NAME)));
 
-				oneOf(commandManager_mock).notifyEvent(with(new CommandEventMatcher()
+				oneOf(commandManager_mock).pushEvent(with(new CommandEventMatcher()
 						.expectType(CommandEvent.Type.Start).expectCommandName(NewSystemTransformationsCommand.NAME)));
 			}
 		});
@@ -448,10 +480,10 @@ public class ApplicationTest {
 				oneOf(arguments_mock).getArgument_nn(null);
 				will(returnValue("nn_file.xml"));
 
-				oneOf(userInterfaceManager_mock).notifyEvent(with(new CommandEventMatcher()
+				oneOf(userInterfaceManager_mock).pushEvent(with(new CommandEventMatcher()
 						.expectType(CommandEvent.Type.Start).expectCommandName(ConvertCommand.NAME)));
 
-				oneOf(commandManager_mock).notifyEvent(with(new CommandEventMatcher()
+				oneOf(commandManager_mock).pushEvent(with(new CommandEventMatcher()
 						.expectType(CommandEvent.Type.Start).expectCommandName(ConvertCommand.NAME)));
 			}
 		});
@@ -466,6 +498,8 @@ public class ApplicationTest {
 				oneOf(commandManager_mock).stop();
 
 				oneOf(userInterfaceManager_mock).stop();
+
+				oneOf(executorService_mock).shutdown();
 			}
 		});
 

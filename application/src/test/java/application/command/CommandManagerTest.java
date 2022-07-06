@@ -51,7 +51,7 @@ public class CommandManagerTest {
 	}
 
 	@Test
-	public void notifyEvent_CommandEvent_Start() {
+	public void processEvent_CommandEvent_Start() {
 		final Command command_mock = context.mock(Command.class);
 		final CommandData commandData_mock = context.mock(CommandData.class);
 
@@ -67,7 +67,7 @@ public class CommandManagerTest {
 		});
 		testable.registerCommand(command_mock);
 
-		testable.notifyEvent(CommandEvent.start("command-name", commandData_mock));
+		testable.processEvent(CommandEvent.start("command-name", commandData_mock));
 	}
 
 	@Test

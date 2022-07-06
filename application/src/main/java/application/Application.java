@@ -2,6 +2,9 @@ package application;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 import org.apache.commons.cli.UnrecognizedOptionException;
 import org.jdom2.JDOMException;
 import application.command.CommandManager;
@@ -36,14 +39,20 @@ public class Application {
 
 		userInterfaceManager = new UserInterfaceManager(this);
 		commandManager = new CommandManager(this);
+
+		executor = Executors.newFixedThreadPool(2);
 	}
 
-	Application(CommandManager commandManager, PersistanceStorage persistanceStorage, Arguments arguments, UserInterfaceManager userInterfaceManager) {
+	private ExecutorService executor;
+
+	Application(CommandManager commandManager, PersistanceStorage persistanceStorage, Arguments arguments, UserInterfaceManager userInterfaceManager, ExecutorService executorService) {
 		this.persistanceStorage = persistanceStorage;
 		this.arguments = arguments;
 
 		this.userInterfaceManager = userInterfaceManager;
 		this.commandManager = commandManager;
+
+		this.executor = executorService;
 	}
 
 	public void start(String[] args) throws Exception {
@@ -51,9 +60,17 @@ public class Application {
 			arguments.parseArguments(args);
 			userInterfaceManager.createUserInterface(arguments.hasArgument_gui() ? UserInterfaceType.gui : UserInterfaceType.cli);
 			userInterfaceManager.start();
+			executor.submit(userInterfaceManager);
+			executor.submit(commandManager);
+			if (arguments.hasArgument_gui() == false) {
+				stop();
+			}
 		} catch (UnrecognizedOptionException e) {
 			userInterfaceManager.createUserInterface(UserInterfaceType.cli);
-			notifyEvent(UserEvent.error(e.getMessage()));
+			userInterfaceManager.start();
+			executor.submit(userInterfaceManager);
+			executor.submit(commandManager);
+			pushEvent(UserEvent.error(e.getMessage()));
 			usageHelp();
 			stop();
 		}
@@ -62,13 +79,14 @@ public class Application {
 	public void stop() {
 		commandManager.stop();
 		userInterfaceManager.stop();
+		executor.shutdown();
 	}
 
 	private UserInterfaceManager userInterfaceManager;
 
-	public void notifyEvent(Event event) {
-		userInterfaceManager.notifyEvent(event);
-		commandManager.notifyEvent(event);
+	public void pushEvent(Event event) {
+		userInterfaceManager.pushEvent(event);
+		commandManager.pushEvent(event);
 	}
 
 	private PersistanceStorage persistanceStorage;
@@ -123,7 +141,7 @@ public class Application {
 		data.systemTransformationsFile = arguments.getArgument_st("systemTransformations.xml");
 		data.processFile = arguments.getArgument_p("process.xml");
 		data.nodeNetworkFile = arguments.getArgument_nn("nodeNetwork.xml");
-		notifyEvent(CommandEvent.start(PlanCommand.NAME, data));
+		pushEvent(CommandEvent.start(PlanCommand.NAME, data));
 	}
 
 	public void verify() {
@@ -132,21 +150,21 @@ public class Application {
 		data.systemTransformationsFile = arguments.getArgument_st(null);
 		data.processFile = arguments.getArgument_p(null);
 		data.nodeNetworkFile = arguments.getArgument_nn(null);
-		notifyEvent(CommandEvent.start(VerifyCommand.NAME, data));
+		pushEvent(CommandEvent.start(VerifyCommand.NAME, data));
 	}
 
 	public void newTaskDescription() {
 		NewTaskDescriptionCommandData data = new NewTaskDescriptionCommandData();
 		data.taskDescriptionFile = arguments.getArgument_td("taskDescription.xml");
 		data.domain = arguments.getArgument_d("unknown");
-		notifyEvent(CommandEvent.start(NewTaskDescriptionCommand.NAME, data));
+		pushEvent(CommandEvent.start(NewTaskDescriptionCommand.NAME, data));
 	}
 
 	public void newSystemTransformations() {
 		NewSystemTransformationsCommandData data = new NewSystemTransformationsCommandData();
 		data.systemTransformationsFile = arguments.getArgument_st("systemTransformations.xml");
 		data.domain = arguments.getArgument_d("unknown");
-		notifyEvent(CommandEvent.start(NewSystemTransformationsCommand.NAME, data));
+		pushEvent(CommandEvent.start(NewSystemTransformationsCommand.NAME, data));
 	}
 
 	public void convert() {
@@ -155,12 +173,12 @@ public class Application {
 		data.systemTransformationsFile = arguments.getArgument_st(null);
 		data.processFile = arguments.getArgument_p(null);
 		data.nodeNetworkFile = arguments.getArgument_nn(null);
-		notifyEvent(CommandEvent.start(ConvertCommand.NAME, data));
+		pushEvent(CommandEvent.start(ConvertCommand.NAME, data));
 	}
 
 	public void usageHelp() {
 		UsageHelpCommandData data = new UsageHelpCommandData();
 		data.options = arguments.getOptions();
-		notifyEvent(CommandEvent.start(UsageHelpCommand.NAME, data));
+		pushEvent(CommandEvent.start(UsageHelpCommand.NAME, data));
 	}
 }
