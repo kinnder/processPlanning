@@ -63,6 +63,9 @@ public class Application {
 			executor.submit(userInterfaceManager);
 			executor.submit(commandManager);
 			if (arguments.hasArgument_gui() == false) {
+				// TODO (2022-07-07 #71): без команды stop текст в консоли выводится, но не останавливаются потоки
+				// TODO (2022-07-07 #71): надо делать команду stopApplication
+				// TODO (2022-07-07 #71): надо добавлять последовательное выполнение команд
 				stop();
 			}
 		} catch (UnrecognizedOptionException e) {
