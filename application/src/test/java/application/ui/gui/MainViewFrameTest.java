@@ -108,7 +108,7 @@ public class MainViewFrameTest {
 
 		context.checking(new Expectations() {
 			{
-				oneOf(application_mock).stop();
+				oneOf(application_mock).stopApplication();
 			}
 		});
 

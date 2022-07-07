@@ -22,6 +22,7 @@ import application.command.UsageHelpCommand;
 import application.command.NewSystemTransformationsCommand;
 import application.command.NewTaskDescriptionCommand;
 import application.command.PlanCommand;
+import application.command.StopApplicationCommand;
 import application.command.VerifyCommand;
 import application.event.CommandEvent;
 import application.event.CommandEventMatcher;
@@ -70,7 +71,8 @@ public class ApplicationTest {
 		commandManager_mock = context.mock(CommandManager.class);
 		executorService_mock = context.mock(ExecutorService.class);
 
-		testable = new Application(commandManager_mock, persistanceStorage_mock, arguments_mock, userInterfaceManager_mock, executorService_mock);
+		testable = new Application(commandManager_mock, persistanceStorage_mock, arguments_mock,
+				userInterfaceManager_mock, executorService_mock);
 	}
 
 	@Test
@@ -157,11 +159,11 @@ public class ApplicationTest {
 				oneOf(arguments_mock).hasArgument_gui();
 				will(returnValue(false));
 
-				oneOf(commandManager_mock).stop();
+				oneOf(userInterfaceManager_mock).pushEvent(with(new CommandEventMatcher()
+						.expectType(CommandEvent.Type.Start).expectCommandName(StopApplicationCommand.NAME)));
 
-				oneOf(userInterfaceManager_mock).stop();
-
-				oneOf(executorService_mock).shutdown();
+				oneOf(commandManager_mock).pushEvent(with(new CommandEventMatcher().expectType(CommandEvent.Type.Start)
+						.expectCommandName(StopApplicationCommand.NAME)));
 			}
 		});
 
@@ -201,11 +203,11 @@ public class ApplicationTest {
 				oneOf(commandManager_mock).pushEvent(with(new CommandEventMatcher().expectType(CommandEvent.Type.Start)
 						.expectCommandName(UsageHelpCommand.NAME)));
 
-				oneOf(commandManager_mock).stop();
+				oneOf(userInterfaceManager_mock).pushEvent(with(new CommandEventMatcher()
+						.expectType(CommandEvent.Type.Start).expectCommandName(StopApplicationCommand.NAME)));
 
-				oneOf(userInterfaceManager_mock).stop();
-
-				oneOf(executorService_mock).shutdown();
+				oneOf(commandManager_mock).pushEvent(with(new CommandEventMatcher().expectType(CommandEvent.Type.Start)
+						.expectCommandName(StopApplicationCommand.NAME)));
 			}
 		});
 
@@ -355,8 +357,8 @@ public class ApplicationTest {
 				oneOf(userInterfaceManager_mock).pushEvent(with(new CommandEventMatcher()
 						.expectType(CommandEvent.Type.Start).expectCommandName(UsageHelpCommand.NAME)));
 
-				oneOf(commandManager_mock).pushEvent(with(new CommandEventMatcher()
-						.expectType(CommandEvent.Type.Start).expectCommandName(UsageHelpCommand.NAME)));
+				oneOf(commandManager_mock).pushEvent(with(new CommandEventMatcher().expectType(CommandEvent.Type.Start)
+						.expectCommandName(UsageHelpCommand.NAME)));
 			}
 		});
 
@@ -387,8 +389,8 @@ public class ApplicationTest {
 				oneOf(userInterfaceManager_mock).pushEvent(with(new CommandEventMatcher()
 						.expectType(CommandEvent.Type.Start).expectCommandName(PlanCommand.NAME)));
 
-				oneOf(commandManager_mock).pushEvent(with(new CommandEventMatcher()
-						.expectType(CommandEvent.Type.Start).expectCommandName(PlanCommand.NAME)));
+				oneOf(commandManager_mock).pushEvent(with(new CommandEventMatcher().expectType(CommandEvent.Type.Start)
+						.expectCommandName(PlanCommand.NAME)));
 			}
 		});
 
@@ -414,8 +416,8 @@ public class ApplicationTest {
 				oneOf(userInterfaceManager_mock).pushEvent(with(new CommandEventMatcher()
 						.expectType(CommandEvent.Type.Start).expectCommandName(VerifyCommand.NAME)));
 
-				oneOf(commandManager_mock).pushEvent(with(new CommandEventMatcher()
-						.expectType(CommandEvent.Type.Start).expectCommandName(VerifyCommand.NAME)));
+				oneOf(commandManager_mock).pushEvent(with(new CommandEventMatcher().expectType(CommandEvent.Type.Start)
+						.expectCommandName(VerifyCommand.NAME)));
 			}
 		});
 
@@ -435,8 +437,8 @@ public class ApplicationTest {
 				oneOf(userInterfaceManager_mock).pushEvent(with(new CommandEventMatcher()
 						.expectType(CommandEvent.Type.Start).expectCommandName(NewTaskDescriptionCommand.NAME)));
 
-				oneOf(commandManager_mock).pushEvent(with(new CommandEventMatcher()
-						.expectType(CommandEvent.Type.Start).expectCommandName(NewTaskDescriptionCommand.NAME)));
+				oneOf(commandManager_mock).pushEvent(with(new CommandEventMatcher().expectType(CommandEvent.Type.Start)
+						.expectCommandName(NewTaskDescriptionCommand.NAME)));
 			}
 		});
 
@@ -456,8 +458,8 @@ public class ApplicationTest {
 				oneOf(userInterfaceManager_mock).pushEvent(with(new CommandEventMatcher()
 						.expectType(CommandEvent.Type.Start).expectCommandName(NewSystemTransformationsCommand.NAME)));
 
-				oneOf(commandManager_mock).pushEvent(with(new CommandEventMatcher()
-						.expectType(CommandEvent.Type.Start).expectCommandName(NewSystemTransformationsCommand.NAME)));
+				oneOf(commandManager_mock).pushEvent(with(new CommandEventMatcher().expectType(CommandEvent.Type.Start)
+						.expectCommandName(NewSystemTransformationsCommand.NAME)));
 			}
 		});
 
@@ -483,12 +485,27 @@ public class ApplicationTest {
 				oneOf(userInterfaceManager_mock).pushEvent(with(new CommandEventMatcher()
 						.expectType(CommandEvent.Type.Start).expectCommandName(ConvertCommand.NAME)));
 
-				oneOf(commandManager_mock).pushEvent(with(new CommandEventMatcher()
-						.expectType(CommandEvent.Type.Start).expectCommandName(ConvertCommand.NAME)));
+				oneOf(commandManager_mock).pushEvent(with(new CommandEventMatcher().expectType(CommandEvent.Type.Start)
+						.expectCommandName(ConvertCommand.NAME)));
 			}
 		});
 
 		testable.convert();
+	}
+
+	@Test
+	public void stopApplication() {
+		context.checking(new Expectations() {
+			{
+				oneOf(userInterfaceManager_mock).pushEvent(with(new CommandEventMatcher()
+						.expectType(CommandEvent.Type.Start).expectCommandName(StopApplicationCommand.NAME)));
+
+				oneOf(commandManager_mock).pushEvent(with(new CommandEventMatcher().expectType(CommandEvent.Type.Start)
+						.expectCommandName(StopApplicationCommand.NAME)));
+			}
+		});
+
+		testable.stopApplication();
 	}
 
 	@Test

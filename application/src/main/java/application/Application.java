@@ -18,6 +18,8 @@ import application.command.NewTaskDescriptionCommand;
 import application.command.NewTaskDescriptionCommandData;
 import application.command.PlanCommand;
 import application.command.PlanCommandData;
+import application.command.StopApplicationCommand;
+import application.command.StopApplicationCommandData;
 import application.command.VerifyCommand;
 import application.command.VerifyCommandData;
 import application.event.CommandEvent;
@@ -63,10 +65,7 @@ public class Application {
 			executor.submit(userInterfaceManager);
 			executor.submit(commandManager);
 			if (arguments.hasArgument_gui() == false) {
-				// TODO (2022-07-07 #71): без команды stop текст в консоли выводится, но не останавливаются потоки
-				// TODO (2022-07-07 #71): надо делать команду stopApplication
-				// TODO (2022-07-07 #71): надо добавлять последовательное выполнение команд
-				stop();
+				stopApplication();
 			}
 		} catch (UnrecognizedOptionException e) {
 			userInterfaceManager.createUserInterface(UserInterfaceType.cli);
@@ -75,7 +74,7 @@ public class Application {
 			executor.submit(commandManager);
 			pushEvent(UserEvent.error(e.getMessage()));
 			usageHelp();
-			stop();
+			stopApplication();
 		}
 	}
 
@@ -183,5 +182,10 @@ public class Application {
 		UsageHelpCommandData data = new UsageHelpCommandData();
 		data.options = arguments.getOptions();
 		pushEvent(CommandEvent.start(UsageHelpCommand.NAME, data));
+	}
+
+	public void stopApplication() {
+		StopApplicationCommandData data = new StopApplicationCommandData();
+		pushEvent(CommandEvent.start(StopApplicationCommand.NAME, data));
 	}
 }

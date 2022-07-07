@@ -143,7 +143,7 @@ public class MainViewFrame extends javax.swing.JFrame implements UserInterface {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			application.stop();
+			application.stopApplication();
 		}
 	};
 

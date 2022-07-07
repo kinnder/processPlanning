@@ -19,6 +19,7 @@ public class CommandManager extends EventQueue {
 		registerCommand(new NewTaskDescriptionCommand(application));
 		registerCommand(new VerifyCommand(application));
 		registerCommand(new ConvertCommand(application));
+		registerCommand(new StopApplicationCommand(application));
 	}
 
 	public void registerCommand(Command command) {
