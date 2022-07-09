@@ -16,7 +16,10 @@ import application.ui.UserInterfaceFactory.UserInterfaceType;
 import application.ui.cli.MainViewShell;
 import application.ui.gui.AboutFrame;
 import application.ui.gui.MainViewFrame;
+import application.ui.gui.NodeNetworkEditorFrame;
 import application.ui.gui.OptionsFrame;
+import application.ui.gui.SystemTransformationsEditorFrame;
+import application.ui.gui.TaskDescriptionEditorFrame;
 
 public class UserInterfaceFactoryTest {
 
@@ -74,5 +77,26 @@ public class UserInterfaceFactoryTest {
 	public void createAboutView_gui() {
 		AboutFrame result = testable.createAboutView();
 		assertTrue(result instanceof AboutFrame);
+	}
+
+	@Test
+	@DisabledIf("isHeadless")
+	public void createNodeNetworkEditorView_gui() {
+		NodeNetworkEditorFrame result = testable.createNodeNetworkEditorView();
+		assertTrue(result instanceof NodeNetworkEditorFrame);
+	}
+
+	@Test
+	@DisabledIf("isHeadless")
+	public void createSystemTransformationsEditorView_gui() {
+		SystemTransformationsEditorFrame result = testable.createSystemTransformationsEditorView();
+		assertTrue(result instanceof SystemTransformationsEditorFrame);
+	}
+
+	@Test
+	@DisabledIf("isHeadless")
+	public void createTaskDescriptionEditorView_gui() {
+		TaskDescriptionEditorFrame result = testable.createTaskDescriptionEditorView();
+		assertTrue(result instanceof TaskDescriptionEditorFrame);
 	}
 }

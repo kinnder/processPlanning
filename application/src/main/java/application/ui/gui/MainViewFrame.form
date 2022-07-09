@@ -4,7 +4,7 @@
   <NonVisualComponents>
     <Menu class="javax.swing.JMenuBar" name="jMenuBar1">
       <SubComponents>
-        <Menu class="javax.swing.JMenu" name="jMenu1">
+        <Menu class="javax.swing.JMenu" name="jmApplication">
           <Properties>
             <Property name="text" type="java.lang.String" value="Application"/>
           </Properties>
@@ -21,7 +21,7 @@
             </MenuItem>
           </SubComponents>
         </Menu>
-        <Menu class="javax.swing.JMenu" name="jMenu2">
+        <Menu class="javax.swing.JMenu" name="jmCommands">
           <Properties>
             <Property name="text" type="java.lang.String" value="Commands"/>
           </Properties>
@@ -53,7 +53,29 @@
             </MenuItem>
           </SubComponents>
         </Menu>
-        <Menu class="javax.swing.JMenu" name="jMenu3">
+        <Menu class="javax.swing.JMenu" name="jmEditors">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Editors"/>
+          </Properties>
+          <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="jmiTaskDescriptionEditor">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Task Description Editor"/>
+              </Properties>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="jmiSystemTransformationsEditor">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Transformations Editor"/>
+              </Properties>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="jmiNodeNetworkEditor">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Node Network Editor"/>
+              </Properties>
+            </MenuItem>
+          </SubComponents>
+        </Menu>
+        <Menu class="javax.swing.JMenu" name="jmHelp">
           <Properties>
             <Property name="text" type="java.lang.String" value="Help"/>
           </Properties>

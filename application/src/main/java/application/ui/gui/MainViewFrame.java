@@ -39,6 +39,9 @@ public class MainViewFrame extends javax.swing.JFrame implements UserInterface {
 		jmiPlan.setAction(planAction);
 		jmiUsage.setAction(usageAction);
 		jmiVerify.setAction(verifyAction);
+		jmiTaskDescriptionEditor.setAction(taskDescriptionEditorAction);
+		jmiNodeNetworkEditor.setAction(nodeNetworkEditorAction);
+		jmiSystemTransformationsEditor.setAction(systemTransformationsEditorAction);
 	}
 
 	/**
@@ -52,16 +55,20 @@ public class MainViewFrame extends javax.swing.JFrame implements UserInterface {
 		jScrollPane1 = new javax.swing.JScrollPane();
 		jtaLog = new javax.swing.JTextArea();
 		jMenuBar1 = new javax.swing.JMenuBar();
-		jMenu1 = new javax.swing.JMenu();
+		jmApplication = new javax.swing.JMenu();
 		jmiOptions = new javax.swing.JMenuItem();
 		jmiExit = new javax.swing.JMenuItem();
-		jMenu2 = new javax.swing.JMenu();
+		jmCommands = new javax.swing.JMenu();
 		jmiConvert = new javax.swing.JMenuItem();
 		jmiNewSystemTransformations = new javax.swing.JMenuItem();
 		jmiNewTaskDescription = new javax.swing.JMenuItem();
 		jmiPlan = new javax.swing.JMenuItem();
 		jmiVerify = new javax.swing.JMenuItem();
-		jMenu3 = new javax.swing.JMenu();
+		jmEditors = new javax.swing.JMenu();
+		jmiTaskDescriptionEditor = new javax.swing.JMenuItem();
+		jmiSystemTransformationsEditor = new javax.swing.JMenuItem();
+		jmiNodeNetworkEditor = new javax.swing.JMenuItem();
+		jmHelp = new javax.swing.JMenu();
 		jmiUsage = new javax.swing.JMenuItem();
 		jmiAbout = new javax.swing.JMenuItem();
 
@@ -75,44 +82,57 @@ public class MainViewFrame extends javax.swing.JFrame implements UserInterface {
 		jtaLog.setRows(5);
 		jScrollPane1.setViewportView(jtaLog);
 
-		jMenu1.setText("Application");
+		jmApplication.setText("Application");
 
 		jmiOptions.setText("Options");
-		jMenu1.add(jmiOptions);
+		jmApplication.add(jmiOptions);
 
 		jmiExit.setText("Exit");
-		jMenu1.add(jmiExit);
+		jmApplication.add(jmiExit);
 
-		jMenuBar1.add(jMenu1);
+		jMenuBar1.add(jmApplication);
 
-		jMenu2.setText("Commands");
+		jmCommands.setText("Commands");
 
 		jmiConvert.setText("Convert");
-		jMenu2.add(jmiConvert);
+		jmCommands.add(jmiConvert);
 
 		jmiNewSystemTransformations.setText("New Transformations");
-		jMenu2.add(jmiNewSystemTransformations);
+		jmCommands.add(jmiNewSystemTransformations);
 
 		jmiNewTaskDescription.setText("New Task");
-		jMenu2.add(jmiNewTaskDescription);
+		jmCommands.add(jmiNewTaskDescription);
 
 		jmiPlan.setText("Plan");
-		jMenu2.add(jmiPlan);
+		jmCommands.add(jmiPlan);
 
 		jmiVerify.setText("Verify");
-		jMenu2.add(jmiVerify);
+		jmCommands.add(jmiVerify);
 
-		jMenuBar1.add(jMenu2);
+		jMenuBar1.add(jmCommands);
 
-		jMenu3.setText("Help");
+		jmEditors.setText("Editors");
+
+		jmiTaskDescriptionEditor.setText("Task Description Editor");
+		jmEditors.add(jmiTaskDescriptionEditor);
+
+		jmiSystemTransformationsEditor.setText("Transformations Editor");
+		jmEditors.add(jmiSystemTransformationsEditor);
+
+		jmiNodeNetworkEditor.setText("Node Network Editor");
+		jmEditors.add(jmiNodeNetworkEditor);
+
+		jMenuBar1.add(jmEditors);
+
+		jmHelp.setText("Help");
 
 		jmiUsage.setText("Usage");
-		jMenu3.add(jmiUsage);
+		jmHelp.add(jmiUsage);
 
 		jmiAbout.setText("About");
-		jMenu3.add(jmiAbout);
+		jmHelp.add(jmiAbout);
 
-		jMenuBar1.add(jMenu3);
+		jMenuBar1.add(jmHelp);
 
 		setJMenuBar(jMenuBar1);
 
@@ -132,9 +152,39 @@ public class MainViewFrame extends javax.swing.JFrame implements UserInterface {
 
 		@Override
 		public void actionPerformed(ActionEvent evt) {
-			OptionsFrame optionsFrame = userInterfaceFactory.createOptionsView(application);
-			optionsFrame.updateComponents();
-			optionsFrame.setVisible(true);
+			OptionsFrame frame = userInterfaceFactory.createOptionsView(application);
+			frame.updateComponents();
+			frame.setVisible(true);
+		}
+	};
+
+	Action nodeNetworkEditorAction = new AbstractAction("Node Network Editor") {
+		private static final long serialVersionUID = 553215988718603009L;
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			NodeNetworkEditorFrame frame = userInterfaceFactory.createNodeNetworkEditorView();
+			frame.setVisible(true);
+		}
+	};
+
+	Action systemTransformationsEditorAction = new AbstractAction("Transformations Editor") {
+		private static final long serialVersionUID = 5229889242759466230L;
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			SystemTransformationsEditorFrame frame = userInterfaceFactory.createSystemTransformationsEditorView();
+			frame.setVisible(true);
+		}
+	};
+
+	Action taskDescriptionEditorAction = new AbstractAction("Task Description Editor") {
+		private static final long serialVersionUID = -5910031266045939508L;
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			TaskDescriptionEditorFrame frame = userInterfaceFactory.createTaskDescriptionEditorView();
+			frame.setVisible(true);
 		}
 	};
 
@@ -206,8 +256,8 @@ public class MainViewFrame extends javax.swing.JFrame implements UserInterface {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			AboutFrame aboutFrame = userInterfaceFactory.createAboutView();
-			aboutFrame.setVisible(true);
+			AboutFrame frame = userInterfaceFactory.createAboutView();
+			frame.setVisible(true);
 		}
 	};
 
@@ -219,18 +269,22 @@ public class MainViewFrame extends javax.swing.JFrame implements UserInterface {
 	}
 
 	// Variables declaration - do not modify//GEN-BEGIN:variables
-	private javax.swing.JMenu jMenu1;
-	private javax.swing.JMenu jMenu2;
-	private javax.swing.JMenu jMenu3;
 	private javax.swing.JMenuBar jMenuBar1;
 	private javax.swing.JScrollPane jScrollPane1;
+	private javax.swing.JMenu jmApplication;
+	private javax.swing.JMenu jmCommands;
+	private javax.swing.JMenu jmEditors;
+	private javax.swing.JMenu jmHelp;
 	private javax.swing.JMenuItem jmiAbout;
 	private javax.swing.JMenuItem jmiConvert;
 	private javax.swing.JMenuItem jmiExit;
 	private javax.swing.JMenuItem jmiNewSystemTransformations;
 	private javax.swing.JMenuItem jmiNewTaskDescription;
+	private javax.swing.JMenuItem jmiNodeNetworkEditor;
 	private javax.swing.JMenuItem jmiOptions;
 	private javax.swing.JMenuItem jmiPlan;
+	private javax.swing.JMenuItem jmiSystemTransformationsEditor;
+	private javax.swing.JMenuItem jmiTaskDescriptionEditor;
 	private javax.swing.JMenuItem jmiUsage;
 	private javax.swing.JMenuItem jmiVerify;
 	private javax.swing.JTextArea jtaLog;

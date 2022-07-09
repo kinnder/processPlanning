@@ -65,14 +65,14 @@ public class MainViewFrameTest {
 	@Test
 	public void aboutAction_actionPerformed() {
 		final ActionEvent actionEvent_mock = context.mock(ActionEvent.class);
-		final AboutFrame aboutFrame_mock = context.mock(AboutFrame.class);
+		final AboutFrame frame_mock = context.mock(AboutFrame.class);
 
 		context.checking(new Expectations() {
 			{
 				oneOf(userInterfaceFactory_mock).createAboutView();
-				will(returnValue(aboutFrame_mock));
+				will(returnValue(frame_mock));
 
-				oneOf(aboutFrame_mock).setVisible(true);
+				oneOf(frame_mock).setVisible(true);
 			}
 		});
 
@@ -159,16 +159,16 @@ public class MainViewFrameTest {
 	@Test
 	public void optionsAction_actionPerformed() {
 		final ActionEvent actionEvent_mock = context.mock(ActionEvent.class);
-		final OptionsFrame optionsFrame_mock = context.mock(OptionsFrame.class);
+		final OptionsFrame frame_mock = context.mock(OptionsFrame.class);
 
 		context.checking(new Expectations() {
 			{
 				oneOf(userInterfaceFactory_mock).createOptionsView(application_mock);
-				will(returnValue(optionsFrame_mock));
+				will(returnValue(frame_mock));
 
-				oneOf(optionsFrame_mock).updateComponents();
+				oneOf(frame_mock).updateComponents();
 
-				oneOf(optionsFrame_mock).setVisible(true);
+				oneOf(frame_mock).setVisible(true);
 			}
 		});
 
@@ -227,6 +227,72 @@ public class MainViewFrameTest {
 		});
 
 		testable.verifyAction.actionPerformed(actionEvent_mock);
+	}
+
+	@Test
+	public void taskDescriptionEditorAction_name() {
+		assertEquals("Task Description Editor", testable.taskDescriptionEditorAction.getValue(Action.NAME));
+	}
+
+	@Test
+	public void taskDescriptionEditorAction_actionPerformed() {
+		final ActionEvent actionEvent_mock = context.mock(ActionEvent.class);
+		final TaskDescriptionEditorFrame frame_mock = context.mock(TaskDescriptionEditorFrame.class);
+
+		context.checking(new Expectations() {
+			{
+				oneOf(userInterfaceFactory_mock).createTaskDescriptionEditorView();
+				will(returnValue(frame_mock));
+
+				oneOf(frame_mock).setVisible(true);
+			}
+		});
+
+		testable.taskDescriptionEditorAction.actionPerformed(actionEvent_mock);
+	}
+
+	@Test
+	public void nodeNetworkEditorAction_name() {
+		assertEquals("Node Network Editor", testable.nodeNetworkEditorAction.getValue(Action.NAME));
+	}
+
+	@Test
+	public void nodeNetworkEditorAction_actionPerformed() {
+		final ActionEvent actionEvent_mock = context.mock(ActionEvent.class);
+		final NodeNetworkEditorFrame frame_mock = context.mock(NodeNetworkEditorFrame.class);
+
+		context.checking(new Expectations() {
+			{
+				oneOf(userInterfaceFactory_mock).createNodeNetworkEditorView();
+				will(returnValue(frame_mock));
+
+				oneOf(frame_mock).setVisible(true);
+			}
+		});
+
+		testable.nodeNetworkEditorAction.actionPerformed(actionEvent_mock);
+	}
+
+	@Test
+	public void systemTransformationsEditorAction_name() {
+		assertEquals("Transformations Editor", testable.systemTransformationsEditorAction.getValue(Action.NAME));
+	}
+
+	@Test
+	public void systemTransformationsEditorAction_actionPerformed() {
+		final ActionEvent actionEvent_mock = context.mock(ActionEvent.class);
+		final SystemTransformationsEditorFrame frame_mock = context.mock(SystemTransformationsEditorFrame.class);
+
+		context.checking(new Expectations() {
+			{
+				oneOf(userInterfaceFactory_mock).createSystemTransformationsEditorView();
+				will(returnValue(frame_mock));
+
+				oneOf(frame_mock).setVisible(true);
+			}
+		});
+
+		testable.systemTransformationsEditorAction.actionPerformed(actionEvent_mock);
 	}
 
 	@Test
