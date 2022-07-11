@@ -43,11 +43,8 @@ public class TaskDescriptionEditorFrame extends javax.swing.JFrame {
 
 	public static void main(String args[]) throws Exception {
 		initializeLookAndFeel();
-		SwingUtilities.invokeLater(new Runnable() {
-			@Override
-			public void run() {
-				new TaskDescriptionEditorFrame().setVisible(true);
-			}
+		SwingUtilities.invokeLater(() -> {
+			new TaskDescriptionEditorFrame().setVisible(true);
 		});
 	}
 

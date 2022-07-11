@@ -43,11 +43,8 @@ public class SystemTransformationsEditorFrame extends javax.swing.JFrame {
 
 	public static void main(String args[]) throws Exception {
 		initializeLookAndFeel();
-		SwingUtilities.invokeLater(new Runnable() {
-			@Override
-			public void run() {
-				new SystemTransformationsEditorFrame().setVisible(true);
-			}
+		SwingUtilities.invokeLater(() -> {
+			new SystemTransformationsEditorFrame().setVisible(true);
 		});
 	}
 

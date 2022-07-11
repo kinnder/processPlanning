@@ -43,11 +43,8 @@ public class NodeNetworkEditorFrame extends javax.swing.JFrame {
 
 	public static void main(String args[]) throws Exception {
 		initializeLookAndFeel();
-		SwingUtilities.invokeLater(new Runnable() {
-			@Override
-			public void run() {
-				new NodeNetworkEditorFrame().setVisible(true);
-			}
+		SwingUtilities.invokeLater(() -> {
+			new NodeNetworkEditorFrame().setVisible(true);
 		});
 	}
 
