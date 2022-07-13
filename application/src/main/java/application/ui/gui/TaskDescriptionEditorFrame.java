@@ -19,49 +19,47 @@ public class TaskDescriptionEditorFrame extends javax.swing.JFrame {
 	// <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
 	private void initComponents() {
 
-		buttonGroup1 = new javax.swing.ButtonGroup();
-		jScrollPane1 = new javax.swing.JScrollPane();
-		jTree1 = new javax.swing.JTree();
-		jTabbedPane1 = new javax.swing.JTabbedPane();
-		jPanel1 = new javax.swing.JPanel();
-		jTextField1 = new javax.swing.JTextField();
-		jLabel1 = new javax.swing.JLabel();
-		jRadioButton1 = new javax.swing.JRadioButton();
-		jRadioButton2 = new javax.swing.JRadioButton();
-		jRadioButton3 = new javax.swing.JRadioButton();
-		jScrollPane5 = new javax.swing.JScrollPane();
-		jTable4 = new javax.swing.JTable();
-		jLabel7 = new javax.swing.JLabel();
-		jButton9 = new javax.swing.JButton();
-		jButton10 = new javax.swing.JButton();
-		jLabel8 = new javax.swing.JLabel();
-		jButton1 = new javax.swing.JButton();
-		jButton2 = new javax.swing.JButton();
-		jLabel9 = new javax.swing.JLabel();
-		jScrollPane6 = new javax.swing.JScrollPane();
-		jTable5 = new javax.swing.JTable();
-		jButton3 = new javax.swing.JButton();
-		jButton4 = new javax.swing.JButton();
-		jButton11 = new javax.swing.JButton();
-		jButton12 = new javax.swing.JButton();
-		jPanel2 = new javax.swing.JPanel();
-		jTextField2 = new javax.swing.JTextField();
-		jLabel2 = new javax.swing.JLabel();
-		jTextField3 = new javax.swing.JTextField();
-		jLabel3 = new javax.swing.JLabel();
-		jScrollPane2 = new javax.swing.JScrollPane();
-		jTable1 = new javax.swing.JTable();
-		jButton5 = new javax.swing.JButton();
-		jButton6 = new javax.swing.JButton();
-		jLabel6 = new javax.swing.JLabel();
-		jLabel5 = new javax.swing.JLabel();
-		jScrollPane4 = new javax.swing.JScrollPane();
-		jTable3 = new javax.swing.JTable();
-		jButton7 = new javax.swing.JButton();
-		jButton8 = new javax.swing.JButton();
+		jrbgSystemTypes = new javax.swing.ButtonGroup();
+		jscpTaskDescription = new javax.swing.JScrollPane();
+		jtTaskDescription = new javax.swing.JTree();
+		jtpEditors = new javax.swing.JTabbedPane();
+		jpSystemEditor = new javax.swing.JPanel();
+		jtfSystemName = new javax.swing.JTextField();
+		jlSystemName = new javax.swing.JLabel();
+		jrbSystemTypeInitial = new javax.swing.JRadioButton();
+		jrbSystemTypeFinal = new javax.swing.JRadioButton();
+		jrbSystemTypeRegular = new javax.swing.JRadioButton();
+		jspObjects = new javax.swing.JScrollPane();
+		jtObjects = new javax.swing.JTable();
+		jlObjects = new javax.swing.JLabel();
+		jbObjectsInsert = new javax.swing.JButton();
+		jbObjectsDelete = new javax.swing.JButton();
+		jlSystemType = new javax.swing.JLabel();
+		jbObjectsMoveUp = new javax.swing.JButton();
+		jbObjectsMoveDown = new javax.swing.JButton();
+		jlLinks = new javax.swing.JLabel();
+		jspLinks = new javax.swing.JScrollPane();
+		jtLinks = new javax.swing.JTable();
+		jbLinksInsert = new javax.swing.JButton();
+		jbLinksDelete = new javax.swing.JButton();
+		jbLinksMoveUp = new javax.swing.JButton();
+		jbLinksMoveDown = new javax.swing.JButton();
+		jpObjectEditor = new javax.swing.JPanel();
+		jtfObjectName = new javax.swing.JTextField();
+		jlObjectName = new javax.swing.JLabel();
+		jtfObjectId = new javax.swing.JTextField();
+		jlObjectId = new javax.swing.JLabel();
+		jspAttributes = new javax.swing.JScrollPane();
+		jtAttributes = new javax.swing.JTable();
+		jbAttributesInsert = new javax.swing.JButton();
+		jbAttributesDelete = new javax.swing.JButton();
+		jlAttributes = new javax.swing.JLabel();
+		jbAttributesMoveUp = new javax.swing.JButton();
+		jbAttributesMoveDown = new javax.swing.JButton();
 
 		setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 		setTitle("Task Description Editor");
+		setName("jfTaskDescriptionEditor"); // NOI18N
 
 		javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode(
 				"Task Description");
@@ -93,293 +91,273 @@ public class TaskDescriptionEditorFrame extends javax.swing.JFrame {
 		treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("object-part-pocket");
 		treeNode2.add(treeNode3);
 		treeNode1.add(treeNode2);
-		jTree1.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
-		jScrollPane1.setViewportView(jTree1);
+		jtTaskDescription.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
+		jscpTaskDescription.setViewportView(jtTaskDescription);
 
-		jTextField1.setText("initialSystem");
+		jtfSystemName.setText("initialSystem");
 
-		jLabel1.setText("name");
+		jlSystemName.setText("name");
 
-		buttonGroup1.add(jRadioButton1);
-		jRadioButton1.setSelected(true);
-		jRadioButton1.setText("initial");
+		jrbgSystemTypes.add(jrbSystemTypeInitial);
+		jrbSystemTypeInitial.setSelected(true);
+		jrbSystemTypeInitial.setText("initial");
 
-		buttonGroup1.add(jRadioButton2);
-		jRadioButton2.setText("final");
+		jrbgSystemTypes.add(jrbSystemTypeFinal);
+		jrbSystemTypeFinal.setText("final");
 
-		buttonGroup1.add(jRadioButton3);
-		jRadioButton3.setText("regular");
+		jrbgSystemTypes.add(jrbSystemTypeRegular);
+		jrbSystemTypeRegular.setText("regular");
 
-		jTable4.setModel(
-				new javax.swing.table.DefaultTableModel(
+		jtObjects
+				.setModel(new javax.swing.table.DefaultTableModel(
 						new Object[][] { { "object-workpiece", "id-workpiece" },
 								{ "object-workpiece-pad", "id-workpiece-pad" }, { null, null } },
 						new String[] { "name", "id" }) {
 					private static final long serialVersionUID = -3088616395233148837L;
-					Class[] types = new Class[] { java.lang.String.class, java.lang.String.class };
+					Class<?>[] types = new Class[] { java.lang.String.class, java.lang.String.class };
 
-					public Class getColumnClass(int columnIndex) {
+					@Override
+					public Class<?> getColumnClass(int columnIndex) {
 						return types[columnIndex];
 					}
 				});
-		jScrollPane5.setViewportView(jTable4);
+		jspObjects.setViewportView(jtObjects);
 
-		jLabel7.setText("Objects");
+		jlObjects.setText("Objects");
 
-		jButton9.setText("Insert");
-		jButton9.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				jButton9ActionPerformed(evt);
-			}
-		});
+		jbObjectsInsert.setText("Insert");
 
-		jButton10.setText("Delete");
+		jbObjectsDelete.setText("Delete");
 
-		jLabel8.setText("type");
+		jlSystemType.setText("type");
 
-		jButton1.setText("Up");
+		jbObjectsMoveUp.setText("Up");
 
-		jButton2.setText("Down");
+		jbObjectsMoveDown.setText("Down");
 
-		jLabel9.setText("Links");
+		jlLinks.setText("Links");
 
-		jTable5.setModel(new javax.swing.table.DefaultTableModel(
+		jtLinks.setModel(new javax.swing.table.DefaultTableModel(
 				new Object[][] { { "link-has-feature", "id-part", "id-part-pad" },
 						{ "link-has-feature", "id-workpiece", "id-workpiece-pad" }, { null, null, null },
 						{ null, null, null }, { null, null, null } },
 				new String[] { "name", "id1", "id2" }) {
 			private static final long serialVersionUID = 7843667249897162662L;
-			Class[] types = new Class[] { java.lang.String.class, java.lang.String.class, java.lang.String.class };
+			Class<?>[] types = new Class[] { java.lang.String.class, java.lang.String.class, java.lang.String.class };
 
-			public Class getColumnClass(int columnIndex) {
+			@Override
+			public Class<?> getColumnClass(int columnIndex) {
 				return types[columnIndex];
 			}
 		});
-		jScrollPane6.setViewportView(jTable5);
+		jspLinks.setViewportView(jtLinks);
 
-		jButton3.setText("Insert");
+		jbLinksInsert.setText("Insert");
 
-		jButton4.setText("Delete");
+		jbLinksDelete.setText("Delete");
 
-		jButton11.setText("Up");
+		jbLinksMoveUp.setText("Up");
 
-		jButton12.setText("Down");
+		jbLinksMoveDown.setText("Down");
 
-		javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-		jPanel1.setLayout(jPanel1Layout);
-		jPanel1Layout.setHorizontalGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-				.addGroup(jPanel1Layout.createSequentialGroup().addGroup(jPanel1Layout
+		javax.swing.GroupLayout jpSystemEditorLayout = new javax.swing.GroupLayout(jpSystemEditor);
+		jpSystemEditor.setLayout(jpSystemEditorLayout);
+		jpSystemEditorLayout.setHorizontalGroup(jpSystemEditorLayout
+				.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+				.addGroup(jpSystemEditorLayout.createSequentialGroup().addGroup(jpSystemEditorLayout
 						.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-						.addGroup(jPanel1Layout.createSequentialGroup().addGap(12, 12, 12)
-								.addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-										.addGroup(jPanel1Layout.createSequentialGroup().addComponent(jLabel1)
+						.addGroup(jpSystemEditorLayout.createSequentialGroup().addGap(12, 12, 12)
+								.addGroup(jpSystemEditorLayout
+										.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+										.addGroup(jpSystemEditorLayout.createSequentialGroup()
+												.addComponent(jlSystemName)
 												.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-												.addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE,
+												.addComponent(jtfSystemName, javax.swing.GroupLayout.PREFERRED_SIZE,
 														javax.swing.GroupLayout.DEFAULT_SIZE,
 														javax.swing.GroupLayout.PREFERRED_SIZE))
-										.addGroup(jPanel1Layout.createSequentialGroup().addComponent(jLabel8)
-												.addGap(18, 18, 18).addComponent(jRadioButton1)
+										.addGroup(jpSystemEditorLayout.createSequentialGroup()
+												.addComponent(jlSystemType).addGap(18, 18, 18)
+												.addComponent(jrbSystemTypeInitial)
 												.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-												.addComponent(jRadioButton2)
+												.addComponent(jrbSystemTypeFinal)
 												.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-												.addComponent(jRadioButton3))))
-						.addGroup(jPanel1Layout.createSequentialGroup().addContainerGap().addComponent(jLabel9))
-						.addGroup(jPanel1Layout.createSequentialGroup().addContainerGap().addComponent(jLabel7))
-						.addGroup(jPanel1Layout.createSequentialGroup()
-								.addGroup(jPanel1Layout
-										.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-										.addComponent(jScrollPane6, javax.swing.GroupLayout.Alignment.LEADING,
-												javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-										.addComponent(jScrollPane5, javax.swing.GroupLayout.Alignment.LEADING,
-												javax.swing.GroupLayout.DEFAULT_SIZE, 249, Short.MAX_VALUE))
+												.addComponent(jrbSystemTypeRegular))))
+						.addGroup(jpSystemEditorLayout.createSequentialGroup().addContainerGap().addComponent(jlLinks))
+						.addGroup(
+								jpSystemEditorLayout.createSequentialGroup().addContainerGap().addComponent(jlObjects))
+						.addGroup(jpSystemEditorLayout.createSequentialGroup().addGroup(jpSystemEditorLayout
+								.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+								.addComponent(jspLinks, javax.swing.GroupLayout.Alignment.LEADING,
+										javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+								.addComponent(jspObjects, javax.swing.GroupLayout.Alignment.LEADING,
+										javax.swing.GroupLayout.DEFAULT_SIZE, 249, Short.MAX_VALUE))
 								.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-								.addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-										.addGroup(jPanel1Layout
+								.addGroup(jpSystemEditorLayout
+										.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+										.addGroup(jpSystemEditorLayout
 												.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-												.addGroup(jPanel1Layout
+												.addGroup(jpSystemEditorLayout
 														.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-														.addGroup(jPanel1Layout
+														.addGroup(jpSystemEditorLayout
 																.createParallelGroup(
 																		javax.swing.GroupLayout.Alignment.LEADING)
-																.addComponent(jButton9).addComponent(jButton10)
-																.addComponent(jButton1,
+																.addComponent(jbObjectsInsert)
+																.addComponent(jbObjectsDelete)
+																.addComponent(jbObjectsMoveUp,
 																		javax.swing.GroupLayout.Alignment.TRAILING))
-														.addComponent(jButton2,
+														.addComponent(jbObjectsMoveDown,
 																javax.swing.GroupLayout.Alignment.TRAILING))
-												.addComponent(jButton3))
-										.addComponent(jButton4).addComponent(jButton11).addComponent(jButton12))))
+												.addComponent(jbLinksInsert))
+										.addComponent(jbLinksDelete).addComponent(jbLinksMoveUp)
+										.addComponent(jbLinksMoveDown))))
 						.addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
-		jPanel1Layout.setVerticalGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-				.addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+		jpSystemEditorLayout.setVerticalGroup(jpSystemEditorLayout
+				.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+				.addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpSystemEditorLayout.createSequentialGroup()
 						.addContainerGap()
-						.addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-								.addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE,
+						.addGroup(jpSystemEditorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+								.addComponent(jtfSystemName, javax.swing.GroupLayout.PREFERRED_SIZE,
 										javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-								.addComponent(jLabel1))
+								.addComponent(jlSystemName))
 						.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-						.addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-								.addComponent(jRadioButton1).addComponent(jRadioButton2).addComponent(jRadioButton3)
-								.addComponent(jLabel8))
-						.addGap(18, 18, 18).addComponent(jLabel7)
+						.addGroup(jpSystemEditorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+								.addComponent(jrbSystemTypeInitial).addComponent(jrbSystemTypeFinal)
+								.addComponent(jrbSystemTypeRegular).addComponent(jlSystemType))
+						.addGap(18, 18, 18).addComponent(jlObjects)
 						.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-						.addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-								.addGroup(jPanel1Layout.createSequentialGroup().addComponent(jButton9)
+						.addGroup(jpSystemEditorLayout
+								.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+								.addGroup(jpSystemEditorLayout.createSequentialGroup().addComponent(jbObjectsInsert)
 										.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-										.addComponent(jButton10)
+										.addComponent(jbObjectsDelete)
 										.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-										.addComponent(jButton1)
+										.addComponent(jbObjectsMoveUp)
 										.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-										.addComponent(jButton2))
-								.addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 106,
+										.addComponent(jbObjectsMoveDown))
+								.addComponent(jspObjects, javax.swing.GroupLayout.PREFERRED_SIZE, 106,
 										javax.swing.GroupLayout.PREFERRED_SIZE))
-						.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED).addComponent(jLabel9)
+						.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED).addComponent(jlLinks)
 						.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-						.addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-								.addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 109,
+						.addGroup(jpSystemEditorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+								.addComponent(jspLinks, javax.swing.GroupLayout.PREFERRED_SIZE, 109,
 										javax.swing.GroupLayout.PREFERRED_SIZE)
-								.addGroup(jPanel1Layout.createSequentialGroup().addComponent(jButton3)
+								.addGroup(jpSystemEditorLayout.createSequentialGroup().addComponent(jbLinksInsert)
 										.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-										.addComponent(jButton4)
+										.addComponent(jbLinksDelete)
 										.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-										.addComponent(jButton11)
+										.addComponent(jbLinksMoveUp)
 										.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-										.addComponent(jButton12)))
+										.addComponent(jbLinksMoveDown)))
 						.addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
 
-		jTabbedPane1.addTab("System", jPanel1);
+		jtpEditors.addTab("System", jpSystemEditor);
 
-		jTextField2.setText("object-workpiece");
+		jtfObjectName.setText("object-workpiece");
 
-		jLabel2.setText("name");
+		jlObjectName.setText("name");
 
-		jTextField3.setText("id-workpiece");
+		jtfObjectId.setText("id-workpiece");
 
-		jLabel3.setText("id");
+		jlObjectId.setText("id");
 
-		jTable1.setModel(
-				new javax.swing.table.DefaultTableModel(
+		jtAttributes
+				.setModel(new javax.swing.table.DefaultTableModel(
 						new Object[][] { { "attribute-feature", "boolean", "true" }, { null, null, null },
 								{ null, null, null }, { null, null, null } },
 						new String[] { "name", "type", "value" }) {
-					/**
-							 * 
-							 */
 					private static final long serialVersionUID = -1375888270764080577L;
-					Class[] types = new Class[] { java.lang.String.class, java.lang.String.class,
+					Class<?>[] types = new Class[] { java.lang.String.class, java.lang.String.class,
 							java.lang.String.class };
 
-					public Class getColumnClass(int columnIndex) {
+					@Override
+					public Class<?> getColumnClass(int columnIndex) {
 						return types[columnIndex];
 					}
 				});
-		jScrollPane2.setViewportView(jTable1);
+		jspAttributes.setViewportView(jtAttributes);
 
-		jButton5.setText("Insert");
-		jButton5.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				jButton5ActionPerformed(evt);
-			}
-		});
+		jbAttributesInsert.setText("Insert");
 
-		jButton6.setText("Delete");
+		jbAttributesDelete.setText("Delete");
 
-		jLabel6.setText("Attributes");
+		jlAttributes.setText("Attributes");
 
-		jLabel5.setText("jLabel5");
+		jbAttributesMoveUp.setText("Up");
 
-		jTable3.setModel(new javax.swing.table.DefaultTableModel(
-				new Object[][] { { null, null }, { null, null }, { null, null }, { null, null } },
-				new String[] { "Title 1", "Title 2" }));
-		jScrollPane4.setViewportView(jTable3);
+		jbAttributesMoveDown.setText("Down");
 
-		jButton7.setText("Up");
-
-		jButton8.setText("Down");
-
-		javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-		jPanel2.setLayout(jPanel2Layout);
-		jPanel2Layout.setHorizontalGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-				.addGroup(jPanel2Layout.createSequentialGroup()
-						.addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-								.addGroup(jPanel2Layout.createSequentialGroup().addGroup(jPanel2Layout
+		javax.swing.GroupLayout jpObjectEditorLayout = new javax.swing.GroupLayout(jpObjectEditor);
+		jpObjectEditor.setLayout(jpObjectEditorLayout);
+		jpObjectEditorLayout.setHorizontalGroup(jpObjectEditorLayout
+				.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+				.addGroup(jpObjectEditorLayout.createSequentialGroup().addGroup(jpObjectEditorLayout
+						.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+						.addGroup(jpObjectEditorLayout
+								.createSequentialGroup()
+								.addGroup(jpObjectEditorLayout
 										.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-										.addGroup(jPanel2Layout.createSequentialGroup().addGap(25, 25, 25)
-												.addGroup(jPanel2Layout
+										.addGroup(jpObjectEditorLayout.createSequentialGroup().addGap(25, 25, 25)
+												.addGroup(jpObjectEditorLayout
 														.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-														.addComponent(jLabel3).addComponent(jLabel2))
+														.addComponent(jlObjectId).addComponent(jlObjectName))
 												.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-												.addGroup(jPanel2Layout
+												.addGroup(jpObjectEditorLayout
 														.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-														.addComponent(jTextField3).addComponent(jTextField2)))
-										.addGroup(jPanel2Layout.createSequentialGroup().addContainerGap().addComponent(
-												jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 249,
-												javax.swing.GroupLayout.PREFERRED_SIZE)))
-										.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-										.addGroup(jPanel2Layout
-												.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-												.addComponent(jButton5).addComponent(jButton6).addComponent(jButton7)
-												.addComponent(jButton8)))
-								.addGroup(jPanel2Layout.createSequentialGroup().addContainerGap()
-										.addGroup(jPanel2Layout
-												.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-												.addComponent(jLabel6).addComponent(jLabel5).addComponent(jScrollPane4,
-														javax.swing.GroupLayout.PREFERRED_SIZE, 247,
-														javax.swing.GroupLayout.PREFERRED_SIZE))))
+														.addComponent(jtfObjectId).addComponent(jtfObjectName)))
+										.addGroup(jpObjectEditorLayout.createSequentialGroup().addContainerGap()
+												.addComponent(jspAttributes, javax.swing.GroupLayout.PREFERRED_SIZE,
+														249, javax.swing.GroupLayout.PREFERRED_SIZE)))
+								.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+								.addGroup(jpObjectEditorLayout
+										.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+										.addComponent(jbAttributesInsert).addComponent(jbAttributesDelete)
+										.addComponent(jbAttributesMoveUp).addComponent(jbAttributesMoveDown)))
+						.addGroup(jpObjectEditorLayout.createSequentialGroup().addContainerGap()
+								.addComponent(jlAttributes)))
 						.addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
-		jPanel2Layout.setVerticalGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-				.addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+		jpObjectEditorLayout.setVerticalGroup(jpObjectEditorLayout
+				.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+				.addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpObjectEditorLayout.createSequentialGroup()
 						.addGap(21, 21, 21)
-						.addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-								.addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE,
+						.addGroup(jpObjectEditorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+								.addComponent(jtfObjectName, javax.swing.GroupLayout.PREFERRED_SIZE,
 										javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-								.addComponent(jLabel2))
+								.addComponent(jlObjectName))
 						.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-						.addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-								.addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE,
+						.addGroup(jpObjectEditorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+								.addComponent(jtfObjectId, javax.swing.GroupLayout.PREFERRED_SIZE,
 										javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-								.addComponent(jLabel3))
-						.addGap(27, 27, 27).addComponent(jLabel6)
+								.addComponent(jlObjectId))
+						.addGap(27, 27, 27).addComponent(jlAttributes)
 						.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-						.addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-								.addGroup(jPanel2Layout.createSequentialGroup()
-										.addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 95,
-												javax.swing.GroupLayout.PREFERRED_SIZE)
-										.addGap(129, 129, 129).addComponent(jLabel5)
-										.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-										.addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 101,
-												javax.swing.GroupLayout.PREFERRED_SIZE))
-								.addGroup(jPanel2Layout.createSequentialGroup().addComponent(jButton5)
+						.addGroup(jpObjectEditorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+								.addComponent(jspAttributes, javax.swing.GroupLayout.PREFERRED_SIZE, 95,
+										javax.swing.GroupLayout.PREFERRED_SIZE)
+								.addGroup(jpObjectEditorLayout.createSequentialGroup().addComponent(jbAttributesInsert)
 										.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-										.addComponent(jButton6)
+										.addComponent(jbAttributesDelete)
 										.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-										.addComponent(jButton7).addGap(4, 4, 4).addComponent(jButton8)))
-						.addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
+										.addComponent(jbAttributesMoveUp).addGap(4, 4, 4)
+										.addComponent(jbAttributesMoveDown)))
+						.addContainerGap(121, Short.MAX_VALUE)));
 
-		jTabbedPane1.addTab("Object", jPanel2);
+		jtpEditors.addTab("Object", jpObjectEditor);
 
 		javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
 		getContentPane().setLayout(layout);
 		layout.setHorizontalGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
 				.addGroup(layout.createSequentialGroup()
-						.addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 161, Short.MAX_VALUE)
-						.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED).addComponent(jTabbedPane1,
+						.addComponent(jscpTaskDescription, javax.swing.GroupLayout.DEFAULT_SIZE, 161, Short.MAX_VALUE)
+						.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED).addComponent(jtpEditors,
 								javax.swing.GroupLayout.PREFERRED_SIZE, 332, javax.swing.GroupLayout.PREFERRED_SIZE)
 						.addContainerGap()));
 		layout.setVerticalGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-				.addGroup(layout.createSequentialGroup().addContainerGap(12, Short.MAX_VALUE).addComponent(jTabbedPane1,
+				.addGroup(layout.createSequentialGroup().addContainerGap(12, Short.MAX_VALUE).addComponent(jtpEditors,
 						javax.swing.GroupLayout.PREFERRED_SIZE, 378, javax.swing.GroupLayout.PREFERRED_SIZE))
-				.addGroup(layout.createSequentialGroup().addComponent(jScrollPane1).addContainerGap()));
+				.addGroup(layout.createSequentialGroup().addComponent(jscpTaskDescription).addContainerGap()));
 
 		pack();
 	}// </editor-fold>//GEN-END:initComponents
-
-	private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButton9ActionPerformed
-		// TODO add your handling code here:
-	}// GEN-LAST:event_jButton9ActionPerformed
-
-	private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButton5ActionPerformed
-		// TODO add your handling code here:
-	}// GEN-LAST:event_jButton5ActionPerformed
 
 	public static void initializeLookAndFeel() throws Exception {
 		for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
@@ -398,45 +376,42 @@ public class TaskDescriptionEditorFrame extends javax.swing.JFrame {
 	}
 
 	// Variables declaration - do not modify//GEN-BEGIN:variables
-	private javax.swing.ButtonGroup buttonGroup1;
-	private javax.swing.JButton jButton1;
-	private javax.swing.JButton jButton10;
-	private javax.swing.JButton jButton11;
-	private javax.swing.JButton jButton12;
-	private javax.swing.JButton jButton2;
-	private javax.swing.JButton jButton3;
-	private javax.swing.JButton jButton4;
-	private javax.swing.JButton jButton5;
-	private javax.swing.JButton jButton6;
-	private javax.swing.JButton jButton7;
-	private javax.swing.JButton jButton8;
-	private javax.swing.JButton jButton9;
-	private javax.swing.JLabel jLabel1;
-	private javax.swing.JLabel jLabel2;
-	private javax.swing.JLabel jLabel3;
-	private javax.swing.JLabel jLabel5;
-	private javax.swing.JLabel jLabel6;
-	private javax.swing.JLabel jLabel7;
-	private javax.swing.JLabel jLabel8;
-	private javax.swing.JLabel jLabel9;
-	private javax.swing.JPanel jPanel1;
-	private javax.swing.JPanel jPanel2;
-	private javax.swing.JRadioButton jRadioButton1;
-	private javax.swing.JRadioButton jRadioButton2;
-	private javax.swing.JRadioButton jRadioButton3;
-	private javax.swing.JScrollPane jScrollPane1;
-	private javax.swing.JScrollPane jScrollPane2;
-	private javax.swing.JScrollPane jScrollPane4;
-	private javax.swing.JScrollPane jScrollPane5;
-	private javax.swing.JScrollPane jScrollPane6;
-	private javax.swing.JTabbedPane jTabbedPane1;
-	private javax.swing.JTable jTable1;
-	private javax.swing.JTable jTable3;
-	private javax.swing.JTable jTable4;
-	private javax.swing.JTable jTable5;
-	private javax.swing.JTextField jTextField1;
-	private javax.swing.JTextField jTextField2;
-	private javax.swing.JTextField jTextField3;
-	private javax.swing.JTree jTree1;
+	private javax.swing.JButton jbAttributesDelete;
+	private javax.swing.JButton jbAttributesInsert;
+	private javax.swing.JButton jbAttributesMoveDown;
+	private javax.swing.JButton jbAttributesMoveUp;
+	private javax.swing.JButton jbLinksDelete;
+	private javax.swing.JButton jbLinksInsert;
+	private javax.swing.JButton jbLinksMoveDown;
+	private javax.swing.JButton jbLinksMoveUp;
+	private javax.swing.JButton jbObjectsDelete;
+	private javax.swing.JButton jbObjectsInsert;
+	private javax.swing.JButton jbObjectsMoveDown;
+	private javax.swing.JButton jbObjectsMoveUp;
+	private javax.swing.JLabel jlAttributes;
+	private javax.swing.JLabel jlLinks;
+	private javax.swing.JLabel jlObjectId;
+	private javax.swing.JLabel jlObjectName;
+	private javax.swing.JLabel jlObjects;
+	private javax.swing.JLabel jlSystemName;
+	private javax.swing.JLabel jlSystemType;
+	private javax.swing.JPanel jpObjectEditor;
+	private javax.swing.JPanel jpSystemEditor;
+	private javax.swing.JRadioButton jrbSystemTypeFinal;
+	private javax.swing.JRadioButton jrbSystemTypeInitial;
+	private javax.swing.JRadioButton jrbSystemTypeRegular;
+	private javax.swing.ButtonGroup jrbgSystemTypes;
+	private javax.swing.JScrollPane jscpTaskDescription;
+	private javax.swing.JScrollPane jspAttributes;
+	private javax.swing.JScrollPane jspLinks;
+	private javax.swing.JScrollPane jspObjects;
+	private javax.swing.JTable jtAttributes;
+	private javax.swing.JTable jtLinks;
+	private javax.swing.JTable jtObjects;
+	private javax.swing.JTree jtTaskDescription;
+	private javax.swing.JTextField jtfObjectId;
+	private javax.swing.JTextField jtfObjectName;
+	private javax.swing.JTextField jtfSystemName;
+	private javax.swing.JTabbedPane jtpEditors;
 	// End of variables declaration//GEN-END:variables
 }
