@@ -19,15 +19,34 @@ public class SystemTransformationsEditorFrame extends javax.swing.JFrame {
 	// <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
 	private void initComponents() {
 
+		jButton1 = new javax.swing.JButton();
+		jScrollPane1 = new javax.swing.JScrollPane();
+		jTextArea1 = new javax.swing.JTextArea();
+
 		setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 		setTitle("Transformations Editor");
 
+		jButton1.setText("jButton1");
+
+		jTextArea1.setColumns(20);
+		jTextArea1.setRows(5);
+		jScrollPane1.setViewportView(jTextArea1);
+
 		javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
 		getContentPane().setLayout(layout);
-		layout.setHorizontalGroup(
-				layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addGap(0, 400, Short.MAX_VALUE));
-		layout.setVerticalGroup(
-				layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addGap(0, 300, Short.MAX_VALUE));
+		layout.setHorizontalGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+				.addGroup(layout.createSequentialGroup().addGap(31, 31, 31).addComponent(jButton1)
+						.addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+				.addGroup(javax.swing.GroupLayout.Alignment.TRAILING,
+						layout.createSequentialGroup().addContainerGap(142, Short.MAX_VALUE)
+								.addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE,
+										javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+								.addGap(24, 24, 24)));
+		layout.setVerticalGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+				.addGroup(layout.createSequentialGroup().addGap(61, 61, 61).addComponent(jButton1).addGap(53, 53, 53)
+						.addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE,
+								javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+						.addContainerGap(78, Short.MAX_VALUE)));
 
 		pack();
 	}// </editor-fold>//GEN-END:initComponents
@@ -49,5 +68,8 @@ public class SystemTransformationsEditorFrame extends javax.swing.JFrame {
 	}
 
 	// Variables declaration - do not modify//GEN-BEGIN:variables
+	private javax.swing.JButton jButton1;
+	private javax.swing.JScrollPane jScrollPane1;
+	private javax.swing.JTextArea jTextArea1;
 	// End of variables declaration//GEN-END:variables
 }
