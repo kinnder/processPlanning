@@ -257,6 +257,7 @@ public class MainViewFrame extends javax.swing.JFrame implements UserInterface {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			AboutFrame frame = userInterfaceFactory.createAboutView();
+			frame.setLocationRelativeTo(MainViewFrame.this);
 			frame.setVisible(true);
 		}
 	};

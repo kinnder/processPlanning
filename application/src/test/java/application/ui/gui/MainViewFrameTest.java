@@ -72,6 +72,8 @@ public class MainViewFrameTest {
 				oneOf(userInterfaceFactory_mock).createAboutView();
 				will(returnValue(frame_mock));
 
+				oneOf(frame_mock).setLocationRelativeTo(testable);
+
 				oneOf(frame_mock).setVisible(true);
 			}
 		});
