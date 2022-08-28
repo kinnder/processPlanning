@@ -5,6 +5,10 @@ import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
 
 public class NodeNetworkEditorFrame extends javax.swing.JFrame {
+
+	// TODO (2022-08-28 #68): включить проверку copy-paste
+	// CPD-OFF
+
 	private static final long serialVersionUID = 2512211446680748460L;
 
 	public NodeNetworkEditorFrame() {
@@ -652,4 +656,7 @@ public class NodeNetworkEditorFrame extends javax.swing.JFrame {
 	private javax.swing.JTextField jtfSystemName;
 	private javax.swing.JTabbedPane jtpEditors;
 	// End of variables declaration//GEN-END:variables
+
+	// TODO (2022-08-28 #68): включить проверку copy-paste
+	// CPD-OFF
 }

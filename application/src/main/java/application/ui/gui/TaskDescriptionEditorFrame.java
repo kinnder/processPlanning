@@ -5,6 +5,10 @@ import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
 
 public class TaskDescriptionEditorFrame extends javax.swing.JFrame {
+
+	// TODO (2022-08-28 #68): включить проверку copy-paste
+	// CPD-OFF
+
 	private static final long serialVersionUID = -8192613140150379029L;
 
 	public TaskDescriptionEditorFrame() {
@@ -414,4 +418,7 @@ public class TaskDescriptionEditorFrame extends javax.swing.JFrame {
 	private javax.swing.JTextField jtfSystemName;
 	private javax.swing.JTabbedPane jtpEditors;
 	// End of variables declaration//GEN-END:variables
+
+	// TODO (2022-08-28 #68): включить проверку copy-paste
+	// CPD-OFF
 }
