@@ -32,16 +32,30 @@ public class EditorFrame extends javax.swing.JFrame {
         jtpEditors = new javax.swing.JTabbedPane();
         jpSystemEditor = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
+        jlSystemName = new javax.swing.JLabel();
+        jlSystemType = new javax.swing.JLabel();
+        jtfSystemName = new javax.swing.JTextField();
+        jcbSystemType = new javax.swing.JComboBox<>();
         jPanel2 = new javax.swing.JPanel();
         jSplitPane1 = new javax.swing.JSplitPane();
-        jPanel3 = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
-        jPanel4 = new javax.swing.JPanel();
-        jLabel4 = new javax.swing.JLabel();
+        jpObjectsEditor = new javax.swing.JPanel();
+        jlObjects = new javax.swing.JLabel();
+        jspObjects = new javax.swing.JScrollPane();
+        jtObjects = new javax.swing.JTable();
+        jpObjectsButtons = new javax.swing.JPanel();
+        jbObjectsInsert = new javax.swing.JButton();
+        jbObjectsDelete = new javax.swing.JButton();
+        jbObjectsMoveUp = new javax.swing.JButton();
+        jbObjectsMoveDown = new javax.swing.JButton();
+        jpLinksEditor = new javax.swing.JPanel();
+        jlLinks = new javax.swing.JLabel();
+        jpLinksButtons = new javax.swing.JPanel();
+        jbLinksInsert = new javax.swing.JButton();
+        jbLinksDelete = new javax.swing.JButton();
+        jbLinksMoveUp = new javax.swing.JButton();
+        jbLinksMoveDown = new javax.swing.JButton();
+        jspLinks = new javax.swing.JScrollPane();
+        jtLinks = new javax.swing.JTable();
         jpNodeEditor = new javax.swing.JPanel();
         jpEdgeEditor = new javax.swing.JPanel();
         jpObjectEditor = new javax.swing.JPanel();
@@ -124,13 +138,14 @@ public class EditorFrame extends javax.swing.JFrame {
 
         jspWorkArea.setLeftComponent(jspData);
 
-        jLabel1.setText("jLabel1");
+        jlSystemName.setText("name");
 
-        jLabel2.setText("jLabel2");
+        jlSystemType.setText("type");
 
-        jTextField1.setText("jTextField1");
+        jtfSystemName.setText("system-non-unique-name");
 
-        jTextField2.setText("jTextField2");
+        jcbSystemType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "initial", "regular", "final" }));
+        jcbSystemType.setSelectedIndex(1);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -138,15 +153,15 @@ public class EditorFrame extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel1)
+                        .addComponent(jlSystemName)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jtfSystemName))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jlSystemType)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jcbSystemType, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -154,63 +169,187 @@ public class EditorFrame extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jlSystemName)
+                    .addComponent(jtfSystemName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jlSystemType)
+                    .addComponent(jcbSystemType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jSplitPane1.setDividerLocation(150);
         jSplitPane1.setOrientation(javax.swing.JSplitPane.VERTICAL_SPLIT);
 
-        jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jpObjectsEditor.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        jLabel3.setText("jLabel3");
+        jlObjects.setText("Objects");
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
+        jtObjects.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {"object-workpiece", "id-workpiece"},
+                {"object-workpiece-pad", "id-workpiece-pad"}
+            },
+            new String [] {
+                "name", "id"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class
+            };
+
+            @Override
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        jspObjects.setViewportView(jtObjects);
+
+        jbObjectsInsert.setText("Insert");
+
+        jbObjectsDelete.setText("Delete");
+
+        jbObjectsMoveUp.setText("Up");
+
+        jbObjectsMoveDown.setText("Down");
+
+        javax.swing.GroupLayout jpObjectsButtonsLayout = new javax.swing.GroupLayout(jpObjectsButtons);
+        jpObjectsButtons.setLayout(jpObjectsButtonsLayout);
+        jpObjectsButtonsLayout.setHorizontalGroup(
+            jpObjectsButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jpObjectsButtonsLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel3)
-                .addContainerGap(319, Short.MAX_VALUE))
+                .addGroup(jpObjectsButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jbObjectsMoveDown)
+                    .addComponent(jbObjectsMoveUp)
+                    .addComponent(jbObjectsDelete)
+                    .addComponent(jbObjectsInsert))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
+        jpObjectsButtonsLayout.setVerticalGroup(
+            jpObjectsButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jpObjectsButtonsLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel3)
-                .addContainerGap(126, Short.MAX_VALUE))
+                .addComponent(jbObjectsInsert)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jbObjectsDelete)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jbObjectsMoveUp)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jbObjectsMoveDown)
+                .addContainerGap(8, Short.MAX_VALUE))
         );
 
-        jSplitPane1.setTopComponent(jPanel3);
-
-        jPanel4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-
-        jLabel4.setText("jLabel4");
-
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
+        javax.swing.GroupLayout jpObjectsEditorLayout = new javax.swing.GroupLayout(jpObjectsEditor);
+        jpObjectsEditor.setLayout(jpObjectsEditorLayout);
+        jpObjectsEditorLayout.setHorizontalGroup(
+            jpObjectsEditorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jpObjectsEditorLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel4)
-                .addContainerGap(319, Short.MAX_VALUE))
+                .addComponent(jlObjects)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jpObjectsEditorLayout.createSequentialGroup()
+                .addComponent(jspObjects, javax.swing.GroupLayout.DEFAULT_SIZE, 367, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jpObjectsButtons, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
+        jpObjectsEditorLayout.setVerticalGroup(
+            jpObjectsEditorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jpObjectsEditorLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel4)
-                .addContainerGap(154, Short.MAX_VALUE))
+                .addComponent(jlObjects)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jpObjectsEditorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jpObjectsButtons, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jspObjects, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
         );
 
-        jSplitPane1.setRightComponent(jPanel4);
+        jSplitPane1.setTopComponent(jpObjectsEditor);
+
+        jpLinksEditor.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        jlLinks.setText("Links");
+
+        jbLinksInsert.setText("Insert");
+
+        jbLinksDelete.setText("Delete");
+
+        jbLinksMoveUp.setText("Up");
+
+        jbLinksMoveDown.setText("Down");
+
+        javax.swing.GroupLayout jpLinksButtonsLayout = new javax.swing.GroupLayout(jpLinksButtons);
+        jpLinksButtons.setLayout(jpLinksButtonsLayout);
+        jpLinksButtonsLayout.setHorizontalGroup(
+            jpLinksButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jpLinksButtonsLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jpLinksButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jbLinksInsert)
+                    .addComponent(jbLinksDelete)
+                    .addComponent(jbLinksMoveUp)
+                    .addComponent(jbLinksMoveDown))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jpLinksButtonsLayout.setVerticalGroup(
+            jpLinksButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jpLinksButtonsLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jbLinksInsert)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jbLinksDelete)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jbLinksMoveUp)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jbLinksMoveDown)
+                .addContainerGap(132, Short.MAX_VALUE))
+        );
+
+        jtLinks.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {"link-has-feature", "id-part", "id-part-pad"},
+                {"link-has-feature", "id-workpiece", "id-workpiece-pad"}
+            },
+            new String [] {
+                "name", "id1", "id2"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+
+            @Override
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        jspLinks.setViewportView(jtLinks);
+
+        javax.swing.GroupLayout jpLinksEditorLayout = new javax.swing.GroupLayout(jpLinksEditor);
+        jpLinksEditor.setLayout(jpLinksEditorLayout);
+        jpLinksEditorLayout.setHorizontalGroup(
+            jpLinksEditorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jpLinksEditorLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jlLinks)
+                .addGap(93, 424, Short.MAX_VALUE))
+            .addGroup(jpLinksEditorLayout.createSequentialGroup()
+                .addComponent(jspLinks, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jpLinksButtons, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        jpLinksEditorLayout.setVerticalGroup(
+            jpLinksEditorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jpLinksEditorLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jlLinks)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jpLinksEditorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jpLinksButtons, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jspLinks, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
+        );
+
+        jSplitPane1.setRightComponent(jpLinksEditor);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -244,11 +383,11 @@ public class EditorFrame extends javax.swing.JFrame {
         jpNodeEditor.setLayout(jpNodeEditorLayout);
         jpNodeEditorLayout.setHorizontalGroup(
             jpNodeEditorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 364, Short.MAX_VALUE)
+            .addGap(0, 459, Short.MAX_VALUE)
         );
         jpNodeEditorLayout.setVerticalGroup(
             jpNodeEditorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 401, Short.MAX_VALUE)
+            .addGap(0, 497, Short.MAX_VALUE)
         );
 
         jtpEditors.addTab("Node", jpNodeEditor);
@@ -257,11 +396,11 @@ public class EditorFrame extends javax.swing.JFrame {
         jpEdgeEditor.setLayout(jpEdgeEditorLayout);
         jpEdgeEditorLayout.setHorizontalGroup(
             jpEdgeEditorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 364, Short.MAX_VALUE)
+            .addGap(0, 459, Short.MAX_VALUE)
         );
         jpEdgeEditorLayout.setVerticalGroup(
             jpEdgeEditorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 401, Short.MAX_VALUE)
+            .addGap(0, 497, Short.MAX_VALUE)
         );
 
         jtpEditors.addTab("Edge", jpEdgeEditor);
@@ -270,11 +409,11 @@ public class EditorFrame extends javax.swing.JFrame {
         jpObjectEditor.setLayout(jpObjectEditorLayout);
         jpObjectEditorLayout.setHorizontalGroup(
             jpObjectEditorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 364, Short.MAX_VALUE)
+            .addGap(0, 459, Short.MAX_VALUE)
         );
         jpObjectEditorLayout.setVerticalGroup(
             jpObjectEditorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 401, Short.MAX_VALUE)
+            .addGap(0, 497, Short.MAX_VALUE)
         );
 
         jtpEditors.addTab("Object", jpObjectEditor);
@@ -283,11 +422,11 @@ public class EditorFrame extends javax.swing.JFrame {
         jpActionEditor.setLayout(jpActionEditorLayout);
         jpActionEditorLayout.setHorizontalGroup(
             jpActionEditorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 364, Short.MAX_VALUE)
+            .addGap(0, 459, Short.MAX_VALUE)
         );
         jpActionEditorLayout.setVerticalGroup(
             jpActionEditorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 401, Short.MAX_VALUE)
+            .addGap(0, 497, Short.MAX_VALUE)
         );
 
         jtpEditors.addTab("Action", jpActionEditor);
@@ -296,11 +435,11 @@ public class EditorFrame extends javax.swing.JFrame {
         jpActionFunctionEditor.setLayout(jpActionFunctionEditorLayout);
         jpActionFunctionEditorLayout.setHorizontalGroup(
             jpActionFunctionEditorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 364, Short.MAX_VALUE)
+            .addGap(0, 459, Short.MAX_VALUE)
         );
         jpActionFunctionEditorLayout.setVerticalGroup(
             jpActionFunctionEditorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 401, Short.MAX_VALUE)
+            .addGap(0, 497, Short.MAX_VALUE)
         );
 
         jtpEditors.addTab("Action Function", jpActionFunctionEditor);
@@ -309,11 +448,11 @@ public class EditorFrame extends javax.swing.JFrame {
         jpSystemTransformationEditor.setLayout(jpSystemTransformationEditorLayout);
         jpSystemTransformationEditorLayout.setHorizontalGroup(
             jpSystemTransformationEditorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 364, Short.MAX_VALUE)
+            .addGap(0, 459, Short.MAX_VALUE)
         );
         jpSystemTransformationEditorLayout.setVerticalGroup(
             jpSystemTransformationEditorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 401, Short.MAX_VALUE)
+            .addGap(0, 497, Short.MAX_VALUE)
         );
 
         jtpEditors.addTab("System Transformation", jpSystemTransformationEditor);
@@ -322,11 +461,11 @@ public class EditorFrame extends javax.swing.JFrame {
         jpTransformationsEditor.setLayout(jpTransformationsEditorLayout);
         jpTransformationsEditorLayout.setHorizontalGroup(
             jpTransformationsEditorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 364, Short.MAX_VALUE)
+            .addGap(0, 459, Short.MAX_VALUE)
         );
         jpTransformationsEditorLayout.setVerticalGroup(
             jpTransformationsEditorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 401, Short.MAX_VALUE)
+            .addGap(0, 497, Short.MAX_VALUE)
         );
 
         jtpEditors.addTab("Transformations", jpTransformationsEditor);
@@ -335,11 +474,11 @@ public class EditorFrame extends javax.swing.JFrame {
         jpTransformationEditor.setLayout(jpTransformationEditorLayout);
         jpTransformationEditorLayout.setHorizontalGroup(
             jpTransformationEditorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 364, Short.MAX_VALUE)
+            .addGap(0, 459, Short.MAX_VALUE)
         );
         jpTransformationEditorLayout.setVerticalGroup(
             jpTransformationEditorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 401, Short.MAX_VALUE)
+            .addGap(0, 497, Short.MAX_VALUE)
         );
 
         jtpEditors.addTab("Transformation", jpTransformationEditor);
@@ -397,29 +536,43 @@ public class EditorFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
     private javax.swing.JSplitPane jSplitPane1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
+    private javax.swing.JButton jbLinksDelete;
+    private javax.swing.JButton jbLinksInsert;
+    private javax.swing.JButton jbLinksMoveDown;
+    private javax.swing.JButton jbLinksMoveUp;
+    private javax.swing.JButton jbObjectsDelete;
+    private javax.swing.JButton jbObjectsInsert;
+    private javax.swing.JButton jbObjectsMoveDown;
+    private javax.swing.JButton jbObjectsMoveUp;
+    private javax.swing.JComboBox<String> jcbSystemType;
+    private javax.swing.JLabel jlLinks;
+    private javax.swing.JLabel jlObjects;
+    private javax.swing.JLabel jlSystemName;
+    private javax.swing.JLabel jlSystemType;
     private javax.swing.JPanel jpActionEditor;
     private javax.swing.JPanel jpActionFunctionEditor;
     private javax.swing.JPanel jpEdgeEditor;
+    private javax.swing.JPanel jpLinksButtons;
+    private javax.swing.JPanel jpLinksEditor;
     private javax.swing.JPanel jpNodeEditor;
     private javax.swing.JPanel jpObjectEditor;
+    private javax.swing.JPanel jpObjectsButtons;
+    private javax.swing.JPanel jpObjectsEditor;
     private javax.swing.JPanel jpSystemEditor;
     private javax.swing.JPanel jpSystemTransformationEditor;
     private javax.swing.JPanel jpTransformationEditor;
     private javax.swing.JPanel jpTransformationsEditor;
     private javax.swing.JScrollPane jspData;
+    private javax.swing.JScrollPane jspLinks;
+    private javax.swing.JScrollPane jspObjects;
     private javax.swing.JSplitPane jspWorkArea;
     private javax.swing.JTree jtData;
+    private javax.swing.JTable jtLinks;
+    private javax.swing.JTable jtObjects;
+    private javax.swing.JTextField jtfSystemName;
     private javax.swing.JTabbedPane jtpEditors;
     // End of variables declaration//GEN-END:variables
 }
