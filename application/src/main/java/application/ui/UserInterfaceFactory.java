@@ -1,13 +1,14 @@
 package application.ui;
 
+import javax.swing.UIManager;
+import javax.swing.UIManager.LookAndFeelInfo;
+
 import application.Application;
 import application.ui.cli.MainViewShell;
 import application.ui.gui.AboutFrame;
+import application.ui.gui.EditorFrame;
 import application.ui.gui.MainViewFrame;
-import application.ui.gui.NodeNetworkEditorFrame;
 import application.ui.gui.OptionsFrame;
-import application.ui.gui.SystemTransformationsEditorFrame;
-import application.ui.gui.TaskDescriptionEditorFrame;
 
 public class UserInterfaceFactory {
 
@@ -19,6 +20,7 @@ public class UserInterfaceFactory {
 		switch (type) {
 		case gui:
 			return new MainViewFrame(application);
+		case cli:
 		default:
 			return new MainViewShell(application, System.out);
 		}
@@ -32,15 +34,16 @@ public class UserInterfaceFactory {
 		return new AboutFrame();
 	}
 
-	public NodeNetworkEditorFrame createNodeNetworkEditorView() {
-		return new NodeNetworkEditorFrame();
+	public EditorFrame createEditorView() {
+		return new EditorFrame();
 	}
 
-	public SystemTransformationsEditorFrame createSystemTransformationsEditorView() {
-		return new SystemTransformationsEditorFrame();
-	}
-
-	public TaskDescriptionEditorFrame createTaskDescriptionEditorView() {
-		return new TaskDescriptionEditorFrame();
+	public static void initializeLookAndFeel() throws Exception {
+		for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
+			if ("Nimbus".equals(info.getName())) {
+				UIManager.setLookAndFeel(info.getClassName());
+				break;
+			}
+		}
 	}
 }

@@ -13,6 +13,8 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 
+import application.ui.UserInterfaceFactory;
+
 public class AboutFrame extends JDialog {
 	private static final long serialVersionUID = 8304157905705554451L;
 
@@ -77,7 +79,8 @@ public class AboutFrame extends JDialog {
 		}
 	};
 
-	public static void main(String args[]) {
+	public static void main(String args[]) throws Exception {
+		UserInterfaceFactory.initializeLookAndFeel();
 		SwingUtilities.invokeLater(() -> {
 			new AboutFrame().setVisible(true);
 		});

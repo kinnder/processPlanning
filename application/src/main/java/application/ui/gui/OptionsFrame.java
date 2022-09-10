@@ -2,6 +2,8 @@ package application.ui.gui;
 
 import application.Application;
 import application.Arguments;
+import application.ui.UserInterfaceFactory;
+
 import java.awt.event.ActionEvent;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
@@ -114,7 +116,8 @@ public class OptionsFrame extends javax.swing.JFrame {
 		}
 	};
 
-	public static void main(String args[]) {
+	public static void main(String args[]) throws Exception {
+		UserInterfaceFactory.initializeLookAndFeel();
 		SwingUtilities.invokeLater(() -> {
 			new OptionsFrame(new Application()).setVisible(true);
 		});

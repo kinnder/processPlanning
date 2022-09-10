@@ -232,69 +232,25 @@ public class MainViewFrameTest {
 	}
 
 	@Test
-	public void taskDescriptionEditorAction_name() {
-		assertEquals("Task Description Editor", testable.taskDescriptionEditorAction.getValue(Action.NAME));
+	public void editorAction_name() {
+		assertEquals("Editor...", testable.editorAction.getValue(Action.NAME));
 	}
 
 	@Test
-	public void taskDescriptionEditorAction_actionPerformed() {
+	public void editorAction_actionPerformed() {
 		final ActionEvent actionEvent_mock = context.mock(ActionEvent.class);
-		final TaskDescriptionEditorFrame frame_mock = context.mock(TaskDescriptionEditorFrame.class);
+		final EditorFrame frame_mock = context.mock(EditorFrame.class);
 
 		context.checking(new Expectations() {
 			{
-				oneOf(userInterfaceFactory_mock).createTaskDescriptionEditorView();
+				oneOf(userInterfaceFactory_mock).createEditorView();
 				will(returnValue(frame_mock));
 
 				oneOf(frame_mock).setVisible(true);
 			}
 		});
 
-		testable.taskDescriptionEditorAction.actionPerformed(actionEvent_mock);
-	}
-
-	@Test
-	public void nodeNetworkEditorAction_name() {
-		assertEquals("Node Network Editor", testable.nodeNetworkEditorAction.getValue(Action.NAME));
-	}
-
-	@Test
-	public void nodeNetworkEditorAction_actionPerformed() {
-		final ActionEvent actionEvent_mock = context.mock(ActionEvent.class);
-		final NodeNetworkEditorFrame frame_mock = context.mock(NodeNetworkEditorFrame.class);
-
-		context.checking(new Expectations() {
-			{
-				oneOf(userInterfaceFactory_mock).createNodeNetworkEditorView();
-				will(returnValue(frame_mock));
-
-				oneOf(frame_mock).setVisible(true);
-			}
-		});
-
-		testable.nodeNetworkEditorAction.actionPerformed(actionEvent_mock);
-	}
-
-	@Test
-	public void systemTransformationsEditorAction_name() {
-		assertEquals("Transformations Editor", testable.systemTransformationsEditorAction.getValue(Action.NAME));
-	}
-
-	@Test
-	public void systemTransformationsEditorAction_actionPerformed() {
-		final ActionEvent actionEvent_mock = context.mock(ActionEvent.class);
-		final SystemTransformationsEditorFrame frame_mock = context.mock(SystemTransformationsEditorFrame.class);
-
-		context.checking(new Expectations() {
-			{
-				oneOf(userInterfaceFactory_mock).createSystemTransformationsEditorView();
-				will(returnValue(frame_mock));
-
-				oneOf(frame_mock).setVisible(true);
-			}
-		});
-
-		testable.systemTransformationsEditorAction.actionPerformed(actionEvent_mock);
+		testable.editorAction.actionPerformed(actionEvent_mock);
 	}
 
 	@Test
