@@ -144,7 +144,8 @@ public class EditorFrame extends javax.swing.JFrame {
         jlLinkTransformationId2new = new javax.swing.JLabel();
         jtfLinkTransformationId2new = new javax.swing.JTextField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Editor");
         setName("jfEditor"); // NOI18N
 
         jspData.setPreferredSize(new java.awt.Dimension(150, 275));

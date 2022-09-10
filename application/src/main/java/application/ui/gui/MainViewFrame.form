@@ -11,8 +11,16 @@
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="jmiOptions">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Options"/>
+                <Property name="text" type="java.lang.String" value="Options..."/>
               </Properties>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="jmiEditor">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Editor..."/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jmiEditorActionPerformed"/>
+              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jmiExit">
               <Properties>
