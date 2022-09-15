@@ -106,10 +106,10 @@ public class EditorFrame extends javax.swing.JFrame {
 		jpActionFunctionsEditor = new javax.swing.JPanel();
 		jlActionFunctions = new javax.swing.JLabel();
 		jpActionFunctionsButtons = new javax.swing.JPanel();
-		jButton1 = new javax.swing.JButton();
-		jButton2 = new javax.swing.JButton();
-		jButton3 = new javax.swing.JButton();
-		jButton4 = new javax.swing.JButton();
+		jbActionFunctionsInsert = new javax.swing.JButton();
+		jbActionFunctionsDelete = new javax.swing.JButton();
+		jbActionFunctionsMoveUp = new javax.swing.JButton();
+		jbActionFunctionsMoveDown = new javax.swing.JButton();
 		jspActionFunctions = new javax.swing.JScrollPane();
 		jtActionFunctions = new javax.swing.JTable();
 		jpActionFunctionEditor = new javax.swing.JPanel();
@@ -140,7 +140,7 @@ public class EditorFrame extends javax.swing.JFrame {
 		jlAttributeTransformationType = new javax.swing.JLabel();
 		jlAttributeTransformationValue = new javax.swing.JLabel();
 		jtfAttributeTransformationValue = new javax.swing.JTextField();
-		jComboBox1 = new javax.swing.JComboBox<>();
+		jcbAttributeTransformationValue = new javax.swing.JComboBox<>();
 		jpLinkTransformation = new javax.swing.JPanel();
 		jrbLinkTransformation = new javax.swing.JRadioButton();
 		jlLinkTransformationId2new = new javax.swing.JLabel();
@@ -849,31 +849,35 @@ public class EditorFrame extends javax.swing.JFrame {
 
 		jlActionFunctions.setText("Action Functions");
 
-		jButton1.setText("Insert");
+		jbActionFunctionsInsert.setText("Insert");
 
-		jButton2.setText("Delete");
+		jbActionFunctionsDelete.setText("Delete");
 
-		jButton3.setText("Up");
+		jbActionFunctionsMoveUp.setText("Up");
 
-		jButton4.setText("Down");
+		jbActionFunctionsMoveDown.setText("Down");
 
 		javax.swing.GroupLayout jpActionFunctionsButtonsLayout = new javax.swing.GroupLayout(jpActionFunctionsButtons);
 		jpActionFunctionsButtons.setLayout(jpActionFunctionsButtonsLayout);
-		jpActionFunctionsButtonsLayout.setHorizontalGroup(jpActionFunctionsButtonsLayout
-				.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-				.addGroup(jpActionFunctionsButtonsLayout.createSequentialGroup().addContainerGap()
-						.addGroup(jpActionFunctionsButtonsLayout
-								.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addComponent(jButton1)
-								.addComponent(jButton2).addComponent(jButton3).addComponent(jButton4))
-						.addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
-		jpActionFunctionsButtonsLayout.setVerticalGroup(jpActionFunctionsButtonsLayout
-				.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-				.addGroup(jpActionFunctionsButtonsLayout.createSequentialGroup().addContainerGap()
-						.addComponent(jButton1).addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-						.addComponent(jButton2).addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-						.addComponent(jButton3).addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-						.addComponent(jButton4)
-						.addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
+		jpActionFunctionsButtonsLayout.setHorizontalGroup(
+				jpActionFunctionsButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+						.addGroup(jpActionFunctionsButtonsLayout.createSequentialGroup().addContainerGap()
+								.addGroup(jpActionFunctionsButtonsLayout
+										.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+										.addComponent(jbActionFunctionsInsert).addComponent(jbActionFunctionsDelete)
+										.addComponent(jbActionFunctionsMoveUp).addComponent(jbActionFunctionsMoveDown))
+								.addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
+		jpActionFunctionsButtonsLayout.setVerticalGroup(
+				jpActionFunctionsButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+						.addGroup(jpActionFunctionsButtonsLayout.createSequentialGroup().addContainerGap()
+								.addComponent(jbActionFunctionsInsert)
+								.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+								.addComponent(jbActionFunctionsDelete)
+								.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+								.addComponent(jbActionFunctionsMoveUp)
+								.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+								.addComponent(jbActionFunctionsMoveDown)
+								.addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
 
 		jtActionFunctions.setModel(new javax.swing.table.DefaultTableModel(
 				new Object[][] { { "unknown", "preConditionChecker" }, { "unknown", "parameterUpdater" } },
@@ -1120,7 +1124,8 @@ public class EditorFrame extends javax.swing.JFrame {
 
 		jtfAttributeTransformationValue.setText("true");
 
-		jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "boolean", "integer", "string" }));
+		jcbAttributeTransformationValue
+				.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "boolean", "integer", "string" }));
 
 		javax.swing.GroupLayout jpAttributeTransformationLayout = new javax.swing.GroupLayout(
 				jpAttributeTransformation);
@@ -1137,7 +1142,8 @@ public class EditorFrame extends javax.swing.JFrame {
 								.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
 								.addGroup(jpAttributeTransformationLayout
 										.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-										.addComponent(jtfAttributeTransformationValue).addComponent(jComboBox1, 0,
+										.addComponent(jtfAttributeTransformationValue)
+										.addComponent(jcbAttributeTransformationValue, 0,
 												javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 								.addContainerGap()));
 		jpAttributeTransformationLayout.setVerticalGroup(jpAttributeTransformationLayout
@@ -1147,9 +1153,9 @@ public class EditorFrame extends javax.swing.JFrame {
 						.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
 						.addGroup(jpAttributeTransformationLayout
 								.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-								.addComponent(jlAttributeTransformationType).addComponent(jComboBox1,
-										javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE,
-										javax.swing.GroupLayout.PREFERRED_SIZE))
+								.addComponent(jlAttributeTransformationType)
+								.addComponent(jcbAttributeTransformationValue, javax.swing.GroupLayout.PREFERRED_SIZE,
+										javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
 						.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
 						.addGroup(jpAttributeTransformationLayout
 								.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -1239,11 +1245,10 @@ public class EditorFrame extends javax.swing.JFrame {
 
 	// Variables declaration - do not modify//GEN-BEGIN:variables
 	private javax.swing.ButtonGroup bgTransformationType;
-	private javax.swing.JButton jButton1;
-	private javax.swing.JButton jButton2;
-	private javax.swing.JButton jButton3;
-	private javax.swing.JButton jButton4;
-	private javax.swing.JComboBox<String> jComboBox1;
+	private javax.swing.JButton jbActionFunctionsDelete;
+	private javax.swing.JButton jbActionFunctionsInsert;
+	private javax.swing.JButton jbActionFunctionsMoveDown;
+	private javax.swing.JButton jbActionFunctionsMoveUp;
 	private javax.swing.JButton jbAttributesDelete;
 	private javax.swing.JButton jbAttributesInsert;
 	private javax.swing.JButton jbAttributesMoveDown;
@@ -1269,6 +1274,7 @@ public class EditorFrame extends javax.swing.JFrame {
 	private javax.swing.JButton jbTransformationsMoveDown;
 	private javax.swing.JButton jbTransformationsMoveUp;
 	private javax.swing.JComboBox<String> jcbActionFunctionType;
+	private javax.swing.JComboBox<String> jcbAttributeTransformationValue;
 	private javax.swing.JCheckBox jcbNodeChecked;
 	private javax.swing.JComboBox<String> jcbSystemType;
 	private javax.swing.JLabel jlActionFunctionType;
