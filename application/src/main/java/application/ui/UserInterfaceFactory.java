@@ -34,8 +34,8 @@ public class UserInterfaceFactory {
 		return new AboutFrame();
 	}
 
-	public EditorFrame createEditorView() {
-		return new EditorFrame();
+	public EditorFrame createEditorView(Application application) {
+		return new EditorFrame(application);
 	}
 
 	public static void initializeLookAndFeel() throws Exception {

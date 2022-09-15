@@ -1,13 +1,70 @@
 package application.ui.gui;
 
+import java.io.IOException;
+
 import javax.swing.SwingUtilities;
+
+import org.jdom2.JDOMException;
+
+import application.Application;
+import application.Arguments;
 import application.ui.UserInterfaceFactory;
+import planning.method.NodeNetwork;
+import planning.method.SystemTransformations;
+import planning.method.TaskDescription;
+import planning.model.SystemProcess;
 
 public class EditorFrame extends javax.swing.JFrame {
 	private static final long serialVersionUID = -6624128935908845123L;
 
-	public EditorFrame() {
+	private Application application;
+
+	public EditorFrame(Application application) {
+		this.application = application;
+
 		initComponents();
+	}
+
+	public void loadData() {
+		Arguments args = application.getArguments();
+		String td_path = args.getArgument_td("taskDescription.xml");
+		String st_path = args.getArgument_st("systemTransformations.xml");
+		String pr_path = args.getArgument_p("process.xml");
+		String nn_path = args.getArgument_nn("nodeNetwork.xml");
+
+		try {
+			TaskDescription taskDescription = application.loadTaskDescription(td_path);
+			loadTaskDescription(taskDescription);
+
+			SystemTransformations systemTransformations = application.loadSystemTransformations(st_path);
+			loadSystemTransformations(systemTransformations);
+
+			SystemProcess systemProcess = application.loadSystemProcess(pr_path);
+			loadSystemProcess(systemProcess);
+
+			NodeNetwork nodeNetwork = application.loadNodeNetwork(nn_path);
+			loadNodeNetwork(nodeNetwork);
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (JDOMException e) {
+			e.printStackTrace();
+		}
+	}
+
+	private void loadNodeNetwork(NodeNetwork nodeNetwork) {
+		// TODO Auto-generated method stub
+	}
+
+	private void loadSystemProcess(SystemProcess systemProcess) {
+		// TODO Auto-generated method stub
+	}
+
+	private void loadSystemTransformations(SystemTransformations systemTransformations) {
+		// TODO Auto-generated method stub
+	}
+
+	public void loadTaskDescription(TaskDescription taskDescription) {
+		// TODO Auto-generated method stub
 	}
 
 	/**
@@ -1239,7 +1296,7 @@ public class EditorFrame extends javax.swing.JFrame {
 	public static void main(String args[]) throws Exception {
 		UserInterfaceFactory.initializeLookAndFeel();
 		SwingUtilities.invokeLater(() -> {
-			new EditorFrame().setVisible(true);
+			new EditorFrame(new Application()).setVisible(true);
 		});
 	}
 

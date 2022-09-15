@@ -243,7 +243,7 @@ public class MainViewFrameTest {
 
 		context.checking(new Expectations() {
 			{
-				oneOf(userInterfaceFactory_mock).createEditorView();
+				oneOf(userInterfaceFactory_mock).createEditorView(application_mock);
 				will(returnValue(frame_mock));
 
 				oneOf(frame_mock).setVisible(true);

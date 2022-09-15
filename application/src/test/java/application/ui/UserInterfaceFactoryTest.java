@@ -80,7 +80,9 @@ public class UserInterfaceFactoryTest {
 	@Test
 	@DisabledIf("isHeadless")
 	public void createEditorView_gui() {
-		EditorFrame result = testable.createEditorView();
+		final Application application_mock = context.mock(Application.class);
+
+		EditorFrame result = testable.createEditorView(application_mock);
 		assertTrue(result instanceof EditorFrame);
 	}
 }

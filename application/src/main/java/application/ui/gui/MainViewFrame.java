@@ -144,7 +144,7 @@ public class MainViewFrame extends javax.swing.JFrame implements UserInterface {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			EditorFrame frame = userInterfaceFactory.createEditorView();
+			EditorFrame frame = userInterfaceFactory.createEditorView(application);
 			frame.setVisible(true);
 		}
 	};
