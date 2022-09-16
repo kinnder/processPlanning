@@ -1,7 +1,10 @@
 package application.ui.gui;
 
+import java.awt.event.ActionEvent;
 import java.io.IOException;
 
+import javax.swing.AbstractAction;
+import javax.swing.Action;
 import javax.swing.SwingUtilities;
 
 import org.jdom2.JDOMException;
@@ -23,49 +26,79 @@ public class EditorFrame extends javax.swing.JFrame {
 		this.application = application;
 
 		initComponents();
+		setActions();
 	}
 
-	public void loadData() {
-		Arguments args = application.getArguments();
-		String td_path = args.getArgument_td("taskDescription.xml");
-		String st_path = args.getArgument_st("systemTransformations.xml");
-		String pr_path = args.getArgument_p("process.xml");
-		String nn_path = args.getArgument_nn("nodeNetwork.xml");
+	private void setActions() {
+		jmiTaskDescriptionLoad.setAction(taskDescriptionLoadAction);
+		jmiSystemTransformationsLoad.setAction(systemTransformationsLoadAction);
+		jmiNodeNetworkLoad.setAction(nodeNetworkLoadAction);
+		jmiProcessLoad.setAction(processLoadAction);
+	}
 
-		try {
-			TaskDescription taskDescription = application.loadTaskDescription(td_path);
-			loadTaskDescription(taskDescription);
+	Action taskDescriptionLoadAction = new AbstractAction("Load") {
+		private static final long serialVersionUID = 8331309669949257478L;
 
-			SystemTransformations systemTransformations = application.loadSystemTransformations(st_path);
-			loadSystemTransformations(systemTransformations);
-
-			SystemProcess systemProcess = application.loadSystemProcess(pr_path);
-			loadSystemProcess(systemProcess);
-
-			NodeNetwork nodeNetwork = application.loadNodeNetwork(nn_path);
-			loadNodeNetwork(nodeNetwork);
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (JDOMException e) {
-			e.printStackTrace();
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			Arguments args = application.getArguments();
+			String td_path = args.getArgument_td("taskDescription.xml");
+			try {
+				TaskDescription taskDescription = application.loadTaskDescription(td_path);
+				assert(taskDescription != null);
+			} catch (IOException | JDOMException e1) {
+				e1.printStackTrace();
+			}
 		}
-	}
+	};
 
-	private void loadNodeNetwork(NodeNetwork nodeNetwork) {
-		// TODO Auto-generated method stub
-	}
+	Action systemTransformationsLoadAction = new AbstractAction("Load") {
+		private static final long serialVersionUID = -6152997887082597540L;
 
-	private void loadSystemProcess(SystemProcess systemProcess) {
-		// TODO Auto-generated method stub
-	}
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			Arguments args = application.getArguments();
+			String st_path = args.getArgument_st("systemTransformations.xml");
+			try {
+				SystemTransformations systemTransformations = application.loadSystemTransformations(st_path);
+				assert(systemTransformations != null);
+			} catch (IOException | JDOMException e1) {
+				e1.printStackTrace();
+			}
+		}
+	};
 
-	private void loadSystemTransformations(SystemTransformations systemTransformations) {
-		// TODO Auto-generated method stub
-	}
+	Action nodeNetworkLoadAction = new AbstractAction("Load") {
+		private static final long serialVersionUID = -6796904580309558162L;
 
-	public void loadTaskDescription(TaskDescription taskDescription) {
-		// TODO Auto-generated method stub
-	}
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			Arguments args = application.getArguments();
+			String nn_path = args.getArgument_nn("nodeNetwork.xml");
+			try {
+				NodeNetwork nodeNetwork = application.loadNodeNetwork(nn_path);
+				assert(nodeNetwork != null);
+			} catch (IOException | JDOMException e1) {
+				e1.printStackTrace();
+			}
+		}
+	};
+
+	Action processLoadAction = new AbstractAction("Load") {
+		private static final long serialVersionUID = -2934465114601682626L;
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			Arguments args = application.getArguments();
+			String pr_path = args.getArgument_p("process.xml");
+			try {
+				SystemProcess systemProcess = application.loadSystemProcess(pr_path);
+				assert(systemProcess != null);
+			} catch (IOException | JDOMException e1) {
+				e1.printStackTrace();
+			}
+		}
+	};
 
 	/**
 	 * This method is called from within the constructor to initialize the form.
@@ -202,6 +235,15 @@ public class EditorFrame extends javax.swing.JFrame {
 		jrbLinkTransformation = new javax.swing.JRadioButton();
 		jlLinkTransformationId2new = new javax.swing.JLabel();
 		jtfLinkTransformationId2new = new javax.swing.JTextField();
+		jmbMenu = new javax.swing.JMenuBar();
+		jmTaskDescription = new javax.swing.JMenu();
+		jmiTaskDescriptionLoad = new javax.swing.JMenuItem();
+		jmSystemTransformations = new javax.swing.JMenu();
+		jmiSystemTransformationsLoad = new javax.swing.JMenuItem();
+		jmNodeNetwork = new javax.swing.JMenu();
+		jmiNodeNetworkLoad = new javax.swing.JMenuItem();
+		jmProcess = new javax.swing.JMenu();
+		jmiProcessLoad = new javax.swing.JMenuItem();
 
 		setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 		setTitle("Editor");
@@ -412,7 +454,7 @@ public class EditorFrame extends javax.swing.JFrame {
 						.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED).addComponent(jbLinksDelete)
 						.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED).addComponent(jbLinksMoveUp)
 						.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-						.addComponent(jbLinksMoveDown).addContainerGap(176, Short.MAX_VALUE)));
+						.addComponent(jbLinksMoveDown).addContainerGap(156, Short.MAX_VALUE)));
 
 		jtLinks.setModel(new javax.swing.table.DefaultTableModel(
 				new Object[][] { { "link-has-feature", "id-part", "id-part-pad" },
@@ -561,7 +603,7 @@ public class EditorFrame extends javax.swing.JFrame {
 						.addGroup(jpEdgesEditorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
 								.addComponent(jpEdgesButtons, javax.swing.GroupLayout.DEFAULT_SIZE,
 										javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-								.addComponent(jspEdges, javax.swing.GroupLayout.DEFAULT_SIZE, 459, Short.MAX_VALUE))));
+								.addComponent(jspEdges, javax.swing.GroupLayout.DEFAULT_SIZE, 437, Short.MAX_VALUE))));
 
 		javax.swing.GroupLayout jpNodeEditorLayout = new javax.swing.GroupLayout(jpNodeEditor);
 		jpNodeEditor.setLayout(jpNodeEditorLayout);
@@ -716,7 +758,7 @@ public class EditorFrame extends javax.swing.JFrame {
 								jpParametersEditorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
 										.addComponent(jpParametersButtons, javax.swing.GroupLayout.DEFAULT_SIZE,
 												javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-										.addComponent(jspParameters, javax.swing.GroupLayout.DEFAULT_SIZE, 355,
+										.addComponent(jspParameters, javax.swing.GroupLayout.DEFAULT_SIZE, 333,
 												Short.MAX_VALUE))));
 
 		javax.swing.GroupLayout jpOperationEditorLayout = new javax.swing.GroupLayout(jpOperationEditor);
@@ -861,7 +903,7 @@ public class EditorFrame extends javax.swing.JFrame {
 								jpAttributesEditorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
 										.addComponent(jpAttributesButtons, javax.swing.GroupLayout.DEFAULT_SIZE,
 												javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-										.addComponent(jspAttributes, javax.swing.GroupLayout.DEFAULT_SIZE, 443,
+										.addComponent(jspAttributes, javax.swing.GroupLayout.DEFAULT_SIZE, 429,
 												Short.MAX_VALUE))));
 
 		javax.swing.GroupLayout jpObjectEditorLayout = new javax.swing.GroupLayout(jpObjectEditor);
@@ -971,7 +1013,7 @@ public class EditorFrame extends javax.swing.JFrame {
 										.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
 										.addComponent(jpActionFunctionsButtons, javax.swing.GroupLayout.DEFAULT_SIZE,
 												javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-										.addComponent(jspActionFunctions, javax.swing.GroupLayout.DEFAULT_SIZE, 479,
+										.addComponent(jspActionFunctions, javax.swing.GroupLayout.DEFAULT_SIZE, 457,
 												Short.MAX_VALUE))));
 
 		javax.swing.GroupLayout jpActionEditorLayout = new javax.swing.GroupLayout(jpActionEditor);
@@ -1027,7 +1069,7 @@ public class EditorFrame extends javax.swing.JFrame {
 										javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE,
 										javax.swing.GroupLayout.PREFERRED_SIZE))
 						.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-						.addComponent(jspActionFunctionLines, javax.swing.GroupLayout.DEFAULT_SIZE, 509,
+						.addComponent(jspActionFunctionLines, javax.swing.GroupLayout.DEFAULT_SIZE, 487,
 								Short.MAX_VALUE)
 						.addContainerGap()));
 
@@ -1058,7 +1100,7 @@ public class EditorFrame extends javax.swing.JFrame {
 								.addComponent(jlSystemTransformationName).addComponent(jtfSystemTransformationName,
 										javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE,
 										javax.swing.GroupLayout.PREFERRED_SIZE))
-						.addContainerGap(521, Short.MAX_VALUE)));
+						.addContainerGap(499, Short.MAX_VALUE)));
 
 		jtpEditors.addTab("System Transformation", jpSystemTransformationEditor);
 
@@ -1129,7 +1171,7 @@ public class EditorFrame extends javax.swing.JFrame {
 										.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
 										.addComponent(jpTransformationsButtons, javax.swing.GroupLayout.DEFAULT_SIZE,
 												javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-										.addComponent(jspTransformations, javax.swing.GroupLayout.DEFAULT_SIZE, 521,
+										.addComponent(jspTransformations, javax.swing.GroupLayout.DEFAULT_SIZE, 499,
 												Short.MAX_VALUE))));
 
 		jtpEditors.addTab("Transformations", jpTransformationsEditor);
@@ -1277,11 +1319,41 @@ public class EditorFrame extends javax.swing.JFrame {
 								.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
 								.addComponent(jpLinkTransformation, javax.swing.GroupLayout.PREFERRED_SIZE,
 										javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-								.addGap(0, 271, Short.MAX_VALUE)));
+								.addGap(0, 299, Short.MAX_VALUE)));
 
 		jtpEditors.addTab("Transformation", jpTransformationEditor);
 
 		jspWorkArea.setRightComponent(jtpEditors);
+
+		jmTaskDescription.setText("Task Description");
+
+		jmiTaskDescriptionLoad.setText("Load");
+		jmTaskDescription.add(jmiTaskDescriptionLoad);
+
+		jmbMenu.add(jmTaskDescription);
+
+		jmSystemTransformations.setText("System Transformations");
+
+		jmiSystemTransformationsLoad.setText("Load");
+		jmSystemTransformations.add(jmiSystemTransformationsLoad);
+
+		jmbMenu.add(jmSystemTransformations);
+
+		jmNodeNetwork.setText("Node Network");
+
+		jmiNodeNetworkLoad.setText("Load");
+		jmNodeNetwork.add(jmiNodeNetworkLoad);
+
+		jmbMenu.add(jmNodeNetwork);
+
+		jmProcess.setText("Process");
+
+		jmiProcessLoad.setText("Load");
+		jmProcess.add(jmiProcessLoad);
+
+		jmbMenu.add(jmProcess);
+
+		setJMenuBar(jmbMenu);
 
 		javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
 		getContentPane().setLayout(layout);
@@ -1359,6 +1431,15 @@ public class EditorFrame extends javax.swing.JFrame {
 	private javax.swing.JLabel jlTransformationName;
 	private javax.swing.JLabel jlTransformationObjectId;
 	private javax.swing.JLabel jlTransformations;
+	private javax.swing.JMenu jmNodeNetwork;
+	private javax.swing.JMenu jmProcess;
+	private javax.swing.JMenu jmSystemTransformations;
+	private javax.swing.JMenu jmTaskDescription;
+	private javax.swing.JMenuBar jmbMenu;
+	private javax.swing.JMenuItem jmiNodeNetworkLoad;
+	private javax.swing.JMenuItem jmiProcessLoad;
+	private javax.swing.JMenuItem jmiSystemTransformationsLoad;
+	private javax.swing.JMenuItem jmiTaskDescriptionLoad;
 	private javax.swing.JPanel jpAction;
 	private javax.swing.JPanel jpActionEditor;
 	private javax.swing.JPanel jpActionFunctionEditor;

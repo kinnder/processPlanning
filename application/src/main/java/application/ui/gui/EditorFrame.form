@@ -4,6 +4,58 @@
   <NonVisualComponents>
     <Component class="javax.swing.ButtonGroup" name="bgTransformationType">
     </Component>
+    <Menu class="javax.swing.JMenuBar" name="jmbMenu">
+      <SubComponents>
+        <Menu class="javax.swing.JMenu" name="jmTaskDescription">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Task Description"/>
+          </Properties>
+          <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="jmiTaskDescriptionLoad">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Load"/>
+              </Properties>
+            </MenuItem>
+          </SubComponents>
+        </Menu>
+        <Menu class="javax.swing.JMenu" name="jmSystemTransformations">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="System Transformations"/>
+          </Properties>
+          <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="jmiSystemTransformationsLoad">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Load"/>
+              </Properties>
+            </MenuItem>
+          </SubComponents>
+        </Menu>
+        <Menu class="javax.swing.JMenu" name="jmNodeNetwork">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Node Network"/>
+          </Properties>
+          <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="jmiNodeNetworkLoad">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Load"/>
+              </Properties>
+            </MenuItem>
+          </SubComponents>
+        </Menu>
+        <Menu class="javax.swing.JMenu" name="jmProcess">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Process"/>
+          </Properties>
+          <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="jmiProcessLoad">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Load"/>
+              </Properties>
+            </MenuItem>
+          </SubComponents>
+        </Menu>
+      </SubComponents>
+    </Menu>
   </NonVisualComponents>
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="2"/>
@@ -11,6 +63,7 @@
     <Property name="name" type="java.lang.String" value="jfEditor" noResource="true"/>
   </Properties>
   <SyntheticProperties>
+    <SyntheticProperty name="menuBar" type="java.lang.String" value="jmbMenu"/>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
     <SyntheticProperty name="generateCenter" type="boolean" value="false"/>
   </SyntheticProperties>
@@ -411,7 +464,7 @@
                                           <Component id="jbLinksMoveUp" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
                                           <Component id="jbLinksMoveDown" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace pref="176" max="32767" attributes="0"/>
+                                          <EmptySpace pref="156" max="32767" attributes="0"/>
                                       </Group>
                                   </Group>
                                 </DimensionLayout>
@@ -587,7 +640,7 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="jpEdgesButtons" max="32767" attributes="0"/>
-                                  <Component id="jspEdges" pref="459" max="32767" attributes="0"/>
+                                  <Component id="jspEdges" pref="437" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -898,7 +951,7 @@
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Component id="jpParametersButtons" max="32767" attributes="0"/>
-                                      <Component id="jspParameters" pref="355" max="32767" attributes="0"/>
+                                      <Component id="jspParameters" pref="333" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                           </Group>
@@ -1124,7 +1177,7 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="jpAttributesButtons" max="32767" attributes="0"/>
-                                  <Component id="jspAttributes" pref="443" max="32767" attributes="0"/>
+                                  <Component id="jspAttributes" pref="429" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -1321,7 +1374,7 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="jpActionFunctionsButtons" max="32767" attributes="0"/>
-                                  <Component id="jspActionFunctions" pref="479" max="32767" attributes="0"/>
+                                  <Component id="jspActionFunctions" pref="457" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -1453,7 +1506,7 @@
                               <Component id="jcbActionFunctionType" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jspActionFunctionLines" pref="509" max="32767" attributes="0"/>
+                          <Component id="jspActionFunctionLines" pref="487" max="32767" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -1525,7 +1578,7 @@
                               <Component id="jlSystemTransformationName" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jtfSystemTransformationName" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace pref="521" max="32767" attributes="0"/>
+                          <EmptySpace pref="499" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -1575,7 +1628,7 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="jpTransformationsButtons" max="32767" attributes="0"/>
-                              <Component id="jspTransformations" pref="521" max="32767" attributes="0"/>
+                              <Component id="jspTransformations" pref="499" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -1702,7 +1755,7 @@
                           <Component id="jpAttributeTransformation" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jpLinkTransformation" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="0" pref="271" max="32767" attributes="0"/>
+                          <EmptySpace min="0" pref="299" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
