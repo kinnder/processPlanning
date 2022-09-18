@@ -1,16 +1,11 @@
 package application.ui.gui;
 
 import java.awt.event.ActionEvent;
-import java.io.IOException;
-
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.SwingUtilities;
 
-import org.jdom2.JDOMException;
-
 import application.Application;
-import application.Arguments;
 import application.ui.UserInterfaceFactory;
 import application.ui.gui.editor.EditorDataModel;
 import planning.method.NodeNetwork;
@@ -45,14 +40,9 @@ public class EditorFrame extends javax.swing.JFrame {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			Arguments args = application.getArguments();
-			String td_path = args.getArgument_td("taskDescription.xml");
-			try {
-				TaskDescription taskDescription = application.loadTaskDescription(td_path);
-				assert (taskDescription != null);
-			} catch (IOException | JDOMException e1) {
-				e1.printStackTrace();
-			}
+			TaskDescription taskDescription = application.loadTaskDescription();
+			editorDataModel.loadTaskDescription(taskDescription);
+			jtData.repaint();
 		}
 	};
 
@@ -61,14 +51,9 @@ public class EditorFrame extends javax.swing.JFrame {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			Arguments args = application.getArguments();
-			String st_path = args.getArgument_st("systemTransformations.xml");
-			try {
-				SystemTransformations systemTransformations = application.loadSystemTransformations(st_path);
-				assert (systemTransformations != null);
-			} catch (IOException | JDOMException e1) {
-				e1.printStackTrace();
-			}
+			SystemTransformations systemTransformations = application.loadSystemTransformations();
+			editorDataModel.loadSystemTransformations(systemTransformations);
+			jtData.repaint();
 		}
 	};
 
@@ -77,14 +62,9 @@ public class EditorFrame extends javax.swing.JFrame {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			Arguments args = application.getArguments();
-			String nn_path = args.getArgument_nn("nodeNetwork.xml");
-			try {
-				NodeNetwork nodeNetwork = application.loadNodeNetwork(nn_path);
-				assert (nodeNetwork != null);
-			} catch (IOException | JDOMException e1) {
-				e1.printStackTrace();
-			}
+			NodeNetwork nodeNetwork = application.loadNodeNetwork();
+			editorDataModel.loadNodeNetwork(nodeNetwork);
+			jtData.repaint();
 		}
 	};
 
@@ -93,14 +73,9 @@ public class EditorFrame extends javax.swing.JFrame {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			Arguments args = application.getArguments();
-			String pr_path = args.getArgument_p("process.xml");
-			try {
-				SystemProcess systemProcess = application.loadSystemProcess(pr_path);
-				assert (systemProcess != null);
-			} catch (IOException | JDOMException e1) {
-				e1.printStackTrace();
-			}
+			SystemProcess systemProcess = application.loadSystemProcess();
+			editorDataModel.loadSystemProcess(systemProcess);
+			jtData.repaint();
 		}
 	};
 

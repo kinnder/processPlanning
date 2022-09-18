@@ -113,16 +113,68 @@ public class Application {
 		return persistanceStorage.loadSystemTransformations(path);
 	}
 
+	// TODO (2022-09-18 #72): переделать в команду
+	public SystemTransformations loadSystemTransformations() {
+		String st_path = arguments.getArgument_st("systemTransformations.xml");
+		SystemTransformations systemTransformations;
+		try {
+			systemTransformations = loadSystemTransformations(st_path);
+		} catch (IOException | JDOMException e) {
+			pushEvent(CommandEvent.status("loadSystemTransformations", e.getStackTrace().toString()));
+			systemTransformations = new SystemTransformations();
+		}
+		return systemTransformations;
+	}
+
 	public TaskDescription loadTaskDescription(String path) throws IOException, JDOMException {
 		return persistanceStorage.loadTaskDescription(path);
+	}
+
+	// TODO (2022-09-18 #72): переделать в команду
+	public TaskDescription loadTaskDescription() {
+		String td_path = arguments.getArgument_td("taskDescription.xml");
+		TaskDescription taskDescription;
+		try {
+			taskDescription = loadTaskDescription(td_path);
+		} catch (IOException | JDOMException e) {
+			pushEvent(CommandEvent.status("loadTaskDescription", e.getStackTrace().toString()));
+			taskDescription = new TaskDescription();
+		}
+		return taskDescription;
 	}
 
 	public NodeNetwork loadNodeNetwork(String path) throws IOException, JDOMException {
 		return persistanceStorage.loadNodeNetwork(path);
 	}
 
+	// TODO (2022-09-18 #72): переделать в команду
+	public NodeNetwork loadNodeNetwork() {
+		String nn_path = arguments.getArgument_nn("nodeNetwork.xml");
+		NodeNetwork nodeNetwork;
+		try {
+			nodeNetwork = loadNodeNetwork(nn_path);
+		} catch (IOException | JDOMException e) {
+			pushEvent(CommandEvent.status("loadNodeNetwork", e.getStackTrace().toString()));
+			nodeNetwork = new NodeNetwork();
+		}
+		return nodeNetwork;
+	}
+
 	public SystemProcess loadSystemProcess(String path) throws IOException, JDOMException {
 		return persistanceStorage.loadSystemProcess(path);
+	}
+
+	// TODO (2022-09-18 #72): переделать в команду
+	public SystemProcess loadSystemProcess() {
+		String pr_path = arguments.getArgument_p("process.xml");
+		SystemProcess systemProcess;
+		try {
+			systemProcess = loadSystemProcess(pr_path);
+		} catch (IOException | JDOMException e) {
+			pushEvent(CommandEvent.status("loadNodeNetwork", e.getStackTrace().toString()));
+			systemProcess = new SystemProcess();
+		}
+		return systemProcess;
 	}
 
 	public InputStream getResourceAsStream(String resourcePath) {
