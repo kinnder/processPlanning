@@ -115,8 +115,8 @@
           <SubComponents>
             <Component class="javax.swing.JTree" name="jtData">
               <Properties>
-                <Property name="model" type="javax.swing.tree.TreeModel" editor="org.netbeans.modules.form.editors2.TreeModelEditor">
-                  <TreeModel code="Project&#xa; Task Description&#xa;  initialSystem&#xa;   object-workpiece&#xa;   object-workpiece-pad&#xa;   object-workpiece-pad-sketch&#xa;   object-workpiece-plane&#xa;   object-part&#xa;   object-part-pad&#xa;   object-part-pad-sketch&#xa;   object-part-plane&#xa;   object-part-pocket&#xa;   object-part-pocket-sketch&#xa;  finalSystem&#xa;   object-part-pocket&#xa; System Transformations&#xa;  2D-Pocket&#xa;   System Template&#xa;    template-object&#xa;   Transformations&#xa;    attribute-transformation&#xa;   Action&#xa;    action-function&#xa; Node Network&#xa;  Nodes&#xa;   node-id-0000&#xa;     system&#xa;      object-id&#xa;  Edges&#xa;   edge-id-0000&#xa; Process&#xa;  process-id-0000"/>
+                <Property name="model" type="javax.swing.tree.TreeModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                  <Connection code="editorDataModel" type="code"/>
                 </Property>
               </Properties>
             </Component>

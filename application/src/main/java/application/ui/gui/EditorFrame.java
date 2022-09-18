@@ -12,11 +12,13 @@ import org.jdom2.JDOMException;
 import application.Application;
 import application.Arguments;
 import application.ui.UserInterfaceFactory;
+import application.ui.gui.editor.EditorDataModel;
 import planning.method.NodeNetwork;
 import planning.method.SystemTransformations;
 import planning.method.TaskDescription;
 import planning.model.SystemProcess;
 
+// TODO (2022-09-18 #72): инициализацию компонентов перенести в CustomCode визуального редактора
 public class EditorFrame extends javax.swing.JFrame {
 	private static final long serialVersionUID = -6624128935908845123L;
 
@@ -28,6 +30,8 @@ public class EditorFrame extends javax.swing.JFrame {
 		initComponents();
 		setActions();
 	}
+
+	private EditorDataModel editorDataModel = new EditorDataModel();
 
 	private void setActions() {
 		jmiTaskDescriptionLoad.setAction(taskDescriptionLoadAction);
@@ -45,7 +49,7 @@ public class EditorFrame extends javax.swing.JFrame {
 			String td_path = args.getArgument_td("taskDescription.xml");
 			try {
 				TaskDescription taskDescription = application.loadTaskDescription(td_path);
-				assert(taskDescription != null);
+				assert (taskDescription != null);
 			} catch (IOException | JDOMException e1) {
 				e1.printStackTrace();
 			}
@@ -61,7 +65,7 @@ public class EditorFrame extends javax.swing.JFrame {
 			String st_path = args.getArgument_st("systemTransformations.xml");
 			try {
 				SystemTransformations systemTransformations = application.loadSystemTransformations(st_path);
-				assert(systemTransformations != null);
+				assert (systemTransformations != null);
 			} catch (IOException | JDOMException e1) {
 				e1.printStackTrace();
 			}
@@ -77,7 +81,7 @@ public class EditorFrame extends javax.swing.JFrame {
 			String nn_path = args.getArgument_nn("nodeNetwork.xml");
 			try {
 				NodeNetwork nodeNetwork = application.loadNodeNetwork(nn_path);
-				assert(nodeNetwork != null);
+				assert (nodeNetwork != null);
 			} catch (IOException | JDOMException e1) {
 				e1.printStackTrace();
 			}
@@ -93,7 +97,7 @@ public class EditorFrame extends javax.swing.JFrame {
 			String pr_path = args.getArgument_p("process.xml");
 			try {
 				SystemProcess systemProcess = application.loadSystemProcess(pr_path);
-				assert(systemProcess != null);
+				assert (systemProcess != null);
 			} catch (IOException | JDOMException e1) {
 				e1.printStackTrace();
 			}
@@ -251,70 +255,7 @@ public class EditorFrame extends javax.swing.JFrame {
 
 		jspData.setPreferredSize(new java.awt.Dimension(150, 275));
 
-		javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("Project");
-		javax.swing.tree.DefaultMutableTreeNode treeNode2 = new javax.swing.tree.DefaultMutableTreeNode("Task Description");
-		javax.swing.tree.DefaultMutableTreeNode treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("initialSystem");
-		javax.swing.tree.DefaultMutableTreeNode treeNode4 = new javax.swing.tree.DefaultMutableTreeNode("object-workpiece");
-		treeNode3.add(treeNode4);
-		treeNode4 = new javax.swing.tree.DefaultMutableTreeNode("object-workpiece-pad");
-		treeNode3.add(treeNode4);
-		treeNode4 = new javax.swing.tree.DefaultMutableTreeNode("object-workpiece-pad-sketch");
-		treeNode3.add(treeNode4);
-		treeNode4 = new javax.swing.tree.DefaultMutableTreeNode("object-workpiece-plane");
-		treeNode3.add(treeNode4);
-		treeNode4 = new javax.swing.tree.DefaultMutableTreeNode("object-part");
-		treeNode3.add(treeNode4);
-		treeNode4 = new javax.swing.tree.DefaultMutableTreeNode("object-part-pad");
-		treeNode3.add(treeNode4);
-		treeNode4 = new javax.swing.tree.DefaultMutableTreeNode("object-part-pad-sketch");
-		treeNode3.add(treeNode4);
-		treeNode4 = new javax.swing.tree.DefaultMutableTreeNode("object-part-plane");
-		treeNode3.add(treeNode4);
-		treeNode4 = new javax.swing.tree.DefaultMutableTreeNode("object-part-pocket");
-		treeNode3.add(treeNode4);
-		treeNode4 = new javax.swing.tree.DefaultMutableTreeNode("object-part-pocket-sketch");
-		treeNode3.add(treeNode4);
-		treeNode2.add(treeNode3);
-		treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("finalSystem");
-		treeNode4 = new javax.swing.tree.DefaultMutableTreeNode("object-part-pocket");
-		treeNode3.add(treeNode4);
-		treeNode2.add(treeNode3);
-		treeNode1.add(treeNode2);
-		treeNode2 = new javax.swing.tree.DefaultMutableTreeNode("System Transformations");
-		treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("2D-Pocket");
-		treeNode4 = new javax.swing.tree.DefaultMutableTreeNode("System Template");
-		javax.swing.tree.DefaultMutableTreeNode treeNode5 = new javax.swing.tree.DefaultMutableTreeNode("template-object");
-		treeNode4.add(treeNode5);
-		treeNode3.add(treeNode4);
-		treeNode4 = new javax.swing.tree.DefaultMutableTreeNode("Transformations");
-		treeNode5 = new javax.swing.tree.DefaultMutableTreeNode("attribute-transformation");
-		treeNode4.add(treeNode5);
-		treeNode3.add(treeNode4);
-		treeNode4 = new javax.swing.tree.DefaultMutableTreeNode("Action");
-		treeNode5 = new javax.swing.tree.DefaultMutableTreeNode("action-function");
-		treeNode4.add(treeNode5);
-		treeNode3.add(treeNode4);
-		treeNode2.add(treeNode3);
-		treeNode1.add(treeNode2);
-		treeNode2 = new javax.swing.tree.DefaultMutableTreeNode("Node Network");
-		treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("Nodes");
-		treeNode4 = new javax.swing.tree.DefaultMutableTreeNode("node-id-0000");
-		treeNode5 = new javax.swing.tree.DefaultMutableTreeNode("system");
-		javax.swing.tree.DefaultMutableTreeNode treeNode6 = new javax.swing.tree.DefaultMutableTreeNode("object-id");
-		treeNode5.add(treeNode6);
-		treeNode4.add(treeNode5);
-		treeNode3.add(treeNode4);
-		treeNode2.add(treeNode3);
-		treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("Edges");
-		treeNode4 = new javax.swing.tree.DefaultMutableTreeNode("edge-id-0000");
-		treeNode3.add(treeNode4);
-		treeNode2.add(treeNode3);
-		treeNode1.add(treeNode2);
-		treeNode2 = new javax.swing.tree.DefaultMutableTreeNode("Process");
-		treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("process-id-0000");
-		treeNode2.add(treeNode3);
-		treeNode1.add(treeNode2);
-		jtData.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
+		jtData.setModel(editorDataModel);
 		jspData.setViewportView(jtData);
 
 		jspWorkArea.setLeftComponent(jspData);
