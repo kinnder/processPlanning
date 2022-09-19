@@ -20,13 +20,18 @@ public class EditorFrame extends javax.swing.JFrame {
 	private Application application;
 
 	public EditorFrame(Application application) {
+		this(application, new EditorDataModel());
+	}
+
+	EditorFrame(Application application, EditorDataModel editorDataModel) {
 		this.application = application;
+		this.editorDataModel = editorDataModel;
 
 		initComponents();
 		setActions();
 	}
 
-	private EditorDataModel editorDataModel = new EditorDataModel();
+	private EditorDataModel editorDataModel;
 
 	private void setActions() {
 		jmiTaskDescriptionLoad.setAction(taskDescriptionLoadAction);
