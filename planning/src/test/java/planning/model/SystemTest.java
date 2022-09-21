@@ -407,4 +407,9 @@ public class SystemTest {
 
 		assertNull(testable.getLink("link-name", null, null));
 	}
+
+	@Test
+	public void systemToString() {
+		assertEquals("", testable.toString());
+	}
 }

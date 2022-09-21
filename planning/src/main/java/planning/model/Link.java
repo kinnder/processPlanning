@@ -42,6 +42,11 @@ public class Link implements Cloneable {
 		return clone;
 	}
 
+	@Override
+	public String toString() {
+		return name;
+	}
+
 	public String getName() {
 		return name;
 	}

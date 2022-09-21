@@ -47,7 +47,6 @@ public class EditorFrame extends javax.swing.JFrame {
 		public void actionPerformed(ActionEvent e) {
 			TaskDescription taskDescription = application.loadTaskDescription();
 			editorDataModel.loadTaskDescription(taskDescription);
-			jtData.repaint();
 		}
 	};
 
@@ -58,7 +57,6 @@ public class EditorFrame extends javax.swing.JFrame {
 		public void actionPerformed(ActionEvent e) {
 			SystemTransformations systemTransformations = application.loadSystemTransformations();
 			editorDataModel.loadSystemTransformations(systemTransformations);
-			jtData.repaint();
 		}
 	};
 
@@ -69,7 +67,6 @@ public class EditorFrame extends javax.swing.JFrame {
 		public void actionPerformed(ActionEvent e) {
 			NodeNetwork nodeNetwork = application.loadNodeNetwork();
 			editorDataModel.loadNodeNetwork(nodeNetwork);
-			jtData.repaint();
 		}
 	};
 
@@ -80,7 +77,6 @@ public class EditorFrame extends javax.swing.JFrame {
 		public void actionPerformed(ActionEvent e) {
 			SystemProcess systemProcess = application.loadSystemProcess();
 			editorDataModel.loadSystemProcess(systemProcess);
-			jtData.repaint();
 		}
 	};
 

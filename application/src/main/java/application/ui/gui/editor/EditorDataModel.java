@@ -1,11 +1,16 @@
 package application.ui.gui.editor;
 
+import java.util.Collection;
+
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 
 import planning.method.NodeNetwork;
 import planning.method.SystemTransformations;
 import planning.method.TaskDescription;
+import planning.model.Link;
+import planning.model.System;
+import planning.model.SystemObject;
 import planning.model.SystemProcess;
 
 public class EditorDataModel extends DefaultTreeModel {
@@ -40,36 +45,38 @@ public class EditorDataModel extends DefaultTreeModel {
 	}
 
 	public void loadTaskDescription(TaskDescription taskDescription) {
-		DefaultMutableTreeNode systemNode, objectNode;
+		System system;
+		DefaultMutableTreeNode systemNode;
+
 		taskDescriptionNode.removeAllChildren();
+		taskDescriptionNode.setUserObject(taskDescription);
 
-		systemNode = new DefaultMutableTreeNode("initialSystem");
+		system = taskDescription.getInitialSystem();
+		system.name = "initialSystem";
+		systemNode = createSystemNode(system);
 		taskDescriptionNode.add(systemNode);
-		objectNode = new DefaultMutableTreeNode("object-workpiece");
-		systemNode.add(objectNode);
-		objectNode = new DefaultMutableTreeNode("object-workpiece-pad");
-		systemNode.add(objectNode);
-		objectNode = new DefaultMutableTreeNode("object-workpiece-pad-sketch");
-		systemNode.add(objectNode);
-		objectNode = new DefaultMutableTreeNode("object-workpiece-plane");
-		systemNode.add(objectNode);
-		objectNode = new DefaultMutableTreeNode("object-part");
-		systemNode.add(objectNode);
-		objectNode = new DefaultMutableTreeNode("object-part-pad");
-		systemNode.add(objectNode);
-		objectNode = new DefaultMutableTreeNode("object-part-pad-sketch");
-		systemNode.add(objectNode);
-		objectNode = new DefaultMutableTreeNode("object-part-plane");
-		systemNode.add(objectNode);
-		objectNode = new DefaultMutableTreeNode("object-part-pocket");
-		systemNode.add(objectNode);
-		objectNode = new DefaultMutableTreeNode("object-part-pocket-sketch");
-		systemNode.add(objectNode);
 
-		systemNode = new DefaultMutableTreeNode("finalSystem");
+		system = taskDescription.getFinalSystem();
+		system.name = "finalSystem";
+		systemNode = createSystemNode(system);
 		taskDescriptionNode.add(systemNode);
-		objectNode = new DefaultMutableTreeNode("object-part-pocket");
-		systemNode.add(objectNode);
+
+		reload();
+	}
+
+	private DefaultMutableTreeNode createSystemNode(System system) {
+		DefaultMutableTreeNode systemNode = new DefaultMutableTreeNode(system);
+		Collection<SystemObject> objects = system.getObjects();
+		for (SystemObject object : objects) {
+			DefaultMutableTreeNode objectNode = new DefaultMutableTreeNode(object);
+			systemNode.add(objectNode);
+		}
+		Collection<Link> links = system.getLinks();
+		for (Link link : links) {
+			DefaultMutableTreeNode linkNode = new DefaultMutableTreeNode(link);
+			systemNode.add(linkNode);
+		}
+		return systemNode;
 	}
 
 	public void loadSystemTransformations(SystemTransformations systemTransformations) {
@@ -91,6 +98,8 @@ public class EditorDataModel extends DefaultTreeModel {
 		systemTransformationNode.add(actionNode);
 		functionNode = new DefaultMutableTreeNode("action-function");
 		actionNode.add(functionNode);
+
+		reload();
 	}
 
 	public void loadNodeNetwork(NodeNetwork nodeNetwork) {
@@ -109,6 +118,8 @@ public class EditorDataModel extends DefaultTreeModel {
 		nodeNetworkNode.add(edgesNode);
 		edgeNode = new DefaultMutableTreeNode("edge-id-0000");
 		edgesNode.add(edgeNode);
+
+		reload();
 	}
 
 	public void loadSystemProcess(SystemProcess systemProcess) {
@@ -117,5 +128,7 @@ public class EditorDataModel extends DefaultTreeModel {
 
 		processNode = new DefaultMutableTreeNode("process-id-0000");
 		systemProcessNode.add(processNode);
+
+		reload();
 	}
 }
