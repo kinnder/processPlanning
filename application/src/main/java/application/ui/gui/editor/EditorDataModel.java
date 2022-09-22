@@ -5,10 +5,10 @@ import java.util.Collection;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 
+import application.domain.AssemblyLine;
 import planning.method.NodeNetwork;
 import planning.method.SystemTransformations;
 import planning.method.TaskDescription;
-import planning.model.Link;
 import planning.model.System;
 import planning.model.SystemObject;
 import planning.model.SystemProcess;
@@ -48,6 +48,9 @@ public class EditorDataModel extends DefaultTreeModel {
 		System system;
 		DefaultMutableTreeNode systemNode;
 
+		// TODO (2022-09-22 #72): удалить
+		taskDescription = AssemblyLine.getTaskDescription();
+
 		taskDescriptionNode.removeAllChildren();
 		taskDescriptionNode.setUserObject(taskDescription);
 
@@ -70,11 +73,6 @@ public class EditorDataModel extends DefaultTreeModel {
 		for (SystemObject object : objects) {
 			DefaultMutableTreeNode objectNode = new DefaultMutableTreeNode(object);
 			systemNode.add(objectNode);
-		}
-		Collection<Link> links = system.getLinks();
-		for (Link link : links) {
-			DefaultMutableTreeNode linkNode = new DefaultMutableTreeNode(link);
-			systemNode.add(linkNode);
 		}
 		return systemNode;
 	}

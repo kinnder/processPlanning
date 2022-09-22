@@ -1,8 +1,7 @@
 package planning.method;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
-
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import org.jmock.imposters.ByteBuddyClassImposteriser;
 import org.jmock.junit5.JUnit5Mockery;
 import org.junit.jupiter.api.AfterEach;
@@ -35,7 +34,8 @@ public class TaskDescriptionTest {
 
 	@Test
 	public void getInitialSystem() {
-		assertNull(testable.getInitialSystem());
+		// TODO (2022-09-22 #72): проверить логику работы initialSystem
+		assertNotNull(testable.getInitialSystem());
 	}
 
 	@Test
@@ -48,7 +48,8 @@ public class TaskDescriptionTest {
 
 	@Test
 	public void getFinalSystem() {
-		assertNull(testable.getFinalSystem());
+		// TODO (2022-09-22 #72): проверить логику работы finalSystem
+		assertNotNull(testable.getFinalSystem());
 	}
 
 	@Test

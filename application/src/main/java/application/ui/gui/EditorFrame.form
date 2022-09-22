@@ -119,6 +119,9 @@
                   <Connection code="editorDataModel" type="code"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="valueChanged" listener="javax.swing.event.TreeSelectionListener" parameters="javax.swing.event.TreeSelectionEvent" handler="jtDataValueChanged"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>

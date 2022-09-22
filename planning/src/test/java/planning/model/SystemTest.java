@@ -410,6 +410,8 @@ public class SystemTest {
 
 	@Test
 	public void systemToString() {
+		// TODO (2022-09-22 #72): сделать поле name не изменяемым
+		testable.name = "";
 		assertEquals("", testable.toString());
 	}
 }

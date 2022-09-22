@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.SwingUtilities;
+import javax.swing.tree.DefaultMutableTreeNode;
 
 import application.Application;
 import application.ui.UserInterfaceFactory;
@@ -11,7 +12,9 @@ import application.ui.gui.editor.EditorDataModel;
 import planning.method.NodeNetwork;
 import planning.method.SystemTransformations;
 import planning.method.TaskDescription;
+import planning.model.SystemObject;
 import planning.model.SystemProcess;
+import planning.model.System;
 
 // TODO (2022-09-18 #72): инициализацию компонентов перенести в CustomCode визуального редактора
 public class EditorFrame extends javax.swing.JFrame {
@@ -87,6 +90,7 @@ public class EditorFrame extends javax.swing.JFrame {
 	 */
 	// <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
 	private void initComponents() {
+
 		bgTransformationType = new javax.swing.ButtonGroup();
 		jspWorkArea = new javax.swing.JSplitPane();
 		jspData = new javax.swing.JScrollPane();
@@ -232,6 +236,12 @@ public class EditorFrame extends javax.swing.JFrame {
 		jspData.setPreferredSize(new java.awt.Dimension(150, 275));
 
 		jtData.setModel(editorDataModel);
+		jtData.addTreeSelectionListener(new javax.swing.event.TreeSelectionListener() {
+			@Override
+			public void valueChanged(javax.swing.event.TreeSelectionEvent evt) {
+				jtDataValueChanged(evt);
+			}
+		});
 		jspData.setViewportView(jtData);
 
 		jspWorkArea.setLeftComponent(jspData);
@@ -1281,6 +1291,23 @@ public class EditorFrame extends javax.swing.JFrame {
 
 		pack();
 	}// </editor-fold>//GEN-END:initComponents
+
+	private void jtDataValueChanged(javax.swing.event.TreeSelectionEvent evt) {// GEN-FIRST:event_jtDataValueChanged
+		DefaultMutableTreeNode selectedNode = (DefaultMutableTreeNode) jtData.getLastSelectedPathComponent();
+		if (selectedNode == null) {
+			return;
+		}
+		Object selectedObject = selectedNode.getUserObject();
+		if (selectedObject instanceof TaskDescription) {
+			java.lang.System.out.println("selected TaskDescription");
+		} else if (selectedObject instanceof System) {
+			jtpEditors.setSelectedComponent(jpSystemEditor);
+		} else if (selectedObject instanceof SystemObject) {
+			jtpEditors.setSelectedComponent(jpObjectEditor);
+		} else {
+			java.lang.System.out.println("unknown: "+selectedObject.toString());
+		}
+	}// GEN-LAST:event_jtDataValueChanged
 
 	public static void main(String args[]) throws Exception {
 		UserInterfaceFactory.initializeLookAndFeel();
