@@ -9,6 +9,8 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import application.Application;
 import application.ui.UserInterfaceFactory;
 import application.ui.gui.editor.EditorDataModel;
+import application.ui.gui.editor.LinksDataModel;
+import application.ui.gui.editor.ObjectsDataModel;
 import planning.method.NodeNetwork;
 import planning.method.SystemTransformations;
 import planning.method.TaskDescription;
@@ -35,6 +37,10 @@ public class EditorFrame extends javax.swing.JFrame {
 	}
 
 	private EditorDataModel editorDataModel;
+
+	private ObjectsDataModel objectsDataModel = new ObjectsDataModel();
+
+	private LinksDataModel linksDataModel = new LinksDataModel();
 
 	private void setActions() {
 		jmiTaskDescriptionLoad.setAction(taskDescriptionLoadAction);
@@ -90,7 +96,6 @@ public class EditorFrame extends javax.swing.JFrame {
 	 */
 	// <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
 	private void initComponents() {
-
 		bgTransformationType = new javax.swing.ButtonGroup();
 		jspWorkArea = new javax.swing.JSplitPane();
 		jspData = new javax.swing.JScrollPane();
@@ -288,19 +293,7 @@ public class EditorFrame extends javax.swing.JFrame {
 
 		jlObjects.setText("Objects");
 
-		jtObjects.setModel(
-						new javax.swing.table.DefaultTableModel(
-								new Object[][] { { "object-workpiece", "id-workpiece" },
-										{ "object-workpiece-pad", "id-workpiece-pad" } },
-								new String[] { "name", "id" }) {
-							private static final long serialVersionUID = 375415280617365587L;
-							Class<?>[] types = new Class[] { java.lang.String.class, java.lang.String.class };
-
-							@Override
-							public Class<?> getColumnClass(int columnIndex) {
-								return types[columnIndex];
-							}
-						});
+		jtObjects.setModel(objectsDataModel);
 		jspObjects.setViewportView(jtObjects);
 
 		jbObjectsInsert.setText("Insert");
@@ -383,18 +376,7 @@ public class EditorFrame extends javax.swing.JFrame {
 						.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
 						.addComponent(jbLinksMoveDown).addContainerGap(156, Short.MAX_VALUE)));
 
-		jtLinks.setModel(new javax.swing.table.DefaultTableModel(
-				new Object[][] { { "link-has-feature", "id-part", "id-part-pad" },
-						{ "link-has-feature", "id-workpiece", "id-workpiece-pad" } },
-				new String[] { "name", "id1", "id2" }) {
-			private static final long serialVersionUID = 5763927106033461565L;
-			Class<?>[] types = new Class[] { java.lang.String.class, java.lang.String.class, java.lang.String.class };
-
-			@Override
-			public Class<?> getColumnClass(int columnIndex) {
-				return types[columnIndex];
-			}
-		});
+		jtLinks.setModel(linksDataModel);
 		jspLinks.setViewportView(jtLinks);
 
 		javax.swing.GroupLayout jpLinksEditorLayout = new javax.swing.GroupLayout(jpLinksEditor);
@@ -1302,12 +1284,33 @@ public class EditorFrame extends javax.swing.JFrame {
 			java.lang.System.out.println("selected TaskDescription");
 		} else if (selectedObject instanceof System) {
 			jtpEditors.setSelectedComponent(jpSystemEditor);
+			loadSystem((System) selectedObject);
+			objectsDataModel.loadObjects((System) selectedObject);
+			linksDataModel.loadLinks((System) selectedObject);
 		} else if (selectedObject instanceof SystemObject) {
 			jtpEditors.setSelectedComponent(jpObjectEditor);
 		} else {
-			java.lang.System.out.println("unknown: "+selectedObject.toString());
+			java.lang.System.out.println("unknown: " + selectedObject.toString());
 		}
 	}// GEN-LAST:event_jtDataValueChanged
+
+	private void loadSystem(System selectedObject) {
+		String name = selectedObject.getName();
+		// TODO (2022-09-23 #72): перенести в System и заменить на Enum
+		int type;
+		if ("initialSystem".equals(name)) {
+			// initial
+			type = 0;
+		} else if ("finalSystem".equals(name)) {
+			// final
+			type = 2;
+		} else {
+			// regular
+			type = 1;
+		}
+		jtfSystemName.setText(name);
+		jcbSystemType.setSelectedIndex(type);
+	}
 
 	public static void main(String args[]) throws Exception {
 		UserInterfaceFactory.initializeLookAndFeel();

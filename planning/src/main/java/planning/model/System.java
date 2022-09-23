@@ -182,6 +182,10 @@ public class System implements Cloneable {
 	// TODO (2022-09-21 #72): добавить чтение / запись поля
 	public String name;
 
+	public String getName() {
+		return name;
+	}
+
 	@Override
 	public String toString() {
 		return name;
