@@ -5,7 +5,6 @@ import java.util.Collection;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 
-import application.domain.AssemblyLine;
 import planning.method.NodeNetwork;
 import planning.method.SystemTransformations;
 import planning.method.TaskDescription;
@@ -49,7 +48,7 @@ public class EditorDataModel extends DefaultTreeModel {
 		DefaultMutableTreeNode systemNode;
 
 		// TODO (2022-09-22 #72): удалить
-		taskDescription = AssemblyLine.getTaskDescription();
+		// taskDescription = AssemblyLine.getTaskDescription();
 
 		taskDescriptionNode.removeAllChildren();
 		taskDescriptionNode.setUserObject(taskDescription);
@@ -78,8 +77,13 @@ public class EditorDataModel extends DefaultTreeModel {
 	}
 
 	public void loadSystemTransformations(SystemTransformations systemTransformations) {
-		DefaultMutableTreeNode systemTransformationNode, systemNode, objectNode, transformationsNode,
-				transformationNode, actionNode, functionNode;
+		DefaultMutableTreeNode systemTransformationNode;
+		DefaultMutableTreeNode systemNode;
+		DefaultMutableTreeNode objectNode;
+		DefaultMutableTreeNode transformationsNode;
+		DefaultMutableTreeNode transformationNode;
+		DefaultMutableTreeNode actionNode;
+		DefaultMutableTreeNode functionNode;
 		systemTransformationsNode.removeAllChildren();
 
 		systemTransformationNode = new DefaultMutableTreeNode("2D-Pocket");
@@ -101,7 +105,12 @@ public class EditorDataModel extends DefaultTreeModel {
 	}
 
 	public void loadNodeNetwork(NodeNetwork nodeNetwork) {
-		DefaultMutableTreeNode nodesNode, nodeNode, systemNode, objectNode, edgesNode, edgeNode;
+		DefaultMutableTreeNode nodesNode;
+		DefaultMutableTreeNode nodeNode;
+		DefaultMutableTreeNode systemNode;
+		DefaultMutableTreeNode objectNode;
+		DefaultMutableTreeNode edgesNode;
+		DefaultMutableTreeNode edgeNode;
 		nodeNetworkNode.removeAllChildren();
 
 		nodesNode = new DefaultMutableTreeNode("Nodes");

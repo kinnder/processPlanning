@@ -25,8 +25,8 @@ public class AttributesDataModel extends DefaultTableModel {
 
 		for (Attribute attribute : selectedObject.getAttributes()) {
 			String name = attribute.getName();
-			String type = "";
-			String value = "";
+			String type;
+			String value;
 			// TODO (2022-09-24 #72): перенести в Attribute
 			Object valueObject = attribute.getValue();
 			if (valueObject instanceof Boolean) {
@@ -35,9 +35,12 @@ public class AttributesDataModel extends DefaultTableModel {
 			} else if (valueObject instanceof Integer) {
 				type = "integer";
 				value = valueObject.toString();
-			} else {
+			} else if (valueObject instanceof String) {
 				type = "string";
 				value = valueObject.toString();
+			} else {
+				type = "";
+				value = "";
 			}
 			this.addRow(new Object[] { name, type, value });
 		}

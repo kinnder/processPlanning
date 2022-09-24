@@ -1266,6 +1266,7 @@ public class EditorFrame extends javax.swing.JFrame {
 		pack();
 	}// </editor-fold>//GEN-END:initComponents
 
+	@SuppressWarnings("PMD.UnusedFormalParameter")
 	private void jtDataValueChanged(javax.swing.event.TreeSelectionEvent evt) {// GEN-FIRST:event_jtDataValueChanged
 		DefaultMutableTreeNode selectedNode = (DefaultMutableTreeNode) jtData.getLastSelectedPathComponent();
 		if (selectedNode == null) {
