@@ -8,6 +8,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
 
 import application.Application;
 import application.ui.UserInterfaceFactory;
+import application.ui.gui.editor.AttributesDataModel;
 import application.ui.gui.editor.EditorDataModel;
 import application.ui.gui.editor.LinksDataModel;
 import application.ui.gui.editor.ObjectsDataModel;
@@ -41,6 +42,8 @@ public class EditorFrame extends javax.swing.JFrame {
 	private ObjectsDataModel objectsDataModel = new ObjectsDataModel();
 
 	private LinksDataModel linksDataModel = new LinksDataModel();
+
+	private AttributesDataModel attributesDataModel = new AttributesDataModel();
 
 	private void setActions() {
 		jmiTaskDescriptionLoad.setAction(taskDescriptionLoadAction);
@@ -750,18 +753,7 @@ public class EditorFrame extends javax.swing.JFrame {
 
 		jlAttributes.setText("Attributes");
 
-		jtAttributes.setModel(
-				new javax.swing.table.DefaultTableModel(new Object[][] { { "attribute-feature", "boolean", "true" } },
-						new String[] { "name", "type", "value" }) {
-					private static final long serialVersionUID = 4599213730293016122L;
-					Class<?>[] types = new Class[] { java.lang.String.class, java.lang.String.class,
-							java.lang.String.class };
-
-					@Override
-					public Class<?> getColumnClass(int columnIndex) {
-						return types[columnIndex];
-					}
-				});
+		jtAttributes.setModel(attributesDataModel);
 		jspAttributes.setViewportView(jtAttributes);
 
 		jbAttributesInsert.setText("Insert");
@@ -1289,10 +1281,19 @@ public class EditorFrame extends javax.swing.JFrame {
 			linksDataModel.loadLinks((System) selectedObject);
 		} else if (selectedObject instanceof SystemObject) {
 			jtpEditors.setSelectedComponent(jpObjectEditor);
+			loadSystemObject((SystemObject) selectedObject);
+			attributesDataModel.loadAttributes((SystemObject) selectedObject);
 		} else {
 			java.lang.System.out.println("unknown: " + selectedObject.toString());
 		}
 	}// GEN-LAST:event_jtDataValueChanged
+
+	private void loadSystemObject(SystemObject selectedObject) {
+		String name = selectedObject.getName();
+		String id = selectedObject.getId();
+		jtfObjectName.setText(name);
+		jtfObjectId.setText(id);
+	}
 
 	private void loadSystem(System selectedObject) {
 		String name = selectedObject.getName();

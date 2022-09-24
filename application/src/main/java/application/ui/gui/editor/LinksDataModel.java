@@ -13,7 +13,7 @@ public class LinksDataModel extends DefaultTableModel {
 		super(new String[] { "name", "id1", "id2" }, 0);
 	}
 
-	Class<?>[] types = new Class[] { java.lang.String.class, java.lang.String.class, java.lang.String.class };
+	Class<?>[] types = new Class[] { String.class, String.class, String.class };
 
 	@Override
 	public Class<?> getColumnClass(int columnIndex) {
