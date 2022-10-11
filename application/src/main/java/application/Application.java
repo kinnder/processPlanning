@@ -101,6 +101,16 @@ public class Application {
 		persistanceStorage.saveTaskDescription(taskDescription, path);
 	}
 
+	// TODO (2022-10-11 #72): переделать в команду
+	public void saveTaskDescription(TaskDescription taskDescription) {
+		String td_path = arguments.getArgument_td("taskDescription.xml");
+		try {
+			persistanceStorage.saveTaskDescription(taskDescription, td_path);
+		} catch (IOException e) {
+			pushEvent(CommandEvent.status("saveTaskDescription", e.getStackTrace().toString()));
+		}
+	}
+
 	public void saveSystemProcess(SystemProcess systemProcess, String path) throws IOException {
 		persistanceStorage.saveSystemProcess(systemProcess, path);
 	}

@@ -66,6 +66,10 @@ public class EditorDataModel extends DefaultTreeModel {
 		reload();
 	}
 
+	public TaskDescription saveTaskDescription() {
+		return (TaskDescription) taskDescriptionNode.getUserObject();
+	}
+
 	private DefaultMutableTreeNode createSystemNode(System system) {
 		DefaultMutableTreeNode systemNode = new DefaultMutableTreeNode(system);
 		Collection<SystemObject> objects = system.getObjects();

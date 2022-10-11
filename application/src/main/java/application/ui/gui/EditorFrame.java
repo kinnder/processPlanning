@@ -47,6 +47,7 @@ public class EditorFrame extends javax.swing.JFrame {
 
 	private void setActions() {
 		jmiTaskDescriptionLoad.setAction(taskDescriptionLoadAction);
+		jmiTaskDescriptionSave.setAction(taskDescriptionSaveAction);
 		jmiSystemTransformationsLoad.setAction(systemTransformationsLoadAction);
 		jmiNodeNetworkLoad.setAction(nodeNetworkLoadAction);
 		jmiProcessLoad.setAction(processLoadAction);
@@ -59,6 +60,16 @@ public class EditorFrame extends javax.swing.JFrame {
 		public void actionPerformed(ActionEvent e) {
 			TaskDescription taskDescription = application.loadTaskDescription();
 			editorDataModel.loadTaskDescription(taskDescription);
+		}
+	};
+
+	Action taskDescriptionSaveAction = new AbstractAction("Save") {
+		private static final long serialVersionUID = -6152997887082597540L;
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			TaskDescription taskDescription = editorDataModel.saveTaskDescription();
+			application.saveTaskDescription(taskDescription);
 		}
 	};
 
@@ -230,6 +241,7 @@ public class EditorFrame extends javax.swing.JFrame {
 		jmbMenu = new javax.swing.JMenuBar();
 		jmTaskDescription = new javax.swing.JMenu();
 		jmiTaskDescriptionLoad = new javax.swing.JMenuItem();
+		jmiTaskDescriptionSave = new javax.swing.JMenuItem();
 		jmSystemTransformations = new javax.swing.JMenu();
 		jmiSystemTransformationsLoad = new javax.swing.JMenuItem();
 		jmNodeNetwork = new javax.swing.JMenu();
@@ -1231,6 +1243,9 @@ public class EditorFrame extends javax.swing.JFrame {
 		jmiTaskDescriptionLoad.setText("Load");
 		jmTaskDescription.add(jmiTaskDescriptionLoad);
 
+		jmiTaskDescriptionSave.setText("Save");
+		jmTaskDescription.add(jmiTaskDescriptionSave);
+
 		jmbMenu.add(jmTaskDescription);
 
 		jmSystemTransformations.setText("System Transformations");
@@ -1389,6 +1404,7 @@ public class EditorFrame extends javax.swing.JFrame {
 	private javax.swing.JMenuItem jmiProcessLoad;
 	private javax.swing.JMenuItem jmiSystemTransformationsLoad;
 	private javax.swing.JMenuItem jmiTaskDescriptionLoad;
+	private javax.swing.JMenuItem jmiTaskDescriptionSave;
 	private javax.swing.JPanel jpAction;
 	private javax.swing.JPanel jpActionEditor;
 	private javax.swing.JPanel jpActionFunctionEditor;
