@@ -51,6 +51,11 @@ public class EditorFrame extends javax.swing.JFrame {
 		jmiSystemTransformationsLoad.setAction(systemTransformationsLoadAction);
 		jmiNodeNetworkLoad.setAction(nodeNetworkLoadAction);
 		jmiProcessLoad.setAction(processLoadAction);
+
+		jbObjectsInsert.setAction(objectInsertAction);
+		jbObjectsDelete.setAction(objectDeleteAction);
+		jbObjectsMoveUp.setAction(objectMoveUpAction);
+		jbObjectsMoveDown.setAction(objectMoveDownAction);
 	}
 
 	Action taskDescriptionLoadAction = new AbstractAction("Load") {
@@ -100,6 +105,45 @@ public class EditorFrame extends javax.swing.JFrame {
 		public void actionPerformed(ActionEvent e) {
 			SystemProcess systemProcess = application.loadSystemProcess();
 			editorDataModel.loadSystemProcess(systemProcess);
+		}
+	};
+
+	Action objectInsertAction = new AbstractAction("Insert") {
+		private static final long serialVersionUID = -1700274277944696641L;
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			objectsDataModel.insertObject();
+		}
+	};
+
+	Action objectDeleteAction = new AbstractAction("Delete") {
+		private static final long serialVersionUID = 7657799313389376389L;
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			int idx = jtObjects.getSelectedRow();
+			objectsDataModel.deleteObject(idx);
+		}
+	};
+
+	Action objectMoveUpAction = new AbstractAction("Up") {
+		private static final long serialVersionUID = -5915571174996559191L;
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			int idx = jtObjects.getSelectedRow();
+			objectsDataModel.moveUp(idx);
+		}
+	};
+
+	Action objectMoveDownAction = new AbstractAction("Down") {
+		private static final long serialVersionUID = 7990486675464420960L;
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			int idx = jtObjects.getSelectedRow();
+			objectsDataModel.moveDown(idx);
 		}
 	};
 

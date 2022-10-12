@@ -26,6 +26,10 @@ public class System implements Cloneable {
 
 	}
 
+	public void deleteObject(SystemObject object) {
+		objects.remove(object);
+	}
+
 	public Set<String> getIds() {
 		Set<String> systemIds = new HashSet<>();
 		for (SystemObject object : objects) {
