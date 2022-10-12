@@ -103,4 +103,12 @@ public class SystemObject implements Cloneable {
 	public String toString() {
 		return name;
 	}
+
+	public void setName(String aValue) {
+		this.name = aValue;
+	}
+
+	public void setId(String aValue) {
+		this.id = aValue;
+	}
 }

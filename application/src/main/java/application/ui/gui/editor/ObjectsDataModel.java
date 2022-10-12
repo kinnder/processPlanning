@@ -67,4 +67,16 @@ public class ObjectsDataModel extends DefaultTableModel {
 		}
 		this.moveRow(idx, idx, idx - 1);
 	}
+
+	@Override
+	public void setValueAt(Object aValue, int row, int column) {
+		String id = (String) this.getValueAt(row, 1);
+		SystemObject object = system.getObjectById(id);
+		if (column == 0) {
+			object.setName((String) aValue);
+		} else if (column == 1) {
+			object.setId((String) aValue);
+		}
+		fireTableDataChanged();
+	}
 }
