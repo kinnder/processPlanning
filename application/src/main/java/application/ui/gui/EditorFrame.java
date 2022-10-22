@@ -12,6 +12,7 @@ import application.ui.gui.editor.AttributesDataModel;
 import application.ui.gui.editor.EditorDataModel;
 import application.ui.gui.editor.LinksDataModel;
 import application.ui.gui.editor.ObjectsDataModel;
+import application.ui.gui.editor.SystemDataModel;
 import planning.method.NodeNetwork;
 import planning.method.SystemTransformations;
 import planning.method.TaskDescription;
@@ -35,9 +36,13 @@ public class EditorFrame extends javax.swing.JFrame {
 
 		initComponents();
 		setActions();
+
+		this.systemDataModel = new SystemDataModel(jtfSystemName, jcbSystemType);
 	}
 
 	private EditorDataModel editorDataModel;
+
+	private SystemDataModel systemDataModel;
 
 	private ObjectsDataModel objectsDataModel = new ObjectsDataModel();
 
@@ -1335,8 +1340,9 @@ public class EditorFrame extends javax.swing.JFrame {
 		if (selectedObject instanceof TaskDescription) {
 			java.lang.System.out.println("selected TaskDescription");
 		} else if (selectedObject instanceof System) {
+			systemDataModel.clear();
 			jtpEditors.setSelectedComponent(jpSystemEditor);
-			loadSystem((System) selectedObject);
+			systemDataModel.loadSystem((System) selectedObject);
 			objectsDataModel.loadObjects((System) selectedObject);
 			linksDataModel.loadLinks((System) selectedObject);
 		} else if (selectedObject instanceof SystemObject) {
@@ -1353,24 +1359,6 @@ public class EditorFrame extends javax.swing.JFrame {
 		String id = selectedObject.getId();
 		jtfObjectName.setText(name);
 		jtfObjectId.setText(id);
-	}
-
-	private void loadSystem(System selectedObject) {
-		String name = selectedObject.getName();
-		// TODO (2022-09-23 #72): перенести в System и заменить на Enum
-		int type;
-		if ("initialSystem".equals(name)) {
-			// initial
-			type = 0;
-		} else if ("finalSystem".equals(name)) {
-			// final
-			type = 2;
-		} else {
-			// regular
-			type = 1;
-		}
-		jtfSystemName.setText(name);
-		jcbSystemType.setSelectedIndex(type);
 	}
 
 	public static void main(String args[]) throws Exception {

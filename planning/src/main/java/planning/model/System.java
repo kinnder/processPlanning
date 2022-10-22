@@ -194,4 +194,8 @@ public class System implements Cloneable {
 	public String toString() {
 		return name;
 	}
+
+	public void setName(String systemName) {
+		this.name = systemName;
+	}
 }
