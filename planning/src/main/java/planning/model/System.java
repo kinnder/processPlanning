@@ -198,4 +198,8 @@ public class System implements Cloneable {
 	public void setName(String systemName) {
 		this.name = systemName;
 	}
+
+	public void removeLink(Link link) {
+		links.remove(link);
+	}
 }

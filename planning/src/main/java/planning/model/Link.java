@@ -81,4 +81,8 @@ public class Link implements Cloneable {
 		}
 		return ids;
 	}
+
+	public void setName(String aValue) {
+		this.name = aValue;
+	}
 }
