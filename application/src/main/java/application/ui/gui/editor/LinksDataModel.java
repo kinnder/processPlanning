@@ -1,5 +1,7 @@
 package application.ui.gui.editor;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 import javax.swing.table.DefaultTableModel;
@@ -17,6 +19,8 @@ public class LinksDataModel extends DefaultTableModel {
 
 	Class<?>[] types = new Class[] { String.class, String.class, String.class };
 
+	List<Link> links = new ArrayList<Link>();
+
 	@Override
 	public Class<?> getColumnClass(int columnIndex) {
 		return types[columnIndex];
@@ -25,27 +29,26 @@ public class LinksDataModel extends DefaultTableModel {
 	private System system;
 
 	public void loadLinks(System selectedSystem) {
+		links.clear();
 		this.setRowCount(0);
 
 		for (Link link : selectedSystem.getLinks()) {
-			String name = link.getName();
-			String id1 = link.getId1();
-			String id2 = link.getId2();
-			this.addRow(new Object[] { name, id1, id2 });
+			links.add(link);
+			this.addRow(new Object[] {});
 		}
 
 		system = selectedSystem;
 	}
 
 	public void insertLink() {
-		// TODO (2022-10-23): хранить список индекс=link
 		// TODO (2022-10-23): перенести создание пустых ссылок в класс Link
 		String name = "link-" + UUID.randomUUID().toString();
 		String id1 = "";
 		String id2 = "";
 		Link link = new Link(name, id1, id2);
 		system.addLink(link);
-		this.addRow(new Object[] { name, id1, id2 });
+		links.add(link);
+		this.addRow(new Object[] {});
 	}
 
 	public void deleteLink(int idx) {
@@ -53,13 +56,9 @@ public class LinksDataModel extends DefaultTableModel {
 			return;
 		}
 
-		String name = (String) this.getValueAt(idx, 0);
-		String id1 = (String) this.getValueAt(idx, 1);
-		String id2 = (String) this.getValueAt(idx, 2);
-
-		Link link = system.getLink(name, id1, id2);
-		// TODO (2022-10-23): удаление link по name, id1, id2
+		Link link = links.get(idx);
 		system.removeLink(link);
+		links.remove(link);
 
 		this.removeRow(idx);
 	}
@@ -68,22 +67,27 @@ public class LinksDataModel extends DefaultTableModel {
 		if (idx < 1) {
 			return;
 		}
-		this.moveRow(idx, idx, idx - 1);
+		move(idx, idx - 1);
 	}
 
 	public void moveDown(int idx) {
 		if (idx > this.getRowCount() - 1) {
 			return;
 		}
-		this.moveRow(idx, idx, idx + 1);
+		move(idx, idx + 1);
+	}
+
+	private void move(int idxA, int idxB) {
+		this.moveRow(idxA, idxA, idxB);
+		Link linkA = links.get(idxA);
+		Link linkB = links.get(idxB);
+		links.set(idxA, linkB);
+		links.set(idxB, linkA);
 	}
 
 	@Override
 	public void setValueAt(Object aValue, int row, int column) {
-		String name = (String) this.getValueAt(row, 0);
-		String id1 = (String) this.getValueAt(row, 1);
-		String id2 = (String) this.getValueAt(row, 2);
-		Link link = system.getLink(name, id1, id2);
+		Link link = links.get(row);
 		if (column == 0) {
 			link.setName((String) aValue);
 		} else if (column == 1) {
@@ -91,6 +95,19 @@ public class LinksDataModel extends DefaultTableModel {
 		} else if (column == 2) {
 			link.setId2((String) aValue);
 		}
-		fireTableDataChanged();
+	}
+
+	@Override
+	public Object getValueAt(int row, int column) {
+		Link link = links.get(row);
+		if (column == 0) {
+			return link.getName();
+		} else if (column == 1) {
+			return link.getId1();
+		} else if (column == 2) {
+			return link.getId2();
+		} else {
+			return null;
+		}
 	}
 }

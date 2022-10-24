@@ -199,6 +199,7 @@ public class System implements Cloneable {
 		this.name = systemName;
 	}
 
+	// TODO (2022-10-25 #72): синхронизировать название с deleteObject
 	public void removeLink(Link link) {
 		links.remove(link);
 	}
