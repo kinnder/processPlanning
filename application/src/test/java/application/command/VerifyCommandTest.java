@@ -54,7 +54,7 @@ public class VerifyCommandTest {
 		testable.factory = schemaFactory_mock;
 	}
 
-	// TODO (2021-08-24): разделить на несколько отдельных тестов
+	// TODO (2021-08-24 #47): разделить на несколько отдельных тестов
 	@Test
 	public void execute() throws Exception {
 		final VerifyCommandData data = new VerifyCommandData();

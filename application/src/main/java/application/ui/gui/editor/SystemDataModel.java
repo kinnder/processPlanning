@@ -6,6 +6,8 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import javax.swing.JComboBox;
 import javax.swing.JTextField;
+import javax.swing.tree.DefaultMutableTreeNode;
+
 import planning.model.System;
 
 public class SystemDataModel {
@@ -14,11 +16,14 @@ public class SystemDataModel {
 
 	private JComboBox<String> jcbSystemType;
 
+//	private EditorDataModel editorDataModel;
+
 	private System system;
 
-	public SystemDataModel(JTextField jtfSystemName, JComboBox<String> jcbSystemType) {
+	public SystemDataModel(JTextField jtfSystemName, JComboBox<String> jcbSystemType, EditorDataModel editorDataModel) {
 		this.jtfSystemName = jtfSystemName;
 		this.jcbSystemType = jcbSystemType;
+//		this.editorDataModel = editorDataModel;
 
 		jcbSystemType.addItemListener(new ItemListener() {
 			@Override
@@ -32,11 +37,13 @@ public class SystemDataModel {
 					case 0:
 						// initial
 						system.setName("initialSystem");
+						editorDataModel.nodeChanged(treeNode);
 						jtfSystemName.setText("initialSystem");
 						break;
 					case 2:
 						// final
 						system.setName("finalSystem");
+						editorDataModel.nodeChanged(treeNode);
 						jtfSystemName.setText("finalSystem");
 						break;
 					default:
@@ -52,11 +59,14 @@ public class SystemDataModel {
 			public void keyReleased(KeyEvent e) {
 				String systemName = jtfSystemName.getText();
 				system.setName(systemName);
+				editorDataModel.nodeChanged(treeNode);
 			}
 		});
 	}
 
-	public void loadSystem(System selectedObject) {
+	private DefaultMutableTreeNode treeNode;
+
+	public void loadSystem(System selectedObject, DefaultMutableTreeNode selectedNode) {
 		String name = selectedObject.getName();
 		// TODO (2022-09-23 #72): перенести в System и заменить на Enum
 		int type;
@@ -74,9 +84,11 @@ public class SystemDataModel {
 		jcbSystemType.setSelectedIndex(type);
 
 		system = selectedObject;
+		treeNode = selectedNode;
 	}
 
 	public void clear() {
 		system = null;
+		treeNode = null;
 	}
 }

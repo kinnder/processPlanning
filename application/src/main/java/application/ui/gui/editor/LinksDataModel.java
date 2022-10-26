@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.UUID;
 
 import javax.swing.table.DefaultTableModel;
+import javax.swing.tree.DefaultMutableTreeNode;
 
 import planning.model.Link;
 import planning.model.System;
@@ -28,7 +29,9 @@ public class LinksDataModel extends DefaultTableModel {
 
 	private System system;
 
-	public void loadLinks(System selectedSystem) {
+	private DefaultMutableTreeNode treeNode;
+
+	public void loadLinks(System selectedSystem, DefaultMutableTreeNode selectedNode) {
 		links.clear();
 		this.setRowCount(0);
 
@@ -38,10 +41,11 @@ public class LinksDataModel extends DefaultTableModel {
 		}
 
 		system = selectedSystem;
+		treeNode = selectedNode;
 	}
 
 	public void insertLink() {
-		// TODO (2022-10-23): перенести создание пустых ссылок в класс Link
+		// TODO (2022-10-23 #72): перенести создание пустых ссылок в класс Link
 		String name = "link-" + UUID.randomUUID().toString();
 		String id1 = "";
 		String id2 = "";
@@ -49,6 +53,7 @@ public class LinksDataModel extends DefaultTableModel {
 		system.addLink(link);
 		links.add(link);
 		this.addRow(new Object[] {});
+		editorDataModel.updateTreeNode(treeNode);
 	}
 
 	public void deleteLink(int idx) {
@@ -61,6 +66,7 @@ public class LinksDataModel extends DefaultTableModel {
 		links.remove(link);
 
 		this.removeRow(idx);
+		editorDataModel.updateTreeNode(treeNode);
 	}
 
 	public void moveUp(int idx) {
@@ -90,10 +96,13 @@ public class LinksDataModel extends DefaultTableModel {
 		Link link = links.get(row);
 		if (column == 0) {
 			link.setName((String) aValue);
+			editorDataModel.updateTreeNode(treeNode);
 		} else if (column == 1) {
 			link.setId1((String) aValue);
+			editorDataModel.updateTreeNode(treeNode);
 		} else if (column == 2) {
 			link.setId2((String) aValue);
+			editorDataModel.updateTreeNode(treeNode);
 		}
 	}
 
@@ -109,5 +118,12 @@ public class LinksDataModel extends DefaultTableModel {
 		} else {
 			return null;
 		}
+	}
+
+	private EditorDataModel editorDataModel;
+
+	// TODO (2022-10-26 #72): перенести в конструктор
+	public void setEditorDataModel(EditorDataModel editorDataModel) {
+		this.editorDataModel = editorDataModel;
 	}
 }

@@ -80,6 +80,25 @@ public class EditorDataModel extends DefaultTreeModel {
 		return systemNode;
 	}
 
+	// TODO (2022-10-26 #72): сравнить с методом NodeChanged
+	public void updateTreeNode(DefaultMutableTreeNode treeNode) {
+		Object treeNodeObject = treeNode.getUserObject();
+		if (treeNodeObject instanceof System) {
+			updateSystemTreeNode(treeNode);
+		}
+	}
+
+	private void updateSystemTreeNode(DefaultMutableTreeNode treeNode) {
+		System system = (System) treeNode.getUserObject();
+		treeNode.removeAllChildren();
+		Collection<SystemObject> objects = system.getObjects();
+		for (SystemObject object : objects) {
+			DefaultMutableTreeNode objectNode = new DefaultMutableTreeNode(object);
+			treeNode.add(objectNode);
+		}
+		nodeStructureChanged(treeNode);
+	}
+
 	public void loadSystemTransformations(SystemTransformations systemTransformations) {
 		DefaultMutableTreeNode systemTransformationNode;
 		DefaultMutableTreeNode systemNode;

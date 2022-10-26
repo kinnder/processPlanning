@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.table.DefaultTableModel;
+import javax.swing.tree.DefaultMutableTreeNode;
 
 import planning.model.System;
 import planning.model.SystemObject;
@@ -27,7 +28,9 @@ public class ObjectsDataModel extends DefaultTableModel {
 
 	private System system;
 
-	public void loadObjects(System selectedSystem) {
+	private DefaultMutableTreeNode treeNode;
+
+	public void loadObjects(System selectedSystem, DefaultMutableTreeNode selectedNode) {
 		objects.clear();
 		this.setRowCount(0);
 
@@ -37,6 +40,7 @@ public class ObjectsDataModel extends DefaultTableModel {
 		}
 
 		system = selectedSystem;
+		treeNode = selectedNode;
 	}
 
 	public void insertObject() {
@@ -44,6 +48,7 @@ public class ObjectsDataModel extends DefaultTableModel {
 		system.addObject(object);
 		objects.add(object);
 		this.addRow(new Object[] {});
+		editorDataModel.updateTreeNode(treeNode);
 	}
 
 	public void deleteObject(int idx) {
@@ -56,6 +61,7 @@ public class ObjectsDataModel extends DefaultTableModel {
 		objects.remove(object);
 
 		this.removeRow(idx);
+		editorDataModel.updateTreeNode(treeNode);
 	}
 
 	public void moveDown(int idx) {
@@ -85,8 +91,10 @@ public class ObjectsDataModel extends DefaultTableModel {
 		SystemObject object = objects.get(row);
 		if (column == 0) {
 			object.setName((String) aValue);
+			editorDataModel.updateTreeNode(treeNode);
 		} else if (column == 1) {
 			object.setId((String) aValue);
+			editorDataModel.updateTreeNode(treeNode);
 		}
 	}
 
@@ -100,5 +108,12 @@ public class ObjectsDataModel extends DefaultTableModel {
 		} else {
 			return null;
 		}
+	}
+
+	private EditorDataModel editorDataModel;
+
+	// TODO (2022-10-26 #72): перенести в конструктор
+	public void setEditorDataModel(EditorDataModel editorDataModel) {
+		this.editorDataModel = editorDataModel;
 	}
 }

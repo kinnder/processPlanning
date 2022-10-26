@@ -37,7 +37,9 @@ public class EditorFrame extends javax.swing.JFrame {
 		initComponents();
 		setActions();
 
-		this.systemDataModel = new SystemDataModel(jtfSystemName, jcbSystemType);
+		this.systemDataModel = new SystemDataModel(jtfSystemName, jcbSystemType, editorDataModel);
+		objectsDataModel.setEditorDataModel(editorDataModel);
+		linksDataModel.setEditorDataModel(editorDataModel);
 	}
 
 	private EditorDataModel editorDataModel;
@@ -1386,9 +1388,9 @@ public class EditorFrame extends javax.swing.JFrame {
 		} else if (selectedObject instanceof System) {
 			systemDataModel.clear();
 			jtpEditors.setSelectedComponent(jpSystemEditor);
-			systemDataModel.loadSystem((System) selectedObject);
-			objectsDataModel.loadObjects((System) selectedObject);
-			linksDataModel.loadLinks((System) selectedObject);
+			systemDataModel.loadSystem((System) selectedObject, selectedNode);
+			objectsDataModel.loadObjects((System) selectedObject, selectedNode);
+			linksDataModel.loadLinks((System) selectedObject, selectedNode);
 		} else if (selectedObject instanceof SystemObject) {
 			jtpEditors.setSelectedComponent(jpObjectEditor);
 			loadSystemObject((SystemObject) selectedObject);
