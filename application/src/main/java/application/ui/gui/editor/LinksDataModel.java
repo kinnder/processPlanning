@@ -69,28 +69,6 @@ public class LinksDataModel extends DefaultTableModel {
 		editorDataModel.updateTreeNode(treeNode);
 	}
 
-	public void moveUp(int idx) {
-		if (idx < 1) {
-			return;
-		}
-		move(idx, idx - 1);
-	}
-
-	public void moveDown(int idx) {
-		if (idx > this.getRowCount() - 1) {
-			return;
-		}
-		move(idx, idx + 1);
-	}
-
-	private void move(int idxA, int idxB) {
-		this.moveRow(idxA, idxA, idxB);
-		Link linkA = links.get(idxA);
-		Link linkB = links.get(idxB);
-		links.set(idxA, linkB);
-		links.set(idxB, linkA);
-	}
-
 	@Override
 	public void setValueAt(Object aValue, int row, int column) {
 		Link link = links.get(row);

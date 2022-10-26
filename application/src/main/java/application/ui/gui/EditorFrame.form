@@ -336,8 +336,6 @@
                                       <Group type="102" attributes="0">
                                           <EmptySpace max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="0" attributes="0">
-                                              <Component id="jbObjectsMoveDown" min="-2" max="-2" attributes="0"/>
-                                              <Component id="jbObjectsMoveUp" alignment="0" min="-2" max="-2" attributes="0"/>
                                               <Component id="jbObjectsDelete" alignment="0" min="-2" max="-2" attributes="0"/>
                                               <Component id="jbObjectsInsert" alignment="0" min="-2" max="-2" attributes="0"/>
                                           </Group>
@@ -352,11 +350,7 @@
                                           <Component id="jbObjectsInsert" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
                                           <Component id="jbObjectsDelete" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="jbObjectsMoveUp" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="jbObjectsMoveDown" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace max="32767" attributes="0"/>
+                                          <EmptySpace pref="62" max="32767" attributes="0"/>
                                       </Group>
                                   </Group>
                                 </DimensionLayout>
@@ -370,16 +364,6 @@
                                 <Component class="javax.swing.JButton" name="jbObjectsDelete">
                                   <Properties>
                                     <Property name="text" type="java.lang.String" value="Delete"/>
-                                  </Properties>
-                                </Component>
-                                <Component class="javax.swing.JButton" name="jbObjectsMoveUp">
-                                  <Properties>
-                                    <Property name="text" type="java.lang.String" value="Up"/>
-                                  </Properties>
-                                </Component>
-                                <Component class="javax.swing.JButton" name="jbObjectsMoveDown">
-                                  <Properties>
-                                    <Property name="text" type="java.lang.String" value="Down"/>
                                   </Properties>
                                 </Component>
                               </SubComponents>
@@ -445,8 +429,6 @@
                                           <Group type="103" groupAlignment="0" attributes="0">
                                               <Component id="jbLinksInsert" alignment="0" min="-2" max="-2" attributes="0"/>
                                               <Component id="jbLinksDelete" alignment="0" min="-2" max="-2" attributes="0"/>
-                                              <Component id="jbLinksMoveUp" alignment="0" min="-2" max="-2" attributes="0"/>
-                                              <Component id="jbLinksMoveDown" alignment="0" min="-2" max="-2" attributes="0"/>
                                           </Group>
                                           <EmptySpace max="32767" attributes="0"/>
                                       </Group>
@@ -459,11 +441,7 @@
                                           <Component id="jbLinksInsert" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
                                           <Component id="jbLinksDelete" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="jbLinksMoveUp" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="jbLinksMoveDown" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace pref="156" max="32767" attributes="0"/>
+                                          <EmptySpace pref="216" max="32767" attributes="0"/>
                                       </Group>
                                   </Group>
                                 </DimensionLayout>
@@ -477,16 +455,6 @@
                                 <Component class="javax.swing.JButton" name="jbLinksDelete">
                                   <Properties>
                                     <Property name="text" type="java.lang.String" value="Delete"/>
-                                  </Properties>
-                                </Component>
-                                <Component class="javax.swing.JButton" name="jbLinksMoveUp">
-                                  <Properties>
-                                    <Property name="text" type="java.lang.String" value="Up"/>
-                                  </Properties>
-                                </Component>
-                                <Component class="javax.swing.JButton" name="jbLinksMoveDown">
-                                  <Properties>
-                                    <Property name="text" type="java.lang.String" value="Down"/>
                                   </Properties>
                                 </Component>
                               </SubComponents>

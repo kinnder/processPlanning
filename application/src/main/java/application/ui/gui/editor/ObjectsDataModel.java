@@ -64,28 +64,6 @@ public class ObjectsDataModel extends DefaultTableModel {
 		editorDataModel.updateTreeNode(treeNode);
 	}
 
-	public void moveDown(int idx) {
-		if (idx > this.getRowCount() - 1) {
-			return;
-		}
-		move(idx, idx + 1);
-	}
-
-	public void moveUp(int idx) {
-		if (idx < 1) {
-			return;
-		}
-		move(idx, idx - 1);
-	}
-
-	private void move(int idxA, int idxB) {
-		this.moveRow(idxA, idxA, idxB);
-		SystemObject objectA = objects.get(idxA);
-		SystemObject objectB = objects.get(idxB);
-		objects.set(idxA, objectB);
-		objects.set(idxB, objectA);
-	}
-
 	@Override
 	public void setValueAt(Object aValue, int row, int column) {
 		SystemObject object = objects.get(row);

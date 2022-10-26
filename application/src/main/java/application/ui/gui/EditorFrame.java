@@ -61,13 +61,9 @@ public class EditorFrame extends javax.swing.JFrame {
 
 		jbObjectsInsert.setAction(objectInsertAction);
 		jbObjectsDelete.setAction(objectDeleteAction);
-		jbObjectsMoveUp.setAction(objectMoveUpAction);
-		jbObjectsMoveDown.setAction(objectMoveDownAction);
 
 		jbLinksInsert.setAction(linkInsertAction);
 		jbLinksDelete.setAction(linkDeleteAction);
-		jbLinksMoveUp.setAction(linkMoveUpAction);
-		jbLinksMoveDown.setAction(linkMoveDownAction);
 	}
 
 	Action taskDescriptionLoadAction = new AbstractAction("Load") {
@@ -139,26 +135,6 @@ public class EditorFrame extends javax.swing.JFrame {
 		}
 	};
 
-	Action objectMoveUpAction = new AbstractAction("Up") {
-		private static final long serialVersionUID = -5915571174996559191L;
-
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			int idx = jtObjects.getSelectedRow();
-			objectsDataModel.moveUp(idx);
-		}
-	};
-
-	Action objectMoveDownAction = new AbstractAction("Down") {
-		private static final long serialVersionUID = 7990486675464420960L;
-
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			int idx = jtObjects.getSelectedRow();
-			objectsDataModel.moveDown(idx);
-		}
-	};
-
 	Action linkInsertAction = new AbstractAction("Insert") {
 		private static final long serialVersionUID = -9112378954512358406L;
 
@@ -178,26 +154,6 @@ public class EditorFrame extends javax.swing.JFrame {
 		}
 	};
 
-	Action linkMoveUpAction = new AbstractAction("Up") {
-		private static final long serialVersionUID = -8010515132134778788L;
-
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			int idx = jtLinks.getSelectedRow();
-			linksDataModel.moveUp(idx);
-		}
-	};
-
-	Action linkMoveDownAction = new AbstractAction("Down") {
-		private static final long serialVersionUID = -2727288841497369038L;
-
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			int idx = jtLinks.getSelectedRow();
-			linksDataModel.moveDown(idx);
-		}
-	};
-
 	/**
 	 * This method is called from within the constructor to initialize the form.
 	 * WARNING: Do NOT modify this code. The content of this method is always
@@ -205,6 +161,7 @@ public class EditorFrame extends javax.swing.JFrame {
 	 */
 	// <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
 	private void initComponents() {
+
 		bgTransformationType = new javax.swing.ButtonGroup();
 		jspWorkArea = new javax.swing.JSplitPane();
 		jspData = new javax.swing.JScrollPane();
@@ -225,15 +182,11 @@ public class EditorFrame extends javax.swing.JFrame {
 		jpObjectsButtons = new javax.swing.JPanel();
 		jbObjectsInsert = new javax.swing.JButton();
 		jbObjectsDelete = new javax.swing.JButton();
-		jbObjectsMoveUp = new javax.swing.JButton();
-		jbObjectsMoveDown = new javax.swing.JButton();
 		jpLinksEditor = new javax.swing.JPanel();
 		jlLinks = new javax.swing.JLabel();
 		jpLinksButtons = new javax.swing.JPanel();
 		jbLinksInsert = new javax.swing.JButton();
 		jbLinksDelete = new javax.swing.JButton();
-		jbLinksMoveUp = new javax.swing.JButton();
-		jbLinksMoveDown = new javax.swing.JButton();
 		jspLinks = new javax.swing.JScrollPane();
 		jtLinks = new javax.swing.JTable();
 		jpNodeEditor = new javax.swing.JPanel();
@@ -410,29 +363,19 @@ public class EditorFrame extends javax.swing.JFrame {
 
 		jbObjectsDelete.setText("Delete");
 
-		jbObjectsMoveUp.setText("Up");
-
-		jbObjectsMoveDown.setText("Down");
-
 		javax.swing.GroupLayout jpObjectsButtonsLayout = new javax.swing.GroupLayout(jpObjectsButtons);
 		jpObjectsButtons.setLayout(jpObjectsButtonsLayout);
 		jpObjectsButtonsLayout.setHorizontalGroup(jpObjectsButtonsLayout
 				.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
 				.addGroup(jpObjectsButtonsLayout.createSequentialGroup().addContainerGap()
 						.addGroup(jpObjectsButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-								.addComponent(jbObjectsMoveDown).addComponent(jbObjectsMoveUp)
 								.addComponent(jbObjectsDelete).addComponent(jbObjectsInsert))
 						.addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
 		jpObjectsButtonsLayout.setVerticalGroup(jpObjectsButtonsLayout
 				.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
 				.addGroup(jpObjectsButtonsLayout.createSequentialGroup().addContainerGap().addComponent(jbObjectsInsert)
 						.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-						.addComponent(jbObjectsDelete)
-						.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-						.addComponent(jbObjectsMoveUp)
-						.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-						.addComponent(jbObjectsMoveDown)
-						.addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
+						.addComponent(jbObjectsDelete).addContainerGap(62, Short.MAX_VALUE)));
 
 		javax.swing.GroupLayout jpObjectsEditorLayout = new javax.swing.GroupLayout(jpObjectsEditor);
 		jpObjectsEditor.setLayout(jpObjectsEditorLayout);
@@ -465,26 +408,19 @@ public class EditorFrame extends javax.swing.JFrame {
 
 		jbLinksDelete.setText("Delete");
 
-		jbLinksMoveUp.setText("Up");
-
-		jbLinksMoveDown.setText("Down");
-
 		javax.swing.GroupLayout jpLinksButtonsLayout = new javax.swing.GroupLayout(jpLinksButtons);
 		jpLinksButtons.setLayout(jpLinksButtonsLayout);
 		jpLinksButtonsLayout.setHorizontalGroup(jpLinksButtonsLayout
 				.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
 				.addGroup(jpLinksButtonsLayout.createSequentialGroup().addContainerGap()
 						.addGroup(jpLinksButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-								.addComponent(jbLinksInsert).addComponent(jbLinksDelete).addComponent(jbLinksMoveUp)
-								.addComponent(jbLinksMoveDown))
+								.addComponent(jbLinksInsert).addComponent(jbLinksDelete))
 						.addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
 		jpLinksButtonsLayout.setVerticalGroup(jpLinksButtonsLayout
 				.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
 				.addGroup(jpLinksButtonsLayout.createSequentialGroup().addContainerGap().addComponent(jbLinksInsert)
 						.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED).addComponent(jbLinksDelete)
-						.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED).addComponent(jbLinksMoveUp)
-						.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-						.addComponent(jbLinksMoveDown).addContainerGap(156, Short.MAX_VALUE)));
+						.addContainerGap(216, Short.MAX_VALUE)));
 
 		jtLinks.setModel(linksDataModel);
 		jspLinks.setViewportView(jtLinks);
@@ -1430,12 +1366,8 @@ public class EditorFrame extends javax.swing.JFrame {
 	private javax.swing.JButton jbEdgesUp;
 	private javax.swing.JButton jbLinksDelete;
 	private javax.swing.JButton jbLinksInsert;
-	private javax.swing.JButton jbLinksMoveDown;
-	private javax.swing.JButton jbLinksMoveUp;
 	private javax.swing.JButton jbObjectsDelete;
 	private javax.swing.JButton jbObjectsInsert;
-	private javax.swing.JButton jbObjectsMoveDown;
-	private javax.swing.JButton jbObjectsMoveUp;
 	private javax.swing.JButton jbParametersDelete;
 	private javax.swing.JButton jbParametersDown;
 	private javax.swing.JButton jbParametersInsert;
