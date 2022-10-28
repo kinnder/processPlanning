@@ -14,8 +14,11 @@ public class LinksDataModel extends DefaultTableModel {
 
 	private static final long serialVersionUID = 5763927106033461565L;
 
-	public LinksDataModel() {
+	private EditorDataModel editorDataModel;
+
+	public LinksDataModel(EditorDataModel editorDataModel) {
 		super(new String[] { "name", "id1", "id2" }, 0);
+		this.editorDataModel = editorDataModel;
 	}
 
 	Class<?>[] types = new Class[] { String.class, String.class, String.class };
@@ -53,7 +56,7 @@ public class LinksDataModel extends DefaultTableModel {
 		system.addLink(link);
 		links.add(link);
 		this.addRow(new Object[] {});
-		editorDataModel.updateTreeNode(treeNode);
+		editorDataModel.nodeChanged(treeNode);
 	}
 
 	public void deleteLink(int idx) {
@@ -66,7 +69,7 @@ public class LinksDataModel extends DefaultTableModel {
 		links.remove(link);
 
 		this.removeRow(idx);
-		editorDataModel.updateTreeNode(treeNode);
+		editorDataModel.nodeChanged(treeNode);
 	}
 
 	@Override
@@ -74,13 +77,13 @@ public class LinksDataModel extends DefaultTableModel {
 		Link link = links.get(row);
 		if (column == 0) {
 			link.setName((String) aValue);
-			editorDataModel.updateTreeNode(treeNode);
+			editorDataModel.nodeChanged(treeNode);
 		} else if (column == 1) {
 			link.setId1((String) aValue);
-			editorDataModel.updateTreeNode(treeNode);
+			editorDataModel.nodeChanged(treeNode);
 		} else if (column == 2) {
 			link.setId2((String) aValue);
-			editorDataModel.updateTreeNode(treeNode);
+			editorDataModel.nodeChanged(treeNode);
 		}
 	}
 
@@ -96,12 +99,5 @@ public class LinksDataModel extends DefaultTableModel {
 		} else {
 			return null;
 		}
-	}
-
-	private EditorDataModel editorDataModel;
-
-	// TODO (2022-10-26 #72): перенести в конструктор
-	public void setEditorDataModel(EditorDataModel editorDataModel) {
-		this.editorDataModel = editorDataModel;
 	}
 }

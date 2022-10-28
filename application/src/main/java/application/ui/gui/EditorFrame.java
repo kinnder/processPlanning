@@ -33,22 +33,22 @@ public class EditorFrame extends javax.swing.JFrame {
 	EditorFrame(Application application, EditorDataModel editorDataModel) {
 		this.application = application;
 		this.editorDataModel = editorDataModel;
+		this.objectsDataModel = new ObjectsDataModel(editorDataModel);
+		this.linksDataModel = new LinksDataModel(editorDataModel);
 
 		initComponents();
 		setActions();
 
 		this.systemDataModel = new SystemDataModel(jtfSystemName, jcbSystemType, editorDataModel);
-		objectsDataModel.setEditorDataModel(editorDataModel);
-		linksDataModel.setEditorDataModel(editorDataModel);
 	}
 
 	private EditorDataModel editorDataModel;
 
 	private SystemDataModel systemDataModel;
 
-	private ObjectsDataModel objectsDataModel = new ObjectsDataModel();
+	private ObjectsDataModel objectsDataModel;
 
-	private LinksDataModel linksDataModel = new LinksDataModel();
+	private LinksDataModel linksDataModel;
 
 	private AttributesDataModel attributesDataModel = new AttributesDataModel();
 

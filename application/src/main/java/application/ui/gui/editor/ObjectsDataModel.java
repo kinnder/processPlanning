@@ -13,8 +13,11 @@ public class ObjectsDataModel extends DefaultTableModel {
 
 	private static final long serialVersionUID = 375415280617365587L;
 
-	public ObjectsDataModel() {
+	private EditorDataModel editorDataModel;
+
+	public ObjectsDataModel(EditorDataModel editorDataModel) {
 		super(new String[] { "name", "id" }, 0);
+		this.editorDataModel = editorDataModel;
 	}
 
 	Class<?>[] types = new Class[] { String.class, String.class };
@@ -28,7 +31,7 @@ public class ObjectsDataModel extends DefaultTableModel {
 
 	private System system;
 
-	private DefaultMutableTreeNode treeNode;
+	private DefaultMutableTreeNode systemNode;
 
 	public void loadObjects(System selectedSystem, DefaultMutableTreeNode selectedNode) {
 		objects.clear();
@@ -40,7 +43,7 @@ public class ObjectsDataModel extends DefaultTableModel {
 		}
 
 		system = selectedSystem;
-		treeNode = selectedNode;
+		systemNode = selectedNode;
 	}
 
 	public void insertObject() {
@@ -48,7 +51,9 @@ public class ObjectsDataModel extends DefaultTableModel {
 		system.addObject(object);
 		objects.add(object);
 		this.addRow(new Object[] {});
-		editorDataModel.updateTreeNode(treeNode);
+		DefaultMutableTreeNode objectNode = editorDataModel.createObjectNode(object);
+		systemNode.add(objectNode);
+		editorDataModel.insertNodeInto(objectNode, systemNode, objects.size() - 1);
 	}
 
 	public void deleteObject(int idx) {
@@ -61,7 +66,8 @@ public class ObjectsDataModel extends DefaultTableModel {
 		objects.remove(object);
 
 		this.removeRow(idx);
-		editorDataModel.updateTreeNode(treeNode);
+		DefaultMutableTreeNode objectNode = (DefaultMutableTreeNode) systemNode.getChildAt(idx);
+		editorDataModel.removeNodeFromParent(objectNode);
 	}
 
 	@Override
@@ -69,10 +75,10 @@ public class ObjectsDataModel extends DefaultTableModel {
 		SystemObject object = objects.get(row);
 		if (column == 0) {
 			object.setName((String) aValue);
-			editorDataModel.updateTreeNode(treeNode);
+			editorDataModel.nodesChanged(systemNode, new int[] { row });
 		} else if (column == 1) {
 			object.setId((String) aValue);
-			editorDataModel.updateTreeNode(treeNode);
+			editorDataModel.nodesChanged(systemNode, new int[] { row });
 		}
 	}
 
@@ -86,12 +92,5 @@ public class ObjectsDataModel extends DefaultTableModel {
 		} else {
 			return null;
 		}
-	}
-
-	private EditorDataModel editorDataModel;
-
-	// TODO (2022-10-26 #72): перенести в конструктор
-	public void setEditorDataModel(EditorDataModel editorDataModel) {
-		this.editorDataModel = editorDataModel;
 	}
 }

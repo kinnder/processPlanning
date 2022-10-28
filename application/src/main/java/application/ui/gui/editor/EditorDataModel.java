@@ -70,33 +70,18 @@ public class EditorDataModel extends DefaultTreeModel {
 		return (TaskDescription) taskDescriptionNode.getUserObject();
 	}
 
-	private DefaultMutableTreeNode createSystemNode(System system) {
+	public DefaultMutableTreeNode createSystemNode(System system) {
 		DefaultMutableTreeNode systemNode = new DefaultMutableTreeNode(system);
 		Collection<SystemObject> objects = system.getObjects();
 		for (SystemObject object : objects) {
-			DefaultMutableTreeNode objectNode = new DefaultMutableTreeNode(object);
+			DefaultMutableTreeNode objectNode = createObjectNode(object);
 			systemNode.add(objectNode);
 		}
 		return systemNode;
 	}
 
-	// TODO (2022-10-26 #72): сравнить с методом NodeChanged
-	public void updateTreeNode(DefaultMutableTreeNode treeNode) {
-		Object treeNodeObject = treeNode.getUserObject();
-		if (treeNodeObject instanceof System) {
-			updateSystemTreeNode(treeNode);
-		}
-	}
-
-	private void updateSystemTreeNode(DefaultMutableTreeNode treeNode) {
-		System system = (System) treeNode.getUserObject();
-		treeNode.removeAllChildren();
-		Collection<SystemObject> objects = system.getObjects();
-		for (SystemObject object : objects) {
-			DefaultMutableTreeNode objectNode = new DefaultMutableTreeNode(object);
-			treeNode.add(objectNode);
-		}
-		nodeStructureChanged(treeNode);
+	public DefaultMutableTreeNode createObjectNode(SystemObject object) {
+		return new DefaultMutableTreeNode(object);
 	}
 
 	public void loadSystemTransformations(SystemTransformations systemTransformations) {
