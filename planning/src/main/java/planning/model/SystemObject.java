@@ -111,4 +111,8 @@ public class SystemObject implements Cloneable {
 	public void setId(String aValue) {
 		this.id = aValue;
 	}
+
+	public void removeAttribute(Attribute attribute) {
+		attributes.remove(attribute.getName());
+	}
 }

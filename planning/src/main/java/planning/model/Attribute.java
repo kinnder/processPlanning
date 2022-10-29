@@ -54,6 +54,10 @@ public class Attribute implements Cloneable {
 		return this.name;
 	}
 
+	public void setName(String aValue) {
+		this.name = aValue;
+	}
+
 	public void setValue(Object value) {
 		this.value = value;
 	}

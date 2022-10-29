@@ -1169,8 +1169,6 @@
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Component id="jbAttributesInsert" alignment="0" min="-2" max="-2" attributes="0"/>
                                       <Component id="jbAttributesDelete" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jbAttributesMoveUp" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jbAttributesMoveDown" alignment="0" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="32767" attributes="0"/>
                               </Group>
@@ -1183,10 +1181,6 @@
                                   <Component id="jbAttributesInsert" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="jbAttributesDelete" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="jbAttributesMoveUp" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="jbAttributesMoveDown" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="32767" attributes="0"/>
                               </Group>
                           </Group>
@@ -1201,16 +1195,6 @@
                         <Component class="javax.swing.JButton" name="jbAttributesDelete">
                           <Properties>
                             <Property name="text" type="java.lang.String" value="Delete"/>
-                          </Properties>
-                        </Component>
-                        <Component class="javax.swing.JButton" name="jbAttributesMoveUp">
-                          <Properties>
-                            <Property name="text" type="java.lang.String" value="Up"/>
-                          </Properties>
-                        </Component>
-                        <Component class="javax.swing.JButton" name="jbAttributesMoveDown">
-                          <Properties>
-                            <Property name="text" type="java.lang.String" value="Down"/>
                           </Properties>
                         </Component>
                       </SubComponents>

@@ -11,6 +11,7 @@ import application.ui.UserInterfaceFactory;
 import application.ui.gui.editor.AttributesDataModel;
 import application.ui.gui.editor.EditorDataModel;
 import application.ui.gui.editor.LinksDataModel;
+import application.ui.gui.editor.ObjectDataModel;
 import application.ui.gui.editor.ObjectsDataModel;
 import application.ui.gui.editor.SystemDataModel;
 import planning.method.NodeNetwork;
@@ -35,11 +36,13 @@ public class EditorFrame extends javax.swing.JFrame {
 		this.editorDataModel = editorDataModel;
 		this.objectsDataModel = new ObjectsDataModel(editorDataModel);
 		this.linksDataModel = new LinksDataModel(editorDataModel);
+		this.attributesDataModel = new AttributesDataModel(editorDataModel);
 
 		initComponents();
 		setActions();
 
 		this.systemDataModel = new SystemDataModel(jtfSystemName, jcbSystemType, editorDataModel);
+		this.objectDataModel = new ObjectDataModel(jtfObjectName, jtfObjectId, editorDataModel);
 	}
 
 	private EditorDataModel editorDataModel;
@@ -50,7 +53,9 @@ public class EditorFrame extends javax.swing.JFrame {
 
 	private LinksDataModel linksDataModel;
 
-	private AttributesDataModel attributesDataModel = new AttributesDataModel();
+	private ObjectDataModel objectDataModel;
+
+	private AttributesDataModel attributesDataModel;
 
 	private void setActions() {
 		jmiTaskDescriptionLoad.setAction(taskDescriptionLoadAction);
@@ -64,6 +69,9 @@ public class EditorFrame extends javax.swing.JFrame {
 
 		jbLinksInsert.setAction(linkInsertAction);
 		jbLinksDelete.setAction(linkDeleteAction);
+
+		jbAttributesInsert.setAction(attributeInsertAction);
+		jbAttributesDelete.setAction(attributeDeleteAction);
 	}
 
 	Action taskDescriptionLoadAction = new AbstractAction("Load") {
@@ -154,6 +162,25 @@ public class EditorFrame extends javax.swing.JFrame {
 		}
 	};
 
+	Action attributeInsertAction = new AbstractAction("Insert") {
+		private static final long serialVersionUID = -9112378954512358406L;
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			attributesDataModel.insertAttribute();
+		}
+	};
+
+	Action attributeDeleteAction = new AbstractAction("Delete") {
+		private static final long serialVersionUID = 5435734964836282376L;
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			int idx = jtAttributes.getSelectedRow();
+			attributesDataModel.deteleAttribute(idx);
+		}
+	};
+
 	/**
 	 * This method is called from within the constructor to initialize the form.
 	 * WARNING: Do NOT modify this code. The content of this method is always
@@ -161,7 +188,6 @@ public class EditorFrame extends javax.swing.JFrame {
 	 */
 	// <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
 	private void initComponents() {
-
 		bgTransformationType = new javax.swing.ButtonGroup();
 		jspWorkArea = new javax.swing.JSplitPane();
 		jspData = new javax.swing.JScrollPane();
@@ -238,8 +264,6 @@ public class EditorFrame extends javax.swing.JFrame {
 		jpAttributesButtons = new javax.swing.JPanel();
 		jbAttributesInsert = new javax.swing.JButton();
 		jbAttributesDelete = new javax.swing.JButton();
-		jbAttributesMoveUp = new javax.swing.JButton();
-		jbAttributesMoveDown = new javax.swing.JButton();
 		jpActionEditor = new javax.swing.JPanel();
 		jpAction = new javax.swing.JPanel();
 		jlActionName = new javax.swing.JLabel();
@@ -803,10 +827,6 @@ public class EditorFrame extends javax.swing.JFrame {
 
 		jbAttributesDelete.setText("Delete");
 
-		jbAttributesMoveUp.setText("Up");
-
-		jbAttributesMoveDown.setText("Down");
-
 		javax.swing.GroupLayout jpAttributesButtonsLayout = new javax.swing.GroupLayout(jpAttributesButtons);
 		jpAttributesButtons.setLayout(jpAttributesButtonsLayout);
 		jpAttributesButtonsLayout.setHorizontalGroup(
@@ -814,8 +834,7 @@ public class EditorFrame extends javax.swing.JFrame {
 						.addGroup(jpAttributesButtonsLayout.createSequentialGroup().addContainerGap()
 								.addGroup(jpAttributesButtonsLayout
 										.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-										.addComponent(jbAttributesInsert).addComponent(jbAttributesDelete)
-										.addComponent(jbAttributesMoveUp).addComponent(jbAttributesMoveDown))
+										.addComponent(jbAttributesInsert).addComponent(jbAttributesDelete))
 								.addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
 		jpAttributesButtonsLayout.setVerticalGroup(
 				jpAttributesButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -823,10 +842,6 @@ public class EditorFrame extends javax.swing.JFrame {
 								.addComponent(jbAttributesInsert)
 								.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
 								.addComponent(jbAttributesDelete)
-								.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-								.addComponent(jbAttributesMoveUp)
-								.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-								.addComponent(jbAttributesMoveDown)
 								.addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
 
 		javax.swing.GroupLayout jpAttributesEditorLayout = new javax.swing.GroupLayout(jpAttributesEditor);
@@ -1312,9 +1327,8 @@ public class EditorFrame extends javax.swing.JFrame {
 		pack();
 	}// </editor-fold>//GEN-END:initComponents
 
-	@SuppressWarnings("PMD.UnusedFormalParameter")
 	private void jtDataValueChanged(javax.swing.event.TreeSelectionEvent evt) {// GEN-FIRST:event_jtDataValueChanged
-		DefaultMutableTreeNode selectedNode = (DefaultMutableTreeNode) jtData.getLastSelectedPathComponent();
+		DefaultMutableTreeNode selectedNode = (DefaultMutableTreeNode) evt.getPath().getLastPathComponent();
 		if (selectedNode == null) {
 			return;
 		}
@@ -1328,20 +1342,14 @@ public class EditorFrame extends javax.swing.JFrame {
 			objectsDataModel.loadObjects((System) selectedObject, selectedNode);
 			linksDataModel.loadLinks((System) selectedObject, selectedNode);
 		} else if (selectedObject instanceof SystemObject) {
+			objectDataModel.clear();
 			jtpEditors.setSelectedComponent(jpObjectEditor);
-			loadSystemObject((SystemObject) selectedObject);
-			attributesDataModel.loadAttributes((SystemObject) selectedObject);
+			objectDataModel.loadSystemObject((SystemObject) selectedObject, selectedNode);
+			attributesDataModel.loadAttributes((SystemObject) selectedObject, selectedNode);
 		} else {
 			java.lang.System.out.println("unknown: " + selectedObject.toString());
 		}
 	}// GEN-LAST:event_jtDataValueChanged
-
-	private void loadSystemObject(SystemObject selectedObject) {
-		String name = selectedObject.getName();
-		String id = selectedObject.getId();
-		jtfObjectName.setText(name);
-		jtfObjectId.setText(id);
-	}
 
 	public static void main(String args[]) throws Exception {
 		UserInterfaceFactory.initializeLookAndFeel();
@@ -1358,8 +1366,6 @@ public class EditorFrame extends javax.swing.JFrame {
 	private javax.swing.JButton jbActionFunctionsMoveUp;
 	private javax.swing.JButton jbAttributesDelete;
 	private javax.swing.JButton jbAttributesInsert;
-	private javax.swing.JButton jbAttributesMoveDown;
-	private javax.swing.JButton jbAttributesMoveUp;
 	private javax.swing.JButton jbEdgesDelete;
 	private javax.swing.JButton jbEdgesDown;
 	private javax.swing.JButton jbEdgesInsert;
