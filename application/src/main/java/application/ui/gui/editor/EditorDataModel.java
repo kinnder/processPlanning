@@ -54,12 +54,12 @@ public class EditorDataModel extends DefaultTreeModel {
 		taskDescriptionNode.setUserObject(taskDescription);
 
 		system = taskDescription.getInitialSystem();
-		system.name = "initialSystem";
+		system.setName("initialSystem");
 		systemNode = createSystemNode(system);
 		taskDescriptionNode.add(systemNode);
 
 		system = taskDescription.getFinalSystem();
-		system.name = "finalSystem";
+		system.setName("finalSystem");
 		systemNode = createSystemNode(system);
 		taskDescriptionNode.add(systemNode);
 

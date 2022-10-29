@@ -26,7 +26,7 @@ public class System implements Cloneable {
 
 	}
 
-	public void deleteObject(SystemObject object) {
+	public void removeLink(SystemObject object) {
 		objects.remove(object);
 	}
 
@@ -183,15 +183,9 @@ public class System implements Cloneable {
 		return null;
 	}
 
-	// TODO (2022-09-21 #72): добавить чтение / запись поля
-	public String name;
+	private String name;
 
 	public String getName() {
-		return name;
-	}
-
-	@Override
-	public String toString() {
 		return name;
 	}
 
@@ -199,7 +193,11 @@ public class System implements Cloneable {
 		this.name = systemName;
 	}
 
-	// TODO (2022-10-25 #72): синхронизировать название с deleteObject
+	@Override
+	public String toString() {
+		return name;
+	}
+
 	public void removeLink(Link link) {
 		links.remove(link);
 	}

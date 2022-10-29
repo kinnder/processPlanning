@@ -62,7 +62,7 @@ public class ObjectsDataModel extends DefaultTableModel {
 		}
 
 		SystemObject object = objects.get(idx);
-		system.deleteObject(object);
+		system.removeLink(object);
 		objects.remove(object);
 
 		this.removeRow(idx);
