@@ -82,6 +82,17 @@ public class LinkTest {
 	}
 
 	@Test
+	public void test_toString() {
+		assertEquals("link", testable.toString());
+	}
+
+	@Test
+	public void setName() {
+		testable.setName("new-link-name");
+		assertEquals("new-link-name", testable.getName());
+	}
+
+	@Test
 	public void getId1() {
 		assertEquals("id-1", testable.getId1());
 	}

@@ -409,7 +409,7 @@ public class SystemTest {
 	}
 
 	@Test
-	public void systemToString() {
+	public void test_toString() {
 		testable.setName("test-system-name");
 		assertEquals("test-system-name", testable.toString());
 	}
