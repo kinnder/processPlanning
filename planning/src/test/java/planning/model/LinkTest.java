@@ -82,7 +82,7 @@ public class LinkTest {
 	}
 
 	@Test
-	public void test_toString() {
+	public void toString_test() {
 		assertEquals("link", testable.toString());
 	}
 

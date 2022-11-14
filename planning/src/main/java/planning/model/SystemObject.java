@@ -30,12 +30,20 @@ public class SystemObject implements Cloneable {
 		return id;
 	}
 
+	public void setId(String objectId) {
+		this.id = objectId;
+	}
+
 	public void addAttribute(Attribute attribute) {
 		attributes.put(attribute.getName(), attribute);
 	}
 
 	public void addAttribute(String attributeName, Object attributeValue) {
 		addAttribute(new Attribute(attributeName, attributeValue));
+	}
+
+	public void removeAttribute(Attribute attribute) {
+		attributes.remove(attribute.getName());
 	}
 
 	public void setAttribute(String attributeName, Object attributeValue) {
@@ -99,20 +107,12 @@ public class SystemObject implements Cloneable {
 		return this.name;
 	}
 
+	public void setName(String objectName) {
+		this.name = objectName;
+	}
+
 	@Override
 	public String toString() {
 		return name;
-	}
-
-	public void setName(String aValue) {
-		this.name = aValue;
-	}
-
-	public void setId(String aValue) {
-		this.id = aValue;
-	}
-
-	public void removeAttribute(Attribute attribute) {
-		attributes.remove(attribute.getName());
 	}
 }

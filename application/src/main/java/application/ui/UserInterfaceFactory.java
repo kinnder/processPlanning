@@ -39,6 +39,7 @@ public class UserInterfaceFactory {
 	}
 
 	public static void initializeLookAndFeel() throws Exception {
+		// TODO (2022-11-01 #72): посмотреть другие LookAndFeel
 		for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
 			if ("Nimbus".equals(info.getName())) {
 				UIManager.setLookAndFeel(info.getClassName());

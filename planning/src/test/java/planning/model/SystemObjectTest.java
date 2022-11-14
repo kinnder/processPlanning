@@ -43,6 +43,17 @@ public class SystemObjectTest {
 	}
 
 	@Test
+	public void setName() {
+		testable.setName("new-name");
+		assertEquals("new-name", testable.getName());
+	}
+
+	@Test
+	public void toString_test() {
+		assertEquals("object", testable.toString());
+	}
+
+	@Test
 	public void clone_test() throws CloneNotSupportedException {
 		final Attribute attribute_mock = context.mock(Attribute.class, "attribute");
 		final Attribute clonedAttribute_mock = context.mock(Attribute.class, "attribute-clone");
@@ -160,6 +171,12 @@ public class SystemObjectTest {
 	}
 
 	@Test
+	public void setId() {
+		testable.setId("new-id");
+		assertEquals("new-id", testable.getId());
+	}
+
+	@Test
 	public void getAttribute() {
 		final Attribute attribute_mock = context.mock(Attribute.class, "attribute");
 
@@ -172,6 +189,29 @@ public class SystemObjectTest {
 		testable.addAttribute(attribute_mock);
 
 		assertEquals(attribute_mock, testable.getAttribute("attribute-name"));
+	}
+
+	@Test
+	public void removeAttribute() {
+		final Attribute attribute_mock = context.mock(Attribute.class, "attribute");
+
+		context.checking(new Expectations() {
+			{
+				oneOf(attribute_mock).getName();
+				will(returnValue("attribute-name"));
+			}
+		});
+		testable.addAttribute(attribute_mock);
+
+		context.checking(new Expectations() {
+			{
+				oneOf(attribute_mock).getName();
+				will(returnValue("attribute-name"));
+			}
+		});
+
+		testable.removeAttribute(attribute_mock);
+		assertEquals(0, testable.getAttributes().size());
 	}
 
 	@Test

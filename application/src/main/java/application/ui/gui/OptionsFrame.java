@@ -16,6 +16,7 @@ public class OptionsFrame extends javax.swing.JFrame {
 	public OptionsFrame(Application application) {
 		this.application = application;
 
+		// TODO (2022-11-01 #72): jtParameters перенести DefaultTableModel в отдельный класс
 		initComponents();
 		setActions();
 	}

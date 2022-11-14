@@ -522,4 +522,195 @@ public class ApplicationTest {
 
 		testable.stop();
 	}
+
+	@Test
+	public void loadSystemProcess_2() throws IOException, JDOMException {
+		final SystemProcess systemProcess_mock = context.mock(SystemProcess.class);
+
+		context.checking(new Expectations() {
+			{
+				oneOf(arguments_mock).getArgument_p("process.xml");
+				will(returnValue("path-to-file"));
+
+				oneOf(persistanceStorage_mock).loadSystemProcess("path-to-file");
+				will(returnValue(systemProcess_mock));
+			}
+		});
+
+		assertEquals(systemProcess_mock, testable.loadSystemProcess());
+	}
+
+	@Test
+	public void loadSystemProcess_2_throwException() throws IOException, JDOMException {
+		context.checking(new Expectations() {
+			{
+				oneOf(arguments_mock).getArgument_p("process.xml");
+				will(returnValue("path-to-file"));
+
+				oneOf(persistanceStorage_mock).loadSystemProcess("path-to-file");
+				will(throwException(new JDOMException()));
+
+				oneOf(userInterfaceManager_mock).pushEvent(with(new CommandEventMatcher()
+						.expectType(CommandEvent.Type.Status).expectCommandName("loadSystemProcess")));
+
+				oneOf(commandManager_mock).pushEvent(with(new CommandEventMatcher().expectType(CommandEvent.Type.Status)
+						.expectCommandName("loadSystemProcess")));
+			}
+		});
+
+		testable.loadSystemProcess();
+	}
+
+	@Test
+	public void loadNodeNetwork_2() throws IOException, JDOMException {
+		final NodeNetwork nodeNetwork_mock = context.mock(NodeNetwork.class);
+
+		context.checking(new Expectations() {
+			{
+				oneOf(arguments_mock).getArgument_nn("nodeNetwork.xml");
+				will(returnValue("path-to-file"));
+
+				oneOf(persistanceStorage_mock).loadNodeNetwork("path-to-file");
+				will(returnValue(nodeNetwork_mock));
+			}
+		});
+
+		assertEquals(nodeNetwork_mock, testable.loadNodeNetwork());
+	}
+
+	@Test
+	public void loadNodeNetwork_2_throwException() throws IOException, JDOMException {
+		context.checking(new Expectations() {
+			{
+				oneOf(arguments_mock).getArgument_nn("nodeNetwork.xml");
+				will(returnValue("path-to-file"));
+
+				oneOf(persistanceStorage_mock).loadNodeNetwork("path-to-file");
+				will(throwException(new JDOMException()));
+
+				oneOf(userInterfaceManager_mock).pushEvent(with(new CommandEventMatcher()
+						.expectType(CommandEvent.Type.Status).expectCommandName("loadNodeNetwork")));
+
+				oneOf(commandManager_mock).pushEvent(with(new CommandEventMatcher().expectType(CommandEvent.Type.Status)
+						.expectCommandName("loadNodeNetwork")));
+			}
+		});
+
+		testable.loadNodeNetwork();
+	}
+
+	@Test
+	public void loadTaskDescription_2() throws IOException, JDOMException {
+		final TaskDescription taskDescription_mock = context.mock(TaskDescription.class);
+
+		context.checking(new Expectations() {
+			{
+				oneOf(arguments_mock).getArgument_td("taskDescription.xml");
+				will(returnValue("path-to-file"));
+
+				oneOf(persistanceStorage_mock).loadTaskDescription("path-to-file");
+				will(returnValue(taskDescription_mock));
+			}
+		});
+
+		assertEquals(taskDescription_mock, testable.loadTaskDescription());
+	}
+
+	@Test
+	public void loadTaskDescription_2_throwException() throws IOException, JDOMException {
+		context.checking(new Expectations() {
+			{
+				oneOf(arguments_mock).getArgument_td("taskDescription.xml");
+				will(returnValue("path-to-file"));
+
+				oneOf(persistanceStorage_mock).loadTaskDescription("path-to-file");
+				will(throwException(new JDOMException()));
+
+				oneOf(userInterfaceManager_mock).pushEvent(with(new CommandEventMatcher()
+						.expectType(CommandEvent.Type.Status).expectCommandName("loadTaskDescription")));
+
+				oneOf(commandManager_mock).pushEvent(with(new CommandEventMatcher().expectType(CommandEvent.Type.Status)
+						.expectCommandName("loadTaskDescription")));
+			}
+		});
+
+		testable.loadTaskDescription();
+	}
+
+	@Test
+	public void loadSystemTransformations_2() throws IOException, JDOMException {
+		final SystemTransformations systemTransformations_mock = context.mock(SystemTransformations.class);
+
+		context.checking(new Expectations() {
+			{
+				oneOf(arguments_mock).getArgument_st("systemTransformations.xml");
+				will(returnValue("path-to-file"));
+
+				oneOf(persistanceStorage_mock).loadSystemTransformations("path-to-file");
+				will(returnValue(systemTransformations_mock));
+			}
+		});
+
+		assertEquals(systemTransformations_mock, testable.loadSystemTransformations());
+	}
+
+	@Test
+	public void loadSystemTransformations_2_throwException() throws IOException, JDOMException {
+		context.checking(new Expectations() {
+			{
+				oneOf(arguments_mock).getArgument_st("systemTransformations.xml");
+				will(returnValue("path-to-file"));
+
+				oneOf(persistanceStorage_mock).loadSystemTransformations("path-to-file");
+				will(throwException(new JDOMException()));
+
+				oneOf(userInterfaceManager_mock).pushEvent(with(new CommandEventMatcher()
+						.expectType(CommandEvent.Type.Status).expectCommandName("loadSystemTransformations")));
+
+				oneOf(commandManager_mock).pushEvent(with(new CommandEventMatcher().expectType(CommandEvent.Type.Status)
+						.expectCommandName("loadSystemTransformations")));
+			}
+		});
+
+		testable.loadSystemTransformations();
+	}
+
+	@Test
+	public void saveTaskDescription_2() throws IOException, JDOMException {
+		final TaskDescription taskDescription_mock = context.mock(TaskDescription.class);
+
+		context.checking(new Expectations() {
+			{
+				oneOf(arguments_mock).getArgument_td("taskDescription.xml");
+				will(returnValue("path-to-file"));
+
+				oneOf(persistanceStorage_mock).saveTaskDescription(taskDescription_mock, "path-to-file");
+			}
+		});
+
+		testable.saveTaskDescription(taskDescription_mock);
+	}
+
+	@Test
+	public void saveTaskDescription_2_throwException() throws IOException, JDOMException {
+		final TaskDescription taskDescription_mock = context.mock(TaskDescription.class);
+
+		context.checking(new Expectations() {
+			{
+				oneOf(arguments_mock).getArgument_td("taskDescription.xml");
+				will(returnValue("path-to-file"));
+
+				oneOf(persistanceStorage_mock).saveTaskDescription(taskDescription_mock, "path-to-file");
+				will(throwException(new IOException()));
+
+				oneOf(userInterfaceManager_mock).pushEvent(with(new CommandEventMatcher()
+						.expectType(CommandEvent.Type.Status).expectCommandName("saveTaskDescription")));
+
+				oneOf(commandManager_mock).pushEvent(with(new CommandEventMatcher().expectType(CommandEvent.Type.Status)
+						.expectCommandName("saveTaskDescription")));
+			}
+		});
+
+		testable.saveTaskDescription(taskDescription_mock);
+	}
 }

@@ -15,14 +15,18 @@ public class ObjectsDataModel extends DefaultTableModel {
 
 	private EditorDataModel editorDataModel;
 
+	public static final int COLUMN_IDX_NAME = 0;
+
+	public static final int COLUMN_IDX_ID = 1;
+
 	public ObjectsDataModel(EditorDataModel editorDataModel) {
 		super(new String[] { "name", "id" }, 0);
 		this.editorDataModel = editorDataModel;
 	}
 
-	Class<?>[] types = new Class[] { String.class, String.class };
+	private Class<?>[] types = new Class[] { String.class, String.class };
 
-	List<SystemObject> objects = new ArrayList<SystemObject>();
+	private List<SystemObject> objects = new ArrayList<SystemObject>();
 
 	@Override
 	public Class<?> getColumnClass(int columnIndex) {
@@ -47,6 +51,7 @@ public class ObjectsDataModel extends DefaultTableModel {
 	}
 
 	public void insertObject() {
+		// TODO (2022-11-11 #72): перенести в SystemObject
 		SystemObject object = new SystemObject("new object");
 		system.addObject(object);
 		objects.add(object);
@@ -62,7 +67,7 @@ public class ObjectsDataModel extends DefaultTableModel {
 		}
 
 		SystemObject object = objects.get(idx);
-		system.removeLink(object);
+		system.removeObject(object);
 		objects.remove(object);
 
 		this.removeRow(idx);
@@ -73,23 +78,28 @@ public class ObjectsDataModel extends DefaultTableModel {
 	@Override
 	public void setValueAt(Object aValue, int row, int column) {
 		SystemObject object = objects.get(row);
-		if (column == 0) {
+		switch (column) {
+		case COLUMN_IDX_NAME:
 			object.setName((String) aValue);
-			editorDataModel.nodesChanged(systemNode, new int[] { row });
-		} else if (column == 1) {
+			break;
+		case COLUMN_IDX_ID:
 			object.setId((String) aValue);
-			editorDataModel.nodesChanged(systemNode, new int[] { row });
+			break;
+		default:
+			break;
 		}
+		editorDataModel.nodesChanged(systemNode, new int[] { row });
 	}
 
 	@Override
 	public Object getValueAt(int row, int column) {
 		SystemObject object = objects.get(row);
-		if (column == 0) {
+		switch (column) {
+		case COLUMN_IDX_NAME:
 			return object.getName();
-		} else if (column == 1) {
+		case COLUMN_IDX_ID:
 			return object.getId();
-		} else {
+		default:
 			return null;
 		}
 	}

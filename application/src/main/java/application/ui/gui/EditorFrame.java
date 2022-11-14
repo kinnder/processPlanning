@@ -32,12 +32,19 @@ public class EditorFrame extends javax.swing.JFrame {
 	}
 
 	EditorFrame(Application application, EditorDataModel editorDataModel) {
+		this(application, editorDataModel, new ObjectsDataModel(editorDataModel), new LinksDataModel(editorDataModel),
+				new AttributesDataModel(editorDataModel));
+	}
+
+	EditorFrame(Application application, EditorDataModel editorDataModel, ObjectsDataModel objectsDataModel,
+			LinksDataModel linksDataModel, AttributesDataModel attributesDataModel) {
 		this.application = application;
 		this.editorDataModel = editorDataModel;
-		this.objectsDataModel = new ObjectsDataModel(editorDataModel);
-		this.linksDataModel = new LinksDataModel(editorDataModel);
-		this.attributesDataModel = new AttributesDataModel(editorDataModel);
+		this.objectsDataModel = objectsDataModel;
+		this.linksDataModel = linksDataModel;
+		this.attributesDataModel = attributesDataModel;
 
+		// TODO (2022-11-01 #72): покрытие тестами jtDataValueChanged
 		initComponents();
 		setActions();
 
@@ -177,7 +184,7 @@ public class EditorFrame extends javax.swing.JFrame {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			int idx = jtAttributes.getSelectedRow();
-			attributesDataModel.deteleAttribute(idx);
+			attributesDataModel.deleteAttribute(idx);
 		}
 	};
 

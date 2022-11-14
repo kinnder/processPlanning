@@ -16,14 +16,20 @@ public class AttributesDataModel extends DefaultTableModel {
 
 	private EditorDataModel editorDataModel;
 
+	public static final int COLUMN_IDX_NAME = 0;
+
+	public static final int COLUMN_IDX_TYPE = 1;
+
+	public static final int COLUMN_IDX_VALUE = 2;
+
 	public AttributesDataModel(EditorDataModel editorDataModel) {
 		super(new String[] { "name", "type", "value" }, 0);
 		this.editorDataModel = editorDataModel;
 	}
 
-	Class<?>[] types = new Class[] { String.class, String.class, String.class };
+	private Class<?>[] types = new Class[] { String.class, String.class, String.class };
 
-	List<Attribute> attributes = new ArrayList<Attribute>();
+	private List<Attribute> attributes = new ArrayList<Attribute>();
 
 	@Override
 	public Class<?> getColumnClass(int columnIndex) {
@@ -58,7 +64,7 @@ public class AttributesDataModel extends DefaultTableModel {
 		editorDataModel.nodeChanged(treeNode);
 	}
 
-	public void deteleAttribute(int idx) {
+	public void deleteAttribute(int idx) {
 		if (idx < 0) {
 			return;
 		}
@@ -74,10 +80,11 @@ public class AttributesDataModel extends DefaultTableModel {
 	@Override
 	public void setValueAt(Object aValue, int row, int column) {
 		Attribute attribute = attributes.get(row);
-		if (column == 0) {
+		switch (column) {
+		case (COLUMN_IDX_NAME):
 			attribute.setName((String) aValue);
-			editorDataModel.nodeChanged(treeNode);
-		} else if (column == 1) {
+			break;
+		case (COLUMN_IDX_TYPE):
 			// TODO (2022-10-30 #72): перенести в Attribute
 			if ("boolean".equals(aValue)) {
 				Object valueObject = attribute.getValue();
@@ -94,8 +101,8 @@ public class AttributesDataModel extends DefaultTableModel {
 			} else {
 				;
 			}
-			editorDataModel.nodeChanged(treeNode);
-		} else if (column == 2) {
+			break;
+		case (COLUMN_IDX_VALUE):
 			// TODO (2022-10-30 #72): перенести в Attribute
 			String type = (String) dataVector.get(row).get(1);
 			if ("boolean".equals(type)) {
@@ -111,18 +118,23 @@ public class AttributesDataModel extends DefaultTableModel {
 				Object valueObject = aValue != null ? aValue : null;
 				attribute.setValue(valueObject);
 			}
-			editorDataModel.nodeChanged(treeNode);
+			break;
+		default:
+			break;
 		}
+		editorDataModel.nodeChanged(treeNode);
 	}
 
 	@Override
 	public Object getValueAt(int row, int column) {
 		Attribute attribute = attributes.get(row);
-		if (column == 0) {
+		Object valueObject;
+		switch (column) {
+		case COLUMN_IDX_NAME:
 			return attribute.getName();
-		} else if (column == 1) {
+		case COLUMN_IDX_TYPE:
 			// TODO (2022-09-24 #72): перенести в Attribute
-			Object valueObject = attribute.getValue();
+			valueObject = attribute.getValue();
 			if (valueObject instanceof Boolean) {
 				return "boolean";
 			} else if (valueObject instanceof Integer) {
@@ -132,9 +144,9 @@ public class AttributesDataModel extends DefaultTableModel {
 			} else {
 				return "";
 			}
-		} else if (column == 2) {
+		case COLUMN_IDX_VALUE:
 			// TODO (2022-09-24 #72): перенести в Attribute
-			Object valueObject = attribute.getValue();
+			valueObject = attribute.getValue();
 			if (valueObject instanceof Boolean) {
 				return valueObject.toString();
 			} else if (valueObject instanceof Integer) {
@@ -144,7 +156,7 @@ public class AttributesDataModel extends DefaultTableModel {
 			} else {
 				return valueObject;
 			}
-		} else {
+		default:
 			return null;
 		}
 	}

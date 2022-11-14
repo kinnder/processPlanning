@@ -181,7 +181,7 @@ public class Application {
 		try {
 			systemProcess = loadSystemProcess(pr_path);
 		} catch (IOException | JDOMException e) {
-			pushEvent(CommandEvent.status("loadNodeNetwork", e.getStackTrace().toString()));
+			pushEvent(CommandEvent.status("loadSystemProcess", e.getStackTrace().toString()));
 			systemProcess = new SystemProcess();
 		}
 		return systemProcess;

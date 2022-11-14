@@ -311,6 +311,15 @@ public class SystemTest {
 	}
 
 	@Test
+	public void removeObject() {
+		final SystemObject object_mock = context.mock(SystemObject.class);
+		testable.addObject(object_mock);
+
+		testable.removeObject(object_mock);
+		assertEquals(0, testable.getObjects().size());
+	}
+
+	@Test
 	public void addLink() {
 		final SystemObject object1_mock = context.mock(SystemObject.class, "object-1");
 		final SystemObject object2_mock = context.mock(SystemObject.class, "object-2");
@@ -409,8 +418,28 @@ public class SystemTest {
 	}
 
 	@Test
-	public void test_toString() {
+	public void removeLink() {
+		final Link link_mock = context.mock(Link.class);
+		testable.addLink(link_mock);
+
+		testable.removeLink(link_mock);
+		assertEquals(0, testable.getLinks().size());
+	}
+
+	@Test
+	public void toString_test() {
 		testable.setName("test-system-name");
 		assertEquals("test-system-name", testable.toString());
+	}
+
+	@Test
+	public void getName() {
+		assertEquals(null, testable.getName());
+	}
+
+	@Test
+	public void setName() {
+		testable.setName("new-system-name");
+		assertEquals("new-system-name", testable.toString());
 	}
 }

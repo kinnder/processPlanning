@@ -16,14 +16,20 @@ public class LinksDataModel extends DefaultTableModel {
 
 	private EditorDataModel editorDataModel;
 
+	public static final int COLUMN_IDX_NAME = 0;
+
+	public static final int COLUMN_IDX_ID1 = 1;
+
+	public static final int COLUMN_IDX_ID2 = 2;
+
 	public LinksDataModel(EditorDataModel editorDataModel) {
 		super(new String[] { "name", "id1", "id2" }, 0);
 		this.editorDataModel = editorDataModel;
 	}
 
-	Class<?>[] types = new Class[] { String.class, String.class, String.class };
+	private Class<?>[] types = new Class[] { String.class, String.class, String.class };
 
-	List<Link> links = new ArrayList<Link>();
+	private List<Link> links = new ArrayList<Link>();
 
 	@Override
 	public Class<?> getColumnClass(int columnIndex) {
@@ -75,28 +81,33 @@ public class LinksDataModel extends DefaultTableModel {
 	@Override
 	public void setValueAt(Object aValue, int row, int column) {
 		Link link = links.get(row);
-		if (column == 0) {
+		switch (column) {
+		case COLUMN_IDX_NAME:
 			link.setName((String) aValue);
-			editorDataModel.nodeChanged(treeNode);
-		} else if (column == 1) {
+			break;
+		case COLUMN_IDX_ID1:
 			link.setId1((String) aValue);
-			editorDataModel.nodeChanged(treeNode);
-		} else if (column == 2) {
+			break;
+		case COLUMN_IDX_ID2:
 			link.setId2((String) aValue);
-			editorDataModel.nodeChanged(treeNode);
+			break;
+		default:
+			break;
 		}
+		editorDataModel.nodeChanged(treeNode);
 	}
 
 	@Override
 	public Object getValueAt(int row, int column) {
 		Link link = links.get(row);
-		if (column == 0) {
+		switch (column) {
+		case COLUMN_IDX_NAME:
 			return link.getName();
-		} else if (column == 1) {
+		case COLUMN_IDX_ID1:
 			return link.getId1();
-		} else if (column == 2) {
+		case COLUMN_IDX_ID2:
 			return link.getId2();
-		} else {
+		default:
 			return null;
 		}
 	}

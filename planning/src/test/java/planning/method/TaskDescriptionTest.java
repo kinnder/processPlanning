@@ -59,4 +59,9 @@ public class TaskDescriptionTest {
 
 		assertEquals(system_mock, testable.getFinalSystem());
 	}
+
+	@Test
+	public void toString_test() {
+		assertEquals("TaskDescription", testable.toString());
+	}
 }

@@ -14,32 +14,35 @@ public class ObjectDataModel {
 
 	private JTextField jtfObjectId;
 
-//	private EditorDataModel editorDataModel;
+	private EditorDataModel editorDataModel;
 
 	private SystemObject object;
+
+	KeyAdapter jtfObjectNameKeyAdapter = new KeyAdapter() {
+		@Override
+		public void keyReleased(KeyEvent e) {
+			String objectName = jtfObjectName.getText();
+			object.setName(objectName);
+			editorDataModel.nodeChanged(treeNode);
+		}
+	};
+
+	KeyAdapter jtfObjectIdKeyAdapter = new KeyAdapter() {
+		@Override
+		public void keyReleased(KeyEvent e) {
+			String objectId = jtfObjectId.getText();
+			object.setId(objectId);
+			editorDataModel.nodeChanged(treeNode);
+		}
+	};
 
 	public ObjectDataModel(JTextField jtfObjectName, JTextField jtfObjectId, EditorDataModel editorDataModel) {
 		this.jtfObjectName = jtfObjectName;
 		this.jtfObjectId = jtfObjectId;
-//		this.editorDataModel = editorDataModel;
+		this.editorDataModel = editorDataModel;
 
-		jtfObjectName.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyReleased(KeyEvent e) {
-				String objectName = jtfObjectName.getText();
-				object.setName(objectName);
-				editorDataModel.nodeChanged(treeNode);
-			}
-		});
-
-		jtfObjectId.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyReleased(KeyEvent e) {
-				String objectId = jtfObjectId.getText();
-				object.setId(objectId);
-				editorDataModel.nodeChanged(treeNode);
-			}
-		});
+		jtfObjectName.addKeyListener(jtfObjectNameKeyAdapter);
+		jtfObjectId.addKeyListener(jtfObjectIdKeyAdapter);
 	}
 
 	public void clear() {

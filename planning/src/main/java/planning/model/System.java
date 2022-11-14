@@ -26,7 +26,7 @@ public class System implements Cloneable {
 
 	}
 
-	public void removeLink(SystemObject object) {
+	public void removeObject(SystemObject object) {
 		objects.remove(object);
 	}
 
@@ -183,6 +183,10 @@ public class System implements Cloneable {
 		return null;
 	}
 
+	public void removeLink(Link link) {
+		links.remove(link);
+	}
+
 	private String name;
 
 	public String getName() {
@@ -196,9 +200,5 @@ public class System implements Cloneable {
 	@Override
 	public String toString() {
 		return name;
-	}
-
-	public void removeLink(Link link) {
-		links.remove(link);
 	}
 }
