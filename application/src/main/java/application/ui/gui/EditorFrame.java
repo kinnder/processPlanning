@@ -195,6 +195,7 @@ public class EditorFrame extends javax.swing.JFrame {
 	 */
 	// <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
 	private void initComponents() {
+
 		bgTransformationType = new javax.swing.ButtonGroup();
 		jspWorkArea = new javax.swing.JSplitPane();
 		jspData = new javax.swing.JScrollPane();
@@ -317,6 +318,13 @@ public class EditorFrame extends javax.swing.JFrame {
 		jrbLinkTransformation = new javax.swing.JRadioButton();
 		jlLinkTransformationId2new = new javax.swing.JLabel();
 		jtfLinkTransformationId2new = new javax.swing.JTextField();
+		jpSystemTransformationsEditor = new javax.swing.JPanel();
+		jlSystemTransformations = new javax.swing.JLabel();
+		jspSystemTransformations = new javax.swing.JScrollPane();
+		jtSystemTransformations = new javax.swing.JTable();
+		jpSystemTransformationsButtons = new javax.swing.JPanel();
+		jbSystemTransformationsInsert = new javax.swing.JButton();
+		jbSystemTransformationsDelete = new javax.swing.JButton();
 		jmbMenu = new javax.swing.JMenuBar();
 		jmTaskDescription = new javax.swing.JMenu();
 		jmiTaskDescriptionLoad = new javax.swing.JMenuItem();
@@ -1289,6 +1297,70 @@ public class EditorFrame extends javax.swing.JFrame {
 
 		jtpEditors.addTab("Transformation", jpTransformationEditor);
 
+		jlSystemTransformations.setText("System Transformations");
+
+		jtSystemTransformations.setModel(new javax.swing.table.DefaultTableModel(
+				new Object[][] { { null }, { null }, { null }, { null } }, new String[] { "name" }) {
+			private static final long serialVersionUID = -5773084738982357130L;
+			Class<?>[] types = new Class[] { java.lang.String.class };
+
+			@Override
+			public Class<?> getColumnClass(int columnIndex) {
+				return types[columnIndex];
+			}
+		});
+		jspSystemTransformations.setViewportView(jtSystemTransformations);
+
+		jbSystemTransformationsInsert.setText("Insert");
+
+		jbSystemTransformationsDelete.setText("Delete");
+
+		javax.swing.GroupLayout jpSystemTransformationsButtonsLayout = new javax.swing.GroupLayout(
+				jpSystemTransformationsButtons);
+		jpSystemTransformationsButtons.setLayout(jpSystemTransformationsButtonsLayout);
+		jpSystemTransformationsButtonsLayout.setHorizontalGroup(
+				jpSystemTransformationsButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+						.addGroup(jpSystemTransformationsButtonsLayout.createSequentialGroup().addContainerGap()
+								.addGroup(jpSystemTransformationsButtonsLayout
+										.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+										.addComponent(jbSystemTransformationsInsert)
+										.addComponent(jbSystemTransformationsDelete))
+								.addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
+		jpSystemTransformationsButtonsLayout.setVerticalGroup(
+				jpSystemTransformationsButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+						.addGroup(jpSystemTransformationsButtonsLayout.createSequentialGroup().addContainerGap()
+								.addComponent(jbSystemTransformationsInsert)
+								.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+								.addComponent(jbSystemTransformationsDelete)
+								.addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
+
+		javax.swing.GroupLayout jpSystemTransformationsEditorLayout = new javax.swing.GroupLayout(
+				jpSystemTransformationsEditor);
+		jpSystemTransformationsEditor.setLayout(jpSystemTransformationsEditorLayout);
+		jpSystemTransformationsEditorLayout.setHorizontalGroup(jpSystemTransformationsEditorLayout
+				.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+				.addGroup(jpSystemTransformationsEditorLayout.createSequentialGroup().addContainerGap()
+						.addComponent(jlSystemTransformations).addContainerGap(341, Short.MAX_VALUE))
+				.addGroup(jpSystemTransformationsEditorLayout.createSequentialGroup()
+						.addComponent(jspSystemTransformations, javax.swing.GroupLayout.PREFERRED_SIZE, 0,
+								Short.MAX_VALUE)
+						.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+						.addComponent(jpSystemTransformationsButtons, javax.swing.GroupLayout.PREFERRED_SIZE,
+								javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)));
+		jpSystemTransformationsEditorLayout.setVerticalGroup(jpSystemTransformationsEditorLayout
+				.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+				.addGroup(jpSystemTransformationsEditorLayout.createSequentialGroup().addContainerGap()
+						.addComponent(jlSystemTransformations)
+						.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+						.addGroup(jpSystemTransformationsEditorLayout
+								.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+								.addComponent(jpSystemTransformationsButtons, javax.swing.GroupLayout.DEFAULT_SIZE,
+										javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+								.addComponent(jspSystemTransformations, javax.swing.GroupLayout.DEFAULT_SIZE, 469,
+										Short.MAX_VALUE))));
+
+		jtpEditors.addTab("SystemTransformations", jpSystemTransformationsEditor);
+
 		jspWorkArea.setRightComponent(jtpEditors);
 
 		jmTaskDescription.setText("Task Description");
@@ -1385,6 +1457,8 @@ public class EditorFrame extends javax.swing.JFrame {
 	private javax.swing.JButton jbParametersDown;
 	private javax.swing.JButton jbParametersInsert;
 	private javax.swing.JButton jbParametersUp;
+	private javax.swing.JButton jbSystemTransformationsDelete;
+	private javax.swing.JButton jbSystemTransformationsInsert;
 	private javax.swing.JButton jbTransformationsDelete;
 	private javax.swing.JButton jbTransformationsInsert;
 	private javax.swing.JButton jbTransformationsMoveDown;
@@ -1414,6 +1488,7 @@ public class EditorFrame extends javax.swing.JFrame {
 	private javax.swing.JLabel jlParameters;
 	private javax.swing.JLabel jlSystemName;
 	private javax.swing.JLabel jlSystemTransformationName;
+	private javax.swing.JLabel jlSystemTransformations;
 	private javax.swing.JLabel jlSystemType;
 	private javax.swing.JLabel jlTransformationName;
 	private javax.swing.JLabel jlTransformationObjectId;
@@ -1457,6 +1532,8 @@ public class EditorFrame extends javax.swing.JFrame {
 	private javax.swing.JPanel jpSystemData;
 	private javax.swing.JPanel jpSystemEditor;
 	private javax.swing.JPanel jpSystemTransformationEditor;
+	private javax.swing.JPanel jpSystemTransformationsButtons;
+	private javax.swing.JPanel jpSystemTransformationsEditor;
 	private javax.swing.JPanel jpTransformation;
 	private javax.swing.JPanel jpTransformationEditor;
 	private javax.swing.JPanel jpTransformationsButtons;
@@ -1472,6 +1549,7 @@ public class EditorFrame extends javax.swing.JFrame {
 	private javax.swing.JScrollPane jspObjects;
 	private javax.swing.JScrollPane jspParameters;
 	private javax.swing.JSplitPane jspSystemData;
+	private javax.swing.JScrollPane jspSystemTransformations;
 	private javax.swing.JScrollPane jspTransformations;
 	private javax.swing.JSplitPane jspWorkArea;
 	private javax.swing.JTable jtActionFunctions;
@@ -1481,6 +1559,7 @@ public class EditorFrame extends javax.swing.JFrame {
 	private javax.swing.JTable jtLinks;
 	private javax.swing.JTable jtObjects;
 	private javax.swing.JTable jtParameters;
+	private javax.swing.JTable jtSystemTransformations;
 	private javax.swing.JTable jtTransformations;
 	private javax.swing.JTextArea jtaActionFunctionLines;
 	private javax.swing.JTextField jtfActionName;
