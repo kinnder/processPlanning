@@ -229,6 +229,45 @@ public class ApplicationTest {
 	}
 
 	@Test
+	public void saveSystemTransfromations_2() throws IOException {
+		final SystemTransformations systemTransformations_mock = context.mock(SystemTransformations.class);
+
+		context.checking(new Expectations() {
+			{
+				oneOf(arguments_mock).getArgument_st("systemTransformations.xml");
+				will(returnValue("path-to-file"));
+
+				oneOf(persistanceStorage_mock).saveSystemTransformations(systemTransformations_mock, "path-to-file");
+			}
+		});
+
+		testable.saveSystemTransformations(systemTransformations_mock);
+	}
+
+	@Test
+	public void saveSystemTransformations_2_throwException() throws IOException {
+		final SystemTransformations systemTransformations_mock = context.mock(SystemTransformations.class);
+
+		context.checking(new Expectations() {
+			{
+				oneOf(arguments_mock).getArgument_st("systemTransformations.xml");
+				will(returnValue("path-to-file"));
+
+				oneOf(persistanceStorage_mock).saveSystemTransformations(systemTransformations_mock, "path-to-file");
+				will(throwException(new IOException()));
+
+				oneOf(userInterfaceManager_mock).pushEvent(with(new CommandEventMatcher()
+						.expectType(CommandEvent.Type.Status).expectCommandName("saveSystemTransformations")));
+
+				oneOf(commandManager_mock).pushEvent(with(new CommandEventMatcher().expectType(CommandEvent.Type.Status)
+						.expectCommandName("saveSystemTransformations")));
+			}
+		});
+
+		testable.saveSystemTransformations(systemTransformations_mock);
+	}
+
+	@Test
 	public void saveTaskDescription() throws IOException {
 		final TaskDescription taskDescription_mock = context.mock(TaskDescription.class);
 		final String path = "path-to-file";

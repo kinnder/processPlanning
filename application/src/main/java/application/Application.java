@@ -97,6 +97,16 @@ public class Application {
 		persistanceStorage.saveSystemTransformations(systemTransformations, path);
 	}
 
+	// TODO (2022-11-16 #73): переделать в команду
+	public void saveSystemTransformations(SystemTransformations systemTransformations) {
+		String st_path = arguments.getArgument_st("systemTransformations.xml");
+		try {
+			persistanceStorage.saveSystemTransformations(systemTransformations, st_path);
+		} catch (IOException e) {
+			pushEvent(CommandEvent.status("saveSystemTransformations", e.getStackTrace().toString()));
+		}
+	}
+
 	public void saveTaskDescription(TaskDescription taskDescription, String path) throws IOException {
 		persistanceStorage.saveTaskDescription(taskDescription, path);
 	}

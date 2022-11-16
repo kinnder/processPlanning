@@ -182,6 +182,28 @@ public class EditorFrameTest {
 	}
 
 	@Test
+	public void systemTransformationsSaveAction_name() {
+		assertEquals("Save", testable.systemTransformationsSaveAction.getValue(Action.NAME));
+	}
+
+	@Test
+	public void systemTransformationsSaveAction_actionPerformed() {
+		final ActionEvent actionEvent_mock = context.mock(ActionEvent.class);
+		final SystemTransformations systemTransformations_mock = context.mock(SystemTransformations.class);
+
+		context.checking(new Expectations() {
+			{
+				oneOf(editorDataModel_mock).saveSystemTransformations();
+				will(returnValue(systemTransformations_mock));
+
+				oneOf(application_mock).saveSystemTransformations(systemTransformations_mock);
+			}
+		});
+
+		testable.systemTransformationsSaveAction.actionPerformed(actionEvent_mock);
+	}
+
+	@Test
 	public void nodeNetworkLoadAction_name() {
 		assertEquals("Load", testable.nodeNetworkLoadAction.getValue(Action.NAME));
 	}

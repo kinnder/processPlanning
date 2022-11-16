@@ -12,6 +12,7 @@ import planning.model.System;
 import planning.model.SystemObject;
 import planning.model.SystemProcess;
 
+// TODO (2022-11-16): saveXXX и loadXXX методы переименовать в getXXX и setXXX
 public class EditorDataModel extends DefaultTreeModel {
 
 	private static final long serialVersionUID = 2748742512319035267L;
@@ -93,6 +94,7 @@ public class EditorDataModel extends DefaultTreeModel {
 		DefaultMutableTreeNode actionNode;
 		DefaultMutableTreeNode functionNode;
 		systemTransformationsNode.removeAllChildren();
+		systemTransformationsNode.setUserObject(systemTransformations);
 
 		systemTransformationNode = new DefaultMutableTreeNode("2D-Pocket");
 		systemTransformationsNode.add(systemTransformationNode);
@@ -110,6 +112,10 @@ public class EditorDataModel extends DefaultTreeModel {
 		actionNode.add(functionNode);
 
 		reload();
+	}
+
+	public SystemTransformations saveSystemTransformations() {
+		return (SystemTransformations) systemTransformationsNode.getUserObject();
 	}
 
 	public void loadNodeNetwork(NodeNetwork nodeNetwork) {

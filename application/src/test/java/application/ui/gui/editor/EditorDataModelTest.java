@@ -117,6 +117,15 @@ public class EditorDataModelTest {
 	}
 
 	@Test
+	public void saveSystemTransformations() {
+		final SystemTransformations systemTransformations_mock = context.mock(SystemTransformations.class);
+
+		testable.loadSystemTransformations(systemTransformations_mock);
+
+		assertEquals(systemTransformations_mock, testable.saveSystemTransformations());
+	}
+
+	@Test
 	public void loadNodeNetwork() {
 		final NodeNetwork nodeNetwork_mock = context.mock(NodeNetwork.class);
 

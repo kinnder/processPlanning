@@ -67,7 +67,10 @@ public class EditorFrame extends javax.swing.JFrame {
 	private void setActions() {
 		jmiTaskDescriptionLoad.setAction(taskDescriptionLoadAction);
 		jmiTaskDescriptionSave.setAction(taskDescriptionSaveAction);
+
 		jmiSystemTransformationsLoad.setAction(systemTransformationsLoadAction);
+		jmiSystemTransformationsSave.setAction(systemTransformationsSaveAction);
+
 		jmiNodeNetworkLoad.setAction(nodeNetworkLoadAction);
 		jmiProcessLoad.setAction(processLoadAction);
 
@@ -108,6 +111,16 @@ public class EditorFrame extends javax.swing.JFrame {
 		public void actionPerformed(ActionEvent e) {
 			SystemTransformations systemTransformations = application.loadSystemTransformations();
 			editorDataModel.loadSystemTransformations(systemTransformations);
+		}
+	};
+
+	Action systemTransformationsSaveAction = new AbstractAction("Save") {
+		private static final long serialVersionUID = -2934465114601682626L;
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			SystemTransformations systemTransformations = editorDataModel.saveSystemTransformations();
+			application.saveSystemTransformations(systemTransformations);
 		}
 	};
 
@@ -331,6 +344,7 @@ public class EditorFrame extends javax.swing.JFrame {
 		jmiTaskDescriptionSave = new javax.swing.JMenuItem();
 		jmSystemTransformations = new javax.swing.JMenu();
 		jmiSystemTransformationsLoad = new javax.swing.JMenuItem();
+		jmiSystemTransformationsSave = new javax.swing.JMenuItem();
 		jmNodeNetwork = new javax.swing.JMenu();
 		jmiNodeNetworkLoad = new javax.swing.JMenuItem();
 		jmProcess = new javax.swing.JMenu();
@@ -1378,6 +1392,9 @@ public class EditorFrame extends javax.swing.JFrame {
 		jmiSystemTransformationsLoad.setText("Load");
 		jmSystemTransformations.add(jmiSystemTransformationsLoad);
 
+		jmiSystemTransformationsSave.setText("Save");
+		jmSystemTransformations.add(jmiSystemTransformationsSave);
+
 		jmbMenu.add(jmSystemTransformations);
 
 		jmNodeNetwork.setText("Node Network");
@@ -1501,6 +1518,7 @@ public class EditorFrame extends javax.swing.JFrame {
 	private javax.swing.JMenuItem jmiNodeNetworkLoad;
 	private javax.swing.JMenuItem jmiProcessLoad;
 	private javax.swing.JMenuItem jmiSystemTransformationsLoad;
+	private javax.swing.JMenuItem jmiSystemTransformationsSave;
 	private javax.swing.JMenuItem jmiTaskDescriptionLoad;
 	private javax.swing.JMenuItem jmiTaskDescriptionSave;
 	private javax.swing.JPanel jpAction;
