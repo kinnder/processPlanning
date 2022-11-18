@@ -14,6 +14,7 @@ import application.ui.gui.editor.LinksDataModel;
 import application.ui.gui.editor.ObjectDataModel;
 import application.ui.gui.editor.ObjectsDataModel;
 import application.ui.gui.editor.SystemDataModel;
+import application.ui.gui.editor.SystemTransformationsDataModel;
 import planning.method.NodeNetwork;
 import planning.method.SystemTransformations;
 import planning.method.TaskDescription;
@@ -33,16 +34,18 @@ public class EditorFrame extends javax.swing.JFrame {
 
 	EditorFrame(Application application, EditorDataModel editorDataModel) {
 		this(application, editorDataModel, new ObjectsDataModel(editorDataModel), new LinksDataModel(editorDataModel),
-				new AttributesDataModel(editorDataModel));
+				new AttributesDataModel(editorDataModel), new SystemTransformationsDataModel(editorDataModel));
 	}
 
 	EditorFrame(Application application, EditorDataModel editorDataModel, ObjectsDataModel objectsDataModel,
-			LinksDataModel linksDataModel, AttributesDataModel attributesDataModel) {
+			LinksDataModel linksDataModel, AttributesDataModel attributesDataModel,
+			SystemTransformationsDataModel systemTransformationsDataModel) {
 		this.application = application;
 		this.editorDataModel = editorDataModel;
 		this.objectsDataModel = objectsDataModel;
 		this.linksDataModel = linksDataModel;
 		this.attributesDataModel = attributesDataModel;
+		this.systemTransformationsDataModel = systemTransformationsDataModel;
 
 		// TODO (2022-11-01 #72): покрытие тестами jtDataValueChanged
 		initComponents();
@@ -64,6 +67,8 @@ public class EditorFrame extends javax.swing.JFrame {
 
 	private AttributesDataModel attributesDataModel;
 
+	private SystemTransformationsDataModel systemTransformationsDataModel;
+
 	private void setActions() {
 		jmiTaskDescriptionLoad.setAction(taskDescriptionLoadAction);
 		jmiTaskDescriptionSave.setAction(taskDescriptionSaveAction);
@@ -74,6 +79,7 @@ public class EditorFrame extends javax.swing.JFrame {
 		jmiNodeNetworkLoad.setAction(nodeNetworkLoadAction);
 		jmiProcessLoad.setAction(processLoadAction);
 
+		// TODO (2022-11-18 #73): синхронизировать множественные и единственные числа в названиях
 		jbObjectsInsert.setAction(objectInsertAction);
 		jbObjectsDelete.setAction(objectDeleteAction);
 
@@ -82,6 +88,9 @@ public class EditorFrame extends javax.swing.JFrame {
 
 		jbAttributesInsert.setAction(attributeInsertAction);
 		jbAttributesDelete.setAction(attributeDeleteAction);
+
+		jbSystemTransformationsInsert.setAction(systemTransformationsInsertAction);
+		jbSystemTransformationsDelete.setAction(systemTransformationsDeleteAction);
 	}
 
 	Action taskDescriptionLoadAction = new AbstractAction("Load") {
@@ -198,6 +207,25 @@ public class EditorFrame extends javax.swing.JFrame {
 		public void actionPerformed(ActionEvent e) {
 			int idx = jtAttributes.getSelectedRow();
 			attributesDataModel.deleteAttribute(idx);
+		}
+	};
+
+	Action systemTransformationsInsertAction = new AbstractAction("Insert") {
+		private static final long serialVersionUID = -2727288841497369038L;
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			systemTransformationsDataModel.insertSystemTransformation();
+		}
+	};
+
+	Action systemTransformationsDeleteAction = new AbstractAction("Delete") {
+		private static final long serialVersionUID = -1592101301496360537L;
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			int idx = jtSystemTransformations.getSelectedRow();
+			systemTransformationsDataModel.deleteSystemTransformation(idx);
 		}
 	};
 
@@ -1313,16 +1341,7 @@ public class EditorFrame extends javax.swing.JFrame {
 
 		jlSystemTransformations.setText("System Transformations");
 
-		jtSystemTransformations.setModel(new javax.swing.table.DefaultTableModel(
-				new Object[][] { { null }, { null }, { null }, { null } }, new String[] { "name" }) {
-			private static final long serialVersionUID = -5773084738982357130L;
-			Class<?>[] types = new Class[] { java.lang.String.class };
-
-			@Override
-			public Class<?> getColumnClass(int columnIndex) {
-				return types[columnIndex];
-			}
-		});
+		jtSystemTransformations.setModel(systemTransformationsDataModel);
 		jspSystemTransformations.setViewportView(jtSystemTransformations);
 
 		jbSystemTransformationsInsert.setText("Insert");
@@ -1442,6 +1461,9 @@ public class EditorFrame extends javax.swing.JFrame {
 			jtpEditors.setSelectedComponent(jpObjectEditor);
 			objectDataModel.loadSystemObject((SystemObject) selectedObject, selectedNode);
 			attributesDataModel.loadAttributes((SystemObject) selectedObject, selectedNode);
+		} else if (selectedObject instanceof SystemTransformations) {
+			jtpEditors.setSelectedComponent(jpSystemTransformationsEditor);
+			systemTransformationsDataModel.loadSystemTransformations((SystemTransformations) selectedObject, selectedNode);
 		} else {
 			java.lang.System.out.println("unknown: " + selectedObject.toString());
 		}

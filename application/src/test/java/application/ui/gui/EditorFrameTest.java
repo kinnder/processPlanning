@@ -24,6 +24,7 @@ import application.ui.gui.editor.AttributesDataModel;
 import application.ui.gui.editor.EditorDataModel;
 import application.ui.gui.editor.LinksDataModel;
 import application.ui.gui.editor.ObjectsDataModel;
+import application.ui.gui.editor.SystemTransformationsDataModel;
 import planning.method.NodeNetwork;
 import planning.method.SystemTransformations;
 import planning.method.TaskDescription;
@@ -59,6 +60,8 @@ public class EditorFrameTest {
 
 	AttributesDataModel attributesDataModel_mock;
 
+	SystemTransformationsDataModel systemTransformationsDataModel_mock;
+
 	Application application_mock;
 
 	@BeforeEach
@@ -68,6 +71,7 @@ public class EditorFrameTest {
 		objectsDataModel_mock = context.mock(ObjectsDataModel.class);
 		linksDataModel_mock = context.mock(LinksDataModel.class);
 		attributesDataModel_mock = context.mock(AttributesDataModel.class);
+		systemTransformationsDataModel_mock = context.mock(SystemTransformationsDataModel.class);
 		final MutableTreeNode node_mock = context.mock(MutableTreeNode.class);
 
 		context.checking(new Expectations() {
@@ -103,11 +107,20 @@ public class EditorFrameTest {
 
 				allowing(attributesDataModel_mock).getRowCount();
 				will(returnValue(0));
+
+				allowing(systemTransformationsDataModel_mock).addTableModelListener(with(any(TableModelListener.class)));
+
+				allowing(systemTransformationsDataModel_mock).getColumnCount();
+				will(returnValue(0));
+
+				allowing(systemTransformationsDataModel_mock).getRowCount();
+				will(returnValue(0));
+
 			}
 		});
 
 		testable = new EditorFrame(application_mock, editorDataModel_mock, objectsDataModel_mock, linksDataModel_mock,
-				attributesDataModel_mock);
+				attributesDataModel_mock, systemTransformationsDataModel_mock);
 	}
 
 	@Test
@@ -353,5 +366,41 @@ public class EditorFrameTest {
 		});
 
 		testable.attributeDeleteAction.actionPerformed(actionEvent_mock);
+	}
+
+	@Test
+	public void systemTransformationsInsertAction_name() {
+		assertEquals("Insert", testable.systemTransformationsInsertAction.getValue(Action.NAME));
+	}
+
+	@Test
+	public void systemTransformationsInsertAction_actionPerformed() {
+		final ActionEvent actionEvent_mock = context.mock(ActionEvent.class);
+
+		context.checking(new Expectations() {
+			{
+				oneOf(systemTransformationsDataModel_mock).insertSystemTransformation();
+			}
+		});
+
+		testable.systemTransformationsInsertAction.actionPerformed(actionEvent_mock);
+	}
+
+	@Test
+	public void systemTransformationsDeleteAction_name() {
+		assertEquals("Delete", testable.systemTransformationsDeleteAction.getValue(Action.NAME));
+	}
+
+	@Test
+	public void systemTransformationsDeleteAction_actionPerformed() {
+		final ActionEvent actionEvent_mock = context.mock(ActionEvent.class);
+
+		context.checking(new Expectations() {
+			{
+				oneOf(systemTransformationsDataModel_mock).deleteSystemTransformation(-1);
+			}
+		});
+
+		testable.systemTransformationsDeleteAction.actionPerformed(actionEvent_mock);
 	}
 }

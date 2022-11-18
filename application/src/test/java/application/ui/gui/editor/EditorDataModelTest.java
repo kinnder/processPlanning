@@ -20,6 +20,7 @@ import planning.method.TaskDescription;
 import planning.model.System;
 import planning.model.SystemObject;
 import planning.model.SystemProcess;
+import planning.model.SystemTransformation;
 
 public class EditorDataModelTest {
 
@@ -111,18 +112,26 @@ public class EditorDataModelTest {
 
 	@Test
 	public void loadSystemTransformations() {
-		final SystemTransformations systemTransformations_mock = context.mock(SystemTransformations.class);
+		final SystemTransformations systemTransformations = new SystemTransformations();
+		final SystemTransformation systemTransformation_1_mock = context.mock(SystemTransformation.class, "st-1");
+		final SystemTransformation systemTransformation_2_mock = context.mock(SystemTransformation.class, "st-2");
+		systemTransformations.add(systemTransformation_1_mock);
+		systemTransformations.add(systemTransformation_2_mock);
 
-		testable.loadSystemTransformations(systemTransformations_mock);
+		testable.loadSystemTransformations(systemTransformations);
 	}
 
 	@Test
 	public void saveSystemTransformations() {
-		final SystemTransformations systemTransformations_mock = context.mock(SystemTransformations.class);
+		final SystemTransformations systemTransformations = new SystemTransformations();
+		final SystemTransformation systemTransformation_1_mock = context.mock(SystemTransformation.class, "st-1");
+		final SystemTransformation systemTransformation_2_mock = context.mock(SystemTransformation.class, "st-2");
+		systemTransformations.add(systemTransformation_1_mock);
+		systemTransformations.add(systemTransformation_2_mock);
 
-		testable.loadSystemTransformations(systemTransformations_mock);
+		testable.loadSystemTransformations(systemTransformations);
 
-		assertEquals(systemTransformations_mock, testable.saveSystemTransformations());
+		assertEquals(systemTransformations, testable.saveSystemTransformations());
 	}
 
 	@Test
@@ -166,5 +175,13 @@ public class EditorDataModelTest {
 		DefaultMutableTreeNode result = testable.createSystemNode(system_mock);
 		assertEquals(system_mock, result.getUserObject());
 		assertEquals(2, result.getChildCount());
+	}
+
+	@Test
+	public void createSystemTransformationNode() {
+		final SystemTransformation systemTransformation_mock = context.mock(SystemTransformation.class);
+
+		DefaultMutableTreeNode result = testable.createSystemTransformationNode(systemTransformation_mock);
+		assertEquals(systemTransformation_mock, result.getUserObject());
 	}
 }

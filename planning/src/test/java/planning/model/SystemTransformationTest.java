@@ -151,4 +151,15 @@ public class SystemTransformationTest {
 	public void getTransformations() {
 		assertEquals(transformations, testable.getTransformations());
 	}
+
+	@Test
+	public void toString_test() {
+		assertEquals("system-transformation-name", testable.toString());
+	}
+
+	@Test
+	public void setName() {
+		testable.setName("new-name");
+		assertEquals("new-name", testable.getName());
+	}
 }

@@ -11,6 +11,7 @@ import planning.method.TaskDescription;
 import planning.model.System;
 import planning.model.SystemObject;
 import planning.model.SystemProcess;
+import planning.model.SystemTransformation;
 
 // TODO (2022-11-16): saveXXX и loadXXX методы переименовать в getXXX и setXXX
 public class EditorDataModel extends DefaultTreeModel {
@@ -85,7 +86,7 @@ public class EditorDataModel extends DefaultTreeModel {
 		return new DefaultMutableTreeNode(object);
 	}
 
-	public void loadSystemTransformations(SystemTransformations systemTransformations) {
+	public DefaultMutableTreeNode createSystemTransformationNode(SystemTransformation systemTransformation) {
 		DefaultMutableTreeNode systemTransformationNode;
 		DefaultMutableTreeNode systemNode;
 		DefaultMutableTreeNode objectNode;
@@ -93,11 +94,8 @@ public class EditorDataModel extends DefaultTreeModel {
 		DefaultMutableTreeNode transformationNode;
 		DefaultMutableTreeNode actionNode;
 		DefaultMutableTreeNode functionNode;
-		systemTransformationsNode.removeAllChildren();
-		systemTransformationsNode.setUserObject(systemTransformations);
 
-		systemTransformationNode = new DefaultMutableTreeNode("2D-Pocket");
-		systemTransformationsNode.add(systemTransformationNode);
+		systemTransformationNode = new DefaultMutableTreeNode(systemTransformation);
 		systemNode = new DefaultMutableTreeNode("System Template");
 		systemTransformationNode.add(systemNode);
 		objectNode = new DefaultMutableTreeNode("template-object");
@@ -110,6 +108,23 @@ public class EditorDataModel extends DefaultTreeModel {
 		systemTransformationNode.add(actionNode);
 		functionNode = new DefaultMutableTreeNode("action-function");
 		actionNode.add(functionNode);
+
+		return systemTransformationNode;
+	}
+
+	public void loadSystemTransformations(SystemTransformations systemTransformations) {
+		DefaultMutableTreeNode systemTransformationNode;
+
+		// TODO (2022-11-18 #73): удалить
+		// systemTransformations = AssemblyLine.getSystemTransformations();
+
+		systemTransformationsNode.removeAllChildren();
+		systemTransformationsNode.setUserObject(systemTransformations);
+
+		for (SystemTransformation systemTransformation : systemTransformations) {
+			systemTransformationNode = createSystemTransformationNode(systemTransformation);
+			systemTransformationsNode.add(systemTransformationNode);
+		}
 
 		reload();
 	}

@@ -68,4 +68,9 @@ public class SystemTransformationsTest {
 		testable.addAll(elements);
 		assertEquals(2, testable.size());
 	}
+
+	@Test
+	public void toString_test() {
+		assertEquals("SystemTransformations", testable.toString());
+	}
 }

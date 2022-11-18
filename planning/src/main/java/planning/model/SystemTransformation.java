@@ -69,4 +69,13 @@ public class SystemTransformation {
 
 		return systemVariants.toArray(new SystemVariant[] {});
 	}
+
+	@Override
+	public String toString() {
+		return name;
+	}
+
+	public void setName(String aValue) {
+		this.name = aValue;
+	}
 }

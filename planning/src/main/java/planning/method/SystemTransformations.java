@@ -22,4 +22,9 @@ public class SystemTransformations extends ArrayList<SystemTransformation> {
 			this.add(element);
 		}
 	}
+
+	@Override
+	public String toString() {
+		return "SystemTransformations";
+	}
 }
