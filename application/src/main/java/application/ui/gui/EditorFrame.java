@@ -14,12 +14,14 @@ import application.ui.gui.editor.LinksDataModel;
 import application.ui.gui.editor.ObjectDataModel;
 import application.ui.gui.editor.ObjectsDataModel;
 import application.ui.gui.editor.SystemDataModel;
+import application.ui.gui.editor.SystemTransformationDataModel;
 import application.ui.gui.editor.SystemTransformationsDataModel;
 import planning.method.NodeNetwork;
 import planning.method.SystemTransformations;
 import planning.method.TaskDescription;
 import planning.model.SystemObject;
 import planning.model.SystemProcess;
+import planning.model.SystemTransformation;
 import planning.model.System;
 
 // TODO (2022-09-18 #72): инициализацию компонентов перенести в CustomCode визуального редактора
@@ -53,6 +55,7 @@ public class EditorFrame extends javax.swing.JFrame {
 
 		this.systemDataModel = new SystemDataModel(jtfSystemName, jcbSystemType, editorDataModel);
 		this.objectDataModel = new ObjectDataModel(jtfObjectName, jtfObjectId, editorDataModel);
+		this.systemTransformationDataModel = new SystemTransformationDataModel(jtfSystemTransformationName, editorDataModel);
 	}
 
 	private EditorDataModel editorDataModel;
@@ -68,6 +71,8 @@ public class EditorFrame extends javax.swing.JFrame {
 	private AttributesDataModel attributesDataModel;
 
 	private SystemTransformationsDataModel systemTransformationsDataModel;
+
+	private SystemTransformationDataModel systemTransformationDataModel;
 
 	private void setActions() {
 		jmiTaskDescriptionLoad.setAction(taskDescriptionLoadAction);
@@ -1464,6 +1469,10 @@ public class EditorFrame extends javax.swing.JFrame {
 		} else if (selectedObject instanceof SystemTransformations) {
 			jtpEditors.setSelectedComponent(jpSystemTransformationsEditor);
 			systemTransformationsDataModel.loadSystemTransformations((SystemTransformations) selectedObject, selectedNode);
+		} else if (selectedObject instanceof SystemTransformation) {
+			systemTransformationDataModel.clear();
+			jtpEditors.setSelectedComponent(jpSystemTransformationEditor);
+			systemTransformationDataModel.loadSystemTransformation((SystemTransformation) selectedObject, selectedNode);
 		} else {
 			java.lang.System.out.println("unknown: " + selectedObject.toString());
 		}
