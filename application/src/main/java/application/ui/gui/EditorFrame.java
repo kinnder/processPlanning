@@ -14,16 +14,20 @@ import application.ui.gui.editor.EditorDataModel;
 import application.ui.gui.editor.LinkTemplatesDataModel;
 import application.ui.gui.editor.LinksDataModel;
 import application.ui.gui.editor.ObjectDataModel;
+import application.ui.gui.editor.ObjectTemplateDataModel;
 import application.ui.gui.editor.ObjectTemplatesDataModel;
 import application.ui.gui.editor.ObjectsDataModel;
 import application.ui.gui.editor.SystemDataModel;
+import application.ui.gui.editor.SystemTemplateDataModel;
 import application.ui.gui.editor.SystemTransformationDataModel;
 import application.ui.gui.editor.SystemTransformationsDataModel;
 import planning.method.NodeNetwork;
 import planning.method.SystemTransformations;
 import planning.method.TaskDescription;
 import planning.model.SystemObject;
+import planning.model.SystemObjectTemplate;
 import planning.model.SystemProcess;
+import planning.model.SystemTemplate;
 import planning.model.SystemTransformation;
 import planning.model.System;
 
@@ -62,6 +66,8 @@ public class EditorFrame extends javax.swing.JFrame {
 		this.systemDataModel = new SystemDataModel(jtfSystemName, jcbSystemType, editorDataModel);
 		this.objectDataModel = new ObjectDataModel(jtfObjectName, jtfObjectId, editorDataModel);
 		this.systemTransformationDataModel = new SystemTransformationDataModel(jtfSystemTransformationName, editorDataModel);
+		this.systemTemplateDataModel = new SystemTemplateDataModel(jtfSystemTemplateName, jcbSystemTemplateType, editorDataModel);
+		this.objectTemplateDataModel = new ObjectTemplateDataModel(jtfObjectTemplateName, jtfObjectTemplateId, editorDataModel);
 	}
 
 	private EditorDataModel editorDataModel;
@@ -85,6 +91,10 @@ public class EditorFrame extends javax.swing.JFrame {
 	private ObjectTemplatesDataModel objectTemplatesDataModel;
 
 	private AttributeTemplatesDataModel attributeTemplatesDataModel;
+
+	private SystemTemplateDataModel systemTemplateDataModel;
+
+	private ObjectTemplateDataModel objectTemplateDataModel;
 
 	private void setActions() {
 		jmiTaskDescriptionLoad.setAction(taskDescriptionLoadAction);
@@ -1801,6 +1811,17 @@ public class EditorFrame extends javax.swing.JFrame {
 			systemTransformationDataModel.clear();
 			jtpEditors.setSelectedComponent(jpSystemTransformationEditor);
 			systemTransformationDataModel.loadSystemTransformation((SystemTransformation) selectedObject, selectedNode);
+		} else if (selectedObject instanceof SystemTemplate) {
+			systemTemplateDataModel.clear();
+			jtpEditors.setSelectedComponent(jpSystemTemplateEditor);
+			systemTemplateDataModel.loadSystemTemplate((SystemTemplate) selectedObject, selectedNode);
+			objectTemplatesDataModel.loadObjectTemplates((SystemTemplate) selectedObject, selectedNode);
+			linkTemplatesDataModel.loadLinkTemplates((SystemTemplate) selectedObject, selectedNode);
+		} else if (selectedObject instanceof SystemObjectTemplate) {
+			objectTemplateDataModel.clear();
+			jtpEditors.setSelectedComponent(jpObjectTemplateEditor);
+			objectTemplateDataModel.loadSystemObjectTemplate((SystemObjectTemplate) selectedObject, selectedNode);
+			attributeTemplatesDataModel.loadAttributeTemplates((SystemObjectTemplate) selectedObject, selectedNode);
 		} else {
 			java.lang.System.out.println("unknown: " + selectedObject.toString());
 		}

@@ -1,6 +1,9 @@
 package application.ui.gui.editor;
 
 import javax.swing.table.DefaultTableModel;
+import javax.swing.tree.DefaultMutableTreeNode;
+
+import planning.model.SystemObjectTemplate;
 
 public class AttributeTemplatesDataModel extends DefaultTableModel {
 
@@ -18,5 +21,9 @@ public class AttributeTemplatesDataModel extends DefaultTableModel {
 	@Override
 	public Class<?> getColumnClass(int columnIndex) {
 		return types[columnIndex];
+	}
+
+	public void loadAttributeTemplates(SystemObjectTemplate selectedObject, DefaultMutableTreeNode selectedNode) {
+		// TODO Auto-generated method stub
 	}
 }

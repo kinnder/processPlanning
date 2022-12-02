@@ -8,10 +8,14 @@ import javax.swing.tree.DefaultTreeModel;
 import planning.method.NodeNetwork;
 import planning.method.SystemTransformations;
 import planning.method.TaskDescription;
+import planning.model.Action;
 import planning.model.System;
 import planning.model.SystemObject;
+import planning.model.SystemObjectTemplate;
 import planning.model.SystemProcess;
+import planning.model.SystemTemplate;
 import planning.model.SystemTransformation;
+import planning.model.Transformation;
 
 // TODO (2022-11-16): saveXXX и loadXXX методы переименовать в getXXX и setXXX
 public class EditorDataModel extends DefaultTreeModel {
@@ -88,28 +92,54 @@ public class EditorDataModel extends DefaultTreeModel {
 
 	public DefaultMutableTreeNode createSystemTransformationNode(SystemTransformation systemTransformation) {
 		DefaultMutableTreeNode systemTransformationNode;
-		DefaultMutableTreeNode systemNode;
-		DefaultMutableTreeNode objectNode;
+		DefaultMutableTreeNode systemTemplateNode;
 		DefaultMutableTreeNode transformationsNode;
-		DefaultMutableTreeNode transformationNode;
 		DefaultMutableTreeNode actionNode;
-		DefaultMutableTreeNode functionNode;
 
 		systemTransformationNode = new DefaultMutableTreeNode(systemTransformation);
-		systemNode = new DefaultMutableTreeNode("System Template");
-		systemTransformationNode.add(systemNode);
-		objectNode = new DefaultMutableTreeNode("template-object");
-		systemNode.add(objectNode);
-		transformationsNode = new DefaultMutableTreeNode("Transformations");
+
+		systemTemplateNode = createSystemTemplateNode(systemTransformation.getSystemTemplate());
+		systemTransformationNode.add(systemTemplateNode);
+
+		transformationsNode = createTransformationsNode(systemTransformation.getTransformations());
 		systemTransformationNode.add(transformationsNode);
-		transformationNode = new DefaultMutableTreeNode("attribute-transformation");
-		transformationsNode.add(transformationNode);
-		actionNode = new DefaultMutableTreeNode("Action");
+
+		actionNode = createActionNode(systemTransformation.getAction());
 		systemTransformationNode.add(actionNode);
-		functionNode = new DefaultMutableTreeNode("action-function");
-		actionNode.add(functionNode);
 
 		return systemTransformationNode;
+	}
+
+	private DefaultMutableTreeNode createActionNode(Action action) {
+		DefaultMutableTreeNode actionNode;
+		DefaultMutableTreeNode functionNode;
+		actionNode = new DefaultMutableTreeNode("Action");
+		functionNode = new DefaultMutableTreeNode("action-function");
+		actionNode.add(functionNode);
+		return actionNode;
+	}
+
+	private DefaultMutableTreeNode createTransformationsNode(Transformation[] transformations) {
+		DefaultMutableTreeNode transformationsNode;
+		DefaultMutableTreeNode transformationNode;
+		transformationsNode = new DefaultMutableTreeNode("Transformations");
+		transformationNode = new DefaultMutableTreeNode("attribute-transformation");
+		transformationsNode.add(transformationNode);
+		return transformationsNode;
+	}
+
+	public DefaultMutableTreeNode createSystemTemplateNode(SystemTemplate systemTemplate) {
+		DefaultMutableTreeNode systemTemplateNode = new DefaultMutableTreeNode(systemTemplate);
+		Collection<SystemObjectTemplate> objectTemplates = systemTemplate.getObjectTemplates();
+		for (SystemObjectTemplate objectTemplate : objectTemplates) {
+			DefaultMutableTreeNode objectTemplateNode = createObjectTemplateNode(objectTemplate);
+			systemTemplateNode.add(objectTemplateNode);
+		}
+		return systemTemplateNode;
+	}
+
+	public DefaultMutableTreeNode createObjectTemplateNode(SystemObjectTemplate objectTemplate) {
+		return new DefaultMutableTreeNode(objectTemplate);
 	}
 
 	public void loadSystemTransformations(SystemTransformations systemTransformations) {

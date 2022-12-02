@@ -11,6 +11,7 @@ public class SystemTransformation {
 
 	private SystemTemplate template;
 
+	// TODO (2022-12-02 #73): заменить на класс коллекцию
 	private Transformation[] transformations;
 
 	public SystemTransformation(String name, Action action, SystemTemplate template, Transformation[] transformations) {

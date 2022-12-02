@@ -125,4 +125,9 @@ public class SystemTemplate {
 	public void addLinkTemplate(LinkTemplate linkTemplate) {
 		linkTemplates.add(linkTemplate);
 	}
+
+	@Override
+	public String toString() {
+		return "System Template";
+	}
 }

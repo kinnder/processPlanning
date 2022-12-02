@@ -49,4 +49,9 @@ public class SystemObjectTemplate {
 	public Collection<AttributeTemplate> getAttributeTemplates() {
 		return Collections.unmodifiableCollection(attributeTemplates.values());
 	}
+
+	@Override
+	public String toString() {
+		return "Object Template";
+	}
 }
