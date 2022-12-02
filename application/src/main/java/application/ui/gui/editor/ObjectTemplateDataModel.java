@@ -1,5 +1,8 @@
 package application.ui.gui.editor;
 
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+
 import javax.swing.JTextField;
 import javax.swing.tree.DefaultMutableTreeNode;
 
@@ -7,16 +10,56 @@ import planning.model.SystemObjectTemplate;
 
 public class ObjectTemplateDataModel {
 
+	private JTextField jtfObjectTemplateName;
+
+	private JTextField jtfObjectTemplateId;
+
+	private EditorDataModel editorDataModel;
+
+	private SystemObjectTemplate objectTemplate;
+
+	KeyAdapter jtfObjectTemplateNameKeyAdapter = new KeyAdapter() {
+		@Override
+		public void keyReleased(KeyEvent e) {
+			editorDataModel.nodeChanged(treeNode);
+		}
+	};
+
+	KeyAdapter jtfObjectTemplateIdKeyAdapter = new KeyAdapter() {
+		@Override
+		public void keyReleased(KeyEvent e) {
+			String objectTemplateId = jtfObjectTemplateId.getText();
+			objectTemplate.setId(objectTemplateId);
+			editorDataModel.nodeChanged(treeNode);
+		}
+	};
+
 	public ObjectTemplateDataModel(JTextField jtfObjectTemplateName, JTextField jtfObjectTemplateId,
 			EditorDataModel editorDataModel) {
-		// TODO Auto-generated constructor stub
+		this.jtfObjectTemplateName = jtfObjectTemplateName;
+		this.jtfObjectTemplateId = jtfObjectTemplateId;
+		this.editorDataModel = editorDataModel;
+
+		jtfObjectTemplateName.addKeyListener(jtfObjectTemplateNameKeyAdapter);
+		jtfObjectTemplateId.addKeyListener(jtfObjectTemplateIdKeyAdapter);
 	}
+
+	private DefaultMutableTreeNode treeNode;
 
 	public void clear() {
-		// TODO Auto-generated method stub
+		objectTemplate = null;
+		treeNode = null;
 	}
 
-	public void loadSystemObjectTemplate(SystemObjectTemplate selectedObject, DefaultMutableTreeNode selectedNode) {
-		// TODO Auto-generated method stub
+	public void loadSystemObjectTemplate(SystemObjectTemplate selectedObjectTemplate,
+			DefaultMutableTreeNode selectedNode) {
+		String name = "Object Template";
+		String id = selectedObjectTemplate.getId();
+
+		jtfObjectTemplateName.setText(name);
+		jtfObjectTemplateId.setText(id);
+
+		objectTemplate = selectedObjectTemplate;
+		treeNode = selectedNode;
 	}
 }

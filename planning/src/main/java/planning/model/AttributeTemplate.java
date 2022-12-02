@@ -23,6 +23,10 @@ public class AttributeTemplate {
 		return this.name;
 	}
 
+	public void setName(String name) {
+		this.name = name;
+	}
+
 	public boolean matches(Attribute object) {
 		switch (templateType) {
 		case ConcreteValue:
@@ -42,5 +46,10 @@ public class AttributeTemplate {
 
 	public Object getValue() {
 		return this.value;
+	}
+
+	public void setValue(Object value) {
+		// TODO (2022-12-02 #73) : добавить установку AnyValue и ConcreteValue
+		this.value = value;
 	}
 }

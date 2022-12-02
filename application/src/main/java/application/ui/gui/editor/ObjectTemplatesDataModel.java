@@ -1,8 +1,12 @@
 package application.ui.gui.editor;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.swing.table.DefaultTableModel;
 import javax.swing.tree.DefaultMutableTreeNode;
 
+import planning.model.SystemObjectTemplate;
 import planning.model.SystemTemplate;
 
 public class ObjectTemplatesDataModel extends DefaultTableModel {
@@ -10,6 +14,10 @@ public class ObjectTemplatesDataModel extends DefaultTableModel {
 	private static final long serialVersionUID = 4569605859281139998L;
 
 	private EditorDataModel editorDataModel;
+
+	public static final int COLUMN_IDX_NAME = 0;
+
+	public static final int COLUMN_IDX_ID = 1;
 
 	public ObjectTemplatesDataModel(EditorDataModel editorDataModel) {
 		super(new String[] { "name", "id" }, 0);
@@ -23,7 +31,74 @@ public class ObjectTemplatesDataModel extends DefaultTableModel {
 		return types[columnIndex];
 	}
 
-	public void loadObjectTemplates(SystemTemplate selectedObject, DefaultMutableTreeNode selectedNode) {
-		// TODO Auto-generated method stub
+	private SystemTemplate systemTemplate;
+
+	private DefaultMutableTreeNode systemTemplateNode;
+
+	private List<SystemObjectTemplate> objectTemplates = new ArrayList<SystemObjectTemplate>();
+
+	public void loadObjectTemplates(SystemTemplate selectedSystemTemplate, DefaultMutableTreeNode selectedNode) {
+		objectTemplates.clear();
+		this.setRowCount(0);
+
+		for (SystemObjectTemplate objectTemplate : selectedSystemTemplate.getObjectTemplates()) {
+			objectTemplates.add(objectTemplate);
+			this.addRow(new Object[] {});
+		}
+
+		systemTemplate = selectedSystemTemplate;
+		systemTemplateNode = selectedNode;
+	}
+
+	@Override
+	public void setValueAt(Object aValue, int row, int column) {
+		SystemObjectTemplate objectTemplate = objectTemplates.get(row);
+		switch (column) {
+		case COLUMN_IDX_NAME:
+			break;
+		case COLUMN_IDX_ID:
+			objectTemplate.setId((String) aValue);
+			break;
+		default:
+			break;
+		}
+	}
+
+	@Override
+	public Object getValueAt(int row, int column) {
+		SystemObjectTemplate objectTemplate = objectTemplates.get(row);
+		switch (column) {
+		case COLUMN_IDX_NAME:
+			return "Object Template";
+		case COLUMN_IDX_ID:
+			return objectTemplate.getId();
+		default:
+			return null;
+		}
+	}
+
+	public void insertObjectTemplate() {
+		// TODO (2022-12-02 #73): перенести в SystemObjectTemplate
+		SystemObjectTemplate objectTemplate = new SystemObjectTemplate("new id");
+		systemTemplate.addObjectTemplate(objectTemplate);
+		objectTemplates.add(objectTemplate);
+		this.addRow(new Object[] {});
+		DefaultMutableTreeNode objectTemplateNode = editorDataModel.createObjectTemplateNode(objectTemplate);
+		systemTemplateNode.add(objectTemplateNode);
+		editorDataModel.insertNodeInto(objectTemplateNode, systemTemplateNode, objectTemplates.size() - 1);
+	}
+
+	public void deleteObjectTemplate(int idx) {
+		if (idx < 0) {
+			return;
+		}
+
+		SystemObjectTemplate objectTemplate = objectTemplates.get(idx);
+		systemTemplate.removeObjectTemplate(objectTemplate);
+		objectTemplates.remove(objectTemplate);
+
+		this.removeRow(idx);
+		DefaultMutableTreeNode objectTemplateNode = (DefaultMutableTreeNode) systemTemplateNode.getChildAt(idx);
+		editorDataModel.removeNodeFromParent(objectTemplateNode);
 	}
 }

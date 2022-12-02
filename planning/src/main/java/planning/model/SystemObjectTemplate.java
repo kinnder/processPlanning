@@ -19,6 +19,10 @@ public class SystemObjectTemplate {
 		return id;
 	}
 
+	public void setId(String id) {
+		this.id = id;
+	}
+
 	public Set<String> getIds() {
 		Set<String> ids = new HashSet<>();
 		ids.add(id);
@@ -53,5 +57,9 @@ public class SystemObjectTemplate {
 	@Override
 	public String toString() {
 		return "Object Template";
+	}
+
+	public void removeAttributeTemplate(AttributeTemplate attributeTemplate) {
+		attributeTemplates.remove(attributeTemplate.getName());
 	}
 }

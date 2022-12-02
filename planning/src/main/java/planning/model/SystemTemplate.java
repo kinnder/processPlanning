@@ -130,4 +130,12 @@ public class SystemTemplate {
 	public String toString() {
 		return "System Template";
 	}
+
+	public void removeObjectTemplate(SystemObjectTemplate objectTemplate) {
+		objectTemplates.remove(objectTemplate);
+	}
+
+	public void removeLinkTemplate(LinkTemplate linkTemplate) {
+		linkTemplates.remove(linkTemplate);
+	}
 }

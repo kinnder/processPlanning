@@ -118,6 +118,15 @@ public class EditorFrame extends javax.swing.JFrame {
 
 		jbSystemTransformationsInsert.setAction(systemTransformationsInsertAction);
 		jbSystemTransformationsDelete.setAction(systemTransformationsDeleteAction);
+
+		jbObjectTemplateInsert.setAction(objectTemplateInsertAction);
+		jbObjectTemplateDelete.setAction(objectTemplateDeleteAction);
+
+		jbLinkTemplatesInsert.setAction(linkTemplateInsertAction);
+		jbLinkTemplatesDelete.setAction(linkTemplateDeleteAction);
+
+		jbAttributeTemplateInsert.setAction(attributeTemplateInsertAction);
+		jbAttributeTemplateDelete.setAction(attributeTemplateDeleteAction);
 	}
 
 	Action taskDescriptionLoadAction = new AbstractAction("Load") {
@@ -256,6 +265,63 @@ public class EditorFrame extends javax.swing.JFrame {
 		}
 	};
 
+	Action objectTemplateInsertAction = new AbstractAction("Insert") {
+		private static final long serialVersionUID = -4851992641857540153L;
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			objectTemplatesDataModel.insertObjectTemplate();
+		}
+	};
+
+	Action objectTemplateDeleteAction = new AbstractAction("Delete") {
+		private static final long serialVersionUID = 812115304797324835L;
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			int idx = jtObjectTemplates.getSelectedRow();
+			objectTemplatesDataModel.deleteObjectTemplate(idx);
+		}
+	};
+
+	Action linkTemplateInsertAction = new AbstractAction("Insert") {
+		private static final long serialVersionUID = 6137385685062002073L;
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			linkTemplatesDataModel.insertLinkTemplate();
+		}
+	};
+
+	Action linkTemplateDeleteAction = new AbstractAction("Delete") {
+		private static final long serialVersionUID = -3154157962525794280L;
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			int idx = jtLinkTemplates.getSelectedRow();
+			linkTemplatesDataModel.deleteLinkTemplate(idx);
+		}
+	};
+
+	Action attributeTemplateInsertAction = new AbstractAction("Insert") {
+		private static final long serialVersionUID = -7471052641340519481L;
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			attributeTemplatesDataModel.insertAttributeTemplate();
+		}
+	};
+
+	Action attributeTemplateDeleteAction = new AbstractAction("Delete") {
+		private static final long serialVersionUID = 3977994079503478515L;
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			int idx = jtAttributeTemplates.getSelectedRow();
+			attributeTemplatesDataModel.deleteAttributeTemplate(idx);
+		}
+	};
+
 	/**
 	 * This method is called from within the constructor to initialize the form.
 	 * WARNING: Do NOT modify this code. The content of this method is always
@@ -263,7 +329,6 @@ public class EditorFrame extends javax.swing.JFrame {
 	 */
 	// <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
 	private void initComponents() {
-
 		bgTransformationType = new javax.swing.ButtonGroup();
 		jspWorkArea = new javax.swing.JSplitPane();
 		jspData = new javax.swing.JScrollPane();
