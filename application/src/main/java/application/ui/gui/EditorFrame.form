@@ -1884,8 +1884,6 @@
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Component id="jbActionFunctionsInsert" alignment="0" min="-2" max="-2" attributes="0"/>
                                       <Component id="jbActionFunctionsDelete" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jbActionFunctionsMoveUp" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jbActionFunctionsMoveDown" alignment="0" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="32767" attributes="0"/>
                               </Group>
@@ -1898,10 +1896,6 @@
                                   <Component id="jbActionFunctionsInsert" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="jbActionFunctionsDelete" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="jbActionFunctionsMoveUp" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="jbActionFunctionsMoveDown" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="32767" attributes="0"/>
                               </Group>
                           </Group>
@@ -1918,16 +1912,6 @@
                             <Property name="text" type="java.lang.String" value="Delete"/>
                           </Properties>
                         </Component>
-                        <Component class="javax.swing.JButton" name="jbActionFunctionsMoveUp">
-                          <Properties>
-                            <Property name="text" type="java.lang.String" value="Up"/>
-                          </Properties>
-                        </Component>
-                        <Component class="javax.swing.JButton" name="jbActionFunctionsMoveDown">
-                          <Properties>
-                            <Property name="text" type="java.lang.String" value="Down"/>
-                          </Properties>
-                        </Component>
                       </SubComponents>
                     </Container>
                     <Container class="javax.swing.JScrollPane" name="jspActionFunctions">
@@ -1939,17 +1923,8 @@
                       <SubComponents>
                         <Component class="javax.swing.JTable" name="jtActionFunctions">
                           <Properties>
-                            <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                              <Table columnCount="2" rowCount="2">
-                                <Column editable="true" title="name" type="java.lang.String">
-                                  <Data value="unknown"/>
-                                  <Data value="unknown"/>
-                                </Column>
-                                <Column editable="true" title="type" type="java.lang.String">
-                                  <Data value="preConditionChecker"/>
-                                  <Data value="parameterUpdater"/>
-                                </Column>
-                              </Table>
+                            <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                              <Connection code="actionFunctionsDataModel" type="code"/>
                             </Property>
                           </Properties>
                         </Component>

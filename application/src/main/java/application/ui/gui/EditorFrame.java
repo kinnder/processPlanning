@@ -8,6 +8,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
 
 import application.Application;
 import application.ui.UserInterfaceFactory;
+import application.ui.gui.editor.ActionFunctionsDataModel;
 import application.ui.gui.editor.AttributeTemplatesDataModel;
 import application.ui.gui.editor.AttributesDataModel;
 import application.ui.gui.editor.EditorDataModel;
@@ -58,6 +59,7 @@ public class EditorFrame extends javax.swing.JFrame {
 		this.linkTemplatesDataModel = new LinkTemplatesDataModel(editorDataModel);
 		this.objectTemplatesDataModel = new ObjectTemplatesDataModel(editorDataModel);
 		this.attributeTemplatesDataModel = new AttributeTemplatesDataModel(editorDataModel);
+		this.actionFunctionsDataModel = new ActionFunctionsDataModel(editorDataModel);
 
 		// TODO (2022-11-01 #72): покрытие тестами jtDataValueChanged
 		initComponents();
@@ -95,6 +97,8 @@ public class EditorFrame extends javax.swing.JFrame {
 	private SystemTemplateDataModel systemTemplateDataModel;
 
 	private ObjectTemplateDataModel objectTemplateDataModel;
+
+	private ActionFunctionsDataModel actionFunctionsDataModel;
 
 	private void setActions() {
 		jmiTaskDescriptionLoad.setAction(taskDescriptionLoadAction);
@@ -329,6 +333,7 @@ public class EditorFrame extends javax.swing.JFrame {
 	 */
 	// <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
 	private void initComponents() {
+
 		bgTransformationType = new javax.swing.ButtonGroup();
 		jspWorkArea = new javax.swing.JSplitPane();
 		jspData = new javax.swing.JScrollPane();
@@ -448,8 +453,6 @@ public class EditorFrame extends javax.swing.JFrame {
 		jpActionFunctionsButtons = new javax.swing.JPanel();
 		jbActionFunctionsInsert = new javax.swing.JButton();
 		jbActionFunctionsDelete = new javax.swing.JButton();
-		jbActionFunctionsMoveUp = new javax.swing.JButton();
-		jbActionFunctionsMoveDown = new javax.swing.JButton();
 		jspActionFunctions = new javax.swing.JScrollPane();
 		jtActionFunctions = new javax.swing.JTable();
 		jpActionFunctionEditor = new javax.swing.JPanel();
@@ -1397,10 +1400,6 @@ public class EditorFrame extends javax.swing.JFrame {
 
 		jbActionFunctionsDelete.setText("Delete");
 
-		jbActionFunctionsMoveUp.setText("Up");
-
-		jbActionFunctionsMoveDown.setText("Down");
-
 		javax.swing.GroupLayout jpActionFunctionsButtonsLayout = new javax.swing.GroupLayout(jpActionFunctionsButtons);
 		jpActionFunctionsButtons.setLayout(jpActionFunctionsButtonsLayout);
 		jpActionFunctionsButtonsLayout.setHorizontalGroup(
@@ -1408,8 +1407,7 @@ public class EditorFrame extends javax.swing.JFrame {
 						.addGroup(jpActionFunctionsButtonsLayout.createSequentialGroup().addContainerGap()
 								.addGroup(jpActionFunctionsButtonsLayout
 										.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-										.addComponent(jbActionFunctionsInsert).addComponent(jbActionFunctionsDelete)
-										.addComponent(jbActionFunctionsMoveUp).addComponent(jbActionFunctionsMoveDown))
+										.addComponent(jbActionFunctionsInsert).addComponent(jbActionFunctionsDelete))
 								.addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
 		jpActionFunctionsButtonsLayout.setVerticalGroup(
 				jpActionFunctionsButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1417,23 +1415,9 @@ public class EditorFrame extends javax.swing.JFrame {
 								.addComponent(jbActionFunctionsInsert)
 								.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
 								.addComponent(jbActionFunctionsDelete)
-								.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-								.addComponent(jbActionFunctionsMoveUp)
-								.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-								.addComponent(jbActionFunctionsMoveDown)
 								.addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
 
-		jtActionFunctions.setModel(new javax.swing.table.DefaultTableModel(
-				new Object[][] { { "unknown", "preConditionChecker" }, { "unknown", "parameterUpdater" } },
-				new String[] { "name", "type" }) {
-			private static final long serialVersionUID = -5773084738982357130L;
-			Class<?>[] types = new Class[] { java.lang.String.class, java.lang.String.class };
-
-			@Override
-			public Class<?> getColumnClass(int columnIndex) {
-				return types[columnIndex];
-			}
-		});
+		jtActionFunctions.setModel(actionFunctionsDataModel);
 		jspActionFunctions.setViewportView(jtActionFunctions);
 
 		javax.swing.GroupLayout jpActionFunctionsEditorLayout = new javax.swing.GroupLayout(jpActionFunctionsEditor);
@@ -1903,8 +1887,6 @@ public class EditorFrame extends javax.swing.JFrame {
 	private javax.swing.ButtonGroup bgTransformationType;
 	private javax.swing.JButton jbActionFunctionsDelete;
 	private javax.swing.JButton jbActionFunctionsInsert;
-	private javax.swing.JButton jbActionFunctionsMoveDown;
-	private javax.swing.JButton jbActionFunctionsMoveUp;
 	private javax.swing.JButton jbAttributeTemplateDelete;
 	private javax.swing.JButton jbAttributeTemplateInsert;
 	private javax.swing.JButton jbAttributesDelete;
