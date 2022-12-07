@@ -56,7 +56,7 @@ public class ActionFunctionOWLSchemaTest {
 		testable = new ActionFunctionOWLSchema(new PlanningOWLModel());
 	}
 
-	// TODO : пересмотреть положение globals
+	// TODO (2022-12-07 #73): пересмотреть положение globals
 	private static Globals globals = JsePlatform.standardGlobals();
 
 	@Test

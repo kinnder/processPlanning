@@ -564,7 +564,7 @@ public class AssemblyLine {
 		return new SystemTransformation(ELEMENT_MOVE_WITHOUT_LOAD, action, systemTemplate, transformations);
 	}
 
-	// TODO : пересмотреть положение globals
+	// TODO (2022-12-07 #73): пересмотреть положение globals
 	static Globals globals = JsePlatform.standardGlobals();
 
 	public static SystemTransformations getSystemTransformations() {

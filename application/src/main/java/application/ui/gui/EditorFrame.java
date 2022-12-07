@@ -8,6 +8,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
 
 import application.Application;
 import application.ui.UserInterfaceFactory;
+import application.ui.gui.editor.ActionDataModel;
 import application.ui.gui.editor.ActionFunctionsDataModel;
 import application.ui.gui.editor.AttributeTemplatesDataModel;
 import application.ui.gui.editor.AttributesDataModel;
@@ -70,6 +71,7 @@ public class EditorFrame extends javax.swing.JFrame {
 		this.systemTransformationDataModel = new SystemTransformationDataModel(jtfSystemTransformationName, editorDataModel);
 		this.systemTemplateDataModel = new SystemTemplateDataModel(jtfSystemTemplateName, jcbSystemTemplateType, editorDataModel);
 		this.objectTemplateDataModel = new ObjectTemplateDataModel(jtfObjectTemplateName, jtfObjectTemplateId, editorDataModel);
+		this.actionDataModel = new ActionDataModel(jtfActionName, editorDataModel);
 	}
 
 	private EditorDataModel editorDataModel;
@@ -99,6 +101,8 @@ public class EditorFrame extends javax.swing.JFrame {
 	private ObjectTemplateDataModel objectTemplateDataModel;
 
 	private ActionFunctionsDataModel actionFunctionsDataModel;
+
+	private ActionDataModel actionDataModel;
 
 	private void setActions() {
 		jmiTaskDescriptionLoad.setAction(taskDescriptionLoadAction);
@@ -131,6 +135,9 @@ public class EditorFrame extends javax.swing.JFrame {
 
 		jbAttributeTemplateInsert.setAction(attributeTemplateInsertAction);
 		jbAttributeTemplateDelete.setAction(attributeTemplateDeleteAction);
+
+		jbActionFunctionsInsert.setAction(actionFunctionsInsertActionFunction);
+		jbActionFunctionsDelete.setAction(actionFunctionsDeleteActionFunction);
 	}
 
 	Action taskDescriptionLoadAction = new AbstractAction("Load") {
@@ -323,6 +330,25 @@ public class EditorFrame extends javax.swing.JFrame {
 		public void actionPerformed(ActionEvent e) {
 			int idx = jtAttributeTemplates.getSelectedRow();
 			attributeTemplatesDataModel.deleteAttributeTemplate(idx);
+		}
+	};
+
+	Action actionFunctionsInsertActionFunction = new AbstractAction("Insert") {
+		private static final long serialVersionUID = 25200714754072766L;
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			actionFunctionsDataModel.insertActionFunction();
+		}
+	};
+
+	Action actionFunctionsDeleteActionFunction = new AbstractAction("Delete") {
+		private static final long serialVersionUID = -2297090309084649635L;
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			int idx = jtActionFunctions.getSelectedRow();
+			actionFunctionsDataModel.deleteActionFunction(idx);
 		}
 	};
 
@@ -1871,6 +1897,11 @@ public class EditorFrame extends javax.swing.JFrame {
 			jtpEditors.setSelectedComponent(jpObjectTemplateEditor);
 			objectTemplateDataModel.loadSystemObjectTemplate((SystemObjectTemplate) selectedObject, selectedNode);
 			attributeTemplatesDataModel.loadAttributeTemplates((SystemObjectTemplate) selectedObject, selectedNode);
+		} else if (selectedObject instanceof planning.model.Action) {
+			actionDataModel.clear();
+			jtpEditors.setSelectedComponent(jpActionEditor);
+			actionDataModel.loadAction((planning.model.Action)selectedObject, selectedNode);
+			actionFunctionsDataModel.loadActionFunctions((planning.model.Action)selectedObject, selectedNode);
 		} else {
 			java.lang.System.out.println("unknown: " + selectedObject.toString());
 		}

@@ -39,7 +39,7 @@ public class ActionFunctionOWLSchema implements OWLSchema<ActionFunction> {
 		return ind_actionFunction;
 	}
 
-	// TODO : пересмотреть положение globals
+	// TODO (2022-12-07 #73): пересмотреть положение globals
 	private static Globals globals = JsePlatform.standardGlobals();
 
 	@Override

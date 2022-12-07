@@ -410,7 +410,7 @@ public class CuttingProcess {
 		return new SystemTransformation(ELEMENT_SPLIT_CYLINDER_SURFACE, action, systemTemplate, transformations);
 	}
 
-	// TODO : пересмотреть положение globals
+	// TODO (2022-12-07 #73): пересмотреть положение globals
 	static Globals globals = JsePlatform.standardGlobals();
 
 	public static SystemTransformations getSystemTransformations() {

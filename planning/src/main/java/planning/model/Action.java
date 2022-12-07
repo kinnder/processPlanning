@@ -15,6 +15,15 @@ public class Action {
 		return name;
 	}
 
+	public void setName(String actionName) {
+		this.name = actionName;
+	}
+
+	@Override
+	public String toString() {
+		return "Action " + name;
+	}
+
 	public void updateParameters(SystemVariant systemVariant) {
 		for (ActionFunction parameterUpdater : parameterUpdaters) {
 			parameterUpdater.accept(systemVariant);
@@ -49,5 +58,10 @@ public class Action {
 			}
 		}
 		return true;
+	}
+
+	public void removeActionFunction(ActionFunction actionFunction) {
+		// TODO (2022-12-07 #73): actionFunction удаляется из parameterUpdater
+		parameterUpdaters.remove(actionFunction);
 	}
 }

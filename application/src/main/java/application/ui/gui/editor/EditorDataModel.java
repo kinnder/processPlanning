@@ -9,6 +9,7 @@ import planning.method.NodeNetwork;
 import planning.method.SystemTransformations;
 import planning.method.TaskDescription;
 import planning.model.Action;
+import planning.model.ActionFunction;
 import planning.model.System;
 import planning.model.SystemObject;
 import planning.model.SystemObjectTemplate;
@@ -17,7 +18,7 @@ import planning.model.SystemTemplate;
 import planning.model.SystemTransformation;
 import planning.model.Transformation;
 
-// TODO (2022-11-16): saveXXX и loadXXX методы переименовать в getXXX и setXXX
+// TODO (2022-11-16 #72): saveXXX и loadXXX методы переименовать в getXXX и setXXX
 public class EditorDataModel extends DefaultTreeModel {
 
 	private static final long serialVersionUID = 2748742512319035267L;
@@ -110,13 +111,24 @@ public class EditorDataModel extends DefaultTreeModel {
 		return systemTransformationNode;
 	}
 
-	private DefaultMutableTreeNode createActionNode(Action action) {
-		DefaultMutableTreeNode actionNode;
-		DefaultMutableTreeNode functionNode;
-		actionNode = new DefaultMutableTreeNode("Action");
-		functionNode = new DefaultMutableTreeNode("action-function");
-		actionNode.add(functionNode);
+	public DefaultMutableTreeNode createActionNode(Action action) {
+		DefaultMutableTreeNode actionNode = new DefaultMutableTreeNode(action);
+		// TODO (2022-12-07 #73): все функции должны обрабатываться в одной коллекции
+		Collection<ActionFunction> parameterUpdaters = action.getParameterUpdaters();
+		for (ActionFunction actionFunction : parameterUpdaters) {
+			DefaultMutableTreeNode functionNode = createActionFunctionNode(actionFunction);
+			actionNode.add(functionNode);
+		}
+		Collection<ActionFunction> preConditionCheckers = action.getPreConditionCheckers();
+		for (ActionFunction actionFunction : preConditionCheckers) {
+			DefaultMutableTreeNode functionNode = createActionFunctionNode(actionFunction);
+			actionNode.add(functionNode);
+		}
 		return actionNode;
+	}
+
+	public DefaultMutableTreeNode createActionFunctionNode(ActionFunction actionFunction) {
+		return new DefaultMutableTreeNode("action-function");
 	}
 
 	private DefaultMutableTreeNode createTransformationsNode(Transformation[] transformations) {
