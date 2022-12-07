@@ -31,6 +31,10 @@ public class LuaScript {
 		return script;
 	}
 
+	public void setScript(String script) {
+		this.script = script;
+	}
+
 	public LuaValue call(LuaValue parameter) {
 		return globals.load(script).call(parameter);
 	}

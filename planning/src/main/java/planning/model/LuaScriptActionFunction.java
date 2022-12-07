@@ -24,4 +24,9 @@ public class LuaScriptActionFunction extends LuaScript implements ActionFunction
 	public boolean test(SystemVariant systemVariant) {
 		return call(CoerceJavaToLua.coerce(systemVariant)).toboolean();
 	}
+
+	@Override
+	public String toString() {
+		return "action-function";
+	}
 }

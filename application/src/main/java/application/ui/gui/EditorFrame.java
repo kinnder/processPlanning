@@ -9,6 +9,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import application.Application;
 import application.ui.UserInterfaceFactory;
 import application.ui.gui.editor.ActionDataModel;
+import application.ui.gui.editor.ActionFunctionDataModel;
 import application.ui.gui.editor.ActionFunctionsDataModel;
 import application.ui.gui.editor.AttributeTemplatesDataModel;
 import application.ui.gui.editor.AttributesDataModel;
@@ -31,6 +32,7 @@ import planning.model.SystemObjectTemplate;
 import planning.model.SystemProcess;
 import planning.model.SystemTemplate;
 import planning.model.SystemTransformation;
+import planning.model.ActionFunction;
 import planning.model.System;
 
 // TODO (2022-09-18 #72): инициализацию компонентов перенести в CustomCode визуального редактора
@@ -72,6 +74,7 @@ public class EditorFrame extends javax.swing.JFrame {
 		this.systemTemplateDataModel = new SystemTemplateDataModel(jtfSystemTemplateName, jcbSystemTemplateType, editorDataModel);
 		this.objectTemplateDataModel = new ObjectTemplateDataModel(jtfObjectTemplateName, jtfObjectTemplateId, editorDataModel);
 		this.actionDataModel = new ActionDataModel(jtfActionName, editorDataModel);
+		this.actionFunctionDataModel = new ActionFunctionDataModel(jcbActionFunctionType, jtaActionFunctionLines, editorDataModel);
 	}
 
 	private EditorDataModel editorDataModel;
@@ -103,6 +106,8 @@ public class EditorFrame extends javax.swing.JFrame {
 	private ActionFunctionsDataModel actionFunctionsDataModel;
 
 	private ActionDataModel actionDataModel;
+
+	private ActionFunctionDataModel actionFunctionDataModel;
 
 	private void setActions() {
 		jmiTaskDescriptionLoad.setAction(taskDescriptionLoadAction);
@@ -1902,6 +1907,10 @@ public class EditorFrame extends javax.swing.JFrame {
 			jtpEditors.setSelectedComponent(jpActionEditor);
 			actionDataModel.loadAction((planning.model.Action)selectedObject, selectedNode);
 			actionFunctionsDataModel.loadActionFunctions((planning.model.Action)selectedObject, selectedNode);
+		} else if (selectedObject instanceof ActionFunction) {
+			actionFunctionDataModel.clear();
+			jtpEditors.setSelectedComponent(jpActionFunctionEditor);
+			actionFunctionDataModel.loadActionFunction((ActionFunction)selectedObject, selectedNode);
 		} else {
 			java.lang.System.out.println("unknown: " + selectedObject.toString());
 		}

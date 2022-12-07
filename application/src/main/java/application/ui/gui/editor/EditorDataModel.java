@@ -128,7 +128,7 @@ public class EditorDataModel extends DefaultTreeModel {
 	}
 
 	public DefaultMutableTreeNode createActionFunctionNode(ActionFunction actionFunction) {
-		return new DefaultMutableTreeNode("action-function");
+		return new DefaultMutableTreeNode(actionFunction);
 	}
 
 	@SuppressWarnings("PMD.UnusedFormalParameter")
