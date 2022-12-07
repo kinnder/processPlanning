@@ -3,6 +3,7 @@ package application.ui.gui.editor;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import javax.swing.tree.DefaultMutableTreeNode;
 
@@ -17,10 +18,15 @@ import org.junit.jupiter.api.extension.RegisterExtension;
 import planning.method.NodeNetwork;
 import planning.method.SystemTransformations;
 import planning.method.TaskDescription;
+import planning.model.Action;
+import planning.model.ActionFunction;
 import planning.model.System;
 import planning.model.SystemObject;
+import planning.model.SystemObjectTemplate;
 import planning.model.SystemProcess;
+import planning.model.SystemTemplate;
 import planning.model.SystemTransformation;
+import planning.model.Transformation;
 
 public class EditorDataModelTest {
 
@@ -113,10 +119,37 @@ public class EditorDataModelTest {
 	@Test
 	public void loadSystemTransformations() {
 		final SystemTransformations systemTransformations = new SystemTransformations();
-		final SystemTransformation systemTransformation_1_mock = context.mock(SystemTransformation.class, "st-1");
-		final SystemTransformation systemTransformation_2_mock = context.mock(SystemTransformation.class, "st-2");
-		systemTransformations.add(systemTransformation_1_mock);
-		systemTransformations.add(systemTransformation_2_mock);
+		final SystemTransformation systemTransformation_mock = context.mock(SystemTransformation.class);
+		systemTransformations.add(systemTransformation_mock);
+
+		final SystemTemplate systemTemplate_mock = context.mock(SystemTemplate.class);
+		final List<SystemObjectTemplate> systemObjectTemplates = new ArrayList<SystemObjectTemplate>();
+		final Transformation[] transformations = new Transformation[] {};
+		final Action action_mock = context.mock(Action.class);
+		final List<ActionFunction> parameterUpdaters = new ArrayList<ActionFunction>();
+		final List<ActionFunction> preConditionCheckers = new ArrayList<ActionFunction>();
+
+		context.checking(new Expectations() {
+			{
+				oneOf(systemTransformation_mock).getSystemTemplate();
+				will(returnValue(systemTemplate_mock));
+
+				oneOf(systemTemplate_mock).getObjectTemplates();
+				will(returnValue(systemObjectTemplates));
+
+				oneOf(systemTransformation_mock).getTransformations();
+				will(returnValue(transformations));
+
+				oneOf(systemTransformation_mock).getAction();
+				will(returnValue(action_mock));
+
+				oneOf(action_mock).getParameterUpdaters();
+				will(returnValue(parameterUpdaters));
+
+				oneOf(action_mock).getPreConditionCheckers();
+				will(returnValue(preConditionCheckers));
+			}
+		});
 
 		testable.loadSystemTransformations(systemTransformations);
 	}
@@ -124,10 +157,6 @@ public class EditorDataModelTest {
 	@Test
 	public void saveSystemTransformations() {
 		final SystemTransformations systemTransformations = new SystemTransformations();
-		final SystemTransformation systemTransformation_1_mock = context.mock(SystemTransformation.class, "st-1");
-		final SystemTransformation systemTransformation_2_mock = context.mock(SystemTransformation.class, "st-2");
-		systemTransformations.add(systemTransformation_1_mock);
-		systemTransformations.add(systemTransformation_2_mock);
 
 		testable.loadSystemTransformations(systemTransformations);
 
@@ -180,6 +209,34 @@ public class EditorDataModelTest {
 	@Test
 	public void createSystemTransformationNode() {
 		final SystemTransformation systemTransformation_mock = context.mock(SystemTransformation.class);
+		final SystemTemplate systemTemplate_mock = context.mock(SystemTemplate.class);
+		final List<SystemObjectTemplate> systemObjectTemplates = new ArrayList<SystemObjectTemplate>();
+		final Transformation[] transformations = new Transformation[] {};
+		final Action action_mock = context.mock(Action.class);
+		final List<ActionFunction> parameterUpdaters = new ArrayList<ActionFunction>();
+		final List<ActionFunction> preConditionCheckers = new ArrayList<ActionFunction>();
+
+		context.checking(new Expectations() {
+			{
+				oneOf(systemTransformation_mock).getSystemTemplate();
+				will(returnValue(systemTemplate_mock));
+
+				oneOf(systemTemplate_mock).getObjectTemplates();
+				will(returnValue(systemObjectTemplates));
+
+				oneOf(systemTransformation_mock).getTransformations();
+				will(returnValue(transformations));
+
+				oneOf(systemTransformation_mock).getAction();
+				will(returnValue(action_mock));
+
+				oneOf(action_mock).getParameterUpdaters();
+				will(returnValue(parameterUpdaters));
+
+				oneOf(action_mock).getPreConditionCheckers();
+				will(returnValue(preConditionCheckers));
+			}
+		});
 
 		DefaultMutableTreeNode result = testable.createSystemTransformationNode(systemTransformation_mock);
 		assertEquals(systemTransformation_mock, result.getUserObject());

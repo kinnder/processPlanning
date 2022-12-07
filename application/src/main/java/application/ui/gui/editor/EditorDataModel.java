@@ -131,6 +131,7 @@ public class EditorDataModel extends DefaultTreeModel {
 		return new DefaultMutableTreeNode("action-function");
 	}
 
+	@SuppressWarnings("PMD.UnusedFormalParameter")
 	private DefaultMutableTreeNode createTransformationsNode(Transformation[] transformations) {
 		DefaultMutableTreeNode transformationsNode;
 		DefaultMutableTreeNode transformationNode;
