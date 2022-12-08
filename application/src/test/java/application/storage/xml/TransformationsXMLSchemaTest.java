@@ -19,6 +19,7 @@ import org.junit.jupiter.api.extension.RegisterExtension;
 import planning.model.AttributeTransformation;
 import planning.model.LinkTransformation;
 import planning.model.Transformation;
+import planning.model.Transformations;
 
 public class TransformationsXMLSchemaTest {
 
@@ -87,7 +88,7 @@ public class TransformationsXMLSchemaTest {
 			}
 		});
 
-		assertEquals(2, testable.parse(root_mock).length);
+		assertEquals(2, testable.parse(root_mock).size());
 	}
 
 	@Test
@@ -95,7 +96,10 @@ public class TransformationsXMLSchemaTest {
 		final AttributeTransformation attributeTransformation_mock = context.mock(AttributeTransformation.class);
 		final LinkTransformation linkTransformation_mock = context.mock(LinkTransformation.class);
 		final Transformation transformation_mock = context.mock(Transformation.class);
-		final Transformation[] transformations = new Transformation[] { attributeTransformation_mock, linkTransformation_mock, transformation_mock };
+		final Transformations transformations = new Transformations();
+		transformations.add(attributeTransformation_mock);
+		transformations.add(linkTransformation_mock);
+		transformations.add(transformation_mock);
 		final Element linkTransformation = new Element("linkTransformation");
 		final Element attributeTransformation = new Element("attributeTransformation");
 

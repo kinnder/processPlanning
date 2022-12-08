@@ -11,10 +11,9 @@ public class SystemTransformation {
 
 	private SystemTemplate template;
 
-	// TODO (2022-12-02 #73): заменить на класс коллекцию
-	private Transformation[] transformations;
+	private Transformations transformations;
 
-	public SystemTransformation(String name, Action action, SystemTemplate template, Transformation[] transformations) {
+	public SystemTransformation(String name, Action action, SystemTemplate template, Transformations transformations) {
 		this.name = name;
 		this.action = action;
 		this.template = template;
@@ -45,11 +44,11 @@ public class SystemTransformation {
 		this.template = systemTemplate;
 	}
 
-	public Transformation[] getTransformations() {
+	public Transformations getTransformations() {
 		return transformations;
 	}
 
-	public void setTransformations(Transformation[] transformations) {
+	public void setTransformations(Transformations transformations) {
 		this.transformations = transformations;
 	}
 

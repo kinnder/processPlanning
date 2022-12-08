@@ -18,6 +18,7 @@ import planning.model.Action;
 import planning.model.SystemTemplate;
 import planning.model.SystemTransformation;
 import planning.model.Transformation;
+import planning.model.Transformations;
 
 public class SystemTransformationXMLSchemaTest {
 
@@ -64,7 +65,7 @@ public class SystemTransformationXMLSchemaTest {
 		final Element transformationsElement_mock = context.mock(Element.class, "transformationsElement");
 		final Action action = new Action("action");
 		final SystemTemplate systemTemplate = new SystemTemplate();
-		final Transformation[] transformations = new Transformation[] {};
+		final Transformations transformations = new Transformations();
 
 		context.checking(new Expectations() {
 			{
@@ -109,7 +110,8 @@ public class SystemTransformationXMLSchemaTest {
 		final Action action_mock = context.mock(Action.class);
 		final SystemTemplate systemTemplate_mock = context.mock(SystemTemplate.class);
 		final Transformation transformation_mock = context.mock(Transformation.class);
-		final Transformation[] transformations = new Transformation[] { transformation_mock };
+		final Transformations transformations = new Transformations();
+		transformations.add(transformation_mock);
 		final Element action = new Element("action");
 		final Element systemTemplate = new Element("systemTemplate");
 		final Element transformation = new Element("transformations");

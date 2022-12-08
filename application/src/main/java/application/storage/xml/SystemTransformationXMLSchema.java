@@ -6,7 +6,7 @@ import org.jdom2.Element;
 import planning.model.Action;
 import planning.model.SystemTemplate;
 import planning.model.SystemTransformation;
-import planning.model.Transformation;
+import planning.model.Transformations;
 
 public class SystemTransformationXMLSchema implements XMLSchema<SystemTransformation> {
 
@@ -40,7 +40,7 @@ public class SystemTransformationXMLSchema implements XMLSchema<SystemTransforma
 		String name = root.getChildText(TAG_name);
 		Action action = actionXMLSchema.parse(root.getChild(actionXMLSchema.getSchemaName()));
 		SystemTemplate systemTemplate = systemTemplateXMLSchema.parse(root.getChild(systemTemplateXMLSchema.getSchemaName()));
-		Transformation[] transformations = transformationsXMLSchema.parse(root.getChild(transformationsXMLSchema.getSchemaName()));
+		Transformations transformations = transformationsXMLSchema.parse(root.getChild(transformationsXMLSchema.getSchemaName()));
 		return new SystemTransformation(name, action, systemTemplate, transformations);
 	}
 

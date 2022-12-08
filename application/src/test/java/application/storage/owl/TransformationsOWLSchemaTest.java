@@ -22,6 +22,7 @@ import org.junit.jupiter.api.extension.RegisterExtension;
 import planning.model.AttributeTransformation;
 import planning.model.LinkTransformation;
 import planning.model.Transformation;
+import planning.model.Transformations;
 
 public class TransformationsOWLSchemaTest {
 
@@ -63,7 +64,8 @@ public class TransformationsOWLSchemaTest {
 	@Test
 	public void combine_attributeTransformation() {
 		final AttributeTransformation attributeTransformation_mock = context.mock(AttributeTransformation.class, "attributeTransformation");
-		final Transformation[] transformations = new Transformation[] { attributeTransformation_mock };
+		final Transformations transformations = new Transformations();
+		transformations.add(attributeTransformation_mock);
 		final Individual i_transformations_mock = context.mock(Individual.class, "i-transformations");
 		final Individual i_attributeTransformation_mock = context.mock(Individual.class, "i-attributeTransformation");
 		final ObjectProperty op_hasAttributeTransformation_mock = context.mock(ObjectProperty.class, "op-hasAttributeTransformation");
@@ -94,7 +96,8 @@ public class TransformationsOWLSchemaTest {
 	@Test
 	public void combine_linkTransformation() {
 		final LinkTransformation linkTransformation_mock = context.mock(LinkTransformation.class, "linkTransformation");
-		final Transformation[] transformations = new Transformation[] { linkTransformation_mock };
+		final Transformations transformations = new Transformations();
+		transformations.add(linkTransformation_mock);
 		final Individual i_transformations_mock = context.mock(Individual.class, "i-transformations");
 		final Individual i_linkTransformation_mock = context.mock(Individual.class, "i-linkTransformation");
 		final ObjectProperty op_hasLinkTransformation_mock = context.mock(ObjectProperty.class, "op-hasLinkTransformation");
@@ -124,7 +127,8 @@ public class TransformationsOWLSchemaTest {
 	@Test
 	public void combine_transformation() {
 		final Transformation transformation_mock = context.mock(Transformation.class, "transformation");
-		final Transformation[] transformations = new Transformation[] { transformation_mock };
+		final Transformations transformations = new Transformations();
+		transformations.add(transformation_mock);
 		final Individual i_transformations_mock = context.mock(Individual.class, "i-transformations");
 		final Individual i_transformation_mock = context.mock(Individual.class, "i-transformation");
 		final ObjectProperty op_hasTransformation_mock = context.mock(ObjectProperty.class, "op-hasTransformation");
@@ -214,8 +218,8 @@ public class TransformationsOWLSchemaTest {
 			}
 		});
 
-		Transformation[] result = testable.parse(i_transformations_mock);
-		assertEquals(attributeTransformation_mock, result[0]);
+		Transformations result = testable.parse(i_transformations_mock);
+		assertEquals(attributeTransformation_mock, result.get(0));
 	}
 
 	@Test
@@ -270,8 +274,8 @@ public class TransformationsOWLSchemaTest {
 			}
 		});
 
-		Transformation[] result = testable.parse(i_transformations_mock);
-		assertEquals(linkTransformation_mock, result[0]);
+		Transformations result = testable.parse(i_transformations_mock);
+		assertEquals(linkTransformation_mock, result.get(0));
 	}
 
 	@Test
@@ -332,7 +336,7 @@ public class TransformationsOWLSchemaTest {
 			}
 		});
 
-		Transformation[] result = testable.parse(i_transformations_mock);
-		assertEquals("transformation-id", result[0].getId());
+		Transformations result = testable.parse(i_transformations_mock);
+		assertEquals("transformation-id", result.get(0).getId());
 	}
 }

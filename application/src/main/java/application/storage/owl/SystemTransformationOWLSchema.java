@@ -4,7 +4,7 @@ import org.apache.jena.ontology.Individual;
 import planning.model.Action;
 import planning.model.SystemTemplate;
 import planning.model.SystemTransformation;
-import planning.model.Transformation;
+import planning.model.Transformations;
 
 public class SystemTransformationOWLSchema implements OWLSchema<SystemTransformation> {
 
@@ -68,7 +68,7 @@ public class SystemTransformationOWLSchema implements OWLSchema<SystemTransforma
 		owlModel.getClass_Transformations().listInstances().filterKeep((ind_transformations) -> {
 			return ind_systemTransformation.hasProperty(owlModel.getObjectProperty_hasTransformations(), ind_transformations);
 		}).forEachRemaining((ind_transformations) -> {
-			Transformation[] transformations = transformationsOWLSchema.parse(ind_transformations.asIndividual());
+			Transformations transformations = transformationsOWLSchema.parse(ind_transformations.asIndividual());
 			systemTransformation.setTransformations(transformations);
 		});
 		return systemTransformation;

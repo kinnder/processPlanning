@@ -1,6 +1,5 @@
 package application.storage.xml;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.jdom2.DataConversionException;
@@ -9,8 +8,9 @@ import org.jdom2.Element;
 import planning.model.AttributeTransformation;
 import planning.model.LinkTransformation;
 import planning.model.Transformation;
+import planning.model.Transformations;
 
-public class TransformationsXMLSchema implements XMLSchema<Transformation[]> {
+public class TransformationsXMLSchema implements XMLSchema<Transformations> {
 
 	final private static String TAG_transformations = "transformations";
 
@@ -37,8 +37,8 @@ public class TransformationsXMLSchema implements XMLSchema<Transformation[]> {
 	private LinkTransformationXMLSchema linkTransformationSchema;
 
 	@Override
-	public Transformation[] parse(Element root) throws DataConversionException {
-		List<Transformation> transformations = new ArrayList<>();
+	public Transformations parse(Element root) throws DataConversionException {
+		Transformations transformations = new Transformations();
 		List<Element> elements = root.getChildren(linkTransformationSchema.getSchemaName());
 		for (Element element : elements) {
 			transformations.add(linkTransformationSchema.parse(element));
@@ -47,11 +47,11 @@ public class TransformationsXMLSchema implements XMLSchema<Transformation[]> {
 		for (Element element : elements) {
 			transformations.add(attributeTransformationSchema.parse(element));
 		}
-		return transformations.toArray(new Transformation[0]);
+		return transformations;
 	}
 
 	@Override
-	public Element combine(Transformation[] transformations) {
+	public Element combine(Transformations transformations) {
 		Element root = new Element(TAG_transformations);
 		for (Transformation transformation : transformations) {
 			Element element;

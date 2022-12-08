@@ -1,14 +1,12 @@
 package application.storage.owl;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.apache.jena.ontology.Individual;
 import planning.model.AttributeTransformation;
 import planning.model.LinkTransformation;
 import planning.model.Transformation;
+import planning.model.Transformations;
 
-public class TransformationsOWLSchema implements OWLSchema<Transformation[]> {
+public class TransformationsOWLSchema implements OWLSchema<Transformations> {
 
 	private PlanningOWLModel owlModel;
 
@@ -29,7 +27,7 @@ public class TransformationsOWLSchema implements OWLSchema<Transformation[]> {
 	}
 
 	@Override
-	public Individual combine(Transformation[] transformations) {
+	public Individual combine(Transformations transformations) {
 		Individual ind_transformations = owlModel.newIndividual_Transformations();
 		ind_transformations.addLabel("Transformations", "en");
 		ind_transformations.addLabel("Трансформации", "ru");
@@ -63,8 +61,8 @@ public class TransformationsOWLSchema implements OWLSchema<Transformation[]> {
 	}
 
 	@Override
-	public Transformation[] parse(Individual ind_transformations) {
-		List<Transformation> transformations = new ArrayList<>();
+	public Transformations parse(Individual ind_transformations) {
+		Transformations transformations = new Transformations();
 		owlModel.getClass_LinkTransformation().listInstances().filterKeep((ind_linkTransformation) -> {
 			return ind_transformations.hasProperty(owlModel.getObjectProperty_hasLinkTransformation(), ind_linkTransformation);
 		}).forEachRemaining((ind_linkTransformation) -> {
@@ -80,6 +78,6 @@ public class TransformationsOWLSchema implements OWLSchema<Transformation[]> {
 		}).forEachRemaining((ind_transformation) -> {
 			transformations.add(parseTransformation(ind_transformation.asIndividual()));
 		});
-		return transformations.toArray(new Transformation[0]);
+		return transformations;
 	}
 }

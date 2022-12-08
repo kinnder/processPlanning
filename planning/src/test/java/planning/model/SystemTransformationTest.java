@@ -33,14 +33,15 @@ public class SystemTransformationTest {
 
 	Transformation transformation_mock;
 
-	Transformation[] transformations;
+	Transformations transformations;
 
 	@BeforeEach
 	public void setup() {
 		action_mock = context.mock(Action.class, "action");
 		systemTemplate_mock = context.mock(SystemTemplate.class, "template");
 		transformation_mock = context.mock(Transformation.class, "transformation");
-		transformations = new Transformation[] { transformation_mock };
+		transformations = new Transformations();
+		transformations.add(transformation_mock);
 
 		testable = new SystemTransformation("system-transformation-name", action_mock, systemTemplate_mock,
 				transformations);

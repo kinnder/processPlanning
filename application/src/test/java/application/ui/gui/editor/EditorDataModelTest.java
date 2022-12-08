@@ -26,7 +26,7 @@ import planning.model.SystemObjectTemplate;
 import planning.model.SystemProcess;
 import planning.model.SystemTemplate;
 import planning.model.SystemTransformation;
-import planning.model.Transformation;
+import planning.model.Transformations;
 
 public class EditorDataModelTest {
 
@@ -124,7 +124,7 @@ public class EditorDataModelTest {
 
 		final SystemTemplate systemTemplate_mock = context.mock(SystemTemplate.class);
 		final List<SystemObjectTemplate> systemObjectTemplates = new ArrayList<SystemObjectTemplate>();
-		final Transformation[] transformations = new Transformation[] {};
+		final Transformations transformations_mock = context.mock(Transformations.class);
 		final Action action_mock = context.mock(Action.class);
 		final List<ActionFunction> parameterUpdaters = new ArrayList<ActionFunction>();
 		final List<ActionFunction> preConditionCheckers = new ArrayList<ActionFunction>();
@@ -138,7 +138,7 @@ public class EditorDataModelTest {
 				will(returnValue(systemObjectTemplates));
 
 				oneOf(systemTransformation_mock).getTransformations();
-				will(returnValue(transformations));
+				will(returnValue(transformations_mock));
 
 				oneOf(systemTransformation_mock).getAction();
 				will(returnValue(action_mock));
@@ -211,7 +211,7 @@ public class EditorDataModelTest {
 		final SystemTransformation systemTransformation_mock = context.mock(SystemTransformation.class);
 		final SystemTemplate systemTemplate_mock = context.mock(SystemTemplate.class);
 		final List<SystemObjectTemplate> systemObjectTemplates = new ArrayList<SystemObjectTemplate>();
-		final Transformation[] transformations = new Transformation[] {};
+		final Transformations transformations_mock = context.mock(Transformations.class);
 		final Action action_mock = context.mock(Action.class);
 		final List<ActionFunction> parameterUpdaters = new ArrayList<ActionFunction>();
 		final List<ActionFunction> preConditionCheckers = new ArrayList<ActionFunction>();
@@ -225,7 +225,7 @@ public class EditorDataModelTest {
 				will(returnValue(systemObjectTemplates));
 
 				oneOf(systemTransformation_mock).getTransformations();
-				will(returnValue(transformations));
+				will(returnValue(transformations_mock));
 
 				oneOf(systemTransformation_mock).getAction();
 				will(returnValue(action_mock));

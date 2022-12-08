@@ -14,7 +14,7 @@ import planning.model.SystemObject;
 import planning.model.SystemObjectTemplate;
 import planning.model.SystemTemplate;
 import planning.model.SystemTransformation;
-import planning.model.Transformation;
+import planning.model.Transformations;
 
 public class MaterialPoints {
 
@@ -202,12 +202,12 @@ public class MaterialPoints {
 
 		systemTemplate.addLinkTemplate(point_A, LINK_NEIGHBOR_RIGHT, LINK_NEIGHBOR_LEFT, point_B);
 
-		final Transformation transformations[] = new Transformation[] {
-				new LinkTransformation(ID_TEMPLATE_OBJECT, LINK_POSITION, ID_TEMPLATE_POINT_A, ID_TEMPLATE_POINT_B),
-				new LinkTransformation(ID_TEMPLATE_POINT_A, LINK_POSITION, ID_TEMPLATE_OBJECT, null),
-				new LinkTransformation(ID_TEMPLATE_POINT_B, LINK_POSITION, null, ID_TEMPLATE_OBJECT),
-				new AttributeTransformation(ID_TEMPLATE_POINT_A, ATTRIBUTE_OCCUPIED, false),
-				new AttributeTransformation(ID_TEMPLATE_POINT_B, ATTRIBUTE_OCCUPIED, true) };
+		final Transformations transformations = new Transformations();
+		transformations.add(new LinkTransformation(ID_TEMPLATE_OBJECT, LINK_POSITION, ID_TEMPLATE_POINT_A, ID_TEMPLATE_POINT_B));
+		transformations.add(new LinkTransformation(ID_TEMPLATE_POINT_A, LINK_POSITION, ID_TEMPLATE_OBJECT, null));
+		transformations.add(new LinkTransformation(ID_TEMPLATE_POINT_B, LINK_POSITION, null, ID_TEMPLATE_OBJECT));
+		transformations.add(new AttributeTransformation(ID_TEMPLATE_POINT_A, ATTRIBUTE_OCCUPIED, false));
+		transformations.add(new AttributeTransformation(ID_TEMPLATE_POINT_B, ATTRIBUTE_OCCUPIED, true));
 
 		final Action action = new Action(OPERATION_MOVE_RIGHT);
 
@@ -232,12 +232,12 @@ public class MaterialPoints {
 
 		systemTemplate.addLinkTemplate(point_A, LINK_NEIGHBOR_RIGHT, LINK_NEIGHBOR_LEFT, point_B);
 
-		final Transformation transformations[] = new Transformation[] {
-				new LinkTransformation(ID_TEMPLATE_OBJECT, LINK_POSITION, ID_TEMPLATE_POINT_B, ID_TEMPLATE_POINT_A),
-				new LinkTransformation(ID_TEMPLATE_POINT_A, LINK_POSITION, null, ID_TEMPLATE_OBJECT),
-				new LinkTransformation(ID_TEMPLATE_POINT_B, LINK_POSITION, ID_TEMPLATE_OBJECT, null),
-				new AttributeTransformation(ID_TEMPLATE_POINT_A, ATTRIBUTE_OCCUPIED, true),
-				new AttributeTransformation(ID_TEMPLATE_POINT_B, ATTRIBUTE_OCCUPIED, false) };
+		final Transformations transformations = new Transformations();
+		transformations.add(new LinkTransformation(ID_TEMPLATE_OBJECT, LINK_POSITION, ID_TEMPLATE_POINT_B, ID_TEMPLATE_POINT_A));
+		transformations.add(new LinkTransformation(ID_TEMPLATE_POINT_A, LINK_POSITION, null, ID_TEMPLATE_OBJECT));
+		transformations.add(new LinkTransformation(ID_TEMPLATE_POINT_B, LINK_POSITION, ID_TEMPLATE_OBJECT, null));
+		transformations.add(new AttributeTransformation(ID_TEMPLATE_POINT_A, ATTRIBUTE_OCCUPIED, true));
+		transformations.add(new AttributeTransformation(ID_TEMPLATE_POINT_B, ATTRIBUTE_OCCUPIED, false));
 
 		final Action action = new Action(OPERATION_MOVE_LEFT);
 
@@ -262,12 +262,12 @@ public class MaterialPoints {
 
 		systemTemplate.addLinkTemplate(point_A, LINK_NEIGHBOR_TOP, LINK_NEIGHBOR_BOTTOM, point_B);
 
-		final Transformation transformations[] = new Transformation[] {
-				new LinkTransformation(ID_TEMPLATE_OBJECT, LINK_POSITION, ID_TEMPLATE_POINT_A, ID_TEMPLATE_POINT_B),
-				new LinkTransformation(ID_TEMPLATE_POINT_A, LINK_POSITION, ID_TEMPLATE_OBJECT, null),
-				new LinkTransformation(ID_TEMPLATE_POINT_B, LINK_POSITION, null, ID_TEMPLATE_OBJECT),
-				new AttributeTransformation(ID_TEMPLATE_POINT_A, ATTRIBUTE_OCCUPIED, false),
-				new AttributeTransformation(ID_TEMPLATE_POINT_B, ATTRIBUTE_OCCUPIED, true) };
+		final Transformations transformations = new Transformations();
+		transformations.add(new LinkTransformation(ID_TEMPLATE_OBJECT, LINK_POSITION, ID_TEMPLATE_POINT_A, ID_TEMPLATE_POINT_B));
+		transformations.add(new LinkTransformation(ID_TEMPLATE_POINT_A, LINK_POSITION, ID_TEMPLATE_OBJECT, null));
+		transformations.add(new LinkTransformation(ID_TEMPLATE_POINT_B, LINK_POSITION, null, ID_TEMPLATE_OBJECT));
+		transformations.add(new AttributeTransformation(ID_TEMPLATE_POINT_A, ATTRIBUTE_OCCUPIED, false));
+		transformations.add(new AttributeTransformation(ID_TEMPLATE_POINT_B, ATTRIBUTE_OCCUPIED, true));
 
 		final Action action = new Action(OPERATION_MOVE_TOP);
 
@@ -292,12 +292,12 @@ public class MaterialPoints {
 
 		systemTemplate.addLinkTemplate(point_A, LINK_NEIGHBOR_BOTTOM, LINK_NEIGHBOR_TOP, point_B);
 
-		final Transformation transformations[] = new Transformation[] {
-				new LinkTransformation(ID_TEMPLATE_OBJECT, LINK_POSITION, ID_TEMPLATE_POINT_A, ID_TEMPLATE_POINT_B),
-				new LinkTransformation(ID_TEMPLATE_POINT_A, LINK_POSITION, ID_TEMPLATE_OBJECT, null),
-				new LinkTransformation(ID_TEMPLATE_POINT_B, LINK_POSITION, null, ID_TEMPLATE_OBJECT),
-				new AttributeTransformation(ID_TEMPLATE_POINT_A, ATTRIBUTE_OCCUPIED, false),
-				new AttributeTransformation(ID_TEMPLATE_POINT_B, ATTRIBUTE_OCCUPIED, true) };
+		final Transformations transformations = new Transformations();
+		transformations.add(new LinkTransformation(ID_TEMPLATE_OBJECT, LINK_POSITION, ID_TEMPLATE_POINT_A, ID_TEMPLATE_POINT_B));
+		transformations.add(new LinkTransformation(ID_TEMPLATE_POINT_A, LINK_POSITION, ID_TEMPLATE_OBJECT, null));
+		transformations.add(new LinkTransformation(ID_TEMPLATE_POINT_B, LINK_POSITION, null, ID_TEMPLATE_OBJECT));
+		transformations.add(new AttributeTransformation(ID_TEMPLATE_POINT_A, ATTRIBUTE_OCCUPIED, false));
+		transformations.add(new AttributeTransformation(ID_TEMPLATE_POINT_B, ATTRIBUTE_OCCUPIED, true));
 
 		final Action action = new Action(OPERATION_MOVE_BOTTOM);
 

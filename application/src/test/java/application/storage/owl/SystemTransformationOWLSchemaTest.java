@@ -21,7 +21,7 @@ import org.junit.jupiter.api.extension.RegisterExtension;
 import planning.model.Action;
 import planning.model.SystemTemplate;
 import planning.model.SystemTransformation;
-import planning.model.Transformation;
+import planning.model.Transformations;
 
 public class SystemTransformationOWLSchemaTest {
 
@@ -67,7 +67,7 @@ public class SystemTransformationOWLSchemaTest {
 	public void combine() {
 		final Action action_mock = context.mock(Action.class);
 		final SystemTemplate systemTemplate_mock = context.mock(SystemTemplate.class);
-		final Transformation[] transformations_mock = new Transformation[] {};
+		final Transformations transformations_mock = context.mock(Transformations.class);
 		final SystemTransformation systemTransformation = new SystemTransformation("system-transformation", action_mock, systemTemplate_mock, transformations_mock);
 		final Individual i_systemTransformation_mock = context.mock(Individual.class, "i-systemTransformation");
 		final Individual i_action_mock = context.mock(Individual.class, "i-action");
@@ -125,7 +125,7 @@ public class SystemTransformationOWLSchemaTest {
 	public void parse() {
 		final Action action_mock = context.mock(Action.class);
 		final SystemTemplate systemTemplate_mock = context.mock(SystemTemplate.class);
-		final Transformation[] transformations_mock = new Transformation[] {};
+		final Transformations transformations_mock = context.mock(Transformations.class);
 		final Individual i_systemTransformation_mock = context.mock(Individual.class, "i-systemTransformation");
 		final DatatypeProperty dp_name_mock = context.mock(DatatypeProperty.class, "dp-name");
 		final ObjectProperty op_hasAction_mock = context.mock(ObjectProperty.class, "op-hasAction");

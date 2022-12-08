@@ -18,7 +18,7 @@ import planning.model.SystemObject;
 import planning.model.SystemObjectTemplate;
 import planning.model.SystemTemplate;
 import planning.model.SystemTransformation;
-import planning.model.Transformation;
+import planning.model.Transformations;
 
 public class CuttingProcess {
 
@@ -158,11 +158,11 @@ public class CuttingProcess {
 
 		systemTemplate.addLinkTemplate(requirement, LINK_IS_DIAMETER_REQUIREMENT, null);
 
-		final Transformation transformations[] = new Transformation[] {
-				new AttributeTransformation(ID_REQUIREMENT, ATTRIBUTE_DIAMETER_REQUIREMENT_STATUS, true),
-				new LinkTransformation(ID_REQUIREMENT, LINK_IS_DIAMETER_REQUIREMENT, null, ID_CYLINDER_SURFACE),
-				new LinkTransformation(ID_CYLINDER_SURFACE, LINK_IS_DIAMETER_REQUIREMENT, null, ID_REQUIREMENT),
-				new AttributeTransformation(ID_CYLINDER_SURFACE, ATTRIBUTE_HAS_DIAMETER_REQUIREMENT, true) };
+		final Transformations transformations = new Transformations();
+		transformations.add(new AttributeTransformation(ID_REQUIREMENT, ATTRIBUTE_DIAMETER_REQUIREMENT_STATUS, true));
+		transformations.add(new LinkTransformation(ID_REQUIREMENT, LINK_IS_DIAMETER_REQUIREMENT, null, ID_CYLINDER_SURFACE));
+		transformations.add(new LinkTransformation(ID_CYLINDER_SURFACE, LINK_IS_DIAMETER_REQUIREMENT, null, ID_REQUIREMENT));
+		transformations.add(new AttributeTransformation(ID_CYLINDER_SURFACE, ATTRIBUTE_HAS_DIAMETER_REQUIREMENT, true));
 
 		StringBuilder script = new StringBuilder();
 		script.append("local systemVariant = ...");
@@ -235,11 +235,11 @@ public class CuttingProcess {
 
 		systemTemplate.addLinkTemplate(requirement, LINK_IS_LENGTH_REQUIREMENT, null);
 
-		final Transformation transformations[] = new Transformation[] {
-				new AttributeTransformation(ID_REQUIREMENT, ATTRIBUTE_LENGTH_REQUIREMENT_STATUS, true),
-				new LinkTransformation(ID_REQUIREMENT, LINK_IS_LENGTH_REQUIREMENT, null, ID_CYLINDER_SURFACE),
-				new LinkTransformation(ID_CYLINDER_SURFACE, LINK_IS_LENGTH_REQUIREMENT, null, ID_REQUIREMENT),
-				new AttributeTransformation(ID_CYLINDER_SURFACE, ATTRIBUTE_HAS_LENGTH_REQUIREMENT, true) };
+		final Transformations transformations = new Transformations();
+		transformations.add(new AttributeTransformation(ID_REQUIREMENT, ATTRIBUTE_LENGTH_REQUIREMENT_STATUS, true));
+		transformations.add(new LinkTransformation(ID_REQUIREMENT, LINK_IS_LENGTH_REQUIREMENT, null, ID_CYLINDER_SURFACE));
+		transformations.add(new LinkTransformation(ID_CYLINDER_SURFACE, LINK_IS_LENGTH_REQUIREMENT, null, ID_REQUIREMENT));
+		transformations.add(new AttributeTransformation(ID_CYLINDER_SURFACE, ATTRIBUTE_HAS_LENGTH_REQUIREMENT, true));
 
 		StringBuilder script = new StringBuilder();
 		script.append("local systemVariant = ...");
@@ -300,12 +300,12 @@ public class CuttingProcess {
 
 		systemTemplate.addLinkTemplate(requirement_r, LINK_IS_LENGTH_REQUIREMENT, null);
 
-		final Transformation transformations[] = new Transformation[] {
-				new AttributeTransformation(ID_REQUIREMENT_L, ATTRIBUTE_LENGTH_REQUIREMENT_STATUS, true),
-				new AttributeTransformation(ID_REQUIREMENT_R, ATTRIBUTE_DIAMETER_REQUIREMENT_STATUS, true),
-				new LinkTransformation(ID_CYLINDER_SURFACE, LINK_IS_LENGTH_REQUIREMENT, null, ID_REQUIREMENT_L),
-				new LinkTransformation(ID_REQUIREMENT_L, LINK_IS_LENGTH_REQUIREMENT, null, ID_CYLINDER_SURFACE),
-				new AttributeTransformation(ID_CYLINDER_SURFACE, ATTRIBUTE_HAS_LENGTH_REQUIREMENT, true) };
+		final Transformations transformations = new Transformations();
+		transformations.add(new AttributeTransformation(ID_REQUIREMENT_L, ATTRIBUTE_LENGTH_REQUIREMENT_STATUS, true));
+		transformations.add(new AttributeTransformation(ID_REQUIREMENT_R, ATTRIBUTE_DIAMETER_REQUIREMENT_STATUS, true));
+		transformations.add(new LinkTransformation(ID_CYLINDER_SURFACE, LINK_IS_LENGTH_REQUIREMENT, null, ID_REQUIREMENT_L));
+		transformations.add(new LinkTransformation(ID_REQUIREMENT_L, LINK_IS_LENGTH_REQUIREMENT, null, ID_CYLINDER_SURFACE));
+		transformations.add(new AttributeTransformation(ID_CYLINDER_SURFACE, ATTRIBUTE_HAS_LENGTH_REQUIREMENT, true));
 
 		StringBuilder script = new StringBuilder();
 		script.append("local systemVariant = ...");

@@ -16,7 +16,7 @@ import planning.model.SystemObjectTemplate;
 import planning.model.SystemProcess;
 import planning.model.SystemTemplate;
 import planning.model.SystemTransformation;
-import planning.model.Transformation;
+import planning.model.Transformations;
 
 // TODO (2022-11-16 #72): saveXXX и loadXXX методы переименовать в getXXX и setXXX
 public class EditorDataModel extends DefaultTreeModel {
@@ -132,7 +132,7 @@ public class EditorDataModel extends DefaultTreeModel {
 	}
 
 	@SuppressWarnings("PMD.UnusedFormalParameter")
-	private DefaultMutableTreeNode createTransformationsNode(Transformation[] transformations) {
+	private DefaultMutableTreeNode createTransformationsNode(Transformations transformations) {
 		DefaultMutableTreeNode transformationsNode;
 		DefaultMutableTreeNode transformationNode;
 		transformationsNode = new DefaultMutableTreeNode("Transformations");
