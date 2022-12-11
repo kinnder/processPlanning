@@ -1583,8 +1583,8 @@ public class EditorFrame extends javax.swing.JFrame {
 
 		jlActionFunctionType.setText("type");
 
-		jcbActionFunctionType.setModel(
-				new javax.swing.DefaultComboBoxModel<>(new String[] { "preConditionChecker", "parameterUpdater" }));
+		jcbActionFunctionType.setModel(new javax.swing.DefaultComboBoxModel<>(
+				new String[] { "unknown", "parameterUpdater", "preConditionChecker" }));
 
 		jtaActionFunctionLines.setColumns(20);
 		jtaActionFunctionLines.setRows(5);

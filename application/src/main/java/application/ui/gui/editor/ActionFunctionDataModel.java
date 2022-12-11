@@ -26,6 +26,9 @@ public class ActionFunctionDataModel {
 				if (actionFunction == null) {
 					return;
 				}
+				// TODO (2022-12-11 #73): значения для чекбокса должны заполняться внутри dataModel
+				int type = jcbActionFunctionType.getSelectedIndex();
+				actionFunction.setType(type);
 				editorDataModel.nodeChanged(actionFunctionNode);
 			}
 		}
@@ -75,8 +78,7 @@ public class ActionFunctionDataModel {
 		this.actionFunctionNode = selectedNode;
 
 		String lines = actionFunction.getScript();
-		// TODO (2022-12-08 #73): типы функций не поддерживаются
-		int type = 0;
+		int type = actionFunction.getType();
 
 		jtaActionFunctionLines.setText(lines);
 		jcbActionFunctionType.setSelectedIndex(type);

@@ -9,6 +9,23 @@ import org.luaj.vm2.lib.jse.CoerceJavaToLua;
 
 public class ActionFunction extends LuaScript implements Consumer<SystemVariant>, Predicate<SystemVariant> {
 
+	public final static int TYPE_UNKNOWN = 0;
+
+	public final static int TYPE_PARAMETER_UPDATER = 1;
+
+	public final static int TYPE_PRECONDITION_CHECKER = 2;
+
+	// TODO (2022-12-11 #73): добавить поле в модель данных
+	private int type = TYPE_UNKNOWN;
+
+	public int getType() {
+		return type;
+	}
+
+	public void setType(int type) {
+		this.type = type;
+	}
+
 	public ActionFunction(Globals globals, String script) {
 		super(globals, script);
 	}

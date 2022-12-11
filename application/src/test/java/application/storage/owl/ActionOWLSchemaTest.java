@@ -61,6 +61,19 @@ public class ActionOWLSchemaTest {
 		final Action action = new Action("action-name");
 		final ActionFunction actionPreConditionChecker_mock = context.mock(ActionFunction.class, "preConditionChekcer");
 		final ActionFunction actionParameterUpdater_mock = context.mock(ActionFunction.class, "parameterUpdater");
+		context.checking(new Expectations() {
+			{
+				oneOf(actionParameterUpdater_mock).setType(ActionFunction.TYPE_PARAMETER_UPDATER);
+
+				allowing(actionParameterUpdater_mock).getType();
+				will(returnValue(ActionFunction.TYPE_PARAMETER_UPDATER));
+
+				oneOf(actionPreConditionChecker_mock).setType(ActionFunction.TYPE_PRECONDITION_CHECKER);
+
+				allowing(actionPreConditionChecker_mock).getType();
+				will(returnValue(ActionFunction.TYPE_PRECONDITION_CHECKER));
+			}
+		});
 		action.registerParameterUpdater(actionParameterUpdater_mock);
 		action.registerPreConditionChecker(actionPreConditionChecker_mock);
 		final Individual i_action_mock = context.mock(Individual.class, "i-action");
@@ -107,11 +120,8 @@ public class ActionOWLSchemaTest {
 
 	@Test
 	public void parse() {
-		final Action action = new Action("action-name");
 		final ActionFunction actionPreConditionChecker_mock = context.mock(ActionFunction.class, "preConditionChecker");
 		final ActionFunction actionParameterUpdater_mock = context.mock(ActionFunction.class, "parameterUpdater");
-		action.registerParameterUpdater(actionParameterUpdater_mock);
-		action.registerPreConditionChecker(actionPreConditionChecker_mock);
 		final Individual i_action_mock = context.mock(Individual.class, "i-action");
 		final DatatypeProperty dp_name_mock = context.mock(DatatypeProperty.class, "dp-name");
 		final ObjectProperty op_hasPreConditionChecker_mock = context.mock(ObjectProperty.class,
@@ -158,6 +168,11 @@ public class ActionOWLSchemaTest {
 				oneOf(actionFunctionOWLSchema_mock).parse(i_preConditionChecker_mock);
 				will(returnValue(actionPreConditionChecker_mock));
 
+				oneOf(actionPreConditionChecker_mock).setType(ActionFunction.TYPE_PRECONDITION_CHECKER);
+
+				allowing(actionPreConditionChecker_mock).getType();
+				will(returnValue(ActionFunction.TYPE_PRECONDITION_CHECKER));
+
 				oneOf(owlModel_mock).getClass_ActionFunction();
 				will(returnValue(oc_parameterUpdater_mock));
 
@@ -175,6 +190,11 @@ public class ActionOWLSchemaTest {
 
 				oneOf(actionFunctionOWLSchema_mock).parse(i_parameterUpdater_mock);
 				will(returnValue(actionParameterUpdater_mock));
+
+				oneOf(actionParameterUpdater_mock).setType(ActionFunction.TYPE_PARAMETER_UPDATER);
+
+				allowing(actionParameterUpdater_mock).getType();
+				will(returnValue(ActionFunction.TYPE_PARAMETER_UPDATER));
 			}
 		});
 

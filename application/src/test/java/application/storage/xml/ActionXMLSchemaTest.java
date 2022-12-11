@@ -80,17 +80,31 @@ public class ActionXMLSchemaTest {
 				oneOf(e_preConditionChecker_mock).getAttributeValue("functionType");
 				will(returnValue("preConditionChecker"));
 
+				oneOf(preConditionChecker_mock).setType(ActionFunction.TYPE_PRECONDITION_CHECKER);
+
 				oneOf(actionFunctionXMLSchema_mock).parse(e_parameterUpdater_mock);
 				will(returnValue(parameterUpdater_mock));
 
 				oneOf(e_parameterUpdater_mock).getAttributeValue("functionType");
 				will(returnValue("parameterUpdater"));
 
+				oneOf(parameterUpdater_mock).setType(ActionFunction.TYPE_PARAMETER_UPDATER);
+
 				oneOf(actionFunctionXMLSchema_mock).parse(e_unknownFunction_mock);
 				will(returnValue(unknownFunction_mock));
 
 				oneOf(e_unknownFunction_mock).getAttributeValue("functionType");
 				will(returnValue("unknownFunction"));
+			}
+		});
+
+		context.checking(new Expectations() {
+			{
+				allowing(preConditionChecker_mock).getType();
+				will(returnValue(ActionFunction.TYPE_PRECONDITION_CHECKER));
+
+				allowing(parameterUpdater_mock).getType();
+				will(returnValue(ActionFunction.TYPE_PARAMETER_UPDATER));
 			}
 		});
 

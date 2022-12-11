@@ -2004,9 +2004,10 @@
                 <Component class="javax.swing.JComboBox" name="jcbActionFunctionType">
                   <Properties>
                     <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                      <StringArray count="2">
-                        <StringItem index="0" value="preConditionChecker"/>
+                      <StringArray count="3">
+                        <StringItem index="0" value="unknown"/>
                         <StringItem index="1" value="parameterUpdater"/>
+                        <StringItem index="2" value="preConditionChecker"/>
                       </StringArray>
                     </Property>
                   </Properties>

@@ -24,44 +24,67 @@ public class Action {
 		return "Action " + name;
 	}
 
+	private List<ActionFunction> actionFunctions = new ArrayList<>();
+
+	public List<ActionFunction> getActionFunctions() {
+		return actionFunctions;
+	}
+
 	public void updateParameters(SystemVariant systemVariant) {
-		for (ActionFunction parameterUpdater : parameterUpdaters) {
-			parameterUpdater.accept(systemVariant);
+		for (ActionFunction actionFunction : actionFunctions) {
+			if (actionFunction.getType() == ActionFunction.TYPE_PARAMETER_UPDATER) {
+				actionFunction.accept(systemVariant);
+			}
 		}
 	}
 
-	private List<ActionFunction> parameterUpdaters = new ArrayList<>();
-
 	public List<ActionFunction> getParameterUpdaters() {
+		List<ActionFunction> parameterUpdaters = new ArrayList<>();
+		for (ActionFunction actionFunction : actionFunctions) {
+			if (actionFunction.getType() == ActionFunction.TYPE_PARAMETER_UPDATER) {
+				parameterUpdaters.add(actionFunction);
+			}
+		}
 		return parameterUpdaters;
 	}
 
-	public void registerParameterUpdater(ActionFunction parameterUpdater) {
-		parameterUpdaters.add(parameterUpdater);
+	public void registerParameterUpdater(ActionFunction actionFunction) {
+		actionFunction.setType(ActionFunction.TYPE_PARAMETER_UPDATER);
+		actionFunctions.add(actionFunction);
 	}
 
-	private List<ActionFunction> preConditionCheckers = new ArrayList<>();
-
 	public List<ActionFunction> getPreConditionCheckers() {
+		List<ActionFunction> preConditionCheckers = new ArrayList<>();
+		for (ActionFunction actionFunction : actionFunctions) {
+			if (actionFunction.getType() == ActionFunction.TYPE_PRECONDITION_CHECKER) {
+				preConditionCheckers.add(actionFunction);
+			}
+		}
 		return preConditionCheckers;
 	}
 
-	public void registerPreConditionChecker(ActionFunction preConditionChecker) {
-		preConditionCheckers.add(preConditionChecker);
+	public void registerPreConditionChecker(ActionFunction actionFunction) {
+		actionFunction.setType(ActionFunction.TYPE_PRECONDITION_CHECKER);
+		actionFunctions.add(actionFunction);
 	}
 
 	public boolean haveAllPreConditionsPassed(SystemVariant systemVariant) {
-		for (ActionFunction preConditionChecker : preConditionCheckers) {
-			boolean conditionPasses = preConditionChecker.test(systemVariant);
-			if (!conditionPasses) {
-				return false;
+		for (ActionFunction actionFunction : actionFunctions) {
+			if (actionFunction.getType() == ActionFunction.TYPE_PRECONDITION_CHECKER) {
+				boolean conditionPasses = actionFunction.test(systemVariant);
+				if (!conditionPasses) {
+					return false;
+				}
 			}
 		}
 		return true;
 	}
 
 	public void removeActionFunction(ActionFunction actionFunction) {
-		// TODO (2022-12-07 #73): actionFunction удаляется из parameterUpdater
-		parameterUpdaters.remove(actionFunction);
+		actionFunctions.remove(actionFunction);
+	}
+
+	public void addActionFunction(ActionFunction actionFunction) {
+		actionFunctions.add(actionFunction);
 	}
 }

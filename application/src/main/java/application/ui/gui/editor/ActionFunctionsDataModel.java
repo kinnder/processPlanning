@@ -40,8 +40,7 @@ public class ActionFunctionsDataModel extends DefaultTableModel {
 	public void insertActionFunction() {
 		// TODO (2022-12-07 #73): перенести в ActionFunction
 		ActionFunction actionFunction = new ActionFunction(globals, "");
-		// TODO (2022-12-07 #73): actionFunction создается как parameterUpdater
-		action.registerParameterUpdater(actionFunction);
+		action.addActionFunction(actionFunction);
 		actionFunctions.add(actionFunction);
 		this.addRow(new Object[] {});
 		DefaultMutableTreeNode actionFunctionNode = editorDataModel.createActionFunctionNode(actionFunction);
@@ -73,12 +72,7 @@ public class ActionFunctionsDataModel extends DefaultTableModel {
 		actionFunctions.clear();
 		this.setRowCount(0);
 
-		for (ActionFunction actionFunction : selectedAction.getParameterUpdaters()) {
-			actionFunctions.add(actionFunction);
-			this.addRow(new Object[] {});
-		}
-
-		for (ActionFunction actionFunction : selectedAction.getPreConditionCheckers()) {
+		for (ActionFunction actionFunction : selectedAction.getActionFunctions()) {
 			actionFunctions.add(actionFunction);
 			this.addRow(new Object[] {});
 		}
@@ -96,11 +90,20 @@ public class ActionFunctionsDataModel extends DefaultTableModel {
 	@Override
 	public Object getValueAt(int row, int column) {
 		// TODO (2022-12-07 #73): ActionFunction не содержит редактируемых полей
+		ActionFunction actionFunction = actionFunctions.get(row);
 		switch (column) {
 		case COLUMN_IDX_NAME:
 			return "unknown";
 		case COLUMN_IDX_TYPE:
-			return "unknown";
+			int type = actionFunction.getType();
+			switch (type) {
+			case (ActionFunction.TYPE_PARAMETER_UPDATER):
+				return "parameterUpdater";
+			case (ActionFunction.TYPE_PRECONDITION_CHECKER):
+				return "preConditionChecker";
+			default:
+				return "unknown";
+			}
 		default:
 			return null;
 		}
