@@ -102,6 +102,28 @@ public class TransformationsDataModel extends DefaultTableModel {
 		editorDataModel.insertNodeInto(transformationNode, transformationsNode, transformationsList.size() - 1);
 	}
 
+	public void insertLinkTransformation() {
+		// TODO (2022-12-11 #73): перенести в Transformation
+		Transformation transformation = new LinkTransformation("object-id", "link-name", "id-2-old", "id-2-new");
+		transformations.add(transformation);
+		transformationsList.add(transformation);
+		this.addRow(new Object[] {});
+		DefaultMutableTreeNode transformationNode = editorDataModel.createTransformationNode(transformation);
+		transformationsNode.add(transformationNode);
+		editorDataModel.insertNodeInto(transformationNode, transformationsNode, transformationsList.size() - 1);
+	}
+
+	public void insertAttributeTransformation() {
+		// TODO (2022-12-11 #73): перенести в Transformation
+		Transformation transformation = new AttributeTransformation("object-id", "attribute-name", "attribute-value");
+		transformations.add(transformation);
+		transformationsList.add(transformation);
+		this.addRow(new Object[] {});
+		DefaultMutableTreeNode transformationNode = editorDataModel.createTransformationNode(transformation);
+		transformationsNode.add(transformationNode);
+		editorDataModel.insertNodeInto(transformationNode, transformationsNode, transformationsList.size() - 1);
+	}
+
 	public void deleteTransformation(int idx) {
 		if (idx < 0) {
 			return;

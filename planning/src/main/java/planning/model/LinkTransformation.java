@@ -12,6 +12,10 @@ public class LinkTransformation extends Transformation {
 		return linkName;
 	}
 
+	public void setLinkName(String linkName2) {
+		this.linkName = linkName2;
+	}
+
 	public String getId1() {
 		return getId();
 	}
@@ -20,8 +24,16 @@ public class LinkTransformation extends Transformation {
 		return id2New;
 	}
 
+	public void setId2New(String id2New) {
+		this.id2New = id2New;
+	}
+
 	public String getId2Old() {
 		return id2Old;
+	}
+
+	public void setId2Old(String id2Old) {
+		this.id2Old = id2Old;
 	}
 
 	public LinkTransformation(String id1, String linkName, String id2Old, String id2New) {

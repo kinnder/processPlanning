@@ -291,7 +291,7 @@
                                       <EmptySpace max="32767" attributes="0"/>
                                   </Group>
                                   <Group type="102" alignment="0" attributes="0">
-                                      <Component id="jspObjects" pref="382" max="32767" attributes="0"/>
+                                      <Component id="jspObjects" pref="390" max="32767" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="jpObjectsButtons" min="-2" max="-2" attributes="0"/>
                                   </Group>
@@ -395,7 +395,7 @@
                                   <Group type="102" attributes="0">
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="jlLinks" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace min="93" pref="439" max="32767" attributes="0"/>
+                                      <EmptySpace min="93" pref="447" max="32767" attributes="0"/>
                                   </Group>
                                   <Group type="102" alignment="0" attributes="0">
                                       <Component id="jspLinks" pref="0" max="32767" attributes="0"/>
@@ -446,7 +446,7 @@
                                           <Component id="jbLinksInsert" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
                                           <Component id="jbLinksDelete" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace pref="216" max="32767" attributes="0"/>
+                                          <EmptySpace pref="276" max="32767" attributes="0"/>
                                       </Group>
                                   </Group>
                                 </DimensionLayout>
@@ -533,7 +533,7 @@
                                   </Group>
                               </Group>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jtfObjectName" pref="426" max="32767" attributes="0"/>
+                                  <Component id="jtfObjectName" pref="434" max="32767" attributes="0"/>
                                   <Component id="jtfObjectId" max="32767" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
@@ -613,7 +613,7 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="jpAttributesButtons" max="32767" attributes="0"/>
-                                  <Component id="jspAttributes" pref="429" max="32767" attributes="0"/>
+                                  <Component id="jspAttributes" pref="489" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -700,7 +700,7 @@
                       <Group type="102" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jlSystemTransformations" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace pref="341" max="32767" attributes="0"/>
+                          <EmptySpace pref="349" max="32767" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="jspSystemTransformations" pref="0" max="32767" attributes="0"/>
@@ -717,7 +717,7 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="jpSystemTransformationsButtons" max="32767" attributes="0"/>
-                              <Component id="jspSystemTransformations" pref="469" max="32767" attributes="0"/>
+                              <Component id="jspSystemTransformations" pref="559" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -815,7 +815,7 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jlSystemTransformationName" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jtfSystemTransformationName" pref="426" max="32767" attributes="0"/>
+                          <Component id="jtfSystemTransformationName" pref="434" max="32767" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -828,7 +828,7 @@
                               <Component id="jlSystemTransformationName" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jtfSystemTransformationName" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace pref="499" max="32767" attributes="0"/>
+                          <EmptySpace pref="559" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -987,7 +987,7 @@
                                   <Group type="102" attributes="0">
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="jlObjectTemplates" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace pref="374" max="32767" attributes="0"/>
+                                      <EmptySpace pref="382" max="32767" attributes="0"/>
                                   </Group>
                                   <Group type="102" alignment="0" attributes="0">
                                       <Component id="jspObjectTemplates" pref="0" max="32767" attributes="0"/>
@@ -1099,7 +1099,7 @@
                                   <Group type="102" alignment="0" attributes="0">
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="jlLinkTemplates" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace pref="387" max="32767" attributes="0"/>
+                                      <EmptySpace pref="395" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                             </DimensionLayout>
@@ -1145,7 +1145,7 @@
                                           <Component id="jbLinkTemplatesInsert" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
                                           <Component id="jbLinkTemplatesDelete" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace pref="216" max="32767" attributes="0"/>
+                                          <EmptySpace pref="276" max="32767" attributes="0"/>
                                       </Group>
                                   </Group>
                                 </DimensionLayout>
@@ -1227,7 +1227,7 @@
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jtfObjectTemplateName" pref="426" max="32767" attributes="0"/>
+                                  <Component id="jtfObjectTemplateName" pref="434" max="32767" attributes="0"/>
                                   <Component id="jtfObjectTemplateId" max="32767" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
@@ -1307,7 +1307,7 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="jpAttributeTemplatesButtons" max="32767" attributes="0"/>
-                                  <Component id="jspAttributeTemplates" pref="399" max="32767" attributes="0"/>
+                                  <Component id="jspAttributeTemplates" pref="489" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -1394,7 +1394,7 @@
                       <Group type="102" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jlTransformations" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace pref="382" max="32767" attributes="0"/>
+                          <EmptySpace pref="390" max="32767" attributes="0"/>
                       </Group>
                       <Group type="102" attributes="0">
                           <Component id="jspTransformations" pref="0" max="32767" attributes="0"/>
@@ -1411,7 +1411,7 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="jpTransformationsButtons" max="32767" attributes="0"/>
-                              <Component id="jspTransformations" pref="499" max="32767" attributes="0"/>
+                              <Component id="jspTransformations" pref="559" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -1431,10 +1431,20 @@
                           <Group type="102" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jbTransformationsInsert" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jbTransformationsDelete" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Group type="102" alignment="1" attributes="0">
+                                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                      <Component id="jbTransformationsInserAttributeTransformation" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Group type="102" attributes="0">
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="jbTransformationsInsertLinkTransformation" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jbTransformationsDelete" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jbTransformationsInsertTransformation" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                  </Group>
                               </Group>
-                              <EmptySpace max="32767" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -1442,16 +1452,20 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jbTransformationsInsert" min="-2" max="-2" attributes="0"/>
+                              <Component id="jbTransformationsInsertTransformation" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="jbTransformationsInsertLinkTransformation" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="jbTransformationsInserAttributeTransformation" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jbTransformationsDelete" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="32767" attributes="0"/>
+                              <EmptySpace pref="443" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
                   </Layout>
                   <SubComponents>
-                    <Component class="javax.swing.JButton" name="jbTransformationsInsert">
+                    <Component class="javax.swing.JButton" name="jbTransformationsInsertTransformation">
                       <Properties>
                         <Property name="text" type="java.lang.String" value="Insert"/>
                       </Properties>
@@ -1459,6 +1473,16 @@
                     <Component class="javax.swing.JButton" name="jbTransformationsDelete">
                       <Properties>
                         <Property name="text" type="java.lang.String" value="Delete"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JButton" name="jbTransformationsInsertLinkTransformation">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="Insert Link"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JButton" name="jbTransformationsInserAttributeTransformation">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="Insert Attribute"/>
                       </Properties>
                     </Component>
                   </SubComponents>
@@ -1494,8 +1518,8 @@
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="jpTransformation" max="32767" attributes="0"/>
-                      <Component id="jpAttributeTransformation" alignment="0" max="32767" attributes="0"/>
                       <Component id="jpLinkTransformation" alignment="0" max="32767" attributes="0"/>
+                      <Component id="jpAttributeTransformation" alignment="0" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
                 <DimensionLayout dim="1">
@@ -1506,7 +1530,7 @@
                           <Component id="jpAttributeTransformation" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jpLinkTransformation" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="0" pref="299" max="32767" attributes="0"/>
+                          <EmptySpace min="0" pref="304" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -1520,13 +1544,15 @@
                           <Group type="102" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jlTransformationObjectId" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jlTransformationName" alignment="0" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jtfTransformationName" pref="408" max="32767" attributes="0"/>
-                                  <Component id="jtfTransformationObjectId" max="32767" attributes="0"/>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Component id="jlTransformationObjectId" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="jtfTransformationObjectId" max="32767" attributes="0"/>
+                                  </Group>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Component id="jrbTransformation" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                  </Group>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                           </Group>
@@ -1541,10 +1567,7 @@
                                   <Component id="jtfTransformationObjectId" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="jlTransformationName" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jtfTransformationName" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
+                              <Component id="jrbTransformation" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="32767" attributes="0"/>
                           </Group>
                       </Group>
@@ -1556,111 +1579,19 @@
                         <Property name="text" type="java.lang.String" value="object-id"/>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JLabel" name="jlTransformationName">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="name"/>
-                      </Properties>
-                    </Component>
                     <Component class="javax.swing.JTextField" name="jtfTransformationObjectId">
                       <Properties>
                         <Property name="text" type="java.lang.String" value="id-requirement"/>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JTextField" name="jtfTransformationName">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="attribute-diameter-requirement-status"/>
-                      </Properties>
-                    </Component>
-                  </SubComponents>
-                </Container>
-                <Container class="javax.swing.JPanel" name="jpAttributeTransformation">
-                  <Properties>
-                    <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-                      <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
-                        <LineBorder/>
-                      </Border>
-                    </Property>
-                  </Properties>
-
-                  <Layout>
-                    <DimensionLayout dim="0">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="jrbAttributeTransformation" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                          </Group>
-                          <Group type="102" attributes="0">
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jlAttributeTransformationValue" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jlAttributeTransformationType" alignment="0" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jtfAttributeTransformationValue" max="32767" attributes="0"/>
-                                  <Component id="jcbAttributeTransformationValue" max="32767" attributes="0"/>
-                              </Group>
-                              <EmptySpace max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
-                    </DimensionLayout>
-                    <DimensionLayout dim="1">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jrbAttributeTransformation" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="jlAttributeTransformationType" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jcbAttributeTransformationValue" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="jlAttributeTransformationValue" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jtfAttributeTransformationValue" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace max="32767" attributes="0"/>
-                          </Group>
-                      </Group>
-                    </DimensionLayout>
-                  </Layout>
-                  <SubComponents>
-                    <Component class="javax.swing.JRadioButton" name="jrbAttributeTransformation">
+                    <Component class="javax.swing.JRadioButton" name="jrbTransformation">
                       <Properties>
                         <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
                           <ComponentRef name="bgTransformationType"/>
                         </Property>
-                        <Property name="text" type="java.lang.String" value="attributeTransformation"/>
+                        <Property name="selected" type="boolean" value="true"/>
+                        <Property name="text" type="java.lang.String" value="transformation"/>
                       </Properties>
-                    </Component>
-                    <Component class="javax.swing.JLabel" name="jlAttributeTransformationType">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="type"/>
-                      </Properties>
-                    </Component>
-                    <Component class="javax.swing.JLabel" name="jlAttributeTransformationValue">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="value"/>
-                      </Properties>
-                    </Component>
-                    <Component class="javax.swing.JTextField" name="jtfAttributeTransformationValue">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="true"/>
-                      </Properties>
-                    </Component>
-                    <Component class="javax.swing.JComboBox" name="jcbAttributeTransformationValue">
-                      <Properties>
-                        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                          <StringArray count="3">
-                            <StringItem index="0" value="boolean"/>
-                            <StringItem index="1" value="integer"/>
-                            <StringItem index="2" value="string"/>
-                          </StringArray>
-                        </Property>
-                      </Properties>
-                      <AuxValues>
-                        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
-                      </AuxValues>
                     </Component>
                   </SubComponents>
                 </Container>
@@ -1680,16 +1611,21 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" alignment="0" attributes="0">
-                                      <Component id="jrbLinkTransformation" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                                  </Group>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Component id="jlLinkTransformationId2new" min="-2" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="jlLinkTransformationName" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jlLinkTransformationId2new" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jlLinkTransformationId2old" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      </Group>
                                       <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="jtfLinkTransformationId2new" max="32767" attributes="0"/>
+                                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                          <Component id="jtfLinkTransformationId2old" alignment="0" max="32767" attributes="0"/>
+                                          <Component id="jtfLinkTransformationId2new" alignment="0" max="32767" attributes="0"/>
+                                          <Component id="jtfLinkTransformationName" alignment="0" pref="424" max="32767" attributes="0"/>
+                                      </Group>
                                   </Group>
+                                  <Component id="jrbLinkTransformation" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace max="-2" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -1700,10 +1636,20 @@
                               <Component id="jrbLinkTransformation" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="jlLinkTransformationId2new" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jtfLinkTransformationId2new" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jlLinkTransformationName" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jtfLinkTransformationName" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="32767" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="jtfLinkTransformationId2old" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jlLinkTransformationId2old" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="jtfLinkTransformationId2new" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jlLinkTransformationId2new" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -1724,7 +1670,113 @@
                     </Component>
                     <Component class="javax.swing.JTextField" name="jtfLinkTransformationId2new">
                       <Properties>
-                        <Property name="text" type="java.lang.String" value="id-cylinder-surface"/>
+                        <Property name="text" type="java.lang.String" value="id-2-new"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JLabel" name="jlLinkTransformationName">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="name"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JTextField" name="jtfLinkTransformationName">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="link-transformation-name"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JLabel" name="jlLinkTransformationId2old">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="id2old"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JTextField" name="jtfLinkTransformationId2old">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="id-2-old"/>
+                      </Properties>
+                    </Component>
+                  </SubComponents>
+                </Container>
+                <Container class="javax.swing.JPanel" name="jpAttributeTransformation">
+                  <Properties>
+                    <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                      <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
+                        <LineBorder/>
+                      </Border>
+                    </Property>
+                  </Properties>
+
+                  <Layout>
+                    <DimensionLayout dim="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" attributes="0">
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="jlAttributeTransformationName" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jlAttributeTransformationValue" alignment="1" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="jtfAttributeTransformationName" pref="432" max="32767" attributes="0"/>
+                                          <Component id="jtfAttributeTransformationValue" max="32767" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Component id="jrbAttributeTransformation" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                  </Group>
+                              </Group>
+                              <EmptySpace max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                    </DimensionLayout>
+                    <DimensionLayout dim="1">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="jrbAttributeTransformation" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="jtfAttributeTransformationName" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jlAttributeTransformationName" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="jtfAttributeTransformationValue" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jlAttributeTransformationValue" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="-2" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                    </DimensionLayout>
+                  </Layout>
+                  <SubComponents>
+                    <Component class="javax.swing.JRadioButton" name="jrbAttributeTransformation">
+                      <Properties>
+                        <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+                          <ComponentRef name="bgTransformationType"/>
+                        </Property>
+                        <Property name="text" type="java.lang.String" value="attributeTransformation"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JLabel" name="jlAttributeTransformationValue">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="value"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JTextField" name="jtfAttributeTransformationValue">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="true"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JTextField" name="jtfAttributeTransformationName">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="attribute-diameter-requirement-status"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JLabel" name="jlAttributeTransformationName">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="name"/>
                       </Properties>
                     </Component>
                   </SubComponents>
@@ -1767,7 +1819,7 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jlActionName" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jtfActionName" pref="426" max="32767" attributes="0"/>
+                              <Component id="jtfActionName" pref="434" max="32767" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                           </Group>
                       </Group>
@@ -1830,7 +1882,7 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="jpActionFunctionsButtons" max="32767" attributes="0"/>
-                                  <Component id="jspActionFunctions" pref="457" max="32767" attributes="0"/>
+                                  <Component id="jspActionFunctions" pref="517" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -1917,7 +1969,7 @@
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jspActionFunctionLines" pref="462" max="32767" attributes="0"/>
+                              <Component id="jspActionFunctionLines" pref="470" max="32767" attributes="0"/>
                               <Group type="102" attributes="0">
                                   <Component id="jlActionFunctionType" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
@@ -1937,7 +1989,7 @@
                               <Component id="jcbActionFunctionType" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jspActionFunctionLines" pref="487" max="32767" attributes="0"/>
+                          <Component id="jspActionFunctionLines" pref="547" max="32767" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -2021,7 +2073,7 @@
                                       <Component id="jcbNodeChecked" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                   </Group>
-                                  <Component id="jtfNodeId" pref="446" max="32767" attributes="0"/>
+                                  <Component id="jtfNodeId" pref="454" max="32767" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                           </Group>
@@ -2091,7 +2143,7 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="jpEdgesButtons" max="32767" attributes="0"/>
-                                  <Component id="jspEdges" pref="437" max="32767" attributes="0"/>
+                                  <Component id="jspEdges" pref="497" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -2234,7 +2286,7 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="jtfEdgeId" max="32767" attributes="0"/>
-                                  <Component id="jtfEndNodeId" pref="387" max="32767" attributes="0"/>
+                                  <Component id="jtfEndNodeId" pref="395" max="32767" attributes="0"/>
                                   <Component id="jtfBeginNodeId" max="32767" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
@@ -2402,7 +2454,7 @@
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Component id="jpParametersButtons" max="32767" attributes="0"/>
-                                      <Component id="jspParameters" pref="333" max="32767" attributes="0"/>
+                                      <Component id="jspParameters" pref="393" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                           </Group>

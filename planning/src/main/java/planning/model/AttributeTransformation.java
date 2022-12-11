@@ -23,8 +23,16 @@ public class AttributeTransformation extends Transformation {
 		return attributeName;
 	}
 
+	public void setAttributeName(String attributeName) {
+		this.attributeName = attributeName;
+	}
+
 	public Object getAttributeValue() {
 		return attributeValue;
+	}
+
+	public void setAttributeValue(String attributeValue) {
+		this.attributeValue = attributeValue;
 	}
 
 	@Override
