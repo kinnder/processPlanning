@@ -41,4 +41,9 @@ public class LinkTransformation extends Transformation {
 		Link link = systemVariant.getSystem().getLink(linkName, id1Actual, id2OldActual);
 		link.setId2(id2NewActual);
 	}
+
+	@Override
+	public String toString() {
+		return "link-transformation";
+	}
 }

@@ -26,4 +26,9 @@ public class AttributeTransformation extends Transformation {
 	public Object getAttributeValue() {
 		return attributeValue;
 	}
+
+	@Override
+	public String toString() {
+		return "attribute-transformation";
+	}
 }

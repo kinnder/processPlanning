@@ -24,6 +24,7 @@ import application.ui.gui.editor.SystemDataModel;
 import application.ui.gui.editor.SystemTemplateDataModel;
 import application.ui.gui.editor.SystemTransformationDataModel;
 import application.ui.gui.editor.SystemTransformationsDataModel;
+import application.ui.gui.editor.TransformationsDataModel;
 import planning.method.NodeNetwork;
 import planning.method.SystemTransformations;
 import planning.method.TaskDescription;
@@ -32,6 +33,7 @@ import planning.model.SystemObjectTemplate;
 import planning.model.SystemProcess;
 import planning.model.SystemTemplate;
 import planning.model.SystemTransformation;
+import planning.model.Transformations;
 import planning.model.ActionFunction;
 import planning.model.System;
 
@@ -63,6 +65,7 @@ public class EditorFrame extends javax.swing.JFrame {
 		this.objectTemplatesDataModel = new ObjectTemplatesDataModel(editorDataModel);
 		this.attributeTemplatesDataModel = new AttributeTemplatesDataModel(editorDataModel);
 		this.actionFunctionsDataModel = new ActionFunctionsDataModel(editorDataModel);
+		this.transformationsDataModel = new TransformationsDataModel(editorDataModel);
 
 		// TODO (2022-11-01 #72): покрытие тестами jtDataValueChanged
 		initComponents();
@@ -109,6 +112,8 @@ public class EditorFrame extends javax.swing.JFrame {
 
 	private ActionFunctionDataModel actionFunctionDataModel;
 
+	private TransformationsDataModel transformationsDataModel;
+
 	private void setActions() {
 		jmiTaskDescriptionLoad.setAction(taskDescriptionLoadAction);
 		jmiTaskDescriptionSave.setAction(taskDescriptionSaveAction);
@@ -143,6 +148,9 @@ public class EditorFrame extends javax.swing.JFrame {
 
 		jbActionFunctionsInsert.setAction(actionFunctionsInsertActionFunction);
 		jbActionFunctionsDelete.setAction(actionFunctionsDeleteActionFunction);
+
+		jbTransformationsInsert.setAction(transformationsInsertTransformation);
+		jbTransformationsDelete.setAction(transformationsDeleteTransformation);
 	}
 
 	Action taskDescriptionLoadAction = new AbstractAction("Load") {
@@ -357,6 +365,25 @@ public class EditorFrame extends javax.swing.JFrame {
 		}
 	};
 
+	Action transformationsInsertTransformation = new AbstractAction("Insert") {
+		private static final long serialVersionUID = 570026072927635395L;
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			transformationsDataModel.insertTransformation();
+		}
+	};
+
+	Action transformationsDeleteTransformation = new AbstractAction("Delete") {
+		private static final long serialVersionUID = -3446892158319364094L;
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			int idx = jtTransformations.getSelectedRow();
+			transformationsDataModel.deleteTransformation(idx);
+		}
+	};
+
 	/**
 	 * This method is called from within the constructor to initialize the form.
 	 * WARNING: Do NOT modify this code. The content of this method is always
@@ -455,8 +482,6 @@ public class EditorFrame extends javax.swing.JFrame {
 		jpTransformationsButtons = new javax.swing.JPanel();
 		jbTransformationsInsert = new javax.swing.JButton();
 		jbTransformationsDelete = new javax.swing.JButton();
-		jbTransformationsMoveUp = new javax.swing.JButton();
-		jbTransformationsMoveDown = new javax.swing.JButton();
 		jspTransformations = new javax.swing.JScrollPane();
 		jtTransformations = new javax.swing.JTable();
 		jpTransformationEditor = new javax.swing.JPanel();
@@ -1191,10 +1216,6 @@ public class EditorFrame extends javax.swing.JFrame {
 
 		jbTransformationsDelete.setText("Delete");
 
-		jbTransformationsMoveUp.setText("Up");
-
-		jbTransformationsMoveDown.setText("Down");
-
 		javax.swing.GroupLayout jpTransformationsButtonsLayout = new javax.swing.GroupLayout(jpTransformationsButtons);
 		jpTransformationsButtons.setLayout(jpTransformationsButtonsLayout);
 		jpTransformationsButtonsLayout.setHorizontalGroup(
@@ -1202,8 +1223,7 @@ public class EditorFrame extends javax.swing.JFrame {
 						.addGroup(jpTransformationsButtonsLayout.createSequentialGroup().addContainerGap()
 								.addGroup(jpTransformationsButtonsLayout
 										.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-										.addComponent(jbTransformationsInsert).addComponent(jbTransformationsDelete)
-										.addComponent(jbTransformationsMoveUp).addComponent(jbTransformationsMoveDown))
+										.addComponent(jbTransformationsInsert).addComponent(jbTransformationsDelete))
 								.addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
 		jpTransformationsButtonsLayout.setVerticalGroup(
 				jpTransformationsButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1211,25 +1231,9 @@ public class EditorFrame extends javax.swing.JFrame {
 								.addComponent(jbTransformationsInsert)
 								.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
 								.addComponent(jbTransformationsDelete)
-								.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-								.addComponent(jbTransformationsMoveUp)
-								.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-								.addComponent(jbTransformationsMoveDown)
 								.addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
 
-		jtTransformations.setModel(new javax.swing.table.DefaultTableModel(
-				new Object[][] { { "attributeTransformation", "id-requirement", "attribute-is-diameter" },
-						{ "attributeTransformation", "id-requirement", "attribute-is-completed" },
-						{ "linkTransformation", "id-requirement", "link-is-requirement" } },
-				new String[] { "type", "object-id", "name" }) {
-			private static final long serialVersionUID = 6557092541986168L;
-			Class<?>[] types = new Class[] { java.lang.String.class, java.lang.String.class, java.lang.String.class };
-
-			@Override
-			public Class<?> getColumnClass(int columnIndex) {
-				return types[columnIndex];
-			}
-		});
+		jtTransformations.setModel(transformationsDataModel);
 		jspTransformations.setViewportView(jtTransformations);
 
 		javax.swing.GroupLayout jpTransformationsEditorLayout = new javax.swing.GroupLayout(jpTransformationsEditor);
@@ -1905,12 +1909,16 @@ public class EditorFrame extends javax.swing.JFrame {
 		} else if (selectedObject instanceof planning.model.Action) {
 			actionDataModel.clear();
 			jtpEditors.setSelectedComponent(jpActionEditor);
-			actionDataModel.loadAction((planning.model.Action)selectedObject, selectedNode);
-			actionFunctionsDataModel.loadActionFunctions((planning.model.Action)selectedObject, selectedNode);
+			actionDataModel.loadAction((planning.model.Action) selectedObject, selectedNode);
+			actionFunctionsDataModel.loadActionFunctions((planning.model.Action) selectedObject, selectedNode);
 		} else if (selectedObject instanceof ActionFunction) {
 			actionFunctionDataModel.clear();
 			jtpEditors.setSelectedComponent(jpActionFunctionEditor);
-			actionFunctionDataModel.loadActionFunction((ActionFunction)selectedObject, selectedNode);
+			actionFunctionDataModel.loadActionFunction((ActionFunction) selectedObject, selectedNode);
+		} else if (selectedObject instanceof Transformations) {
+			transformationsDataModel.clear();
+			jtpEditors.setSelectedComponent(jpTransformationsEditor);
+			transformationsDataModel.loadTransformations((Transformations) selectedObject, selectedNode);
 		} else {
 			java.lang.System.out.println("unknown: " + selectedObject.toString());
 		}
@@ -1951,8 +1959,6 @@ public class EditorFrame extends javax.swing.JFrame {
 	private javax.swing.JButton jbSystemTransformationsInsert;
 	private javax.swing.JButton jbTransformationsDelete;
 	private javax.swing.JButton jbTransformationsInsert;
-	private javax.swing.JButton jbTransformationsMoveDown;
-	private javax.swing.JButton jbTransformationsMoveUp;
 	private javax.swing.JComboBox<String> jcbActionFunctionType;
 	private javax.swing.JComboBox<String> jcbAttributeTransformationValue;
 	private javax.swing.JCheckBox jcbNodeChecked;

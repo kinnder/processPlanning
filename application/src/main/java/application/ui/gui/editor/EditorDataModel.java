@@ -16,6 +16,7 @@ import planning.model.SystemObjectTemplate;
 import planning.model.SystemProcess;
 import planning.model.SystemTemplate;
 import planning.model.SystemTransformation;
+import planning.model.Transformation;
 import planning.model.Transformations;
 
 // TODO (2022-11-16 #72): saveXXX и loadXXX методы переименовать в getXXX и setXXX
@@ -131,14 +132,17 @@ public class EditorDataModel extends DefaultTreeModel {
 		return new DefaultMutableTreeNode(actionFunction);
 	}
 
-	@SuppressWarnings("PMD.UnusedFormalParameter")
-	private DefaultMutableTreeNode createTransformationsNode(Transformations transformations) {
-		DefaultMutableTreeNode transformationsNode;
-		DefaultMutableTreeNode transformationNode;
-		transformationsNode = new DefaultMutableTreeNode("Transformations");
-		transformationNode = new DefaultMutableTreeNode("attribute-transformation");
-		transformationsNode.add(transformationNode);
+	public DefaultMutableTreeNode createTransformationsNode(Transformations transformations) {
+		DefaultMutableTreeNode transformationsNode = new DefaultMutableTreeNode(transformations);
+		for (Transformation transformation : transformations) {
+			DefaultMutableTreeNode transformationNode = createTransformationNode(transformation);
+			transformationsNode.add(transformationNode);
+		}
 		return transformationsNode;
+	}
+
+	public DefaultMutableTreeNode createTransformationNode(Transformation transformation) {
+		return new DefaultMutableTreeNode(transformation);
 	}
 
 	public DefaultMutableTreeNode createSystemTemplateNode(SystemTemplate systemTemplate) {
