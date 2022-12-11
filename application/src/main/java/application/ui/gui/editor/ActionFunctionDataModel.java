@@ -10,7 +10,6 @@ import javax.swing.event.DocumentListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 
 import planning.model.ActionFunction;
-import planning.model.LuaScriptActionFunction;
 
 public class ActionFunctionDataModel {
 
@@ -67,13 +66,12 @@ public class ActionFunctionDataModel {
 		actionFunctionNode = null;
 	}
 
-	private LuaScriptActionFunction actionFunction;
+	private ActionFunction actionFunction;
 
 	private DefaultMutableTreeNode actionFunctionNode;
 
 	public void loadActionFunction(ActionFunction selectedActionFunction, DefaultMutableTreeNode selectedNode) {
-		// TODO (2022-12-08 #73): явное преобразование в LuaScriptActionFunction
-		this.actionFunction = (LuaScriptActionFunction) selectedActionFunction;
+		this.actionFunction = selectedActionFunction;
 		this.actionFunctionNode = selectedNode;
 
 		String lines = actionFunction.getScript();

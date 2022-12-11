@@ -11,7 +11,6 @@ import org.luaj.vm2.Globals;
 import org.luaj.vm2.lib.jse.JsePlatform;
 
 import planning.model.ActionFunction;
-import planning.model.LuaScriptActionFunction;
 import planning.model.LuaScriptLine;
 
 public class ActionFunctionXMLSchema implements XMLSchema<ActionFunction> {
@@ -44,14 +43,13 @@ public class ActionFunctionXMLSchema implements XMLSchema<ActionFunction> {
 			LuaScriptLine scriptLine = luaScriptLineXMLSchema.parse(element);
 			scriptLines.put(scriptLine.getNumber(), scriptLine);
 		}
-		return new LuaScriptActionFunction(globals, scriptLines.values());
+		return new ActionFunction(globals, scriptLines.values());
 	}
 
 	@Override
 	public Element combine(ActionFunction actionFunction) {
 		Element root = new Element(TAG_actionFunction);
-		LuaScriptActionFunction luaActionFunction = (LuaScriptActionFunction) actionFunction;
-		Collection<LuaScriptLine> scriptLines = luaActionFunction.getScriptLines();
+		Collection<LuaScriptLine> scriptLines = actionFunction.getScriptLines();
 		for (LuaScriptLine scriptLine : scriptLines) {
 			Element element = luaScriptLineXMLSchema.combine(scriptLine);
 			root.addContent(element);

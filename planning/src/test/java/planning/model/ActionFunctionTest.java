@@ -16,7 +16,7 @@ import org.junit.jupiter.api.extension.RegisterExtension;
 import org.luaj.vm2.Globals;
 import org.luaj.vm2.lib.jse.JsePlatform;
 
-public class LuaScriptActionFunctionTest {
+public class ActionFunctionTest {
 
 	@RegisterExtension
 	JUnit5Mockery context = new JUnit5Mockery() {
@@ -30,7 +30,7 @@ public class LuaScriptActionFunctionTest {
 		context.assertIsSatisfied();
 	}
 
-	LuaScriptActionFunction testable;
+	ActionFunction testable;
 
 	Globals globals;
 
@@ -51,7 +51,7 @@ public class LuaScriptActionFunctionTest {
 
 		SystemVariant systemVariant_mock = context.mock(SystemVariant.class);
 
-		testable = new LuaScriptActionFunction(globals, script.toString());
+		testable = new ActionFunction(globals, script.toString());
 		assertTrue(testable.test(systemVariant_mock));
 	}
 
@@ -78,7 +78,7 @@ public class LuaScriptActionFunctionTest {
 			}
 		});
 
-		testable = new LuaScriptActionFunction(globals, script.toString());
+		testable = new ActionFunction(globals, script.toString());
 		testable.accept(systemVariant_mock);
 	}
 
@@ -88,7 +88,7 @@ public class LuaScriptActionFunctionTest {
 		final LuaScriptLine line_2 = new LuaScriptLine(2, "return a + 2");
 		final Collection<LuaScriptLine> lines = Arrays.asList(line_1, line_2);
 
-		testable = new LuaScriptActionFunction(globals, lines);
+		testable = new ActionFunction(globals, lines);
 		assertEquals("local a = ...\nreturn a + 2\n", testable.getScript());
 	}
 }

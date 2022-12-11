@@ -20,7 +20,7 @@ import org.junit.jupiter.api.extension.RegisterExtension;
 import org.luaj.vm2.Globals;
 import org.luaj.vm2.lib.jse.JsePlatform;
 
-import planning.model.LuaScriptActionFunction;
+import planning.model.ActionFunction;
 import planning.model.LuaScriptLine;
 
 public class ActionFunctionOWLSchemaTest {
@@ -63,7 +63,7 @@ public class ActionFunctionOWLSchemaTest {
 	public void combine() {
 		final LuaScriptLine scriptLine = new LuaScriptLine(10, "line-text");
 		final List<LuaScriptLine> scriptLines = Arrays.asList(scriptLine);
-		final LuaScriptActionFunction actionFunction = new LuaScriptActionFunction(globals, scriptLines);
+		final ActionFunction actionFunction = new ActionFunction(globals, scriptLines);
 		final Individual i_actionFunction = context.mock(Individual.class, "i-actionFunction");
 		final Individual i_line_mock = context.mock(Individual.class, "i-line");
 		final ObjectProperty op_hasLine_mock = context.mock(ObjectProperty.class, "op-hasLine");
@@ -120,7 +120,7 @@ public class ActionFunctionOWLSchemaTest {
 			}
 		});
 
-		LuaScriptActionFunction result = (LuaScriptActionFunction) testable.parse(i_actionFunction);
+		ActionFunction result = testable.parse(i_actionFunction);
 		assertEquals("line-text\n", result.getScript());
 	}
 }

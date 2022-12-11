@@ -124,7 +124,7 @@ public class EditorDataModelTest {
 
 		final SystemTemplate systemTemplate_mock = context.mock(SystemTemplate.class);
 		final List<SystemObjectTemplate> systemObjectTemplates = new ArrayList<SystemObjectTemplate>();
-		final Transformations transformations_mock = context.mock(Transformations.class);
+		final Transformations transformations = new Transformations();
 		final Action action_mock = context.mock(Action.class);
 		final List<ActionFunction> parameterUpdaters = new ArrayList<ActionFunction>();
 		final List<ActionFunction> preConditionCheckers = new ArrayList<ActionFunction>();
@@ -138,7 +138,7 @@ public class EditorDataModelTest {
 				will(returnValue(systemObjectTemplates));
 
 				oneOf(systemTransformation_mock).getTransformations();
-				will(returnValue(transformations_mock));
+				will(returnValue(transformations));
 
 				oneOf(systemTransformation_mock).getAction();
 				will(returnValue(action_mock));
@@ -211,7 +211,7 @@ public class EditorDataModelTest {
 		final SystemTransformation systemTransformation_mock = context.mock(SystemTransformation.class);
 		final SystemTemplate systemTemplate_mock = context.mock(SystemTemplate.class);
 		final List<SystemObjectTemplate> systemObjectTemplates = new ArrayList<SystemObjectTemplate>();
-		final Transformations transformations_mock = context.mock(Transformations.class);
+		final Transformations transformations = new Transformations();
 		final Action action_mock = context.mock(Action.class);
 		final List<ActionFunction> parameterUpdaters = new ArrayList<ActionFunction>();
 		final List<ActionFunction> preConditionCheckers = new ArrayList<ActionFunction>();
@@ -225,7 +225,7 @@ public class EditorDataModelTest {
 				will(returnValue(systemObjectTemplates));
 
 				oneOf(systemTransformation_mock).getTransformations();
-				will(returnValue(transformations_mock));
+				will(returnValue(transformations));
 
 				oneOf(systemTransformation_mock).getAction();
 				will(returnValue(action_mock));

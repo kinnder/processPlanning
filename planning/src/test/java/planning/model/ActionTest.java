@@ -11,6 +11,8 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
+import org.luaj.vm2.Globals;
+import org.luaj.vm2.lib.jse.JsePlatform;
 
 public class ActionTest {
 
@@ -41,8 +43,10 @@ public class ActionTest {
 	@Test
 	public void updateParameters() {
 		final SystemVariant systemVariant_mock = context.mock(SystemVariant.class);
+		final Globals globals = JsePlatform.standardGlobals();
+		final String script = "";
 
-		testable.registerParameterUpdater(new ActionFunction() {
+		testable.registerParameterUpdater(new ActionFunction(globals, script) {
 			@Override
 			public void accept(SystemVariant systemVariant) {
 				assertEquals(systemVariant_mock, systemVariant);
@@ -61,8 +65,10 @@ public class ActionTest {
 	@Test
 	public void haveAllPreConditionsPassed_true() {
 		final SystemVariant systemVariant_mock = context.mock(SystemVariant.class);
+		final Globals globals = JsePlatform.standardGlobals();
+		final String script = "";
 
-		testable.registerPreConditionChecker(new ActionFunction() {
+		testable.registerPreConditionChecker(new ActionFunction(globals, script) {
 			@Override
 			public void accept(SystemVariant t) {
 				fail();
@@ -81,8 +87,10 @@ public class ActionTest {
 	@Test
 	public void haveAllPreConditionsPassed_false() {
 		final SystemVariant systemVariant_mock = context.mock(SystemVariant.class);
+		final Globals globals = JsePlatform.standardGlobals();
+		final String script = "";
 
-		testable.registerPreConditionChecker(new ActionFunction() {
+		testable.registerPreConditionChecker(new ActionFunction(globals, script) {
 			@Override
 			public void accept(SystemVariant t) {
 				fail();

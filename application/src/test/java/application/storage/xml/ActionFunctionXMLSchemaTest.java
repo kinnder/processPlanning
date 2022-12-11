@@ -16,7 +16,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
-import planning.model.LuaScriptActionFunction;
+import planning.model.ActionFunction;
 import planning.model.LuaScriptLine;
 
 public class ActionFunctionXMLSchemaTest {
@@ -70,12 +70,12 @@ public class ActionFunctionXMLSchemaTest {
 			}
 		});
 
-		assertTrue(testable.parse(root_mock) instanceof LuaScriptActionFunction);
+		assertTrue(testable.parse(root_mock) instanceof ActionFunction);
 	}
 
 	@Test
 	public void combine() {
-		final LuaScriptActionFunction luaScriptActionFunction_mock = context.mock(LuaScriptActionFunction.class);
+		final ActionFunction actionFunction_mock = context.mock(ActionFunction.class);
 		final List<LuaScriptLine> luaScriptLines = new ArrayList<LuaScriptLine>();
 		final LuaScriptLine luaScriptLine = new LuaScriptLine(1, "local systemVariant = ...");
 		luaScriptLines.add(luaScriptLine);
@@ -83,7 +83,7 @@ public class ActionFunctionXMLSchemaTest {
 
 		context.checking(new Expectations() {
 			{
-				oneOf(luaScriptActionFunction_mock).getScriptLines();
+				oneOf(actionFunction_mock).getScriptLines();
 				will(returnValue(luaScriptLines));
 
 				oneOf(luaScriptLineXMLSchema_mock).combine(luaScriptLine);
@@ -91,7 +91,7 @@ public class ActionFunctionXMLSchemaTest {
 			}
 		});
 
-		Element element = testable.combine(luaScriptActionFunction_mock);
+		Element element = testable.combine(actionFunction_mock);
 		List<Element> lines = element.getChildren("luaScriptLine");
 		assertEquals(1, lines.size());
 		assertEquals(luaScriptLineElement, lines.get(0));

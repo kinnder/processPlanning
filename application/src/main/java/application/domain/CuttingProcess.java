@@ -8,11 +8,11 @@ import org.luaj.vm2.lib.jse.JsePlatform;
 import planning.method.SystemTransformations;
 import planning.method.TaskDescription;
 import planning.model.Action;
+import planning.model.ActionFunction;
 import planning.model.Attribute;
 import planning.model.AttributeTemplate;
 import planning.model.AttributeTransformation;
 import planning.model.LinkTransformation;
-import planning.model.LuaScriptActionFunction;
 import planning.model.System;
 import planning.model.SystemObject;
 import planning.model.SystemObjectTemplate;
@@ -181,7 +181,7 @@ public class CuttingProcess {
 		script.append("\n");
 
 		final Action action = new Action(OPERATION_CUT_CYLINDER_SURFACE);
-		action.registerPreConditionChecker(new LuaScriptActionFunction(globals, script.toString()));
+		action.registerPreConditionChecker(new ActionFunction(globals, script.toString()));
 
 		script = new StringBuilder();
 		script.append("local systemVariant = ...");
@@ -203,7 +203,7 @@ public class CuttingProcess {
 		script.append("cylinderSurface_actual:getAttribute('" + ATTRIBUTE_DIAMETER + "'):setValue(diameterRequired)");
 		script.append("\n");
 
-		action.registerParameterUpdater(new LuaScriptActionFunction(globals, script.toString()));
+		action.registerParameterUpdater(new ActionFunction(globals, script.toString()));
 
 		return new SystemTransformation(ELEMENT_CUT_CYLINDER_SURFACE, action, systemTemplate, transformations);
 	}
@@ -258,7 +258,7 @@ public class CuttingProcess {
 		script.append("\n");
 
 		final Action action = new Action(OPERATION_TRIM_CYLINDER_SURFACE);
-		action.registerPreConditionChecker(new LuaScriptActionFunction(globals, script.toString()));
+		action.registerPreConditionChecker(new ActionFunction(globals, script.toString()));
 
 		return new SystemTransformation(ELEMENT_TRIM_CYLINDER_SURFACE, action, systemTemplate, transformations);
 	}
@@ -332,7 +332,7 @@ public class CuttingProcess {
 		script.append("\n");
 
 		final Action action = new Action(OPERATION_SPLIT_CYLINDER_SURFACE);
-		action.registerPreConditionChecker(new LuaScriptActionFunction(globals, script.toString()));
+		action.registerPreConditionChecker(new ActionFunction(globals, script.toString()));
 
 		script = new StringBuilder();
 		script.append("local systemVariant = ...");
@@ -405,7 +405,7 @@ public class CuttingProcess {
 		script.append("cylinderSurface_actual:getAttribute('" + ATTRIBUTE_LENGTH + "'):setValue(lengthRequired)");
 		script.append("\n");
 
-		action.registerParameterUpdater(new LuaScriptActionFunction(globals, script.toString()));
+		action.registerParameterUpdater(new ActionFunction(globals, script.toString()));
 
 		return new SystemTransformation(ELEMENT_SPLIT_CYLINDER_SURFACE, action, systemTemplate, transformations);
 	}

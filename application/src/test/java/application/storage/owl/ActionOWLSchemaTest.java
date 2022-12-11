@@ -21,7 +21,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
 import planning.model.Action;
-import planning.model.LuaScriptActionFunction;
+import planning.model.ActionFunction;
 
 public class ActionOWLSchemaTest {
 
@@ -59,8 +59,8 @@ public class ActionOWLSchemaTest {
 	@Test
 	public void combine() {
 		final Action action = new Action("action-name");
-		final LuaScriptActionFunction actionPreConditionChecker_mock = context.mock(LuaScriptActionFunction.class, "preConditionChekcer");
-		final LuaScriptActionFunction actionParameterUpdater_mock = context.mock(LuaScriptActionFunction.class, "parameterUpdater");
+		final ActionFunction actionPreConditionChecker_mock = context.mock(ActionFunction.class, "preConditionChekcer");
+		final ActionFunction actionParameterUpdater_mock = context.mock(ActionFunction.class, "parameterUpdater");
 		action.registerParameterUpdater(actionParameterUpdater_mock);
 		action.registerPreConditionChecker(actionPreConditionChecker_mock);
 		final Individual i_action_mock = context.mock(Individual.class, "i-action");
@@ -108,8 +108,8 @@ public class ActionOWLSchemaTest {
 	@Test
 	public void parse() {
 		final Action action = new Action("action-name");
-		final LuaScriptActionFunction actionPreConditionChecker_mock = context.mock(LuaScriptActionFunction.class, "preConditionChecker");
-		final LuaScriptActionFunction actionParameterUpdater_mock = context.mock(LuaScriptActionFunction.class, "parameterUpdater");
+		final ActionFunction actionPreConditionChecker_mock = context.mock(ActionFunction.class, "preConditionChecker");
+		final ActionFunction actionParameterUpdater_mock = context.mock(ActionFunction.class, "parameterUpdater");
 		action.registerParameterUpdater(actionParameterUpdater_mock);
 		action.registerPreConditionChecker(actionPreConditionChecker_mock);
 		final Individual i_action_mock = context.mock(Individual.class, "i-action");

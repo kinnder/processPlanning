@@ -11,7 +11,6 @@ import org.luaj.vm2.lib.jse.JsePlatform;
 
 import planning.model.Action;
 import planning.model.ActionFunction;
-import planning.model.LuaScriptActionFunction;
 
 public class ActionFunctionsDataModel extends DefaultTableModel {
 
@@ -40,7 +39,7 @@ public class ActionFunctionsDataModel extends DefaultTableModel {
 
 	public void insertActionFunction() {
 		// TODO (2022-12-07 #73): перенести в ActionFunction
-		ActionFunction actionFunction = new LuaScriptActionFunction(globals, "");
+		ActionFunction actionFunction = new ActionFunction(globals, "");
 		// TODO (2022-12-07 #73): actionFunction создается как parameterUpdater
 		action.registerParameterUpdater(actionFunction);
 		actionFunctions.add(actionFunction);

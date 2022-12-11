@@ -3,7 +3,6 @@ package application.storage.owl;
 import org.apache.jena.ontology.Individual;
 import planning.model.Action;
 import planning.model.ActionFunction;
-import planning.model.LuaScriptActionFunction;
 
 public class ActionOWLSchema implements OWLSchema<Action> {
 
@@ -28,11 +27,11 @@ public class ActionOWLSchema implements OWLSchema<Action> {
 		ind_action.addLabel(String.format("Action \"%s\"", name), "en");
 		ind_action.addProperty(owlModel.getDataProperty_name(), name);
 		for (ActionFunction preConditionChecker : action.getPreConditionCheckers()) {
-			Individual ind_preConditionChecker = actionFunctionOWLSchema.combine((LuaScriptActionFunction) preConditionChecker);
+			Individual ind_preConditionChecker = actionFunctionOWLSchema.combine(preConditionChecker);
 			ind_action.addProperty(owlModel.getObjectProperty_hasPreConditionChecker(), ind_preConditionChecker);
 		}
 		for (ActionFunction parameterUpdater : action.getParameterUpdaters()) {
-			Individual ind_parameterUpdater = actionFunctionOWLSchema.combine((LuaScriptActionFunction) parameterUpdater);
+			Individual ind_parameterUpdater = actionFunctionOWLSchema.combine(parameterUpdater);
 			ind_action.addProperty(owlModel.getObjectProperty_hasParameterUpdater(), ind_parameterUpdater);
 		}
 		return ind_action;

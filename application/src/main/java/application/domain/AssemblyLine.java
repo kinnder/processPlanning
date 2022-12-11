@@ -8,10 +8,10 @@ import org.luaj.vm2.lib.jse.JsePlatform;
 import planning.method.SystemTransformations;
 import planning.method.TaskDescription;
 import planning.model.Action;
+import planning.model.ActionFunction;
 import planning.model.Attribute;
 import planning.model.AttributeTemplate;
 import planning.model.LinkTransformation;
-import planning.model.LuaScriptActionFunction;
 import planning.model.System;
 import planning.model.SystemObject;
 import planning.model.SystemObjectTemplate;
@@ -224,7 +224,7 @@ public class AssemblyLine {
 		script.append("\n");
 
 		final Action action = new Action(OPERATION_TURN_WITHOUT_LOAD);
-		action.registerParameterUpdater(new LuaScriptActionFunction(globals, script.toString()));
+		action.registerParameterUpdater(new ActionFunction(globals, script.toString()));
 
 		return new SystemTransformation(ELEMENT_TURN_WITHOUT_LOAD, action, systemTemplate, transformations);
 	}
@@ -268,7 +268,7 @@ public class AssemblyLine {
 		script.append("systemVariant:setActionParameter('" + PARAMETER_TARGET + "', object:getName())");
 
 		final Action action = new Action(OPERATION_TURN_WITH_LOAD);
-		action.registerParameterUpdater(new LuaScriptActionFunction(globals, script.toString()));
+		action.registerParameterUpdater(new ActionFunction(globals, script.toString()));
 
 		return new SystemTransformation(ELEMENT_TURN_WITH_LOAD, action, systemTemplate, transformations);
 	}
@@ -505,7 +505,7 @@ public class AssemblyLine {
 		script.append("systemVariant:setActionParameter('" + PARAMETER_TARGET + "', object:getName())");
 
 		final Action action = new Action(OPERATION_MOVE_WITH_LOAD);
-		action.registerParameterUpdater(new LuaScriptActionFunction(globals, script.toString()));
+		action.registerParameterUpdater(new ActionFunction(globals, script.toString()));
 
 		return new SystemTransformation(ELEMENT_MOVE_WITH_LOAD, action, systemTemplate, transformations);
 	}
@@ -543,7 +543,7 @@ public class AssemblyLine {
 		script.append("systemVariant:setActionParameter('" + PARAMETER_TARGET + "', object:getName())");
 
 		final Action action = new Action(OPERATION_MOVE_WITHOUT_LOAD);
-		action.registerParameterUpdater(new LuaScriptActionFunction(globals, script.toString()));
+		action.registerParameterUpdater(new ActionFunction(globals, script.toString()));
 
 		return new SystemTransformation(ELEMENT_MOVE_WITHOUT_LOAD, action, systemTemplate, transformations);
 	}

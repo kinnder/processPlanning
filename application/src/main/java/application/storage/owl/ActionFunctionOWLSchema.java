@@ -9,7 +9,6 @@ import org.luaj.vm2.Globals;
 import org.luaj.vm2.lib.jse.JsePlatform;
 
 import planning.model.ActionFunction;
-import planning.model.LuaScriptActionFunction;
 import planning.model.LuaScriptLine;
 
 public class ActionFunctionOWLSchema implements OWLSchema<ActionFunction> {
@@ -30,8 +29,7 @@ public class ActionFunctionOWLSchema implements OWLSchema<ActionFunction> {
 	@Override
 	public Individual combine(ActionFunction actionFunction) {
 		Individual ind_actionFunction = owlModel.newIndividual_ActionFunction();
-		LuaScriptActionFunction luaActionFunction = (LuaScriptActionFunction) actionFunction;
-		Collection<LuaScriptLine> scriptLines = luaActionFunction.getScriptLines();
+		Collection<LuaScriptLine> scriptLines = actionFunction.getScriptLines();
 		for (LuaScriptLine scriptLine : scriptLines) {
 			Individual ind_line = luaScriptLineOWLSchema.combine(scriptLine);
 			ind_actionFunction.addProperty(owlModel.getObjectProperty_hasLine(), ind_line);
@@ -51,6 +49,6 @@ public class ActionFunctionOWLSchema implements OWLSchema<ActionFunction> {
 			LuaScriptLine scriptLine = luaScriptLineOWLSchema.parse(ind_line.asIndividual());
 			scriptLines.put(scriptLine.getNumber(), scriptLine);
 		});
-		return new LuaScriptActionFunction(globals, scriptLines.values());
+		return new ActionFunction(globals, scriptLines.values());
 	}
 }
