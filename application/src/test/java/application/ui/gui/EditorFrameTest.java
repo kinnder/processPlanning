@@ -20,11 +20,16 @@ import org.junit.jupiter.api.condition.DisabledIf;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
 import application.Application;
+import application.ui.gui.editor.ActionFunctionsDataModel;
+import application.ui.gui.editor.AttributeTemplatesDataModel;
 import application.ui.gui.editor.AttributesDataModel;
 import application.ui.gui.editor.EditorDataModel;
+import application.ui.gui.editor.LinkTemplatesDataModel;
 import application.ui.gui.editor.LinksDataModel;
+import application.ui.gui.editor.ObjectTemplatesDataModel;
 import application.ui.gui.editor.ObjectsDataModel;
 import application.ui.gui.editor.SystemTransformationsDataModel;
+import application.ui.gui.editor.TransformationsDataModel;
 import planning.method.NodeNetwork;
 import planning.method.SystemTransformations;
 import planning.method.TaskDescription;
@@ -62,6 +67,16 @@ public class EditorFrameTest {
 
 	SystemTransformationsDataModel systemTransformationsDataModel_mock;
 
+	ObjectTemplatesDataModel objectTemplatesDataModel_mock;
+
+	LinkTemplatesDataModel linkTemplatesDataModel_mock;
+
+	AttributeTemplatesDataModel attributeTemplatesDataModel_mock;
+
+	ActionFunctionsDataModel actionFunctionsDataModel_mock;
+
+	TransformationsDataModel transformationsDataModel_mock;
+
 	Application application_mock;
 
 	@BeforeEach
@@ -72,6 +87,11 @@ public class EditorFrameTest {
 		linksDataModel_mock = context.mock(LinksDataModel.class);
 		attributesDataModel_mock = context.mock(AttributesDataModel.class);
 		systemTransformationsDataModel_mock = context.mock(SystemTransformationsDataModel.class);
+		objectTemplatesDataModel_mock = context.mock(ObjectTemplatesDataModel.class);
+		linkTemplatesDataModel_mock = context.mock(LinkTemplatesDataModel.class);
+		attributeTemplatesDataModel_mock = context.mock(AttributeTemplatesDataModel.class);
+		actionFunctionsDataModel_mock = context.mock(ActionFunctionsDataModel.class);
+		transformationsDataModel_mock = context.mock(TransformationsDataModel.class);
 		final MutableTreeNode node_mock = context.mock(MutableTreeNode.class);
 
 		context.checking(new Expectations() {
@@ -116,11 +136,52 @@ public class EditorFrameTest {
 				allowing(systemTransformationsDataModel_mock).getRowCount();
 				will(returnValue(0));
 
+				allowing(objectTemplatesDataModel_mock).addTableModelListener(with(any(TableModelListener.class)));
+
+				allowing(objectTemplatesDataModel_mock).getColumnCount();
+				will(returnValue(0));
+
+				allowing(objectTemplatesDataModel_mock).getRowCount();
+				will(returnValue(0));
+
+				allowing(linkTemplatesDataModel_mock).addTableModelListener(with(any(TableModelListener.class)));
+
+				allowing(linkTemplatesDataModel_mock).getColumnCount();
+				will(returnValue(0));
+
+				allowing(linkTemplatesDataModel_mock).getRowCount();
+				will(returnValue(0));
+
+				allowing(attributeTemplatesDataModel_mock).addTableModelListener(with(any(TableModelListener.class)));
+
+				allowing(attributeTemplatesDataModel_mock).getColumnCount();
+				will(returnValue(0));
+
+				allowing(attributeTemplatesDataModel_mock).getRowCount();
+				will(returnValue(0));
+
+				allowing(actionFunctionsDataModel_mock).addTableModelListener(with(any(TableModelListener.class)));
+
+				allowing(actionFunctionsDataModel_mock).getColumnCount();
+				will(returnValue(0));
+
+				allowing(actionFunctionsDataModel_mock).getRowCount();
+				will(returnValue(0));
+
+				allowing(transformationsDataModel_mock).addTableModelListener(with(any(TableModelListener.class)));
+
+				allowing(transformationsDataModel_mock).getColumnCount();
+				will(returnValue(0));
+
+				allowing(transformationsDataModel_mock).getRowCount();
+				will(returnValue(0));
 			}
 		});
 
 		testable = new EditorFrame(application_mock, editorDataModel_mock, objectsDataModel_mock, linksDataModel_mock,
-				attributesDataModel_mock, systemTransformationsDataModel_mock);
+				attributesDataModel_mock, systemTransformationsDataModel_mock, objectTemplatesDataModel_mock,
+				linkTemplatesDataModel_mock, attributeTemplatesDataModel_mock, actionFunctionsDataModel_mock,
+				transformationsDataModel_mock);
 	}
 
 	@Test
@@ -402,5 +463,221 @@ public class EditorFrameTest {
 		});
 
 		testable.systemTransformationsDeleteAction.actionPerformed(actionEvent_mock);
+	}
+
+	@Test
+	public void objectTemplateInsertAction_name() {
+		assertEquals("Insert", testable.objectTemplateInsertAction.getValue(Action.NAME));
+	}
+
+	@Test
+	public void objectTemplateInsertAction_actionPerformed() {
+		final ActionEvent actionEvent_mock = context.mock(ActionEvent.class);
+
+		context.checking(new Expectations() {
+			{
+				oneOf(objectTemplatesDataModel_mock).insertObjectTemplate();
+			}
+		});
+
+		testable.objectTemplateInsertAction.actionPerformed(actionEvent_mock);
+	}
+
+	@Test
+	public void objectTemplateDeleteAction_name() {
+		assertEquals("Delete", testable.objectTemplateDeleteAction.getValue(Action.NAME));
+	}
+
+	@Test
+	public void objectTemplateDeleteAction_actionPerformed() {
+		final ActionEvent actionEvent_mock = context.mock(ActionEvent.class);
+
+		context.checking(new Expectations() {
+			{
+				oneOf(objectTemplatesDataModel_mock).deleteObjectTemplate(-1);
+			}
+		});
+
+		testable.objectTemplateDeleteAction.actionPerformed(actionEvent_mock);
+	}
+
+	@Test
+	public void linkTemplateInsertAction_name() {
+		assertEquals("Insert", testable.linkTemplateInsertAction.getValue(Action.NAME));
+	}
+
+	@Test
+	public void linkTemplateInsertAction_actionPerformed() {
+		final ActionEvent actionEvent_mock = context.mock(ActionEvent.class);
+
+		context.checking(new Expectations() {
+			{
+				oneOf(linkTemplatesDataModel_mock).insertLinkTemplate();
+			}
+		});
+
+		testable.linkTemplateInsertAction.actionPerformed(actionEvent_mock);
+	}
+
+	@Test
+	public void linkTemplateDeleteAction_name() {
+		assertEquals("Delete", testable.linkTemplateDeleteAction.getValue(Action.NAME));
+	}
+
+	@Test
+	public void linkTemplateDeletAction_actionPerformed() {
+		final ActionEvent actionEvent_mock = context.mock(ActionEvent.class);
+
+		context.checking(new Expectations() {
+			{
+				oneOf(linkTemplatesDataModel_mock).deleteLinkTemplate(-1);
+			}
+		});
+
+		testable.linkTemplateDeleteAction.actionPerformed(actionEvent_mock);
+	}
+
+	@Test
+	public void attributeTemplateInsertAction_name() {
+		assertEquals("Insert", testable.attributeTemplateInsertAction.getValue(Action.NAME));
+	}
+
+	@Test
+	public void attributeTemplateInserAction_actionPerformed() {
+		final ActionEvent actionEvent_mock = context.mock(ActionEvent.class);
+
+		context.checking(new Expectations() {
+			{
+				oneOf(attributeTemplatesDataModel_mock).insertAttributeTemplate();
+			}
+		});
+
+		testable.attributeTemplateInsertAction.actionPerformed(actionEvent_mock);
+	}
+
+	@Test
+	public void attributeTemplateDeleteAction_name() {
+		assertEquals("Delete", testable.attributeTemplateDeleteAction.getValue(Action.NAME));
+	}
+
+	@Test
+	public void attributeTemplateDeleteAction_actionPerformed() {
+		final ActionEvent actionEvent_mock = context.mock(ActionEvent.class);
+
+		context.checking(new Expectations() {
+			{
+				oneOf(attributeTemplatesDataModel_mock).deleteAttributeTemplate(-1);
+			}
+		});
+
+		testable.attributeTemplateDeleteAction.actionPerformed(actionEvent_mock);
+	}
+
+	@Test
+	public void actionFunctionsInsertActionFunction_name() {
+		assertEquals("Insert", testable.actionFunctionsInsertActionFunction.getValue(Action.NAME));
+	}
+
+	@Test
+	public void actionFunctionsInsertActionFunction_actionPerformed() {
+		final ActionEvent actionEvent_mock = context.mock(ActionEvent.class);
+
+		context.checking(new Expectations() {
+			{
+				oneOf(actionFunctionsDataModel_mock).insertActionFunction();
+			}
+		});
+
+		testable.actionFunctionsInsertActionFunction.actionPerformed(actionEvent_mock);
+	}
+
+	@Test
+	public void acitonFunctionsDeleteActionFunction_name() {
+		assertEquals("Delete", testable.actionFunctionsDeleteActionFunction.getValue(Action.NAME));
+	}
+
+	@Test
+	public void actionFunctionsDeleteActionFunction_actionPerformed() {
+		final ActionEvent actionEvent_mock = context.mock(ActionEvent.class);
+
+		context.checking(new Expectations() {
+			{
+				oneOf(actionFunctionsDataModel_mock).deleteActionFunction(-1);
+			}
+		});
+
+		testable.actionFunctionsDeleteActionFunction.actionPerformed(actionEvent_mock);
+	}
+
+	@Test
+	public void transformationsInsertTransformation_name() {
+		assertEquals("Insert", testable.transformationsInsertTransformation.getValue(Action.NAME));
+	}
+
+	@Test
+	public void transformationsInsertTransformation_actionPerformed() {
+		final ActionEvent actionEvent_mock = context.mock(ActionEvent.class);
+
+		context.checking(new Expectations() {
+			{
+				oneOf(transformationsDataModel_mock).insertTransformation();
+			}
+		});
+
+		testable.transformationsInsertTransformation.actionPerformed(actionEvent_mock);
+	}
+
+	@Test
+	public void transformationsInsertLinkTransformation_name() {
+		assertEquals("Insert Link", testable.transformationsInsertLinkTransformation.getValue(Action.NAME));
+	}
+
+	@Test
+	public void transformationsInsertLinkTransformation_actionPerformed() {
+		final ActionEvent actionEvent_mock = context.mock(ActionEvent.class);
+
+		context.checking(new Expectations() {
+			{
+				oneOf(transformationsDataModel_mock).insertLinkTransformation();
+			}
+		});
+
+		testable.transformationsInsertLinkTransformation.actionPerformed(actionEvent_mock);
+	}
+
+	@Test
+	public void transformationsInsertAttributeTransformation_name() {
+		assertEquals("Insert Attribute", testable.transformationsInsertAttributeTransformation.getValue(Action.NAME));
+	}
+
+	@Test
+	public void transformationsInsertAttributeTransformation_actionPerformed() {
+		final ActionEvent actionEvent_mock = context.mock(ActionEvent.class);
+
+		context.checking(new Expectations() {
+			{
+				oneOf(transformationsDataModel_mock).insertAttributeTransformation();
+			}
+		});
+
+		testable.transformationsInsertAttributeTransformation.actionPerformed(actionEvent_mock);
+	}
+
+	@Test
+	public void transformationsDeleteTransformation_name() {
+		assertEquals("Delete", testable.transformationsDeleteTransformation.getValue(Action.NAME));
+	}
+
+	@Test
+	public void transformationsDeleteTransformation_actionPerformed() {
+		final ActionEvent actionEvent_mock = context.mock(ActionEvent.class);
+
+		context.checking(new Expectations() {
+			{
+				oneOf(transformationsDataModel_mock).deleteTransformation(-1);
+			}
+		});
+
+		testable.transformationsDeleteTransformation.actionPerformed(actionEvent_mock);
 	}
 }

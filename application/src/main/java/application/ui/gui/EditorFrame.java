@@ -51,23 +51,29 @@ public class EditorFrame extends javax.swing.JFrame {
 
 	EditorFrame(Application application, EditorDataModel editorDataModel) {
 		this(application, editorDataModel, new ObjectsDataModel(editorDataModel), new LinksDataModel(editorDataModel),
-				new AttributesDataModel(editorDataModel), new SystemTransformationsDataModel(editorDataModel));
+				new AttributesDataModel(editorDataModel), new SystemTransformationsDataModel(editorDataModel),
+				new ObjectTemplatesDataModel(editorDataModel), new LinkTemplatesDataModel(editorDataModel),
+				new AttributeTemplatesDataModel(editorDataModel), new ActionFunctionsDataModel(editorDataModel),
+				new TransformationsDataModel(editorDataModel));
 	}
 
 	EditorFrame(Application application, EditorDataModel editorDataModel, ObjectsDataModel objectsDataModel,
 			LinksDataModel linksDataModel, AttributesDataModel attributesDataModel,
-			SystemTransformationsDataModel systemTransformationsDataModel) {
+			SystemTransformationsDataModel systemTransformationsDataModel,
+			ObjectTemplatesDataModel objectTemplatesDataModel, LinkTemplatesDataModel linkTemplatesDataModel,
+			AttributeTemplatesDataModel attributeTemplatesDataModel, ActionFunctionsDataModel actionFunctionsDataModel,
+			TransformationsDataModel transformationsDataModel) {
 		this.application = application;
 		this.editorDataModel = editorDataModel;
 		this.objectsDataModel = objectsDataModel;
 		this.linksDataModel = linksDataModel;
 		this.attributesDataModel = attributesDataModel;
 		this.systemTransformationsDataModel = systemTransformationsDataModel;
-		this.linkTemplatesDataModel = new LinkTemplatesDataModel(editorDataModel);
-		this.objectTemplatesDataModel = new ObjectTemplatesDataModel(editorDataModel);
-		this.attributeTemplatesDataModel = new AttributeTemplatesDataModel(editorDataModel);
-		this.actionFunctionsDataModel = new ActionFunctionsDataModel(editorDataModel);
-		this.transformationsDataModel = new TransformationsDataModel(editorDataModel);
+		this.linkTemplatesDataModel = linkTemplatesDataModel;
+		this.objectTemplatesDataModel = objectTemplatesDataModel;
+		this.attributeTemplatesDataModel = attributeTemplatesDataModel;
+		this.actionFunctionsDataModel = actionFunctionsDataModel;
+		this.transformationsDataModel = transformationsDataModel;
 
 		// TODO (2022-11-01 #72): покрытие тестами jtDataValueChanged
 		initComponents();
@@ -159,7 +165,7 @@ public class EditorFrame extends javax.swing.JFrame {
 
 		jbTransformationsInsertTransformation.setAction(transformationsInsertTransformation);
 		jbTransformationsInsertLinkTransformation.setAction(transformationsInsertLinkTransformation);
-		jbTransformationsInserAttributeTransformation.setAction(transformationsInserAttributeTransformation);
+		jbTransformationsInserAttributeTransformation.setAction(transformationsInsertAttributeTransformation);
 		jbTransformationsDelete.setAction(transformationsDeleteTransformation);
 	}
 
@@ -403,7 +409,7 @@ public class EditorFrame extends javax.swing.JFrame {
 		}
 	};
 
-	Action transformationsInserAttributeTransformation = new AbstractAction("Insert Attribute") {
+	Action transformationsInsertAttributeTransformation = new AbstractAction("Insert Attribute") {
 		private static final long serialVersionUID = -3885835311230793111L;
 
 		@Override
