@@ -84,6 +84,7 @@ public class ActionFunctionsDataModel extends DefaultTableModel {
 	@Override
 	public void setValueAt(Object aValue, int row, int column) {
 		// TODO (2022-12-07 #73): ActionFunction не содержит редактируемых полей
+		// TODO (2022-12-17 #73): проверить корректность использования nodesChanged и nodeChanged
 		editorDataModel.nodesChanged(actionNode, new int[] { row });
 	}
 
@@ -95,6 +96,7 @@ public class ActionFunctionsDataModel extends DefaultTableModel {
 		case COLUMN_IDX_NAME:
 			return "unknown";
 		case COLUMN_IDX_TYPE:
+			// TODO (2022-12-17 #73): должно быть что-то вроде getType().toString();
 			int type = actionFunction.getType();
 			switch (type) {
 			case (ActionFunction.TYPE_PARAMETER_UPDATER):
