@@ -935,5 +935,4 @@ public class AttributesDataModelTest {
 
 		assertEquals(null, testable.getValueAt(0, -1));
 	}
-
 }
