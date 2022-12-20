@@ -62,6 +62,7 @@ public class ObjectTemplatesDataModel extends DefaultTableModel {
 		default:
 			break;
 		}
+		editorDataModel.nodesChanged(systemTemplateNode, new int[] { row });
 	}
 
 	@Override
