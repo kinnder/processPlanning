@@ -26,6 +26,7 @@ import planning.model.SystemObjectTemplate;
 import planning.model.SystemProcess;
 import planning.model.SystemTemplate;
 import planning.model.SystemTransformation;
+import planning.model.Transformation;
 import planning.model.Transformations;
 
 public class EditorDataModelTest {
@@ -121,7 +122,6 @@ public class EditorDataModelTest {
 		final SystemTransformations systemTransformations = new SystemTransformations();
 		final SystemTransformation systemTransformation_mock = context.mock(SystemTransformation.class);
 		systemTransformations.add(systemTransformation_mock);
-
 		final SystemTemplate systemTemplate_mock = context.mock(SystemTemplate.class);
 		final List<SystemObjectTemplate> systemObjectTemplates = new ArrayList<SystemObjectTemplate>();
 		final Transformations transformations = new Transformations();
@@ -186,6 +186,14 @@ public class EditorDataModelTest {
 	}
 
 	@Test
+	public void createObjectTemplateNode() {
+		final SystemObjectTemplate objectTemplate_mock = context.mock(SystemObjectTemplate.class);
+
+		DefaultMutableTreeNode result = testable.createObjectTemplateNode(objectTemplate_mock);
+		assertEquals(objectTemplate_mock, result.getUserObject());
+	}
+
+	@Test
 	public void createSystemNode() {
 		final System system_mock = context.mock(System.class);
 		final SystemObject object_1_mock = context.mock(SystemObject.class, "object-1");
@@ -203,6 +211,27 @@ public class EditorDataModelTest {
 
 		DefaultMutableTreeNode result = testable.createSystemNode(system_mock);
 		assertEquals(system_mock, result.getUserObject());
+		assertEquals(2, result.getChildCount());
+	}
+
+	@Test
+	public void createSystemTemplateNode() {
+		final SystemTemplate systemTemplate_mock = context.mock(SystemTemplate.class);
+		final SystemObjectTemplate objectTemplate_1_mock = context.mock(SystemObjectTemplate.class, "objectTemplate-1");
+		final SystemObjectTemplate objectTemplate_2_mock = context.mock(SystemObjectTemplate.class, "objectTemplate-2");
+		final Collection<SystemObjectTemplate> objectTemplates = new ArrayList<SystemObjectTemplate>();
+		objectTemplates.add(objectTemplate_1_mock);
+		objectTemplates.add(objectTemplate_2_mock);
+
+		context.checking(new Expectations() {
+			{
+				oneOf(systemTemplate_mock).getObjectTemplates();
+				will(returnValue(objectTemplates));
+			}
+		});
+
+		DefaultMutableTreeNode result = testable.createSystemTemplateNode(systemTemplate_mock);
+		assertEquals(systemTemplate_mock, result.getUserObject());
 		assertEquals(2, result.getChildCount());
 	}
 
@@ -240,5 +269,59 @@ public class EditorDataModelTest {
 
 		DefaultMutableTreeNode result = testable.createSystemTransformationNode(systemTransformation_mock);
 		assertEquals(systemTransformation_mock, result.getUserObject());
+	}
+
+	@Test
+	public void createActionNode() {
+		final Action action_mock = context.mock(Action.class);
+		final List<ActionFunction> parameterUpdaters = new ArrayList<ActionFunction>();
+		final List<ActionFunction> preConditionCheckers = new ArrayList<ActionFunction>();
+		final ActionFunction actionFunction_1_mock = context.mock(ActionFunction.class, "actionFunction-1");
+		final ActionFunction actionFunction_2_mock = context.mock(ActionFunction.class, "actionFunction-2");
+		parameterUpdaters.add(actionFunction_1_mock);
+		preConditionCheckers.add(actionFunction_2_mock);
+
+		context.checking(new Expectations() {
+			{
+				oneOf(action_mock).getParameterUpdaters();
+				will(returnValue(parameterUpdaters));
+
+				oneOf(action_mock).getPreConditionCheckers();
+				will(returnValue(preConditionCheckers));
+			}
+		});
+
+		DefaultMutableTreeNode result = testable.createActionNode(action_mock);
+		assertEquals(action_mock, result.getUserObject());
+		assertEquals(2, result.getChildCount());
+	}
+
+	@Test
+	public void createActionFunctionNode() {
+		final ActionFunction actionFunction_mock = context.mock(ActionFunction.class);
+
+		DefaultMutableTreeNode result = testable.createActionFunctionNode(actionFunction_mock);
+		assertEquals(actionFunction_mock, result.getUserObject());
+	}
+
+	@Test
+	public void createTransformationsNode() {
+		final Transformations transformations = new Transformations();
+		final Transformation transformation_1_mock = context.mock(Transformation.class, "transformation-1");
+		final Transformation transformation_2_mock = context.mock(Transformation.class, "transformation-2");
+		transformations.add(transformation_1_mock);
+		transformations.add(transformation_2_mock);
+
+		DefaultMutableTreeNode result = testable.createTransformationsNode(transformations);
+		assertEquals(transformations, result.getUserObject());
+		assertEquals(2, result.getChildCount());
+	}
+
+	@Test
+	public void createTransformationNode() {
+		final Transformation transformation_mock = context.mock(Transformation.class);
+
+		DefaultMutableTreeNode result = testable.createTransformationNode(transformation_mock);
+		assertEquals(transformation_mock, result.getUserObject());
 	}
 }

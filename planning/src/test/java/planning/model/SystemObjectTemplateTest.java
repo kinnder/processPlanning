@@ -42,6 +42,12 @@ public class SystemObjectTemplateTest {
 	}
 
 	@Test
+	public void setId() {
+		testable.setId("new-id");
+		assertEquals("new-id", testable.getId());
+	}
+
+	@Test
 	public void matchesAttributes() {
 		final AttributeTemplate attributeTemplate_1_mock = context.mock(AttributeTemplate.class, "attributeTemplate-1");
 		final AttributeTemplate attributeTemplate_2_mock = context.mock(AttributeTemplate.class, "attributeTemplate-2");
@@ -162,5 +168,37 @@ public class SystemObjectTemplateTest {
 
 		Collection<AttributeTemplate> attributes = testable.getAttributeTemplates();
 		assertEquals(2, attributes.size());
+	}
+
+	@Test
+	public void removeAttributeTemplate() {
+		final AttributeTemplate attributeTemplate_1_mock = context.mock(AttributeTemplate.class, "attributeTemplate-1");
+		final AttributeTemplate attributeTemplate_2_mock = context.mock(AttributeTemplate.class, "attributeTemplate-2");
+		context.checking(new Expectations() {
+			{
+				oneOf(attributeTemplate_1_mock).getName();
+				will(returnValue("attribute-1-template"));
+
+				oneOf(attributeTemplate_2_mock).getName();
+				will(returnValue("attribute-2-template"));
+			}
+		});
+		testable.addAttributeTemplate(attributeTemplate_1_mock);
+		testable.addAttributeTemplate(attributeTemplate_2_mock);
+
+		context.checking(new Expectations() {
+			{
+				oneOf(attributeTemplate_1_mock).getName();
+				will(returnValue("attribute-1-template"));
+			}
+		});
+		testable.removeAttributeTemplate(attributeTemplate_1_mock);
+		Collection<AttributeTemplate> attributes = testable.getAttributeTemplates();
+		assertEquals(1, attributes.size());
+	}
+
+	@Test
+	public void toString_test() {
+		assertEquals("Object Template", testable.toString());
 	}
 }

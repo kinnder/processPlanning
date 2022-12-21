@@ -58,7 +58,24 @@ public class AttributeTransformationTest {
 	}
 
 	@Test
+	public void setAttributeName() {
+		testable.setAttributeName("new-attribute-name");
+		assertEquals("new-attribute-name", testable.getAttributeName());
+	}
+
+	@Test
 	public void getAttributeValue() {
 		assertEquals("attribute-value", testable.getAttributeValue());
+	}
+
+	@Test
+	public void setAttributeValue() {
+		testable.setAttributeValue("new-attribute-value");
+		assertEquals("new-attribute-value", testable.getAttributeValue());
+	}
+
+	@Test
+	public void toString_test() {
+		assertEquals("attribute-transformation", testable.toString());
 	}
 }

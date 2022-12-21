@@ -91,4 +91,23 @@ public class ActionFunctionTest {
 		testable = new ActionFunction(globals, lines);
 		assertEquals("local a = ...\nreturn a + 2\n", testable.getScript());
 	}
+
+	@Test
+	public void toString_test() {
+		testable = new ActionFunction(globals, "lua-code");
+		assertEquals("action-function", testable.toString());
+	}
+
+	@Test
+	public void getType() {
+		testable = new ActionFunction(globals, "lua-code");
+		assertEquals(ActionFunction.TYPE_UNKNOWN, testable.getType());
+	}
+
+	@Test
+	public void setType() {
+		testable = new ActionFunction(globals, "lua-code");
+		testable.setType(ActionFunction.TYPE_PARAMETER_UPDATER);
+		assertEquals(ActionFunction.TYPE_PARAMETER_UPDATER, testable.getType());
+	}
 }

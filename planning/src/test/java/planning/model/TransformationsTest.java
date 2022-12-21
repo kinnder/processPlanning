@@ -1,5 +1,7 @@
 package planning.model;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import org.jmock.imposters.ByteBuddyClassImposteriser;
 import org.jmock.junit5.JUnit5Mockery;
 import org.junit.jupiter.api.AfterEach;
@@ -29,6 +31,7 @@ public class TransformationsTest {
 	}
 
 	@Test
-	public void newInstance() {
+	public void toString_test() {
+		assertEquals("Transformations", testable.toString());
 	}
 }

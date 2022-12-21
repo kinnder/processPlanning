@@ -71,6 +71,12 @@ public class LinkTransformationTest {
 	}
 
 	@Test
+	public void setLinkName() {
+		testable.setLinkName("new-link-name");
+		assertEquals("new-link-name", testable.getLinkName());
+	}
+
+	@Test
 	public void getId1() {
 		assertEquals("id-template", testable.getId1());
 	}
@@ -81,7 +87,24 @@ public class LinkTransformationTest {
 	}
 
 	@Test
+	public void setId2New() {
+		testable.setId2New("new-link-new-value");
+		assertEquals("new-link-new-value", testable.getId2New());
+	}
+
+	@Test
 	public void getId2Old() {
 		assertEquals("link-old-value", testable.getId2Old());
+	}
+
+	@Test
+	public void setId2Old() {
+		testable.setId2Old("new-link-old-value");
+		assertEquals("new-link-old-value", testable.getId2Old());
+	}
+
+	@Test
+	public void toString_test() {
+		assertEquals("link-transformation", testable.toString());
 	}
 }

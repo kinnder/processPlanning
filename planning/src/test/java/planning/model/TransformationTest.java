@@ -41,4 +41,15 @@ public class TransformationTest {
 	public void getId() {
 		assertEquals("id", testable.getId());
 	}
+
+	@Test
+	public void setId() {
+		testable.setId("new-id");
+		assertEquals("new-id", testable.getId());
+	}
+
+	@Test
+	public void toString_test() {
+		assertEquals("transformation", testable.toString());
+	}
 }

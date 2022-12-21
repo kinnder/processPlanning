@@ -3,16 +3,15 @@ package planning.model;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
+import java.util.List;
 
+import org.jmock.Expectations;
 import org.jmock.imposters.ByteBuddyClassImposteriser;
 import org.jmock.junit5.JUnit5Mockery;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
-import org.luaj.vm2.Globals;
-import org.luaj.vm2.lib.jse.JsePlatform;
 
 public class ActionTest {
 
@@ -41,78 +40,188 @@ public class ActionTest {
 	}
 
 	@Test
+	public void setName() {
+		testable.setName("new-action");
+		assertEquals("new-action", testable.getName());
+	}
+
+	@Test
 	public void updateParameters() {
 		final SystemVariant systemVariant_mock = context.mock(SystemVariant.class);
-		final Globals globals = JsePlatform.standardGlobals();
-		final String script = "";
+		final ActionFunction actionFunction_1_mock = context.mock(ActionFunction.class, "actionFunction-1");
+		final ActionFunction actionFunction_2_mock = context.mock(ActionFunction.class, "actionFunction-2");
+		context.checking(new Expectations() {
+			{
+				allowing(actionFunction_1_mock).getType();
+				will(returnValue(ActionFunction.TYPE_PARAMETER_UPDATER));
 
-		testable.registerParameterUpdater(new ActionFunction(globals, script) {
-			@Override
-			public void accept(SystemVariant systemVariant) {
-				assertEquals(systemVariant_mock, systemVariant);
-			}
-
-			@Override
-			public boolean test(SystemVariant t) {
-				fail();
-				return false;
+				allowing(actionFunction_2_mock).getType();
+				will(returnValue(ActionFunction.TYPE_PRECONDITION_CHECKER));
 			}
 		});
 
+		context.checking(new Expectations() {
+			{
+				oneOf(actionFunction_1_mock).setType(ActionFunction.TYPE_PARAMETER_UPDATER);
+
+				oneOf(actionFunction_2_mock).setType(ActionFunction.TYPE_PRECONDITION_CHECKER);
+			}
+		});
+		testable.registerParameterUpdater(actionFunction_1_mock);
+		testable.registerPreConditionChecker(actionFunction_2_mock);
+
+		context.checking(new Expectations() {
+			{
+				oneOf(actionFunction_1_mock).accept(systemVariant_mock);
+			}
+		});
 		testable.updateParameters(systemVariant_mock);
 	}
 
 	@Test
 	public void haveAllPreConditionsPassed_true() {
 		final SystemVariant systemVariant_mock = context.mock(SystemVariant.class);
-		final Globals globals = JsePlatform.standardGlobals();
-		final String script = "";
+		final ActionFunction actionFunction_1_mock = context.mock(ActionFunction.class, "actionFunction-1");
+		final ActionFunction actionFunction_2_mock = context.mock(ActionFunction.class, "actionFunction-2");
+		context.checking(new Expectations() {
+			{
+				allowing(actionFunction_1_mock).getType();
+				will(returnValue(ActionFunction.TYPE_PARAMETER_UPDATER));
 
-		testable.registerPreConditionChecker(new ActionFunction(globals, script) {
-			@Override
-			public void accept(SystemVariant t) {
-				fail();
-			}
-
-			@Override
-			public boolean test(SystemVariant systemVariant) {
-				assertEquals(systemVariant_mock, systemVariant);
-				return true;
+				allowing(actionFunction_2_mock).getType();
+				will(returnValue(ActionFunction.TYPE_PRECONDITION_CHECKER));
 			}
 		});
 
+		context.checking(new Expectations() {
+			{
+				oneOf(actionFunction_1_mock).setType(ActionFunction.TYPE_PARAMETER_UPDATER);
+
+				oneOf(actionFunction_2_mock).setType(ActionFunction.TYPE_PRECONDITION_CHECKER);
+			}
+		});
+		testable.registerParameterUpdater(actionFunction_1_mock);
+		testable.registerPreConditionChecker(actionFunction_2_mock);
+
+		context.checking(new Expectations() {
+			{
+				oneOf(actionFunction_2_mock).test(systemVariant_mock);
+				will(returnValue(true));
+			}
+		});
 		assertTrue(testable.haveAllPreConditionsPassed(systemVariant_mock));
 	}
 
 	@Test
 	public void haveAllPreConditionsPassed_false() {
 		final SystemVariant systemVariant_mock = context.mock(SystemVariant.class);
-		final Globals globals = JsePlatform.standardGlobals();
-		final String script = "";
+		final ActionFunction actionFunction_1_mock = context.mock(ActionFunction.class, "actionFunction-1");
+		final ActionFunction actionFunction_2_mock = context.mock(ActionFunction.class, "actionFunction-2");
+		context.checking(new Expectations() {
+			{
+				allowing(actionFunction_1_mock).getType();
+				will(returnValue(ActionFunction.TYPE_PARAMETER_UPDATER));
 
-		testable.registerPreConditionChecker(new ActionFunction(globals, script) {
-			@Override
-			public void accept(SystemVariant t) {
-				fail();
-			}
-
-			@Override
-			public boolean test(SystemVariant systemVariant) {
-				assertEquals(systemVariant_mock, systemVariant);
-				return false;
+				allowing(actionFunction_2_mock).getType();
+				will(returnValue(ActionFunction.TYPE_PRECONDITION_CHECKER));
 			}
 		});
 
+		context.checking(new Expectations() {
+			{
+				oneOf(actionFunction_1_mock).setType(ActionFunction.TYPE_PARAMETER_UPDATER);
+
+				oneOf(actionFunction_2_mock).setType(ActionFunction.TYPE_PRECONDITION_CHECKER);
+			}
+		});
+		testable.registerParameterUpdater(actionFunction_1_mock);
+		testable.registerPreConditionChecker(actionFunction_2_mock);
+
+		context.checking(new Expectations() {
+			{
+				oneOf(actionFunction_2_mock).test(systemVariant_mock);
+				will(returnValue(false));
+			}
+		});
 		assertFalse(testable.haveAllPreConditionsPassed(systemVariant_mock));
 	}
 
 	@Test
 	public void getParameterUpdaters() {
-		assertEquals(0, testable.getParameterUpdaters().size());
+		final ActionFunction actionFunction_1_mock = context.mock(ActionFunction.class, "actionFunction-1");
+		final ActionFunction actionFunction_2_mock = context.mock(ActionFunction.class, "actionFunction-2");
+		context.checking(new Expectations() {
+			{
+				allowing(actionFunction_1_mock).getType();
+				will(returnValue(ActionFunction.TYPE_PARAMETER_UPDATER));
+
+				allowing(actionFunction_2_mock).getType();
+				will(returnValue(ActionFunction.TYPE_PRECONDITION_CHECKER));
+			}
+		});
+		testable.addActionFunction(actionFunction_1_mock);
+		testable.addActionFunction(actionFunction_2_mock);
+
+		List<ActionFunction> result = testable.getParameterUpdaters();
+		assertEquals(1, result.size());
+		assertTrue(result.contains(actionFunction_1_mock));
 	}
 
 	@Test
 	public void getPreConditionCheckers() {
-		assertEquals(0, testable.getPreConditionCheckers().size());
+		final ActionFunction actionFunction_1_mock = context.mock(ActionFunction.class, "actionFunction-1");
+		final ActionFunction actionFunction_2_mock = context.mock(ActionFunction.class, "actionFunction-2");
+		context.checking(new Expectations() {
+			{
+				allowing(actionFunction_1_mock).getType();
+				will(returnValue(ActionFunction.TYPE_PARAMETER_UPDATER));
+
+				allowing(actionFunction_2_mock).getType();
+				will(returnValue(ActionFunction.TYPE_PRECONDITION_CHECKER));
+			}
+		});
+		testable.addActionFunction(actionFunction_1_mock);
+		testable.addActionFunction(actionFunction_2_mock);
+
+		List<ActionFunction> result = testable.getPreConditionCheckers();
+		assertEquals(1, result.size());
+		assertTrue(result.contains(actionFunction_2_mock));
+	}
+
+	@Test
+	public void toString_test() {
+		assertEquals("Action action", testable.toString());
+	}
+
+	@Test
+	public void addActionFunction() {
+		final ActionFunction actionFunction_1_mock = context.mock(ActionFunction.class, "actionFunction-1");
+		final ActionFunction actionFunction_2_mock = context.mock(ActionFunction.class, "actionFunction-2");
+		testable.addActionFunction(actionFunction_1_mock);
+		testable.addActionFunction(actionFunction_2_mock);
+		assertEquals(2, testable.getActionFunctions().size());
+	}
+
+	@Test
+	public void getActionFunctions() {
+		final ActionFunction actionFunction_1_mock = context.mock(ActionFunction.class, "actionFunction-1");
+		final ActionFunction actionFunction_2_mock = context.mock(ActionFunction.class, "actionFunction-2");
+		testable.addActionFunction(actionFunction_1_mock);
+		testable.addActionFunction(actionFunction_2_mock);
+		List<ActionFunction> result = testable.getActionFunctions();
+		assertEquals(2, result.size());
+		assertTrue(result.contains(actionFunction_1_mock));
+		assertTrue(result.contains(actionFunction_2_mock));
+	}
+
+	@Test
+	public void removeActionFunction() {
+		final ActionFunction actionFunction_1_mock = context.mock(ActionFunction.class, "actionFunction-1");
+		final ActionFunction actionFunction_2_mock = context.mock(ActionFunction.class, "actionFunction-2");
+		testable.addActionFunction(actionFunction_1_mock);
+		testable.addActionFunction(actionFunction_2_mock);
+
+		testable.removeActionFunction(actionFunction_2_mock);
+		assertEquals(1, testable.getActionFunctions().size());
 	}
 }

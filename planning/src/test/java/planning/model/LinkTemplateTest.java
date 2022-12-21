@@ -128,13 +128,31 @@ public class LinkTemplateTest {
 	}
 
 	@Test
+	public void setName() {
+		testable.setName("new-link");
+		assertEquals("new-link", testable.getName());
+	}
+
+	@Test
 	public void getId1() {
 		assertEquals("id-template-1", testable.getId1());
 	}
 
 	@Test
+	public void setId1() {
+		testable.setId1("new-id-template-1");
+		assertEquals("new-id-template-1", testable.getId1());
+	}
+
+	@Test
 	public void getId2() {
 		assertEquals("id-template-2", testable.getId2());
+	}
+
+	@Test
+	public void setId2() {
+		testable.setId2("new-id-template-2");
+		assertEquals("new-id-template-2", testable.getId2());
 	}
 
 	@Test

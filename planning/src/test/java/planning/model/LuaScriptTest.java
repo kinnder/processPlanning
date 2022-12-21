@@ -61,6 +61,14 @@ public class LuaScriptTest {
 	}
 
 	@Test
+	public void setScript() {
+		testable = new LuaScript(globals, "");
+
+		testable.setScript("new script");
+		assertEquals("new script", testable.getScript());
+	}
+
+	@Test
 	public void newInstance() {
 		final LuaScriptLine line_1 = new LuaScriptLine(1, "local a = ...");
 		final LuaScriptLine line_2 = new LuaScriptLine(2, "return a + 2");

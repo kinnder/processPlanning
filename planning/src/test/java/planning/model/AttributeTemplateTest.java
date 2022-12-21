@@ -66,9 +66,25 @@ public class AttributeTemplateTest {
 	}
 
 	@Test
+	public void setName() {
+		testable.setName("new-attribute");
+		assertEquals("new-attribute", testable.getName());
+	}
+
+	@Test
 	public void getValue() {
 		Object value = new Object();
 		testable = new AttributeTemplate("attribute", value);
 		assertEquals(value, testable.getValue());
+	}
+
+	@Test
+	public void setValue() {
+		Object value_1 = new Object();
+		testable = new AttributeTemplate("attribute", value_1);
+
+		Object value_2 = new Object();
+		testable.setValue(value_2);
+		assertEquals(value_2, testable.getValue());
 	}
 }

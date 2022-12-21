@@ -138,5 +138,6 @@ public class TransformationsDataModel extends DefaultTableModel {
 
 	public void clear() {
 		transformationsList.clear();
+		transformationsNode = null;
 	}
 }

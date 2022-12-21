@@ -359,6 +359,15 @@ public class SystemTemplateTest {
 	}
 
 	@Test
+	public void removeObjectTemplate() {
+		final SystemObjectTemplate objectTemplate_mock = context.mock(SystemObjectTemplate.class);
+		testable.addObjectTemplate(objectTemplate_mock);
+
+		testable.removeObjectTemplate(objectTemplate_mock);
+		assertEquals(0, testable.getObjectTemplates().size());
+	}
+
+	@Test
 	public void getLinkTemplates() {
 		assertTrue(testable.getLinkTemplates() instanceof Collection);
 	}
@@ -441,6 +450,15 @@ public class SystemTemplateTest {
 	}
 
 	@Test
+	public void removeLinkTemplate() {
+		final LinkTemplate linkTemplate = new LinkTemplate("link-name", "object-1-id", null);
+		testable.addLinkTemplate(linkTemplate);
+
+		testable.removeLinkTemplate(linkTemplate);
+		assertEquals(0, testable.getLinkTemplates().size());
+	}
+
+	@Test
 	public void getIds() {
 		final SystemObjectTemplate objectTemplate_mock = context.mock(SystemObjectTemplate.class);
 		testable.addObjectTemplate(objectTemplate_mock);
@@ -471,5 +489,10 @@ public class SystemTemplateTest {
 		assertTrue(systemTemplateIds.contains("id-1"));
 		assertTrue(systemTemplateIds.contains("id-2"));
 		assertTrue(systemTemplateIds.contains("id-3"));
+	}
+
+	@Test
+	public void toString_test() {
+		assertEquals("System Template", testable.toString());
 	}
 }
