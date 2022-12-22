@@ -104,4 +104,10 @@ public class EdgeTest {
 	public void getEndNodeId() {
 		assertEquals(endNodeId, testable.getEndNodeId());
 	}
+
+	@Test
+	public void toString_test() {
+		testable = new Edge("id123", beginNodeId, endNodeId, systemOperation_mock);
+		assertEquals("edge-id123", testable.toString());
+	}
 }

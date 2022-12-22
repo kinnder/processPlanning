@@ -15,6 +15,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
+import planning.method.Edge;
+import planning.method.Node;
 import planning.method.NodeNetwork;
 import planning.method.SystemTransformations;
 import planning.method.TaskDescription;
@@ -166,8 +168,65 @@ public class EditorDataModelTest {
 	@Test
 	public void loadNodeNetwork() {
 		final NodeNetwork nodeNetwork_mock = context.mock(NodeNetwork.class);
+		List<Node> nodes = new ArrayList<Node>();
+		final Node node_mock = context.mock(Node.class);
+		nodes.add(node_mock);
+		List<Edge> edges = new ArrayList<Edge>();
+		final Edge edge_mock = context.mock(Edge.class);
+		edges.add(edge_mock);
+		final System system_mock = context.mock(System.class);
+		List<SystemObject> systemObjects = new ArrayList<SystemObject>();
+		final SystemObject systemObject_mock = context.mock(SystemObject.class);
+		systemObjects.add(systemObject_mock);
+
+		context.checking(new Expectations() {
+			{
+				oneOf(nodeNetwork_mock).getNodes();
+				will(returnValue(nodes));
+
+				oneOf(node_mock).getSystem();
+				will(returnValue(system_mock));
+
+				oneOf(system_mock).getObjects();
+				will(returnValue(systemObjects));
+
+				oneOf(nodeNetwork_mock).getEdges();
+				will(returnValue(edges));
+			}
+		});
 
 		testable.loadNodeNetwork(nodeNetwork_mock);
+	}
+
+	@Test
+	public void createEdgeNode() {
+		final Edge edge_mock = context.mock(Edge.class);
+
+		DefaultMutableTreeNode result = testable.createEdgeNode(edge_mock);
+		assertEquals(edge_mock, result.getUserObject());
+	}
+
+	@Test
+	public void createNodeNode() {
+		final Node node_mock = context.mock(Node.class);
+		final System system_mock = context.mock(System.class);
+		List<SystemObject> systemObjects = new ArrayList<SystemObject>();
+		final SystemObject systemObject_mock = context.mock(SystemObject.class);
+		systemObjects.add(systemObject_mock);
+
+		context.checking(new Expectations() {
+			{
+				oneOf(node_mock).getSystem();
+				will(returnValue(system_mock));
+
+				oneOf(system_mock).getObjects();
+				will(returnValue(systemObjects));
+			}
+		});
+
+		DefaultMutableTreeNode result = testable.createNodeNode(node_mock);
+		assertEquals(node_mock, result.getUserObject());
+		assertEquals(1, result.getChildCount());
 	}
 
 	@Test

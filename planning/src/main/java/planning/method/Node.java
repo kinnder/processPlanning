@@ -69,4 +69,9 @@ public class Node {
 	public void setSystem(System system) {
 		this.system = system;
 	}
+
+	@Override
+	public String toString() {
+		return "node-" + id;
+	}
 }

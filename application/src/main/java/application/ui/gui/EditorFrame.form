@@ -2165,21 +2165,8 @@
                       <SubComponents>
                         <Component class="javax.swing.JTable" name="jtEdges">
                           <Properties>
-                            <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                              <Table columnCount="2" rowCount="4">
-                                <Column editable="true" title="id" type="java.lang.String">
-                                  <Data value="unique-edge-id"/>
-                                  <Data value="null"/>
-                                  <Data value="null"/>
-                                  <Data value="null"/>
-                                </Column>
-                                <Column editable="true" title="endNodeId" type="java.lang.String">
-                                  <Data value="another-unique-node-id"/>
-                                  <Data value="null"/>
-                                  <Data value="null"/>
-                                  <Data value="null"/>
-                                </Column>
-                              </Table>
+                            <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                              <Connection code="edgesDataModel" type="code"/>
                             </Property>
                           </Properties>
                         </Component>
@@ -2195,8 +2182,6 @@
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Component id="jbEdgesInsert" alignment="0" min="-2" max="-2" attributes="0"/>
                                       <Component id="jbEdgesDelete" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jbEdgesUp" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jbEdgesDown" alignment="0" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="32767" attributes="0"/>
                               </Group>
@@ -2209,10 +2194,6 @@
                                   <Component id="jbEdgesInsert" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="jbEdgesDelete" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="jbEdgesUp" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="jbEdgesDown" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="32767" attributes="0"/>
                               </Group>
                           </Group>
@@ -2222,21 +2203,13 @@
                         <Component class="javax.swing.JButton" name="jbEdgesInsert">
                           <Properties>
                             <Property name="text" type="java.lang.String" value="Insert"/>
+                            <Property name="enabled" type="boolean" value="false"/>
                           </Properties>
                         </Component>
                         <Component class="javax.swing.JButton" name="jbEdgesDelete">
                           <Properties>
                             <Property name="text" type="java.lang.String" value="Delete"/>
-                          </Properties>
-                        </Component>
-                        <Component class="javax.swing.JButton" name="jbEdgesUp">
-                          <Properties>
-                            <Property name="text" type="java.lang.String" value="Up"/>
-                          </Properties>
-                        </Component>
-                        <Component class="javax.swing.JButton" name="jbEdgesDown">
-                          <Properties>
-                            <Property name="text" type="java.lang.String" value="Down"/>
+                            <Property name="enabled" type="boolean" value="false"/>
                           </Properties>
                         </Component>
                       </SubComponents>
@@ -2474,11 +2447,7 @@
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" attributes="0">
                                       <EmptySpace max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="jbParametersDelete" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          <Component id="jbParametersUp" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          <Component id="jbParametersDown" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      </Group>
+                                      <Component id="jbParametersDelete" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace max="32767" attributes="0"/>
                                   </Group>
                                   <Group type="102" alignment="1" attributes="0">
@@ -2495,10 +2464,6 @@
                                       <Component id="jbParametersInsert" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="jbParametersDelete" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="jbParametersUp" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="jbParametersDown" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace max="32767" attributes="0"/>
                                   </Group>
                               </Group>
@@ -2508,21 +2473,13 @@
                             <Component class="javax.swing.JButton" name="jbParametersInsert">
                               <Properties>
                                 <Property name="text" type="java.lang.String" value="Insert"/>
+                                <Property name="enabled" type="boolean" value="false"/>
                               </Properties>
                             </Component>
                             <Component class="javax.swing.JButton" name="jbParametersDelete">
                               <Properties>
                                 <Property name="text" type="java.lang.String" value="Delete"/>
-                              </Properties>
-                            </Component>
-                            <Component class="javax.swing.JButton" name="jbParametersUp">
-                              <Properties>
-                                <Property name="text" type="java.lang.String" value="Up"/>
-                              </Properties>
-                            </Component>
-                            <Component class="javax.swing.JButton" name="jbParametersDown">
-                              <Properties>
-                                <Property name="text" type="java.lang.String" value="Down"/>
+                                <Property name="enabled" type="boolean" value="false"/>
                               </Properties>
                             </Component>
                           </SubComponents>
@@ -2536,15 +2493,8 @@
                           <SubComponents>
                             <Component class="javax.swing.JTable" name="jtParameters">
                               <Properties>
-                                <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                                  <Table columnCount="2" rowCount="1">
-                                    <Column editable="true" title="name" type="java.lang.String">
-                                      <Data value="parameter-diameter"/>
-                                    </Column>
-                                    <Column editable="true" title="value" type="java.lang.String">
-                                      <Data value="2"/>
-                                    </Column>
-                                  </Table>
+                                <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                                  <Connection code="parametersDataModel" type="code"/>
                                 </Property>
                               </Properties>
                             </Component>

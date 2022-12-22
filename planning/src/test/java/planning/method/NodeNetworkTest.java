@@ -179,4 +179,9 @@ public class NodeNetworkTest {
 
 		testable.addEdge(edge);
 	}
+
+	@Test
+	public void toString_test() {
+		assertEquals("NodeNetwork", testable.toString());
+	}
 }

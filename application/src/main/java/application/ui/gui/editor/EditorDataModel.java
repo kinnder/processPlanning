@@ -5,6 +5,8 @@ import java.util.Collection;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 
+import planning.method.Edge;
+import planning.method.Node;
 import planning.method.NodeNetwork;
 import planning.method.SystemTransformations;
 import planning.method.TaskDescription;
@@ -160,8 +162,6 @@ public class EditorDataModel extends DefaultTreeModel {
 	}
 
 	public void loadSystemTransformations(SystemTransformations systemTransformations) {
-		DefaultMutableTreeNode systemTransformationNode;
-
 		// TODO (2022-11-18 #73): удалить
 		// systemTransformations = AssemblyLine.getSystemTransformations();
 
@@ -169,7 +169,7 @@ public class EditorDataModel extends DefaultTreeModel {
 		systemTransformationsNode.setUserObject(systemTransformations);
 
 		for (SystemTransformation systemTransformation : systemTransformations) {
-			systemTransformationNode = createSystemTransformationNode(systemTransformation);
+			DefaultMutableTreeNode systemTransformationNode = createSystemTransformationNode(systemTransformation);
 			systemTransformationsNode.add(systemTransformationNode);
 		}
 
@@ -181,28 +181,44 @@ public class EditorDataModel extends DefaultTreeModel {
 	}
 
 	public void loadNodeNetwork(NodeNetwork nodeNetwork) {
-		DefaultMutableTreeNode nodesNode;
-		DefaultMutableTreeNode nodeNode;
-		DefaultMutableTreeNode systemNode;
-		DefaultMutableTreeNode objectNode;
-		DefaultMutableTreeNode edgesNode;
-		DefaultMutableTreeNode edgeNode;
-		nodeNetworkNode.removeAllChildren();
+		// TODO (2022-12-22 #74): удалить
+//		Planner planner = new Planner(AssemblyLine.getTaskDescription(), AssemblyLine.getSystemTransformations(), nodeNetwork);
+//		try {
+//			planner.plan();
+//		} catch (CloneNotSupportedException e) {
+//			e.printStackTrace();
+//		}
 
-		nodesNode = new DefaultMutableTreeNode("Nodes");
+		nodeNetworkNode.removeAllChildren();
+		nodeNetworkNode.setUserObject(nodeNetwork);
+
+		DefaultMutableTreeNode nodesNode = new DefaultMutableTreeNode("Nodes");
 		nodeNetworkNode.add(nodesNode);
-		nodeNode = new DefaultMutableTreeNode("node-id-0000");
-		nodesNode.add(nodeNode);
-		systemNode = new DefaultMutableTreeNode("system-id");
-		nodeNode.add(systemNode);
-		objectNode = new DefaultMutableTreeNode("object-id");
-		systemNode.add(objectNode);
-		edgesNode = new DefaultMutableTreeNode("Edges");
+		for (Node node : nodeNetwork.getNodes()) {
+			DefaultMutableTreeNode nodeNode = createNodeNode(node);
+			nodesNode.add(nodeNode);
+		}
+
+		DefaultMutableTreeNode edgesNode = new DefaultMutableTreeNode("Edges");
 		nodeNetworkNode.add(edgesNode);
-		edgeNode = new DefaultMutableTreeNode("edge-id-0000");
-		edgesNode.add(edgeNode);
+		for (Edge edge : nodeNetwork.getEdges()) {
+			DefaultMutableTreeNode edgeNode = createEdgeNode(edge);
+			edgesNode.add(edgeNode);
+		}
 
 		reload();
+	}
+
+	public DefaultMutableTreeNode createEdgeNode(Edge edge) {
+		DefaultMutableTreeNode edgeNode = new DefaultMutableTreeNode(edge);
+		return edgeNode;
+	}
+
+	public DefaultMutableTreeNode createNodeNode(Node node) {
+		DefaultMutableTreeNode nodeNode = new DefaultMutableTreeNode(node);
+		DefaultMutableTreeNode systemNode = createSystemNode(node.getSystem());
+		nodeNode.add(systemNode);
+		return nodeNode;
 	}
 
 	public void loadSystemProcess(SystemProcess systemProcess) {

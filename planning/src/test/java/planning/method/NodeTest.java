@@ -107,4 +107,10 @@ public class NodeTest {
 	public void getChecked() {
 		assertFalse(testable.getChecked());
 	}
+
+	@Test
+	public void toString_test() {
+		testable = new Node("id123", system_mock);
+		assertEquals("node-id123", testable.toString());
+	}
 }

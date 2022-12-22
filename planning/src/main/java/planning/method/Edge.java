@@ -66,4 +66,9 @@ public class Edge {
 	public void setSystemOperation(SystemOperation systemOperation) {
 		this.systemOperation = systemOperation;
 	}
+
+	@Override
+	public String toString() {
+		return "edge-" + id;
+	}
 }

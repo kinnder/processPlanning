@@ -85,4 +85,9 @@ public class NodeNetwork {
 
 		network.addEdge(begin, end, edge);
 	}
+
+	@Override
+	public String toString() {
+		return "NodeNetwork";
+	}
 }

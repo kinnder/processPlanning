@@ -13,19 +13,26 @@ import application.ui.gui.editor.ActionFunctionDataModel;
 import application.ui.gui.editor.ActionFunctionsDataModel;
 import application.ui.gui.editor.AttributeTemplatesDataModel;
 import application.ui.gui.editor.AttributesDataModel;
+import application.ui.gui.editor.EdgeDataModel;
+import application.ui.gui.editor.EdgesDataModel;
 import application.ui.gui.editor.EditorDataModel;
 import application.ui.gui.editor.LinkTemplatesDataModel;
 import application.ui.gui.editor.LinksDataModel;
+import application.ui.gui.editor.NodeDataModel;
 import application.ui.gui.editor.ObjectDataModel;
 import application.ui.gui.editor.ObjectTemplateDataModel;
 import application.ui.gui.editor.ObjectTemplatesDataModel;
 import application.ui.gui.editor.ObjectsDataModel;
+import application.ui.gui.editor.OperationDataModel;
+import application.ui.gui.editor.ParametersDataModel;
 import application.ui.gui.editor.SystemDataModel;
 import application.ui.gui.editor.SystemTemplateDataModel;
 import application.ui.gui.editor.SystemTransformationDataModel;
 import application.ui.gui.editor.SystemTransformationsDataModel;
 import application.ui.gui.editor.TransformationDataModel;
 import application.ui.gui.editor.TransformationsDataModel;
+import planning.method.Edge;
+import planning.method.Node;
 import planning.method.NodeNetwork;
 import planning.method.SystemTransformations;
 import planning.method.TaskDescription;
@@ -74,6 +81,8 @@ public class EditorFrame extends javax.swing.JFrame {
 		this.attributeTemplatesDataModel = attributeTemplatesDataModel;
 		this.actionFunctionsDataModel = actionFunctionsDataModel;
 		this.transformationsDataModel = transformationsDataModel;
+		this.edgesDataModel = new EdgesDataModel(editorDataModel);
+		this.parametersDataModel = new ParametersDataModel(editorDataModel);
 
 		// TODO (2022-11-01 #72): покрытие тестами jtDataValueChanged
 		initComponents();
@@ -127,6 +136,16 @@ public class EditorFrame extends javax.swing.JFrame {
 	private TransformationsDataModel transformationsDataModel;
 
 	private TransformationDataModel transformationDataModel;
+
+	private EdgesDataModel edgesDataModel;
+
+	private ParametersDataModel parametersDataModel;
+
+	private NodeDataModel nodeDataModel = new NodeDataModel();
+
+	private EdgeDataModel edgeDataModel = new EdgeDataModel();
+
+	private OperationDataModel operationDataModel = new OperationDataModel();
 
 	private void setActions() {
 		jmiTaskDescriptionLoad.setAction(taskDescriptionLoadAction);
@@ -567,8 +586,6 @@ public class EditorFrame extends javax.swing.JFrame {
 		jpEdgesButtons = new javax.swing.JPanel();
 		jbEdgesInsert = new javax.swing.JButton();
 		jbEdgesDelete = new javax.swing.JButton();
-		jbEdgesUp = new javax.swing.JButton();
-		jbEdgesDown = new javax.swing.JButton();
 		jpEdgeEditor = new javax.swing.JPanel();
 		jpEdge = new javax.swing.JPanel();
 		jlEdgeId = new javax.swing.JLabel();
@@ -587,8 +604,6 @@ public class EditorFrame extends javax.swing.JFrame {
 		jpParametersButtons = new javax.swing.JPanel();
 		jbParametersInsert = new javax.swing.JButton();
 		jbParametersDelete = new javax.swing.JButton();
-		jbParametersUp = new javax.swing.JButton();
-		jbParametersDown = new javax.swing.JButton();
 		jspParameters = new javax.swing.JScrollPane();
 		jtParameters = new javax.swing.JTable();
 		jmbMenu = new javax.swing.JMenuBar();
@@ -1656,26 +1671,14 @@ public class EditorFrame extends javax.swing.JFrame {
 
 		jlEdges.setText("Edges");
 
-		jtEdges.setModel(
-				new javax.swing.table.DefaultTableModel(new Object[][] { { "unique-edge-id", "another-unique-node-id" },
-						{ null, null }, { null, null }, { null, null } }, new String[] { "id", "endNodeId" }) {
-					private static final long serialVersionUID = -3749871510977907300L;
-					Class<?>[] types = new Class[] { java.lang.String.class, java.lang.String.class };
-
-					@Override
-					public Class<?> getColumnClass(int columnIndex) {
-						return types[columnIndex];
-					}
-				});
+		jtEdges.setModel(edgesDataModel);
 		jspEdges.setViewportView(jtEdges);
 
 		jbEdgesInsert.setText("Insert");
+		jbEdgesInsert.setEnabled(false);
 
 		jbEdgesDelete.setText("Delete");
-
-		jbEdgesUp.setText("Up");
-
-		jbEdgesDown.setText("Down");
+		jbEdgesDelete.setEnabled(false);
 
 		javax.swing.GroupLayout jpEdgesButtonsLayout = new javax.swing.GroupLayout(jpEdgesButtons);
 		jpEdgesButtons.setLayout(jpEdgesButtonsLayout);
@@ -1683,15 +1686,12 @@ public class EditorFrame extends javax.swing.JFrame {
 				.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
 				.addGroup(jpEdgesButtonsLayout.createSequentialGroup().addContainerGap()
 						.addGroup(jpEdgesButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-								.addComponent(jbEdgesInsert).addComponent(jbEdgesDelete).addComponent(jbEdgesUp)
-								.addComponent(jbEdgesDown))
+								.addComponent(jbEdgesInsert).addComponent(jbEdgesDelete))
 						.addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
 		jpEdgesButtonsLayout.setVerticalGroup(jpEdgesButtonsLayout
 				.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
 				.addGroup(jpEdgesButtonsLayout.createSequentialGroup().addContainerGap().addComponent(jbEdgesInsert)
 						.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED).addComponent(jbEdgesDelete)
-						.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED).addComponent(jbEdgesUp)
-						.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED).addComponent(jbEdgesDown)
 						.addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
 
 		javax.swing.GroupLayout jpEdgesEditorLayout = new javax.swing.GroupLayout(jpEdgesEditor);
@@ -1803,22 +1803,17 @@ public class EditorFrame extends javax.swing.JFrame {
 		jlParameters.setText("Parameters");
 
 		jbParametersInsert.setText("Insert");
+		jbParametersInsert.setEnabled(false);
 
 		jbParametersDelete.setText("Delete");
-
-		jbParametersUp.setText("Up");
-
-		jbParametersDown.setText("Down");
+		jbParametersDelete.setEnabled(false);
 
 		javax.swing.GroupLayout jpParametersButtonsLayout = new javax.swing.GroupLayout(jpParametersButtons);
 		jpParametersButtons.setLayout(jpParametersButtonsLayout);
 		jpParametersButtonsLayout.setHorizontalGroup(
 				jpParametersButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
 						.addGroup(jpParametersButtonsLayout.createSequentialGroup().addContainerGap()
-								.addGroup(jpParametersButtonsLayout
-										.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-										.addComponent(jbParametersDelete).addComponent(jbParametersUp)
-										.addComponent(jbParametersDown))
+								.addComponent(jbParametersDelete)
 								.addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 						.addGroup(javax.swing.GroupLayout.Alignment.TRAILING,
 								jpParametersButtonsLayout.createSequentialGroup()
@@ -1830,22 +1825,9 @@ public class EditorFrame extends javax.swing.JFrame {
 								.addComponent(jbParametersInsert)
 								.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
 								.addComponent(jbParametersDelete)
-								.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-								.addComponent(jbParametersUp)
-								.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-								.addComponent(jbParametersDown)
 								.addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
 
-		jtParameters.setModel(new javax.swing.table.DefaultTableModel(new Object[][] { { "parameter-diameter", "2" } },
-				new String[] { "name", "value" }) {
-			private static final long serialVersionUID = 7209739704642509730L;
-			Class<?>[] types = new Class[] { java.lang.String.class, java.lang.String.class };
-
-			@Override
-			public Class<?> getColumnClass(int columnIndex) {
-				return types[columnIndex];
-			}
-		});
+		jtParameters.setModel(parametersDataModel);
 		jspParameters.setViewportView(jtParameters);
 
 		javax.swing.GroupLayout jpParametersEditorLayout = new javax.swing.GroupLayout(jpParametersEditor);
@@ -2012,6 +1994,20 @@ public class EditorFrame extends javax.swing.JFrame {
 			transformationDataModel.clear();
 			jtpEditors.setSelectedComponent(jpTransformationEditor);
 			transformationDataModel.loadTransformation((Transformation) selectedObject, selectedNode);
+		} else if (selectedObject instanceof Node) {
+			nodeDataModel.clear();
+			edgesDataModel.clear();
+			jtpEditors.setSelectedComponent(jpNodeEditor);
+			nodeDataModel.loadNode((Node) selectedObject, selectedNode);
+			edgesDataModel.loadEdges((Node) selectedObject, selectedNode);
+		} else if (selectedObject instanceof Edge) {
+			edgeDataModel.clear();
+			operationDataModel.clear();
+			parametersDataModel.clear();
+			jtpEditors.setSelectedComponent(jpEdgeEditor);
+			edgeDataModel.loadEdge((Edge) selectedObject, selectedNode);
+			operationDataModel.loadOperation((Edge) selectedObject, selectedNode);
+			parametersDataModel.loadParameters((Edge) selectedObject, selectedNode);
 		} else {
 			java.lang.System.out.println("unknown: " + selectedObject.toString());
 		}
@@ -2033,9 +2029,7 @@ public class EditorFrame extends javax.swing.JFrame {
 	private javax.swing.JButton jbAttributesDelete;
 	private javax.swing.JButton jbAttributesInsert;
 	private javax.swing.JButton jbEdgesDelete;
-	private javax.swing.JButton jbEdgesDown;
 	private javax.swing.JButton jbEdgesInsert;
-	private javax.swing.JButton jbEdgesUp;
 	private javax.swing.JButton jbLinkTemplatesDelete;
 	private javax.swing.JButton jbLinkTemplatesInsert;
 	private javax.swing.JButton jbLinksDelete;
@@ -2045,9 +2039,7 @@ public class EditorFrame extends javax.swing.JFrame {
 	private javax.swing.JButton jbObjectsDelete;
 	private javax.swing.JButton jbObjectsInsert;
 	private javax.swing.JButton jbParametersDelete;
-	private javax.swing.JButton jbParametersDown;
 	private javax.swing.JButton jbParametersInsert;
-	private javax.swing.JButton jbParametersUp;
 	private javax.swing.JButton jbSystemTransformationsDelete;
 	private javax.swing.JButton jbSystemTransformationsInsert;
 	private javax.swing.JButton jbTransformationsDelete;
