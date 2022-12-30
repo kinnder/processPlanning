@@ -3,6 +3,14 @@
 
 # process-planning
 
-## Examples of usage
+Приложение предназначено для поиска пути перехода системы из состояния А в состояние Б на основе библиотеки шаблонов.
 
-Examples are located in "examples" folder. There are three usecases: assemblyLine, cuttingProcess and materialPoints.
+## Запуск release-версии
+
+Запустить `application-x.x.x.jar` файл через командную строку, дальше руководствоваться встроенной справкой.
+
+Примеры использования находятся в папке `examples`
+
+## Сборка development-версии
+
+Выполнить команду `mvn:package`, в папке `application\target` появиться актуальная версия приложения.
