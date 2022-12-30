@@ -90,6 +90,12 @@ public class EdgeTest {
 	}
 
 	@Test
+	public void setId() {
+		testable.setId("new-id");
+		assertEquals("new-id", testable.getId());
+	}
+
+	@Test
 	public void hashCode_test() {
 		testable = new Edge("id", beginNodeId, endNodeId, systemOperation_mock);
 		assertEquals(3355, testable.hashCode());
@@ -101,8 +107,20 @@ public class EdgeTest {
 	}
 
 	@Test
+	public void setBeginNodeId() {
+		testable.setBeginNodeId("new-begin-node-id");
+		assertEquals("new-begin-node-id", testable.getBeginNodeId());
+	}
+
+	@Test
 	public void getEndNodeId() {
 		assertEquals(endNodeId, testable.getEndNodeId());
+	}
+
+	@Test
+	public void setEndNodeId() {
+		testable.setEndNodeId("new-end-node-id");
+		assertEquals("new-end-node-id", testable.getEndNodeId());
 	}
 
 	@Test

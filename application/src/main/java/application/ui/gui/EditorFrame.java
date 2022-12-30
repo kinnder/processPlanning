@@ -99,6 +99,9 @@ public class EditorFrame extends javax.swing.JFrame {
 				jrbAttributeTransformation, jtfAttributeTransformationName, jtfAttributeTransformationValue,
 				jrbLinkTransformation, jtfLinkTransformationName, jtfLinkTransformationId2old,
 				jtfLinkTransformationId2new, editorDataModel);
+		this.nodeDataModel = new NodeDataModel(jtfNodeId, jcbNodeChecked, editorDataModel);
+		this.edgeDataModel = new EdgeDataModel(jtfEdgeId, jtfBeginNodeId, jtfEndNodeId, editorDataModel);
+		this.operationDataModel = new OperationDataModel(jtfOperationName, editorDataModel);
 	}
 
 	private EditorDataModel editorDataModel;
@@ -141,11 +144,11 @@ public class EditorFrame extends javax.swing.JFrame {
 
 	private ParametersDataModel parametersDataModel;
 
-	private NodeDataModel nodeDataModel = new NodeDataModel();
+	private NodeDataModel nodeDataModel;
 
-	private EdgeDataModel edgeDataModel = new EdgeDataModel();
+	private EdgeDataModel edgeDataModel;
 
-	private OperationDataModel operationDataModel = new OperationDataModel();
+	private OperationDataModel operationDataModel;
 
 	private void setActions() {
 		jmiTaskDescriptionLoad.setAction(taskDescriptionLoadAction);

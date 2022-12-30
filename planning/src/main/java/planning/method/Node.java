@@ -74,4 +74,8 @@ public class Node {
 	public String toString() {
 		return "node-" + id;
 	}
+
+	public void setId(String nodeId) {
+		this.id = nodeId;
+	}
 }

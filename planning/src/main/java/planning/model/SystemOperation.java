@@ -30,4 +30,8 @@ public class SystemOperation {
 	public String getParameter(String parameterName) {
 		return actionParameters.get(parameterName);
 	}
+
+	public void setName(String operationName) {
+		//TODO (2022-12-25 #74): operationName является неизменяемым
+	}
 }

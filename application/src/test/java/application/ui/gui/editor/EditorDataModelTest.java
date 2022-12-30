@@ -383,4 +383,58 @@ public class EditorDataModelTest {
 		DefaultMutableTreeNode result = testable.createTransformationNode(transformation_mock);
 		assertEquals(transformation_mock, result.getUserObject());
 	}
+
+	@Test
+	public void selectEdges() {
+		final NodeNetwork nodeNetwork_mock = context.mock(NodeNetwork.class);
+		List<Node> nodes = new ArrayList<Node>();
+		final Node node_1_mock = context.mock(Node.class);
+		nodes.add(node_1_mock);
+		List<Edge> edges = new ArrayList<Edge>();
+		final Edge edge_1_mock = context.mock(Edge.class, "edge-1");
+		final Edge edge_2_mock = context.mock(Edge.class, "edge-2");
+		edges.add(edge_1_mock);
+		edges.add(edge_2_mock);
+		final System system_1_mock = context.mock(System.class);
+		List<SystemObject> systemObjects = new ArrayList<SystemObject>();
+		final SystemObject systemObject_mock = context.mock(SystemObject.class);
+		systemObjects.add(systemObject_mock);
+
+		context.checking(new Expectations() {
+			{
+				oneOf(nodeNetwork_mock).getNodes();
+				will(returnValue(nodes));
+
+				oneOf(node_1_mock).getSystem();
+				will(returnValue(system_1_mock));
+
+				oneOf(system_1_mock).getObjects();
+				will(returnValue(systemObjects));
+
+				oneOf(nodeNetwork_mock).getEdges();
+				will(returnValue(edges));
+			}
+		});
+		testable.loadNodeNetwork(nodeNetwork_mock);
+
+		context.checking(new Expectations() {
+			{
+				oneOf(node_1_mock).getId();
+				will(returnValue("node-1-id"));
+
+				oneOf(nodeNetwork_mock).getEdges();
+				will(returnValue(edges));
+
+				oneOf(edge_1_mock).getBeginNodeId();
+				will(returnValue("node-1-id"));
+
+				oneOf(edge_2_mock).getBeginNodeId();
+				will(returnValue("node-2-id"));
+			}
+		});
+
+		List<Edge> result = testable.selectEdges(node_1_mock);
+		assertEquals(1, result.size());
+		assertEquals(edge_1_mock, result.get(0));
+	}
 }

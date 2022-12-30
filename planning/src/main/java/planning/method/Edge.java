@@ -17,6 +17,10 @@ public class Edge {
 		return this.id;
 	}
 
+	public void setId(String aValue) {
+		this.id = aValue;
+	}
+
 	public Edge(String beginNodeId, String endNodeId, SystemOperation systemOperation) {
 		this(UUID.randomUUID().toString(), beginNodeId, endNodeId, systemOperation);
 	}
@@ -59,8 +63,16 @@ public class Edge {
 		return beginNodeId;
 	}
 
+	public void setBeginNodeId(String beginNodeId) {
+		this.beginNodeId = beginNodeId;
+	}
+
 	public String getEndNodeId() {
 		return endNodeId;
+	}
+
+	public void setEndNodeId(String endNodeId) {
+		this.endNodeId = endNodeId;
 	}
 
 	public void setSystemOperation(SystemOperation systemOperation) {

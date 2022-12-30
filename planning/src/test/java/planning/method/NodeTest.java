@@ -72,6 +72,12 @@ public class NodeTest {
 	}
 
 	@Test
+	public void setId() {
+		testable.setId("new-id");
+		assertEquals("new-id", testable.getId());
+	}
+
+	@Test
 	public void getSystem() {
 		assertEquals(system_mock, testable.getSystem());
 	}

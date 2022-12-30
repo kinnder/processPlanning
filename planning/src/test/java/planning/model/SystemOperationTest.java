@@ -63,6 +63,20 @@ public class SystemOperationTest {
 	}
 
 	@Test
+	public void setName() {
+		testable.setName("new-action-name");
+
+		context.checking(new Expectations() {
+			{
+				oneOf(action_mock).getName();
+				will(returnValue("action-name"));
+			}
+		});
+
+		assertEquals("action-name", testable.getName());
+	}
+
+	@Test
 	public void getParameter() {
 		context.checking(new Expectations() {
 			{

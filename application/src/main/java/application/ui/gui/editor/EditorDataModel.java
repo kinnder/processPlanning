@@ -1,6 +1,8 @@
 package application.ui.gui.editor;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
@@ -229,5 +231,18 @@ public class EditorDataModel extends DefaultTreeModel {
 		systemProcessNode.add(processNode);
 
 		reload();
+	}
+
+	public List<Edge> selectEdges(Node node) {
+		NodeNetwork nodeNetwork = (NodeNetwork) nodeNetworkNode.getUserObject();
+		List<Edge> edgesWithNode = new ArrayList<Edge>();
+
+		String nodeId = node.getId();
+		for (Edge edge : nodeNetwork.getEdges()) {
+			if (edge.getBeginNodeId().equals(nodeId)) {
+				edgesWithNode.add(edge);
+			}
+		}
+		return edgesWithNode;
 	}
 }
