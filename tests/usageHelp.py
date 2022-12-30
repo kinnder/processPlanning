@@ -1,7 +1,7 @@
 import sys
 from subprocess import check_output
 
-application: str = 'application-0.2.0.jar'
+application: str = 'application-0.3.0.jar'
 
 test_name: str = 'usageHelp'
 
