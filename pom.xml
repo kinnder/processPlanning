@@ -6,7 +6,7 @@
 
 	<groupId>process-engineering</groupId>
 	<artifactId>process-engineering</artifactId>
-	<version>0.2.0</version>
+	<version>0.3.0</version>
 	<packaging>pom</packaging>
 
 	<modules>
@@ -17,9 +17,9 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.release>13</maven.compiler.release>
-		<pmdVersion>6.47.0</pmdVersion>
+		<pmdVersion>6.52.0</pmdVersion>
 		<pmdRuleset>${project.basedir}</pmdRuleset>
-		<jupiterVersion>5.7.1</jupiterVersion>
+		<jupiterVersion>5.9.1</jupiterVersion>
 	</properties>
 
 	<dependencies>
@@ -71,7 +71,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-pmd-plugin</artifactId>
-				<version>3.17.0</version>
+				<version>3.19.0</version>
 				<configuration>
 					<linkXRef>false</linkXRef>
 					<analysisCache>true</analysisCache>
