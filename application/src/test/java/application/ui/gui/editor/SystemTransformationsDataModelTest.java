@@ -1,6 +1,7 @@
 package application.ui.gui.editor;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import javax.swing.tree.DefaultMutableTreeNode;
 
@@ -89,6 +90,10 @@ public class SystemTransformationsDataModelTest {
 		testable.insertSystemTransformation();
 		assertEquals(1, testable.getRowCount());
 		assertEquals(1, systemTransformations.size());
+		SystemTransformation newSystemTransformation = systemTransformations.get(0);
+		assertNotNull(newSystemTransformation.getAction());
+		assertNotNull(newSystemTransformation.getSystemTemplate());
+		assertNotNull(newSystemTransformation.getTransformations());
 	}
 
 	@Test
