@@ -110,6 +110,12 @@ class AttributeTest {
 	}
 
 	@Test
+	public void setName() {
+		testable.setName("new-attribute");
+		assertEquals("new-attribute", testable.getName());
+	}
+
+	@Test
 	public void setValue() {
 		testable.setValue("new value");
 	}
