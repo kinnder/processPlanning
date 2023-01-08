@@ -13,6 +13,8 @@ process_file: str = task_domain + '_p.' + file_format
 
 print(task_domain + ' ' + file_format + ' started')
 
+# TODO: (2023-01-08) #79 тест не запускается отдельно
+
 check_output(['java',
               '-jar', application,
               '-new_td',

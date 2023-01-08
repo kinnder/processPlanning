@@ -152,7 +152,7 @@
 	<xs:element name="id2" type="xs:string" />
 	<xs:element name="beginNodeId" type="xs:string" />
 	<xs:element name="endNodeId" type="xs:string" />
-	<xs:element name="name" type="xs:NCName" />
+	<xs:element name="name" type="xs:string" />
 	<xs:element name="value">
 		<xs:annotation>
 			<xs:documentation>Значение</xs:documentation>
