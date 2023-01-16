@@ -57,6 +57,7 @@ public class ObjectsDataModel extends DefaultTableModel {
 		objects.add(object);
 		this.addRow(new Object[] {});
 		DefaultMutableTreeNode objectNode = editorDataModel.createObjectNode(object);
+		// TODO (2023-01-09 #78): проверить количество вставляемых узлов
 		systemNode.add(objectNode);
 		editorDataModel.insertNodeInto(objectNode, systemNode, objects.size() - 1);
 	}
