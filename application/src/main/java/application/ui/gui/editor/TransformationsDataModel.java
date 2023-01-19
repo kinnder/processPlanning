@@ -56,7 +56,7 @@ public class TransformationsDataModel extends DefaultTableModel {
 
 	@Override
 	public void setValueAt(Object aValue, int row, int column) {
-		Transformation transformation = transformationsList.get(row);
+		final Transformation transformation = transformationsList.get(row);
 		switch (column) {
 		case COLUMN_IDX_TYPE:
 			break;
@@ -72,7 +72,7 @@ public class TransformationsDataModel extends DefaultTableModel {
 
 	@Override
 	public Object getValueAt(int row, int column) {
-		Transformation transformation = transformationsList.get(row);
+		final Transformation transformation = transformationsList.get(row);
 		switch (column) {
 		case COLUMN_IDX_TYPE:
 			if (transformation instanceof AttributeTransformation) {
@@ -93,33 +93,33 @@ public class TransformationsDataModel extends DefaultTableModel {
 
 	public void insertTransformation() {
 		// TODO (2022-12-11 #73): перенести в Transformation
-		Transformation transformation = new Transformation("object-id");
+		final Transformation transformation = new Transformation("object-id");
 		transformations.add(transformation);
 		transformationsList.add(transformation);
 		this.addRow(new Object[] {});
-		DefaultMutableTreeNode transformationNode = editorDataModel.createTransformationNode(transformation);
+		final DefaultMutableTreeNode transformationNode = editorDataModel.createTransformationNode(transformation);
 		transformationsNode.add(transformationNode);
 		editorDataModel.insertNodeInto(transformationNode, transformationsNode, transformationsList.size() - 1);
 	}
 
 	public void insertLinkTransformation() {
 		// TODO (2022-12-11 #73): перенести в Transformation
-		Transformation transformation = new LinkTransformation("object-id", "link-name", "id-2-old", "id-2-new");
+		final Transformation transformation = new LinkTransformation("object-id", "link-name", "id-2-old", "id-2-new");
 		transformations.add(transformation);
 		transformationsList.add(transformation);
 		this.addRow(new Object[] {});
-		DefaultMutableTreeNode transformationNode = editorDataModel.createTransformationNode(transformation);
+		final DefaultMutableTreeNode transformationNode = editorDataModel.createTransformationNode(transformation);
 		transformationsNode.add(transformationNode);
 		editorDataModel.insertNodeInto(transformationNode, transformationsNode, transformationsList.size() - 1);
 	}
 
 	public void insertAttributeTransformation() {
 		// TODO (2022-12-11 #73): перенести в Transformation
-		Transformation transformation = new AttributeTransformation("object-id", "attribute-name", "attribute-value");
+		final Transformation transformation = new AttributeTransformation("object-id", "attribute-name", "attribute-value");
 		transformations.add(transformation);
 		transformationsList.add(transformation);
 		this.addRow(new Object[] {});
-		DefaultMutableTreeNode transformationNode = editorDataModel.createTransformationNode(transformation);
+		final DefaultMutableTreeNode transformationNode = editorDataModel.createTransformationNode(transformation);
 		transformationsNode.add(transformationNode);
 		editorDataModel.insertNodeInto(transformationNode, transformationsNode, transformationsList.size() - 1);
 	}
@@ -128,11 +128,11 @@ public class TransformationsDataModel extends DefaultTableModel {
 		if (idx < 0) {
 			return;
 		}
-		Transformation transformation = transformationsList.get(idx);
+		final Transformation transformation = transformationsList.get(idx);
 		transformations.remove(transformation);
 		transformationsList.remove(transformation);
 		this.removeRow(idx);
-		DefaultMutableTreeNode transformationNode = (DefaultMutableTreeNode) transformationsNode.getChildAt(idx);
+		final DefaultMutableTreeNode transformationNode = (DefaultMutableTreeNode) transformationsNode.getChildAt(idx);
 		editorDataModel.removeNodeFromParent(transformationNode);
 	}
 

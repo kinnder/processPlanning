@@ -45,14 +45,14 @@ public class NodeNetwork {
 	}
 
 	public Node createNode(System system) {
-		Node node = new Node(system);
+		final Node node = new Node(system);
 		uncheckedNodes.add(node);
 		network.addVertex(node);
 		return node;
 	}
 
 	public void createEdge(Node begin, Node end, SystemOperation operation) {
-		Edge edge = new Edge(begin.getId(), end.getId(), operation);
+		final Edge edge = new Edge(begin.getId(), end.getId(), operation);
 		network.addEdge(begin, end, edge);
 	}
 
@@ -61,14 +61,14 @@ public class NodeNetwork {
 	}
 
 	public Node nextUncheckedNode() {
-		Node node = uncheckedNodes.get(0);
+		final Node node = uncheckedNodes.get(0);
 		node.setChecked(true);
 		uncheckedNodes.remove(0);
 		return node;
 	}
 
 	public GraphPath<Node, Edge> getShortestPath(Node begin, Node end) {
-		DijkstraShortestPath<Node, Edge> alg = new DijkstraShortestPath<>(network);
+		final DijkstraShortestPath<Node, Edge> alg = new DijkstraShortestPath<>(network);
 		return alg.getPath(begin, end);
 	}
 
@@ -80,8 +80,8 @@ public class NodeNetwork {
 	}
 
 	public void addEdge(Edge edge) {
-		Node begin = findNodeById(edge.getBeginNodeId());
-		Node end = findNodeById(edge.getEndNodeId());
+		final Node begin = findNodeById(edge.getBeginNodeId());
+		final Node end = findNodeById(edge.getEndNodeId());
 
 		network.addEdge(begin, end, edge);
 	}

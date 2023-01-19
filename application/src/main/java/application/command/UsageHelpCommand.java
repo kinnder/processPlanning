@@ -32,13 +32,13 @@ public class UsageHelpCommand extends Command {
 	}
 
 	private void execute(UsageHelpCommandData data) throws Exception {
-		StringBuilder sb = new StringBuilder();
+		final StringBuilder sb = new StringBuilder();
 		sb.append("application builds plan for [taskDescription] with [systemTransformations] and puts result in [process]\n");
 		sb.append("usage:\n");
 		for (Option option : data.options.getOptions()) {
-			String shortName = Optional.ofNullable(option.getOpt()).orElse("");
-			String longName = Optional.ofNullable(option.getLongOpt()).orElse("");
-			String description = Optional.ofNullable(option.getDescription()).orElse("");
+			final String shortName = Optional.ofNullable(option.getOpt()).orElse("");
+			final String longName = Optional.ofNullable(option.getLongOpt()).orElse("");
+			final String description = Optional.ofNullable(option.getDescription()).orElse("");
 			sb.append(String.format("%7s, %-26s %s\n", shortName, longName, description));
 		}
 

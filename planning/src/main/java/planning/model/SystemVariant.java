@@ -16,7 +16,7 @@ public class SystemVariant {
 	}
 
 	public SystemObject getObjectByIdMatch(String templateId) {
-		String objectId = idsMatching.get(templateId);
+		final String objectId = idsMatching.get(templateId);
 		return system.getObjectById(objectId);
 	}
 

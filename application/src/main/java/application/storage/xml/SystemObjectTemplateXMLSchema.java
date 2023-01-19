@@ -29,10 +29,10 @@ public class SystemObjectTemplateXMLSchema implements XMLSchema<SystemObjectTemp
 
 	@Override
 	public SystemObjectTemplate parse(Element root) throws DataConversionException {
-		String id = root.getChildText(TAG_id);
-		SystemObjectTemplate objectTemplate = new SystemObjectTemplate(id);
+		final String id = root.getChildText(TAG_id);
+		final SystemObjectTemplate objectTemplate = new SystemObjectTemplate(id);
 		for (Element element : root.getChildren(attributeTemplateXMLSchema.getSchemaName())) {
-			AttributeTemplate attributeTemplate = attributeTemplateXMLSchema.parse(element);
+			final AttributeTemplate attributeTemplate = attributeTemplateXMLSchema.parse(element);
 			objectTemplate.addAttributeTemplate(attributeTemplate);
 		}
 		return objectTemplate;
@@ -40,12 +40,12 @@ public class SystemObjectTemplateXMLSchema implements XMLSchema<SystemObjectTemp
 
 	@Override
 	public Element combine(SystemObjectTemplate systemObjectTemplate) {
-		Element root = new Element(TAG_objectTemplate);
-		Element id = new Element(TAG_id);
+		final Element root = new Element(TAG_objectTemplate);
+		final Element id = new Element(TAG_id);
 		id.setText(systemObjectTemplate.getId());
 		root.addContent(id);
 		for (AttributeTemplate attributeTemplate : systemObjectTemplate.getAttributeTemplates()) {
-			Element element = attributeTemplateXMLSchema.combine(attributeTemplate);
+			final Element element = attributeTemplateXMLSchema.combine(attributeTemplate);
 			root.addContent(element);
 		}
 		return root;

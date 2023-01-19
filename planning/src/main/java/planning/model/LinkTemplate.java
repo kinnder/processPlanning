@@ -51,7 +51,7 @@ public class LinkTemplate implements Cloneable {
 			return false;
 		}
 		if (obj instanceof LinkTemplate) {
-			LinkTemplate linkTemplate = (LinkTemplate) obj;
+			final LinkTemplate linkTemplate = (LinkTemplate) obj;
 			return Objects.equals(name, linkTemplate.name) && Objects.equals(id1, linkTemplate.id1)
 					&& Objects.equals(id2, linkTemplate.id2);
 		}
@@ -65,7 +65,7 @@ public class LinkTemplate implements Cloneable {
 
 	@Override
 	public LinkTemplate clone() throws CloneNotSupportedException {
-		LinkTemplate clone = (LinkTemplate) super.clone();
+		final LinkTemplate clone = (LinkTemplate) super.clone();
 		clone.name = name;
 		clone.id1 = id1;
 		clone.id2 = id2;
@@ -73,7 +73,7 @@ public class LinkTemplate implements Cloneable {
 	}
 
 	public Set<String> getIds() {
-		Set<String> ids = new HashSet<>();
+		final Set<String> ids = new HashSet<>();
 		if (id1 != null) {
 			ids.add(id1);
 		}

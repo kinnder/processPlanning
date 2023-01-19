@@ -8,22 +8,29 @@
 		https://pmd.github.io/
 	</description>
 
-	<!-- <rule ref="category/java/design.xml/CyclomaticComplexity" /> -->
-	<rule ref="category/java/design.xml/SimplifyBooleanReturns" />
-
 	<rule ref="category/java/bestpractices.xml">
 		<exclude name="MethodReturnsInternalArray" />
 		<exclude name="ArrayIsStoredDirectly" />
 		<exclude name="UseVarargs" />
 	</rule>
 
-	<!-- <rule ref="category/java/bestpractices.xml" /> -->
-	<!-- <rule ref="category/java/codestyle.xml" /> -->
-	<!-- <rule ref="category/java/design.xml" /> -->
-	<!-- <rule ref="category/java/documentation.xml" /> -->
-	<!-- <rule ref="category/java/errorprone.xml" /> -->
-	<!-- <rule ref="category/java/multithreading.xml" /> -->
-	<!-- <rule ref="category/java/performance.xml" /> -->
-	<!-- <rule ref="category/java/security.xml" /> -->
+	<rule ref="category/java/codestyle.xml/LocalVariableCouldBeFinal">
+		<properties>
+			<property name="ignoreForEachDecl" value="true" />
+		</properties>
+	</rule>
 
+	<!-- <rule ref="category/java/design.xml/CyclomaticComplexity" /> -->
+	<rule ref="category/java/design.xml/SimplifyBooleanReturns" />
+
+	<!--
+	<rule ref="category/java/bestpractices.xml" />
+	<rule ref="category/java/codestyle.xml" />
+	<rule ref="category/java/design.xml" />
+	<rule ref="category/java/documentation.xml" />
+	<rule ref="category/java/errorprone.xml" />
+	<rule ref="category/java/multithreading.xml" />
+	<rule ref="category/java/performance.xml" />
+	<rule ref="category/java/security.xml" />
+	-->
 </ruleset>

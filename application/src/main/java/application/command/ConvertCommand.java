@@ -23,32 +23,32 @@ public class ConvertCommand extends Command {
 
 	private void execute(ConvertCommandData data) throws Exception {
 		if (data.taskDescriptionFile != null) {
-			TaskDescription taskDescription = application.loadTaskDescription(data.taskDescriptionFile);
-			String targetFile = changeFileExtension(data.taskDescriptionFile);
+			final TaskDescription taskDescription = application.loadTaskDescription(data.taskDescriptionFile);
+			final String targetFile = changeFileExtension(data.taskDescriptionFile);
 			application.saveTaskDescription(taskDescription, targetFile);
 		}
 
 		if (data.systemTransformationsFile != null) {
-			SystemTransformations systemTransformations = application.loadSystemTransformations(data.systemTransformationsFile);
-			String targetFile = changeFileExtension(data.systemTransformationsFile);
+			final SystemTransformations systemTransformations = application.loadSystemTransformations(data.systemTransformationsFile);
+			final String targetFile = changeFileExtension(data.systemTransformationsFile);
 			application.saveSystemTransformations(systemTransformations, targetFile);
 		}
 
 		if (data.nodeNetworkFile != null) {
-			NodeNetwork nodeNetwork = application.loadNodeNetwork(data.nodeNetworkFile);
-			String targetFile = changeFileExtension(data.nodeNetworkFile);
+			final NodeNetwork nodeNetwork = application.loadNodeNetwork(data.nodeNetworkFile);
+			final String targetFile = changeFileExtension(data.nodeNetworkFile);
 			application.saveNodeNetwork(nodeNetwork, targetFile);
 		}
 
 		if (data.processFile != null) {
-			SystemProcess systemProcess = application.loadSystemProcess(data.processFile);
-			String targetFile = changeFileExtension(data.processFile);
+			final SystemProcess systemProcess = application.loadSystemProcess(data.processFile);
+			final String targetFile = changeFileExtension(data.processFile);
 			application.saveSystemProcess(systemProcess, targetFile);
 		}
 	}
 
 	public String changeFileExtension(String sourceFile) {
-		String targetFile = sourceFile.substring(0, sourceFile.length() - 3);
+		final String targetFile = sourceFile.substring(0, sourceFile.length() - 3);
 		if ("owl".equals(FilenameUtils.getExtension(sourceFile))) {
 			return targetFile.concat("xml");
 		}

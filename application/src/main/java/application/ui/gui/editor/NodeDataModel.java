@@ -22,7 +22,7 @@ public class NodeDataModel {
 	ItemListener jcbNodeCheckedItemListener = new ItemListener() {
 		@Override
 		public void itemStateChanged(ItemEvent e) {
-			Boolean checked = e.getStateChange() == ItemEvent.SELECTED;
+			final Boolean checked = e.getStateChange() == ItemEvent.SELECTED;
 			node.setChecked(checked);
 			editorDataModel.nodeChanged(nodeNode);
 		}
@@ -31,7 +31,7 @@ public class NodeDataModel {
 	KeyAdapter jtfNodeIdeKeyAdapter = new KeyAdapter() {
 		@Override
 		public void keyReleased(KeyEvent e) {
-			String nodeId = jtfNodeId.getText();
+			final String nodeId = jtfNodeId.getText();
 			node.setId(nodeId);
 			editorDataModel.nodeChanged(nodeNode);
 		};
@@ -59,8 +59,8 @@ public class NodeDataModel {
 		this.node = selectedObject;
 		this.nodeNode = selectedNode;
 
-		String nodeId = node.getId();
-		Boolean checked = node.getChecked();
+		final String nodeId = node.getId();
+		final Boolean checked = node.getChecked();
 		jtfNodeId.setText(nodeId);
 		jcbNodeChecked.setSelected(checked);
 	}

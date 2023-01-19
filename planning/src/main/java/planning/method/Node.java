@@ -37,7 +37,7 @@ public class Node {
 			return false;
 		}
 		if (obj instanceof Node) {
-			Node node = (Node) obj;
+			final Node node = (Node) obj;
 			return id.equals(node.id);
 		}
 		return false;

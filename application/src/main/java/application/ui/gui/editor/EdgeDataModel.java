@@ -21,7 +21,7 @@ public class EdgeDataModel {
 	KeyAdapter jtfEdgeIdKeyAdapter = new KeyAdapter() {
 		@Override
 		public void keyReleased(KeyEvent e) {
-			String edgeId = jtfEdgeId.getText();
+			final String edgeId = jtfEdgeId.getText();
 			edge.setId(edgeId);
 			editorDataModel.nodeChanged(edgeNode);
 		};
@@ -30,7 +30,7 @@ public class EdgeDataModel {
 	KeyAdapter jtfBeginNodeIdKeyAdapter = new KeyAdapter() {
 		@Override
 		public void keyReleased(KeyEvent e) {
-			String beginNodeId = jtfBeginNodeId.getText();
+			final String beginNodeId = jtfBeginNodeId.getText();
 			edge.setBeginNodeId(beginNodeId);
 			editorDataModel.nodeChanged(edgeNode);
 		};
@@ -39,7 +39,7 @@ public class EdgeDataModel {
 	KeyAdapter jtfEndNodeIdKeyAdapter = new KeyAdapter() {
 		@Override
 		public void keyReleased(KeyEvent e) {
-			String endNodeId = jtfEndNodeId.getText();
+			final String endNodeId = jtfEndNodeId.getText();
 			edge.setEndNodeId(endNodeId);
 			editorDataModel.nodeChanged(edgeNode);
 		};
@@ -70,9 +70,9 @@ public class EdgeDataModel {
 		this.edge = selectedObject;
 		this.edgeNode = selectedNode;
 
-		String edgeId = edge.getId();
-		String beginNodeId = edge.getBeginNodeId();
-		String endNodeId = edge.getEndNodeId();
+		final String edgeId = edge.getId();
+		final String beginNodeId = edge.getBeginNodeId();
+		final String endNodeId = edge.getEndNodeId();
 
 		jtfEdgeId.setText(edgeId);
 		jtfBeginNodeId.setText(beginNodeId);

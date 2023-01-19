@@ -58,8 +58,8 @@ public class SystemTemplateDataModel {
 	private DefaultMutableTreeNode treeNode;
 
 	public void loadSystemTemplate(SystemTemplate selectedSystemTemplate, DefaultMutableTreeNode selectedNode) {
-		String name = "System Template";
-		int type = SYSTEM_TYPE_REGULAR;
+		final String name = "System Template";
+		final int type = SYSTEM_TYPE_REGULAR;
 
 		jtfSystemTemplateName.setText(name);
 		jcbSystemTemplateType.setSelectedIndex(type);

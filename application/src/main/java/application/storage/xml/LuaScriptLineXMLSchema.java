@@ -18,14 +18,14 @@ public class LuaScriptLineXMLSchema implements XMLSchema<LuaScriptLine> {
 
 	@Override
 	public LuaScriptLine parse(Element element) throws DataConversionException {
-		int number = element.getAttribute(TAG_n).getIntValue();
-		String text = element.getText();
+		final int number = element.getAttribute(TAG_n).getIntValue();
+		final String text = element.getText();
 		return new LuaScriptLine(number, text);
 	}
 
 	@Override
 	public Element combine(LuaScriptLine scriptLine) {
-		Element element = new Element(TAG_line);
+		final Element element = new Element(TAG_line);
 		element.setText(scriptLine.getText());
 		element.setAttribute(TAG_n, scriptLine.getNumber().toString());
 		return element;

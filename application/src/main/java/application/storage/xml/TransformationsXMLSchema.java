@@ -38,7 +38,7 @@ public class TransformationsXMLSchema implements XMLSchema<Transformations> {
 
 	@Override
 	public Transformations parse(Element root) throws DataConversionException {
-		Transformations transformations = new Transformations();
+		final Transformations transformations = new Transformations();
 		List<Element> elements = root.getChildren(linkTransformationSchema.getSchemaName());
 		for (Element element : elements) {
 			transformations.add(linkTransformationSchema.parse(element));
@@ -52,7 +52,7 @@ public class TransformationsXMLSchema implements XMLSchema<Transformations> {
 
 	@Override
 	public Element combine(Transformations transformations) {
-		Element root = new Element(TAG_transformations);
+		final Element root = new Element(TAG_transformations);
 		for (Transformation transformation : transformations) {
 			Element element;
 			if (transformation instanceof AttributeTransformation) {
@@ -69,9 +69,9 @@ public class TransformationsXMLSchema implements XMLSchema<Transformations> {
 
 	// TODO : remove this or update systemTransformations.xsd
 	public Element combineTransformation(Transformation transformation) {
-		Element id = new Element(TAG_id);
+		final Element id = new Element(TAG_id);
 		id.setText(transformation.getId());
-		Element root = new Element(TAG_transformation);
+		final Element root = new Element(TAG_transformation);
 		root.addContent(id);
 		return root;
 	}

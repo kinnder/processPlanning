@@ -28,22 +28,22 @@ public class AttributeXMLSchema implements XMLSchema<Attribute> {
 
 	@Override
 	public Attribute parse(Element root) throws DataConversionException {
-		String name = root.getChildText(TAG_name);
-		Object value = valueXMLSchema.parse(root.getChild(valueXMLSchema.getSchemaName()));
+		final String name = root.getChildText(TAG_name);
+		final Object value = valueXMLSchema.parse(root.getChild(valueXMLSchema.getSchemaName()));
 		return new Attribute(name, value);
 	}
 
 	@Override
 	public Element combine(Attribute attribute) {
-		Element root = new Element(TAG_attribute);
+		final Element root = new Element(TAG_attribute);
 
-		Element name = new Element(TAG_name);
+		final Element name = new Element(TAG_name);
 		name.setText(attribute.getName());
 		root.addContent(name);
 
-		Object attributeValue = attribute.getValue();
+		final Object attributeValue = attribute.getValue();
 		if (attributeValue != null) {
-			Element value = valueXMLSchema.combine(attributeValue);
+			final Element value = valueXMLSchema.combine(attributeValue);
 			root.addContent(value);
 		}
 		return root;

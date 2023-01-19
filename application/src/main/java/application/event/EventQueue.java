@@ -14,7 +14,7 @@ public abstract class EventQueue implements Runnable {
 	@Override
 	public void run() {
 		while (isRunning) {
-			Event event = pullEvent();
+			final Event event = pullEvent();
 			if (event instanceof CommandEvent) {
 				processEvent((CommandEvent) event);
 			} else if (event instanceof UserEvent) {

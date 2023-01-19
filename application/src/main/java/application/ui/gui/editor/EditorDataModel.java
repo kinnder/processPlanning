@@ -83,10 +83,10 @@ public class EditorDataModel extends DefaultTreeModel {
 	}
 
 	public DefaultMutableTreeNode createSystemNode(System system) {
-		DefaultMutableTreeNode systemNode = new DefaultMutableTreeNode(system);
-		Collection<SystemObject> objects = system.getObjects();
+		final DefaultMutableTreeNode systemNode = new DefaultMutableTreeNode(system);
+		final Collection<SystemObject> objects = system.getObjects();
 		for (SystemObject object : objects) {
-			DefaultMutableTreeNode objectNode = createObjectNode(object);
+			final DefaultMutableTreeNode objectNode = createObjectNode(object);
 			systemNode.add(objectNode);
 		}
 		return systemNode;
@@ -117,16 +117,16 @@ public class EditorDataModel extends DefaultTreeModel {
 	}
 
 	public DefaultMutableTreeNode createActionNode(Action action) {
-		DefaultMutableTreeNode actionNode = new DefaultMutableTreeNode(action);
+		final DefaultMutableTreeNode actionNode = new DefaultMutableTreeNode(action);
 		// TODO (2022-12-07 #73): все функции должны обрабатываться в одной коллекции
-		Collection<ActionFunction> parameterUpdaters = action.getParameterUpdaters();
+		final Collection<ActionFunction> parameterUpdaters = action.getParameterUpdaters();
 		for (ActionFunction actionFunction : parameterUpdaters) {
-			DefaultMutableTreeNode functionNode = createActionFunctionNode(actionFunction);
+			final DefaultMutableTreeNode functionNode = createActionFunctionNode(actionFunction);
 			actionNode.add(functionNode);
 		}
-		Collection<ActionFunction> preConditionCheckers = action.getPreConditionCheckers();
+		final Collection<ActionFunction> preConditionCheckers = action.getPreConditionCheckers();
 		for (ActionFunction actionFunction : preConditionCheckers) {
-			DefaultMutableTreeNode functionNode = createActionFunctionNode(actionFunction);
+			final DefaultMutableTreeNode functionNode = createActionFunctionNode(actionFunction);
 			actionNode.add(functionNode);
 		}
 		return actionNode;
@@ -137,9 +137,9 @@ public class EditorDataModel extends DefaultTreeModel {
 	}
 
 	public DefaultMutableTreeNode createTransformationsNode(Transformations transformations) {
-		DefaultMutableTreeNode transformationsNode = new DefaultMutableTreeNode(transformations);
+		final DefaultMutableTreeNode transformationsNode = new DefaultMutableTreeNode(transformations);
 		for (Transformation transformation : transformations) {
-			DefaultMutableTreeNode transformationNode = createTransformationNode(transformation);
+			final DefaultMutableTreeNode transformationNode = createTransformationNode(transformation);
 			transformationsNode.add(transformationNode);
 		}
 		return transformationsNode;
@@ -150,10 +150,10 @@ public class EditorDataModel extends DefaultTreeModel {
 	}
 
 	public DefaultMutableTreeNode createSystemTemplateNode(SystemTemplate systemTemplate) {
-		DefaultMutableTreeNode systemTemplateNode = new DefaultMutableTreeNode(systemTemplate);
-		Collection<SystemObjectTemplate> objectTemplates = systemTemplate.getObjectTemplates();
+		final DefaultMutableTreeNode systemTemplateNode = new DefaultMutableTreeNode(systemTemplate);
+		final Collection<SystemObjectTemplate> objectTemplates = systemTemplate.getObjectTemplates();
 		for (SystemObjectTemplate objectTemplate : objectTemplates) {
-			DefaultMutableTreeNode objectTemplateNode = createObjectTemplateNode(objectTemplate);
+			final DefaultMutableTreeNode objectTemplateNode = createObjectTemplateNode(objectTemplate);
 			systemTemplateNode.add(objectTemplateNode);
 		}
 		return systemTemplateNode;
@@ -171,7 +171,7 @@ public class EditorDataModel extends DefaultTreeModel {
 		systemTransformationsNode.setUserObject(systemTransformations);
 
 		for (SystemTransformation systemTransformation : systemTransformations) {
-			DefaultMutableTreeNode systemTransformationNode = createSystemTransformationNode(systemTransformation);
+			final DefaultMutableTreeNode systemTransformationNode = createSystemTransformationNode(systemTransformation);
 			systemTransformationsNode.add(systemTransformationNode);
 		}
 
@@ -194,17 +194,17 @@ public class EditorDataModel extends DefaultTreeModel {
 		nodeNetworkNode.removeAllChildren();
 		nodeNetworkNode.setUserObject(nodeNetwork);
 
-		DefaultMutableTreeNode nodesNode = new DefaultMutableTreeNode("Nodes");
+		final DefaultMutableTreeNode nodesNode = new DefaultMutableTreeNode("Nodes");
 		nodeNetworkNode.add(nodesNode);
 		for (Node node : nodeNetwork.getNodes()) {
-			DefaultMutableTreeNode nodeNode = createNodeNode(node);
+			final DefaultMutableTreeNode nodeNode = createNodeNode(node);
 			nodesNode.add(nodeNode);
 		}
 
-		DefaultMutableTreeNode edgesNode = new DefaultMutableTreeNode("Edges");
+		final DefaultMutableTreeNode edgesNode = new DefaultMutableTreeNode("Edges");
 		nodeNetworkNode.add(edgesNode);
 		for (Edge edge : nodeNetwork.getEdges()) {
-			DefaultMutableTreeNode edgeNode = createEdgeNode(edge);
+			final DefaultMutableTreeNode edgeNode = createEdgeNode(edge);
 			edgesNode.add(edgeNode);
 		}
 
@@ -212,13 +212,13 @@ public class EditorDataModel extends DefaultTreeModel {
 	}
 
 	public DefaultMutableTreeNode createEdgeNode(Edge edge) {
-		DefaultMutableTreeNode edgeNode = new DefaultMutableTreeNode(edge);
+		final DefaultMutableTreeNode edgeNode = new DefaultMutableTreeNode(edge);
 		return edgeNode;
 	}
 
 	public DefaultMutableTreeNode createNodeNode(Node node) {
-		DefaultMutableTreeNode nodeNode = new DefaultMutableTreeNode(node);
-		DefaultMutableTreeNode systemNode = createSystemNode(node.getSystem());
+		final DefaultMutableTreeNode nodeNode = new DefaultMutableTreeNode(node);
+		final DefaultMutableTreeNode systemNode = createSystemNode(node.getSystem());
 		nodeNode.add(systemNode);
 		return nodeNode;
 	}
@@ -234,10 +234,10 @@ public class EditorDataModel extends DefaultTreeModel {
 	}
 
 	public List<Edge> selectEdges(Node node) {
-		NodeNetwork nodeNetwork = (NodeNetwork) nodeNetworkNode.getUserObject();
-		List<Edge> edgesWithNode = new ArrayList<Edge>();
+		final NodeNetwork nodeNetwork = (NodeNetwork) nodeNetworkNode.getUserObject();
+		final List<Edge> edgesWithNode = new ArrayList<Edge>();
 
-		String nodeId = node.getId();
+		final String nodeId = node.getId();
 		for (Edge edge : nodeNetwork.getEdges()) {
 			if (edge.getBeginNodeId().equals(nodeId)) {
 				edgesWithNode.add(edge);

@@ -78,7 +78,7 @@ public class Arguments {
 	private CommandLine line;
 
 	public void parseArguments(String[] arguments) throws ParseException {
-		CommandLineParser parser = new DefaultParser();
+		final CommandLineParser parser = new DefaultParser();
 		line = parser.parse(options, arguments);
 		domain = Optional.ofNullable(line.getOptionValue(d_option.getOpt()));
 		systemTransformations = Optional.ofNullable(line.getOptionValue(st_option.getOpt()));

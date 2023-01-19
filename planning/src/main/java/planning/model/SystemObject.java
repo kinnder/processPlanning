@@ -59,7 +59,7 @@ public class SystemObject implements Cloneable {
 			return false;
 		}
 		if (obj instanceof SystemObject) {
-			SystemObject systemObject = (SystemObject) obj;
+			final SystemObject systemObject = (SystemObject) obj;
 			return Objects.equals(name, systemObject.name) && equalsAttributes(systemObject);
 		}
 		return false;
@@ -71,7 +71,7 @@ public class SystemObject implements Cloneable {
 
 	@Override
 	public SystemObject clone() throws CloneNotSupportedException {
-		SystemObject clone = (SystemObject) super.clone();
+		final SystemObject clone = (SystemObject) super.clone();
 		clone.name = name;
 		clone.id = id;
 		clone.attributes = new HashMap<>();
@@ -86,13 +86,13 @@ public class SystemObject implements Cloneable {
 	}
 
 	public Set<String> getIds() {
-		Set<String> objectIds = new HashSet<>();
+		final Set<String> objectIds = new HashSet<>();
 		objectIds.add(id);
 		return objectIds;
 	}
 
 	public SystemObjectTemplate createTemplate() {
-		SystemObjectTemplate template = new SystemObjectTemplate(id);
+		final SystemObjectTemplate template = new SystemObjectTemplate(id);
 		for (Attribute attribute : attributes.values()) {
 			template.addAttributeTemplate(attribute.createTemplate());
 		}

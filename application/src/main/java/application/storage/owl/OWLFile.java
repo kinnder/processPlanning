@@ -43,7 +43,7 @@ public class OWLFile<T> {
 	}
 
 	public T load(Path path) throws IOException {
-		OntModel ontModel = owlModel.createOntologyModelBase();
+		final OntModel ontModel = owlModel.createOntologyModelBase();
 		try (InputStream inputStream = new BufferedInputStream(Files.newInputStream(path))) {
 			ontModel.read(inputStream, "RDF/XML");
 		}

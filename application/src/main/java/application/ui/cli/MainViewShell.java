@@ -24,7 +24,7 @@ public class MainViewShell implements UserInterface {
 
 	@Override
 	public void start() throws Exception {
-		Arguments arguments = application.getArguments();
+		final Arguments arguments = application.getArguments();
 
 		// TODO (2022-07-06 #69): перенести из start
 		if (arguments.hasArgument_plan()) {

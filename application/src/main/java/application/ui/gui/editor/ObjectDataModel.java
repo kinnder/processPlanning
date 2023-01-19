@@ -21,7 +21,7 @@ public class ObjectDataModel {
 	KeyAdapter jtfObjectNameKeyAdapter = new KeyAdapter() {
 		@Override
 		public void keyReleased(KeyEvent e) {
-			String objectName = jtfObjectName.getText();
+			final String objectName = jtfObjectName.getText();
 			object.setName(objectName);
 			editorDataModel.nodeChanged(treeNode);
 		}
@@ -30,7 +30,7 @@ public class ObjectDataModel {
 	KeyAdapter jtfObjectIdKeyAdapter = new KeyAdapter() {
 		@Override
 		public void keyReleased(KeyEvent e) {
-			String objectId = jtfObjectId.getText();
+			final String objectId = jtfObjectId.getText();
 			object.setId(objectId);
 			editorDataModel.nodeChanged(treeNode);
 		}
@@ -53,8 +53,8 @@ public class ObjectDataModel {
 	private DefaultMutableTreeNode treeNode;
 
 	public void loadSystemObject(SystemObject selectedObject, DefaultMutableTreeNode selectedNode) {
-		String name = selectedObject.getName();
-		String id = selectedObject.getId();
+		final String name = selectedObject.getName();
+		final String id = selectedObject.getId();
 		jtfObjectName.setText(name);
 		jtfObjectId.setText(id);
 

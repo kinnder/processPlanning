@@ -39,11 +39,11 @@ public class ActionFunctionsDataModel extends DefaultTableModel {
 
 	public void insertActionFunction() {
 		// TODO (2022-12-07 #73): перенести в ActionFunction
-		ActionFunction actionFunction = new ActionFunction(globals, "");
+		final ActionFunction actionFunction = new ActionFunction(globals, "");
 		action.addActionFunction(actionFunction);
 		actionFunctions.add(actionFunction);
 		this.addRow(new Object[] {});
-		DefaultMutableTreeNode actionFunctionNode = editorDataModel.createActionFunctionNode(actionFunction);
+		final DefaultMutableTreeNode actionFunctionNode = editorDataModel.createActionFunctionNode(actionFunction);
 		actionNode.add(actionFunctionNode);
 		editorDataModel.insertNodeInto(actionFunctionNode, actionNode, actionFunctions.size() - 1);
 	}
@@ -53,12 +53,12 @@ public class ActionFunctionsDataModel extends DefaultTableModel {
 			return;
 		}
 
-		ActionFunction actionFunction = actionFunctions.get(idx);
+		final ActionFunction actionFunction = actionFunctions.get(idx);
 		actionFunctions.remove(actionFunction);
 		action.removeActionFunction(actionFunction);
 
 		this.removeRow(idx);
-		DefaultMutableTreeNode actionFunctionNode = (DefaultMutableTreeNode) actionNode.getChildAt(idx);
+		final DefaultMutableTreeNode actionFunctionNode = (DefaultMutableTreeNode) actionNode.getChildAt(idx);
 		editorDataModel.removeNodeFromParent(actionFunctionNode);
 	}
 
@@ -91,13 +91,13 @@ public class ActionFunctionsDataModel extends DefaultTableModel {
 	@Override
 	public Object getValueAt(int row, int column) {
 		// TODO (2022-12-07 #73): ActionFunction не содержит редактируемых полей
-		ActionFunction actionFunction = actionFunctions.get(row);
+		final ActionFunction actionFunction = actionFunctions.get(row);
 		switch (column) {
 		case COLUMN_IDX_NAME:
 			return "unknown";
 		case COLUMN_IDX_TYPE:
 			// TODO (2022-12-17 #73): должно быть что-то вроде getType().toString();
-			int type = actionFunction.getType();
+			final int type = actionFunction.getType();
 			switch (type) {
 			case (ActionFunction.TYPE_PARAMETER_UPDATER):
 				return "parameterUpdater";

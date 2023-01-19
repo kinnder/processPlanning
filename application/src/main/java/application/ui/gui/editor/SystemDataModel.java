@@ -33,7 +33,7 @@ public class SystemDataModel {
 				if (system == null) {
 					return;
 				}
-				int index = jcbSystemType.getSelectedIndex();
+				final int index = jcbSystemType.getSelectedIndex();
 				switch (index) {
 				case SYSTEM_TYPE_INITIAL:
 					system.setName("initialSystem");
@@ -54,7 +54,7 @@ public class SystemDataModel {
 	KeyAdapter jtfSystemNameKeyAdapter = new KeyAdapter() {
 		@Override
 		public void keyReleased(KeyEvent e) {
-			String systemName = jtfSystemName.getText();
+			final String systemName = jtfSystemName.getText();
 			system.setName(systemName);
 			editorDataModel.nodeChanged(treeNode);
 		}
@@ -72,7 +72,7 @@ public class SystemDataModel {
 	private DefaultMutableTreeNode treeNode;
 
 	public void loadSystem(System selectedSystem, DefaultMutableTreeNode selectedNode) {
-		String name = selectedSystem.getName();
+		final String name = selectedSystem.getName();
 		// TODO (2022-09-23 #72): перенести в System и заменить на Enum
 		int type;
 		if ("initialSystem".equals(name)) {

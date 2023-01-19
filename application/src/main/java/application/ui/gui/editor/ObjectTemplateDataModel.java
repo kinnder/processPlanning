@@ -28,7 +28,7 @@ public class ObjectTemplateDataModel {
 	KeyAdapter jtfObjectTemplateIdKeyAdapter = new KeyAdapter() {
 		@Override
 		public void keyReleased(KeyEvent e) {
-			String objectTemplateId = jtfObjectTemplateId.getText();
+			final String objectTemplateId = jtfObjectTemplateId.getText();
 			objectTemplate.setId(objectTemplateId);
 			editorDataModel.nodeChanged(treeNode);
 		}
@@ -53,8 +53,8 @@ public class ObjectTemplateDataModel {
 
 	public void loadSystemObjectTemplate(SystemObjectTemplate selectedObjectTemplate,
 			DefaultMutableTreeNode selectedNode) {
-		String name = "Object Template";
-		String id = selectedObjectTemplate.getId();
+		final String name = "Object Template";
+		final String id = selectedObjectTemplate.getId();
 
 		jtfObjectTemplateName.setText(name);
 		jtfObjectTemplateId.setText(id);

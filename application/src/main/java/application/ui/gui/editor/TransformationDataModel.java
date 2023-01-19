@@ -36,7 +36,7 @@ public class TransformationDataModel {
 	KeyAdapter jtfTransformationObjectIdKeyAdapter = new KeyAdapter() {
 		@Override
 		public void keyReleased(KeyEvent e) {
-			String objectId = jtfTransformationObjectId.getText();
+			final String objectId = jtfTransformationObjectId.getText();
 			transformation.setId(objectId);
 			editorDataModel.nodeChanged(transformationNode);
 		}
@@ -45,7 +45,7 @@ public class TransformationDataModel {
 	KeyAdapter jtfLinkTransformationNameKeyAdapter = new KeyAdapter() {
 		@Override
 		public void keyReleased(KeyEvent e) {
-			String linkName = jtfLinkTransformationName.getText();
+			final String linkName = jtfLinkTransformationName.getText();
 			linkTransformation.setLinkName(linkName);
 			editorDataModel.nodeChanged(transformationNode);
 		}
@@ -54,7 +54,7 @@ public class TransformationDataModel {
 	KeyAdapter jtfLinkTransformationId2oldKeyAdapter = new KeyAdapter() {
 		@Override
 		public void keyReleased(KeyEvent e) {
-			String id2old = jtfLinkTransformationId2old.getText();
+			final String id2old = jtfLinkTransformationId2old.getText();
 			linkTransformation.setId2Old(id2old);
 			editorDataModel.nodeChanged(transformationNode);
 		}
@@ -63,7 +63,7 @@ public class TransformationDataModel {
 	KeyAdapter jtfLinkTransformationId2newKeyAdapter = new KeyAdapter() {
 		@Override
 		public void keyReleased(KeyEvent e) {
-			String id2new = jtfLinkTransformationId2new.getText();
+			final String id2new = jtfLinkTransformationId2new.getText();
 			linkTransformation.setId2New(id2new);
 			editorDataModel.nodeChanged(transformationNode);
 		}
@@ -72,7 +72,7 @@ public class TransformationDataModel {
 	KeyAdapter jtfAttributeTransformationNameKeyAdapter = new KeyAdapter() {
 		@Override
 		public void keyReleased(KeyEvent e) {
-			String attributeName = jtfAttributeTransformationName.getText();
+			final String attributeName = jtfAttributeTransformationName.getText();
 			attributeTransformation.setAttributeName(attributeName);
 			editorDataModel.nodeChanged(transformationNode);
 		}
@@ -81,7 +81,7 @@ public class TransformationDataModel {
 	KeyAdapter jtfAttributeTransformationValueKeyAdapter = new KeyAdapter() {
 		@Override
 		public void keyReleased(KeyEvent e) {
-			String attributeValue = jtfAttributeTransformationValue.getText();
+			final String attributeValue = jtfAttributeTransformationValue.getText();
 			attributeTransformation.setAttributeValue(attributeValue);
 			editorDataModel.nodeChanged(transformationNode);
 		}
@@ -127,7 +127,7 @@ public class TransformationDataModel {
 	private DefaultMutableTreeNode transformationNode;
 
 	public void loadTransformation(Transformation selectedObject, DefaultMutableTreeNode selectedNode) {
-		String objectId = selectedObject.getId();
+		final String objectId = selectedObject.getId();
 		String linkName = "";
 		String linkId2old = "";
 		String linkId2new = "";

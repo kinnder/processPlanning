@@ -21,7 +21,7 @@ public class CommandEvent extends Event {
 	}
 
 	public static CommandEvent started(String commandName) {
-		String message = String.format("executing command: \"%s\"...", commandName);
+		final String message = String.format("executing command: \"%s\"...", commandName);
 		return new CommandEvent(Type.Started, commandName, message);
 	}
 

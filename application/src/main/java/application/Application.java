@@ -99,7 +99,7 @@ public class Application {
 
 	// TODO (2022-11-16 #73): переделать в команду
 	public void saveSystemTransformations(SystemTransformations systemTransformations) {
-		String st_path = arguments.getArgument_st("systemTransformations.xml");
+		final String st_path = arguments.getArgument_st("systemTransformations.xml");
 		try {
 			persistanceStorage.saveSystemTransformations(systemTransformations, st_path);
 		} catch (IOException e) {
@@ -113,7 +113,7 @@ public class Application {
 
 	// TODO (2022-10-11 #72): переделать в команду
 	public void saveTaskDescription(TaskDescription taskDescription) {
-		String td_path = arguments.getArgument_td("taskDescription.xml");
+		final String td_path = arguments.getArgument_td("taskDescription.xml");
 		try {
 			persistanceStorage.saveTaskDescription(taskDescription, td_path);
 		} catch (IOException e) {
@@ -135,7 +135,7 @@ public class Application {
 
 	// TODO (2022-09-18 #72): переделать в команду
 	public SystemTransformations loadSystemTransformations() {
-		String st_path = arguments.getArgument_st("systemTransformations.xml");
+		final String st_path = arguments.getArgument_st("systemTransformations.xml");
 		SystemTransformations systemTransformations;
 		try {
 			systemTransformations = loadSystemTransformations(st_path);
@@ -152,7 +152,7 @@ public class Application {
 
 	// TODO (2022-09-18 #72): переделать в команду
 	public TaskDescription loadTaskDescription() {
-		String td_path = arguments.getArgument_td("taskDescription.xml");
+		final String td_path = arguments.getArgument_td("taskDescription.xml");
 		TaskDescription taskDescription;
 		try {
 			taskDescription = loadTaskDescription(td_path);
@@ -169,7 +169,7 @@ public class Application {
 
 	// TODO (2022-09-18 #72): переделать в команду
 	public NodeNetwork loadNodeNetwork() {
-		String nn_path = arguments.getArgument_nn("nodeNetwork.xml");
+		final String nn_path = arguments.getArgument_nn("nodeNetwork.xml");
 		NodeNetwork nodeNetwork;
 		try {
 			nodeNetwork = loadNodeNetwork(nn_path);
@@ -186,7 +186,7 @@ public class Application {
 
 	// TODO (2022-09-18 #72): переделать в команду
 	public SystemProcess loadSystemProcess() {
-		String pr_path = arguments.getArgument_p("process.xml");
+		final String pr_path = arguments.getArgument_p("process.xml");
 		SystemProcess systemProcess;
 		try {
 			systemProcess = loadSystemProcess(pr_path);
@@ -210,7 +210,7 @@ public class Application {
 	private CommandManager commandManager;
 
 	public void plan() {
-		PlanCommandData data = new PlanCommandData();
+		final PlanCommandData data = new PlanCommandData();
 		data.taskDescriptionFile = arguments.getArgument_td("taskDescription.xml");
 		data.systemTransformationsFile = arguments.getArgument_st("systemTransformations.xml");
 		data.processFile = arguments.getArgument_p("process.xml");
@@ -219,7 +219,7 @@ public class Application {
 	}
 
 	public void verify() {
-		VerifyCommandData data = new VerifyCommandData();
+		final VerifyCommandData data = new VerifyCommandData();
 		data.taskDescriptionFile = arguments.getArgument_td(null);
 		data.systemTransformationsFile = arguments.getArgument_st(null);
 		data.processFile = arguments.getArgument_p(null);
@@ -228,21 +228,21 @@ public class Application {
 	}
 
 	public void newTaskDescription() {
-		NewTaskDescriptionCommandData data = new NewTaskDescriptionCommandData();
+		final NewTaskDescriptionCommandData data = new NewTaskDescriptionCommandData();
 		data.taskDescriptionFile = arguments.getArgument_td("taskDescription.xml");
 		data.domain = arguments.getArgument_d("unknown");
 		pushEvent(CommandEvent.start(NewTaskDescriptionCommand.NAME, data));
 	}
 
 	public void newSystemTransformations() {
-		NewSystemTransformationsCommandData data = new NewSystemTransformationsCommandData();
+		final NewSystemTransformationsCommandData data = new NewSystemTransformationsCommandData();
 		data.systemTransformationsFile = arguments.getArgument_st("systemTransformations.xml");
 		data.domain = arguments.getArgument_d("unknown");
 		pushEvent(CommandEvent.start(NewSystemTransformationsCommand.NAME, data));
 	}
 
 	public void convert() {
-		ConvertCommandData data = new ConvertCommandData();
+		final ConvertCommandData data = new ConvertCommandData();
 		data.taskDescriptionFile = arguments.getArgument_td(null);
 		data.systemTransformationsFile = arguments.getArgument_st(null);
 		data.processFile = arguments.getArgument_p(null);
@@ -251,13 +251,13 @@ public class Application {
 	}
 
 	public void usageHelp() {
-		UsageHelpCommandData data = new UsageHelpCommandData();
+		final UsageHelpCommandData data = new UsageHelpCommandData();
 		data.options = arguments.getOptions();
 		pushEvent(CommandEvent.start(UsageHelpCommand.NAME, data));
 	}
 
 	public void stopApplication() {
-		StopApplicationCommandData data = new StopApplicationCommandData();
+		final StopApplicationCommandData data = new StopApplicationCommandData();
 		pushEvent(CommandEvent.start(StopApplicationCommand.NAME, data));
 	}
 }

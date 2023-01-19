@@ -44,7 +44,7 @@ public class UserInterfaceManager extends EventQueue {
 	}
 
 	public void createUserInterface(UserInterfaceType type) {
-		UserInterface ui = userInterfaceFactory.createMainView(application, type);
+		final UserInterface ui = userInterfaceFactory.createMainView(application, type);
 		registerUserInterface(ui);
 	}
 

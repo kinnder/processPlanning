@@ -45,12 +45,12 @@ public class LinkTransformation extends Transformation {
 
 	@Override
 	public void applyTo(SystemVariant systemVariant) {
-		SystemObject object = systemVariant.getObjectByIdMatch(getId());
-		String id1Actual = object.getId();
-		String id2NewActual = systemVariant.getObjectIdByIdMatch(id2New);
-		String id2OldActual = systemVariant.getObjectIdByIdMatch(id2Old);
+		final SystemObject object = systemVariant.getObjectByIdMatch(getId());
+		final String id1Actual = object.getId();
+		final String id2NewActual = systemVariant.getObjectIdByIdMatch(id2New);
+		final String id2OldActual = systemVariant.getObjectIdByIdMatch(id2Old);
 
-		Link link = systemVariant.getSystem().getLink(linkName, id1Actual, id2OldActual);
+		final Link link = systemVariant.getSystem().getLink(linkName, id1Actual, id2OldActual);
 		link.setId2(id2NewActual);
 	}
 

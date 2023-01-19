@@ -117,7 +117,7 @@ public class MainViewFrame extends javax.swing.JFrame implements UserInterface {
 
 		setJMenuBar(jmbMainMenu);
 
-		javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+		final javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
 		getContentPane().setLayout(layout);
 		layout.setHorizontalGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
 				.addComponent(jspLog, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE));
@@ -133,7 +133,7 @@ public class MainViewFrame extends javax.swing.JFrame implements UserInterface {
 
 		@Override
 		public void actionPerformed(ActionEvent evt) {
-			OptionsFrame frame = userInterfaceFactory.createOptionsView(application);
+			final OptionsFrame frame = userInterfaceFactory.createOptionsView(application);
 			frame.updateComponents();
 			frame.setVisible(true);
 		}
@@ -144,7 +144,7 @@ public class MainViewFrame extends javax.swing.JFrame implements UserInterface {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			EditorFrame frame = userInterfaceFactory.createEditorView(application);
+			final EditorFrame frame = userInterfaceFactory.createEditorView(application);
 			frame.setVisible(true);
 		}
 	};
@@ -217,7 +217,7 @@ public class MainViewFrame extends javax.swing.JFrame implements UserInterface {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			AboutFrame frame = userInterfaceFactory.createAboutView();
+			final AboutFrame frame = userInterfaceFactory.createAboutView();
 			frame.setLocationRelativeTo(MainViewFrame.this);
 			frame.setVisible(true);
 		}

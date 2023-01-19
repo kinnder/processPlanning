@@ -27,8 +27,8 @@ public class ValueXMLSchema implements XMLSchema<Object> {
 		if (element == null) {
 			return null;
 		}
-		String type = element.getAttributeValue(TAG_type, TAG_string);
-		String value = element.getText();
+		final String type = element.getAttributeValue(TAG_type, TAG_string);
+		final String value = element.getText();
 		if (TAG_boolean.equals(type)) {
 			return Boolean.valueOf(value);
 		}
@@ -40,7 +40,7 @@ public class ValueXMLSchema implements XMLSchema<Object> {
 
 	@Override
 	public Element combine(Object value) {
-		Element root = new Element(TAG_value);
+		final Element root = new Element(TAG_value);
 		if (value instanceof Boolean) {
 			root.setAttribute(TAG_type, TAG_boolean);
 		} else if (value instanceof Integer) {

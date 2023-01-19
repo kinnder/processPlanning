@@ -27,7 +27,7 @@ public class ActionFunctionDataModel {
 					return;
 				}
 				// TODO (2022-12-11 #73): значения для чекбокса должны заполняться внутри dataModel
-				int type = jcbActionFunctionType.getSelectedIndex();
+				final int type = jcbActionFunctionType.getSelectedIndex();
 				actionFunction.setType(type);
 				editorDataModel.nodeChanged(actionFunctionNode);
 			}
@@ -37,19 +37,19 @@ public class ActionFunctionDataModel {
 	DocumentListener jtaActionFunctionLinesDocumentListener = new DocumentListener() {
 		@Override
 		public void insertUpdate(DocumentEvent e) {
-			String lines = jtaActionFunctionLines.getText();
+			final String lines = jtaActionFunctionLines.getText();
 			actionFunction.setScript(lines);
 		}
 
 		@Override
 		public void removeUpdate(DocumentEvent e) {
-			String lines = jtaActionFunctionLines.getText();
+			final String lines = jtaActionFunctionLines.getText();
 			actionFunction.setScript(lines);
 		}
 
 		@Override
 		public void changedUpdate(DocumentEvent e) {
-			String lines = jtaActionFunctionLines.getText();
+			final String lines = jtaActionFunctionLines.getText();
 			actionFunction.setScript(lines);
 		}
 	};
@@ -77,8 +77,8 @@ public class ActionFunctionDataModel {
 		this.actionFunction = selectedActionFunction;
 		this.actionFunctionNode = selectedNode;
 
-		String lines = actionFunction.getScript();
-		int type = actionFunction.getType();
+		final String lines = actionFunction.getScript();
+		final int type = actionFunction.getType();
 
 		jtaActionFunctionLines.setText(lines);
 		jcbActionFunctionType.setSelectedIndex(type);

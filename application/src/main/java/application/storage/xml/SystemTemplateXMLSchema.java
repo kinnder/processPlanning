@@ -32,15 +32,15 @@ public class SystemTemplateXMLSchema implements XMLSchema<SystemTemplate> {
 
 	@Override
 	public SystemTemplate parse(Element root) throws DataConversionException {
-		SystemTemplate systemTemplate = new SystemTemplate();
+		final SystemTemplate systemTemplate = new SystemTemplate();
 
 		for (Element element : root.getChildren(systemObjectTemplateXMLSchema.getSchemaName())) {
-			SystemObjectTemplate systemObjectTemplate = systemObjectTemplateXMLSchema.parse(element);
+			final SystemObjectTemplate systemObjectTemplate = systemObjectTemplateXMLSchema.parse(element);
 			systemTemplate.addObjectTemplate(systemObjectTemplate);
 		}
 
 		for (Element element : root.getChildren(linkTemplateXMLSchema.getSchemaName())) {
-			LinkTemplate linkTemplate = linkTemplateXMLSchema.parse(element);
+			final LinkTemplate linkTemplate = linkTemplateXMLSchema.parse(element);
 			systemTemplate.addLinkTemplate(linkTemplate);
 		}
 
@@ -49,15 +49,15 @@ public class SystemTemplateXMLSchema implements XMLSchema<SystemTemplate> {
 
 	@Override
 	public Element combine(SystemTemplate systemTemplate) {
-		Element root = new Element(TAG_systemTemplate);
+		final Element root = new Element(TAG_systemTemplate);
 
 		for (SystemObjectTemplate systemObjectTemplate : systemTemplate.getObjectTemplates()) {
-			Element element = systemObjectTemplateXMLSchema.combine(systemObjectTemplate);
+			final Element element = systemObjectTemplateXMLSchema.combine(systemObjectTemplate);
 			root.addContent(element);
 		}
 
 		for (LinkTemplate linkTemplate : systemTemplate.getLinkTemplates()) {
-			Element element = linkTemplateXMLSchema.combine(linkTemplate);
+			final Element element = linkTemplateXMLSchema.combine(linkTemplate);
 			root.addContent(element);
 		}
 

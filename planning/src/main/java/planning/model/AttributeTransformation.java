@@ -14,8 +14,8 @@ public class AttributeTransformation extends Transformation {
 
 	@Override
 	public void applyTo(SystemVariant systemVariant) {
-		SystemObject object = systemVariant.getObjectByIdMatch(getId());
-		Attribute attribute = object.getAttribute(attributeName);
+		final SystemObject object = systemVariant.getObjectByIdMatch(getId());
+		final Attribute attribute = object.getAttribute(attributeName);
 		attribute.setValue(attributeValue);
 	}
 

@@ -13,7 +13,7 @@ public class ActionDataModel {
 	KeyAdapter jtfActionNameKeyAdapter = new KeyAdapter() {
 		@Override
 		public void keyReleased(KeyEvent e) {
-			String actionName = jtfActionName.getText();
+			final String actionName = jtfActionName.getText();
 			action.setName(actionName);
 			editorDataModel.nodeChanged(actionNode);
 		}
@@ -40,7 +40,7 @@ public class ActionDataModel {
 	private DefaultMutableTreeNode actionNode;
 
 	public void loadAction(Action selectedAction, DefaultMutableTreeNode selectedNode) {
-		String name = selectedAction.getName();
+		final String name = selectedAction.getName();
 		jtfActionName.setText(name);
 
 		action = selectedAction;

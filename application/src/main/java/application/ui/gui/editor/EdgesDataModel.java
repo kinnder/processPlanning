@@ -53,7 +53,7 @@ public class EdgesDataModel extends DefaultTableModel {
 
 	@Override
 	public void setValueAt(Object aValue, int row, int column) {
-		Edge edge = edges.get(row);
+		final Edge edge = edges.get(row);
 		switch (column) {
 		case COLUMN_IDX_ID:
 			edge.setId((String) aValue);
@@ -69,7 +69,7 @@ public class EdgesDataModel extends DefaultTableModel {
 
 	@Override
 	public Object getValueAt(int row, int column) {
-		Edge edge = edges.get(row);
+		final Edge edge = edges.get(row);
 		switch (column) {
 		case COLUMN_IDX_ID:
 			return edge.getId();

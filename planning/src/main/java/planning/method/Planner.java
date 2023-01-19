@@ -35,22 +35,22 @@ public class Planner {
 		initialNode = nodeNetwork.createNode(initialSystem);
 
 		while (nodeNetwork.hasNextUncheckedNode()) {
-			Node sourceNode = nodeNetwork.nextUncheckedNode();
-			System sourceSystem = sourceNode.getSystem();
+			final Node sourceNode = nodeNetwork.nextUncheckedNode();
+			final System sourceSystem = sourceNode.getSystem();
 			if (sourceSystem.contains(finalSystem)) {
 				finalNode = sourceNode;
 				break;
 			}
 			for (SystemTransformation systemTransformation : systemTransformations) {
-				SystemVariant systemVariants[] = systemTransformation.applyTo(sourceSystem);
+				final SystemVariant systemVariants[] = systemTransformation.applyTo(sourceSystem);
 				for (SystemVariant systemVariant : systemVariants) {
-					System targetSystem = systemVariant.getSystem();
+					final System targetSystem = systemVariant.getSystem();
 					Node targetNode = nodeNetwork.findNode(targetSystem);
 					if (targetNode == null) {
 						targetNode = nodeNetwork.createNode(targetSystem);
 					}
 
-					SystemOperation operation = new SystemOperation(systemTransformation.getAction(),
+					final SystemOperation operation = new SystemOperation(systemTransformation.getAction(),
 							systemVariant.getActionParameters());
 					nodeNetwork.createEdge(sourceNode, targetNode, operation);
 				}
@@ -62,8 +62,8 @@ public class Planner {
 		if (finalNode == null) {
 			return new SystemProcess();
 		}
-		GraphPath<Node, Edge> path = nodeNetwork.getShortestPath(initialNode, finalNode);
-		SystemProcess process = new SystemProcess();
+		final GraphPath<Node, Edge> path = nodeNetwork.getShortestPath(initialNode, finalNode);
+		final SystemProcess process = new SystemProcess();
 		for (Edge edge : path.getEdgeList()) {
 			process.add(edge.getSystemOperation());
 		}

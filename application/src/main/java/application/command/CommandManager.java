@@ -27,7 +27,7 @@ public class CommandManager extends EventQueue {
 	}
 
 	public void runCommand(String commandName, CommandData commandData) {
-		Command command = commands.get(commandName);
+		final Command command = commands.get(commandName);
 		command.prepare(commandData);
 		command.run();
 	}

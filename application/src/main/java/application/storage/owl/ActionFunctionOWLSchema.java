@@ -28,10 +28,10 @@ public class ActionFunctionOWLSchema implements OWLSchema<ActionFunction> {
 
 	@Override
 	public Individual combine(ActionFunction actionFunction) {
-		Individual ind_actionFunction = owlModel.newIndividual_ActionFunction();
-		Collection<LuaScriptLine> scriptLines = actionFunction.getScriptLines();
+		final Individual ind_actionFunction = owlModel.newIndividual_ActionFunction();
+		final Collection<LuaScriptLine> scriptLines = actionFunction.getScriptLines();
 		for (LuaScriptLine scriptLine : scriptLines) {
-			Individual ind_line = luaScriptLineOWLSchema.combine(scriptLine);
+			final Individual ind_line = luaScriptLineOWLSchema.combine(scriptLine);
 			ind_actionFunction.addProperty(owlModel.getObjectProperty_hasLine(), ind_line);
 		}
 		return ind_actionFunction;
@@ -42,11 +42,11 @@ public class ActionFunctionOWLSchema implements OWLSchema<ActionFunction> {
 
 	@Override
 	public ActionFunction parse(Individual ind_actionFunction) {
-		Map<Integer, LuaScriptLine> scriptLines = new TreeMap<Integer, LuaScriptLine>();
+		final Map<Integer, LuaScriptLine> scriptLines = new TreeMap<Integer, LuaScriptLine>();
 		owlModel.getClass_Line().listInstances().filterKeep((ind_line) -> {
 			return ind_actionFunction.hasProperty(owlModel.getObjectProperty_hasLine(), ind_line);
 		}).forEachRemaining((ind_line) -> {
-			LuaScriptLine scriptLine = luaScriptLineOWLSchema.parse(ind_line.asIndividual());
+			final LuaScriptLine scriptLine = luaScriptLineOWLSchema.parse(ind_line.asIndividual());
 			scriptLines.put(scriptLine.getNumber(), scriptLine);
 		});
 		return new ActionFunction(globals, scriptLines.values());

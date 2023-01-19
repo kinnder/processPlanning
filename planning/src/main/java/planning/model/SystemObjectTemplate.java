@@ -24,7 +24,7 @@ public class SystemObjectTemplate {
 	}
 
 	public Set<String> getIds() {
-		Set<String> ids = new HashSet<>();
+		final Set<String> ids = new HashSet<>();
 		ids.add(id);
 		return ids;
 	}
@@ -38,7 +38,7 @@ public class SystemObjectTemplate {
 	}
 
 	public boolean matchesAttributes(SystemObject object) {
-		List<AttributeTemplate> notMatchedAttributeTemplates = new ArrayList<>(attributeTemplates.values());
+		final List<AttributeTemplate> notMatchedAttributeTemplates = new ArrayList<>(attributeTemplates.values());
 		for (Attribute attribute : object.getAttributes()) {
 			for (AttributeTemplate attributeTemplate : notMatchedAttributeTemplates) {
 				if (attributeTemplate.matches(attribute)) {

@@ -31,15 +31,15 @@ public class SystemXMLSchema implements XMLSchema<System> {
 
 	@Override
 	public System parse(Element root) throws DataConversionException {
-		System system = new System();
+		final System system = new System();
 
 		for (Element element : root.getChildren(systemObjectXMLSchema.getSchemaName())) {
-			SystemObject object = systemObjectXMLSchema.parse(element);
+			final SystemObject object = systemObjectXMLSchema.parse(element);
 			system.addObject(object);
 		}
 
 		for (Element element : root.getChildren(linkXMLSchema.getSchemaName())) {
-			Link link = linkXMLSchema.parse(element);
+			final Link link = linkXMLSchema.parse(element);
 			system.addLink(link);
 		}
 
@@ -48,15 +48,15 @@ public class SystemXMLSchema implements XMLSchema<System> {
 
 	@Override
 	public Element combine(System system) {
-		Element root = new Element(TAG_system);
+		final Element root = new Element(TAG_system);
 
 		for (SystemObject systemObject : system.getObjects()) {
-			Element element = systemObjectXMLSchema.combine(systemObject);
+			final Element element = systemObjectXMLSchema.combine(systemObject);
 			root.addContent(element);
 		}
 
 		for (Link link : system.getLinks()) {
-			Element element = linkXMLSchema.combine(link);
+			final Element element = linkXMLSchema.combine(link);
 			root.addContent(element);
 		}
 

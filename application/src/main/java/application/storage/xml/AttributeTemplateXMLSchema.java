@@ -28,8 +28,8 @@ public class AttributeTemplateXMLSchema implements XMLSchema<AttributeTemplate> 
 
 	@Override
 	public AttributeTemplate parse(Element root) throws DataConversionException {
-		String name = root.getChildText(TAG_name);
-		Object value = valueXMLSchema.parse(root.getChild(valueXMLSchema.getSchemaName()));
+		final String name = root.getChildText(TAG_name);
+		final Object value = valueXMLSchema.parse(root.getChild(valueXMLSchema.getSchemaName()));
 		if (value == null) {
 			return new AttributeTemplate(name);
 		}
@@ -38,13 +38,13 @@ public class AttributeTemplateXMLSchema implements XMLSchema<AttributeTemplate> 
 
 	@Override
 	public Element combine(AttributeTemplate attributeTemplate) {
-		Element root = new Element(TAG_attributeTemplate);
-		Element name = new Element(TAG_name);
+		final Element root = new Element(TAG_attributeTemplate);
+		final Element name = new Element(TAG_name);
 		name.setText(attributeTemplate.getName());
 		root.addContent(name);
-		Object attributeValue = attributeTemplate.getValue();
+		final Object attributeValue = attributeTemplate.getValue();
 		if (attributeValue != null) {
-			Element value = valueXMLSchema.combine(attributeValue);
+			final Element value = valueXMLSchema.combine(attributeValue);
 			root.addContent(value);
 		}
 		return root;

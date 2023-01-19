@@ -21,17 +21,17 @@ public class TaskDescriptionOWLSchema implements OWLSchema<TaskDescription> {
 
 	@Override
 	public Individual combine(TaskDescription taskDescription) {
-		Individual ind_taskDescription = owlModel.newIndividual_TaskDescription();
+		final Individual ind_taskDescription = owlModel.newIndividual_TaskDescription();
 		ind_taskDescription.addLabel("Task Description", "en");
 		ind_taskDescription.addLabel("Описание задания", "ru");
 
-		Individual ind_initialSystem = systemOWLSchema.combine(taskDescription.getInitialSystem());
+		final Individual ind_initialSystem = systemOWLSchema.combine(taskDescription.getInitialSystem());
 		ind_initialSystem.setOntClass(owlModel.getClass_InitialSystem());
 		ind_initialSystem.addLabel("Initial system", "en");
 		ind_initialSystem.addLabel("Начальная система", "ru");
 		ind_taskDescription.addProperty(owlModel.getObjectProperty_hasInitialSystem(), ind_initialSystem);
 
-		Individual ind_finalSystem = systemOWLSchema.combine(taskDescription.getFinalSystem());
+		final Individual ind_finalSystem = systemOWLSchema.combine(taskDescription.getFinalSystem());
 		ind_finalSystem.setOntClass(owlModel.getClass_FinalSystem());
 		ind_finalSystem.addLabel("Final system", "en");
 		ind_finalSystem.addLabel("Конечная система", "ru");
@@ -42,19 +42,19 @@ public class TaskDescriptionOWLSchema implements OWLSchema<TaskDescription> {
 
 	@Override
 	public TaskDescription parse(Individual individual) {
-		TaskDescription taskDescription = new TaskDescription();
+		final TaskDescription taskDescription = new TaskDescription();
 
 		owlModel.getClass_TaskDescription().listInstances().forEachRemaining((ind_taskDescription) -> {
 			owlModel.getClass_InitialSystem().listInstances().filterKeep((ind_initialSystem) -> {
 				return ind_taskDescription.hasProperty(owlModel.getObjectProperty_hasInitialSystem(), ind_initialSystem);
 			}).forEachRemaining((ind_initialSystem) -> {
-				System initialSystem = systemOWLSchema.parse(ind_initialSystem.asIndividual());
+				final System initialSystem = systemOWLSchema.parse(ind_initialSystem.asIndividual());
 				taskDescription.setInitialSystem(initialSystem);
 			});
 			owlModel.getClass_FinalSystem().listInstances().filterKeep((ind_finalSystem) -> {
 				return ind_taskDescription.hasProperty(owlModel.getObjectProperty_hasFinalSystem(), ind_finalSystem);
 			}).forEachRemaining((ind_finalSystem) -> {
-				System finalSystem = systemOWLSchema.parse(ind_finalSystem.asIndividual());
+				final System finalSystem = systemOWLSchema.parse(ind_finalSystem.asIndividual());
 				taskDescription.setFinalSystem(finalSystem);
 			});
 		});

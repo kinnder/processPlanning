@@ -52,11 +52,11 @@ public class ObjectsDataModel extends DefaultTableModel {
 
 	public void insertObject() {
 		// TODO (2022-11-11 #72): перенести в SystemObject
-		SystemObject object = new SystemObject("new object");
+		final SystemObject object = new SystemObject("new object");
 		system.addObject(object);
 		objects.add(object);
 		this.addRow(new Object[] {});
-		DefaultMutableTreeNode objectNode = editorDataModel.createObjectNode(object);
+		final DefaultMutableTreeNode objectNode = editorDataModel.createObjectNode(object);
 		// TODO (2023-01-09 #78): проверить количество вставляемых узлов
 		systemNode.add(objectNode);
 		editorDataModel.insertNodeInto(objectNode, systemNode, objects.size() - 1);
@@ -67,18 +67,18 @@ public class ObjectsDataModel extends DefaultTableModel {
 			return;
 		}
 
-		SystemObject object = objects.get(idx);
+		final SystemObject object = objects.get(idx);
 		system.removeObject(object);
 		objects.remove(object);
 
 		this.removeRow(idx);
-		DefaultMutableTreeNode objectNode = (DefaultMutableTreeNode) systemNode.getChildAt(idx);
+		final DefaultMutableTreeNode objectNode = (DefaultMutableTreeNode) systemNode.getChildAt(idx);
 		editorDataModel.removeNodeFromParent(objectNode);
 	}
 
 	@Override
 	public void setValueAt(Object aValue, int row, int column) {
-		SystemObject object = objects.get(row);
+		final SystemObject object = objects.get(row);
 		switch (column) {
 		case COLUMN_IDX_NAME:
 			object.setName((String) aValue);
@@ -94,7 +94,7 @@ public class ObjectsDataModel extends DefaultTableModel {
 
 	@Override
 	public Object getValueAt(int row, int column) {
-		SystemObject object = objects.get(row);
+		final SystemObject object = objects.get(row);
 		switch (column) {
 		case COLUMN_IDX_NAME:
 			return object.getName();

@@ -41,7 +41,7 @@ public class Edge {
 			return false;
 		}
 		if (obj instanceof Edge) {
-			Edge edge = (Edge) obj;
+			final Edge edge = (Edge) obj;
 			return Objects.equals(id, edge.id);
 			// TODO (2020-08-10 #23): сравнение по другим полям
 		}

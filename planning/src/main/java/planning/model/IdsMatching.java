@@ -27,7 +27,7 @@ public class IdsMatching {
 
 	public boolean areKeysAndValuesTheSame() {
 		for (String key : matchings.keySet()) {
-			String value = matchings.get(key);
+			final String value = matchings.get(key);
 			if (!key.equals(value)) {
 				return false;
 			}

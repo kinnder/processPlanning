@@ -22,12 +22,12 @@ public class SystemTransformationsOWLSchema implements OWLSchema<SystemTransform
 
 	@Override
 	public Individual combine(SystemTransformations systemTransformations) {
-		Individual ind_systemTransformations = owlModel.newIndividual_SystemTransformations();
+		final Individual ind_systemTransformations = owlModel.newIndividual_SystemTransformations();
 		ind_systemTransformations.addLabel("System Transformations", "en");
 		ind_systemTransformations.addLabel("Трансформации системы", "ru");
 
 		for (SystemTransformation systemTransformation : systemTransformations) {
-			Individual ind_systemTransformation = systemTransformationOWLSchema.combine(systemTransformation);
+			final Individual ind_systemTransformation = systemTransformationOWLSchema.combine(systemTransformation);
 			ind_systemTransformations.addProperty(owlModel.getObjectProperty_hasSystemTransformation(), ind_systemTransformation);
 		}
 		return ind_systemTransformations;
@@ -35,12 +35,12 @@ public class SystemTransformationsOWLSchema implements OWLSchema<SystemTransform
 
 	@Override
 	public SystemTransformations parse(Individual individual) {
-		SystemTransformations systemTransformations = new SystemTransformations();
+		final SystemTransformations systemTransformations = new SystemTransformations();
 		owlModel.getClass_SystemTransformations().listInstances().forEachRemaining((ind_systemTransformations) -> {
 			owlModel.getClass_SystemTransformation().listInstances().filterKeep((ind_systemTransformation) -> {
 				return ind_systemTransformations.hasProperty(owlModel.getObjectProperty_hasSystemTransformation(), ind_systemTransformation);
 			}).forEachRemaining((ind_systemTransformation) -> {
-				SystemTransformation systemTransformation = systemTransformationOWLSchema.parse(ind_systemTransformation.asIndividual());
+				final SystemTransformation systemTransformation = systemTransformationOWLSchema.parse(ind_systemTransformation.asIndividual());
 				systemTransformations.add(systemTransformation);
 			});
 		});

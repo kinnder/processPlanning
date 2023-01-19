@@ -18,13 +18,13 @@ public class AttributeTransformationOWLSchema implements OWLSchema<AttributeTran
 
 	@Override
 	public Individual combine(AttributeTransformation attributeTransformation) {
-		Individual ind_attributeTransformation = owlModel.newIndividual_AttributeTransformation();
-		String name = attributeTransformation.getAttributeName();
+		final Individual ind_attributeTransformation = owlModel.newIndividual_AttributeTransformation();
+		final String name = attributeTransformation.getAttributeName();
 		ind_attributeTransformation.addLabel(String.format("Трансформация атрибута \"%s\"", name), "ru");
 		ind_attributeTransformation.addLabel(String.format("Attribute transformation \"%s\"", name), "en");
 		ind_attributeTransformation.addProperty(owlModel.getDataProperty_id(), attributeTransformation.getId());
 		ind_attributeTransformation.addProperty(owlModel.getDataProperty_name(), name);
-		Object value = attributeTransformation.getAttributeValue();
+		final Object value = attributeTransformation.getAttributeValue();
 		if (value instanceof Boolean) {
 			ind_attributeTransformation.addProperty(owlModel.getDataProperty_value(), value.toString(), XSDDatatype.XSDboolean);
 		} else if (value instanceof Integer) {
@@ -37,13 +37,13 @@ public class AttributeTransformationOWLSchema implements OWLSchema<AttributeTran
 
 	@Override
 	public AttributeTransformation parse(Individual ind_attributeTransformation) {
-		String name = ind_attributeTransformation.getProperty(owlModel.getDataProperty_name()).getString();
-		String id = ind_attributeTransformation.getProperty(owlModel.getDataProperty_id()).getString();
+		final String name = ind_attributeTransformation.getProperty(owlModel.getDataProperty_name()).getString();
+		final String id = ind_attributeTransformation.getProperty(owlModel.getDataProperty_id()).getString();
 
-		Statement valueStatement = ind_attributeTransformation.getProperty(owlModel.getDataProperty_value());
+		final Statement valueStatement = ind_attributeTransformation.getProperty(owlModel.getDataProperty_value());
 		if (valueStatement != null) {
-			Literal valueLiteral = valueStatement.getLiteral();
-			RDFDatatype valueType = valueLiteral.getDatatype();
+			final Literal valueLiteral = valueStatement.getLiteral();
+			final RDFDatatype valueType = valueLiteral.getDatatype();
 			if (valueType == XSDDatatype.XSDboolean) {
 				return new AttributeTransformation(id, name, valueLiteral.getBoolean());
 			}

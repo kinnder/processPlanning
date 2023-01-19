@@ -32,7 +32,7 @@ public class VerifyCommand extends Command {
 	SchemaFactory factory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
 
 	private void execute(VerifyCommandData data) throws Exception {
-		Map<String, String> filesToValidate = new HashMap<String, String>();
+		final Map<String, String> filesToValidate = new HashMap<String, String>();
 		if (data.taskDescriptionFile != null) {
 			filesToValidate.put(data.taskDescriptionFile, PersistanceStorage.TASK_DESCRIPTION_XSD);
 		}
@@ -47,9 +47,9 @@ public class VerifyCommand extends Command {
 		}
 
 		for (String xmlPath : filesToValidate.keySet()) {
-			String xsdPath = filesToValidate.get(xmlPath);
-			Source xml = new StreamSource(xmlPath);
-			Source xsd = new StreamSource(application.getResourceAsStream(xsdPath));
+			final String xsdPath = filesToValidate.get(xmlPath);
+			final Source xml = new StreamSource(xmlPath);
+			final Source xsd = new StreamSource(application.getResourceAsStream(xsdPath));
 			status(String.format("verification of %s ...", xmlPath));
 			if (verifyXMLSchema(xml, xsd)) {
 				status(String.format("SUCCESS: %s is correct", xmlPath));
@@ -61,7 +61,7 @@ public class VerifyCommand extends Command {
 
 	private boolean verifyXMLSchema(Source xml, Source xsd) throws IOException {
 		try {
-			Validator validator = factory.newSchema(xsd).newValidator();
+			final Validator validator = factory.newSchema(xsd).newValidator();
 			validator.validate(xml);
 		} catch (SAXParseException e) {
 			status(String.format("lineNumber: %d; columnNumber: %d; %s", e.getLineNumber(), e.getColumnNumber(), e.getMessage()));

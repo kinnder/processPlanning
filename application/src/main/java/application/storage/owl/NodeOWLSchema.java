@@ -22,13 +22,13 @@ public class NodeOWLSchema implements OWLSchema<Node> {
 
 	@Override
 	public Individual combine(Node node) {
-		Individual ind_node = owlModel.newIndividual_Node();
+		final Individual ind_node = owlModel.newIndividual_Node();
 		ind_node.addLabel("Node", "en");
 		ind_node.addLabel("Узел", "ru");
 		ind_node.addProperty(owlModel.getDataProperty_id(), node.getId());
 		ind_node.addProperty(owlModel.getDataProperty_checked(), Boolean.toString(node.getChecked()), XSDDatatype.XSDboolean);
 
-		Individual ind_system = systemOWLSchema.combine(node.getSystem());
+		final Individual ind_system = systemOWLSchema.combine(node.getSystem());
 		ind_node.addProperty(owlModel.getObjectProperty_hasSystem(), ind_system);
 
 		return ind_node;
@@ -36,15 +36,15 @@ public class NodeOWLSchema implements OWLSchema<Node> {
 
 	@Override
 	public Node parse(Individual ind_node) {
-		String id = ind_node.getProperty(owlModel.getDataProperty_id()).getString();
-		boolean checked = ind_node.getProperty(owlModel.getDataProperty_checked()).getBoolean();
+		final String id = ind_node.getProperty(owlModel.getDataProperty_id()).getString();
+		final boolean checked = ind_node.getProperty(owlModel.getDataProperty_checked()).getBoolean();
 
-		Node node = new Node(id, null, checked);
+		final Node node = new Node(id, null, checked);
 
 		owlModel.getClass_System().listInstances().filterKeep((ind_system) -> {
 			return ind_node.hasProperty(owlModel.getObjectProperty_hasSystem(), ind_system);
 		}).forEachRemaining((ind_system) -> {
-			System system = systemOWLSchema.parse(ind_system.asIndividual());
+			final System system = systemOWLSchema.parse(ind_system.asIndividual());
 			node.setSystem(system);
 		});
 

@@ -29,28 +29,28 @@ public class SystemTemplateOWLSchema implements OWLSchema<SystemTemplate> {
 
 	@Override
 	public Individual combine(SystemTemplate systemTemplate) {
-		Individual ind_systemTemplate = owlModel.newIndividual_SystemTemplate();
+		final Individual ind_systemTemplate = owlModel.newIndividual_SystemTemplate();
 		ind_systemTemplate.addLabel("System template", "en");
 		ind_systemTemplate.addLabel("Шаблон системы", "ru");
 
-		Map<String, Individual> ind_objectTemplates = new HashMap<String, Individual>();
+		final Map<String, Individual> ind_objectTemplates = new HashMap<String, Individual>();
 
 		for (SystemObjectTemplate objectTemplate : systemTemplate.getObjectTemplates()) {
-			Individual ind_objectTemplate = systemObjectTemplateOWLSchema.combine(objectTemplate);
+			final Individual ind_objectTemplate = systemObjectTemplateOWLSchema.combine(objectTemplate);
 			ind_systemTemplate.addProperty(owlModel.getObjectProperty_hasObjectTemplate(), ind_objectTemplate);
 
 			ind_objectTemplates.put(objectTemplate.getId(), ind_objectTemplate);
 		}
 
 		for (LinkTemplate linkTemplate : systemTemplate.getLinkTemplates()) {
-			Individual ind_linkTemplate = linkTemplateOWLSchema.combine(linkTemplate);
+			final Individual ind_linkTemplate = linkTemplateOWLSchema.combine(linkTemplate);
 			ind_systemTemplate.addProperty(owlModel.getObjectProperty_hasLinkTemplate(), ind_linkTemplate);
 
-			String id1 = linkTemplate.getId1();
+			final String id1 = linkTemplate.getId1();
 			if (id1 != null) {
 				ind_linkTemplate.addProperty(owlModel.getObjectProperty_hasObjectTemplate1(), ind_objectTemplates.get(id1));
 			}
-			String id2 = linkTemplate.getId2();
+			final String id2 = linkTemplate.getId2();
 			if (id2 != null) {
 				ind_linkTemplate.addProperty(owlModel.getObjectProperty_hasObjectTemplate2(), ind_objectTemplates.get(id2));
 			}
@@ -61,19 +61,19 @@ public class SystemTemplateOWLSchema implements OWLSchema<SystemTemplate> {
 
 	@Override
 	public SystemTemplate parse(Individual ind_systemTemplate) {
-		SystemTemplate systemTemplate = new SystemTemplate();
+		final SystemTemplate systemTemplate = new SystemTemplate();
 
 		owlModel.getClass_ObjectTemplate().listInstances().filterKeep((ind_objectTemplate) -> {
 			return ind_systemTemplate.hasProperty(owlModel.getObjectProperty_hasObjectTemplate(), ind_objectTemplate);
 		}).forEachRemaining((ind_objectTemplate) -> {
-			SystemObjectTemplate systemObjectTemplate = systemObjectTemplateOWLSchema.parse(ind_objectTemplate.asIndividual());
+			final SystemObjectTemplate systemObjectTemplate = systemObjectTemplateOWLSchema.parse(ind_objectTemplate.asIndividual());
 			systemTemplate.addObjectTemplate(systemObjectTemplate);
 		});
 
 		owlModel.getClass_LinkTemplate().listInstances().filterKeep((ind_linkTemplate) -> {
 			return ind_systemTemplate.hasProperty(owlModel.getObjectProperty_hasLinkTemplate(), ind_linkTemplate);
 		}).forEachRemaining((ind_linkTemplate) -> {
-			LinkTemplate linkTemplate = linkTemplateOWLSchema.parse(ind_linkTemplate.asIndividual());
+			final LinkTemplate linkTemplate = linkTemplateOWLSchema.parse(ind_linkTemplate.asIndividual());
 			systemTemplate.addLinkTemplate(linkTemplate);
 		});
 

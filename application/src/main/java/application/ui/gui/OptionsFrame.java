@@ -62,7 +62,7 @@ public class OptionsFrame extends javax.swing.JFrame {
 
 		jbCancel.setText("Cancel");
 
-		javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+		final javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
 		jPanel1.setLayout(jPanel1Layout);
 		jPanel1Layout
 				.setHorizontalGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -78,7 +78,7 @@ public class OptionsFrame extends javax.swing.JFrame {
 										.addComponent(jbOk).addComponent(jbCancel))
 								.addContainerGap()));
 
-		javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+		final javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
 		getContentPane().setLayout(layout);
 		layout.setHorizontalGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
 				.addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
@@ -107,7 +107,7 @@ public class OptionsFrame extends javax.swing.JFrame {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			Arguments arguments = application.getArguments();
+			final Arguments arguments = application.getArguments();
 			arguments.setArgument_d(getModelValue_Domain());
 			arguments.setArgument_st(getModelValue_SystemTransformations());
 			arguments.setArgument_td(getModelValue_TaskDescription());
@@ -135,7 +135,7 @@ public class OptionsFrame extends javax.swing.JFrame {
 	private Application application;
 
 	public void updateComponents() {
-		Arguments arguments = application.getArguments();
+		final Arguments arguments = application.getArguments();
 		setModelValue_Domain(arguments.getArgument_d("unknown"));
 		setModelValue_SystemTransformations(arguments.getArgument_st("systemTransformations.xml"));
 		setModelValue_TaskDescription(arguments.getArgument_td("taskDescription.xml"));

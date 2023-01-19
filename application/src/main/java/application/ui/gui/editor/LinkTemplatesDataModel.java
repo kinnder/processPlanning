@@ -55,10 +55,10 @@ public class LinkTemplatesDataModel extends DefaultTableModel {
 
 	public void insertLinkTemplate() {
 		// TODO (2022-12-02 #73): перенести в LinkTemplate
-		String name = "link-template-" + UUID.randomUUID().toString();
-		String id1 = "";
-		String id2 = "";
-		LinkTemplate linkTemplate = new LinkTemplate(name, id1, id2);
+		final String name = "link-template-" + UUID.randomUUID().toString();
+		final String id1 = "";
+		final String id2 = "";
+		final LinkTemplate linkTemplate = new LinkTemplate(name, id1, id2);
 		systemTemplate.addLinkTemplate(linkTemplate);
 		linkTemplates.add(linkTemplate);
 		this.addRow(new Object[] {});
@@ -70,7 +70,7 @@ public class LinkTemplatesDataModel extends DefaultTableModel {
 			return;
 		}
 
-		LinkTemplate linkTemplate = linkTemplates.get(idx);
+		final LinkTemplate linkTemplate = linkTemplates.get(idx);
 		systemTemplate.removeLinkTemplate(linkTemplate);
 		linkTemplates.remove(linkTemplate);
 
@@ -80,7 +80,7 @@ public class LinkTemplatesDataModel extends DefaultTableModel {
 
 	@Override
 	public void setValueAt(Object aValue, int row, int column) {
-		LinkTemplate linkTemplate = linkTemplates.get(row);
+		final LinkTemplate linkTemplate = linkTemplates.get(row);
 		switch (column) {
 		case COLUMN_IDX_NAME:
 			linkTemplate.setName((String) aValue);
@@ -99,7 +99,7 @@ public class LinkTemplatesDataModel extends DefaultTableModel {
 
 	@Override
 	public Object getValueAt(int row, int column) {
-		LinkTemplate linkTemplate = linkTemplates.get(row);
+		final LinkTemplate linkTemplate = linkTemplates.get(row);
 		switch (column) {
 		case COLUMN_IDX_NAME:
 			return linkTemplate.getName();

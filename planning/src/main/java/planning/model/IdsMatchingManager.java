@@ -58,22 +58,22 @@ public class IdsMatchingManager {
 	}
 
 	public void removeMatchingsCandidate(String templateId, String objectId) {
-		List<String> systemIds = candidates.get(templateId);
+		final List<String> systemIds = candidates.get(templateId);
 		systemIds.remove(objectId);
 	}
 
 	public void generateMatchingsFromCandidates() {
-		List<List<String>> objectIdsCombinations = CartesianProductHelper.compute(candidates.values());
-		List<String> templateIdsCombination = new ArrayList<>(candidates.keySet());
+		final List<List<String>> objectIdsCombinations = CartesianProductHelper.compute(candidates.values());
+		final List<String> templateIdsCombination = new ArrayList<>(candidates.keySet());
 		for (List<String> objectIdsCombination : objectIdsCombinations) {
-			Set<String> uniqueObjectIds = new HashSet<>();
+			final Set<String> uniqueObjectIds = new HashSet<>();
 			uniqueObjectIds.addAll(objectIdsCombination);
 			if (uniqueObjectIds.size() == objectIdsCombination.size()) {
-				IdsMatching idsMatching = new IdsMatching();
+				final IdsMatching idsMatching = new IdsMatching();
 
 				for (int i = 0; i < objectIdsCombination.size(); i++) {
-					String templateId = templateIdsCombination.get(i);
-					String objectId = objectIdsCombination.get(i);
+					final String templateId = templateIdsCombination.get(i);
+					final String objectId = objectIdsCombination.get(i);
 					idsMatching.add(templateId, objectId);
 				}
 				idsMatchings.add(idsMatching);

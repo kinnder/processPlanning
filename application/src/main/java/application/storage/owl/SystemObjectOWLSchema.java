@@ -22,15 +22,15 @@ public class SystemObjectOWLSchema implements OWLSchema<SystemObject> {
 
 	@Override
 	public Individual combine(SystemObject systemObject) {
-		Individual ind_systemObject = owlModel.newIndividual_SystemObject();
-		String name = systemObject.getName();
+		final Individual ind_systemObject = owlModel.newIndividual_SystemObject();
+		final String name = systemObject.getName();
 		ind_systemObject.addLabel(String.format("System Object \"%s\"", name), "en");
 		ind_systemObject.addLabel(String.format("Объект системы \"%s\"", name), "ru");
 		ind_systemObject.addProperty(owlModel.getDataProperty_name(), name);
 		ind_systemObject.addProperty(owlModel.getDataProperty_id(), systemObject.getId());
 
 		for (Attribute attribute : systemObject.getAttributes()) {
-			Individual ind_attribute = attributeOWLSchema.combine(attribute);
+			final Individual ind_attribute = attributeOWLSchema.combine(attribute);
 			ind_systemObject.addProperty(owlModel.getObjectProperty_hasAttribute(), ind_attribute);
 		}
 
@@ -39,15 +39,15 @@ public class SystemObjectOWLSchema implements OWLSchema<SystemObject> {
 
 	@Override
 	public SystemObject parse(Individual ind_systemObject) {
-		String name = ind_systemObject.getProperty(owlModel.getDataProperty_name()).getString();
-		String id = ind_systemObject.getProperty(owlModel.getDataProperty_id()).getString();
+		final String name = ind_systemObject.getProperty(owlModel.getDataProperty_name()).getString();
+		final String id = ind_systemObject.getProperty(owlModel.getDataProperty_id()).getString();
 
-		SystemObject systemObject = new SystemObject(name, id);
+		final SystemObject systemObject = new SystemObject(name, id);
 
 		owlModel.getClass_Attribute().listInstances().filterKeep((ind_attribute) -> {
 			return ind_systemObject.hasProperty(owlModel.getObjectProperty_hasAttribute(), ind_attribute);
 		}).forEachRemaining((ind_attribute) -> {
-			Attribute attribute = attributeOWLSchema.parse(ind_attribute.asIndividual());
+			final Attribute attribute = attributeOWLSchema.parse(ind_attribute.asIndividual());
 			systemObject.addAttribute(attribute);
 		});
 

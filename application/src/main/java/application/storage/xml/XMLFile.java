@@ -44,8 +44,8 @@ public class XMLFile<T> {
 	}
 
 	public T load(Path path) throws IOException, JDOMException {
-		InputStream inputStream = new BufferedInputStream(Files.newInputStream(path));
-		Element root = builder.build(inputStream).getRootElement();
+		final InputStream inputStream = new BufferedInputStream(Files.newInputStream(path));
+		final Element root = builder.build(inputStream).getRootElement();
 		return xmlSchema.parse(root);
 	}
 
@@ -58,9 +58,9 @@ public class XMLFile<T> {
 	}
 
 	public void save(T object, Path path) throws IOException {
-		Element root = xmlSchema.combine(object);
-		Document document = new Document(root);
-		OutputStream outputStream = new BufferedOutputStream(Files.newOutputStream(path));
+		final Element root = xmlSchema.combine(object);
+		final Document document = new Document(root);
+		final OutputStream outputStream = new BufferedOutputStream(Files.newOutputStream(path));
 		outputter.output(document, outputStream);
 	}
 }

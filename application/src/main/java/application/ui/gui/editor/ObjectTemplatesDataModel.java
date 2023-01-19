@@ -52,7 +52,7 @@ public class ObjectTemplatesDataModel extends DefaultTableModel {
 
 	@Override
 	public void setValueAt(Object aValue, int row, int column) {
-		SystemObjectTemplate objectTemplate = objectTemplates.get(row);
+		final SystemObjectTemplate objectTemplate = objectTemplates.get(row);
 		switch (column) {
 		case COLUMN_IDX_NAME:
 			break;
@@ -67,7 +67,7 @@ public class ObjectTemplatesDataModel extends DefaultTableModel {
 
 	@Override
 	public Object getValueAt(int row, int column) {
-		SystemObjectTemplate objectTemplate = objectTemplates.get(row);
+		final SystemObjectTemplate objectTemplate = objectTemplates.get(row);
 		switch (column) {
 		case COLUMN_IDX_NAME:
 			return "Object Template";
@@ -80,11 +80,11 @@ public class ObjectTemplatesDataModel extends DefaultTableModel {
 
 	public void insertObjectTemplate() {
 		// TODO (2022-12-02 #73): перенести в SystemObjectTemplate
-		SystemObjectTemplate objectTemplate = new SystemObjectTemplate("new id");
+		final SystemObjectTemplate objectTemplate = new SystemObjectTemplate("new id");
 		systemTemplate.addObjectTemplate(objectTemplate);
 		objectTemplates.add(objectTemplate);
 		this.addRow(new Object[] {});
-		DefaultMutableTreeNode objectTemplateNode = editorDataModel.createObjectTemplateNode(objectTemplate);
+		final DefaultMutableTreeNode objectTemplateNode = editorDataModel.createObjectTemplateNode(objectTemplate);
 		systemTemplateNode.add(objectTemplateNode);
 		editorDataModel.insertNodeInto(objectTemplateNode, systemTemplateNode, objectTemplates.size() - 1);
 	}
@@ -94,12 +94,12 @@ public class ObjectTemplatesDataModel extends DefaultTableModel {
 			return;
 		}
 
-		SystemObjectTemplate objectTemplate = objectTemplates.get(idx);
+		final SystemObjectTemplate objectTemplate = objectTemplates.get(idx);
 		systemTemplate.removeObjectTemplate(objectTemplate);
 		objectTemplates.remove(objectTemplate);
 
 		this.removeRow(idx);
-		DefaultMutableTreeNode objectTemplateNode = (DefaultMutableTreeNode) systemTemplateNode.getChildAt(idx);
+		final DefaultMutableTreeNode objectTemplateNode = (DefaultMutableTreeNode) systemTemplateNode.getChildAt(idx);
 		editorDataModel.removeNodeFromParent(objectTemplateNode);
 	}
 }

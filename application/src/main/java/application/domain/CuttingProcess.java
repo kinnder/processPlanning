@@ -241,7 +241,7 @@ public class CuttingProcess {
 		transformations.add(new LinkTransformation(ID_CYLINDER_SURFACE, LINK_IS_LENGTH_REQUIREMENT, null, ID_REQUIREMENT));
 		transformations.add(new AttributeTransformation(ID_CYLINDER_SURFACE, ATTRIBUTE_HAS_LENGTH_REQUIREMENT, true));
 
-		StringBuilder script = new StringBuilder();
+		final StringBuilder script = new StringBuilder();
 		script.append("local systemVariant = ...");
 		script.append("\n");
 		script.append("local cylinderSurface_actual = systemVariant:getObjectByIdMatch('" + ID_CYLINDER_SURFACE + "')");
@@ -414,7 +414,7 @@ public class CuttingProcess {
 	static Globals globals = JsePlatform.standardGlobals();
 
 	public static SystemTransformations getSystemTransformations() {
-		SystemTransformations systemTransformations = new SystemTransformations();
+		final SystemTransformations systemTransformations = new SystemTransformations();
 		systemTransformations.add(cutCylinderSurface());
 		systemTransformations.add(trimCylinderSurface());
 		systemTransformations.add(splitCylinderSurface());
@@ -529,7 +529,7 @@ public class CuttingProcess {
 	}
 
 	public static TaskDescription getTaskDescription() {
-		TaskDescription taskDescription = new TaskDescription();
+		final TaskDescription taskDescription = new TaskDescription();
 		taskDescription.setInitialSystem(initialSystem());
 		taskDescription.setFinalSystem(finalSystem());
 		return taskDescription;

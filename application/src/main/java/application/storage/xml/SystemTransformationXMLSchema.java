@@ -37,21 +37,21 @@ public class SystemTransformationXMLSchema implements XMLSchema<SystemTransforma
 
 	@Override
 	public SystemTransformation parse(Element root) throws DataConversionException {
-		String name = root.getChildText(TAG_name);
-		Action action = actionXMLSchema.parse(root.getChild(actionXMLSchema.getSchemaName()));
-		SystemTemplate systemTemplate = systemTemplateXMLSchema.parse(root.getChild(systemTemplateXMLSchema.getSchemaName()));
-		Transformations transformations = transformationsXMLSchema.parse(root.getChild(transformationsXMLSchema.getSchemaName()));
+		final String name = root.getChildText(TAG_name);
+		final Action action = actionXMLSchema.parse(root.getChild(actionXMLSchema.getSchemaName()));
+		final SystemTemplate systemTemplate = systemTemplateXMLSchema.parse(root.getChild(systemTemplateXMLSchema.getSchemaName()));
+		final Transformations transformations = transformationsXMLSchema.parse(root.getChild(transformationsXMLSchema.getSchemaName()));
 		return new SystemTransformation(name, action, systemTemplate, transformations);
 	}
 
 	@Override
 	public Element combine(SystemTransformation systemTransformation) {
-		Element name = new Element(TAG_name);
+		final Element name = new Element(TAG_name);
 		name.setText(systemTransformation.getName());
-		Element action = actionXMLSchema.combine(systemTransformation.getAction());
-		Element systemTemplate = systemTemplateXMLSchema.combine(systemTransformation.getSystemTemplate());
-		Element transformations = transformationsXMLSchema.combine(systemTransformation.getTransformations());
-		Element root = new Element(TAG_systemTransformation);
+		final Element action = actionXMLSchema.combine(systemTransformation.getAction());
+		final Element systemTemplate = systemTemplateXMLSchema.combine(systemTransformation.getSystemTemplate());
+		final Element transformations = transformationsXMLSchema.combine(systemTransformation.getTransformations());
+		final Element root = new Element(TAG_systemTransformation);
 		root.addContent(name);
 		root.addContent(systemTemplate);
 		root.addContent(transformations);

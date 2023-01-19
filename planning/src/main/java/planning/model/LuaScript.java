@@ -20,7 +20,7 @@ public class LuaScript {
 
 	public LuaScript(Globals globals, Collection<LuaScriptLine> scriptLines) {
 		this.globals = globals;
-		StringBuilder scriptBuilder = new StringBuilder();
+		final StringBuilder scriptBuilder = new StringBuilder();
 		for (LuaScriptLine scriptLine : scriptLines) {
 			scriptBuilder.append(scriptLine.getText()).append("\n");
 		}
@@ -40,8 +40,8 @@ public class LuaScript {
 	}
 
 	public Collection<LuaScriptLine> getScriptLines() {
-		String lines[] = script.split("\n");
-		Map<Integer, LuaScriptLine> scriptLines = new TreeMap<Integer, LuaScriptLine>();
+		final String lines[] = script.split("\n");
+		final Map<Integer, LuaScriptLine> scriptLines = new TreeMap<Integer, LuaScriptLine>();
 		int number = 1;
 		for (String line : lines) {
 			scriptLines.put(number, new LuaScriptLine(number, line));

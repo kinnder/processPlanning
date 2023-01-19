@@ -18,15 +18,15 @@ public class SystemOperationOWLSchema implements OWLSchema<SystemOperation> {
 
 	@Override
 	public Individual combine(SystemOperation systemOperation) {
-		Individual ind_systemOperation = owlModel.newIndividual_SystemOperation();
-		String name = systemOperation.getName();
+		final Individual ind_systemOperation = owlModel.newIndividual_SystemOperation();
+		final String name = systemOperation.getName();
 		ind_systemOperation.addLabel(String.format("System operation \"%s\"", name), "en");
 		ind_systemOperation.addLabel(String.format("Операция системы \"%s\"", name), "ru");
 		ind_systemOperation.addProperty(owlModel.getDataProperty_name(), name);
 
-		Map<String, String> actionParameters = systemOperation.getActionParameters();
+		final Map<String, String> actionParameters = systemOperation.getActionParameters();
 		for (String key : actionParameters.keySet()) {
-			Individual ind_parameter = owlModel.newIndividual_Parameter();
+			final Individual ind_parameter = owlModel.newIndividual_Parameter();
 			ind_parameter.addLabel(String.format("Parameter \"%s\"", key), "en");
 			ind_parameter.addLabel(String.format("Параметр \"%s\"", key), "ru");
 			ind_parameter.addProperty(owlModel.getDataProperty_key(), key);
@@ -39,14 +39,14 @@ public class SystemOperationOWLSchema implements OWLSchema<SystemOperation> {
 
 	@Override
 	public SystemOperation parse(Individual ind_systemOperation) {
-		String name = ind_systemOperation.getProperty(owlModel.getDataProperty_name()).getString();
+		final String name = ind_systemOperation.getProperty(owlModel.getDataProperty_name()).getString();
 
-		Map<String, String> actionParameters = new HashMap<>();
+		final Map<String, String> actionParameters = new HashMap<>();
 		owlModel.getClass_Parameter().listInstances().filterKeep((ind_parameter) -> {
 			return ind_systemOperation.hasProperty(owlModel.getObjectProperty_hasParameter(), ind_parameter);
 		}).forEachRemaining((ind_parameter) -> {
-			String parameterName = ind_parameter.getProperty(owlModel.getDataProperty_key()).getString();
-			String parameterValue = ind_parameter.getProperty(owlModel.getDataProperty_value()).getString();
+			final String parameterName = ind_parameter.getProperty(owlModel.getDataProperty_key()).getString();
+			final String parameterValue = ind_parameter.getProperty(owlModel.getDataProperty_value()).getString();
 			actionParameters.put(parameterName, parameterValue);
 		});
 

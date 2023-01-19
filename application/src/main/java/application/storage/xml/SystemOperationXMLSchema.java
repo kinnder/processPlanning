@@ -31,10 +31,10 @@ public class SystemOperationXMLSchema implements XMLSchema<SystemOperation> {
 
 	@Override
 	public SystemOperation parse(Element root) throws DataConversionException {
-		String name = root.getChildText(TAG_name);
+		final String name = root.getChildText(TAG_name);
 		Map<String, String> actionParameters;
 		{
-			Element element = root.getChild(actionParametersXMLSchema.getSchemaName());
+			final Element element = root.getChild(actionParametersXMLSchema.getSchemaName());
 			actionParameters = actionParametersXMLSchema.parse(element);
 		}
 
@@ -43,14 +43,14 @@ public class SystemOperationXMLSchema implements XMLSchema<SystemOperation> {
 
 	@Override
 	public Element combine(SystemOperation systemOperation) {
-		Element root = new Element(TAG_operation);
+		final Element root = new Element(TAG_operation);
 		{
-			Element element = new Element(TAG_name);
+			final Element element = new Element(TAG_name);
 			element.setText(systemOperation.getName());
 			root.addContent(element);
 		}
 		{
-			Element element = actionParametersXMLSchema.combine(systemOperation.getActionParameters());
+			final Element element = actionParametersXMLSchema.combine(systemOperation.getActionParameters());
 			root.addContent(element);
 		}
 

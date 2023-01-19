@@ -6,7 +6,7 @@ public class Main {
 
 	public static void main(String[] args) {
 		try {
-			Application application = new Application();
+			final Application application = new Application();
 			application.start(args);
 		} catch (Exception e) {
 			LoggerFactory.getLogger(Main.class).error("", e);

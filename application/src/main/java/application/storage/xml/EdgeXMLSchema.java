@@ -33,12 +33,12 @@ public class EdgeXMLSchema implements XMLSchema<Edge> {
 
 	@Override
 	public Edge parse(Element root) throws DataConversionException {
-		String id = root.getChildText(TAG_id);
-		String beginNodeId = root.getChildText(TAG_beginNodeId);
-		String endNodeId = root.getChildText(TAG_endNodeId);
+		final String id = root.getChildText(TAG_id);
+		final String beginNodeId = root.getChildText(TAG_beginNodeId);
+		final String endNodeId = root.getChildText(TAG_endNodeId);
 		SystemOperation systemOperation;
 		{
-			Element element = root.getChild(systemOperationXMLSchema.getSchemaName());
+			final Element element = root.getChild(systemOperationXMLSchema.getSchemaName());
 			systemOperation = systemOperationXMLSchema.parse(element);
 		}
 
@@ -47,24 +47,24 @@ public class EdgeXMLSchema implements XMLSchema<Edge> {
 
 	@Override
 	public Element combine(Edge edge) {
-		Element root = new Element(TAG_edge);
+		final Element root = new Element(TAG_edge);
 		{
-			Element element = new Element(TAG_id);
+			final Element element = new Element(TAG_id);
 			element.setText(edge.getId());
 			root.addContent(element);
 		}
 		{
-			Element element = new Element(TAG_beginNodeId);
+			final Element element = new Element(TAG_beginNodeId);
 			element.setText(edge.getBeginNodeId());
 			root.addContent(element);
 		}
 		{
-			Element element = new Element(TAG_endNodeId);
+			final Element element = new Element(TAG_endNodeId);
 			element.setText(edge.getEndNodeId());
 			root.addContent(element);
 		}
 		{
-			Element element = systemOperationXMLSchema.combine(edge.getSystemOperation());
+			final Element element = systemOperationXMLSchema.combine(edge.getSystemOperation());
 			root.addContent(element);
 		}
 

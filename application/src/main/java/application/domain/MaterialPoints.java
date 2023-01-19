@@ -305,7 +305,7 @@ public class MaterialPoints {
 	}
 
 	public static SystemTransformations getSystemTransformations() {
-		SystemTransformations systemTransformations = new SystemTransformations();
+		final SystemTransformations systemTransformations = new SystemTransformations();
 		systemTransformations.add(moveRight());
 		systemTransformations.add(moveLeft());
 		systemTransformations.add(moveTop());
@@ -509,7 +509,7 @@ public class MaterialPoints {
 	}
 
 	public static TaskDescription getTaskDescription() {
-		TaskDescription taskDescription = new TaskDescription();
+		final TaskDescription taskDescription = new TaskDescription();
 		taskDescription.setInitialSystem(initialSystem());
 		taskDescription.setFinalSystem(finalSystem());
 		return taskDescription;

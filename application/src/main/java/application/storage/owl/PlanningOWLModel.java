@@ -235,7 +235,7 @@ public class PlanningOWLModel implements OWLModel {
 //	}
 
 	private DataRange createDataRange(RDFNode... members) {
-		DataRange d = m.createOntResource(DataRange.class, m.getProfile().DATARANGE(), null);
+		final DataRange d = m.createOntResource(DataRange.class, m.getProfile().DATARANGE(), null);
 		d.addProperty(m.getProfile().UNION_OF(), m.createList(members));
 		return d;
 	}

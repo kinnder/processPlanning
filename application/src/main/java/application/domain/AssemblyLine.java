@@ -215,7 +215,7 @@ public class AssemblyLine {
 		transformations.add(new LinkTransformation(ID_TEMPLATE_PLANE_Y_TARGET, LINK_ROTARY_DRIVE_POSITION, null, ID_TEMPLATE_ROBOT));
 		transformations.add(new LinkTransformation(ID_TEMPLATE_PLANE_Y_SOURCE, LINK_ROTARY_DRIVE_POSITION, ID_TEMPLATE_ROBOT, null));
 
-		StringBuilder script = new StringBuilder();
+		final StringBuilder script = new StringBuilder();
 		script.append("local systemVariant = ...");
 		script.append("\n");
 		script.append("local object = systemVariant:getObjectByIdMatch('" + ID_TEMPLATE_PLANE_Y_TARGET + "')");
@@ -260,7 +260,7 @@ public class AssemblyLine {
 		transformations.add(new LinkTransformation(ID_TEMPLATE_PLANE_Y_SOURCE, LINK_ROTARY_DRIVE_POSITION, ID_TEMPLATE_ROBOT, null));
 		transformations.add(new LinkTransformation(ID_TEMPLATE_PLANE_Y_TARGET, LINK_ROTARY_DRIVE_POSITION, null, ID_TEMPLATE_ROBOT));
 
-		StringBuilder script = new StringBuilder();
+		final StringBuilder script = new StringBuilder();
 		script.append("local systemVariant = ...");
 		script.append("\n");
 		script.append("local object = systemVariant:getObjectByIdMatch('" + ID_TEMPLATE_PLANE_Y_TARGET + "')");
@@ -497,7 +497,7 @@ public class AssemblyLine {
 		transformations.add(new LinkTransformation(ID_TEMPLATE_PLANE_X_TARGET, LINK_LINEAR_DRIVE_POSITION, null, ID_TEMPLATE_ROBOT));
 		transformations.add(new LinkTransformation(ID_TEMPLATE_PLANE_X_SOURCE, LINK_LINEAR_DRIVE_POSITION, ID_TEMPLATE_ROBOT, null));
 
-		StringBuilder script = new StringBuilder();
+		final StringBuilder script = new StringBuilder();
 		script.append("local systemVariant = ...");
 		script.append("\n");
 		script.append("local object = systemVariant:getObjectByIdMatch('" + ID_TEMPLATE_PLANE_X_TARGET + "')");
@@ -535,7 +535,7 @@ public class AssemblyLine {
 		transformations.add(new LinkTransformation(ID_TEMPLATE_PLANE_X_SOURCE, LINK_LINEAR_DRIVE_POSITION, ID_TEMPLATE_ROBOT, null));
 		transformations.add(new LinkTransformation(ID_TEMPLATE_PLANE_X_TARGET, LINK_LINEAR_DRIVE_POSITION, null, ID_TEMPLATE_ROBOT));
 
-		StringBuilder script = new StringBuilder();
+		final StringBuilder script = new StringBuilder();
 		script.append("local systemVariant = ...");
 		script.append("\n");
 		script.append("local object = systemVariant:getObjectByIdMatch('" + ID_TEMPLATE_PLANE_X_TARGET + "')");
@@ -552,7 +552,7 @@ public class AssemblyLine {
 	static Globals globals = JsePlatform.standardGlobals();
 
 	public static SystemTransformations getSystemTransformations() {
-		SystemTransformations systemTransformations = new SystemTransformations();
+		final SystemTransformations systemTransformations = new SystemTransformations();
 		systemTransformations.add(turnWithoutLoad());
 		systemTransformations.add(turnWithLoad());
 		systemTransformations.add(openGrab());
@@ -596,6 +596,7 @@ public class AssemblyLine {
 		system.addObject(plane_z_bottom);
 
 		final SystemObject packageBox = new SystemObject(OBJECT_PACKAGE_BOX, ID_OBJECT_PACKAGE_BOX);
+		// TODO (2023-01-18 #78): имя атрибута не соответствует имени объекта
 		packageBox.addAttribute(new Attribute(ATTRIBUTE_PACKAGE, true));
 		system.addObject(packageBox);
 
@@ -691,7 +692,7 @@ public class AssemblyLine {
 	}
 
 	public static TaskDescription getTaskDescription() {
-		TaskDescription taskDescription = new TaskDescription();
+		final TaskDescription taskDescription = new TaskDescription();
 		taskDescription.setInitialSystem(initialSystem());
 		taskDescription.setFinalSystem(finalSystem());
 		return taskDescription;

@@ -39,7 +39,7 @@ public class Action {
 	}
 
 	public List<ActionFunction> getParameterUpdaters() {
-		List<ActionFunction> parameterUpdaters = new ArrayList<>();
+		final List<ActionFunction> parameterUpdaters = new ArrayList<>();
 		for (ActionFunction actionFunction : actionFunctions) {
 			if (actionFunction.getType() == ActionFunction.TYPE_PARAMETER_UPDATER) {
 				parameterUpdaters.add(actionFunction);
@@ -54,7 +54,7 @@ public class Action {
 	}
 
 	public List<ActionFunction> getPreConditionCheckers() {
-		List<ActionFunction> preConditionCheckers = new ArrayList<>();
+		final List<ActionFunction> preConditionCheckers = new ArrayList<>();
 		for (ActionFunction actionFunction : actionFunctions) {
 			if (actionFunction.getType() == ActionFunction.TYPE_PRECONDITION_CHECKER) {
 				preConditionCheckers.add(actionFunction);
@@ -71,7 +71,7 @@ public class Action {
 	public boolean haveAllPreConditionsPassed(SystemVariant systemVariant) {
 		for (ActionFunction actionFunction : actionFunctions) {
 			if (actionFunction.getType() == ActionFunction.TYPE_PRECONDITION_CHECKER) {
-				boolean conditionPasses = actionFunction.test(systemVariant);
+				final boolean conditionPasses = actionFunction.test(systemVariant);
 				if (!conditionPasses) {
 					return false;
 				}

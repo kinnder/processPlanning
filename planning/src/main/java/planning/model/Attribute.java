@@ -13,7 +13,7 @@ public class Attribute implements Cloneable {
 
 	@Override
 	public Attribute clone() throws CloneNotSupportedException {
-		Attribute clone = (Attribute) super.clone();
+		final Attribute clone = (Attribute) super.clone();
 		clone.name = name;
 		clone.value = value;
 		return clone;
@@ -44,7 +44,7 @@ public class Attribute implements Cloneable {
 			return false;
 		}
 		if (obj instanceof Attribute) {
-			Attribute attribute = (Attribute) obj;
+			final Attribute attribute = (Attribute) obj;
 			return name.equals(attribute.name) && value.equals(attribute.value);
 		}
 		return false;

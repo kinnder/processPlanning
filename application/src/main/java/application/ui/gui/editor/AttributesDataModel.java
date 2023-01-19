@@ -55,9 +55,9 @@ public class AttributesDataModel extends DefaultTableModel {
 
 	public void insertAttribute() {
 		// TODO (2022-10-30 #72): перенести создание пустых атрибутов в класс Attribute
-		String name = "attribute-" + UUID.randomUUID().toString();
-		String value = "value";
-		Attribute attribute = new Attribute(name, value);
+		final String name = "attribute-" + UUID.randomUUID().toString();
+		final String value = "value";
+		final Attribute attribute = new Attribute(name, value);
 		object.addAttribute(attribute);
 		attributes.add(attribute);
 		this.addRow(new Object[] {});
@@ -69,7 +69,7 @@ public class AttributesDataModel extends DefaultTableModel {
 			return;
 		}
 
-		Attribute attribute = attributes.get(idx);
+		final Attribute attribute = attributes.get(idx);
 		object.removeAttribute(attribute);
 		attributes.remove(attribute);
 
@@ -79,7 +79,7 @@ public class AttributesDataModel extends DefaultTableModel {
 
 	@Override
 	public void setValueAt(Object aValue, int row, int column) {
-		Attribute attribute = attributes.get(row);
+		final Attribute attribute = attributes.get(row);
 		switch (column) {
 		case (COLUMN_IDX_NAME):
 			attribute.setName((String) aValue);
@@ -104,18 +104,18 @@ public class AttributesDataModel extends DefaultTableModel {
 			break;
 		case (COLUMN_IDX_VALUE):
 			// TODO (2022-10-30 #72): перенести в Attribute
-			String type = (String) dataVector.get(row).get(1);
+			final String type = (String) dataVector.get(row).get(1);
 			if ("boolean".equals(type)) {
-				Object valueObject = aValue != null ? Boolean.valueOf(aValue.toString()) : null;
+				final Object valueObject = aValue != null ? Boolean.valueOf(aValue.toString()) : null;
 				attribute.setValue(valueObject);
 			} else if ("integer".equals(type)) {
-				Object valueObject = aValue != null ? Integer.valueOf(aValue.toString()) : null;
+				final Object valueObject = aValue != null ? Integer.valueOf(aValue.toString()) : null;
 				attribute.setValue(valueObject);
 			} else if ("string".equals(type)) {
-				Object valueObject = aValue != null ? aValue.toString() : null;
+				final Object valueObject = aValue != null ? aValue.toString() : null;
 				attribute.setValue(valueObject);
 			} else {
-				Object valueObject = aValue != null ? aValue : null;
+				final Object valueObject = aValue != null ? aValue : null;
 				attribute.setValue(valueObject);
 			}
 			break;
@@ -127,7 +127,7 @@ public class AttributesDataModel extends DefaultTableModel {
 
 	@Override
 	public Object getValueAt(int row, int column) {
-		Attribute attribute = attributes.get(row);
+		final Attribute attribute = attributes.get(row);
 		Object valueObject;
 		switch (column) {
 		case COLUMN_IDX_NAME:

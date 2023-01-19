@@ -28,20 +28,20 @@ public class TransformationsOWLSchema implements OWLSchema<Transformations> {
 
 	@Override
 	public Individual combine(Transformations transformations) {
-		Individual ind_transformations = owlModel.newIndividual_Transformations();
+		final Individual ind_transformations = owlModel.newIndividual_Transformations();
 		ind_transformations.addLabel("Transformations", "en");
 		ind_transformations.addLabel("Трансформации", "ru");
 		for (Transformation transformation : transformations) {
 			if (transformation instanceof AttributeTransformation) {
-				AttributeTransformation attributeTransformation = (AttributeTransformation) transformation;
-				Individual ind_attributeTransformation = attributeTransformationOWLSchema.combine(attributeTransformation);
+				final AttributeTransformation attributeTransformation = (AttributeTransformation) transformation;
+				final Individual ind_attributeTransformation = attributeTransformationOWLSchema.combine(attributeTransformation);
 				ind_transformations.addProperty(owlModel.getObjectProperty_hasAttributeTransformation(), ind_attributeTransformation);
 			} else if (transformation instanceof LinkTransformation) {
-				LinkTransformation linkTransformation = (LinkTransformation) transformation;
-				Individual ind_linkTransformation = linkTransformationOWLSchema.combine(linkTransformation);
+				final LinkTransformation linkTransformation = (LinkTransformation) transformation;
+				final Individual ind_linkTransformation = linkTransformationOWLSchema.combine(linkTransformation);
 				ind_transformations.addProperty(owlModel.getObjectProperty_hasLinkTransformation(), ind_linkTransformation);
 			} else {
-				Individual ind_transformation = combineTransformation(transformation);
+				final Individual ind_transformation = combineTransformation(transformation);
 				ind_transformations.addProperty(owlModel.getObjectProperty_hasTransformation(), ind_transformation);
 			}
 		}
@@ -50,19 +50,19 @@ public class TransformationsOWLSchema implements OWLSchema<Transformations> {
 
 	// TODO (2021-01-13 #31): remove this or update systemTransformations.xsd
 	public Individual combineTransformation(Transformation transformation) {
-		Individual ind_transformation = owlModel.newIndividual_Transformation();
+		final Individual ind_transformation = owlModel.newIndividual_Transformation();
 		ind_transformation.addProperty(owlModel.getDataProperty_id(), transformation.getId());
 		return ind_transformation;
 	}
 
 	public Transformation parseTransformation(Individual ind_transformation) {
-		String id = ind_transformation.getProperty(owlModel.getDataProperty_id()).getString();
+		final String id = ind_transformation.getProperty(owlModel.getDataProperty_id()).getString();
 		return new Transformation(id);
 	}
 
 	@Override
 	public Transformations parse(Individual ind_transformations) {
-		Transformations transformations = new Transformations();
+		final Transformations transformations = new Transformations();
 		owlModel.getClass_LinkTransformation().listInstances().filterKeep((ind_linkTransformation) -> {
 			return ind_transformations.hasProperty(owlModel.getObjectProperty_hasLinkTransformation(), ind_linkTransformation);
 		}).forEachRemaining((ind_linkTransformation) -> {

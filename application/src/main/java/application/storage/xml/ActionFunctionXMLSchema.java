@@ -37,10 +37,10 @@ public class ActionFunctionXMLSchema implements XMLSchema<ActionFunction> {
 
 	@Override
 	public ActionFunction parse(Element root) throws DataConversionException {
-		List<Element> elements = root.getChildren(luaScriptLineXMLSchema.getSchemaName());
-		Map<Integer, LuaScriptLine> scriptLines = new TreeMap<Integer, LuaScriptLine>();
+		final List<Element> elements = root.getChildren(luaScriptLineXMLSchema.getSchemaName());
+		final Map<Integer, LuaScriptLine> scriptLines = new TreeMap<Integer, LuaScriptLine>();
 		for (Element element : elements) {
-			LuaScriptLine scriptLine = luaScriptLineXMLSchema.parse(element);
+			final LuaScriptLine scriptLine = luaScriptLineXMLSchema.parse(element);
 			scriptLines.put(scriptLine.getNumber(), scriptLine);
 		}
 		return new ActionFunction(globals, scriptLines.values());
@@ -48,10 +48,10 @@ public class ActionFunctionXMLSchema implements XMLSchema<ActionFunction> {
 
 	@Override
 	public Element combine(ActionFunction actionFunction) {
-		Element root = new Element(TAG_actionFunction);
-		Collection<LuaScriptLine> scriptLines = actionFunction.getScriptLines();
+		final Element root = new Element(TAG_actionFunction);
+		final Collection<LuaScriptLine> scriptLines = actionFunction.getScriptLines();
 		for (LuaScriptLine scriptLine : scriptLines) {
-			Element element = luaScriptLineXMLSchema.combine(scriptLine);
+			final Element element = luaScriptLineXMLSchema.combine(scriptLine);
 			root.addContent(element);
 		}
 		return root;

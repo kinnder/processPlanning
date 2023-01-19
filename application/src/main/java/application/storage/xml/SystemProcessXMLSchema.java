@@ -28,11 +28,11 @@ public class SystemProcessXMLSchema implements XMLSchema<SystemProcess> {
 
 	@Override
 	public Element combine(SystemProcess process) {
-		Element root = new Element(TAG_process);
-		Namespace xsiNamespace = Namespace.getNamespace("xsi", "http://www.w3.org/2001/XMLSchema-instance");
+		final Element root = new Element(TAG_process);
+		final Namespace xsiNamespace = Namespace.getNamespace("xsi", "http://www.w3.org/2001/XMLSchema-instance");
 		root.setAttribute("noNamespaceSchemaLocation", "../process.xsd", xsiNamespace);
 		for (SystemOperation systemOperation : process) {
-			Element element = systemOperationXMLSchema.combine(systemOperation);
+			final Element element = systemOperationXMLSchema.combine(systemOperation);
 			root.addContent(element);
 		}
 		return root;
@@ -40,10 +40,10 @@ public class SystemProcessXMLSchema implements XMLSchema<SystemProcess> {
 
 	@Override
 	public SystemProcess parse(Element element) throws DataConversionException {
-		SystemProcess systemProcess = new SystemProcess();
+		final SystemProcess systemProcess = new SystemProcess();
 
 		for (Element e : element.getChildren(systemOperationXMLSchema.getSchemaName())) {
-			SystemOperation systemOperation = systemOperationXMLSchema.parse(e);
+			final SystemOperation systemOperation = systemOperationXMLSchema.parse(e);
 			systemProcess.add(systemOperation);
 		}
 

@@ -18,12 +18,12 @@ public class AttributeTemplateOWLSchema implements OWLSchema<AttributeTemplate> 
 
 	@Override
 	public Individual combine(AttributeTemplate attributeTemplate) {
-		Individual ind_attributeTemplate = owlModel.newIndividual_AttributeTemplate();
-		String name = attributeTemplate.getName();
+		final Individual ind_attributeTemplate = owlModel.newIndividual_AttributeTemplate();
+		final String name = attributeTemplate.getName();
 		ind_attributeTemplate.addLabel(String.format("Attribute template \"%s\"", name), "en");
 		ind_attributeTemplate.addLabel(String.format("Шаблон атрибута \"%s\"", name), "ru");
 		ind_attributeTemplate.addProperty(owlModel.getDataProperty_name(), name);
-		Object value = attributeTemplate.getValue();
+		final Object value = attributeTemplate.getValue();
 		if (value instanceof Boolean) {
 			ind_attributeTemplate.addProperty(owlModel.getDataProperty_value(), value.toString(), XSDDatatype.XSDboolean);
 		} else if (value instanceof Integer) {
@@ -36,12 +36,12 @@ public class AttributeTemplateOWLSchema implements OWLSchema<AttributeTemplate> 
 
 	@Override
 	public AttributeTemplate parse(Individual ind_attributeTemplate) {
-		String name = ind_attributeTemplate.getProperty(owlModel.getDataProperty_name()).getString();
+		final String name = ind_attributeTemplate.getProperty(owlModel.getDataProperty_name()).getString();
 
-		Statement valueStatement = ind_attributeTemplate.getProperty(owlModel.getDataProperty_value());
+		final Statement valueStatement = ind_attributeTemplate.getProperty(owlModel.getDataProperty_value());
 		if (valueStatement != null) {
-			Literal valueLiteral = valueStatement.getLiteral();
-			RDFDatatype valueType = valueLiteral.getDatatype();
+			final Literal valueLiteral = valueStatement.getLiteral();
+			final RDFDatatype valueType = valueLiteral.getDatatype();
 			if (valueType == XSDDatatype.XSDboolean) {
 				return new AttributeTemplate(name, valueLiteral.getBoolean());
 			}

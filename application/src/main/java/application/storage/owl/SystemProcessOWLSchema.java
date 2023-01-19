@@ -21,12 +21,12 @@ public class SystemProcessOWLSchema implements OWLSchema<SystemProcess> {
 
 	@Override
 	public Individual combine(SystemProcess systemProcess) {
-		Individual ind_process = owlModel.newIndividual_Process();
+		final Individual ind_process = owlModel.newIndividual_Process();
 		ind_process.addLabel("Process", "en");
 		ind_process.addLabel("Процесс", "ru");
 
 		for (SystemOperation systemOperation : systemProcess) {
-			Individual ind_systemOperation = systemOperationOWLSchema.combine(systemOperation);
+			final Individual ind_systemOperation = systemOperationOWLSchema.combine(systemOperation);
 			ind_process.addProperty(owlModel.getObjectProperty_performsSystemOperation(), ind_systemOperation);
 		}
 
@@ -35,13 +35,13 @@ public class SystemProcessOWLSchema implements OWLSchema<SystemProcess> {
 
 	@Override
 	public SystemProcess parse(Individual ind_systemProcess) {
-		SystemProcess systemProcess = new SystemProcess();
+		final SystemProcess systemProcess = new SystemProcess();
 
 		owlModel.getClass_Process().listInstances().forEachRemaining((ind_process) -> {
 			owlModel.getClass_SystemOperation().listInstances().filterKeep((ind_systemOperation) -> {
 				return ind_process.hasProperty(owlModel.getObjectProperty_performsSystemOperation(), ind_systemOperation);
 			}).forEachRemaining((ind_systemOperation) -> {
-				SystemOperation systemOperation = systemOperationOWLSchema.parse(ind_systemOperation.asIndividual());
+				final SystemOperation systemOperation = systemOperationOWLSchema.parse(ind_systemOperation.asIndividual());
 				systemProcess.add(systemOperation);
 			});
 		});

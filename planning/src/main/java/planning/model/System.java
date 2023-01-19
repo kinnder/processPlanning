@@ -20,7 +20,7 @@ public class System implements Cloneable {
 	}
 
 	public SystemObject addNewObject(String name) {
-		SystemObject object = new SystemObject(name);
+		final SystemObject object = new SystemObject(name);
 		addObject(object);
 		return object;
 
@@ -31,13 +31,13 @@ public class System implements Cloneable {
 	}
 
 	public Set<String> getIds() {
-		Set<String> systemIds = new HashSet<>();
+		final Set<String> systemIds = new HashSet<>();
 		for (SystemObject object : objects) {
-			Set<String> objectIds = object.getIds();
+			final Set<String> objectIds = object.getIds();
 			systemIds.addAll(objectIds);
 		}
 		for (Link link : links) {
-			Set<String> linkIds = link.getIds();
+			final Set<String> linkIds = link.getIds();
 			systemIds.addAll(linkIds);
 		}
 		return Collections.unmodifiableSet(systemIds);
@@ -45,7 +45,7 @@ public class System implements Cloneable {
 
 	@Override
 	public System clone() throws CloneNotSupportedException {
-		System clone = (System) super.clone();
+		final System clone = (System) super.clone();
 		clone.objects = new ArrayList<>();
 		for (SystemObject object : objects) {
 			clone.addObject(object.clone());
@@ -66,7 +66,7 @@ public class System implements Cloneable {
 			return false;
 		}
 		if (obj instanceof System) {
-			System system = (System) obj;
+			final System system = (System) obj;
 			return equalsSystemObjects(system) && equalsLinks(system);
 		}
 		return false;
@@ -76,7 +76,7 @@ public class System implements Cloneable {
 		if (objects.size() != system.objects.size()) {
 			return false;
 		}
-		List<SystemObject> notEqualObjects = new ArrayList<>(objects);
+		final List<SystemObject> notEqualObjects = new ArrayList<>(objects);
 		for (SystemObject object : system.objects) {
 			for (SystemObject notEqualObject : notEqualObjects) {
 				if (object.equals(notEqualObject)) {
@@ -92,7 +92,7 @@ public class System implements Cloneable {
 		if (links.size() != system.links.size()) {
 			return false;
 		}
-		List<Link> notEqualLinks = new ArrayList<>(links);
+		final List<Link> notEqualLinks = new ArrayList<>(links);
 		for (Link link : system.links) {
 			for (Link notEqualLink : notEqualLinks) {
 				if (link.equals(notEqualLink)) {
@@ -114,7 +114,7 @@ public class System implements Cloneable {
 	}
 
 	public boolean contains(System system) {
-		IdsMatching[] idsMatching = system.createTemplate().matchIds(this);
+		final IdsMatching[] idsMatching = system.createTemplate().matchIds(this);
 		for (IdsMatching variant : idsMatching) {
 			if (!variant.areKeysAndValuesTheSame()) {
 				return false;
@@ -124,7 +124,7 @@ public class System implements Cloneable {
 	}
 
 	public SystemTemplate createTemplate() {
-		SystemTemplate template = new SystemTemplate();
+		final SystemTemplate template = new SystemTemplate();
 		for (SystemObject object : objects) {
 			template.addObjectTemplate(object.createTemplate());
 		}
@@ -154,8 +154,8 @@ public class System implements Cloneable {
 	}
 
 	public void addLink(SystemObject object1, String linkName_o1_o2, String linkName_o2_o1, SystemObject object2) {
-		String object1Id = (object1 == null) ? null : object1.getId();
-		String object2Id = (object2 == null) ? null : object2.getId();
+		final String object1Id = (object1 == null) ? null : object1.getId();
+		final String object2Id = (object2 == null) ? null : object2.getId();
 
 		if (object1Id != null) {
 			links.add(new Link(linkName_o1_o2, object1Id, object2Id));
@@ -174,7 +174,7 @@ public class System implements Cloneable {
 	}
 
 	public Link getLink(String linkName, String linkObject1Id, String linkObject2Id) {
-		Link searchQuery = new Link(linkName, linkObject1Id, linkObject2Id);
+		final Link searchQuery = new Link(linkName, linkObject1Id, linkObject2Id);
 		for (Link link : links) {
 			if (link.equals(searchQuery)) {
 				return link;

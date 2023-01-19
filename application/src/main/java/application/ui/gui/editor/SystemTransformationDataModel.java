@@ -17,7 +17,7 @@ public class SystemTransformationDataModel {
 	KeyAdapter jtfSystemTransformationNameKeyAdapter = new KeyAdapter() {
 		@Override
 		public void keyReleased(KeyEvent e) {
-			String systemTransformationName = jtfSystemTransformationName.getText();
+			final String systemTransformationName = jtfSystemTransformationName.getText();
 			systemTransformation.setName(systemTransformationName);
 			editorDataModel.nodeChanged(treeNode);
 		}

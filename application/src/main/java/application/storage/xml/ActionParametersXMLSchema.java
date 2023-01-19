@@ -31,13 +31,13 @@ public class ActionParametersXMLSchema implements XMLSchema<Map<String, String>>
 
 	@Override
 	public Map<String, String> parse(Element root) throws DataConversionException {
-		Map<String, String> actionParameters = new HashMap<>();
+		final Map<String, String> actionParameters = new HashMap<>();
 
 		for (Element parameter : root.getChildren(TAG_parameter)) {
-			String name = parameter.getChildText(TAG_name);
+			final String name = parameter.getChildText(TAG_name);
 			Object value;
 			{
-				Element element = parameter.getChild(valueXMLSchema.getSchemaName());
+				final Element element = parameter.getChild(valueXMLSchema.getSchemaName());
 				value = valueXMLSchema.parse(element);
 			}
 			actionParameters.put(name, value.toString());
@@ -48,16 +48,16 @@ public class ActionParametersXMLSchema implements XMLSchema<Map<String, String>>
 
 	@Override
 	public Element combine(Map<String, String> actionParameters) {
-		Element root = new Element(TAG_parameters);
+		final Element root = new Element(TAG_parameters);
 		for (String key : actionParameters.keySet()) {
-			Element parameter = new Element(TAG_parameter);
+			final Element parameter = new Element(TAG_parameter);
 			{
-				Element name = new Element(TAG_name);
+				final Element name = new Element(TAG_name);
 				name.setText(key);
 				parameter.addContent(name);
 			}
 			{
-				Element value = valueXMLSchema.combine(actionParameters.get(key));
+				final Element value = valueXMLSchema.combine(actionParameters.get(key));
 				parameter.addContent(value);
 			}
 			root.addContent(parameter);

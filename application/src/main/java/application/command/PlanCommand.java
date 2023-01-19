@@ -21,15 +21,15 @@ public class PlanCommand extends Command {
 	}
 
 	private void execute(PlanCommandData data) throws Exception {
-		SystemTransformations systemTransformations = application.loadSystemTransformations(data.systemTransformationsFile);
-		TaskDescription taskDescription = application.loadTaskDescription(data.taskDescriptionFile);
+		final SystemTransformations systemTransformations = application.loadSystemTransformations(data.systemTransformationsFile);
+		final TaskDescription taskDescription = application.loadTaskDescription(data.taskDescriptionFile);
 
-		NodeNetwork nodeNetwork = new NodeNetwork();
+		final NodeNetwork nodeNetwork = new NodeNetwork();
 		// TODO : move to initialization
-		Planner planner = new Planner(taskDescription, systemTransformations, nodeNetwork);
+		final Planner planner = new Planner(taskDescription, systemTransformations, nodeNetwork);
 		planner.plan();
 
-		SystemProcess process = planner.getShortestProcess();
+		final SystemProcess process = planner.getShortestProcess();
 		application.saveSystemProcess(process, data.processFile);
 
 		application.saveNodeNetwork(nodeNetwork, data.nodeNetworkFile);

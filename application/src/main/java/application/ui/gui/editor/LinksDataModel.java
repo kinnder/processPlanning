@@ -55,10 +55,10 @@ public class LinksDataModel extends DefaultTableModel {
 
 	public void insertLink() {
 		// TODO (2022-10-23 #72): перенести создание пустых ссылок в класс Link
-		String name = "link-" + UUID.randomUUID().toString();
-		String id1 = "";
-		String id2 = "";
-		Link link = new Link(name, id1, id2);
+		final String name = "link-" + UUID.randomUUID().toString();
+		final String id1 = "";
+		final String id2 = "";
+		final Link link = new Link(name, id1, id2);
 		system.addLink(link);
 		links.add(link);
 		this.addRow(new Object[] {});
@@ -70,7 +70,7 @@ public class LinksDataModel extends DefaultTableModel {
 			return;
 		}
 
-		Link link = links.get(idx);
+		final Link link = links.get(idx);
 		system.removeLink(link);
 		links.remove(link);
 
@@ -80,7 +80,7 @@ public class LinksDataModel extends DefaultTableModel {
 
 	@Override
 	public void setValueAt(Object aValue, int row, int column) {
-		Link link = links.get(row);
+		final Link link = links.get(row);
 		switch (column) {
 		case COLUMN_IDX_NAME:
 			link.setName((String) aValue);
@@ -99,7 +99,7 @@ public class LinksDataModel extends DefaultTableModel {
 
 	@Override
 	public Object getValueAt(int row, int column) {
-		Link link = links.get(row);
+		final Link link = links.get(row);
 		switch (column) {
 		case COLUMN_IDX_NAME:
 			return link.getName();

@@ -57,9 +57,9 @@ public class AttributeTemplatesDataModel extends DefaultTableModel {
 	public void insertAttributeTemplate() {
 		// TODO (2022-12-02 #73): перенести создание пустых атрибутов в класс
 		// AttributeTemplate
-		String name = "attributeTemplate-" + UUID.randomUUID().toString();
-		String value = "value";
-		AttributeTemplate attributeTemplate = new AttributeTemplate(name, value);
+		final String name = "attributeTemplate-" + UUID.randomUUID().toString();
+		final String value = "value";
+		final AttributeTemplate attributeTemplate = new AttributeTemplate(name, value);
 		objectTemplate.addAttributeTemplate(attributeTemplate);
 		attributeTemplates.add(attributeTemplate);
 		this.addRow(new Object[] {});
@@ -71,7 +71,7 @@ public class AttributeTemplatesDataModel extends DefaultTableModel {
 			return;
 		}
 
-		AttributeTemplate attributeTemplate = attributeTemplates.get(idx);
+		final AttributeTemplate attributeTemplate = attributeTemplates.get(idx);
 		objectTemplate.removeAttributeTemplate(attributeTemplate);
 		attributeTemplates.remove(attributeTemplate);
 
@@ -81,7 +81,7 @@ public class AttributeTemplatesDataModel extends DefaultTableModel {
 
 	@Override
 	public void setValueAt(Object aValue, int row, int column) {
-		AttributeTemplate attributeTemplate = attributeTemplates.get(row);
+		final AttributeTemplate attributeTemplate = attributeTemplates.get(row);
 		switch (column) {
 		case (COLUMN_IDX_NAME):
 			attributeTemplate.setName((String) aValue);
@@ -106,18 +106,18 @@ public class AttributeTemplatesDataModel extends DefaultTableModel {
 			break;
 		case (COLUMN_IDX_VALUE):
 			// TODO (2022-12-02 #73): перенести в AttributeTemplate
-			String type = (String) dataVector.get(row).get(1);
+			final String type = (String) dataVector.get(row).get(1);
 			if ("boolean".equals(type)) {
-				Object valueObject = aValue != null ? Boolean.valueOf(aValue.toString()) : null;
+				final Object valueObject = aValue != null ? Boolean.valueOf(aValue.toString()) : null;
 				attributeTemplate.setValue(valueObject);
 			} else if ("integer".equals(type)) {
-				Object valueObject = aValue != null ? Integer.valueOf(aValue.toString()) : null;
+				final Object valueObject = aValue != null ? Integer.valueOf(aValue.toString()) : null;
 				attributeTemplate.setValue(valueObject);
 			} else if ("string".equals(type)) {
-				Object valueObject = aValue != null ? aValue.toString() : null;
+				final Object valueObject = aValue != null ? aValue.toString() : null;
 				attributeTemplate.setValue(valueObject);
 			} else {
-				Object valueObject = aValue != null ? aValue : null;
+				final Object valueObject = aValue != null ? aValue : null;
 				attributeTemplate.setValue(valueObject);
 			}
 			break;
@@ -129,7 +129,7 @@ public class AttributeTemplatesDataModel extends DefaultTableModel {
 
 	@Override
 	public Object getValueAt(int row, int column) {
-		AttributeTemplate attributeTemplate = attributeTemplates.get(row);
+		final AttributeTemplate attributeTemplate = attributeTemplates.get(row);
 		Object valueObject;
 		switch (column) {
 		case COLUMN_IDX_NAME:

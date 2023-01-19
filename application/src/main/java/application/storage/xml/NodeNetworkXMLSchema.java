@@ -32,15 +32,15 @@ public class NodeNetworkXMLSchema implements XMLSchema<NodeNetwork> {
 
 	@Override
 	public NodeNetwork parse(Element element) throws DataConversionException {
-		NodeNetwork nodeNetwork = new NodeNetwork();
+		final NodeNetwork nodeNetwork = new NodeNetwork();
 
 		for (Element e : element.getChildren(nodeXMLSchema.getSchemaName())) {
-			Node node = nodeXMLSchema.parse(e);
+			final Node node = nodeXMLSchema.parse(e);
 			nodeNetwork.addNode(node);
 		}
 
 		for (Element e : element.getChildren(edgeXMLSchema.getSchemaName())) {
-			Edge edge = edgeXMLSchema.parse(e);
+			final Edge edge = edgeXMLSchema.parse(e);
 			nodeNetwork.addEdge(edge);
 		}
 
@@ -49,17 +49,17 @@ public class NodeNetworkXMLSchema implements XMLSchema<NodeNetwork> {
 
 	@Override
 	public Element combine(NodeNetwork nodeNetwork) {
-		Element root = new Element(TAG_nodeNetwork);
-		Namespace xsiNamespace = Namespace.getNamespace("xsi", "http://www.w3.org/2001/XMLSchema-instance");
+		final Element root = new Element(TAG_nodeNetwork);
+		final Namespace xsiNamespace = Namespace.getNamespace("xsi", "http://www.w3.org/2001/XMLSchema-instance");
 		root.setAttribute("noNamespaceSchemaLocation", "../nodeNetwork.xsd", xsiNamespace);
 
 		for (Node node : nodeNetwork.getNodes()) {
-			Element element = nodeXMLSchema.combine(node);
+			final Element element = nodeXMLSchema.combine(node);
 			root.addContent(element);
 		}
 
 		for (Edge edge : nodeNetwork.getEdges()) {
-			Element element = edgeXMLSchema.combine(edge);
+			final Element element = edgeXMLSchema.combine(edge);
 			root.addContent(element);
 		}
 

@@ -31,13 +31,13 @@ public class SystemObjectXMLSchema implements XMLSchema<SystemObject> {
 
 	@Override
 	public SystemObject parse(Element root) throws DataConversionException {
-		String name = root.getChildText(TAG_name);
-		String id = root.getChildText(TAG_id);
+		final String name = root.getChildText(TAG_name);
+		final String id = root.getChildText(TAG_id);
 
-		SystemObject object = new SystemObject(name, id);
+		final SystemObject object = new SystemObject(name, id);
 
 		for (Element element : root.getChildren(attributeXMLSchema.getSchemaName())) {
-			Attribute attribute = attributeXMLSchema.parse(element);
+			final Attribute attribute = attributeXMLSchema.parse(element);
 			object.addAttribute(attribute);
 		}
 
@@ -46,18 +46,18 @@ public class SystemObjectXMLSchema implements XMLSchema<SystemObject> {
 
 	@Override
 	public Element combine(SystemObject systemObject) {
-		Element root = new Element(TAG_systemObject);
+		final Element root = new Element(TAG_systemObject);
 
-		Element name = new Element(TAG_name);
+		final Element name = new Element(TAG_name);
 		name.setText(systemObject.getName());
 		root.addContent(name);
 
-		Element id = new Element(TAG_id);
+		final Element id = new Element(TAG_id);
 		id.setText(systemObject.getId());
 		root.addContent(id);
 
 		for (Attribute attribute : systemObject.getAttributes()) {
-			Element element = attributeXMLSchema.combine(attribute);
+			final Element element = attributeXMLSchema.combine(attribute);
 			root.addContent(element);
 		}
 

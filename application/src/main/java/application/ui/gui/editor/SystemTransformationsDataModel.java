@@ -54,11 +54,11 @@ public class SystemTransformationsDataModel extends DefaultTableModel {
 
 	public void insertSystemTransformation() {
 		// TODO (2022-11-17 #73): перенести в SystemTransformation
-		SystemTransformation systemTransformation = new SystemTransformation("new system transformation", new Action("new-action"), new SystemTemplate(), new Transformations());
+		final SystemTransformation systemTransformation = new SystemTransformation("new system transformation", new Action("new-action"), new SystemTemplate(), new Transformations());
 		systemTransformations.add(systemTransformation);
 		systemTransformationsList.add(systemTransformation);
 		this.addRow(new Object[] {});
-		DefaultMutableTreeNode systemTransformationNode = editorDataModel.createSystemTransformationNode(systemTransformation);
+		final DefaultMutableTreeNode systemTransformationNode = editorDataModel.createSystemTransformationNode(systemTransformation);
 		systemTransformationsNode.add(systemTransformationNode);
 		editorDataModel.insertNodeInto(systemTransformationNode, systemTransformationsNode, systemTransformationsList.size() - 1);
 	}
@@ -68,18 +68,18 @@ public class SystemTransformationsDataModel extends DefaultTableModel {
 			return;
 		}
 
-		SystemTransformation systemTransformation = systemTransformationsList.get(idx);
+		final SystemTransformation systemTransformation = systemTransformationsList.get(idx);
 		systemTransformations.remove(systemTransformation);
 		systemTransformationsList.remove(systemTransformation);
 
 		this.removeRow(idx);
-		DefaultMutableTreeNode systemTransformationNode = (DefaultMutableTreeNode) systemTransformationsNode.getChildAt(idx);
+		final DefaultMutableTreeNode systemTransformationNode = (DefaultMutableTreeNode) systemTransformationsNode.getChildAt(idx);
 		editorDataModel.removeNodeFromParent(systemTransformationNode);
 	}
 
 	@Override
 	public void setValueAt(Object aValue, int row, int column) {
-		SystemTransformation systemTransformation = systemTransformationsList.get(row);
+		final SystemTransformation systemTransformation = systemTransformationsList.get(row);
 		switch (column) {
 		case COLUMN_IDX_NAME:
 			systemTransformation.setName((String) aValue);
@@ -92,7 +92,7 @@ public class SystemTransformationsDataModel extends DefaultTableModel {
 
 	@Override
 	public Object getValueAt(int row, int column) {
-		SystemTransformation systemTransformation = systemTransformationsList.get(row);
+		final SystemTransformation systemTransformation = systemTransformationsList.get(row);
 		switch (column) {
 		case COLUMN_IDX_NAME:
 			return systemTransformation.getName();

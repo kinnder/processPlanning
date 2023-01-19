@@ -18,7 +18,7 @@ public class OperationDataModel {
 	KeyAdapter jtfOperationNameKeyAdapter = new KeyAdapter() {
 		@Override
 		public void keyReleased(KeyEvent e) {
-			String operationName = jtfOperationName.getText();
+			final String operationName = jtfOperationName.getText();
 			operation.setName(operationName);
 			editorDataModel.nodeChanged(edgeNode);
 		}
@@ -44,7 +44,7 @@ public class OperationDataModel {
 		this.operation = selectedObject.getSystemOperation();
 		this.edgeNode = selectedNode;
 
-		String operationName = operation.getName();
+		final String operationName = operation.getName();
 		jtfOperationName.setText(operationName);
 	}
 }

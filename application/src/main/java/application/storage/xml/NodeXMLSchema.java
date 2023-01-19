@@ -31,11 +31,11 @@ public class NodeXMLSchema implements XMLSchema<Node> {
 
 	@Override
 	public Node parse(Element root) throws DataConversionException {
-		String id = root.getChildText(TAG_id);
-		boolean checked = Boolean.valueOf(root.getChildText(TAG_checked));
+		final String id = root.getChildText(TAG_id);
+		final boolean checked = Boolean.valueOf(root.getChildText(TAG_checked));
 		System system;
 		{
-			Element element = root.getChild(systemXMLSchema.getSchemaName());
+			final Element element = root.getChild(systemXMLSchema.getSchemaName());
 			system = systemXMLSchema.parse(element);
 		}
 
@@ -44,19 +44,19 @@ public class NodeXMLSchema implements XMLSchema<Node> {
 
 	@Override
 	public Element combine(Node node) {
-		Element root = new Element(TAG_node);
+		final Element root = new Element(TAG_node);
 		{
-			Element element = new Element(TAG_id);
+			final Element element = new Element(TAG_id);
 			element.setText(node.getId());
 			root.addContent(element);
 		}
 		{
-			Element element = new Element(TAG_checked);
+			final Element element = new Element(TAG_checked);
 			element.setText(Boolean.toString(node.getChecked()));
 			root.addContent(element);
 		}
 		{
-			Element element = systemXMLSchema.combine(node.getSystem());
+			final Element element = systemXMLSchema.combine(node.getSystem());
 			root.addContent(element);
 		}
 

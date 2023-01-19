@@ -27,7 +27,7 @@ public class Link implements Cloneable {
 			return false;
 		}
 		if (obj instanceof Link) {
-			Link link = (Link) obj;
+			final Link link = (Link) obj;
 			return Objects.equals(name, link.name) && Objects.equals(id1, link.id1) && Objects.equals(id2, link.id2);
 		}
 		return false;
@@ -35,7 +35,7 @@ public class Link implements Cloneable {
 
 	@Override
 	public Link clone() throws CloneNotSupportedException {
-		Link clone = (Link) super.clone();
+		final Link clone = (Link) super.clone();
 		clone.name = name;
 		clone.id1 = id1;
 		clone.id2 = id2;
@@ -72,7 +72,7 @@ public class Link implements Cloneable {
 	}
 
 	public Set<String> getIds() {
-		Set<String> ids = new HashSet<>();
+		final Set<String> ids = new HashSet<>();
 		if (id1 != null) {
 			ids.add(id1);
 		}

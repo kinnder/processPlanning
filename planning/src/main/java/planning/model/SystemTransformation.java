@@ -53,11 +53,11 @@ public class SystemTransformation {
 	}
 
 	public SystemVariant[] applyTo(System system) throws CloneNotSupportedException {
-		IdsMatching[] idsMatchings = template.matchIds(system);
+		final IdsMatching[] idsMatchings = template.matchIds(system);
 
-		List<SystemVariant> systemVariants = new ArrayList<>();
+		final List<SystemVariant> systemVariants = new ArrayList<>();
 		for (IdsMatching idsMatching : idsMatchings) {
-			SystemVariant systemVariant = new SystemVariant(system.clone(), idsMatching);
+			final SystemVariant systemVariant = new SystemVariant(system.clone(), idsMatching);
 			if (action.haveAllPreConditionsPassed(systemVariant)) {
 				for (Transformation transformation : transformations) {
 					transformation.applyTo(systemVariant);
