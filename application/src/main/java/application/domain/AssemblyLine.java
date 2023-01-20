@@ -152,7 +152,7 @@ public class AssemblyLine {
 	public static final String ATTRIBUTE_PACKAGE_BOX_POSITION = "ATTRIBUTE-PACKAGE-BOX-POSITION";
 
 	/** Тара */
-	public static final String ATTRIBUTE_PACKAGE = "ATTRIBUTE-PACKAGE";
+	public static final String ATTRIBUTE_PACKAGE_BOX = "ATTRIBUTE-PACKAGE-BOX";
 
 	/** Робот-перекладчик */
 	public static final String ATTRIBUTE_PICK_AND_PLACE_ROBOT = "ATTRIBUTE-PICK-AND-PLACE-ROBOT";
@@ -245,7 +245,7 @@ public class AssemblyLine {
 		systemTemplate.addObjectTemplate(plane_y_source);
 
 		final SystemObjectTemplate packageBox = new SystemObjectTemplate(ID_TEMPLATE_PACKAGE_BOX);
-		packageBox.addAttributeTemplate(new AttributeTemplate(ATTRIBUTE_PACKAGE, true));
+		packageBox.addAttributeTemplate(new AttributeTemplate(ATTRIBUTE_PACKAGE_BOX, true));
 		systemTemplate.addObjectTemplate(packageBox);
 
 		systemTemplate.addLinkTemplate(robot, LINK_ROTARY_DRIVE_POSITION, plane_y_source);
@@ -293,7 +293,7 @@ public class AssemblyLine {
 		systemTemplate.addObjectTemplate(plane_z);
 
 		final SystemObjectTemplate packageBox = new SystemObjectTemplate(ID_TEMPLATE_PACKAGE_BOX);
-		packageBox.addAttributeTemplate(new AttributeTemplate(ATTRIBUTE_PACKAGE, true));
+		packageBox.addAttributeTemplate(new AttributeTemplate(ATTRIBUTE_PACKAGE_BOX, true));
 		systemTemplate.addObjectTemplate(packageBox);
 
 		final SystemObjectTemplate packageBoxPosition = new SystemObjectTemplate(ID_TEMPLATE_PACKAGE_BOX_POSITION);
@@ -340,7 +340,7 @@ public class AssemblyLine {
 		systemTemplate.addObjectTemplate(plane_z);
 
 		final SystemObjectTemplate packageBox = new SystemObjectTemplate(ID_TEMPLATE_PACKAGE_BOX);
-		packageBox.addAttributeTemplate(new AttributeTemplate(ATTRIBUTE_PACKAGE, true));
+		packageBox.addAttributeTemplate(new AttributeTemplate(ATTRIBUTE_PACKAGE_BOX, true));
 		systemTemplate.addObjectTemplate(packageBox);
 
 		final SystemObjectTemplate packageBoxPosition = new SystemObjectTemplate(ID_TEMPLATE_PACKAGE_BOX_POSITION);
@@ -384,7 +384,7 @@ public class AssemblyLine {
 		systemTemplate.addObjectTemplate(plane_z_bottom);
 
 		final SystemObjectTemplate packageBox = new SystemObjectTemplate(ID_TEMPLATE_PACKAGE_BOX);
-		packageBox.addAttributeTemplate(new AttributeTemplate(ATTRIBUTE_PACKAGE, true));
+		packageBox.addAttributeTemplate(new AttributeTemplate(ATTRIBUTE_PACKAGE_BOX, true));
 		systemTemplate.addObjectTemplate(packageBox);
 
 		final SystemObjectTemplate packageBoxPosition = new SystemObjectTemplate(ID_TEMPLATE_PACKAGE_BOX_POSITION);
@@ -434,7 +434,7 @@ public class AssemblyLine {
 		systemTemplate.addObjectTemplate(plane_z_bottom);
 
 		final SystemObjectTemplate packageBox = new SystemObjectTemplate(ID_TEMPLATE_PACKAGE_BOX);
-		packageBox.addAttributeTemplate(new AttributeTemplate(ATTRIBUTE_PACKAGE, true));
+		packageBox.addAttributeTemplate(new AttributeTemplate(ATTRIBUTE_PACKAGE_BOX, true));
 		systemTemplate.addObjectTemplate(packageBox);
 
 		final SystemObjectTemplate packageBoxPosition = new SystemObjectTemplate(ID_TEMPLATE_PACKAGE_BOX_POSITION);
@@ -482,7 +482,7 @@ public class AssemblyLine {
 		systemTemplate.addObjectTemplate(plane_x_source);
 
 		final SystemObjectTemplate packageBox = new SystemObjectTemplate(ID_TEMPLATE_PACKAGE_BOX);
-		packageBox.addAttributeTemplate(new AttributeTemplate(ATTRIBUTE_PACKAGE, true));
+		packageBox.addAttributeTemplate(new AttributeTemplate(ATTRIBUTE_PACKAGE_BOX, true));
 		systemTemplate.addObjectTemplate(packageBox);
 
 		systemTemplate.addLinkTemplate(robot, LINK_LINEAR_DRIVE_POSITION, plane_x_source);
@@ -596,8 +596,7 @@ public class AssemblyLine {
 		system.addObject(plane_z_bottom);
 
 		final SystemObject packageBox = new SystemObject(OBJECT_PACKAGE_BOX, ID_OBJECT_PACKAGE_BOX);
-		// TODO (2023-01-18 #78): имя атрибута не соответствует имени объекта
-		packageBox.addAttribute(new Attribute(ATTRIBUTE_PACKAGE, true));
+		packageBox.addAttribute(new Attribute(ATTRIBUTE_PACKAGE_BOX, true));
 		system.addObject(packageBox);
 
 		final SystemObject shuttle = new SystemObject(OBJECT_SHUTTLE, ID_OBJECT_SHUTTLE);
@@ -649,7 +648,7 @@ public class AssemblyLine {
 		final System system = new System();
 
 		final SystemObject packageBox = new SystemObject(OBJECT_PACKAGE_BOX, ID_OBJECT_PACKAGE_BOX);
-		packageBox.addAttribute(new Attribute(ATTRIBUTE_PACKAGE, true));
+		packageBox.addAttribute(new Attribute(ATTRIBUTE_PACKAGE_BOX, true));
 		system.addObject(packageBox);
 
 		final SystemObject robot = new SystemObject(OBJECT_PICK_AND_PLACE_ROBOT, ID_OBJECT_PICK_AND_PLACE_ROBOT);
