@@ -99,7 +99,6 @@ public class LinksDataModelTest {
 
 		context.checking(new Expectations() {
 			{
-				// TODO (2022-11-09 #72): добавить Matcher для Link
 				oneOf(selectedSystem_mock).addLink(with(any(Link.class)));
 
 				oneOf(editorDataModel_mock).nodeChanged(selectedNode_mock);

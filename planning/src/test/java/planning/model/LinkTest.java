@@ -1,12 +1,12 @@
 package planning.model;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Set;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.jmock.imposters.ByteBuddyClassImposteriser;
 import org.jmock.junit5.JUnit5Mockery;
@@ -34,6 +34,21 @@ public class LinkTest {
 	@BeforeEach
 	public void setup() {
 		testable = new Link("link", "id-1", "id-2");
+	}
+
+	@Test
+	public void newInstance() {
+		testable = new Link();
+		assertTrue(testable.getName().startsWith("link-"));
+		assertEquals("", testable.getId1());
+		assertEquals("", testable.getId2());
+	}
+
+	@Test
+	public void newInstance_uniqueName() {
+		testable = new Link();
+		Link testable2 = new Link();
+		assertNotEquals(testable.getName(), testable2.getName());
 	}
 
 	@Test

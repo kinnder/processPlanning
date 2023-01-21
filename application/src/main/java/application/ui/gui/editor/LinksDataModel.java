@@ -2,8 +2,6 @@ package application.ui.gui.editor;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
-
 import javax.swing.table.DefaultTableModel;
 import javax.swing.tree.DefaultMutableTreeNode;
 
@@ -54,11 +52,7 @@ public class LinksDataModel extends DefaultTableModel {
 	}
 
 	public void insertLink() {
-		// TODO (2022-10-23 #72): перенести создание пустых ссылок в класс Link
-		final String name = "link-" + UUID.randomUUID().toString();
-		final String id1 = "";
-		final String id2 = "";
-		final Link link = new Link(name, id1, id2);
+		final Link link = new Link();
 		system.addLink(link);
 		links.add(link);
 		this.addRow(new Object[] {});

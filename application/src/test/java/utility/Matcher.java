@@ -6,6 +6,7 @@ import java.util.List;
 import org.hamcrest.Description;
 import org.hamcrest.TypeSafeMatcher;
 
+// TODO (2023-01-21 #78): перенести в отдельный модуль и добавить тесты
 public class Matcher<T> extends TypeSafeMatcher<T> {
 
 	public static class MatcherException extends Exception {
