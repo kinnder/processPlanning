@@ -98,7 +98,6 @@ public class ObjectsDataModelTest {
 		final DefaultMutableTreeNode objectNode_mock = context.mock(DefaultMutableTreeNode.class, "object-node");
 		context.checking(new Expectations() {
 			{
-				// TODO (2022-11-11 #72): добавить Matcher для SystemObject
 				oneOf(selectedSystem_mock).addObject(with(any(SystemObject.class)));
 
 				oneOf(editorDataModel_mock).createObjectNode(with(any(SystemObject.class)));

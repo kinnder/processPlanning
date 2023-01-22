@@ -17,6 +17,11 @@ public class SystemObject implements Cloneable {
 
 	private String name;
 
+	public SystemObject() {
+		this.id = UUID.randomUUID().toString();
+		this.name = "object-" + this.id;
+	}
+
 	public SystemObject(String name) {
 		this(name, UUID.randomUUID().toString());
 	}

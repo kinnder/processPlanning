@@ -51,8 +51,7 @@ public class ObjectsDataModel extends DefaultTableModel {
 	}
 
 	public void insertObject() {
-		// TODO (2022-11-11 #72): перенести в SystemObject
-		final SystemObject object = new SystemObject("new object");
+		final SystemObject object = new SystemObject();
 		system.addObject(object);
 		objects.add(object);
 		this.addRow(new Object[] {});

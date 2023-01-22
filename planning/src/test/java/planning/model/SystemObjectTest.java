@@ -38,6 +38,19 @@ public class SystemObjectTest {
 	}
 
 	@Test
+	public void newInstance() {
+		testable = new SystemObject();
+		assertTrue(testable.getName().startsWith("object-"));
+	}
+
+	@Test
+	public void newInstance_uniqueName() {
+		testable = new SystemObject();
+		SystemObject testable2 = new SystemObject();
+		assertNotEquals(testable.getName(), testable2.getName());
+	}
+
+	@Test
 	public void getName() {
 		assertEquals("object", testable.getName());
 	}
