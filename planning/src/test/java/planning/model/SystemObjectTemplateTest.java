@@ -2,6 +2,7 @@ package planning.model;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Collection;
@@ -34,6 +35,19 @@ public class SystemObjectTemplateTest {
 	@BeforeEach
 	public void setup() {
 		testable = new SystemObjectTemplate("id");
+	}
+
+	@Test
+	public void newInstance() {
+		testable = new SystemObjectTemplate();
+		assertTrue(testable.getId().startsWith("objectTemplate-"));
+	}
+
+	@Test
+	public void newInstance_uniqueName() {
+		testable = new SystemObjectTemplate();
+		SystemObjectTemplate testable2 = new SystemObjectTemplate();
+		assertNotEquals(testable.getId(), testable2.getId());
 	}
 
 	@Test

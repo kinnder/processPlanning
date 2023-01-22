@@ -8,6 +8,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.UUID;
 
 public class SystemObjectTemplate {
 
@@ -27,6 +28,10 @@ public class SystemObjectTemplate {
 		final Set<String> ids = new HashSet<>();
 		ids.add(id);
 		return ids;
+	}
+
+	public SystemObjectTemplate() {
+		this("objectTemplate-" + UUID.randomUUID().toString());
 	}
 
 	public SystemObjectTemplate(String id) {

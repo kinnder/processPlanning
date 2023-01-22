@@ -99,7 +99,6 @@ public class ObjectTemplatesDataModelTest {
 				"objectTemplate-node");
 		context.checking(new Expectations() {
 			{
-				// TODO (2022-12-20 #73): добавить Matcher для SystemObjectTemplate
 				oneOf(selectedSystemTemplate_mock).addObjectTemplate(with(any(SystemObjectTemplate.class)));
 
 				oneOf(editorDataModel_mock).createObjectTemplateNode(with(any(SystemObjectTemplate.class)));

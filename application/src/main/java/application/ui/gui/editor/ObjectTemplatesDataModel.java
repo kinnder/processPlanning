@@ -79,8 +79,7 @@ public class ObjectTemplatesDataModel extends DefaultTableModel {
 	}
 
 	public void insertObjectTemplate() {
-		// TODO (2022-12-02 #73): перенести в SystemObjectTemplate
-		final SystemObjectTemplate objectTemplate = new SystemObjectTemplate("new id");
+		final SystemObjectTemplate objectTemplate = new SystemObjectTemplate();
 		systemTemplate.addObjectTemplate(objectTemplate);
 		objectTemplates.add(objectTemplate);
 		this.addRow(new Object[] {});
