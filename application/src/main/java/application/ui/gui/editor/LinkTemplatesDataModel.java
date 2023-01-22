@@ -2,8 +2,6 @@ package application.ui.gui.editor;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
-
 import javax.swing.table.DefaultTableModel;
 import javax.swing.tree.DefaultMutableTreeNode;
 
@@ -54,11 +52,7 @@ public class LinkTemplatesDataModel extends DefaultTableModel {
 	}
 
 	public void insertLinkTemplate() {
-		// TODO (2022-12-02 #73): перенести в LinkTemplate
-		final String name = "link-template-" + UUID.randomUUID().toString();
-		final String id1 = "";
-		final String id2 = "";
-		final LinkTemplate linkTemplate = new LinkTemplate(name, id1, id2);
+		final LinkTemplate linkTemplate = new LinkTemplate();
 		systemTemplate.addLinkTemplate(linkTemplate);
 		linkTemplates.add(linkTemplate);
 		this.addRow(new Object[] {});

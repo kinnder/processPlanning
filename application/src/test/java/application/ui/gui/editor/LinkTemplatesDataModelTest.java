@@ -99,7 +99,6 @@ public class LinkTemplatesDataModelTest {
 
 		context.checking(new Expectations() {
 			{
-				// TODO (2022-12-20 #73): добавить Matcher для LinkTemplate
 				oneOf(selectedSystemTemplate_mock).addLinkTemplate(with(any(LinkTemplate.class)));
 
 				oneOf(editorDataModel_mock).nodeChanged(selectedNode_mock);

@@ -3,6 +3,7 @@ package planning.model;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
+import java.util.UUID;
 
 public class LinkTemplate implements Cloneable {
 
@@ -11,6 +12,12 @@ public class LinkTemplate implements Cloneable {
 	private String id2;
 
 	private String name;
+
+	public LinkTemplate() {
+		this.name = "linkTemplate-" + UUID.randomUUID().toString();
+		this.id1 = "";
+		this.id2 = "";
+	}
 
 	public LinkTemplate(String name, String id1, String id2) {
 		this.name = name;

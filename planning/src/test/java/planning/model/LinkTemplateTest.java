@@ -2,6 +2,7 @@ package planning.model;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Set;
@@ -33,6 +34,21 @@ public class LinkTemplateTest {
 	@BeforeEach
 	public void setup() {
 		testable = new LinkTemplate("link", "id-template-1", "id-template-2");
+	}
+
+	@Test
+	public void newInstance() {
+		testable = new LinkTemplate();
+		assertTrue(testable.getName().startsWith("linkTemplate-"));
+		assertEquals("", testable.getId1());
+		assertEquals("", testable.getId2());
+	}
+
+	@Test
+	public void newInstance_uniqueName() {
+		testable = new LinkTemplate();
+		LinkTemplate testable2 = new LinkTemplate();
+		assertNotEquals(testable.getName(), testable2.getName());
 	}
 
 	@Test
