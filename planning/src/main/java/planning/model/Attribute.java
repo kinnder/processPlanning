@@ -1,10 +1,17 @@
 package planning.model;
 
+import java.util.UUID;
+
 public class Attribute implements Cloneable {
 
 	private String name;
 
 	private Object value;
+
+	public Attribute() {
+		this.name = "attribute-" + UUID.randomUUID().toString();
+		this.value = null;
+	}
 
 	public Attribute(String name, Object value) {
 		this.name = name;

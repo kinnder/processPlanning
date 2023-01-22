@@ -2,8 +2,6 @@ package application.ui.gui.editor;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
-
 import javax.swing.table.DefaultTableModel;
 import javax.swing.tree.DefaultMutableTreeNode;
 
@@ -54,10 +52,7 @@ public class AttributesDataModel extends DefaultTableModel {
 	}
 
 	public void insertAttribute() {
-		// TODO (2022-10-30 #72): перенести создание пустых атрибутов в класс Attribute
-		final String name = "attribute-" + UUID.randomUUID().toString();
-		final String value = "value";
-		final Attribute attribute = new Attribute(name, value);
+		final Attribute attribute = new Attribute();
 		object.addAttribute(attribute);
 		attributes.add(attribute);
 		this.addRow(new Object[] {});

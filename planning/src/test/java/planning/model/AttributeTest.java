@@ -1,9 +1,11 @@
 package planning.model;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.jmock.imposters.ByteBuddyClassImposteriser;
 import org.jmock.junit5.JUnit5Mockery;
@@ -31,6 +33,20 @@ class AttributeTest {
 	@BeforeEach
 	public void setup() {
 		testable = new Attribute("attribute", "value");
+	}
+
+	@Test
+	public void newInstance() {
+		testable = new Attribute();
+		assertTrue(testable.getName().startsWith("attribute-"));
+		assertNull(testable.getValue());
+	}
+
+	@Test
+	public void newInstance_uniqueName() {
+		testable = new Attribute();
+		Attribute testable2 = new Attribute();
+		assertNotEquals(testable.getName(), testable2.getName());
 	}
 
 	@Test

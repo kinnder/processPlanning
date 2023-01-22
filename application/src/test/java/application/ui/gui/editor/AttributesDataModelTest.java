@@ -98,7 +98,6 @@ public class AttributesDataModelTest {
 
 		context.checking(new Expectations() {
 			{
-				// TODO (2022-11-09 #72): добавить Matcher для Attribute
 				oneOf(selectedObject_mock).addAttribute(with(any(Attribute.class)));
 
 				oneOf(editorDataModel_mock).nodeChanged(selectedNode_mock);
