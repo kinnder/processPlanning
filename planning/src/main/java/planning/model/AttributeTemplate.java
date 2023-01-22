@@ -1,5 +1,7 @@
 package planning.model;
 
+import java.util.UUID;
+
 public class AttributeTemplate {
 
 	private String name;
@@ -7,6 +9,10 @@ public class AttributeTemplate {
 	private Object value;
 
 	private TemplateType templateType;
+
+	public AttributeTemplate() {
+		this("attributeTemplate-" + UUID.randomUUID().toString());
+	}
 
 	public AttributeTemplate(String name) {
 		this.name = name;

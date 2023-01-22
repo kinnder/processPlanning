@@ -2,6 +2,8 @@ package planning.model;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.jmock.junit5.JUnit5Mockery;
@@ -25,6 +27,20 @@ public class AttributeTemplateTest {
 	@BeforeEach
 	public void setup() {
 		testable = new AttributeTemplate("attribute", "value");
+	}
+
+	@Test
+	public void newInstance() {
+		testable = new AttributeTemplate();
+		assertTrue(testable.getName().startsWith("attributeTemplate-"));
+		assertNull(testable.getValue());
+	}
+
+	@Test
+	public void newInstance_uniqueName() {
+		testable = new AttributeTemplate();
+		AttributeTemplate testable2 = new AttributeTemplate();
+		assertNotEquals(testable.getName(), testable2.getName());
 	}
 
 	@Test

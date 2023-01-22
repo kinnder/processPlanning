@@ -2,8 +2,6 @@ package application.ui.gui.editor;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
-
 import javax.swing.table.DefaultTableModel;
 import javax.swing.tree.DefaultMutableTreeNode;
 
@@ -55,11 +53,7 @@ public class AttributeTemplatesDataModel extends DefaultTableModel {
 	}
 
 	public void insertAttributeTemplate() {
-		// TODO (2022-12-02 #73): перенести создание пустых атрибутов в класс
-		// AttributeTemplate
-		final String name = "attributeTemplate-" + UUID.randomUUID().toString();
-		final String value = "value";
-		final AttributeTemplate attributeTemplate = new AttributeTemplate(name, value);
+		final AttributeTemplate attributeTemplate = new AttributeTemplate();
 		objectTemplate.addAttributeTemplate(attributeTemplate);
 		attributeTemplates.add(attributeTemplate);
 		this.addRow(new Object[] {});
