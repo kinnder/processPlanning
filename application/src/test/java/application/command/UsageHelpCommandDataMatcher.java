@@ -3,7 +3,7 @@ package application.command;
 import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
 
-import utility.Matcher;
+import testtools.Matcher;
 
 public class UsageHelpCommandDataMatcher extends Matcher<UsageHelpCommandData> {
 

@@ -22,6 +22,12 @@
 			<artifactId>planning</artifactId>
 			<version>${project.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>process-engineering</groupId>
+			<artifactId>testtools</artifactId>
+			<version>${project.version}</version>
+			<scope>test</scope>
+		</dependency>
 		<!-- https://mvnrepository.com/artifact/commons-cli/commons-cli -->
 		<dependency>
 			<groupId>commons-cli</groupId>

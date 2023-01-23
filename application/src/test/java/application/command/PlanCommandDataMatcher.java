@@ -1,6 +1,6 @@
 package application.command;
 
-import utility.Matcher;
+import testtools.Matcher;
 
 public class PlanCommandDataMatcher extends Matcher<PlanCommandData> {
 

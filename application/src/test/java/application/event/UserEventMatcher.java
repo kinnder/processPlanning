@@ -1,6 +1,6 @@
 package application.event;
 
-import utility.Matcher;
+import testtools.Matcher;
 
 public class UserEventMatcher extends Matcher<UserEvent> {
 
