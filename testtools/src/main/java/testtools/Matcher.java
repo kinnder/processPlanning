@@ -9,6 +9,7 @@ import org.hamcrest.TypeSafeMatcher;
 // TODO (2023-01-21 #78): перенести в отдельный модуль и добавить тесты
 public class Matcher<T> extends TypeSafeMatcher<T> {
 
+	// TODO (2023-01-23 #81): переделать работу, убрать исключения
 	public static class MatcherException extends Exception {
 
 		public MatcherException(String mismatch) {
