@@ -7,7 +7,7 @@ public class PlanCommandDataMatcher extends Matcher<PlanCommandData> {
 	public PlanCommandDataMatcher expectProcessFile(String processFile) {
 		addExpectation(new MatcherExpectation() {
 			@Override
-			public void trigger(PlanCommandData arg) throws MatcherException {
+			public void trigger(PlanCommandData arg) {
 				compare("processFile", processFile, arg.processFile);
 			}
 		});
@@ -17,7 +17,7 @@ public class PlanCommandDataMatcher extends Matcher<PlanCommandData> {
 	public PlanCommandDataMatcher expectTaskDescriptionFile(String taskDescriptionFile) {
 		addExpectation(new MatcherExpectation() {
 			@Override
-			public void trigger(PlanCommandData arg) throws MatcherException {
+			public void trigger(PlanCommandData arg) {
 				compare("taskDescriptionFile", taskDescriptionFile, arg.taskDescriptionFile);
 			}
 		});
@@ -27,7 +27,7 @@ public class PlanCommandDataMatcher extends Matcher<PlanCommandData> {
 	public PlanCommandDataMatcher expectSystemTransformationsFile(String systemTransformationsFile) {
 		addExpectation(new MatcherExpectation() {
 			@Override
-			public void trigger(PlanCommandData arg) throws MatcherException {
+			public void trigger(PlanCommandData arg) {
 				compare("systemTransformationsFile", systemTransformationsFile, arg.systemTransformationsFile);
 			}
 		});
@@ -37,7 +37,7 @@ public class PlanCommandDataMatcher extends Matcher<PlanCommandData> {
 	public PlanCommandDataMatcher expectNodeNetworkFile(String nodeNetworkFile) {
 		addExpectation(new MatcherExpectation() {
 			@Override
-			public void trigger(PlanCommandData arg) throws MatcherException {
+			public void trigger(PlanCommandData arg) {
 				compare("nodeNetworkFile", nodeNetworkFile, arg.nodeNetworkFile);
 			}
 		});

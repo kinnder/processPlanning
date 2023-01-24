@@ -7,7 +7,7 @@ public class VerifyCommandDataMatcher extends Matcher<VerifyCommandData> {
 	public VerifyCommandDataMatcher expectProcessFile(String processFile) {
 		addExpectation(new MatcherExpectation() {
 			@Override
-			public void trigger(VerifyCommandData arg) throws MatcherException {
+			public void trigger(VerifyCommandData arg) {
 				compare("processFile", processFile, arg.processFile);
 			}
 		});
@@ -17,7 +17,7 @@ public class VerifyCommandDataMatcher extends Matcher<VerifyCommandData> {
 	public VerifyCommandDataMatcher expectTaskDescriptionFile(String taskDescriptionFile) {
 		addExpectation(new MatcherExpectation() {
 			@Override
-			public void trigger(VerifyCommandData arg) throws MatcherException {
+			public void trigger(VerifyCommandData arg) {
 				compare("taskDescriptionFile", taskDescriptionFile, arg.taskDescriptionFile);
 			}
 		});
@@ -27,7 +27,7 @@ public class VerifyCommandDataMatcher extends Matcher<VerifyCommandData> {
 	public VerifyCommandDataMatcher expectSystemTransformationsFile(String systemTransformationsFile) {
 		addExpectation(new MatcherExpectation() {
 			@Override
-			public void trigger(VerifyCommandData arg) throws MatcherException {
+			public void trigger(VerifyCommandData arg) {
 				compare("systemTransformationsFile", systemTransformationsFile, arg.systemTransformationsFile);
 			}
 		});
@@ -37,7 +37,7 @@ public class VerifyCommandDataMatcher extends Matcher<VerifyCommandData> {
 	public VerifyCommandDataMatcher expectNodeNetworkFile(String nodeNetworkFile) {
 		addExpectation(new MatcherExpectation() {
 			@Override
-			public void trigger(VerifyCommandData arg) throws MatcherException {
+			public void trigger(VerifyCommandData arg) {
 				compare("nodeNetworkFile", nodeNetworkFile, arg.nodeNetworkFile);
 			}
 		});

@@ -8,7 +8,6 @@ import org.hamcrest.Description;
 import org.hamcrest.StringDescription;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import testtools.Matcher.MatcherException;
 
 public class MatcherTest {
 
@@ -30,7 +29,7 @@ public class MatcherTest {
 	public void compareString() {
 		testable.addExpectation(testable.new MatcherExpectation() {
 			@Override
-			public void trigger(Object arg) throws MatcherException {
+			public void trigger(Object arg) {
 				compare("testField", "testValue", "testValue");
 			}
 		});
@@ -42,7 +41,7 @@ public class MatcherTest {
 	public void compareString_mismatch() {
 		testable.addExpectation(testable.new MatcherExpectation() {
 			@Override
-			public void trigger(Object arg) throws MatcherException {
+			public void trigger(Object arg) {
 				compare("testField", "testValue", "anotherValue");
 			}
 		});
@@ -51,14 +50,14 @@ public class MatcherTest {
 
 		final Description description = new StringDescription();
 		testable.describeTo(description);
-		assertEquals("testField - expected: testValue, actual: anotherValue", description.toString());
+		assertEquals("field [testField] - expected: [testValue], actual: [anotherValue]", description.toString());
 	}
 
 	@Test
 	public void compareLong() {
 		testable.addExpectation(testable.new MatcherExpectation() {
 			@Override
-			public void trigger(Object arg) throws MatcherException {
+			public void trigger(Object arg) {
 				compare("testField", (long) 100, (long) 100);
 			}
 		});
@@ -70,7 +69,7 @@ public class MatcherTest {
 	public void compareLong_mismatch() {
 		testable.addExpectation(testable.new MatcherExpectation() {
 			@Override
-			public void trigger(Object arg) throws MatcherException {
+			public void trigger(Object arg) {
 				compare("testField", (long) 100, (long) 200);
 			}
 		});
@@ -79,14 +78,14 @@ public class MatcherTest {
 
 		final Description description = new StringDescription();
 		testable.describeTo(description);
-		assertEquals("testField - expected: 100, actual: 200", description.toString());
+		assertEquals("field [testField] - expected: [100], actual: [200]", description.toString());
 	}
 
 	@Test
 	public void compareInt() {
 		testable.addExpectation(testable.new MatcherExpectation() {
 			@Override
-			public void trigger(Object arg) throws MatcherException {
+			public void trigger(Object arg) {
 				compare("testField", (int) 300, (int) 300);
 			}
 		});
@@ -98,7 +97,7 @@ public class MatcherTest {
 	public void compareInt_mismatch() {
 		testable.addExpectation(testable.new MatcherExpectation() {
 			@Override
-			public void trigger(Object arg) throws MatcherException {
+			public void trigger(Object arg) {
 				compare("testField", (int) 300, (int) 400);
 			}
 		});
@@ -107,14 +106,14 @@ public class MatcherTest {
 
 		final Description description = new StringDescription();
 		testable.describeTo(description);
-		assertEquals("testField - expected: 300, actual: 400", description.toString());
+		assertEquals("field [testField] - expected: [300], actual: [400]", description.toString());
 	}
 
 	@Test
 	public void compareBoolean() {
 		testable.addExpectation(testable.new MatcherExpectation() {
 			@Override
-			public void trigger(Object arg) throws MatcherException {
+			public void trigger(Object arg) {
 				compare("testField", true, true);
 			}
 		});
@@ -126,7 +125,7 @@ public class MatcherTest {
 	public void compareBoolean_mismatch() {
 		testable.addExpectation(testable.new MatcherExpectation() {
 			@Override
-			public void trigger(Object arg) throws MatcherException {
+			public void trigger(Object arg) {
 				compare("testField", true, false);
 			}
 		});
@@ -135,14 +134,14 @@ public class MatcherTest {
 
 		final Description description = new StringDescription();
 		testable.describeTo(description);
-		assertEquals("testField - expected: true, actual: false", description.toString());
+		assertEquals("field [testField] - expected: [true], actual: [false]", description.toString());
 	}
 
 	@Test
 	public void compareObject() {
 		testable.addExpectation(testable.new MatcherExpectation() {
 			@Override
-			public void trigger(Object arg) throws MatcherException {
+			public void trigger(Object arg) {
 				Object object = new Object();
 				compare("testField", object, object);
 			}
@@ -158,7 +157,7 @@ public class MatcherTest {
 
 		testable.addExpectation(testable.new MatcherExpectation() {
 			@Override
-			public void trigger(Object arg) throws MatcherException {
+			public void trigger(Object arg) {
 				compare("testField", expected, actual);
 			}
 		});
@@ -167,7 +166,7 @@ public class MatcherTest {
 
 		final Description description = new StringDescription();
 		testable.describeTo(description);
-		assertEquals("testField - expected: " + expected.toString() + ", actual: " + actual.toString(),
+		assertEquals("field [testField] - expected: [" + expected.toString() + "], actual: [" + actual.toString() + "]",
 				description.toString());
 	}
 
@@ -175,7 +174,7 @@ public class MatcherTest {
 	public void compareTimestamps() {
 		testable.addExpectation(testable.new MatcherExpectation() {
 			@Override
-			public void trigger(Object arg) throws MatcherException {
+			public void trigger(Object arg) {
 				compareTimestamps("testField", (long) 100, (long) 100);
 			}
 		});
@@ -187,7 +186,7 @@ public class MatcherTest {
 	public void compareTimestamps_mismatch() {
 		testable.addExpectation(testable.new MatcherExpectation() {
 			@Override
-			public void trigger(Object arg) throws MatcherException {
+			public void trigger(Object arg) {
 				compareTimestamps("testField", (long) 100, (long) 10000);
 			}
 		});
@@ -196,6 +195,7 @@ public class MatcherTest {
 
 		final Description description = new StringDescription();
 		testable.describeTo(description);
-		assertEquals("testField - expected: 100, actual: 10000, difference grater than 1000", description.toString());
+		assertEquals("field [testField] - expected: [100], actual: [10000], difference grater than [1000]",
+				description.toString());
 	}
 }

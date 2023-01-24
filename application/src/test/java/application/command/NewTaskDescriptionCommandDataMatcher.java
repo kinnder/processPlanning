@@ -8,7 +8,7 @@ public class NewTaskDescriptionCommandDataMatcher extends Matcher<NewTaskDescrip
 	public NewTaskDescriptionCommandDataMatcher expectTaskDescriptionFile(String taskDescriptionFile) {
 		addExpectation(new MatcherExpectation() {
 			@Override
-			public void trigger(NewTaskDescriptionCommandData arg) throws MatcherException {
+			public void trigger(NewTaskDescriptionCommandData arg) {
 				compare("taskDescriptionFile", taskDescriptionFile, arg.taskDescriptionFile);
 			}
 		});
@@ -18,7 +18,7 @@ public class NewTaskDescriptionCommandDataMatcher extends Matcher<NewTaskDescrip
 	public NewTaskDescriptionCommandDataMatcher expectDomain(String domain) {
 		addExpectation(new MatcherExpectation() {
 			@Override
-			public void trigger(NewTaskDescriptionCommandData arg) throws MatcherException {
+			public void trigger(NewTaskDescriptionCommandData arg) {
 				compare("domain", domain, arg.domain);
 			}
 		});

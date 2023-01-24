@@ -6,82 +6,85 @@ import java.util.List;
 import org.hamcrest.Description;
 import org.hamcrest.TypeSafeMatcher;
 
-// TODO (2023-01-21 #78): перенести в отдельный модуль и добавить тесты
 public class Matcher<T> extends TypeSafeMatcher<T> {
-
-	// TODO (2023-01-23 #81): переделать работу, убрать исключения
-	public static class MatcherException extends Exception {
-
-		public MatcherException(String mismatch) {
-			super(mismatch);
-		}
-
-		private static final long serialVersionUID = 6963868936283233715L;
-	}
 
 	private List<MatcherExpectation> expectations = new ArrayList<MatcherExpectation>();
 
 	protected abstract class MatcherExpectation {
-		public abstract void trigger(T arg) throws MatcherException;
+		public abstract void trigger(T arg);
 
-		protected void compare(String name, long expected, long actual) throws MatcherException {
-			if (expected != actual) {
-				throw new MatcherException(String.format("%s - expected: %d, actual: %d", name, expected, actual));
+		protected void compare(String fieldName, long valueExpected, long valueActual) {
+			if (valueExpected != valueActual) {
+				mismatch = true;
+				mismatchDescription = String.format("field [%s] - expected: [%d], actual: [%d]", fieldName,
+						valueExpected, valueActual);
 			}
 		}
 
-		protected void compare(String name, String expected, String actual) throws MatcherException {
-			if (expected.compareTo(actual) != 0) {
-				throw new MatcherException(String.format("%s - expected: %s, actual: %s", name, expected, actual));
+		protected void compare(String fieldName, String valueExpected, String valueActual) {
+			if (valueExpected.compareTo(valueActual) != 0) {
+				mismatch = true;
+				mismatchDescription = String.format("field [%s] - expected: [%s], actual: [%s]", fieldName,
+						valueExpected, valueActual);
 			}
 		}
 
-		protected void compare(String name, int expected, int actual) throws MatcherException {
-			if (expected != actual) {
-				throw new MatcherException(String.format("%s - expected: %d, actual: %d", name, expected, actual));
+		protected void compare(String fieldName, int valueExpected, int valueActual) {
+			if (valueExpected != valueActual) {
+				mismatch = true;
+				mismatchDescription = String.format("field [%s] - expected: [%d], actual: [%d]", fieldName,
+						valueExpected, valueActual);
 			}
 		}
 
-		protected void compareTimestamps(String name, long expected, long actual) throws MatcherException {
-			if (Math.abs(expected - actual) > TOLERANCE) {
-				throw new MatcherException(String.format("%s - expected: %d, actual: %d, difference grater than %d",
-						name, expected, actual, TOLERANCE));
+		protected void compareTimestamps(String fieldName, long valueExpected, long valueActual) {
+			if (Math.abs(valueExpected - valueActual) > TOLERANCE) {
+				mismatch = true;
+				mismatchDescription = String.format(
+						"field [%s] - expected: [%d], actual: [%d], difference grater than [%d]", fieldName,
+						valueExpected, valueActual, TOLERANCE);
 			}
 		}
 
-		protected void compare(String name, boolean expected, boolean actual) throws MatcherException {
-			if (expected != actual) {
-				throw new MatcherException(String.format("%s - expected: %b, actual: %b", name, expected, actual));
+		protected void compare(String fieldName, boolean valueExpected, boolean valueActual) {
+			if (valueExpected != valueActual) {
+				mismatch = true;
+				mismatchDescription = String.format("field [%s] - expected: [%b], actual: [%b]", fieldName,
+						valueExpected, valueActual);
 			}
 		}
 
-		protected void compare(String name, Object expected, Object actual) throws MatcherException {
-			if (expected != actual) {
-				throw new MatcherException(String.format("%s - expected: %s, actual: %s", name, expected, actual));
+		protected void compare(String fieldName, Object valueExpected, Object valueActual) {
+			if (valueExpected != valueActual) {
+				mismatch = true;
+				mismatchDescription = String.format("field [%s] - expected: [%s], actual: [%s]", fieldName,
+						valueExpected, valueActual);
 			}
 		}
 
 		final static private int TOLERANCE = 1000;
 	}
 
-	private MatcherException mismatch = null;
+	private String mismatchDescription;
+
+	private boolean mismatch;
 
 	@Override
 	public void describeTo(Description description) {
-		if (mismatch != null) {
-			description.appendText(mismatch.getMessage());
+		if (mismatchDescription != null) {
+			description.appendText(mismatchDescription);
 		}
 	}
 
 	@Override
 	protected boolean matchesSafely(T item) {
-		try {
-			for (MatcherExpectation expectation : expectations) {
-				expectation.trigger(item);
+		mismatchDescription = null;
+		mismatch = false;
+		for (MatcherExpectation expectation : expectations) {
+			expectation.trigger(item);
+			if (mismatch) {
+				return false;
 			}
-		} catch (MatcherException e) {
-			mismatch = e;
-			return false;
 		}
 		return true;
 	}

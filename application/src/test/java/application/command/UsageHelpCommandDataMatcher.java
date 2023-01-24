@@ -10,7 +10,7 @@ public class UsageHelpCommandDataMatcher extends Matcher<UsageHelpCommandData> {
 	public UsageHelpCommandDataMatcher expectOptions(Options options) {
 		addExpectation(new MatcherExpectation() {
 			@Override
-			public void trigger(UsageHelpCommandData arg) throws MatcherException {
+			public void trigger(UsageHelpCommandData arg) {
 				compare("options.getOptions().size()", options.getOptions().size(), arg.options.getOptions().size());
 				for (Option expected : options.getOptions()) {
 					Option actual = arg.options.getOption(expected.getOpt());

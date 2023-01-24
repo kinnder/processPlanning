@@ -7,7 +7,7 @@ public class CommandEventMatcher extends Matcher<CommandEvent> {
 	public CommandEventMatcher expectMessage(String message) {
 		addExpectation(new MatcherExpectation() {
 			@Override
-			public void trigger(CommandEvent arg) throws MatcherException {
+			public void trigger(CommandEvent arg) {
 				compare("message", message, arg.message);
 			}
 		});
@@ -17,7 +17,7 @@ public class CommandEventMatcher extends Matcher<CommandEvent> {
 	public CommandEventMatcher expectCommandName(String commandName) {
 		addExpectation(new MatcherExpectation() {
 			@Override
-			public void trigger(CommandEvent arg) throws MatcherException {
+			public void trigger(CommandEvent arg) {
 				compare("commandName", commandName, arg.commandName);
 			}
 		});
@@ -27,7 +27,7 @@ public class CommandEventMatcher extends Matcher<CommandEvent> {
 	public CommandEventMatcher expectType(CommandEvent.Type type) {
 		addExpectation(new MatcherExpectation() {
 			@Override
-			public void trigger(CommandEvent arg) throws MatcherException {
+			public void trigger(CommandEvent arg) {
 				compare("type", type, arg.type);
 			}
 		});

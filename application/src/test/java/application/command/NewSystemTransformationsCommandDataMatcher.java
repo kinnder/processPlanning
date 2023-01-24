@@ -9,7 +9,7 @@ public class NewSystemTransformationsCommandDataMatcher extends Matcher<NewSyste
 			String systemTransformationsFile) {
 		addExpectation(new MatcherExpectation() {
 			@Override
-			public void trigger(NewSystemTransformationsCommandData arg) throws MatcherException {
+			public void trigger(NewSystemTransformationsCommandData arg) {
 				compare("systemTransformationsFile", systemTransformationsFile, arg.systemTransformationsFile);
 			}
 		});
@@ -19,7 +19,7 @@ public class NewSystemTransformationsCommandDataMatcher extends Matcher<NewSyste
 	public NewSystemTransformationsCommandDataMatcher expectDomain(String domain) {
 		addExpectation(new MatcherExpectation() {
 			@Override
-			public void trigger(NewSystemTransformationsCommandData arg) throws MatcherException {
+			public void trigger(NewSystemTransformationsCommandData arg) {
 				compare("domain", domain, arg.domain);
 			}
 		});
