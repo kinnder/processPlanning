@@ -31,6 +31,12 @@ public class TransformationTest {
 	}
 
 	@Test
+	public void newInstance() {
+		testable = new Transformation();
+		assertEquals("object-id", testable.getId());
+	}
+
+	@Test
 	public void applyTo() {
 		final SystemVariant systemVariant_mock = context.mock(SystemVariant.class);
 

@@ -92,8 +92,7 @@ public class TransformationsDataModel extends DefaultTableModel {
 	}
 
 	public void insertTransformation() {
-		// TODO (2022-12-11 #73): перенести в Transformation
-		final Transformation transformation = new Transformation("object-id");
+		final Transformation transformation = new Transformation();
 		transformations.add(transformation);
 		transformationsList.add(transformation);
 		this.addRow(new Object[] {});

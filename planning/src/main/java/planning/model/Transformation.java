@@ -4,6 +4,10 @@ public class Transformation {
 
 	private String id;
 
+	public Transformation() {
+		this.id = "object-id";
+	}
+
 	public Transformation(String id) {
 		this.id = id;
 	}
