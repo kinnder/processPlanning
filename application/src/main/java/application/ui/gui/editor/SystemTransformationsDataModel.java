@@ -7,10 +7,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.tree.DefaultMutableTreeNode;
 
 import planning.method.SystemTransformations;
-import planning.model.Action;
-import planning.model.SystemTemplate;
 import planning.model.SystemTransformation;
-import planning.model.Transformations;
 
 public class SystemTransformationsDataModel extends DefaultTableModel {
 
@@ -53,8 +50,7 @@ public class SystemTransformationsDataModel extends DefaultTableModel {
 	}
 
 	public void insertSystemTransformation() {
-		// TODO (2022-11-17 #73): перенести в SystemTransformation
-		final SystemTransformation systemTransformation = new SystemTransformation("new system transformation", new Action("new-action"), new SystemTemplate(), new Transformations());
+		final SystemTransformation systemTransformation = new SystemTransformation();
 		systemTransformations.add(systemTransformation);
 		systemTransformationsList.add(systemTransformation);
 		this.addRow(new Object[] {});

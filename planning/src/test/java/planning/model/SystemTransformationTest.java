@@ -1,7 +1,10 @@
 package planning.model;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.jmock.Expectations;
 import org.jmock.imposters.ByteBuddyClassImposteriser;
@@ -60,6 +63,23 @@ public class SystemTransformationTest {
 		assertNull(testable.getAction());
 		assertNull(testable.getSystemTemplate());
 		assertNull(testable.getTransformations());
+	}
+
+	@Test
+	public void newInstance_default() {
+		testable = new SystemTransformation();
+
+		assertTrue(testable.getName().startsWith("systemTransformation-"));
+		assertNotNull(testable.getAction());
+		assertNotNull(testable.getSystemTemplate());
+		assertNotNull(testable.getTransformations());
+	}
+
+	@Test
+	public void newInstance_uniqueName() {
+		testable = new SystemTransformation();
+		SystemTransformation testable2 = new SystemTransformation();
+		assertNotEquals(testable.getName(), testable2.getName());
 	}
 
 	@Test

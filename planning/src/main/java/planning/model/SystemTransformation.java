@@ -2,6 +2,7 @@ package planning.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class SystemTransformation {
 
@@ -18,6 +19,14 @@ public class SystemTransformation {
 		this.action = action;
 		this.template = template;
 		this.transformations = transformations;
+	}
+
+	public SystemTransformation() {
+		this.name = "systemTransformation-" + UUID.randomUUID().toString();
+		// TODO (2023-01-28 #37): перенести в Action
+		this.action = new Action("new-action");
+		this.template = new SystemTemplate();
+		this.transformations = new Transformations();
 	}
 
 	public SystemTransformation(String name) {
