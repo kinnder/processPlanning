@@ -70,7 +70,7 @@ public class AssemblyLine {
 
 	public static final String ID_TEMPLATE_PLANE_X_TARGET = "ID-PLANE-X-TARGET";
 
-	public static final String ID_TEMPLATE_ROBOT = "ID-ROBOT";
+	public static final String ID_TEMPLATE_PICK_AND_PLACE_ROBOT = "ID-PICK-AND-PLACE-ROBOT";
 
 	public static final String ELEMENT_MOVE_WITHOUT_LOAD = "ELEMENT-MOVE-WITHOUT-LOAD";
 
@@ -193,7 +193,7 @@ public class AssemblyLine {
 	public static SystemTransformation turnWithoutLoad() {
 		final SystemTemplate systemTemplate = new SystemTemplate();
 
-		final SystemObjectTemplate robot = new SystemObjectTemplate(ID_TEMPLATE_ROBOT);
+		final SystemObjectTemplate robot = new SystemObjectTemplate(ID_TEMPLATE_PICK_AND_PLACE_ROBOT);
 		robot.addAttributeTemplate(new AttributeTemplate(ATTRIBUTE_PICK_AND_PLACE_ROBOT, true));
 		systemTemplate.addObjectTemplate(robot);
 
@@ -211,9 +211,9 @@ public class AssemblyLine {
 		systemTemplate.addLinkTemplate(plane_y_target, LINK_ROTARY_DRIVE_POSITION, null);
 
 		final Transformations transformations = new Transformations();
-		transformations.add(new LinkTransformation(ID_TEMPLATE_ROBOT, LINK_ROTARY_DRIVE_POSITION, ID_TEMPLATE_PLANE_Y_SOURCE, ID_TEMPLATE_PLANE_Y_TARGET));
-		transformations.add(new LinkTransformation(ID_TEMPLATE_PLANE_Y_TARGET, LINK_ROTARY_DRIVE_POSITION, null, ID_TEMPLATE_ROBOT));
-		transformations.add(new LinkTransformation(ID_TEMPLATE_PLANE_Y_SOURCE, LINK_ROTARY_DRIVE_POSITION, ID_TEMPLATE_ROBOT, null));
+		transformations.add(new LinkTransformation(ID_TEMPLATE_PICK_AND_PLACE_ROBOT, LINK_ROTARY_DRIVE_POSITION, ID_TEMPLATE_PLANE_Y_SOURCE, ID_TEMPLATE_PLANE_Y_TARGET));
+		transformations.add(new LinkTransformation(ID_TEMPLATE_PLANE_Y_TARGET, LINK_ROTARY_DRIVE_POSITION, null, ID_TEMPLATE_PICK_AND_PLACE_ROBOT));
+		transformations.add(new LinkTransformation(ID_TEMPLATE_PLANE_Y_SOURCE, LINK_ROTARY_DRIVE_POSITION, ID_TEMPLATE_PICK_AND_PLACE_ROBOT, null));
 
 		final StringBuilder script = new StringBuilder();
 		script.append("local systemVariant = ...");
@@ -232,7 +232,7 @@ public class AssemblyLine {
 	public static SystemTransformation turnWithLoad() {
 		final SystemTemplate systemTemplate = new SystemTemplate();
 
-		final SystemObjectTemplate robot = new SystemObjectTemplate(ID_TEMPLATE_ROBOT);
+		final SystemObjectTemplate robot = new SystemObjectTemplate(ID_TEMPLATE_PICK_AND_PLACE_ROBOT);
 		robot.addAttributeTemplate(new AttributeTemplate(ATTRIBUTE_PICK_AND_PLACE_ROBOT, true));
 		systemTemplate.addObjectTemplate(robot);
 
@@ -256,9 +256,9 @@ public class AssemblyLine {
 		systemTemplate.addLinkTemplate(packageBox, LINK_PACKAGE_BOX_POSITION, null);
 
 		final Transformations transformations = new Transformations();
-		transformations.add(new LinkTransformation(ID_TEMPLATE_ROBOT, LINK_ROTARY_DRIVE_POSITION, ID_TEMPLATE_PLANE_Y_SOURCE, ID_TEMPLATE_PLANE_Y_TARGET));
-		transformations.add(new LinkTransformation(ID_TEMPLATE_PLANE_Y_SOURCE, LINK_ROTARY_DRIVE_POSITION, ID_TEMPLATE_ROBOT, null));
-		transformations.add(new LinkTransformation(ID_TEMPLATE_PLANE_Y_TARGET, LINK_ROTARY_DRIVE_POSITION, null, ID_TEMPLATE_ROBOT));
+		transformations.add(new LinkTransformation(ID_TEMPLATE_PICK_AND_PLACE_ROBOT, LINK_ROTARY_DRIVE_POSITION, ID_TEMPLATE_PLANE_Y_SOURCE, ID_TEMPLATE_PLANE_Y_TARGET));
+		transformations.add(new LinkTransformation(ID_TEMPLATE_PLANE_Y_SOURCE, LINK_ROTARY_DRIVE_POSITION, ID_TEMPLATE_PICK_AND_PLACE_ROBOT, null));
+		transformations.add(new LinkTransformation(ID_TEMPLATE_PLANE_Y_TARGET, LINK_ROTARY_DRIVE_POSITION, null, ID_TEMPLATE_PICK_AND_PLACE_ROBOT));
 
 		final StringBuilder script = new StringBuilder();
 		script.append("local systemVariant = ...");
@@ -276,7 +276,7 @@ public class AssemblyLine {
 	public static SystemTransformation openGrab() {
 		final SystemTemplate systemTemplate = new SystemTemplate();
 
-		final SystemObjectTemplate robot = new SystemObjectTemplate(ID_TEMPLATE_ROBOT);
+		final SystemObjectTemplate robot = new SystemObjectTemplate(ID_TEMPLATE_PICK_AND_PLACE_ROBOT);
 		robot.addAttributeTemplate(new AttributeTemplate(ATTRIBUTE_PICK_AND_PLACE_ROBOT, true));
 		systemTemplate.addObjectTemplate(robot);
 
@@ -312,8 +312,8 @@ public class AssemblyLine {
 		systemTemplate.addLinkTemplate(packageBoxPosition, LINK_PLANE_Z_POSITION, plane_z);
 
 		final Transformations transformations = new Transformations();
-		transformations.add(new LinkTransformation(ID_TEMPLATE_ROBOT, LINK_GRAB_POSITION, ID_TEMPLATE_PACKAGE_BOX, null));
-		transformations.add(new LinkTransformation(ID_TEMPLATE_PACKAGE_BOX, LINK_GRAB_POSITION, ID_TEMPLATE_ROBOT, null));
+		transformations.add(new LinkTransformation(ID_TEMPLATE_PICK_AND_PLACE_ROBOT, LINK_GRAB_POSITION, ID_TEMPLATE_PACKAGE_BOX, null));
+		transformations.add(new LinkTransformation(ID_TEMPLATE_PACKAGE_BOX, LINK_GRAB_POSITION, ID_TEMPLATE_PICK_AND_PLACE_ROBOT, null));
 
 		final Action action = new Action(OPERATION_OPEN_GRAB);
 
@@ -323,7 +323,7 @@ public class AssemblyLine {
 	public static SystemTransformation closeGrab() {
 		final SystemTemplate systemTemplate = new SystemTemplate();
 
-		final SystemObjectTemplate robot = new SystemObjectTemplate(ID_TEMPLATE_ROBOT);
+		final SystemObjectTemplate robot = new SystemObjectTemplate(ID_TEMPLATE_PICK_AND_PLACE_ROBOT);
 		robot.addAttributeTemplate(new AttributeTemplate(ATTRIBUTE_PICK_AND_PLACE_ROBOT, true));
 		systemTemplate.addObjectTemplate(robot);
 
@@ -360,8 +360,8 @@ public class AssemblyLine {
 		systemTemplate.addLinkTemplate(packageBoxPosition, LINK_PLANE_Z_POSITION, plane_z);
 
 		final Transformations transformations = new Transformations();
-		transformations.add(new LinkTransformation(ID_TEMPLATE_ROBOT, LINK_GRAB_POSITION, null, ID_TEMPLATE_PACKAGE_BOX));
-		transformations.add(new LinkTransformation(ID_TEMPLATE_PACKAGE_BOX, LINK_GRAB_POSITION, null, ID_TEMPLATE_ROBOT));
+		transformations.add(new LinkTransformation(ID_TEMPLATE_PICK_AND_PLACE_ROBOT, LINK_GRAB_POSITION, null, ID_TEMPLATE_PACKAGE_BOX));
+		transformations.add(new LinkTransformation(ID_TEMPLATE_PACKAGE_BOX, LINK_GRAB_POSITION, null, ID_TEMPLATE_PICK_AND_PLACE_ROBOT));
 
 		final Action action = new Action(OPERATION_CLOSE_GRAB);
 
@@ -371,7 +371,7 @@ public class AssemblyLine {
 	public static SystemTransformation liftUp() {
 		final SystemTemplate systemTemplate = new SystemTemplate();
 
-		final SystemObjectTemplate robot = new SystemObjectTemplate(ID_TEMPLATE_ROBOT);
+		final SystemObjectTemplate robot = new SystemObjectTemplate(ID_TEMPLATE_PICK_AND_PLACE_ROBOT);
 		robot.addAttributeTemplate(new AttributeTemplate(ATTRIBUTE_PICK_AND_PLACE_ROBOT, true));
 		systemTemplate.addObjectTemplate(robot);
 
@@ -401,9 +401,9 @@ public class AssemblyLine {
 		final Transformations transformations = new Transformations();
 		transformations.add(new LinkTransformation(ID_TEMPLATE_PACKAGE_BOX, LINK_PACKAGE_BOX_POSITION, ID_TEMPLATE_PACKAGE_BOX_POSITION, null));
 		transformations.add(new LinkTransformation(ID_TEMPLATE_PACKAGE_BOX_POSITION, LINK_PACKAGE_BOX_POSITION, ID_TEMPLATE_PACKAGE_BOX, null));
-		transformations.add(new LinkTransformation(ID_TEMPLATE_ROBOT, LINK_VERTICAL_DRIVE_POSITION, ID_TEMPLATE_PLANE_Z_BOTTOM, ID_TEMPLATE_PLANE_Z_TOP));
-		transformations.add(new LinkTransformation(ID_TEMPLATE_PLANE_Z_TOP, LINK_VERTICAL_DRIVE_POSITION, null, ID_TEMPLATE_ROBOT));
-		transformations.add(new LinkTransformation(ID_TEMPLATE_PLANE_Z_BOTTOM, LINK_VERTICAL_DRIVE_POSITION, ID_TEMPLATE_ROBOT, null));
+		transformations.add(new LinkTransformation(ID_TEMPLATE_PICK_AND_PLACE_ROBOT, LINK_VERTICAL_DRIVE_POSITION, ID_TEMPLATE_PLANE_Z_BOTTOM, ID_TEMPLATE_PLANE_Z_TOP));
+		transformations.add(new LinkTransformation(ID_TEMPLATE_PLANE_Z_TOP, LINK_VERTICAL_DRIVE_POSITION, null, ID_TEMPLATE_PICK_AND_PLACE_ROBOT));
+		transformations.add(new LinkTransformation(ID_TEMPLATE_PLANE_Z_BOTTOM, LINK_VERTICAL_DRIVE_POSITION, ID_TEMPLATE_PICK_AND_PLACE_ROBOT, null));
 
 		final Action action = new Action(OPERATION_LIFT_UP);
 
@@ -413,7 +413,7 @@ public class AssemblyLine {
 	public static SystemTransformation lowerDown() {
 		final SystemTemplate systemTemplate = new SystemTemplate();
 
-		final SystemObjectTemplate robot = new SystemObjectTemplate(ID_TEMPLATE_ROBOT);
+		final SystemObjectTemplate robot = new SystemObjectTemplate(ID_TEMPLATE_PICK_AND_PLACE_ROBOT);
 		robot.addAttributeTemplate(new AttributeTemplate(ATTRIBUTE_PICK_AND_PLACE_ROBOT, true));
 		systemTemplate.addObjectTemplate(robot);
 
@@ -457,9 +457,9 @@ public class AssemblyLine {
 		final Transformations transformations = new Transformations();
 		transformations.add(new LinkTransformation(ID_TEMPLATE_PACKAGE_BOX, LINK_PACKAGE_BOX_POSITION, null, ID_TEMPLATE_PACKAGE_BOX_POSITION));
 		transformations.add(new LinkTransformation(ID_TEMPLATE_PACKAGE_BOX_POSITION, LINK_PACKAGE_BOX_POSITION, null, ID_TEMPLATE_PACKAGE_BOX));
-		transformations.add(new LinkTransformation(ID_TEMPLATE_ROBOT, LINK_VERTICAL_DRIVE_POSITION, ID_TEMPLATE_PLANE_Z_TOP, ID_TEMPLATE_PLANE_Z_BOTTOM));
-		transformations.add(new LinkTransformation(ID_TEMPLATE_PLANE_Z_TOP, LINK_VERTICAL_DRIVE_POSITION, ID_TEMPLATE_ROBOT, null));
-		transformations.add(new LinkTransformation(ID_TEMPLATE_PLANE_Z_BOTTOM, LINK_VERTICAL_DRIVE_POSITION, null, ID_TEMPLATE_ROBOT));
+		transformations.add(new LinkTransformation(ID_TEMPLATE_PICK_AND_PLACE_ROBOT, LINK_VERTICAL_DRIVE_POSITION, ID_TEMPLATE_PLANE_Z_TOP, ID_TEMPLATE_PLANE_Z_BOTTOM));
+		transformations.add(new LinkTransformation(ID_TEMPLATE_PLANE_Z_TOP, LINK_VERTICAL_DRIVE_POSITION, ID_TEMPLATE_PICK_AND_PLACE_ROBOT, null));
+		transformations.add(new LinkTransformation(ID_TEMPLATE_PLANE_Z_BOTTOM, LINK_VERTICAL_DRIVE_POSITION, null, ID_TEMPLATE_PICK_AND_PLACE_ROBOT));
 
 		final Action action = new Action(OPERATION_LOWER_DOWN);
 
@@ -469,7 +469,7 @@ public class AssemblyLine {
 	public static SystemTransformation moveWithLoad() {
 		final SystemTemplate systemTemplate = new SystemTemplate();
 
-		final SystemObjectTemplate robot = new SystemObjectTemplate(ID_TEMPLATE_ROBOT);
+		final SystemObjectTemplate robot = new SystemObjectTemplate(ID_TEMPLATE_PICK_AND_PLACE_ROBOT);
 		robot.addAttributeTemplate(new AttributeTemplate(ATTRIBUTE_PICK_AND_PLACE_ROBOT, true));
 		systemTemplate.addObjectTemplate(robot);
 
@@ -493,9 +493,9 @@ public class AssemblyLine {
 		systemTemplate.addLinkTemplate(packageBox, LINK_PACKAGE_BOX_POSITION, null);
 
 		final Transformations transformations = new Transformations();
-		transformations.add(new LinkTransformation(ID_TEMPLATE_ROBOT, LINK_LINEAR_DRIVE_POSITION, ID_TEMPLATE_PLANE_X_SOURCE, ID_TEMPLATE_PLANE_X_TARGET));
-		transformations.add(new LinkTransformation(ID_TEMPLATE_PLANE_X_TARGET, LINK_LINEAR_DRIVE_POSITION, null, ID_TEMPLATE_ROBOT));
-		transformations.add(new LinkTransformation(ID_TEMPLATE_PLANE_X_SOURCE, LINK_LINEAR_DRIVE_POSITION, ID_TEMPLATE_ROBOT, null));
+		transformations.add(new LinkTransformation(ID_TEMPLATE_PICK_AND_PLACE_ROBOT, LINK_LINEAR_DRIVE_POSITION, ID_TEMPLATE_PLANE_X_SOURCE, ID_TEMPLATE_PLANE_X_TARGET));
+		transformations.add(new LinkTransformation(ID_TEMPLATE_PLANE_X_TARGET, LINK_LINEAR_DRIVE_POSITION, null, ID_TEMPLATE_PICK_AND_PLACE_ROBOT));
+		transformations.add(new LinkTransformation(ID_TEMPLATE_PLANE_X_SOURCE, LINK_LINEAR_DRIVE_POSITION, ID_TEMPLATE_PICK_AND_PLACE_ROBOT, null));
 
 		final StringBuilder script = new StringBuilder();
 		script.append("local systemVariant = ...");
@@ -513,7 +513,7 @@ public class AssemblyLine {
 	public static SystemTransformation moveWithoutLoad() {
 		final SystemTemplate systemTemplate = new SystemTemplate();
 
-		final SystemObjectTemplate robot = new SystemObjectTemplate(ID_TEMPLATE_ROBOT);
+		final SystemObjectTemplate robot = new SystemObjectTemplate(ID_TEMPLATE_PICK_AND_PLACE_ROBOT);
 		robot.addAttributeTemplate(new AttributeTemplate(ATTRIBUTE_PICK_AND_PLACE_ROBOT, true));
 		systemTemplate.addObjectTemplate(robot);
 
@@ -531,9 +531,9 @@ public class AssemblyLine {
 		systemTemplate.addLinkTemplate(plane_x_target, LINK_LINEAR_DRIVE_POSITION, null);
 
 		final Transformations transformations = new Transformations();
-		transformations.add(new LinkTransformation(ID_TEMPLATE_ROBOT, LINK_LINEAR_DRIVE_POSITION, ID_TEMPLATE_PLANE_X_SOURCE, ID_TEMPLATE_PLANE_X_TARGET));
-		transformations.add(new LinkTransformation(ID_TEMPLATE_PLANE_X_SOURCE, LINK_LINEAR_DRIVE_POSITION, ID_TEMPLATE_ROBOT, null));
-		transformations.add(new LinkTransformation(ID_TEMPLATE_PLANE_X_TARGET, LINK_LINEAR_DRIVE_POSITION, null, ID_TEMPLATE_ROBOT));
+		transformations.add(new LinkTransformation(ID_TEMPLATE_PICK_AND_PLACE_ROBOT, LINK_LINEAR_DRIVE_POSITION, ID_TEMPLATE_PLANE_X_SOURCE, ID_TEMPLATE_PLANE_X_TARGET));
+		transformations.add(new LinkTransformation(ID_TEMPLATE_PLANE_X_SOURCE, LINK_LINEAR_DRIVE_POSITION, ID_TEMPLATE_PICK_AND_PLACE_ROBOT, null));
+		transformations.add(new LinkTransformation(ID_TEMPLATE_PLANE_X_TARGET, LINK_LINEAR_DRIVE_POSITION, null, ID_TEMPLATE_PICK_AND_PLACE_ROBOT));
 
 		final StringBuilder script = new StringBuilder();
 		script.append("local systemVariant = ...");
