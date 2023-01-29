@@ -102,8 +102,7 @@ public class TransformationsDataModel extends DefaultTableModel {
 	}
 
 	public void insertLinkTransformation() {
-		// TODO (2022-12-11 #73): перенести в Transformation
-		final Transformation transformation = new LinkTransformation("object-id", "link-name", "id-2-old", "id-2-new");
+		final Transformation transformation = new LinkTransformation();
 		transformations.add(transformation);
 		transformationsList.add(transformation);
 		this.addRow(new Object[] {});

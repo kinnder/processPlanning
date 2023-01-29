@@ -32,6 +32,15 @@ public class LinkTransformationTest {
 	}
 
 	@Test
+	public void newInstance() {
+		testable = new LinkTransformation();
+		assertEquals("object-id", testable.getId1());
+		assertEquals("link-name", testable.getLinkName());
+		assertEquals("id-2-old", testable.getId2Old());
+		assertEquals("id-2-new", testable.getId2New());
+	}
+
+	@Test
 	public void applyTo() {
 		final SystemObject object_mock = context.mock(SystemObject.class);
 		final Link link_in_system_mock = context.mock(Link.class, "link-in-system");

@@ -36,6 +36,13 @@ public class LinkTransformation extends Transformation {
 		this.id2Old = id2Old;
 	}
 
+	public LinkTransformation() {
+		super("object-id");
+		this.linkName = "link-name";
+		this.id2Old = "id-2-old";
+		this.id2New = "id-2-new";
+	}
+
 	public LinkTransformation(String id1, String linkName, String id2Old, String id2New) {
 		super(id1);
 		this.linkName = linkName;
