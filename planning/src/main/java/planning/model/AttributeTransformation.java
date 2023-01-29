@@ -6,6 +6,12 @@ public class AttributeTransformation extends Transformation {
 
 	private Object attributeValue;
 
+	public AttributeTransformation() {
+		super("object-id");
+		this.attributeName = "attribute-name";
+		this.attributeValue = "attribute-value";
+	}
+
 	public AttributeTransformation(String id, String attributeName, Object attributeValue) {
 		super(id);
 		this.attributeName = attributeName;

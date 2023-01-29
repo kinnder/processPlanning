@@ -112,8 +112,7 @@ public class TransformationsDataModel extends DefaultTableModel {
 	}
 
 	public void insertAttributeTransformation() {
-		// TODO (2022-12-11 #73): перенести в Transformation
-		final Transformation transformation = new AttributeTransformation("object-id", "attribute-name", "attribute-value");
+		final Transformation transformation = new AttributeTransformation();
 		transformations.add(transformation);
 		transformationsList.add(transformation);
 		this.addRow(new Object[] {});

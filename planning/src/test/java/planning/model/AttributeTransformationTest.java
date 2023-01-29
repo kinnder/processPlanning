@@ -32,6 +32,14 @@ public class AttributeTransformationTest {
 	}
 
 	@Test
+	public void newInstance() {
+		testable = new AttributeTransformation();
+		assertEquals("object-id", testable.getId());
+		assertEquals("attribute-name", testable.getAttributeName());
+		assertEquals("attribute-value", testable.getAttributeValue());
+	}
+
+	@Test
 	public void applyTo() {
 		final SystemObject object_mock = context.mock(SystemObject.class);
 		final Attribute attribute_mock = context.mock(Attribute.class);

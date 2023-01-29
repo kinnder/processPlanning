@@ -136,7 +136,6 @@ public class TransformationsDataModelTest {
 				"transformationNode");
 		context.checking(new Expectations() {
 			{
-				// TODO (2022-12-21 #73): добавить Matcher для AttributeTransformation
 				oneOf(editorDataModel_mock).createTransformationNode(with(any(AttributeTransformation.class)));
 				will(returnValue(transformationNode_mock));
 
