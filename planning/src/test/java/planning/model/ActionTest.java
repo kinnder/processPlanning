@@ -2,6 +2,8 @@ package planning.model;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.util.List;
 
@@ -32,6 +34,21 @@ public class ActionTest {
 	@BeforeEach
 	public void setup() {
 		testable = new Action("action");
+	}
+
+	@Test
+	public void newInstance() {
+		testable = new Action();
+		assertTrue(testable.getName().startsWith("action-"));
+		assertNotNull(testable.getActionFunctions());
+		assertEquals(0, testable.getActionFunctions().size());
+	}
+
+	@Test
+	public void newInstance_uniqueName() {
+		testable = new Action();
+		Action testable2 = new Action();
+		assertNotEquals(testable.getName(), testable2.getName());
 	}
 
 	@Test

@@ -23,8 +23,7 @@ public class SystemTransformation {
 
 	public SystemTransformation() {
 		this.name = "systemTransformation-" + UUID.randomUUID().toString();
-		// TODO (2023-01-28 #37): перенести в Action
-		this.action = new Action("new-action");
+		this.action = new Action();
 		this.template = new SystemTemplate();
 		this.transformations = new Transformations();
 	}

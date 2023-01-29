@@ -2,10 +2,15 @@ package planning.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class Action {
 
 	private String name;
+
+	public Action() {
+		this.name = "action-" + UUID.randomUUID().toString();
+	}
 
 	public Action(String name) {
 		this.name = name;
