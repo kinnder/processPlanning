@@ -2,6 +2,7 @@ package testtools;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import org.hamcrest.Description;
 import org.hamcrest.TypeSafeMatcher;
@@ -55,7 +56,7 @@ public class Matcher<T> extends TypeSafeMatcher<T> {
 		}
 
 		protected void compare(String fieldName, Object valueExpected, Object valueActual) {
-			if (valueExpected != valueActual) {
+			if (!Objects.equals(valueExpected, valueActual)) {
 				mismatch = true;
 				mismatchDescription = String.format("field [%s] - expected: [%s], actual: [%s]", fieldName,
 						valueExpected, valueActual);

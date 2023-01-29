@@ -1,5 +1,6 @@
 package application.event;
 
+import application.command.CommandData;
 import testtools.Matcher;
 
 public class CommandEventMatcher extends Matcher<CommandEvent> {
@@ -34,5 +35,13 @@ public class CommandEventMatcher extends Matcher<CommandEvent> {
 		return this;
 	}
 
-	// TODO (2022-07-05 #69): добавить сравнение по commandData
+	public CommandEventMatcher expectCommandData(CommandData data) {
+		addExpectation(new MatcherExpectation() {
+			@Override
+			public void trigger(CommandEvent arg) {
+				compare("commandData", data, arg.commandData);
+			}
+		});
+		return this;
+	}
 }
