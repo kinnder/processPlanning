@@ -23,8 +23,6 @@ import application.ui.gui.editor.ObjectDataModel;
 import application.ui.gui.editor.ObjectTemplateDataModel;
 import application.ui.gui.editor.ObjectTemplatesDataModel;
 import application.ui.gui.editor.ObjectsDataModel;
-import application.ui.gui.editor.OperationDataModel;
-import application.ui.gui.editor.ParametersDataModel;
 import application.ui.gui.editor.SystemDataModel;
 import application.ui.gui.editor.SystemTemplateDataModel;
 import application.ui.gui.editor.SystemTransformationDataModel;
@@ -82,7 +80,6 @@ public class EditorFrame extends javax.swing.JFrame {
 		this.actionFunctionsDataModel = actionFunctionsDataModel;
 		this.transformationsDataModel = transformationsDataModel;
 		this.edgesDataModel = new EdgesDataModel(editorDataModel);
-		this.parametersDataModel = new ParametersDataModel(editorDataModel);
 
 		// TODO (2022-11-01 #72): покрытие тестами jtDataValueChanged
 		initComponents();
@@ -100,8 +97,9 @@ public class EditorFrame extends javax.swing.JFrame {
 				jrbLinkTransformation, jtfLinkTransformationName, jtfLinkTransformationId2old,
 				jtfLinkTransformationId2new, editorDataModel);
 		this.nodeDataModel = new NodeDataModel(jtfNodeId, jcbNodeChecked, editorDataModel);
-		this.edgeDataModel = new EdgeDataModel(jtfEdgeId, jtfBeginNodeId, jtfEndNodeId, editorDataModel);
-		this.operationDataModel = new OperationDataModel(jtfOperationName, editorDataModel);
+		this.edgeDataModel = new EdgeDataModel(jtfEdgeId, jtfBeginNodeId, jtfEndNodeId, jtfOperationName, editorDataModel);
+
+		setModels();
 	}
 
 	private EditorDataModel editorDataModel;
@@ -142,13 +140,13 @@ public class EditorFrame extends javax.swing.JFrame {
 
 	private EdgesDataModel edgesDataModel;
 
-	private ParametersDataModel parametersDataModel;
-
 	private NodeDataModel nodeDataModel;
 
 	private EdgeDataModel edgeDataModel;
 
-	private OperationDataModel operationDataModel;
+	private void setModels() {
+		jtParameters.setModel(edgeDataModel.getParametersDataModel());
+	}
 
 	private void setActions() {
 		jmiTaskDescriptionLoad.setAction(taskDescriptionLoadAction);
@@ -1830,7 +1828,6 @@ public class EditorFrame extends javax.swing.JFrame {
 								.addComponent(jbParametersDelete)
 								.addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
 
-		jtParameters.setModel(parametersDataModel);
 		jspParameters.setViewportView(jtParameters);
 
 		final javax.swing.GroupLayout jpParametersEditorLayout = new javax.swing.GroupLayout(jpParametersEditor);
@@ -2005,12 +2002,8 @@ public class EditorFrame extends javax.swing.JFrame {
 			edgesDataModel.loadEdges((Node) selectedObject, selectedNode);
 		} else if (selectedObject instanceof Edge) {
 			edgeDataModel.clear();
-			operationDataModel.clear();
-			parametersDataModel.clear();
 			jtpEditors.setSelectedComponent(jpEdgeEditor);
 			edgeDataModel.loadEdge((Edge) selectedObject, selectedNode);
-			operationDataModel.loadOperation((Edge) selectedObject, selectedNode);
-			parametersDataModel.loadParameters((Edge) selectedObject, selectedNode);
 		} else {
 			java.lang.System.out.println("unknown: " + selectedObject.toString());
 		}

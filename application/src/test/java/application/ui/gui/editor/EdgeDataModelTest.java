@@ -1,5 +1,7 @@
 package application.ui.gui.editor;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
@@ -38,6 +40,10 @@ public class EdgeDataModelTest {
 
 	EditorDataModel editorDataModel_mock;
 
+	ParametersDataModel parametersDataModel_mock;
+
+	OperationDataModel operationDataModel_mock;
+
 	EdgeDataModel testable;
 
 	@BeforeEach
@@ -45,7 +51,11 @@ public class EdgeDataModelTest {
 		jtfEdgeId_mock = context.mock(JTextField.class, "edgeId");
 		jtfBeginNodeId_mock = context.mock(JTextField.class, "beginNodeId");
 		jtfEndNodeId_mock = context.mock(JTextField.class, "endNodeId");
+
 		editorDataModel_mock = context.mock(EditorDataModel.class);
+
+		parametersDataModel_mock = context.mock(ParametersDataModel.class);
+		operationDataModel_mock = context.mock(OperationDataModel.class);
 
 		context.checking(new Expectations() {
 			{
@@ -57,11 +67,40 @@ public class EdgeDataModelTest {
 			}
 		});
 
-		testable = new EdgeDataModel(jtfEdgeId_mock, jtfBeginNodeId_mock, jtfEndNodeId_mock, editorDataModel_mock);
+		testable = new EdgeDataModel(jtfEdgeId_mock, jtfBeginNodeId_mock, jtfEndNodeId_mock, parametersDataModel_mock,
+				operationDataModel_mock, editorDataModel_mock);
+	}
+
+	@Test
+	public void newInstance() {
+		JTextField jtfOperationName_mock = context.mock(JTextField.class, "operationName");
+
+		context.checking(new Expectations() {
+			{
+				oneOf(jtfEdgeId_mock).addKeyListener(with(any(KeyListener.class)));
+
+				oneOf(jtfBeginNodeId_mock).addKeyListener(with(any(KeyListener.class)));
+
+				oneOf(jtfEndNodeId_mock).addKeyListener(with(any(KeyListener.class)));
+
+				oneOf(jtfOperationName_mock).addKeyListener(with(any(KeyListener.class)));
+			}
+		});
+
+		testable = new EdgeDataModel(jtfEdgeId_mock, jtfBeginNodeId_mock, jtfEndNodeId_mock, jtfOperationName_mock,
+				editorDataModel_mock);
 	}
 
 	@Test
 	public void clear() {
+		context.checking(new Expectations() {
+			{
+				oneOf(operationDataModel_mock).clear();
+
+				oneOf(parametersDataModel_mock).clear();
+			}
+		});
+
 		testable.clear();
 	}
 
@@ -86,6 +125,10 @@ public class EdgeDataModelTest {
 				oneOf(jtfBeginNodeId_mock).setText("begin-node-id");
 
 				oneOf(jtfEndNodeId_mock).setText("end-node-id");
+
+				oneOf(operationDataModel_mock).loadOperation(selectedObject_mock, selectedNode_mock);
+
+				oneOf(parametersDataModel_mock).loadParameters(selectedObject_mock, selectedNode_mock);
 			}
 		});
 
@@ -113,6 +156,10 @@ public class EdgeDataModelTest {
 				oneOf(jtfBeginNodeId_mock).setText("begin-node-id");
 
 				oneOf(jtfEndNodeId_mock).setText("end-node-id");
+
+				oneOf(operationDataModel_mock).loadOperation(selectedObject_mock, selectedNode_mock);
+
+				oneOf(parametersDataModel_mock).loadParameters(selectedObject_mock, selectedNode_mock);
 			}
 		});
 		testable.loadEdge(selectedObject_mock, selectedNode_mock);
@@ -153,6 +200,10 @@ public class EdgeDataModelTest {
 				oneOf(jtfBeginNodeId_mock).setText("begin-node-id");
 
 				oneOf(jtfEndNodeId_mock).setText("end-node-id");
+
+				oneOf(operationDataModel_mock).loadOperation(selectedObject_mock, selectedNode_mock);
+
+				oneOf(parametersDataModel_mock).loadParameters(selectedObject_mock, selectedNode_mock);
 			}
 		});
 		testable.loadEdge(selectedObject_mock, selectedNode_mock);
@@ -193,6 +244,10 @@ public class EdgeDataModelTest {
 				oneOf(jtfBeginNodeId_mock).setText("begin-node-id");
 
 				oneOf(jtfEndNodeId_mock).setText("end-node-id");
+
+				oneOf(operationDataModel_mock).loadOperation(selectedObject_mock, selectedNode_mock);
+
+				oneOf(parametersDataModel_mock).loadParameters(selectedObject_mock, selectedNode_mock);
 			}
 		});
 		testable.loadEdge(selectedObject_mock, selectedNode_mock);
@@ -211,4 +266,10 @@ public class EdgeDataModelTest {
 
 		testable.jtfEndNodeIdKeyAdapter.keyReleased(keyEvent_mock);
 	}
+
+	@Test
+	public void getParametersDataModel() {
+		assertEquals(parametersDataModel_mock, testable.getParametersDataModel());
+	}
+
 }

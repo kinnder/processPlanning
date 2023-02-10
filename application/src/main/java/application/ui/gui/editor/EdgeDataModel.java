@@ -18,6 +18,14 @@ public class EdgeDataModel {
 
 	private EditorDataModel editorDataModel;
 
+	private ParametersDataModel parametersDataModel;
+
+	public ParametersDataModel getParametersDataModel() {
+		return this.parametersDataModel;
+	}
+
+	private OperationDataModel operationDataModel;
+
 	KeyAdapter jtfEdgeIdKeyAdapter = new KeyAdapter() {
 		@Override
 		public void keyReleased(KeyEvent e) {
@@ -46,11 +54,21 @@ public class EdgeDataModel {
 	};
 
 	public EdgeDataModel(JTextField jtfEdgeId, JTextField jtfBeginNodeId, JTextField jtfEndNodeId,
+			JTextField jtfOperationName, EditorDataModel editorDataModel) {
+		this(jtfEdgeId, jtfBeginNodeId, jtfEndNodeId, new ParametersDataModel(editorDataModel),
+				new OperationDataModel(jtfOperationName, editorDataModel), editorDataModel);
+	}
+
+	EdgeDataModel(JTextField jtfEdgeId, JTextField jtfBeginNodeId, JTextField jtfEndNodeId,
+			ParametersDataModel parametersDataModel, OperationDataModel operationDataModel,
 			EditorDataModel editorDataModel) {
 		this.jtfEdgeId = jtfEdgeId;
 		this.jtfBeginNodeId = jtfBeginNodeId;
 		this.jtfEndNodeId = jtfEndNodeId;
 		this.editorDataModel = editorDataModel;
+
+		this.parametersDataModel = parametersDataModel;
+		this.operationDataModel = operationDataModel;
 
 		jtfEdgeId.addKeyListener(jtfEdgeIdKeyAdapter);
 		jtfBeginNodeId.addKeyListener(jtfBeginNodeIdKeyAdapter);
@@ -60,6 +78,8 @@ public class EdgeDataModel {
 	public void clear() {
 		this.edge = null;
 		this.edgeNode = null;
+		this.operationDataModel.clear();
+		this.parametersDataModel.clear();
 	}
 
 	private Edge edge;
@@ -77,5 +97,8 @@ public class EdgeDataModel {
 		jtfEdgeId.setText(edgeId);
 		jtfBeginNodeId.setText(beginNodeId);
 		jtfEndNodeId.setText(endNodeId);
+
+		operationDataModel.loadOperation(selectedObject, selectedNode);
+		parametersDataModel.loadParameters(selectedObject, selectedNode);
 	}
 }
