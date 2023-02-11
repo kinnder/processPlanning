@@ -37,10 +37,23 @@ public class NodeDataModel {
 		};
 	};
 
+	private EdgesDataModel edgesDataModel;
+
+	public EdgesDataModel getEdgesDataModel() {
+		return this.edgesDataModel;
+	}
+
 	public NodeDataModel(JTextField jtfNodeId, JCheckBox jcbNodeChecked, EditorDataModel editorDataModel) {
+		this(jtfNodeId, jcbNodeChecked, editorDataModel, new EdgesDataModel(editorDataModel));
+	}
+
+	NodeDataModel(JTextField jtfNodeId, JCheckBox jcbNodeChecked, EditorDataModel editorDataModel,
+			EdgesDataModel edgesDataModel) {
 		this.jtfNodeId = jtfNodeId;
 		this.jcbNodeChecked = jcbNodeChecked;
 		this.editorDataModel = editorDataModel;
+
+		this.edgesDataModel = edgesDataModel;
 
 		jtfNodeId.addKeyListener(jtfNodeIdeKeyAdapter);
 		jcbNodeChecked.addItemListener(jcbNodeCheckedItemListener);
@@ -49,6 +62,7 @@ public class NodeDataModel {
 	public void clear() {
 		node = null;
 		nodeNode = null;
+		edgesDataModel.clear();
 	}
 
 	private Node node;
@@ -63,5 +77,7 @@ public class NodeDataModel {
 		final Boolean checked = node.getChecked();
 		jtfNodeId.setText(nodeId);
 		jcbNodeChecked.setSelected(checked);
+
+		edgesDataModel.loadEdges(selectedObject, selectedNode);
 	}
 }

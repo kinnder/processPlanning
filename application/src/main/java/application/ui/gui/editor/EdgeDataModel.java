@@ -55,13 +55,13 @@ public class EdgeDataModel {
 
 	public EdgeDataModel(JTextField jtfEdgeId, JTextField jtfBeginNodeId, JTextField jtfEndNodeId,
 			JTextField jtfOperationName, EditorDataModel editorDataModel) {
-		this(jtfEdgeId, jtfBeginNodeId, jtfEndNodeId, new ParametersDataModel(editorDataModel),
-				new OperationDataModel(jtfOperationName, editorDataModel), editorDataModel);
+		this(jtfEdgeId, jtfBeginNodeId, jtfEndNodeId, editorDataModel, new ParametersDataModel(editorDataModel),
+				new OperationDataModel(jtfOperationName, editorDataModel));
 	}
 
 	EdgeDataModel(JTextField jtfEdgeId, JTextField jtfBeginNodeId, JTextField jtfEndNodeId,
-			ParametersDataModel parametersDataModel, OperationDataModel operationDataModel,
-			EditorDataModel editorDataModel) {
+			EditorDataModel editorDataModel, ParametersDataModel parametersDataModel,
+			OperationDataModel operationDataModel) {
 		this.jtfEdgeId = jtfEdgeId;
 		this.jtfBeginNodeId = jtfBeginNodeId;
 		this.jtfEndNodeId = jtfEndNodeId;
@@ -76,10 +76,10 @@ public class EdgeDataModel {
 	}
 
 	public void clear() {
-		this.edge = null;
-		this.edgeNode = null;
-		this.operationDataModel.clear();
-		this.parametersDataModel.clear();
+		edge = null;
+		edgeNode = null;
+		operationDataModel.clear();
+		parametersDataModel.clear();
 	}
 
 	private Edge edge;

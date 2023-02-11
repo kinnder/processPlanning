@@ -14,7 +14,6 @@ import application.ui.gui.editor.ActionFunctionsDataModel;
 import application.ui.gui.editor.AttributeTemplatesDataModel;
 import application.ui.gui.editor.AttributesDataModel;
 import application.ui.gui.editor.EdgeDataModel;
-import application.ui.gui.editor.EdgesDataModel;
 import application.ui.gui.editor.EditorDataModel;
 import application.ui.gui.editor.LinkTemplatesDataModel;
 import application.ui.gui.editor.LinksDataModel;
@@ -79,7 +78,6 @@ public class EditorFrame extends javax.swing.JFrame {
 		this.attributeTemplatesDataModel = attributeTemplatesDataModel;
 		this.actionFunctionsDataModel = actionFunctionsDataModel;
 		this.transformationsDataModel = transformationsDataModel;
-		this.edgesDataModel = new EdgesDataModel(editorDataModel);
 
 		// TODO (2022-11-01 #72): покрытие тестами jtDataValueChanged
 		initComponents();
@@ -138,14 +136,13 @@ public class EditorFrame extends javax.swing.JFrame {
 
 	private TransformationDataModel transformationDataModel;
 
-	private EdgesDataModel edgesDataModel;
-
 	private NodeDataModel nodeDataModel;
 
 	private EdgeDataModel edgeDataModel;
 
 	private void setModels() {
 		jtParameters.setModel(edgeDataModel.getParametersDataModel());
+		jtEdges.setModel(nodeDataModel.getEdgesDataModel());
 	}
 
 	private void setActions() {
@@ -1672,7 +1669,6 @@ public class EditorFrame extends javax.swing.JFrame {
 
 		jlEdges.setText("Edges");
 
-		jtEdges.setModel(edgesDataModel);
 		jspEdges.setViewportView(jtEdges);
 
 		jbEdgesInsert.setText("Insert");
@@ -1996,10 +1992,8 @@ public class EditorFrame extends javax.swing.JFrame {
 			transformationDataModel.loadTransformation((Transformation) selectedObject, selectedNode);
 		} else if (selectedObject instanceof Node) {
 			nodeDataModel.clear();
-			edgesDataModel.clear();
 			jtpEditors.setSelectedComponent(jpNodeEditor);
 			nodeDataModel.loadNode((Node) selectedObject, selectedNode);
-			edgesDataModel.loadEdges((Node) selectedObject, selectedNode);
 		} else if (selectedObject instanceof Edge) {
 			edgeDataModel.clear();
 			jtpEditors.setSelectedComponent(jpEdgeEditor);

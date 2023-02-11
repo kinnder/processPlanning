@@ -51,9 +51,7 @@ public class EdgeDataModelTest {
 		jtfEdgeId_mock = context.mock(JTextField.class, "edgeId");
 		jtfBeginNodeId_mock = context.mock(JTextField.class, "beginNodeId");
 		jtfEndNodeId_mock = context.mock(JTextField.class, "endNodeId");
-
 		editorDataModel_mock = context.mock(EditorDataModel.class);
-
 		parametersDataModel_mock = context.mock(ParametersDataModel.class);
 		operationDataModel_mock = context.mock(OperationDataModel.class);
 
@@ -67,8 +65,8 @@ public class EdgeDataModelTest {
 			}
 		});
 
-		testable = new EdgeDataModel(jtfEdgeId_mock, jtfBeginNodeId_mock, jtfEndNodeId_mock, parametersDataModel_mock,
-				operationDataModel_mock, editorDataModel_mock);
+		testable = new EdgeDataModel(jtfEdgeId_mock, jtfBeginNodeId_mock, jtfEndNodeId_mock, editorDataModel_mock,
+				parametersDataModel_mock, operationDataModel_mock);
 	}
 
 	@Test

@@ -1,5 +1,7 @@
 package application.ui.gui.editor;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.KeyEvent;
@@ -39,6 +41,8 @@ public class NodeDataModelTest {
 
 	EditorDataModel editorDataModel_mock;
 
+	EdgesDataModel edgesDataModel_mock;
+
 	NodeDataModel testable;
 
 	@BeforeEach
@@ -46,7 +50,21 @@ public class NodeDataModelTest {
 		jtfNodeId_mock = context.mock(JTextField.class);
 		jcbNodeChecked_mock = context.mock(JCheckBox.class);
 		editorDataModel_mock = context.mock(EditorDataModel.class);
+		edgesDataModel_mock = context.mock(EdgesDataModel.class);
 
+		context.checking(new Expectations() {
+			{
+				oneOf(jtfNodeId_mock).addKeyListener(with(any(KeyListener.class)));
+
+				oneOf(jcbNodeChecked_mock).addItemListener(with(any(ItemListener.class)));
+			}
+		});
+
+		testable = new NodeDataModel(jtfNodeId_mock, jcbNodeChecked_mock, editorDataModel_mock, edgesDataModel_mock);
+	}
+
+	@Test
+	public void newInstance() {
 		context.checking(new Expectations() {
 			{
 				oneOf(jtfNodeId_mock).addKeyListener(with(any(KeyListener.class)));
@@ -60,6 +78,12 @@ public class NodeDataModelTest {
 
 	@Test
 	public void clear() {
+		context.checking(new Expectations() {
+			{
+				oneOf(edgesDataModel_mock).clear();
+			}
+		});
+
 		testable.clear();
 	}
 
@@ -79,6 +103,8 @@ public class NodeDataModelTest {
 				oneOf(jtfNodeId_mock).setText("node-id");
 
 				oneOf(jcbNodeChecked_mock).setSelected(true);
+
+				oneOf(edgesDataModel_mock).loadEdges(selectedObject_mock, selectedNode_mock);
 			}
 		});
 
@@ -100,6 +126,8 @@ public class NodeDataModelTest {
 				oneOf(jtfNodeId_mock).setText("node-id");
 
 				oneOf(jcbNodeChecked_mock).setSelected(true);
+
+				oneOf(edgesDataModel_mock).loadEdges(selectedObject_mock, selectedNode_mock);
 			}
 		});
 		testable.loadNode(selectedObject_mock, selectedNode_mock);
@@ -134,6 +162,8 @@ public class NodeDataModelTest {
 				oneOf(jtfNodeId_mock).setText("node-id");
 
 				oneOf(jcbNodeChecked_mock).setSelected(true);
+
+				oneOf(edgesDataModel_mock).loadEdges(selectedObject_mock, selectedNode_mock);
 			}
 		});
 		testable.loadNode(selectedObject_mock, selectedNode_mock);
@@ -168,6 +198,8 @@ public class NodeDataModelTest {
 				oneOf(jtfNodeId_mock).setText("node-id");
 
 				oneOf(jcbNodeChecked_mock).setSelected(true);
+
+				oneOf(edgesDataModel_mock).loadEdges(selectedObject_mock, selectedNode_mock);
 			}
 		});
 		testable.loadNode(selectedObject_mock, selectedNode_mock);
@@ -185,5 +217,10 @@ public class NodeDataModelTest {
 		});
 
 		testable.jcbNodeCheckedItemListener.itemStateChanged(itemEvent_mock);
+	}
+
+	@Test
+	public void getEdgesDataModel() {
+		assertEquals(edgesDataModel_mock, testable.getEdgesDataModel());
 	}
 }
