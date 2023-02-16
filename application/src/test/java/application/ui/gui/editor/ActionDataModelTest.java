@@ -1,5 +1,7 @@
 package application.ui.gui.editor;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
@@ -34,13 +36,27 @@ public class ActionDataModelTest {
 
 	JTextField jtfActionName_mock;
 
+	ActionFunctionsDataModel actionFunctionsDataModel_mock;
+
 	ActionDataModel testable;
 
 	@BeforeEach
 	public void setup() {
 		editorDataModel_mock = context.mock(EditorDataModel.class);
 		jtfActionName_mock = context.mock(JTextField.class);
+		actionFunctionsDataModel_mock = context.mock(ActionFunctionsDataModel.class);
 
+		context.checking(new Expectations() {
+			{
+				oneOf(jtfActionName_mock).addKeyListener(with(any(KeyListener.class)));
+			}
+		});
+
+		testable = new ActionDataModel(jtfActionName_mock, editorDataModel_mock, actionFunctionsDataModel_mock);
+	}
+
+	@Test
+	public void newInstance() {
 		context.checking(new Expectations() {
 			{
 				oneOf(jtfActionName_mock).addKeyListener(with(any(KeyListener.class)));
@@ -52,6 +68,12 @@ public class ActionDataModelTest {
 
 	@Test
 	public void clear() {
+		context.checking(new Expectations() {
+			{
+				oneOf(actionFunctionsDataModel_mock).clear();
+			}
+		});
+
 		testable.clear();
 	}
 
@@ -66,6 +88,8 @@ public class ActionDataModelTest {
 				will(returnValue("action-name"));
 
 				oneOf(jtfActionName_mock).setText("action-name");
+
+				oneOf(actionFunctionsDataModel_mock).loadActionFunctions(action_mock, treeNode_mock);
 			}
 		});
 
@@ -83,6 +107,8 @@ public class ActionDataModelTest {
 				will(returnValue("action-name"));
 
 				oneOf(jtfActionName_mock).setText("action-name");
+
+				oneOf(actionFunctionsDataModel_mock).loadActionFunctions(action_mock, treeNode_mock);
 			}
 		});
 		testable.loadAction(action_mock, treeNode_mock);
@@ -100,5 +126,32 @@ public class ActionDataModelTest {
 		});
 
 		testable.jtfActionNameKeyAdapter.keyReleased(keyEvent_mock);
+	}
+
+	@Test
+	public void getActionFunctionsDataModel() {
+		assertEquals(actionFunctionsDataModel_mock, testable.getActionFunctionsDataModel());
+	}
+
+	@Test
+	public void insertActionFunction() {
+		context.checking(new Expectations() {
+			{
+				oneOf(actionFunctionsDataModel_mock).insertActionFunction();
+			}
+		});
+
+		testable.insertActionFunction();
+	}
+
+	@Test
+	public void deleteActionFunction() {
+		context.checking(new Expectations() {
+			{
+				oneOf(actionFunctionsDataModel_mock).deleteActionFunction(2);
+			}
+		});
+
+		testable.deleteActionFunction(2);
 	}
 }

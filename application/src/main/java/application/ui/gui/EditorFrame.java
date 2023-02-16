@@ -10,7 +10,6 @@ import application.Application;
 import application.ui.UserInterfaceFactory;
 import application.ui.gui.editor.ActionDataModel;
 import application.ui.gui.editor.ActionFunctionDataModel;
-import application.ui.gui.editor.ActionFunctionsDataModel;
 import application.ui.gui.editor.AttributeTemplatesDataModel;
 import application.ui.gui.editor.AttributesDataModel;
 import application.ui.gui.editor.EdgeDataModel;
@@ -50,36 +49,17 @@ public class EditorFrame extends javax.swing.JFrame {
 	private Application application;
 
 	public EditorFrame(Application application) {
-		this(application, new EditorDataModel());
-	}
-
-	EditorFrame(Application application, EditorDataModel editorDataModel) {
-		this(application, editorDataModel, new ObjectsDataModel(editorDataModel), new LinksDataModel(editorDataModel),
-				new AttributesDataModel(editorDataModel), new SystemTransformationsDataModel(editorDataModel),
-				new ObjectTemplatesDataModel(editorDataModel), new LinkTemplatesDataModel(editorDataModel),
-				new AttributeTemplatesDataModel(editorDataModel), new ActionFunctionsDataModel(editorDataModel),
-				new TransformationsDataModel(editorDataModel));
-	}
-
-	EditorFrame(Application application, EditorDataModel editorDataModel, ObjectsDataModel objectsDataModel,
-			LinksDataModel linksDataModel, AttributesDataModel attributesDataModel,
-			SystemTransformationsDataModel systemTransformationsDataModel,
-			ObjectTemplatesDataModel objectTemplatesDataModel, LinkTemplatesDataModel linkTemplatesDataModel,
-			AttributeTemplatesDataModel attributeTemplatesDataModel, ActionFunctionsDataModel actionFunctionsDataModel,
-			TransformationsDataModel transformationsDataModel) {
 		this.application = application;
-		this.editorDataModel = editorDataModel;
-		this.objectsDataModel = objectsDataModel;
-		this.linksDataModel = linksDataModel;
-		this.attributesDataModel = attributesDataModel;
-		this.systemTransformationsDataModel = systemTransformationsDataModel;
-		this.linkTemplatesDataModel = linkTemplatesDataModel;
-		this.objectTemplatesDataModel = objectTemplatesDataModel;
-		this.attributeTemplatesDataModel = attributeTemplatesDataModel;
-		this.actionFunctionsDataModel = actionFunctionsDataModel;
-		this.transformationsDataModel = transformationsDataModel;
+		this.editorDataModel = new EditorDataModel();
+		this.objectsDataModel = new ObjectsDataModel(editorDataModel);
+		this.linksDataModel = new LinksDataModel(editorDataModel);
+		this.attributesDataModel = new AttributesDataModel(editorDataModel);
+		this.systemTransformationsDataModel = new SystemTransformationsDataModel(editorDataModel);
+		this.linkTemplatesDataModel = new LinkTemplatesDataModel(editorDataModel);
+		this.objectTemplatesDataModel = new ObjectTemplatesDataModel(editorDataModel);
+		this.attributeTemplatesDataModel = new AttributeTemplatesDataModel(editorDataModel);
+		this.transformationsDataModel = new TransformationsDataModel(editorDataModel);
 
-		// TODO (2022-11-01 #72): покрытие тестами jtDataValueChanged
 		initComponents();
 		setActions();
 
@@ -96,6 +76,43 @@ public class EditorFrame extends javax.swing.JFrame {
 				jtfLinkTransformationId2new, editorDataModel);
 		this.nodeDataModel = new NodeDataModel(jtfNodeId, jcbNodeChecked, editorDataModel);
 		this.edgeDataModel = new EdgeDataModel(jtfEdgeId, jtfBeginNodeId, jtfEndNodeId, jtfOperationName, editorDataModel);
+
+		setModels();
+	}
+
+	EditorFrame(Application application, EditorDataModel editorDataModel, ObjectsDataModel objectsDataModel,
+			LinksDataModel linksDataModel, AttributesDataModel attributesDataModel,
+			SystemTransformationsDataModel systemTransformationsDataModel,
+			ObjectTemplatesDataModel objectTemplatesDataModel, LinkTemplatesDataModel linkTemplatesDataModel,
+			AttributeTemplatesDataModel attributeTemplatesDataModel, TransformationsDataModel transformationsDataModel,
+			ActionDataModel actionDataModel, NodeDataModel nodeDataModel, EdgeDataModel edgeDataModel) {
+		this.application = application;
+		this.editorDataModel = editorDataModel;
+		this.objectsDataModel = objectsDataModel;
+		this.linksDataModel = linksDataModel;
+		this.attributesDataModel = attributesDataModel;
+		this.systemTransformationsDataModel = systemTransformationsDataModel;
+		this.linkTemplatesDataModel = linkTemplatesDataModel;
+		this.objectTemplatesDataModel = objectTemplatesDataModel;
+		this.attributeTemplatesDataModel = attributeTemplatesDataModel;
+		this.transformationsDataModel = transformationsDataModel;
+
+		initComponents();
+		setActions();
+
+		this.systemDataModel = new SystemDataModel(jtfSystemName, jcbSystemType, editorDataModel);
+		this.objectDataModel = new ObjectDataModel(jtfObjectName, jtfObjectId, editorDataModel);
+		this.systemTransformationDataModel = new SystemTransformationDataModel(jtfSystemTransformationName, editorDataModel);
+		this.systemTemplateDataModel = new SystemTemplateDataModel(jtfSystemTemplateName, jcbSystemTemplateType, editorDataModel);
+		this.objectTemplateDataModel = new ObjectTemplateDataModel(jtfObjectTemplateName, jtfObjectTemplateId, editorDataModel);
+		this.actionDataModel = actionDataModel;
+		this.actionFunctionDataModel = new ActionFunctionDataModel(jcbActionFunctionType, jtaActionFunctionLines, editorDataModel);
+		this.transformationDataModel = new TransformationDataModel(jrbTransformation, jtfTransformationObjectId,
+				jrbAttributeTransformation, jtfAttributeTransformationName, jtfAttributeTransformationValue,
+				jrbLinkTransformation, jtfLinkTransformationName, jtfLinkTransformationId2old,
+				jtfLinkTransformationId2new, editorDataModel);
+		this.nodeDataModel = nodeDataModel;
+		this.edgeDataModel = edgeDataModel;
 
 		setModels();
 	}
@@ -126,8 +143,6 @@ public class EditorFrame extends javax.swing.JFrame {
 
 	private ObjectTemplateDataModel objectTemplateDataModel;
 
-	private ActionFunctionsDataModel actionFunctionsDataModel;
-
 	private ActionDataModel actionDataModel;
 
 	private ActionFunctionDataModel actionFunctionDataModel;
@@ -143,6 +158,7 @@ public class EditorFrame extends javax.swing.JFrame {
 	private void setModels() {
 		jtParameters.setModel(edgeDataModel.getParametersDataModel());
 		jtEdges.setModel(nodeDataModel.getEdgesDataModel());
+		jtActionFunctions.setModel(actionDataModel.getActionFunctionsDataModel());
 	}
 
 	private void setActions() {
@@ -384,7 +400,7 @@ public class EditorFrame extends javax.swing.JFrame {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			actionFunctionsDataModel.insertActionFunction();
+			actionDataModel.insertActionFunction();
 		}
 	};
 
@@ -394,7 +410,7 @@ public class EditorFrame extends javax.swing.JFrame {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			final int idx = jtActionFunctions.getSelectedRow();
-			actionFunctionsDataModel.deleteActionFunction(idx);
+			actionDataModel.deleteActionFunction(idx);
 		}
 	};
 
@@ -1553,7 +1569,6 @@ public class EditorFrame extends javax.swing.JFrame {
 								.addComponent(jbActionFunctionsDelete)
 								.addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
 
-		jtActionFunctions.setModel(actionFunctionsDataModel);
 		jspActionFunctions.setViewportView(jtActionFunctions);
 
 		final javax.swing.GroupLayout jpActionFunctionsEditorLayout = new javax.swing.GroupLayout(jpActionFunctionsEditor);
@@ -1935,6 +1950,7 @@ public class EditorFrame extends javax.swing.JFrame {
 		pack();
 	}// </editor-fold>//GEN-END:initComponents
 
+	// TODO (2022-11-01 #72): покрытие тестами jtDataValueChanged
 	// TODO (2022-12-11 #73): перенести в EditorDataModel
 	private void jtDataValueChanged(javax.swing.event.TreeSelectionEvent evt) {// GEN-FIRST:event_jtDataValueChanged
 		final DefaultMutableTreeNode selectedNode = (DefaultMutableTreeNode) evt.getPath().getLastPathComponent();
@@ -1977,7 +1993,6 @@ public class EditorFrame extends javax.swing.JFrame {
 			actionDataModel.clear();
 			jtpEditors.setSelectedComponent(jpActionEditor);
 			actionDataModel.loadAction((planning.model.Action) selectedObject, selectedNode);
-			actionFunctionsDataModel.loadActionFunctions((planning.model.Action) selectedObject, selectedNode);
 		} else if (selectedObject instanceof ActionFunction) {
 			actionFunctionDataModel.clear();
 			jtpEditors.setSelectedComponent(jpActionFunctionEditor);

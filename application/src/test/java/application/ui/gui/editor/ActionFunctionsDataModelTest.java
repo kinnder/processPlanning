@@ -299,4 +299,9 @@ public class ActionFunctionsDataModelTest {
 
 		assertEquals("unknown", testable.getValueAt(0, ActionFunctionsDataModel.COLUMN_IDX_TYPE));
 	}
+
+	@Test
+	public void clear() {
+		testable.clear();
+	}
 }

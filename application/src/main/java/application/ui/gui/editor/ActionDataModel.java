@@ -24,15 +24,29 @@ public class ActionDataModel {
 	private EditorDataModel editorDataModel;
 
 	public ActionDataModel(JTextField jtfActionName, EditorDataModel editorDataModel) {
+		this(jtfActionName, editorDataModel, new ActionFunctionsDataModel(editorDataModel));
+	}
+
+	ActionDataModel(JTextField jtfActionName, EditorDataModel editorDataModel,
+			ActionFunctionsDataModel actionFunctionsDataModel) {
 		this.jtfActionName = jtfActionName;
 		this.editorDataModel = editorDataModel;
 
+		this.actionFunctionsDataModel = actionFunctionsDataModel;
+
 		jtfActionName.addKeyListener(jtfActionNameKeyAdapter);
+	}
+
+	private ActionFunctionsDataModel actionFunctionsDataModel;
+
+	public ActionFunctionsDataModel getActionFunctionsDataModel() {
+		return this.actionFunctionsDataModel;
 	}
 
 	public void clear() {
 		action = null;
 		actionNode = null;
+		actionFunctionsDataModel.clear();
 	}
 
 	private Action action;
@@ -45,5 +59,15 @@ public class ActionDataModel {
 
 		action = selectedAction;
 		actionNode = selectedNode;
+
+		actionFunctionsDataModel.loadActionFunctions(selectedAction, selectedNode);
+	}
+
+	public void insertActionFunction() {
+		actionFunctionsDataModel.insertActionFunction();
+	}
+
+	public void deleteActionFunction(int idx) {
+		actionFunctionsDataModel.deleteActionFunction(idx);
 	}
 }

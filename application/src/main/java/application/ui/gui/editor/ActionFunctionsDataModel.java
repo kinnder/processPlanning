@@ -110,4 +110,8 @@ public class ActionFunctionsDataModel extends DefaultTableModel {
 			return null;
 		}
 	}
+
+	public void clear() {
+		// TODO Auto-generated method stub
+	}
 }

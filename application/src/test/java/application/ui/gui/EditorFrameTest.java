@@ -20,14 +20,19 @@ import org.junit.jupiter.api.condition.DisabledIf;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
 import application.Application;
+import application.ui.gui.editor.ActionDataModel;
 import application.ui.gui.editor.ActionFunctionsDataModel;
 import application.ui.gui.editor.AttributeTemplatesDataModel;
 import application.ui.gui.editor.AttributesDataModel;
+import application.ui.gui.editor.EdgeDataModel;
+import application.ui.gui.editor.EdgesDataModel;
 import application.ui.gui.editor.EditorDataModel;
 import application.ui.gui.editor.LinkTemplatesDataModel;
 import application.ui.gui.editor.LinksDataModel;
+import application.ui.gui.editor.NodeDataModel;
 import application.ui.gui.editor.ObjectTemplatesDataModel;
 import application.ui.gui.editor.ObjectsDataModel;
+import application.ui.gui.editor.ParametersDataModel;
 import application.ui.gui.editor.SystemTransformationsDataModel;
 import application.ui.gui.editor.TransformationsDataModel;
 import planning.method.NodeNetwork;
@@ -77,6 +82,16 @@ public class EditorFrameTest {
 
 	TransformationsDataModel transformationsDataModel_mock;
 
+	ActionDataModel actionDataModel_mock;
+
+	NodeDataModel nodeDataModel_mock;
+
+	EdgeDataModel edgeDataModel_mock;
+
+	ParametersDataModel parametersDataModel_mock;
+
+	EdgesDataModel edgesDataModel_mock;
+
 	Application application_mock;
 
 	@BeforeEach
@@ -92,6 +107,11 @@ public class EditorFrameTest {
 		attributeTemplatesDataModel_mock = context.mock(AttributeTemplatesDataModel.class);
 		actionFunctionsDataModel_mock = context.mock(ActionFunctionsDataModel.class);
 		transformationsDataModel_mock = context.mock(TransformationsDataModel.class);
+		actionDataModel_mock = context.mock(ActionDataModel.class);
+		nodeDataModel_mock = context.mock(NodeDataModel.class);
+		edgeDataModel_mock = context.mock(EdgeDataModel.class);
+		parametersDataModel_mock = context.mock(ParametersDataModel.class);
+		edgesDataModel_mock = context.mock(EdgesDataModel.class);
 		final MutableTreeNode node_mock = context.mock(MutableTreeNode.class);
 
 		context.checking(new Expectations() {
@@ -160,14 +180,6 @@ public class EditorFrameTest {
 				allowing(attributeTemplatesDataModel_mock).getRowCount();
 				will(returnValue(0));
 
-				allowing(actionFunctionsDataModel_mock).addTableModelListener(with(any(TableModelListener.class)));
-
-				allowing(actionFunctionsDataModel_mock).getColumnCount();
-				will(returnValue(0));
-
-				allowing(actionFunctionsDataModel_mock).getRowCount();
-				will(returnValue(0));
-
 				allowing(transformationsDataModel_mock).addTableModelListener(with(any(TableModelListener.class)));
 
 				allowing(transformationsDataModel_mock).getColumnCount();
@@ -175,13 +187,56 @@ public class EditorFrameTest {
 
 				allowing(transformationsDataModel_mock).getRowCount();
 				will(returnValue(0));
+
+				oneOf(edgeDataModel_mock).getParametersDataModel();
+				will(returnValue(parametersDataModel_mock));
+
+				// <-- setModel()
+
+				allowing(parametersDataModel_mock).addTableModelListener(with(any(TableModelListener.class)));
+
+				allowing(parametersDataModel_mock).getColumnCount();
+				will(returnValue(0));
+
+				allowing(parametersDataModel_mock).getRowCount();
+				will(returnValue(0));
+
+				// -->
+
+				oneOf(nodeDataModel_mock).getEdgesDataModel();
+				will(returnValue(edgesDataModel_mock));
+
+				// <-- setModel()
+
+				allowing(edgesDataModel_mock).addTableModelListener(with(any(TableModelListener.class)));
+
+				allowing(edgesDataModel_mock).getColumnCount();
+				will(returnValue(0));
+
+				allowing(edgesDataModel_mock).getRowCount();
+				will(returnValue(0));
+
+				// -->
+
+				oneOf(actionDataModel_mock).getActionFunctionsDataModel();
+				will(returnValue(actionFunctionsDataModel_mock));
+
+				// <-- setModel()
+				allowing(actionFunctionsDataModel_mock).addTableModelListener(with(any(TableModelListener.class)));
+
+				allowing(actionFunctionsDataModel_mock).getColumnCount();
+				will(returnValue(0));
+
+				allowing(actionFunctionsDataModel_mock).getRowCount();
+				will(returnValue(0));
+				// -->
 			}
 		});
 
 		testable = new EditorFrame(application_mock, editorDataModel_mock, objectsDataModel_mock, linksDataModel_mock,
 				attributesDataModel_mock, systemTransformationsDataModel_mock, objectTemplatesDataModel_mock,
-				linkTemplatesDataModel_mock, attributeTemplatesDataModel_mock, actionFunctionsDataModel_mock,
-				transformationsDataModel_mock);
+				linkTemplatesDataModel_mock, attributeTemplatesDataModel_mock, transformationsDataModel_mock,
+				actionDataModel_mock, nodeDataModel_mock, edgeDataModel_mock);
 	}
 
 	@Test
@@ -584,7 +639,7 @@ public class EditorFrameTest {
 
 		context.checking(new Expectations() {
 			{
-				oneOf(actionFunctionsDataModel_mock).insertActionFunction();
+				oneOf(actionDataModel_mock).insertActionFunction();
 			}
 		});
 
@@ -602,7 +657,7 @@ public class EditorFrameTest {
 
 		context.checking(new Expectations() {
 			{
-				oneOf(actionFunctionsDataModel_mock).deleteActionFunction(-1);
+				oneOf(actionDataModel_mock).deleteActionFunction(-1);
 			}
 		});
 
