@@ -34,11 +34,24 @@ public class ObjectTemplateDataModel {
 		}
 	};
 
-	public ObjectTemplateDataModel(JTextField jtfObjectTemplateName, JTextField jtfObjectTemplateId,
-			EditorDataModel editorDataModel) {
+	private AttributeTemplatesDataModel attributeTemplatesDataModel;
+
+	public AttributeTemplatesDataModel getAttributeTemplatesDataModel() {
+		return this.attributeTemplatesDataModel;
+	}
+
+	public ObjectTemplateDataModel(JTextField jtfObjectTemplateName, JTextField jtfObjectTemplateId, EditorDataModel editorDataModel) {
+		this(jtfObjectTemplateName, jtfObjectTemplateId, editorDataModel,
+				new AttributeTemplatesDataModel(editorDataModel));
+	}
+
+	ObjectTemplateDataModel(JTextField jtfObjectTemplateName, JTextField jtfObjectTemplateId,
+			EditorDataModel editorDataModel, AttributeTemplatesDataModel attributeTemplatesDataModel) {
 		this.jtfObjectTemplateName = jtfObjectTemplateName;
 		this.jtfObjectTemplateId = jtfObjectTemplateId;
 		this.editorDataModel = editorDataModel;
+
+		this.attributeTemplatesDataModel = attributeTemplatesDataModel;
 
 		jtfObjectTemplateName.addKeyListener(jtfObjectTemplateNameKeyAdapter);
 		jtfObjectTemplateId.addKeyListener(jtfObjectTemplateIdKeyAdapter);
@@ -49,10 +62,10 @@ public class ObjectTemplateDataModel {
 	public void clear() {
 		objectTemplate = null;
 		treeNode = null;
+		attributeTemplatesDataModel.clear();
 	}
 
-	public void loadSystemObjectTemplate(SystemObjectTemplate selectedObjectTemplate,
-			DefaultMutableTreeNode selectedNode) {
+	public void loadSystemObjectTemplate(SystemObjectTemplate selectedObjectTemplate, DefaultMutableTreeNode selectedNode) {
 		final String name = "Object Template";
 		final String id = selectedObjectTemplate.getId();
 
@@ -61,5 +74,15 @@ public class ObjectTemplateDataModel {
 
 		objectTemplate = selectedObjectTemplate;
 		treeNode = selectedNode;
+
+		attributeTemplatesDataModel.loadAttributeTemplates(selectedObjectTemplate, selectedNode);
+	}
+
+	public void insertAttributeTemplate() {
+		attributeTemplatesDataModel.insertAttributeTemplate();
+	}
+
+	public void deleteAttributeTemplate(int idx) {
+		attributeTemplatesDataModel.deleteAttributeTemplate(idx);
 	}
 }

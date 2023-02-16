@@ -156,4 +156,7 @@ public class AttributeTemplatesDataModel extends DefaultTableModel {
 			return null;
 		}
 	}
+
+	public void clear() {
+	}
 }

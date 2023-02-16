@@ -30,6 +30,7 @@ import application.ui.gui.editor.EditorDataModel;
 import application.ui.gui.editor.LinkTemplatesDataModel;
 import application.ui.gui.editor.LinksDataModel;
 import application.ui.gui.editor.NodeDataModel;
+import application.ui.gui.editor.ObjectTemplateDataModel;
 import application.ui.gui.editor.ObjectTemplatesDataModel;
 import application.ui.gui.editor.ObjectsDataModel;
 import application.ui.gui.editor.ParametersDataModel;
@@ -82,6 +83,8 @@ public class EditorFrameTest {
 
 	TransformationsDataModel transformationsDataModel_mock;
 
+	ObjectTemplateDataModel objectTemplateDataModel_mock;
+
 	ActionDataModel actionDataModel_mock;
 
 	NodeDataModel nodeDataModel_mock;
@@ -107,6 +110,7 @@ public class EditorFrameTest {
 		attributeTemplatesDataModel_mock = context.mock(AttributeTemplatesDataModel.class);
 		actionFunctionsDataModel_mock = context.mock(ActionFunctionsDataModel.class);
 		transformationsDataModel_mock = context.mock(TransformationsDataModel.class);
+		objectTemplateDataModel_mock = context.mock(ObjectTemplateDataModel.class);
 		actionDataModel_mock = context.mock(ActionDataModel.class);
 		nodeDataModel_mock = context.mock(NodeDataModel.class);
 		edgeDataModel_mock = context.mock(EdgeDataModel.class);
@@ -172,14 +176,6 @@ public class EditorFrameTest {
 				allowing(linkTemplatesDataModel_mock).getRowCount();
 				will(returnValue(0));
 
-				allowing(attributeTemplatesDataModel_mock).addTableModelListener(with(any(TableModelListener.class)));
-
-				allowing(attributeTemplatesDataModel_mock).getColumnCount();
-				will(returnValue(0));
-
-				allowing(attributeTemplatesDataModel_mock).getRowCount();
-				will(returnValue(0));
-
 				allowing(transformationsDataModel_mock).addTableModelListener(with(any(TableModelListener.class)));
 
 				allowing(transformationsDataModel_mock).getColumnCount();
@@ -229,13 +225,29 @@ public class EditorFrameTest {
 
 				allowing(actionFunctionsDataModel_mock).getRowCount();
 				will(returnValue(0));
+
+				// -->
+
+				oneOf(objectTemplateDataModel_mock).getAttributeTemplatesDataModel();
+				will(returnValue(attributeTemplatesDataModel_mock));
+
+				// <-- setModel()
+
+				allowing(attributeTemplatesDataModel_mock).addTableModelListener(with(any(TableModelListener.class)));
+
+				allowing(attributeTemplatesDataModel_mock).getColumnCount();
+				will(returnValue(0));
+
+				allowing(attributeTemplatesDataModel_mock).getRowCount();
+				will(returnValue(0));
+
 				// -->
 			}
 		});
 
 		testable = new EditorFrame(application_mock, editorDataModel_mock, objectsDataModel_mock, linksDataModel_mock,
 				attributesDataModel_mock, systemTransformationsDataModel_mock, objectTemplatesDataModel_mock,
-				linkTemplatesDataModel_mock, attributeTemplatesDataModel_mock, transformationsDataModel_mock,
+				linkTemplatesDataModel_mock, transformationsDataModel_mock, objectTemplateDataModel_mock,
 				actionDataModel_mock, nodeDataModel_mock, edgeDataModel_mock);
 	}
 
@@ -603,7 +615,7 @@ public class EditorFrameTest {
 
 		context.checking(new Expectations() {
 			{
-				oneOf(attributeTemplatesDataModel_mock).insertAttributeTemplate();
+				oneOf(objectTemplateDataModel_mock).insertAttributeTemplate();
 			}
 		});
 
@@ -621,7 +633,7 @@ public class EditorFrameTest {
 
 		context.checking(new Expectations() {
 			{
-				oneOf(attributeTemplatesDataModel_mock).deleteAttributeTemplate(-1);
+				oneOf(objectTemplateDataModel_mock).deleteAttributeTemplate(-1);
 			}
 		});
 
