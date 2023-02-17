@@ -105,4 +105,7 @@ public class LinkTemplatesDataModel extends DefaultTableModel {
 			return null;
 		}
 	}
+
+	public void clear() {
+	}
 }

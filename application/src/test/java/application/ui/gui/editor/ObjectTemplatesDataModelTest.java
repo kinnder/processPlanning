@@ -306,4 +306,9 @@ public class ObjectTemplatesDataModelTest {
 
 		assertEquals(null, testable.getValueAt(0, -1));
 	}
+
+	@Test
+	public void clear() {
+		testable.clear();
+	}
 }

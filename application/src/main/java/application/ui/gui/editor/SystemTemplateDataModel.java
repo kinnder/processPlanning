@@ -41,11 +41,33 @@ public class SystemTemplateDataModel {
 		}
 	};
 
+	private LinkTemplatesDataModel linkTemplatesDataModel;
+
+	public LinkTemplatesDataModel getLinkTemplatesDataModel() {
+		return this.linkTemplatesDataModel;
+	}
+
+	private ObjectTemplatesDataModel objectTemplatesDataModel;
+
+	public ObjectTemplatesDataModel getObjectTemplatesDataModel() {
+		return this.objectTemplatesDataModel;
+	}
+
 	public SystemTemplateDataModel(JTextField jtfSystemTemplateName, JComboBox<String> jcbSystemTemplateType,
 			EditorDataModel editorDataModel) {
+		this(jtfSystemTemplateName, jcbSystemTemplateType, editorDataModel, new LinkTemplatesDataModel(editorDataModel),
+				new ObjectTemplatesDataModel(editorDataModel));
+	}
+
+	SystemTemplateDataModel(JTextField jtfSystemTemplateName, JComboBox<String> jcbSystemTemplateType,
+			EditorDataModel editorDataModel, LinkTemplatesDataModel linkTemplatesDataModel,
+			ObjectTemplatesDataModel objectTemplatesDataModel) {
 		this.jtfSystemTemplateName = jtfSystemTemplateName;
 		this.jcbSystemTemplateType = jcbSystemTemplateType;
 		this.editorDataModel = editorDataModel;
+
+		this.linkTemplatesDataModel = linkTemplatesDataModel;
+		this.objectTemplatesDataModel = objectTemplatesDataModel;
 
 		jtfSystemTemplateName.addKeyListener(jtfSystemTemplateNameKeyAdapter);
 		jcbSystemTemplateType.addItemListener(jcbSystemTemplateTypeItemListener);
@@ -53,6 +75,8 @@ public class SystemTemplateDataModel {
 
 	public void clear() {
 		treeNode = null;
+		objectTemplatesDataModel.clear();
+		linkTemplatesDataModel.clear();
 	}
 
 	private DefaultMutableTreeNode treeNode;
@@ -65,5 +89,24 @@ public class SystemTemplateDataModel {
 		jcbSystemTemplateType.setSelectedIndex(type);
 
 		treeNode = selectedNode;
+
+		objectTemplatesDataModel.loadObjectTemplates(selectedSystemTemplate, selectedNode);
+		linkTemplatesDataModel.loadLinkTemplates(selectedSystemTemplate, selectedNode);
+	}
+
+	public void insertObjectTemplate() {
+		objectTemplatesDataModel.insertObjectTemplate();
+	}
+
+	public void deleteObjectTemplate(int idx) {
+		objectTemplatesDataModel.deleteObjectTemplate(idx);
+	}
+
+	public void insertLinkTemplate() {
+		linkTemplatesDataModel.insertLinkTemplate();
+	}
+
+	public void deleteLinkTemplate(int idx) {
+		linkTemplatesDataModel.deleteLinkTemplate(idx);
 	}
 }

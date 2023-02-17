@@ -13,12 +13,10 @@ import application.ui.gui.editor.ActionFunctionDataModel;
 import application.ui.gui.editor.AttributesDataModel;
 import application.ui.gui.editor.EdgeDataModel;
 import application.ui.gui.editor.EditorDataModel;
-import application.ui.gui.editor.LinkTemplatesDataModel;
 import application.ui.gui.editor.LinksDataModel;
 import application.ui.gui.editor.NodeDataModel;
 import application.ui.gui.editor.ObjectDataModel;
 import application.ui.gui.editor.ObjectTemplateDataModel;
-import application.ui.gui.editor.ObjectTemplatesDataModel;
 import application.ui.gui.editor.ObjectsDataModel;
 import application.ui.gui.editor.SystemDataModel;
 import application.ui.gui.editor.SystemTemplateDataModel;
@@ -54,8 +52,6 @@ public class EditorFrame extends javax.swing.JFrame {
 		this.linksDataModel = new LinksDataModel(editorDataModel);
 		this.attributesDataModel = new AttributesDataModel(editorDataModel);
 		this.systemTransformationsDataModel = new SystemTransformationsDataModel(editorDataModel);
-		this.linkTemplatesDataModel = new LinkTemplatesDataModel(editorDataModel);
-		this.objectTemplatesDataModel = new ObjectTemplatesDataModel(editorDataModel);
 		this.transformationsDataModel = new TransformationsDataModel(editorDataModel);
 
 		initComponents();
@@ -81,17 +77,15 @@ public class EditorFrame extends javax.swing.JFrame {
 	EditorFrame(Application application, EditorDataModel editorDataModel, ObjectsDataModel objectsDataModel,
 			LinksDataModel linksDataModel, AttributesDataModel attributesDataModel,
 			SystemTransformationsDataModel systemTransformationsDataModel,
-			ObjectTemplatesDataModel objectTemplatesDataModel, LinkTemplatesDataModel linkTemplatesDataModel,
-			TransformationsDataModel transformationsDataModel, ObjectTemplateDataModel objectTemplateDataModel,
-			ActionDataModel actionDataModel, NodeDataModel nodeDataModel, EdgeDataModel edgeDataModel) {
+			SystemTemplateDataModel systemTemplateDataModel, TransformationsDataModel transformationsDataModel,
+			ObjectTemplateDataModel objectTemplateDataModel, ActionDataModel actionDataModel,
+			NodeDataModel nodeDataModel, EdgeDataModel edgeDataModel) {
 		this.application = application;
 		this.editorDataModel = editorDataModel;
 		this.objectsDataModel = objectsDataModel;
 		this.linksDataModel = linksDataModel;
 		this.attributesDataModel = attributesDataModel;
 		this.systemTransformationsDataModel = systemTransformationsDataModel;
-		this.linkTemplatesDataModel = linkTemplatesDataModel;
-		this.objectTemplatesDataModel = objectTemplatesDataModel;
 		this.transformationsDataModel = transformationsDataModel;
 
 		initComponents();
@@ -100,7 +94,7 @@ public class EditorFrame extends javax.swing.JFrame {
 		this.systemDataModel = new SystemDataModel(jtfSystemName, jcbSystemType, editorDataModel);
 		this.objectDataModel = new ObjectDataModel(jtfObjectName, jtfObjectId, editorDataModel);
 		this.systemTransformationDataModel = new SystemTransformationDataModel(jtfSystemTransformationName, editorDataModel);
-		this.systemTemplateDataModel = new SystemTemplateDataModel(jtfSystemTemplateName, jcbSystemTemplateType, editorDataModel);
+		this.systemTemplateDataModel = systemTemplateDataModel;
 		this.objectTemplateDataModel = objectTemplateDataModel;
 		this.actionDataModel = actionDataModel;
 		this.actionFunctionDataModel = new ActionFunctionDataModel(jcbActionFunctionType, jtaActionFunctionLines, editorDataModel);
@@ -130,10 +124,6 @@ public class EditorFrame extends javax.swing.JFrame {
 
 	private SystemTransformationDataModel systemTransformationDataModel;
 
-	private LinkTemplatesDataModel linkTemplatesDataModel;
-
-	private ObjectTemplatesDataModel objectTemplatesDataModel;
-
 	private SystemTemplateDataModel systemTemplateDataModel;
 
 	private ObjectTemplateDataModel objectTemplateDataModel;
@@ -155,6 +145,8 @@ public class EditorFrame extends javax.swing.JFrame {
 		jtEdges.setModel(nodeDataModel.getEdgesDataModel());
 		jtActionFunctions.setModel(actionDataModel.getActionFunctionsDataModel());
 		jtAttributeTemplates.setModel(objectTemplateDataModel.getAttributeTemplatesDataModel());
+		jtObjectTemplates.setModel(systemTemplateDataModel.getObjectTemplatesDataModel());
+		jtLinkTemplates.setModel(systemTemplateDataModel.getLinkTemplatesDataModel());
 	}
 
 	private void setActions() {
@@ -339,7 +331,7 @@ public class EditorFrame extends javax.swing.JFrame {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			objectTemplatesDataModel.insertObjectTemplate();
+			systemTemplateDataModel.insertObjectTemplate();
 		}
 	};
 
@@ -349,7 +341,7 @@ public class EditorFrame extends javax.swing.JFrame {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			final int idx = jtObjectTemplates.getSelectedRow();
-			objectTemplatesDataModel.deleteObjectTemplate(idx);
+			systemTemplateDataModel.deleteObjectTemplate(idx);
 		}
 	};
 
@@ -358,7 +350,7 @@ public class EditorFrame extends javax.swing.JFrame {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			linkTemplatesDataModel.insertLinkTemplate();
+			systemTemplateDataModel.insertLinkTemplate();
 		}
 	};
 
@@ -368,7 +360,7 @@ public class EditorFrame extends javax.swing.JFrame {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			final int idx = jtLinkTemplates.getSelectedRow();
-			linkTemplatesDataModel.deleteLinkTemplate(idx);
+			systemTemplateDataModel.deleteLinkTemplate(idx);
 		}
 	};
 
@@ -454,7 +446,6 @@ public class EditorFrame extends javax.swing.JFrame {
 	 */
 	// <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
 	private void initComponents() {
-
 		bgTransformationType = new javax.swing.ButtonGroup();
 		jspWorkArea = new javax.swing.JSplitPane();
 		jspData = new javax.swing.JScrollPane();
@@ -1036,7 +1027,6 @@ public class EditorFrame extends javax.swing.JFrame {
 
 		jlObjectTemplates.setText("Object Templates");
 
-		jtObjectTemplates.setModel(objectTemplatesDataModel);
 		jspObjectTemplates.setViewportView(jtObjectTemplates);
 
 		jbObjectTemplateInsert.setText("Insert");
@@ -1109,7 +1099,6 @@ public class EditorFrame extends javax.swing.JFrame {
 								.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
 								.addComponent(jbLinkTemplatesDelete).addContainerGap(276, Short.MAX_VALUE)));
 
-		jtLinkTemplates.setModel(linkTemplatesDataModel);
 		jspLinkTemplates.setViewportView(jtLinkTemplates);
 
 		final javax.swing.GroupLayout jpLinkTemplatesEditorLayout = new javax.swing.GroupLayout(jpLinkTemplatesEditor);
@@ -1453,8 +1442,7 @@ public class EditorFrame extends javax.swing.JFrame {
 
 		jlAttributeTransformationName.setText("name");
 
-		final javax.swing.GroupLayout jpAttributeTransformationLayout = new javax.swing.GroupLayout(
-				jpAttributeTransformation);
+		final javax.swing.GroupLayout jpAttributeTransformationLayout = new javax.swing.GroupLayout(jpAttributeTransformation);
 		jpAttributeTransformation.setLayout(jpAttributeTransformationLayout);
 		jpAttributeTransformationLayout.setHorizontalGroup(jpAttributeTransformationLayout
 				.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1977,8 +1965,6 @@ public class EditorFrame extends javax.swing.JFrame {
 			systemTemplateDataModel.clear();
 			jtpEditors.setSelectedComponent(jpSystemTemplateEditor);
 			systemTemplateDataModel.loadSystemTemplate((SystemTemplate) selectedObject, selectedNode);
-			objectTemplatesDataModel.loadObjectTemplates((SystemTemplate) selectedObject, selectedNode);
-			linkTemplatesDataModel.loadLinkTemplates((SystemTemplate) selectedObject, selectedNode);
 		} else if (selectedObject instanceof SystemObjectTemplate) {
 			objectTemplateDataModel.clear();
 			jtpEditors.setSelectedComponent(jpObjectTemplateEditor);

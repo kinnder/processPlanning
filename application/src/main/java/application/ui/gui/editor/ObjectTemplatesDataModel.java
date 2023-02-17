@@ -101,4 +101,7 @@ public class ObjectTemplatesDataModel extends DefaultTableModel {
 		final DefaultMutableTreeNode objectTemplateNode = (DefaultMutableTreeNode) systemTemplateNode.getChildAt(idx);
 		editorDataModel.removeNodeFromParent(objectTemplateNode);
 	}
+
+	public void clear() {
+	}
 }
