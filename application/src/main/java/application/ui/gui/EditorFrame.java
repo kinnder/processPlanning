@@ -1936,9 +1936,7 @@ public class EditorFrame extends javax.swing.JFrame {
 			return;
 		}
 		final Object selectedObject = selectedNode.getUserObject();
-		if (selectedObject instanceof TaskDescription) {
-			java.lang.System.out.println("selected TaskDescription");
-		} else if (selectedObject instanceof System) {
+		if (selectedObject instanceof System) {
 			systemDataModel.clear();
 			jtpEditors.setSelectedComponent(jpSystemEditor);
 			systemDataModel.loadSystem((System) selectedObject, selectedNode);
