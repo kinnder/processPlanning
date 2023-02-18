@@ -96,4 +96,7 @@ public class SystemTransformationsDataModel extends DefaultTableModel {
 			return null;
 		}
 	}
+
+	public void clear() {
+	}
 }

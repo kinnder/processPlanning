@@ -199,4 +199,9 @@ public class SystemTransformationsDataModelTest {
 
 		assertEquals(null, testable.getValueAt(0, -1));
 	}
+
+	@Test
+	public void clear() {
+		testable.clear();
+	}
 }

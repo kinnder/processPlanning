@@ -1955,6 +1955,7 @@ public class EditorFrame extends javax.swing.JFrame {
 			objectDataModel.loadSystemObject((SystemObject) selectedObject, selectedNode);
 			attributesDataModel.loadAttributes((SystemObject) selectedObject, selectedNode);
 		} else if (selectedObject instanceof SystemTransformations) {
+			systemTransformationsDataModel.clear();
 			jtpEditors.setSelectedComponent(jpSystemTransformationsEditor);
 			systemTransformationsDataModel.loadSystemTransformations((SystemTransformations) selectedObject, selectedNode);
 		} else if (selectedObject instanceof SystemTransformation) {
