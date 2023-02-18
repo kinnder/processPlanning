@@ -105,4 +105,7 @@ public class LinksDataModel extends DefaultTableModel {
 			return null;
 		}
 	}
+
+	public void clear() {
+	}
 }

@@ -60,10 +60,31 @@ public class SystemDataModel {
 		}
 	};
 
+	private LinksDataModel linksDataModel;
+
+	public LinksDataModel getLinksDataModel() {
+		return this.linksDataModel;
+	}
+
+	private ObjectsDataModel objectsDataModel;
+
+	public ObjectsDataModel getObjectsDataModel() {
+		return this.objectsDataModel;
+	}
+
 	public SystemDataModel(JTextField jtfSystemName, JComboBox<String> jcbSystemType, EditorDataModel editorDataModel) {
+		this(jtfSystemName, jcbSystemType, editorDataModel, new LinksDataModel(editorDataModel),
+				new ObjectsDataModel(editorDataModel));
+	}
+
+	SystemDataModel(JTextField jtfSystemName, JComboBox<String> jcbSystemType, EditorDataModel editorDataModel,
+			LinksDataModel linksDataModel, ObjectsDataModel objectsDataModel) {
 		this.jtfSystemName = jtfSystemName;
 		this.jcbSystemType = jcbSystemType;
 		this.editorDataModel = editorDataModel;
+
+		this.linksDataModel = linksDataModel;
+		this.objectsDataModel = objectsDataModel;
 
 		jcbSystemType.addItemListener(jcbSystemTypeItemListener);
 		jtfSystemName.addKeyListener(jtfSystemNameKeyAdapter);
@@ -87,10 +108,32 @@ public class SystemDataModel {
 
 		system = selectedSystem;
 		treeNode = selectedNode;
+
+		objectsDataModel.loadObjects(selectedSystem, selectedNode);
+		linksDataModel.loadLinks(selectedSystem, selectedNode);
 	}
 
 	public void clear() {
 		system = null;
 		treeNode = null;
+
+		objectsDataModel.clear();
+		linksDataModel.clear();
+	}
+
+	public void insertObject() {
+		objectsDataModel.insertObject();
+	}
+
+	public void deleteObject(int idx) {
+		objectsDataModel.deleteObject(idx);
+	}
+
+	public void insertLink() {
+		linksDataModel.insertLink();
+	}
+
+	public void deleteLink(int idx) {
+		linksDataModel.deleteLink(idx);
 	}
 }

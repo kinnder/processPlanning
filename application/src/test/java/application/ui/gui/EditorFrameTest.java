@@ -35,6 +35,7 @@ import application.ui.gui.editor.ObjectTemplateDataModel;
 import application.ui.gui.editor.ObjectTemplatesDataModel;
 import application.ui.gui.editor.ObjectsDataModel;
 import application.ui.gui.editor.ParametersDataModel;
+import application.ui.gui.editor.SystemDataModel;
 import application.ui.gui.editor.SystemTemplateDataModel;
 import application.ui.gui.editor.SystemTransformationsDataModel;
 import application.ui.gui.editor.TransformationsDataModel;
@@ -101,6 +102,8 @@ public class EditorFrameTest {
 
 	ObjectDataModel objectDataModel_mock;
 
+	SystemDataModel systemDataModel_mock;
+
 	EditorFrame testable;
 
 	@BeforeEach
@@ -124,6 +127,7 @@ public class EditorFrameTest {
 		edgesDataModel_mock = context.mock(EdgesDataModel.class);
 		systemTemplateDataModel_mock = context.mock(SystemTemplateDataModel.class);
 		objectDataModel_mock = context.mock(ObjectDataModel.class);
+		systemDataModel_mock = context.mock(SystemDataModel.class);
 		final MutableTreeNode node_mock = context.mock(MutableTreeNode.class);
 
 		context.checking(new Expectations() {
@@ -135,22 +139,6 @@ public class EditorFrameTest {
 
 				allowing(editorDataModel_mock).isLeaf(node_mock);
 				will(returnValue(true));
-
-				allowing(objectsDataModel_mock).addTableModelListener(with(any(TableModelListener.class)));
-
-				allowing(objectsDataModel_mock).getColumnCount();
-				will(returnValue(0));
-
-				allowing(objectsDataModel_mock).getRowCount();
-				will(returnValue(0));
-
-				allowing(linksDataModel_mock).addTableModelListener(with(any(TableModelListener.class)));
-
-				allowing(linksDataModel_mock).getColumnCount();
-				will(returnValue(0));
-
-				allowing(linksDataModel_mock).getRowCount();
-				will(returnValue(0));
 
 				allowing(systemTransformationsDataModel_mock).addTableModelListener(with(any(TableModelListener.class)));
 
@@ -271,13 +259,42 @@ public class EditorFrameTest {
 				will(returnValue(0));
 
 				// -->
+
+				oneOf(systemDataModel_mock).getObjectsDataModel();
+				will(returnValue(objectsDataModel_mock));
+
+				// <-- setModel()
+
+				allowing(objectsDataModel_mock).addTableModelListener(with(any(TableModelListener.class)));
+
+				allowing(objectsDataModel_mock).getColumnCount();
+				will(returnValue(0));
+
+				allowing(objectsDataModel_mock).getRowCount();
+				will(returnValue(0));
+
+				// -->
+
+				oneOf(systemDataModel_mock).getLinksDataModel();
+				will(returnValue(linksDataModel_mock));
+
+				// <-- setModel()
+
+				allowing(linksDataModel_mock).addTableModelListener(with(any(TableModelListener.class)));
+
+				allowing(linksDataModel_mock).getColumnCount();
+				will(returnValue(0));
+
+				allowing(linksDataModel_mock).getRowCount();
+				will(returnValue(0));
+
+				// -->
 			}
 		});
 
-		testable = new EditorFrame(application_mock, editorDataModel_mock, objectsDataModel_mock, linksDataModel_mock,
-				objectDataModel_mock, systemTransformationsDataModel_mock, systemTemplateDataModel_mock,
-				transformationsDataModel_mock, objectTemplateDataModel_mock, actionDataModel_mock, nodeDataModel_mock,
-				edgeDataModel_mock);
+		testable = new EditorFrame(application_mock, editorDataModel_mock, systemDataModel_mock, objectDataModel_mock,
+				systemTransformationsDataModel_mock, systemTemplateDataModel_mock, transformationsDataModel_mock,
+				objectTemplateDataModel_mock, actionDataModel_mock, nodeDataModel_mock, edgeDataModel_mock);
 	}
 
 	@Test
@@ -428,7 +445,7 @@ public class EditorFrameTest {
 
 		context.checking(new Expectations() {
 			{
-				oneOf(objectsDataModel_mock).insertObject();
+				oneOf(systemDataModel_mock).insertObject();
 			}
 		});
 
@@ -446,7 +463,7 @@ public class EditorFrameTest {
 
 		context.checking(new Expectations() {
 			{
-				oneOf(objectsDataModel_mock).deleteObject(-1);
+				oneOf(systemDataModel_mock).deleteObject(-1);
 			}
 		});
 
@@ -464,7 +481,7 @@ public class EditorFrameTest {
 
 		context.checking(new Expectations() {
 			{
-				oneOf(linksDataModel_mock).insertLink();
+				oneOf(systemDataModel_mock).insertLink();
 			}
 		});
 
@@ -482,7 +499,7 @@ public class EditorFrameTest {
 
 		context.checking(new Expectations() {
 			{
-				oneOf(linksDataModel_mock).deleteLink(-1);
+				oneOf(systemDataModel_mock).deleteLink(-1);
 			}
 		});
 

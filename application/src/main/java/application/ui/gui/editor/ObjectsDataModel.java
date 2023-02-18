@@ -103,4 +103,7 @@ public class ObjectsDataModel extends DefaultTableModel {
 			return null;
 		}
 	}
+
+	public void clear() {
+	}
 }

@@ -1,5 +1,7 @@
 package application.ui.gui.editor;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.KeyEvent;
@@ -35,11 +37,15 @@ public class SystemDataModelTest {
 
 	EditorDataModel editorDataModel_mock;
 
-	SystemDataModel testable;
-
 	JTextField jtfSystemName_mock;
 
 	JComboBox<String> jcbSystemType_mock;
+
+	LinksDataModel linksDataModel_mock;
+
+	ObjectsDataModel objectsDataModel_mock;
+
+	SystemDataModel testable;
 
 	@SuppressWarnings("unchecked")
 	@BeforeEach
@@ -47,7 +53,23 @@ public class SystemDataModelTest {
 		editorDataModel_mock = context.mock(EditorDataModel.class);
 		jtfSystemName_mock = context.mock(JTextField.class);
 		jcbSystemType_mock = context.mock(JComboBox.class);
+		linksDataModel_mock = context.mock(LinksDataModel.class);
+		objectsDataModel_mock = context.mock(ObjectsDataModel.class);
 
+		context.checking(new Expectations() {
+			{
+				oneOf(jcbSystemType_mock).addItemListener(with(any(ItemListener.class)));
+
+				oneOf(jtfSystemName_mock).addKeyListener(with(any(KeyListener.class)));
+			}
+		});
+
+		testable = new SystemDataModel(jtfSystemName_mock, jcbSystemType_mock, editorDataModel_mock,
+				linksDataModel_mock, objectsDataModel_mock);
+	}
+
+	@Test
+	public void newInstance() {
 		context.checking(new Expectations() {
 			{
 				oneOf(jcbSystemType_mock).addItemListener(with(any(ItemListener.class)));
@@ -72,6 +94,10 @@ public class SystemDataModelTest {
 				oneOf(jtfSystemName_mock).setText("system-name");
 
 				oneOf(jcbSystemType_mock).setSelectedIndex(SystemDataModel.SYSTEM_TYPE_REGULAR);
+
+				oneOf(objectsDataModel_mock).loadObjects(selectedSystem_mock, selectedNode_mock);
+
+				oneOf(linksDataModel_mock).loadLinks(selectedSystem_mock, selectedNode_mock);
 			}
 		});
 
@@ -91,6 +117,10 @@ public class SystemDataModelTest {
 				oneOf(jtfSystemName_mock).setText("initialSystem");
 
 				oneOf(jcbSystemType_mock).setSelectedIndex(SystemDataModel.SYSTEM_TYPE_INITIAL);
+
+				oneOf(objectsDataModel_mock).loadObjects(selectedSystem_mock, selectedNode_mock);
+
+				oneOf(linksDataModel_mock).loadLinks(selectedSystem_mock, selectedNode_mock);
 			}
 		});
 
@@ -110,6 +140,10 @@ public class SystemDataModelTest {
 				oneOf(jtfSystemName_mock).setText("finalSystem");
 
 				oneOf(jcbSystemType_mock).setSelectedIndex(SystemDataModel.SYSTEM_TYPE_FINAL);
+
+				oneOf(objectsDataModel_mock).loadObjects(selectedSystem_mock, selectedNode_mock);
+
+				oneOf(linksDataModel_mock).loadLinks(selectedSystem_mock, selectedNode_mock);
 			}
 		});
 
@@ -118,6 +152,14 @@ public class SystemDataModelTest {
 
 	@Test
 	public void clear() {
+		context.checking(new Expectations() {
+			{
+				oneOf(objectsDataModel_mock).clear();
+
+				oneOf(linksDataModel_mock).clear();
+			}
+		});
+
 		testable.clear();
 	}
 
@@ -134,6 +176,10 @@ public class SystemDataModelTest {
 				oneOf(jtfSystemName_mock).setText("system-name");
 
 				oneOf(jcbSystemType_mock).setSelectedIndex(SystemDataModel.SYSTEM_TYPE_REGULAR);
+
+				oneOf(objectsDataModel_mock).loadObjects(selectedSystem_mock, selectedNode_mock);
+
+				oneOf(linksDataModel_mock).loadLinks(selectedSystem_mock, selectedNode_mock);
 			}
 		});
 		testable.loadSystem(selectedSystem_mock, selectedNode_mock);
@@ -192,6 +238,10 @@ public class SystemDataModelTest {
 				oneOf(jtfSystemName_mock).setText("system-name");
 
 				oneOf(jcbSystemType_mock).setSelectedIndex(SystemDataModel.SYSTEM_TYPE_REGULAR);
+
+				oneOf(objectsDataModel_mock).loadObjects(selectedSystem_mock, selectedNode_mock);
+
+				oneOf(linksDataModel_mock).loadLinks(selectedSystem_mock, selectedNode_mock);
 			}
 		});
 		testable.loadSystem(selectedSystem_mock, selectedNode_mock);
@@ -229,6 +279,10 @@ public class SystemDataModelTest {
 				oneOf(jtfSystemName_mock).setText("system-name");
 
 				oneOf(jcbSystemType_mock).setSelectedIndex(SystemDataModel.SYSTEM_TYPE_REGULAR);
+
+				oneOf(objectsDataModel_mock).loadObjects(selectedSystem_mock, selectedNode_mock);
+
+				oneOf(linksDataModel_mock).loadLinks(selectedSystem_mock, selectedNode_mock);
 			}
 		});
 		testable.loadSystem(selectedSystem_mock, selectedNode_mock);
@@ -266,6 +320,10 @@ public class SystemDataModelTest {
 				oneOf(jtfSystemName_mock).setText("system-name");
 
 				oneOf(jcbSystemType_mock).setSelectedIndex(SystemDataModel.SYSTEM_TYPE_REGULAR);
+
+				oneOf(objectsDataModel_mock).loadObjects(selectedSystem_mock, selectedNode_mock);
+
+				oneOf(linksDataModel_mock).loadLinks(selectedSystem_mock, selectedNode_mock);
 			}
 		});
 		testable.loadSystem(selectedSystem_mock, selectedNode_mock);
@@ -284,5 +342,59 @@ public class SystemDataModelTest {
 		});
 
 		testable.jcbSystemTypeItemListener.itemStateChanged(itemEvent_mock);
+	}
+
+	@Test
+	public void getLinksDataModel() {
+		assertEquals(linksDataModel_mock, testable.getLinksDataModel());
+	}
+
+	@Test
+	public void getObjectsDataModel() {
+		assertEquals(objectsDataModel_mock, testable.getObjectsDataModel());
+	}
+
+	@Test
+	public void insertObject() {
+		context.checking(new Expectations() {
+			{
+				oneOf(objectsDataModel_mock).insertObject();
+			}
+		});
+
+		testable.insertObject();
+	}
+
+	@Test
+	public void deleteObject() {
+		context.checking(new Expectations() {
+			{
+				oneOf(objectsDataModel_mock).deleteObject(2);
+			}
+		});
+
+		testable.deleteObject(2);
+	}
+
+	@Test
+	public void insertLink() {
+		context.checking(new Expectations() {
+			{
+				oneOf(linksDataModel_mock).insertLink();
+			}
+		});
+
+		testable.insertLink();
+	}
+
+	@Test
+	public void deleteLink() {
+		context.checking(new Expectations() {
+			{
+				oneOf(linksDataModel_mock).deleteLink(2);
+			}
+		});
+
+		testable.deleteLink(2);
 	}
 }
