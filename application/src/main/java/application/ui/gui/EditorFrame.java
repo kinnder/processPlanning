@@ -10,7 +10,6 @@ import application.Application;
 import application.ui.UserInterfaceFactory;
 import application.ui.gui.editor.ActionDataModel;
 import application.ui.gui.editor.ActionFunctionDataModel;
-import application.ui.gui.editor.AttributesDataModel;
 import application.ui.gui.editor.EdgeDataModel;
 import application.ui.gui.editor.EditorDataModel;
 import application.ui.gui.editor.LinksDataModel;
@@ -50,7 +49,6 @@ public class EditorFrame extends javax.swing.JFrame {
 		this.editorDataModel = new EditorDataModel();
 		this.objectsDataModel = new ObjectsDataModel(editorDataModel);
 		this.linksDataModel = new LinksDataModel(editorDataModel);
-		this.attributesDataModel = new AttributesDataModel(editorDataModel);
 		this.systemTransformationsDataModel = new SystemTransformationsDataModel(editorDataModel);
 		this.transformationsDataModel = new TransformationsDataModel(editorDataModel);
 
@@ -75,7 +73,7 @@ public class EditorFrame extends javax.swing.JFrame {
 	}
 
 	EditorFrame(Application application, EditorDataModel editorDataModel, ObjectsDataModel objectsDataModel,
-			LinksDataModel linksDataModel, AttributesDataModel attributesDataModel,
+			LinksDataModel linksDataModel, ObjectDataModel objectDataModel,
 			SystemTransformationsDataModel systemTransformationsDataModel,
 			SystemTemplateDataModel systemTemplateDataModel, TransformationsDataModel transformationsDataModel,
 			ObjectTemplateDataModel objectTemplateDataModel, ActionDataModel actionDataModel,
@@ -84,7 +82,6 @@ public class EditorFrame extends javax.swing.JFrame {
 		this.editorDataModel = editorDataModel;
 		this.objectsDataModel = objectsDataModel;
 		this.linksDataModel = linksDataModel;
-		this.attributesDataModel = attributesDataModel;
 		this.systemTransformationsDataModel = systemTransformationsDataModel;
 		this.transformationsDataModel = transformationsDataModel;
 
@@ -92,7 +89,7 @@ public class EditorFrame extends javax.swing.JFrame {
 		setActions();
 
 		this.systemDataModel = new SystemDataModel(jtfSystemName, jcbSystemType, editorDataModel);
-		this.objectDataModel = new ObjectDataModel(jtfObjectName, jtfObjectId, editorDataModel);
+		this.objectDataModel = objectDataModel;
 		this.systemTransformationDataModel = new SystemTransformationDataModel(jtfSystemTransformationName, editorDataModel);
 		this.systemTemplateDataModel = systemTemplateDataModel;
 		this.objectTemplateDataModel = objectTemplateDataModel;
@@ -117,8 +114,6 @@ public class EditorFrame extends javax.swing.JFrame {
 	private LinksDataModel linksDataModel;
 
 	private ObjectDataModel objectDataModel;
-
-	private AttributesDataModel attributesDataModel;
 
 	private SystemTransformationsDataModel systemTransformationsDataModel;
 
@@ -147,6 +142,7 @@ public class EditorFrame extends javax.swing.JFrame {
 		jtAttributeTemplates.setModel(objectTemplateDataModel.getAttributeTemplatesDataModel());
 		jtObjectTemplates.setModel(systemTemplateDataModel.getObjectTemplatesDataModel());
 		jtLinkTemplates.setModel(systemTemplateDataModel.getLinkTemplatesDataModel());
+		jtAttributes.setModel(objectDataModel.getAttributesDataModel());
 	}
 
 	private void setActions() {
@@ -293,7 +289,7 @@ public class EditorFrame extends javax.swing.JFrame {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			attributesDataModel.insertAttribute();
+			objectDataModel.insertAttribute();
 		}
 	};
 
@@ -303,7 +299,7 @@ public class EditorFrame extends javax.swing.JFrame {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			final int idx = jtAttributes.getSelectedRow();
-			attributesDataModel.deleteAttribute(idx);
+			objectDataModel.deleteAttribute(idx);
 		}
 	};
 
@@ -836,7 +832,6 @@ public class EditorFrame extends javax.swing.JFrame {
 
 		jlAttributes.setText("Attributes");
 
-		jtAttributes.setModel(attributesDataModel);
 		jspAttributes.setViewportView(jtAttributes);
 
 		jbAttributesInsert.setText("Insert");
@@ -1953,7 +1948,6 @@ public class EditorFrame extends javax.swing.JFrame {
 			objectDataModel.clear();
 			jtpEditors.setSelectedComponent(jpObjectEditor);
 			objectDataModel.loadSystemObject((SystemObject) selectedObject, selectedNode);
-			attributesDataModel.loadAttributes((SystemObject) selectedObject, selectedNode);
 		} else if (selectedObject instanceof SystemTransformations) {
 			systemTransformationsDataModel.clear();
 			jtpEditors.setSelectedComponent(jpSystemTransformationsEditor);

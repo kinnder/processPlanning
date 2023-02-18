@@ -36,10 +36,23 @@ public class ObjectDataModel {
 		}
 	};
 
+	private AttributesDataModel attributesDataModel;
+
+	public AttributesDataModel getAttributesDataModel() {
+		return this.attributesDataModel;
+	}
+
 	public ObjectDataModel(JTextField jtfObjectName, JTextField jtfObjectId, EditorDataModel editorDataModel) {
+		this(jtfObjectName, jtfObjectId, editorDataModel, new AttributesDataModel(editorDataModel));
+	}
+
+	ObjectDataModel(JTextField jtfObjectName, JTextField jtfObjectId, EditorDataModel editorDataModel,
+			AttributesDataModel attributesDataModel) {
 		this.jtfObjectName = jtfObjectName;
 		this.jtfObjectId = jtfObjectId;
 		this.editorDataModel = editorDataModel;
+
+		this.attributesDataModel = attributesDataModel;
 
 		jtfObjectName.addKeyListener(jtfObjectNameKeyAdapter);
 		jtfObjectId.addKeyListener(jtfObjectIdKeyAdapter);
@@ -48,6 +61,8 @@ public class ObjectDataModel {
 	public void clear() {
 		object = null;
 		treeNode = null;
+
+		attributesDataModel.clear();
 	}
 
 	private DefaultMutableTreeNode treeNode;
@@ -60,5 +75,15 @@ public class ObjectDataModel {
 
 		object = selectedObject;
 		treeNode = selectedNode;
+
+		attributesDataModel.loadAttributes(selectedObject, selectedNode);
+	}
+
+	public void insertAttribute() {
+		attributesDataModel.insertAttribute();
+	}
+
+	public void deleteAttribute(int idx) {
+		attributesDataModel.deleteAttribute(idx);
 	}
 }

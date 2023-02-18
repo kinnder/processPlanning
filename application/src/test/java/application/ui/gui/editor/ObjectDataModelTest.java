@@ -1,5 +1,7 @@
 package application.ui.gui.editor;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
@@ -36,6 +38,8 @@ public class ObjectDataModelTest {
 
 	EditorDataModel editorDataModel_mock;
 
+	AttributesDataModel attributesDataModel_mock;
+
 	ObjectDataModel testable;
 
 	@BeforeEach
@@ -43,7 +47,22 @@ public class ObjectDataModelTest {
 		jtfObjectName_mock = context.mock(JTextField.class, "objectName");
 		jtfObjectId_mock = context.mock(JTextField.class, "objectId");
 		editorDataModel_mock = context.mock(EditorDataModel.class);
+		attributesDataModel_mock = context.mock(AttributesDataModel.class);
 
+		context.checking(new Expectations() {
+			{
+				oneOf(jtfObjectName_mock).addKeyListener(with(any(KeyListener.class)));
+
+				oneOf(jtfObjectId_mock).addKeyListener(with(any(KeyListener.class)));
+			}
+		});
+
+		testable = new ObjectDataModel(jtfObjectName_mock, jtfObjectId_mock, editorDataModel_mock,
+				attributesDataModel_mock);
+	}
+
+	@Test
+	public void newInstance() {
 		context.checking(new Expectations() {
 			{
 				oneOf(jtfObjectName_mock).addKeyListener(with(any(KeyListener.class)));
@@ -71,6 +90,8 @@ public class ObjectDataModelTest {
 				oneOf(jtfObjectName_mock).setText("object-name");
 
 				oneOf(jtfObjectId_mock).setText("object-id");
+
+				oneOf(attributesDataModel_mock).loadAttributes(selectedObject_mock, selectedNode_mock);
 			}
 		});
 
@@ -79,6 +100,12 @@ public class ObjectDataModelTest {
 
 	@Test
 	public void clear() {
+		context.checking(new Expectations() {
+			{
+				oneOf(attributesDataModel_mock).clear();
+			}
+		});
+
 		testable.clear();
 	}
 
@@ -98,6 +125,8 @@ public class ObjectDataModelTest {
 				oneOf(jtfObjectName_mock).setText("object-name");
 
 				oneOf(jtfObjectId_mock).setText("object-id");
+
+				oneOf(attributesDataModel_mock).loadAttributes(selectedObject_mock, selectedNode_mock);
 			}
 		});
 		testable.loadSystemObject(selectedObject_mock, selectedNode_mock);
@@ -133,6 +162,8 @@ public class ObjectDataModelTest {
 				oneOf(jtfObjectName_mock).setText("object-name");
 
 				oneOf(jtfObjectId_mock).setText("object-id");
+
+				oneOf(attributesDataModel_mock).loadAttributes(selectedObject_mock, selectedNode_mock);
 			}
 		});
 		testable.loadSystemObject(selectedObject_mock, selectedNode_mock);
@@ -150,5 +181,32 @@ public class ObjectDataModelTest {
 		});
 
 		testable.jtfObjectIdKeyAdapter.keyReleased(keyEvent_mock);
+	}
+
+	@Test
+	public void getAttributesDataModel() {
+		assertEquals(attributesDataModel_mock, testable.getAttributesDataModel());
+	}
+
+	@Test
+	public void insertAttribute() {
+		context.checking(new Expectations() {
+			{
+				oneOf(attributesDataModel_mock).insertAttribute();
+			}
+		});
+
+		testable.insertAttribute();
+	}
+
+	@Test
+	public void deleteAttribute() {
+		context.checking(new Expectations() {
+			{
+				oneOf(attributesDataModel_mock).deleteAttribute(2);
+			}
+		});
+
+		testable.deleteAttribute(2);
 	}
 }

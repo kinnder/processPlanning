@@ -155,4 +155,7 @@ public class AttributesDataModel extends DefaultTableModel {
 			return null;
 		}
 	}
+
+	public void clear() {
+	}
 }
