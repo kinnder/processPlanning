@@ -435,12 +435,12 @@ public class EditorFrameTest {
 	}
 
 	@Test
-	public void objectInsertAction_name() {
-		assertEquals("Insert", testable.objectInsertAction.getValue(Action.NAME));
+	public void objectsInsertAction_name() {
+		assertEquals("Insert", testable.objectsInsertAction.getValue(Action.NAME));
 	}
 
 	@Test
-	public void objectInsertAction_actionPerformed() {
+	public void objectsInsertAction_actionPerformed() {
 		final ActionEvent actionEvent_mock = context.mock(ActionEvent.class);
 
 		context.checking(new Expectations() {
@@ -449,16 +449,16 @@ public class EditorFrameTest {
 			}
 		});
 
-		testable.objectInsertAction.actionPerformed(actionEvent_mock);
+		testable.objectsInsertAction.actionPerformed(actionEvent_mock);
 	}
 
 	@Test
-	public void objectDeleteAction_name() {
-		assertEquals("Delete", testable.objectDeleteAction.getValue(Action.NAME));
+	public void objectsDeleteAction_name() {
+		assertEquals("Delete", testable.objectsDeleteAction.getValue(Action.NAME));
 	}
 
 	@Test
-	public void objectDeleteAction_actionPerformed() {
+	public void objectsDeleteAction_actionPerformed() {
 		final ActionEvent actionEvent_mock = context.mock(ActionEvent.class);
 
 		context.checking(new Expectations() {
@@ -467,16 +467,16 @@ public class EditorFrameTest {
 			}
 		});
 
-		testable.objectDeleteAction.actionPerformed(actionEvent_mock);
+		testable.objectsDeleteAction.actionPerformed(actionEvent_mock);
 	}
 
 	@Test
-	public void linkInsertAction_name() {
-		assertEquals("Insert", testable.linkInsertAction.getValue(Action.NAME));
+	public void linksInsertAction_name() {
+		assertEquals("Insert", testable.linksInsertAction.getValue(Action.NAME));
 	}
 
 	@Test
-	public void linkInsertAction_actionPerformed() {
+	public void linksInsertAction_actionPerformed() {
 		final ActionEvent actionEvent_mock = context.mock(ActionEvent.class);
 
 		context.checking(new Expectations() {
@@ -485,16 +485,16 @@ public class EditorFrameTest {
 			}
 		});
 
-		testable.linkInsertAction.actionPerformed(actionEvent_mock);
+		testable.linksInsertAction.actionPerformed(actionEvent_mock);
 	}
 
 	@Test
-	public void linkDeleteAction_name() {
-		assertEquals("Delete", testable.linkDeleteAction.getValue(Action.NAME));
+	public void linksDeleteAction_name() {
+		assertEquals("Delete", testable.linksDeleteAction.getValue(Action.NAME));
 	}
 
 	@Test
-	public void linkDeleteAction_actionPerformed() {
+	public void linksDeleteAction_actionPerformed() {
 		final ActionEvent actionEvent_mock = context.mock(ActionEvent.class);
 
 		context.checking(new Expectations() {
@@ -503,16 +503,16 @@ public class EditorFrameTest {
 			}
 		});
 
-		testable.linkDeleteAction.actionPerformed(actionEvent_mock);
+		testable.linksDeleteAction.actionPerformed(actionEvent_mock);
 	}
 
 	@Test
-	public void attributeInsertAction_name() {
-		assertEquals("Insert", testable.attributeInsertAction.getValue(Action.NAME));
+	public void attributesInsertAction_name() {
+		assertEquals("Insert", testable.attributesInsertAction.getValue(Action.NAME));
 	}
 
 	@Test
-	public void attributeInsertAction_actionPerformed() {
+	public void attributesInsertAction_actionPerformed() {
 		final ActionEvent actionEvent_mock = context.mock(ActionEvent.class);
 
 		context.checking(new Expectations() {
@@ -521,16 +521,16 @@ public class EditorFrameTest {
 			}
 		});
 
-		testable.attributeInsertAction.actionPerformed(actionEvent_mock);
+		testable.attributesInsertAction.actionPerformed(actionEvent_mock);
 	}
 
 	@Test
-	public void attributeDeleteAction_name() {
-		assertEquals("Delete", testable.attributeDeleteAction.getValue(Action.NAME));
+	public void attributesDeleteAction_name() {
+		assertEquals("Delete", testable.attributesDeleteAction.getValue(Action.NAME));
 	}
 
 	@Test
-	public void attributeDeleteAction_actionPerformed() {
+	public void attributesDeleteAction_actionPerformed() {
 		final ActionEvent actionEvent_mock = context.mock(ActionEvent.class);
 
 		context.checking(new Expectations() {
@@ -539,7 +539,7 @@ public class EditorFrameTest {
 			}
 		});
 
-		testable.attributeDeleteAction.actionPerformed(actionEvent_mock);
+		testable.attributesDeleteAction.actionPerformed(actionEvent_mock);
 	}
 
 	@Test
@@ -615,12 +615,12 @@ public class EditorFrameTest {
 	}
 
 	@Test
-	public void linkTemplateInsertAction_name() {
-		assertEquals("Insert", testable.linkTemplateInsertAction.getValue(Action.NAME));
+	public void linkTemplatesInsertAction_name() {
+		assertEquals("Insert", testable.linkTemplatesInsertAction.getValue(Action.NAME));
 	}
 
 	@Test
-	public void linkTemplateInsertAction_actionPerformed() {
+	public void linkTemplatesInsertAction_actionPerformed() {
 		final ActionEvent actionEvent_mock = context.mock(ActionEvent.class);
 
 		context.checking(new Expectations() {
@@ -629,16 +629,16 @@ public class EditorFrameTest {
 			}
 		});
 
-		testable.linkTemplateInsertAction.actionPerformed(actionEvent_mock);
+		testable.linkTemplatesInsertAction.actionPerformed(actionEvent_mock);
 	}
 
 	@Test
-	public void linkTemplateDeleteAction_name() {
-		assertEquals("Delete", testable.linkTemplateDeleteAction.getValue(Action.NAME));
+	public void linkTemplatesDeleteAction_name() {
+		assertEquals("Delete", testable.linkTemplatesDeleteAction.getValue(Action.NAME));
 	}
 
 	@Test
-	public void linkTemplateDeletAction_actionPerformed() {
+	public void linkTemplatesDeleteAction_actionPerformed() {
 		final ActionEvent actionEvent_mock = context.mock(ActionEvent.class);
 
 		context.checking(new Expectations() {
@@ -647,7 +647,7 @@ public class EditorFrameTest {
 			}
 		});
 
-		testable.linkTemplateDeleteAction.actionPerformed(actionEvent_mock);
+		testable.linkTemplatesDeleteAction.actionPerformed(actionEvent_mock);
 	}
 
 	@Test
@@ -687,12 +687,12 @@ public class EditorFrameTest {
 	}
 
 	@Test
-	public void actionFunctionsInsertActionFunction_name() {
-		assertEquals("Insert", testable.actionFunctionsInsertActionFunction.getValue(Action.NAME));
+	public void actionFunctionsInsertAction_name() {
+		assertEquals("Insert", testable.actionFunctionsInsertAction.getValue(Action.NAME));
 	}
 
 	@Test
-	public void actionFunctionsInsertActionFunction_actionPerformed() {
+	public void actionFunctionsInsertAction_actionPerformed() {
 		final ActionEvent actionEvent_mock = context.mock(ActionEvent.class);
 
 		context.checking(new Expectations() {
@@ -701,16 +701,16 @@ public class EditorFrameTest {
 			}
 		});
 
-		testable.actionFunctionsInsertActionFunction.actionPerformed(actionEvent_mock);
+		testable.actionFunctionsInsertAction.actionPerformed(actionEvent_mock);
 	}
 
 	@Test
-	public void acitonFunctionsDeleteActionFunction_name() {
-		assertEquals("Delete", testable.actionFunctionsDeleteActionFunction.getValue(Action.NAME));
+	public void acitonFunctionsDeleteAction_name() {
+		assertEquals("Delete", testable.actionFunctionsDeleteAction.getValue(Action.NAME));
 	}
 
 	@Test
-	public void actionFunctionsDeleteActionFunction_actionPerformed() {
+	public void actionFunctionsDeleteAction_actionPerformed() {
 		final ActionEvent actionEvent_mock = context.mock(ActionEvent.class);
 
 		context.checking(new Expectations() {
@@ -719,16 +719,16 @@ public class EditorFrameTest {
 			}
 		});
 
-		testable.actionFunctionsDeleteActionFunction.actionPerformed(actionEvent_mock);
+		testable.actionFunctionsDeleteAction.actionPerformed(actionEvent_mock);
 	}
 
 	@Test
-	public void transformationsInsertTransformation_name() {
-		assertEquals("Insert", testable.transformationsInsertTransformation.getValue(Action.NAME));
+	public void transformationsInsertTransformationAction_name() {
+		assertEquals("Insert", testable.transformationsInsertTransformationAction.getValue(Action.NAME));
 	}
 
 	@Test
-	public void transformationsInsertTransformation_actionPerformed() {
+	public void transformationsInsertTransformationAction_actionPerformed() {
 		final ActionEvent actionEvent_mock = context.mock(ActionEvent.class);
 
 		context.checking(new Expectations() {
@@ -737,16 +737,16 @@ public class EditorFrameTest {
 			}
 		});
 
-		testable.transformationsInsertTransformation.actionPerformed(actionEvent_mock);
+		testable.transformationsInsertTransformationAction.actionPerformed(actionEvent_mock);
 	}
 
 	@Test
-	public void transformationsInsertLinkTransformation_name() {
-		assertEquals("Insert Link", testable.transformationsInsertLinkTransformation.getValue(Action.NAME));
+	public void transformationsInsertLinkTransformationAction_name() {
+		assertEquals("Insert Link", testable.transformationsInsertLinkTransformationAction.getValue(Action.NAME));
 	}
 
 	@Test
-	public void transformationsInsertLinkTransformation_actionPerformed() {
+	public void transformationsInsertLinkTransformationAction_actionPerformed() {
 		final ActionEvent actionEvent_mock = context.mock(ActionEvent.class);
 
 		context.checking(new Expectations() {
@@ -755,16 +755,16 @@ public class EditorFrameTest {
 			}
 		});
 
-		testable.transformationsInsertLinkTransformation.actionPerformed(actionEvent_mock);
+		testable.transformationsInsertLinkTransformationAction.actionPerformed(actionEvent_mock);
 	}
 
 	@Test
-	public void transformationsInsertAttributeTransformation_name() {
-		assertEquals("Insert Attribute", testable.transformationsInsertAttributeTransformation.getValue(Action.NAME));
+	public void transformationsInsertAttributeTransformationAction_name() {
+		assertEquals("Insert Attribute", testable.transformationsInsertAttributeTransformationAction.getValue(Action.NAME));
 	}
 
 	@Test
-	public void transformationsInsertAttributeTransformation_actionPerformed() {
+	public void transformationsInsertAttributeTransformationAction_actionPerformed() {
 		final ActionEvent actionEvent_mock = context.mock(ActionEvent.class);
 
 		context.checking(new Expectations() {
@@ -773,16 +773,16 @@ public class EditorFrameTest {
 			}
 		});
 
-		testable.transformationsInsertAttributeTransformation.actionPerformed(actionEvent_mock);
+		testable.transformationsInsertAttributeTransformationAction.actionPerformed(actionEvent_mock);
 	}
 
 	@Test
-	public void transformationsDeleteTransformation_name() {
-		assertEquals("Delete", testable.transformationsDeleteTransformation.getValue(Action.NAME));
+	public void transformationsDeleteTransformationAction_name() {
+		assertEquals("Delete", testable.transformationsDeleteTransformationAction.getValue(Action.NAME));
 	}
 
 	@Test
-	public void transformationsDeleteTransformation_actionPerformed() {
+	public void transformationsDeleteTransformationAction_actionPerformed() {
 		final ActionEvent actionEvent_mock = context.mock(ActionEvent.class);
 
 		context.checking(new Expectations() {
@@ -791,6 +791,6 @@ public class EditorFrameTest {
 			}
 		});
 
-		testable.transformationsDeleteTransformation.actionPerformed(actionEvent_mock);
+		testable.transformationsDeleteTransformationAction.actionPerformed(actionEvent_mock);
 	}
 }

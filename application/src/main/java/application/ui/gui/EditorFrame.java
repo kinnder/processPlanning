@@ -147,14 +147,14 @@ public class EditorFrame extends javax.swing.JFrame {
 		jmiProcessLoad.setAction(processLoadAction);
 
 		// TODO (2022-11-18 #73): синхронизировать множественные и единственные числа в названиях
-		jbObjectsInsert.setAction(objectInsertAction);
-		jbObjectsDelete.setAction(objectDeleteAction);
+		jbObjectsInsert.setAction(objectsInsertAction);
+		jbObjectsDelete.setAction(objectsDeleteAction);
 
-		jbLinksInsert.setAction(linkInsertAction);
-		jbLinksDelete.setAction(linkDeleteAction);
+		jbLinksInsert.setAction(linksInsertAction);
+		jbLinksDelete.setAction(linksDeleteAction);
 
-		jbAttributesInsert.setAction(attributeInsertAction);
-		jbAttributesDelete.setAction(attributeDeleteAction);
+		jbAttributesInsert.setAction(attributesInsertAction);
+		jbAttributesDelete.setAction(attributesDeleteAction);
 
 		jbSystemTransformationsInsert.setAction(systemTransformationsInsertAction);
 		jbSystemTransformationsDelete.setAction(systemTransformationsDeleteAction);
@@ -162,19 +162,19 @@ public class EditorFrame extends javax.swing.JFrame {
 		jbObjectTemplateInsert.setAction(objectTemplateInsertAction);
 		jbObjectTemplateDelete.setAction(objectTemplateDeleteAction);
 
-		jbLinkTemplatesInsert.setAction(linkTemplateInsertAction);
-		jbLinkTemplatesDelete.setAction(linkTemplateDeleteAction);
+		jbLinkTemplatesInsert.setAction(linkTemplatesInsertAction);
+		jbLinkTemplatesDelete.setAction(linkTemplatesDeleteAction);
 
 		jbAttributeTemplateInsert.setAction(attributeTemplateInsertAction);
 		jbAttributeTemplateDelete.setAction(attributeTemplateDeleteAction);
 
-		jbActionFunctionsInsert.setAction(actionFunctionsInsertActionFunction);
-		jbActionFunctionsDelete.setAction(actionFunctionsDeleteActionFunction);
+		jbActionFunctionsInsert.setAction(actionFunctionsInsertAction);
+		jbActionFunctionsDelete.setAction(actionFunctionsDeleteAction);
 
-		jbTransformationsInsertTransformation.setAction(transformationsInsertTransformation);
-		jbTransformationsInsertLinkTransformation.setAction(transformationsInsertLinkTransformation);
-		jbTransformationsInserAttributeTransformation.setAction(transformationsInsertAttributeTransformation);
-		jbTransformationsDelete.setAction(transformationsDeleteTransformation);
+		jbTransformationsInsertTransformation.setAction(transformationsInsertTransformationAction);
+		jbTransformationsInsertLinkTransformation.setAction(transformationsInsertLinkTransformationAction);
+		jbTransformationsInserAttributeTransformation.setAction(transformationsInsertAttributeTransformationAction);
+		jbTransformationsDelete.setAction(transformationsDeleteTransformationAction);
 	}
 
 	Action taskDescriptionLoadAction = new AbstractAction("Load") {
@@ -237,7 +237,7 @@ public class EditorFrame extends javax.swing.JFrame {
 		}
 	};
 
-	Action objectInsertAction = new AbstractAction("Insert") {
+	Action objectsInsertAction = new AbstractAction("Insert") {
 		private static final long serialVersionUID = -1700274277944696641L;
 
 		@Override
@@ -246,7 +246,7 @@ public class EditorFrame extends javax.swing.JFrame {
 		}
 	};
 
-	Action objectDeleteAction = new AbstractAction("Delete") {
+	Action objectsDeleteAction = new AbstractAction("Delete") {
 		private static final long serialVersionUID = 7657799313389376389L;
 
 		@Override
@@ -256,7 +256,7 @@ public class EditorFrame extends javax.swing.JFrame {
 		}
 	};
 
-	Action linkInsertAction = new AbstractAction("Insert") {
+	Action linksInsertAction = new AbstractAction("Insert") {
 		private static final long serialVersionUID = -9112378954512358406L;
 
 		@Override
@@ -265,7 +265,7 @@ public class EditorFrame extends javax.swing.JFrame {
 		}
 	};
 
-	Action linkDeleteAction = new AbstractAction("Delete") {
+	Action linksDeleteAction = new AbstractAction("Delete") {
 		private static final long serialVersionUID = 5435734964836282376L;
 
 		@Override
@@ -275,7 +275,7 @@ public class EditorFrame extends javax.swing.JFrame {
 		}
 	};
 
-	Action attributeInsertAction = new AbstractAction("Insert") {
+	Action attributesInsertAction = new AbstractAction("Insert") {
 		private static final long serialVersionUID = -9112378954512358406L;
 
 		@Override
@@ -284,7 +284,7 @@ public class EditorFrame extends javax.swing.JFrame {
 		}
 	};
 
-	Action attributeDeleteAction = new AbstractAction("Delete") {
+	Action attributesDeleteAction = new AbstractAction("Delete") {
 		private static final long serialVersionUID = 5435734964836282376L;
 
 		@Override
@@ -332,7 +332,7 @@ public class EditorFrame extends javax.swing.JFrame {
 		}
 	};
 
-	Action linkTemplateInsertAction = new AbstractAction("Insert") {
+	Action linkTemplatesInsertAction = new AbstractAction("Insert") {
 		private static final long serialVersionUID = 6137385685062002073L;
 
 		@Override
@@ -341,7 +341,7 @@ public class EditorFrame extends javax.swing.JFrame {
 		}
 	};
 
-	Action linkTemplateDeleteAction = new AbstractAction("Delete") {
+	Action linkTemplatesDeleteAction = new AbstractAction("Delete") {
 		private static final long serialVersionUID = -3154157962525794280L;
 
 		@Override
@@ -370,7 +370,7 @@ public class EditorFrame extends javax.swing.JFrame {
 		}
 	};
 
-	Action actionFunctionsInsertActionFunction = new AbstractAction("Insert") {
+	Action actionFunctionsInsertAction = new AbstractAction("Insert") {
 		private static final long serialVersionUID = 25200714754072766L;
 
 		@Override
@@ -379,7 +379,7 @@ public class EditorFrame extends javax.swing.JFrame {
 		}
 	};
 
-	Action actionFunctionsDeleteActionFunction = new AbstractAction("Delete") {
+	Action actionFunctionsDeleteAction = new AbstractAction("Delete") {
 		private static final long serialVersionUID = -2297090309084649635L;
 
 		@Override
@@ -389,7 +389,7 @@ public class EditorFrame extends javax.swing.JFrame {
 		}
 	};
 
-	Action transformationsInsertTransformation = new AbstractAction("Insert") {
+	Action transformationsInsertTransformationAction = new AbstractAction("Insert") {
 		private static final long serialVersionUID = 570026072927635395L;
 
 		@Override
@@ -398,7 +398,7 @@ public class EditorFrame extends javax.swing.JFrame {
 		}
 	};
 
-	Action transformationsDeleteTransformation = new AbstractAction("Delete") {
+	Action transformationsDeleteTransformationAction = new AbstractAction("Delete") {
 		private static final long serialVersionUID = -3446892158319364094L;
 
 		@Override
@@ -408,7 +408,7 @@ public class EditorFrame extends javax.swing.JFrame {
 		}
 	};
 
-	Action transformationsInsertLinkTransformation = new AbstractAction("Insert Link") {
+	Action transformationsInsertLinkTransformationAction = new AbstractAction("Insert Link") {
 		private static final long serialVersionUID = -2201493982792914913L;
 
 		@Override
@@ -417,7 +417,7 @@ public class EditorFrame extends javax.swing.JFrame {
 		}
 	};
 
-	Action transformationsInsertAttributeTransformation = new AbstractAction("Insert Attribute") {
+	Action transformationsInsertAttributeTransformationAction = new AbstractAction("Insert Attribute") {
 		private static final long serialVersionUID = -3885835311230793111L;
 
 		@Override
