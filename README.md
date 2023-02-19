@@ -1,4 +1,4 @@
-[![Build Status](https://app.travis-ci.com/kinnder/process-engineering.svg?branch=master)](https://app.travis-ci.com/kinnder/process-engineering)
+[![Java CI](https://github.com/kinnder/process-engineering/actions/workflows/build.yml/badge.svg)](https://github.com/kinnder/process-engineering/actions/workflows/build.yml)
 [![codecov](https://codecov.io/gh/kinnder/process-engineering/branch/master/graph/badge.svg?token=ZpKKwI29vY)](https://codecov.io/gh/kinnder/process-engineering)
 
 # process-planning
