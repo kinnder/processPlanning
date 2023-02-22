@@ -112,6 +112,5 @@ public class ActionFunctionsDataModel extends DefaultTableModel {
 	}
 
 	public void clear() {
-		// TODO Auto-generated method stub
 	}
 }

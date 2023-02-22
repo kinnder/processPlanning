@@ -49,7 +49,6 @@ public class EditorFrame extends javax.swing.JFrame {
 		this.transformationsDataModel = new TransformationsDataModel(editorDataModel);
 
 		initComponents();
-		setActions();
 
 		this.systemDataModel = new SystemDataModel(jtfSystemName, jcbSystemType, editorDataModel);
 		this.objectDataModel = new ObjectDataModel(jtfObjectName, jtfObjectId, editorDataModel);
@@ -66,6 +65,8 @@ public class EditorFrame extends javax.swing.JFrame {
 		this.edgeDataModel = new EdgeDataModel(jtfEdgeId, jtfBeginNodeId, jtfEndNodeId, jtfOperationName, editorDataModel);
 
 		setModels();
+		setActions();
+		setComponents();
 	}
 
 	EditorFrame(Application application, EditorDataModel editorDataModel, SystemDataModel systemDataModel,
@@ -79,7 +80,6 @@ public class EditorFrame extends javax.swing.JFrame {
 		this.transformationsDataModel = transformationsDataModel;
 
 		initComponents();
-		setActions();
 
 		this.systemDataModel = systemDataModel;
 		this.objectDataModel = objectDataModel;
@@ -96,6 +96,8 @@ public class EditorFrame extends javax.swing.JFrame {
 		this.edgeDataModel = edgeDataModel;
 
 		setModels();
+		setActions();
+		setComponents();
 	}
 
 	private EditorDataModel editorDataModel;
@@ -175,6 +177,11 @@ public class EditorFrame extends javax.swing.JFrame {
 		jbTransformationsInsertLinkTransformation.setAction(transformationsInsertLinkTransformationAction);
 		jbTransformationsInserAttributeTransformation.setAction(transformationsInsertAttributeTransformationAction);
 		jbTransformationsDelete.setAction(transformationsDeleteTransformationAction);
+	}
+
+	private void setComponents() {
+		objectDataModel.setComponents(jtAttributes);
+		objectTemplateDataModel.setComponents(jtAttributeTemplates);
 	}
 
 	Action taskDescriptionLoadAction = new AbstractAction("Load") {

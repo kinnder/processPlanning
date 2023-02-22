@@ -5,6 +5,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.DefaultCellEditor;
+import javax.swing.JTable;
+import javax.swing.table.TableColumn;
+import javax.swing.table.TableColumnModel;
 import javax.swing.tree.DefaultMutableTreeNode;
 
 import org.jmock.Expectations;
@@ -939,5 +943,27 @@ public class AttributeTemplatesDataModelTest {
 	@Test
 	public void clear() {
 		testable.clear();
+	}
+
+	@Test
+	public void setColumnCellEditors() {
+		final JTable jTable_mock = context.mock(JTable.class);
+		final TableColumnModel tableColumnModel_mock = context.mock(TableColumnModel.class);
+		final TableColumn tableColumn_mock = context.mock(TableColumn.class);
+
+		context.checking(new Expectations() {
+			{
+				oneOf(jTable_mock).getColumnModel();
+				will(returnValue(tableColumnModel_mock));
+
+				oneOf(tableColumnModel_mock).getColumn(1);
+				will(returnValue(tableColumn_mock));
+
+				// TODO (2023-02-22 #82): добавить Matcher для DefaultCellEditor
+				oneOf(tableColumn_mock).setCellEditor(with(any(DefaultCellEditor.class)));
+			}
+		});
+
+		testable.setColumnCellEditors(jTable_mock);
 	}
 }

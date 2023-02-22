@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.tree.DefaultMutableTreeNode;
 
@@ -193,5 +194,18 @@ public class ObjectTemplateDataModelTest {
 		});
 
 		testable.deleteAttributeTemplate(2);
+	}
+
+	@Test
+	public void setComponents() {
+		final JTable jTable_mock = context.mock(JTable.class);
+
+		context.checking(new Expectations() {
+			{
+				oneOf(attributeTemplatesDataModel_mock).setColumnCellEditors(jTable_mock);
+			}
+		});
+
+		testable.setComponents(jTable_mock);
 	}
 }

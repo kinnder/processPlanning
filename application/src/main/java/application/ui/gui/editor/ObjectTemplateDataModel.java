@@ -3,6 +3,7 @@ package application.ui.gui.editor;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
+import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.tree.DefaultMutableTreeNode;
 
@@ -84,5 +85,9 @@ public class ObjectTemplateDataModel {
 
 	public void deleteAttributeTemplate(int idx) {
 		attributeTemplatesDataModel.deleteAttributeTemplate(idx);
+	}
+
+	public void setComponents(JTable attributeTemplatesTable) {
+		attributeTemplatesDataModel.setColumnCellEditors(attributeTemplatesTable);
 	}
 }

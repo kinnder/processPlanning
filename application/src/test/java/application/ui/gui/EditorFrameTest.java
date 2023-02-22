@@ -5,6 +5,7 @@ import java.awt.GraphicsEnvironment;
 import java.awt.event.ActionEvent;
 
 import javax.swing.Action;
+import javax.swing.JTable;
 import javax.swing.event.TableModelListener;
 import javax.swing.event.TreeModelListener;
 import javax.swing.tree.MutableTreeNode;
@@ -289,6 +290,10 @@ public class EditorFrameTest {
 				will(returnValue(0));
 
 				// -->
+
+				oneOf(objectDataModel_mock).setComponents(with(any(JTable.class)));
+
+				oneOf(objectTemplateDataModel_mock).setComponents(with(any(JTable.class)));
 			}
 		});
 

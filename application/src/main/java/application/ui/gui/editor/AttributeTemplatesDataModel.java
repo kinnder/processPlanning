@@ -2,13 +2,21 @@ package application.ui.gui.editor;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.swing.DefaultCellEditor;
+import javax.swing.JComboBox;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.tree.DefaultMutableTreeNode;
 
 import planning.model.AttributeTemplate;
+import planning.model.AttributeType;
 import planning.model.SystemObjectTemplate;
 
 public class AttributeTemplatesDataModel extends DefaultTableModel {
+
+	// TODO (2023-02-23 #82): включить проверку copy-paste
+	// CPD-OFF
 
 	private static final long serialVersionUID = -1944552811851244410L;
 
@@ -159,4 +167,16 @@ public class AttributeTemplatesDataModel extends DefaultTableModel {
 
 	public void clear() {
 	}
+
+	public void setColumnCellEditors(JTable table) {
+		final JComboBox<String> comboBox = new JComboBox<>();
+		for (AttributeType value : AttributeType.values()) {
+			comboBox.addItem(value.toString());
+		}
+		table.getColumnModel().getColumn(AttributeTemplatesDataModel.COLUMN_IDX_TYPE)
+				.setCellEditor(new DefaultCellEditor(comboBox));
+	}
+
+	// TODO (2023-02-23 #82): включить проверку copy-paste
+	// CPD-ON
 }
