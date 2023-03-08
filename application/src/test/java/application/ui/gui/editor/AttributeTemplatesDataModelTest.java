@@ -20,6 +20,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
 import planning.model.AttributeTemplate;
+import planning.model.AttributeType;
 import planning.model.SystemObjectTemplate;
 
 public class AttributeTemplatesDataModelTest {
@@ -178,7 +179,7 @@ public class AttributeTemplatesDataModelTest {
 	}
 
 	@Test
-	public void setValueAt_type_boolean() {
+	public void setValueAt_type() {
 		final SystemObjectTemplate selectedObjectTemplate_mock = context.mock(SystemObjectTemplate.class);
 		final DefaultMutableTreeNode selectedNode_mock = context.mock(DefaultMutableTreeNode.class);
 		final List<AttributeTemplate> attributeTemplates = new ArrayList<AttributeTemplate>();
@@ -197,10 +198,7 @@ public class AttributeTemplatesDataModelTest {
 
 		context.checking(new Expectations() {
 			{
-				oneOf(attributeTemplate_1_mock).getValue();
-				will(returnValue("true"));
-
-				oneOf(attributeTemplate_1_mock).setValue(Boolean.TRUE);
+				oneOf(attributeTemplate_1_mock).setType(AttributeType.BOOLEAN);
 
 				oneOf(editorDataModel_mock).nodeChanged(selectedNode_mock);
 			}
@@ -210,7 +208,7 @@ public class AttributeTemplatesDataModelTest {
 	}
 
 	@Test
-	public void setValueAt_type_boolean_null() {
+	public void setValueAt_value() {
 		final SystemObjectTemplate selectedObjectTemplate_mock = context.mock(SystemObjectTemplate.class);
 		final DefaultMutableTreeNode selectedNode_mock = context.mock(DefaultMutableTreeNode.class);
 		final List<AttributeTemplate> attributeTemplates = new ArrayList<AttributeTemplate>();
@@ -229,415 +227,13 @@ public class AttributeTemplatesDataModelTest {
 
 		context.checking(new Expectations() {
 			{
-				oneOf(attributeTemplate_1_mock).getValue();
-				will(returnValue(null));
-
-				oneOf(attributeTemplate_1_mock).setValue(null);
+				oneOf(attributeTemplate_1_mock).setValue("new-value");
 
 				oneOf(editorDataModel_mock).nodeChanged(selectedNode_mock);
 			}
 		});
 
-		testable.setValueAt("boolean", 0, AttributeTemplatesDataModel.COLUMN_IDX_TYPE);
-	}
-
-	@Test
-	public void setValueAt_type_integer() {
-		final SystemObjectTemplate selectedObjectTemplate_mock = context.mock(SystemObjectTemplate.class);
-		final DefaultMutableTreeNode selectedNode_mock = context.mock(DefaultMutableTreeNode.class);
-		final List<AttributeTemplate> attributeTemplates = new ArrayList<AttributeTemplate>();
-		final AttributeTemplate attributeTemplate_1_mock = context.mock(AttributeTemplate.class, "attributeTemplate-1");
-		final AttributeTemplate attributeTemplate_2_mock = context.mock(AttributeTemplate.class, "attributeTemplate-2");
-		attributeTemplates.add(attributeTemplate_1_mock);
-		attributeTemplates.add(attributeTemplate_2_mock);
-
-		context.checking(new Expectations() {
-			{
-				oneOf(selectedObjectTemplate_mock).getAttributeTemplates();
-				will(returnValue(attributeTemplates));
-			}
-		});
-		testable.loadAttributeTemplates(selectedObjectTemplate_mock, selectedNode_mock);
-
-		context.checking(new Expectations() {
-			{
-				oneOf(attributeTemplate_1_mock).getValue();
-				will(returnValue("10"));
-
-				oneOf(attributeTemplate_1_mock).setValue(Integer.valueOf(10));
-
-				oneOf(editorDataModel_mock).nodeChanged(selectedNode_mock);
-			}
-		});
-
-		testable.setValueAt("integer", 0, AttributeTemplatesDataModel.COLUMN_IDX_TYPE);
-	}
-
-	@Test
-	public void setValueAt_type_integer_null() {
-		final SystemObjectTemplate selectedObjectTemplate_mock = context.mock(SystemObjectTemplate.class);
-		final DefaultMutableTreeNode selectedNode_mock = context.mock(DefaultMutableTreeNode.class);
-		final List<AttributeTemplate> attributeTemplates = new ArrayList<AttributeTemplate>();
-		final AttributeTemplate attributeTemplate_1_mock = context.mock(AttributeTemplate.class, "attributeTemplate-1");
-		final AttributeTemplate attributeTemplate_2_mock = context.mock(AttributeTemplate.class, "attributeTemplate-2");
-		attributeTemplates.add(attributeTemplate_1_mock);
-		attributeTemplates.add(attributeTemplate_2_mock);
-
-		context.checking(new Expectations() {
-			{
-				oneOf(selectedObjectTemplate_mock).getAttributeTemplates();
-				will(returnValue(attributeTemplates));
-			}
-		});
-		testable.loadAttributeTemplates(selectedObjectTemplate_mock, selectedNode_mock);
-
-		context.checking(new Expectations() {
-			{
-				oneOf(attributeTemplate_1_mock).getValue();
-				will(returnValue(null));
-
-				oneOf(attributeTemplate_1_mock).setValue(null);
-
-				oneOf(editorDataModel_mock).nodeChanged(selectedNode_mock);
-			}
-		});
-
-		testable.setValueAt("integer", 0, AttributeTemplatesDataModel.COLUMN_IDX_TYPE);
-	}
-
-	@Test
-	public void setValueAt_type_string() {
-		final SystemObjectTemplate selectedObjectTemplate_mock = context.mock(SystemObjectTemplate.class);
-		final DefaultMutableTreeNode selectedNode_mock = context.mock(DefaultMutableTreeNode.class);
-		final List<AttributeTemplate> attributeTemplates = new ArrayList<AttributeTemplate>();
-		final AttributeTemplate attributeTemplate_1_mock = context.mock(AttributeTemplate.class, "attributeTemplate-1");
-		final AttributeTemplate attributeTemplate_2_mock = context.mock(AttributeTemplate.class, "attributeTemplate-2");
-		attributeTemplates.add(attributeTemplate_1_mock);
-		attributeTemplates.add(attributeTemplate_2_mock);
-
-		context.checking(new Expectations() {
-			{
-				oneOf(selectedObjectTemplate_mock).getAttributeTemplates();
-				will(returnValue(attributeTemplates));
-			}
-		});
-		testable.loadAttributeTemplates(selectedObjectTemplate_mock, selectedNode_mock);
-
-		context.checking(new Expectations() {
-			{
-				oneOf(attributeTemplate_1_mock).getValue();
-				will(returnValue("test-string"));
-
-				oneOf(attributeTemplate_1_mock).setValue("test-string");
-
-				oneOf(editorDataModel_mock).nodeChanged(selectedNode_mock);
-			}
-		});
-
-		testable.setValueAt("string", 0, AttributeTemplatesDataModel.COLUMN_IDX_TYPE);
-	}
-
-	@Test
-	public void setValueAt_type_string_null() {
-		final SystemObjectTemplate selectedObjectTemplate_mock = context.mock(SystemObjectTemplate.class);
-		final DefaultMutableTreeNode selectedNode_mock = context.mock(DefaultMutableTreeNode.class);
-		final List<AttributeTemplate> attributeTemplates = new ArrayList<AttributeTemplate>();
-		final AttributeTemplate attributeTemplate_1_mock = context.mock(AttributeTemplate.class, "attributeTemplate-1");
-		final AttributeTemplate attributeTemplate_2_mock = context.mock(AttributeTemplate.class, "attributeTemplate-2");
-		attributeTemplates.add(attributeTemplate_1_mock);
-		attributeTemplates.add(attributeTemplate_2_mock);
-
-		context.checking(new Expectations() {
-			{
-				oneOf(selectedObjectTemplate_mock).getAttributeTemplates();
-				will(returnValue(attributeTemplates));
-			}
-		});
-		testable.loadAttributeTemplates(selectedObjectTemplate_mock, selectedNode_mock);
-
-		context.checking(new Expectations() {
-			{
-				oneOf(attributeTemplate_1_mock).getValue();
-				will(returnValue(null));
-
-				oneOf(attributeTemplate_1_mock).setValue(null);
-
-				oneOf(editorDataModel_mock).nodeChanged(selectedNode_mock);
-			}
-		});
-
-		testable.setValueAt("string", 0, AttributeTemplatesDataModel.COLUMN_IDX_TYPE);
-	}
-
-	@Test
-	public void setValueAt_type_unknown() {
-		final SystemObjectTemplate selectedObjectTemplate_mock = context.mock(SystemObjectTemplate.class);
-		final DefaultMutableTreeNode selectedNode_mock = context.mock(DefaultMutableTreeNode.class);
-		final List<AttributeTemplate> attributeTemplates = new ArrayList<AttributeTemplate>();
-		final AttributeTemplate attributeTemplate_1_mock = context.mock(AttributeTemplate.class, "attributeTemplate-1");
-		final AttributeTemplate attributeTemplate_2_mock = context.mock(AttributeTemplate.class, "attributeTemplate-2");
-		attributeTemplates.add(attributeTemplate_1_mock);
-		attributeTemplates.add(attributeTemplate_2_mock);
-
-		context.checking(new Expectations() {
-			{
-				oneOf(selectedObjectTemplate_mock).getAttributeTemplates();
-				will(returnValue(attributeTemplates));
-			}
-		});
-		testable.loadAttributeTemplates(selectedObjectTemplate_mock, selectedNode_mock);
-
-		context.checking(new Expectations() {
-			{
-				oneOf(editorDataModel_mock).nodeChanged(selectedNode_mock);
-			}
-		});
-
-		testable.setValueAt("unknown", 0, AttributeTemplatesDataModel.COLUMN_IDX_TYPE);
-	}
-
-	@SuppressWarnings("unchecked")
-	@Test
-	public void setValueAt_value_boolean() {
-		final SystemObjectTemplate selectedObjectTemplate_mock = context.mock(SystemObjectTemplate.class);
-		final DefaultMutableTreeNode selectedNode_mock = context.mock(DefaultMutableTreeNode.class);
-		final List<AttributeTemplate> attributeTemplates = new ArrayList<AttributeTemplate>();
-		final AttributeTemplate attributeTemplate_1_mock = context.mock(AttributeTemplate.class, "attributeTemplate-1");
-		final AttributeTemplate attributeTemplate_2_mock = context.mock(AttributeTemplate.class, "attributeTemplate-2");
-		attributeTemplates.add(attributeTemplate_1_mock);
-		attributeTemplates.add(attributeTemplate_2_mock);
-
-		context.checking(new Expectations() {
-			{
-				oneOf(selectedObjectTemplate_mock).getAttributeTemplates();
-				will(returnValue(attributeTemplates));
-			}
-		});
-		testable.loadAttributeTemplates(selectedObjectTemplate_mock, selectedNode_mock);
-
-		context.checking(new Expectations() {
-			{
-				oneOf(attributeTemplate_1_mock).setValue(Boolean.TRUE);
-
-				oneOf(editorDataModel_mock).nodeChanged(selectedNode_mock);
-			}
-		});
-
-		testable.getDataVector().get(0).set(1, "boolean");
-		testable.setValueAt("true", 0, AttributeTemplatesDataModel.COLUMN_IDX_VALUE);
-	}
-
-	@SuppressWarnings("unchecked")
-	@Test
-	public void setValueAt_value_boolean_null() {
-		final SystemObjectTemplate selectedObjectTemplate_mock = context.mock(SystemObjectTemplate.class);
-		final DefaultMutableTreeNode selectedNode_mock = context.mock(DefaultMutableTreeNode.class);
-		final List<AttributeTemplate> attributeTemplates = new ArrayList<AttributeTemplate>();
-		final AttributeTemplate attributeTemplate_1_mock = context.mock(AttributeTemplate.class, "attributeTemplate-1");
-		final AttributeTemplate attributeTemplate_2_mock = context.mock(AttributeTemplate.class, "attributeTemplate-2");
-		attributeTemplates.add(attributeTemplate_1_mock);
-		attributeTemplates.add(attributeTemplate_2_mock);
-
-		context.checking(new Expectations() {
-			{
-				oneOf(selectedObjectTemplate_mock).getAttributeTemplates();
-				will(returnValue(attributeTemplates));
-			}
-		});
-		testable.loadAttributeTemplates(selectedObjectTemplate_mock, selectedNode_mock);
-
-		context.checking(new Expectations() {
-			{
-				oneOf(attributeTemplate_1_mock).setValue(null);
-
-				oneOf(editorDataModel_mock).nodeChanged(selectedNode_mock);
-			}
-		});
-
-		testable.getDataVector().get(0).set(1, "boolean");
-		testable.setValueAt(null, 0, AttributeTemplatesDataModel.COLUMN_IDX_VALUE);
-	}
-
-	@SuppressWarnings("unchecked")
-	@Test
-	public void setValueAt_value_integer() {
-		final SystemObjectTemplate selectedObjectTemplate_mock = context.mock(SystemObjectTemplate.class);
-		final DefaultMutableTreeNode selectedNode_mock = context.mock(DefaultMutableTreeNode.class);
-		final List<AttributeTemplate> attributeTemplates = new ArrayList<AttributeTemplate>();
-		final AttributeTemplate attributeTemplate_1_mock = context.mock(AttributeTemplate.class, "attributeTemplate-1");
-		final AttributeTemplate attributeTemplate_2_mock = context.mock(AttributeTemplate.class, "attributeTemplate-2");
-		attributeTemplates.add(attributeTemplate_1_mock);
-		attributeTemplates.add(attributeTemplate_2_mock);
-
-		context.checking(new Expectations() {
-			{
-				oneOf(selectedObjectTemplate_mock).getAttributeTemplates();
-				will(returnValue(attributeTemplates));
-			}
-		});
-		testable.loadAttributeTemplates(selectedObjectTemplate_mock, selectedNode_mock);
-
-		context.checking(new Expectations() {
-			{
-				oneOf(attributeTemplate_1_mock).setValue(Integer.valueOf(10));
-
-				oneOf(editorDataModel_mock).nodeChanged(selectedNode_mock);
-			}
-		});
-
-		testable.getDataVector().get(0).set(1, "integer");
-		testable.setValueAt("10", 0, AttributeTemplatesDataModel.COLUMN_IDX_VALUE);
-	}
-
-	@SuppressWarnings("unchecked")
-	@Test
-	public void setValueAt_value_integer_null() {
-		final SystemObjectTemplate selectedObjectTemplate_mock = context.mock(SystemObjectTemplate.class);
-		final DefaultMutableTreeNode selectedNode_mock = context.mock(DefaultMutableTreeNode.class);
-		final List<AttributeTemplate> attributeTemplates = new ArrayList<AttributeTemplate>();
-		final AttributeTemplate attributeTemplate_1_mock = context.mock(AttributeTemplate.class, "attributeTemplate-1");
-		final AttributeTemplate attributeTemplate_2_mock = context.mock(AttributeTemplate.class, "attributeTemplate-2");
-		attributeTemplates.add(attributeTemplate_1_mock);
-		attributeTemplates.add(attributeTemplate_2_mock);
-
-		context.checking(new Expectations() {
-			{
-				oneOf(selectedObjectTemplate_mock).getAttributeTemplates();
-				will(returnValue(attributeTemplates));
-			}
-		});
-		testable.loadAttributeTemplates(selectedObjectTemplate_mock, selectedNode_mock);
-
-		context.checking(new Expectations() {
-			{
-				oneOf(attributeTemplate_1_mock).setValue(null);
-
-				oneOf(editorDataModel_mock).nodeChanged(selectedNode_mock);
-			}
-		});
-
-		testable.getDataVector().get(0).set(1, "integer");
-		testable.setValueAt(null, 0, AttributeTemplatesDataModel.COLUMN_IDX_VALUE);
-	}
-
-	@SuppressWarnings("unchecked")
-	@Test
-	public void setValueAt_value_string() {
-		final SystemObjectTemplate selectedObjectTemplate_mock = context.mock(SystemObjectTemplate.class);
-		final DefaultMutableTreeNode selectedNode_mock = context.mock(DefaultMutableTreeNode.class);
-		final List<AttributeTemplate> attributeTemplates = new ArrayList<AttributeTemplate>();
-		final AttributeTemplate attributeTemplate_1_mock = context.mock(AttributeTemplate.class, "attributeTemplate-1");
-		final AttributeTemplate attributeTemplate_2_mock = context.mock(AttributeTemplate.class, "attributeTemplate-2");
-		attributeTemplates.add(attributeTemplate_1_mock);
-		attributeTemplates.add(attributeTemplate_2_mock);
-
-		context.checking(new Expectations() {
-			{
-				oneOf(selectedObjectTemplate_mock).getAttributeTemplates();
-				will(returnValue(attributeTemplates));
-			}
-		});
-		testable.loadAttributeTemplates(selectedObjectTemplate_mock, selectedNode_mock);
-
-		context.checking(new Expectations() {
-			{
-				oneOf(attributeTemplate_1_mock).setValue("test-string");
-
-				oneOf(editorDataModel_mock).nodeChanged(selectedNode_mock);
-			}
-		});
-
-		testable.getDataVector().get(0).set(1, "string");
-		testable.setValueAt("test-string", 0, AttributeTemplatesDataModel.COLUMN_IDX_VALUE);
-	}
-
-	@SuppressWarnings("unchecked")
-	@Test
-	public void setValueAt_value_string_null() {
-		final SystemObjectTemplate selectedObjectTemplate_mock = context.mock(SystemObjectTemplate.class);
-		final DefaultMutableTreeNode selectedNode_mock = context.mock(DefaultMutableTreeNode.class);
-		final List<AttributeTemplate> attributeTemplates = new ArrayList<AttributeTemplate>();
-		final AttributeTemplate attributeTemplate_1_mock = context.mock(AttributeTemplate.class, "attributeTemplate-1");
-		final AttributeTemplate attributeTemplate_2_mock = context.mock(AttributeTemplate.class, "attributeTemplate-2");
-		attributeTemplates.add(attributeTemplate_1_mock);
-		attributeTemplates.add(attributeTemplate_2_mock);
-
-		context.checking(new Expectations() {
-			{
-				oneOf(selectedObjectTemplate_mock).getAttributeTemplates();
-				will(returnValue(attributeTemplates));
-			}
-		});
-		testable.loadAttributeTemplates(selectedObjectTemplate_mock, selectedNode_mock);
-
-		context.checking(new Expectations() {
-			{
-				oneOf(attributeTemplate_1_mock).setValue(null);
-
-				oneOf(editorDataModel_mock).nodeChanged(selectedNode_mock);
-			}
-		});
-
-		testable.getDataVector().get(0).set(1, "string");
-		testable.setValueAt(null, 0, AttributeTemplatesDataModel.COLUMN_IDX_VALUE);
-	}
-
-	@Test
-	public void setValueAt_value_unknown() {
-		final SystemObjectTemplate selectedObjectTemplate_mock = context.mock(SystemObjectTemplate.class);
-		final DefaultMutableTreeNode selectedNode_mock = context.mock(DefaultMutableTreeNode.class);
-		final List<AttributeTemplate> attributeTemplates = new ArrayList<AttributeTemplate>();
-		final AttributeTemplate attributeTemplate_1_mock = context.mock(AttributeTemplate.class, "attributeTemplate-1");
-		final AttributeTemplate attributeTemplate_2_mock = context.mock(AttributeTemplate.class, "attributeTemplate-2");
-		attributeTemplates.add(attributeTemplate_1_mock);
-		attributeTemplates.add(attributeTemplate_2_mock);
-
-		context.checking(new Expectations() {
-			{
-				oneOf(selectedObjectTemplate_mock).getAttributeTemplates();
-				will(returnValue(attributeTemplates));
-			}
-		});
-		testable.loadAttributeTemplates(selectedObjectTemplate_mock, selectedNode_mock);
-
-		context.checking(new Expectations() {
-			{
-				oneOf(attributeTemplate_1_mock).setValue("unknown-value");
-
-				oneOf(editorDataModel_mock).nodeChanged(selectedNode_mock);
-			}
-		});
-
-		testable.setValueAt("unknown-value", 0, AttributeTemplatesDataModel.COLUMN_IDX_VALUE);
-	}
-
-	@Test
-	public void setValueAt_value_unknown_null() {
-		final SystemObjectTemplate selectedObjectTemplate_mock = context.mock(SystemObjectTemplate.class);
-		final DefaultMutableTreeNode selectedNode_mock = context.mock(DefaultMutableTreeNode.class);
-		final List<AttributeTemplate> attributeTemplates = new ArrayList<AttributeTemplate>();
-		final AttributeTemplate attributeTemplate_1_mock = context.mock(AttributeTemplate.class, "attributeTemplate-1");
-		final AttributeTemplate attributeTemplate_2_mock = context.mock(AttributeTemplate.class, "attributeTemplate-2");
-		attributeTemplates.add(attributeTemplate_1_mock);
-		attributeTemplates.add(attributeTemplate_2_mock);
-
-		context.checking(new Expectations() {
-			{
-				oneOf(selectedObjectTemplate_mock).getAttributeTemplates();
-				will(returnValue(attributeTemplates));
-			}
-		});
-		testable.loadAttributeTemplates(selectedObjectTemplate_mock, selectedNode_mock);
-
-		context.checking(new Expectations() {
-			{
-				oneOf(attributeTemplate_1_mock).setValue(null);
-
-				oneOf(editorDataModel_mock).nodeChanged(selectedNode_mock);
-			}
-		});
-
-		testable.setValueAt(null, 0, AttributeTemplatesDataModel.COLUMN_IDX_VALUE);
+		testable.setValueAt("new-value", 0, AttributeTemplatesDataModel.COLUMN_IDX_VALUE);
 	}
 
 	@Test
@@ -696,7 +292,7 @@ public class AttributeTemplatesDataModelTest {
 	}
 
 	@Test
-	public void getValueAt_type_boolean() {
+	public void getValueAt_type() {
 		final SystemObjectTemplate selectedObjectTemplate_mock = context.mock(SystemObjectTemplate.class);
 		final DefaultMutableTreeNode selectedNode_mock = context.mock(DefaultMutableTreeNode.class);
 		final List<AttributeTemplate> attributeTemplates = new ArrayList<AttributeTemplate>();
@@ -715,16 +311,16 @@ public class AttributeTemplatesDataModelTest {
 
 		context.checking(new Expectations() {
 			{
-				oneOf(attributeTemplate_1_mock).getValue();
-				will(returnValue(Boolean.TRUE));
+				oneOf(attributeTemplate_1_mock).getType();
+				will(returnValue(AttributeType.BOOLEAN));
 			}
 		});
 
-		assertEquals("boolean", testable.getValueAt(0, AttributeTemplatesDataModel.COLUMN_IDX_TYPE));
+		assertEquals(AttributeType.BOOLEAN, testable.getValueAt(0, AttributeTemplatesDataModel.COLUMN_IDX_TYPE));
 	}
 
 	@Test
-	public void getValueAt_type_integer() {
+	public void getValueAt_value() {
 		final SystemObjectTemplate selectedObjectTemplate_mock = context.mock(SystemObjectTemplate.class);
 		final DefaultMutableTreeNode selectedNode_mock = context.mock(DefaultMutableTreeNode.class);
 		final List<AttributeTemplate> attributeTemplates = new ArrayList<AttributeTemplate>();
@@ -744,179 +340,11 @@ public class AttributeTemplatesDataModelTest {
 		context.checking(new Expectations() {
 			{
 				oneOf(attributeTemplate_1_mock).getValue();
-				will(returnValue(Integer.valueOf(10)));
+				will(returnValue("abc"));
 			}
 		});
 
-		assertEquals("integer", testable.getValueAt(0, AttributeTemplatesDataModel.COLUMN_IDX_TYPE));
-	}
-
-	@Test
-	public void getValueAt_type_string() {
-		final SystemObjectTemplate selectedObjectTemplate_mock = context.mock(SystemObjectTemplate.class);
-		final DefaultMutableTreeNode selectedNode_mock = context.mock(DefaultMutableTreeNode.class);
-		final List<AttributeTemplate> attributeTemplates = new ArrayList<AttributeTemplate>();
-		final AttributeTemplate attributeTemplate_1_mock = context.mock(AttributeTemplate.class, "attributeTemplate-1");
-		final AttributeTemplate attributeTemplate_2_mock = context.mock(AttributeTemplate.class, "attributeTemplate-2");
-		attributeTemplates.add(attributeTemplate_1_mock);
-		attributeTemplates.add(attributeTemplate_2_mock);
-
-		context.checking(new Expectations() {
-			{
-				oneOf(selectedObjectTemplate_mock).getAttributeTemplates();
-				will(returnValue(attributeTemplates));
-			}
-		});
-		testable.loadAttributeTemplates(selectedObjectTemplate_mock, selectedNode_mock);
-
-		context.checking(new Expectations() {
-			{
-				oneOf(attributeTemplate_1_mock).getValue();
-				will(returnValue("value"));
-			}
-		});
-
-		assertEquals("string", testable.getValueAt(0, AttributeTemplatesDataModel.COLUMN_IDX_TYPE));
-	}
-
-	@Test
-	public void getValueAt_type_unknown() {
-		final SystemObjectTemplate selectedObjectTemplate_mock = context.mock(SystemObjectTemplate.class);
-		final DefaultMutableTreeNode selectedNode_mock = context.mock(DefaultMutableTreeNode.class);
-		final List<AttributeTemplate> attributeTemplates = new ArrayList<AttributeTemplate>();
-		final AttributeTemplate attributeTemplate_1_mock = context.mock(AttributeTemplate.class, "attributeTemplate-1");
-		final AttributeTemplate attributeTemplate_2_mock = context.mock(AttributeTemplate.class, "attributeTemplate-2");
-		attributeTemplates.add(attributeTemplate_1_mock);
-		attributeTemplates.add(attributeTemplate_2_mock);
-
-		context.checking(new Expectations() {
-			{
-				oneOf(selectedObjectTemplate_mock).getAttributeTemplates();
-				will(returnValue(attributeTemplates));
-			}
-		});
-		testable.loadAttributeTemplates(selectedObjectTemplate_mock, selectedNode_mock);
-
-		context.checking(new Expectations() {
-			{
-				oneOf(attributeTemplate_1_mock).getValue();
-				will(returnValue(null));
-			}
-		});
-
-		assertEquals("", testable.getValueAt(0, AttributeTemplatesDataModel.COLUMN_IDX_TYPE));
-	}
-
-	@Test
-	public void getValueAt_value_boolean() {
-		final SystemObjectTemplate selectedObjectTemplate_mock = context.mock(SystemObjectTemplate.class);
-		final DefaultMutableTreeNode selectedNode_mock = context.mock(DefaultMutableTreeNode.class);
-		final List<AttributeTemplate> attributeTemplates = new ArrayList<AttributeTemplate>();
-		final AttributeTemplate attributeTemplate_1_mock = context.mock(AttributeTemplate.class, "attributeTemplate-1");
-		final AttributeTemplate attributeTemplate_2_mock = context.mock(AttributeTemplate.class, "attributeTemplate-2");
-		attributeTemplates.add(attributeTemplate_1_mock);
-		attributeTemplates.add(attributeTemplate_2_mock);
-
-		context.checking(new Expectations() {
-			{
-				oneOf(selectedObjectTemplate_mock).getAttributeTemplates();
-				will(returnValue(attributeTemplates));
-			}
-		});
-		testable.loadAttributeTemplates(selectedObjectTemplate_mock, selectedNode_mock);
-
-		context.checking(new Expectations() {
-			{
-				oneOf(attributeTemplate_1_mock).getValue();
-				will(returnValue(Boolean.TRUE));
-			}
-		});
-
-		assertEquals("true", testable.getValueAt(0, AttributeTemplatesDataModel.COLUMN_IDX_VALUE));
-	}
-
-	@Test
-	public void getValueAt_value_integer() {
-		final SystemObjectTemplate selectedObjectTemplate_mock = context.mock(SystemObjectTemplate.class);
-		final DefaultMutableTreeNode selectedNode_mock = context.mock(DefaultMutableTreeNode.class);
-		final List<AttributeTemplate> attributeTemplates = new ArrayList<AttributeTemplate>();
-		final AttributeTemplate attributeTemplate_1_mock = context.mock(AttributeTemplate.class, "attributeTemplate-1");
-		final AttributeTemplate attributeTemplate_2_mock = context.mock(AttributeTemplate.class, "attributeTemplate-2");
-		attributeTemplates.add(attributeTemplate_1_mock);
-		attributeTemplates.add(attributeTemplate_2_mock);
-
-		context.checking(new Expectations() {
-			{
-				oneOf(selectedObjectTemplate_mock).getAttributeTemplates();
-				will(returnValue(attributeTemplates));
-			}
-		});
-		testable.loadAttributeTemplates(selectedObjectTemplate_mock, selectedNode_mock);
-
-		context.checking(new Expectations() {
-			{
-				oneOf(attributeTemplate_1_mock).getValue();
-				will(returnValue(Integer.valueOf(10)));
-			}
-		});
-
-		assertEquals("10", testable.getValueAt(0, AttributeTemplatesDataModel.COLUMN_IDX_VALUE));
-	}
-
-	@Test
-	public void getValueAt_value_string() {
-		final SystemObjectTemplate selectedObjectTemplate_mock = context.mock(SystemObjectTemplate.class);
-		final DefaultMutableTreeNode selectedNode_mock = context.mock(DefaultMutableTreeNode.class);
-		final List<AttributeTemplate> attributeTemplates = new ArrayList<AttributeTemplate>();
-		final AttributeTemplate attributeTemplate_1_mock = context.mock(AttributeTemplate.class, "attributeTemplate-1");
-		final AttributeTemplate attributeTemplate_2_mock = context.mock(AttributeTemplate.class, "attributeTemplate-2");
-		attributeTemplates.add(attributeTemplate_1_mock);
-		attributeTemplates.add(attributeTemplate_2_mock);
-
-		context.checking(new Expectations() {
-			{
-				oneOf(selectedObjectTemplate_mock).getAttributeTemplates();
-				will(returnValue(attributeTemplates));
-			}
-		});
-		testable.loadAttributeTemplates(selectedObjectTemplate_mock, selectedNode_mock);
-
-		context.checking(new Expectations() {
-			{
-				oneOf(attributeTemplate_1_mock).getValue();
-				will(returnValue("value"));
-			}
-		});
-
-		assertEquals("value", testable.getValueAt(0, AttributeTemplatesDataModel.COLUMN_IDX_VALUE));
-	}
-
-	@Test
-	public void getValueAt_value_unknown() {
-		final SystemObjectTemplate selectedObjectTemplate_mock = context.mock(SystemObjectTemplate.class);
-		final DefaultMutableTreeNode selectedNode_mock = context.mock(DefaultMutableTreeNode.class);
-		final List<AttributeTemplate> attributeTemplates = new ArrayList<AttributeTemplate>();
-		final AttributeTemplate attributeTemplate_1_mock = context.mock(AttributeTemplate.class, "attributeTemplate-1");
-		final AttributeTemplate attributeTemplate_2_mock = context.mock(AttributeTemplate.class, "attributeTemplate-2");
-		attributeTemplates.add(attributeTemplate_1_mock);
-		attributeTemplates.add(attributeTemplate_2_mock);
-
-		context.checking(new Expectations() {
-			{
-				oneOf(selectedObjectTemplate_mock).getAttributeTemplates();
-				will(returnValue(attributeTemplates));
-			}
-		});
-		testable.loadAttributeTemplates(selectedObjectTemplate_mock, selectedNode_mock);
-
-		context.checking(new Expectations() {
-			{
-				oneOf(attributeTemplate_1_mock).getValue();
-				will(returnValue(null));
-			}
-		});
-
-		assertEquals(null, testable.getValueAt(0, AttributeTemplatesDataModel.COLUMN_IDX_VALUE));
+		assertEquals("abc", testable.getValueAt(0, AttributeTemplatesDataModel.COLUMN_IDX_VALUE));
 	}
 
 	@Test
@@ -956,7 +384,7 @@ public class AttributeTemplatesDataModelTest {
 				oneOf(jTable_mock).getColumnModel();
 				will(returnValue(tableColumnModel_mock));
 
-				oneOf(tableColumnModel_mock).getColumn(1);
+				oneOf(tableColumnModel_mock).getColumn(AttributeTemplatesDataModel.COLUMN_IDX_TYPE);
 				will(returnValue(tableColumn_mock));
 
 				// TODO (2023-02-22 #82): добавить Matcher для DefaultCellEditor

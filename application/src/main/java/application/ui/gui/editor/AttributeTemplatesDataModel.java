@@ -15,21 +15,18 @@ import planning.model.SystemObjectTemplate;
 
 public class AttributeTemplatesDataModel extends DefaultTableModel {
 
-	// TODO (2023-02-23 #82): включить проверку copy-paste
-	// CPD-OFF
-
 	private static final long serialVersionUID = -1944552811851244410L;
 
 	private EditorDataModel editorDataModel;
 
 	public static final int COLUMN_IDX_NAME = 0;
 
-	public static final int COLUMN_IDX_TYPE = 1;
+	public static final int COLUMN_IDX_VALUE = 1;
 
-	public static final int COLUMN_IDX_VALUE = 2;
+	public static final int COLUMN_IDX_TYPE = 2;
 
 	public AttributeTemplatesDataModel(EditorDataModel editorDataModel) {
-		super(new String[] { "name", "type", "value" }, 0);
+		super(new String[] { "name", "value", "type" }, 0);
 		this.editorDataModel = editorDataModel;
 	}
 
@@ -89,39 +86,10 @@ public class AttributeTemplatesDataModel extends DefaultTableModel {
 			attributeTemplate.setName((String) aValue);
 			break;
 		case (COLUMN_IDX_TYPE):
-			// TODO (2022-12-02 #73): перенести в AttributeTemplate
-			if ("boolean".equals(aValue)) {
-				Object valueObject = attributeTemplate.getValue();
-				valueObject = valueObject != null ? Boolean.valueOf(valueObject.toString()) : null;
-				attributeTemplate.setValue(valueObject);
-			} else if ("integer".equals(aValue)) {
-				Object valueObject = attributeTemplate.getValue();
-				valueObject = valueObject != null ? Integer.valueOf(valueObject.toString()) : null;
-				attributeTemplate.setValue(valueObject);
-			} else if ("string".equals(aValue)) {
-				Object valueObject = attributeTemplate.getValue();
-				valueObject = valueObject != null ? valueObject.toString() : null;
-				attributeTemplate.setValue(valueObject);
-			} else {
-				;
-			}
+			attributeTemplate.setType(AttributeType.fromString((String) aValue));
 			break;
 		case (COLUMN_IDX_VALUE):
-			// TODO (2022-12-02 #73): перенести в AttributeTemplate
-			final String type = (String) dataVector.get(row).get(1);
-			if ("boolean".equals(type)) {
-				final Object valueObject = aValue != null ? Boolean.valueOf(aValue.toString()) : null;
-				attributeTemplate.setValue(valueObject);
-			} else if ("integer".equals(type)) {
-				final Object valueObject = aValue != null ? Integer.valueOf(aValue.toString()) : null;
-				attributeTemplate.setValue(valueObject);
-			} else if ("string".equals(type)) {
-				final Object valueObject = aValue != null ? aValue.toString() : null;
-				attributeTemplate.setValue(valueObject);
-			} else {
-				final Object valueObject = aValue != null ? aValue : null;
-				attributeTemplate.setValue(valueObject);
-			}
+			attributeTemplate.setValue(aValue);
 			break;
 		default:
 			break;
@@ -132,34 +100,13 @@ public class AttributeTemplatesDataModel extends DefaultTableModel {
 	@Override
 	public Object getValueAt(int row, int column) {
 		final AttributeTemplate attributeTemplate = attributeTemplates.get(row);
-		Object valueObject;
 		switch (column) {
 		case COLUMN_IDX_NAME:
 			return attributeTemplate.getName();
 		case COLUMN_IDX_TYPE:
-			// TODO (2022-12-02 #73): перенести в AttributeTemplate
-			valueObject = attributeTemplate.getValue();
-			if (valueObject instanceof Boolean) {
-				return "boolean";
-			} else if (valueObject instanceof Integer) {
-				return "integer";
-			} else if (valueObject instanceof String) {
-				return "string";
-			} else {
-				return "";
-			}
+			return attributeTemplate.getType();
 		case COLUMN_IDX_VALUE:
-			// TODO (2022-12-02 #73): перенести в AttributeTemplate
-			valueObject = attributeTemplate.getValue();
-			if (valueObject instanceof Boolean) {
-				return valueObject.toString();
-			} else if (valueObject instanceof Integer) {
-				return valueObject.toString();
-			} else if (valueObject instanceof String) {
-				return valueObject.toString();
-			} else {
-				return valueObject;
-			}
+			return attributeTemplate.getValue();
 		default:
 			return null;
 		}
@@ -176,7 +123,4 @@ public class AttributeTemplatesDataModel extends DefaultTableModel {
 		table.getColumnModel().getColumn(AttributeTemplatesDataModel.COLUMN_IDX_TYPE)
 				.setCellEditor(new DefaultCellEditor(comboBox));
 	}
-
-	// TODO (2023-02-23 #82): включить проверку copy-paste
-	// CPD-ON
 }

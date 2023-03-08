@@ -87,10 +87,9 @@ public class AttributesDataModel extends DefaultTableModel {
 		case (COLUMN_IDX_TYPE):
 			attribute.setType(AttributeType.fromString((String) aValue));
 			break;
-		case (COLUMN_IDX_VALUE): {
+		case (COLUMN_IDX_VALUE):
 			attribute.setValue(aValue);
 			break;
-		}
 		default:
 			break;
 		}

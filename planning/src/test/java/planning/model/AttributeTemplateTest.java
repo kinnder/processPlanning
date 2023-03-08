@@ -103,4 +103,70 @@ public class AttributeTemplateTest {
 		testable.setValue(value_2);
 		assertEquals(value_2, testable.getValue());
 	}
+
+	@Test
+	public void getType() {
+		testable = new AttributeTemplate("attribute", "abc");
+		assertEquals(AttributeType.STRING, testable.getType());
+	}
+
+	@Test
+	public void getType_null() {
+		testable = new AttributeTemplate("attribute");
+		assertEquals(AttributeType.NULL, testable.getType());
+	}
+
+	@Test
+	public void setType_boolean() {
+		testable = new AttributeTemplate("attribute", "true");
+		assertEquals(AttributeType.STRING, testable.getType());
+
+		testable.setType(AttributeType.BOOLEAN);
+		assertEquals(AttributeType.BOOLEAN, testable.getType());
+	}
+
+	@Test
+	public void setType_integer() {
+		testable = new AttributeTemplate("attribute", "345");
+		assertEquals(AttributeType.STRING, testable.getType());
+
+		testable.setType(AttributeType.INTEGER);
+		assertEquals(AttributeType.INTEGER, testable.getType());
+	}
+
+	@Test
+	public void setType_string() {
+		testable = new AttributeTemplate("attribute", false);
+		assertEquals(AttributeType.BOOLEAN, testable.getType());
+
+		testable.setType(AttributeType.STRING);
+		assertEquals(AttributeType.STRING, testable.getType());
+	}
+
+	@Test
+	public void setType_null() {
+		testable = new AttributeTemplate("attribute", true);
+		assertEquals(AttributeType.BOOLEAN, testable.getType());
+
+		testable.setType(AttributeType.NULL);
+		assertEquals(AttributeType.NULL, testable.getType());
+	}
+
+	@Test
+	public void setType_nullValue() {
+		testable = new AttributeTemplate("attribute");
+		assertEquals(AttributeType.NULL, testable.getType());
+
+		testable.setType(AttributeType.OBJECT);
+		assertEquals(AttributeType.NULL, testable.getType());
+	}
+
+	@Test
+	public void setType_object() {
+		testable = new AttributeTemplate("attribute", Float.valueOf(12.3f));
+		assertEquals(AttributeType.OBJECT, testable.getType());
+
+		testable.setType(AttributeType.OBJECT);
+		assertEquals(AttributeType.OBJECT, testable.getType());
+	}
 }
