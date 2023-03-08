@@ -4,12 +4,13 @@ import java.util.UUID;
 
 public class Attribute implements Cloneable {
 
-	private String name;
-
-	private Object value;
-
 	public Attribute() {
 		this.name = "attribute-" + UUID.randomUUID().toString();
+		this.value = null;
+	}
+
+	public Attribute(String name) {
+		this.name = name;
 		this.value = null;
 	}
 
@@ -20,11 +21,10 @@ public class Attribute implements Cloneable {
 
 	@Override
 	public Attribute clone() throws CloneNotSupportedException {
-		final Attribute clone = (Attribute) super.clone();
-		clone.name = name;
-		clone.value = value;
-		return clone;
+		return (Attribute) super.clone();
 	}
+
+	private Object value;
 
 	public String getValueAsString() {
 		return (String) value;
@@ -34,12 +34,16 @@ public class Attribute implements Cloneable {
 		return (boolean) (value);
 	}
 
+	public Integer getValueAsInteger() {
+		return (Integer) value;
+	}
+
 	public Object getValue() {
 		return value;
 	}
 
-	public Integer getValueAsInteger() {
-		return (Integer) value;
+	public void setValue(Object value) {
+		this.value = value;
 	}
 
 	@Override
@@ -57,16 +61,14 @@ public class Attribute implements Cloneable {
 		return false;
 	}
 
+	private String name;
+
 	public String getName() {
 		return this.name;
 	}
 
 	public void setName(String aValue) {
 		this.name = aValue;
-	}
-
-	public void setValue(Object value) {
-		this.value = value;
 	}
 
 	public AttributeTemplate createTemplate() {

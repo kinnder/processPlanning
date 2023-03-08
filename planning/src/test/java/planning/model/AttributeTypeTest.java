@@ -54,4 +54,15 @@ public class AttributeTypeTest {
 	public void toString_string() {
 		assertEquals("string", AttributeType.STRING.toString());
 	}
+
+	@Test
+	public void toString_object() {
+		assertEquals("object", AttributeType.OBJECT.toString());
+	}
+
+	@Test
+	public void fromString_object() {
+		assertEquals(AttributeType.OBJECT, AttributeType.fromString("object"));
+		assertEquals(AttributeType.OBJECT, AttributeType.fromString("OBJECT"));
+	}
 }

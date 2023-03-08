@@ -1,7 +1,7 @@
 package planning.model;
 
 public enum AttributeType {
-	BOOLEAN("boolean"), INTEGER("integer"), STRING("string");
+	BOOLEAN("boolean"), INTEGER("integer"), STRING("string"), OBJECT("object");
 
 	final private String name;
 

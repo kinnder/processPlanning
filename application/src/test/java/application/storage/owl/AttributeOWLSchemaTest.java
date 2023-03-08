@@ -45,7 +45,7 @@ public class AttributeOWLSchemaTest {
 
 	@Test
 	public void combine() {
-		final Attribute attribute = new Attribute("attribute-name", null);
+		final Attribute attribute = new Attribute("attribute-name");
 		final Individual i_attribute_mock = context.mock(Individual.class, "i-attribute");
 		final DatatypeProperty dp_name_mock = context.mock(DatatypeProperty.class, "dp-name");
 

@@ -52,6 +52,6 @@ public class AttributeOWLSchema implements OWLSchema<Attribute> {
 				return new Attribute(name, valueLiteral.getInt());
 			}
 		}
-		return new Attribute(name, null);
+		return new Attribute(name);
 	}
 }

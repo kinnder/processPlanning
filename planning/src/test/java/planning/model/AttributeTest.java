@@ -50,6 +50,13 @@ class AttributeTest {
 	}
 
 	@Test
+	public void newInstance_onlyName() {
+		testable = new Attribute("attribute-with-only-name");
+		assertEquals("attribute-with-only-name", testable.getName());
+		assertNull(testable.getValue());
+	}
+
+	@Test
 	public void clone_test() throws CloneNotSupportedException {
 		Attribute clone = testable.clone();
 		assertTrue(clone != testable);
