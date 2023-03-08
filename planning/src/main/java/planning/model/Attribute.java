@@ -74,4 +74,31 @@ public class Attribute implements Cloneable {
 	public AttributeTemplate createTemplate() {
 		return new AttributeTemplate(name, value);
 	}
+
+	public AttributeType getType() {
+		return AttributeType.fromValue(value);
+	}
+
+	public void setType(AttributeType type) {
+		if (value == null) {
+			return;
+		}
+		switch (type) {
+		case BOOLEAN:
+			value = Boolean.valueOf(value.toString());
+			break;
+		case INTEGER:
+			value = Integer.valueOf(value.toString());
+			break;
+		case STRING:
+			value = value.toString();
+			break;
+		case NULL:
+			value = null;
+			break;
+		case OBJECT:
+		default:
+			break;
+		}
+	}
 }

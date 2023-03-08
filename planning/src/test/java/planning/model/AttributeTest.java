@@ -114,6 +114,13 @@ class AttributeTest {
 	}
 
 	@Test
+	public void getValueAsInteger() {
+		Integer value = Integer.valueOf(123);
+		testable = new Attribute("attribute", value);
+		assertEquals(value, testable.getValueAsInteger());
+	}
+
+	@Test
 	public void getValue() {
 		Object value = new Object();
 		testable = new Attribute("attribute", value);
@@ -121,10 +128,8 @@ class AttributeTest {
 	}
 
 	@Test
-	public void getValueAsInteger() {
-		Integer value = Integer.valueOf(123);
-		testable = new Attribute("attribute", value);
-		assertEquals(value, testable.getValueAsInteger());
+	public void setValue() {
+		testable.setValue("new value");
 	}
 
 	@Test
@@ -139,12 +144,73 @@ class AttributeTest {
 	}
 
 	@Test
-	public void setValue() {
-		testable.setValue("new value");
+	public void createTemplate() {
+		assertNotNull(testable.createTemplate());
 	}
 
 	@Test
-	public void createTemplate() {
-		assertNotNull(testable.createTemplate());
+	public void getType() {
+		testable = new Attribute("attribute", "abc");
+		assertEquals(AttributeType.STRING, testable.getType());
+	}
+
+	@Test
+	public void getType_null() {
+		testable = new Attribute("attribute");
+		assertEquals(AttributeType.NULL, testable.getType());
+	}
+
+	@Test
+	public void setType_boolean() {
+		testable = new Attribute("attribute", "true");
+		assertEquals(AttributeType.STRING, testable.getType());
+
+		testable.setType(AttributeType.BOOLEAN);
+		assertEquals(AttributeType.BOOLEAN, testable.getType());
+	}
+
+	@Test
+	public void setType_integer() {
+		testable = new Attribute("attribute", "345");
+		assertEquals(AttributeType.STRING, testable.getType());
+
+		testable.setType(AttributeType.INTEGER);
+		assertEquals(AttributeType.INTEGER, testable.getType());
+	}
+
+	@Test
+	public void setType_string() {
+		testable = new Attribute("attribute", false);
+		assertEquals(AttributeType.BOOLEAN, testable.getType());
+
+		testable.setType(AttributeType.STRING);
+		assertEquals(AttributeType.STRING, testable.getType());
+	}
+
+	@Test
+	public void setType_null() {
+		testable = new Attribute("attribute", true);
+		assertEquals(AttributeType.BOOLEAN, testable.getType());
+
+		testable.setType(AttributeType.NULL);
+		assertEquals(AttributeType.NULL, testable.getType());
+	}
+
+	@Test
+	public void setType_nullValue() {
+		testable = new Attribute("attribute");
+		assertEquals(AttributeType.NULL, testable.getType());
+
+		testable.setType(AttributeType.OBJECT);
+		assertEquals(AttributeType.NULL, testable.getType());
+	}
+
+	@Test
+	public void setType_object() {
+		testable = new Attribute("attribute", Float.valueOf(12.3f));
+		assertEquals(AttributeType.OBJECT, testable.getType());
+
+		testable.setType(AttributeType.OBJECT);
+		assertEquals(AttributeType.OBJECT, testable.getType());
 	}
 }

@@ -174,7 +174,7 @@ public class AttributeTemplatesDataModelTest {
 			}
 		});
 
-		testable.setValueAt("value", 0, AttributesDataModel.COLUMN_IDX_NAME);
+		testable.setValueAt("value", 0, AttributeTemplatesDataModel.COLUMN_IDX_NAME);
 	}
 
 	@Test
@@ -206,7 +206,7 @@ public class AttributeTemplatesDataModelTest {
 			}
 		});
 
-		testable.setValueAt("boolean", 0, AttributesDataModel.COLUMN_IDX_TYPE);
+		testable.setValueAt("boolean", 0, AttributeTemplatesDataModel.COLUMN_IDX_TYPE);
 	}
 
 	@Test
@@ -238,7 +238,7 @@ public class AttributeTemplatesDataModelTest {
 			}
 		});
 
-		testable.setValueAt("boolean", 0, AttributesDataModel.COLUMN_IDX_TYPE);
+		testable.setValueAt("boolean", 0, AttributeTemplatesDataModel.COLUMN_IDX_TYPE);
 	}
 
 	@Test
@@ -270,7 +270,7 @@ public class AttributeTemplatesDataModelTest {
 			}
 		});
 
-		testable.setValueAt("integer", 0, AttributesDataModel.COLUMN_IDX_TYPE);
+		testable.setValueAt("integer", 0, AttributeTemplatesDataModel.COLUMN_IDX_TYPE);
 	}
 
 	@Test
@@ -302,7 +302,7 @@ public class AttributeTemplatesDataModelTest {
 			}
 		});
 
-		testable.setValueAt("integer", 0, AttributesDataModel.COLUMN_IDX_TYPE);
+		testable.setValueAt("integer", 0, AttributeTemplatesDataModel.COLUMN_IDX_TYPE);
 	}
 
 	@Test
@@ -334,7 +334,7 @@ public class AttributeTemplatesDataModelTest {
 			}
 		});
 
-		testable.setValueAt("string", 0, AttributesDataModel.COLUMN_IDX_TYPE);
+		testable.setValueAt("string", 0, AttributeTemplatesDataModel.COLUMN_IDX_TYPE);
 	}
 
 	@Test
@@ -366,7 +366,7 @@ public class AttributeTemplatesDataModelTest {
 			}
 		});
 
-		testable.setValueAt("string", 0, AttributesDataModel.COLUMN_IDX_TYPE);
+		testable.setValueAt("string", 0, AttributeTemplatesDataModel.COLUMN_IDX_TYPE);
 	}
 
 	@Test
@@ -393,7 +393,7 @@ public class AttributeTemplatesDataModelTest {
 			}
 		});
 
-		testable.setValueAt("unknown", 0, AttributesDataModel.COLUMN_IDX_TYPE);
+		testable.setValueAt("unknown", 0, AttributeTemplatesDataModel.COLUMN_IDX_TYPE);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -424,7 +424,7 @@ public class AttributeTemplatesDataModelTest {
 		});
 
 		testable.getDataVector().get(0).set(1, "boolean");
-		testable.setValueAt("true", 0, AttributesDataModel.COLUMN_IDX_VALUE);
+		testable.setValueAt("true", 0, AttributeTemplatesDataModel.COLUMN_IDX_VALUE);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -455,7 +455,7 @@ public class AttributeTemplatesDataModelTest {
 		});
 
 		testable.getDataVector().get(0).set(1, "boolean");
-		testable.setValueAt(null, 0, AttributesDataModel.COLUMN_IDX_VALUE);
+		testable.setValueAt(null, 0, AttributeTemplatesDataModel.COLUMN_IDX_VALUE);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -486,7 +486,7 @@ public class AttributeTemplatesDataModelTest {
 		});
 
 		testable.getDataVector().get(0).set(1, "integer");
-		testable.setValueAt("10", 0, AttributesDataModel.COLUMN_IDX_VALUE);
+		testable.setValueAt("10", 0, AttributeTemplatesDataModel.COLUMN_IDX_VALUE);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -517,7 +517,7 @@ public class AttributeTemplatesDataModelTest {
 		});
 
 		testable.getDataVector().get(0).set(1, "integer");
-		testable.setValueAt(null, 0, AttributesDataModel.COLUMN_IDX_VALUE);
+		testable.setValueAt(null, 0, AttributeTemplatesDataModel.COLUMN_IDX_VALUE);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -548,7 +548,7 @@ public class AttributeTemplatesDataModelTest {
 		});
 
 		testable.getDataVector().get(0).set(1, "string");
-		testable.setValueAt("test-string", 0, AttributesDataModel.COLUMN_IDX_VALUE);
+		testable.setValueAt("test-string", 0, AttributeTemplatesDataModel.COLUMN_IDX_VALUE);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -579,7 +579,7 @@ public class AttributeTemplatesDataModelTest {
 		});
 
 		testable.getDataVector().get(0).set(1, "string");
-		testable.setValueAt(null, 0, AttributesDataModel.COLUMN_IDX_VALUE);
+		testable.setValueAt(null, 0, AttributeTemplatesDataModel.COLUMN_IDX_VALUE);
 	}
 
 	@Test
@@ -608,7 +608,7 @@ public class AttributeTemplatesDataModelTest {
 			}
 		});
 
-		testable.setValueAt("unknown-value", 0, AttributesDataModel.COLUMN_IDX_VALUE);
+		testable.setValueAt("unknown-value", 0, AttributeTemplatesDataModel.COLUMN_IDX_VALUE);
 	}
 
 	@Test
@@ -637,7 +637,7 @@ public class AttributeTemplatesDataModelTest {
 			}
 		});
 
-		testable.setValueAt(null, 0, AttributesDataModel.COLUMN_IDX_VALUE);
+		testable.setValueAt(null, 0, AttributeTemplatesDataModel.COLUMN_IDX_VALUE);
 	}
 
 	@Test
@@ -692,7 +692,7 @@ public class AttributeTemplatesDataModelTest {
 			}
 		});
 
-		assertEquals("attributeTemplate-name", testable.getValueAt(0, AttributesDataModel.COLUMN_IDX_NAME));
+		assertEquals("attributeTemplate-name", testable.getValueAt(0, AttributeTemplatesDataModel.COLUMN_IDX_NAME));
 	}
 
 	@Test
@@ -720,7 +720,7 @@ public class AttributeTemplatesDataModelTest {
 			}
 		});
 
-		assertEquals("boolean", testable.getValueAt(0, AttributesDataModel.COLUMN_IDX_TYPE));
+		assertEquals("boolean", testable.getValueAt(0, AttributeTemplatesDataModel.COLUMN_IDX_TYPE));
 	}
 
 	@Test
@@ -748,7 +748,7 @@ public class AttributeTemplatesDataModelTest {
 			}
 		});
 
-		assertEquals("integer", testable.getValueAt(0, AttributesDataModel.COLUMN_IDX_TYPE));
+		assertEquals("integer", testable.getValueAt(0, AttributeTemplatesDataModel.COLUMN_IDX_TYPE));
 	}
 
 	@Test
@@ -776,7 +776,7 @@ public class AttributeTemplatesDataModelTest {
 			}
 		});
 
-		assertEquals("string", testable.getValueAt(0, AttributesDataModel.COLUMN_IDX_TYPE));
+		assertEquals("string", testable.getValueAt(0, AttributeTemplatesDataModel.COLUMN_IDX_TYPE));
 	}
 
 	@Test
@@ -804,7 +804,7 @@ public class AttributeTemplatesDataModelTest {
 			}
 		});
 
-		assertEquals("", testable.getValueAt(0, AttributesDataModel.COLUMN_IDX_TYPE));
+		assertEquals("", testable.getValueAt(0, AttributeTemplatesDataModel.COLUMN_IDX_TYPE));
 	}
 
 	@Test
@@ -832,7 +832,7 @@ public class AttributeTemplatesDataModelTest {
 			}
 		});
 
-		assertEquals("true", testable.getValueAt(0, AttributesDataModel.COLUMN_IDX_VALUE));
+		assertEquals("true", testable.getValueAt(0, AttributeTemplatesDataModel.COLUMN_IDX_VALUE));
 	}
 
 	@Test
@@ -860,7 +860,7 @@ public class AttributeTemplatesDataModelTest {
 			}
 		});
 
-		assertEquals("10", testable.getValueAt(0, AttributesDataModel.COLUMN_IDX_VALUE));
+		assertEquals("10", testable.getValueAt(0, AttributeTemplatesDataModel.COLUMN_IDX_VALUE));
 	}
 
 	@Test
@@ -888,7 +888,7 @@ public class AttributeTemplatesDataModelTest {
 			}
 		});
 
-		assertEquals("value", testable.getValueAt(0, AttributesDataModel.COLUMN_IDX_VALUE));
+		assertEquals("value", testable.getValueAt(0, AttributeTemplatesDataModel.COLUMN_IDX_VALUE));
 	}
 
 	@Test
@@ -916,7 +916,7 @@ public class AttributeTemplatesDataModelTest {
 			}
 		});
 
-		assertEquals(null, testable.getValueAt(0, AttributesDataModel.COLUMN_IDX_VALUE));
+		assertEquals(null, testable.getValueAt(0, AttributeTemplatesDataModel.COLUMN_IDX_VALUE));
 	}
 
 	@Test

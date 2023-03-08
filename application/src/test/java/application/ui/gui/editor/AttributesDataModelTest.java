@@ -20,6 +20,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
 import planning.model.Attribute;
+import planning.model.AttributeType;
 import planning.model.SystemObject;
 
 public class AttributesDataModelTest {
@@ -178,7 +179,7 @@ public class AttributesDataModelTest {
 	}
 
 	@Test
-	public void setValueAt_type_boolean() {
+	public void setValueAt_type() {
 		final SystemObject selectedObject_mock = context.mock(SystemObject.class);
 		final DefaultMutableTreeNode selectedNode_mock = context.mock(DefaultMutableTreeNode.class);
 		final List<Attribute> attributes = new ArrayList<Attribute>();
@@ -197,10 +198,7 @@ public class AttributesDataModelTest {
 
 		context.checking(new Expectations() {
 			{
-				oneOf(attribute_1_mock).getValue();
-				will(returnValue("true"));
-
-				oneOf(attribute_1_mock).setValue(Boolean.TRUE);
+				oneOf(attribute_1_mock).setType(AttributeType.BOOLEAN);
 
 				oneOf(editorDataModel_mock).nodeChanged(selectedNode_mock);
 			}
@@ -210,7 +208,7 @@ public class AttributesDataModelTest {
 	}
 
 	@Test
-	public void setValueAt_type_boolean_null() {
+	public void setValueAt_value() {
 		final SystemObject selectedObject_mock = context.mock(SystemObject.class);
 		final DefaultMutableTreeNode selectedNode_mock = context.mock(DefaultMutableTreeNode.class);
 		final List<Attribute> attributes = new ArrayList<Attribute>();
@@ -229,415 +227,13 @@ public class AttributesDataModelTest {
 
 		context.checking(new Expectations() {
 			{
-				oneOf(attribute_1_mock).getValue();
-				will(returnValue(null));
-
-				oneOf(attribute_1_mock).setValue(null);
+				oneOf(attribute_1_mock).setValue("new-value");
 
 				oneOf(editorDataModel_mock).nodeChanged(selectedNode_mock);
 			}
 		});
 
-		testable.setValueAt("boolean", 0, AttributesDataModel.COLUMN_IDX_TYPE);
-	}
-
-	@Test
-	public void setValueAt_type_integer() {
-		final SystemObject selectedObject_mock = context.mock(SystemObject.class);
-		final DefaultMutableTreeNode selectedNode_mock = context.mock(DefaultMutableTreeNode.class);
-		final List<Attribute> attributes = new ArrayList<Attribute>();
-		final Attribute attribute_1_mock = context.mock(Attribute.class, "attribute-1");
-		final Attribute attribute_2_mock = context.mock(Attribute.class, "attribute-2");
-		attributes.add(attribute_1_mock);
-		attributes.add(attribute_2_mock);
-
-		context.checking(new Expectations() {
-			{
-				oneOf(selectedObject_mock).getAttributes();
-				will(returnValue(attributes));
-			}
-		});
-		testable.loadAttributes(selectedObject_mock, selectedNode_mock);
-
-		context.checking(new Expectations() {
-			{
-				oneOf(attribute_1_mock).getValue();
-				will(returnValue("10"));
-
-				oneOf(attribute_1_mock).setValue(Integer.valueOf(10));
-
-				oneOf(editorDataModel_mock).nodeChanged(selectedNode_mock);
-			}
-		});
-
-		testable.setValueAt("integer", 0, AttributesDataModel.COLUMN_IDX_TYPE);
-	}
-
-	@Test
-	public void setValueAt_type_integer_null() {
-		final SystemObject selectedObject_mock = context.mock(SystemObject.class);
-		final DefaultMutableTreeNode selectedNode_mock = context.mock(DefaultMutableTreeNode.class);
-		final List<Attribute> attributes = new ArrayList<Attribute>();
-		final Attribute attribute_1_mock = context.mock(Attribute.class, "attribute-1");
-		final Attribute attribute_2_mock = context.mock(Attribute.class, "attribute-2");
-		attributes.add(attribute_1_mock);
-		attributes.add(attribute_2_mock);
-
-		context.checking(new Expectations() {
-			{
-				oneOf(selectedObject_mock).getAttributes();
-				will(returnValue(attributes));
-			}
-		});
-		testable.loadAttributes(selectedObject_mock, selectedNode_mock);
-
-		context.checking(new Expectations() {
-			{
-				oneOf(attribute_1_mock).getValue();
-				will(returnValue(null));
-
-				oneOf(attribute_1_mock).setValue(null);
-
-				oneOf(editorDataModel_mock).nodeChanged(selectedNode_mock);
-			}
-		});
-
-		testable.setValueAt("integer", 0, AttributesDataModel.COLUMN_IDX_TYPE);
-	}
-
-	@Test
-	public void setValueAt_type_string() {
-		final SystemObject selectedObject_mock = context.mock(SystemObject.class);
-		final DefaultMutableTreeNode selectedNode_mock = context.mock(DefaultMutableTreeNode.class);
-		final List<Attribute> attributes = new ArrayList<Attribute>();
-		final Attribute attribute_1_mock = context.mock(Attribute.class, "attribute-1");
-		final Attribute attribute_2_mock = context.mock(Attribute.class, "attribute-2");
-		attributes.add(attribute_1_mock);
-		attributes.add(attribute_2_mock);
-
-		context.checking(new Expectations() {
-			{
-				oneOf(selectedObject_mock).getAttributes();
-				will(returnValue(attributes));
-			}
-		});
-		testable.loadAttributes(selectedObject_mock, selectedNode_mock);
-
-		context.checking(new Expectations() {
-			{
-				oneOf(attribute_1_mock).getValue();
-				will(returnValue("test-string"));
-
-				oneOf(attribute_1_mock).setValue("test-string");
-
-				oneOf(editorDataModel_mock).nodeChanged(selectedNode_mock);
-			}
-		});
-
-		testable.setValueAt("string", 0, AttributesDataModel.COLUMN_IDX_TYPE);
-	}
-
-	@Test
-	public void setValueAt_type_string_null() {
-		final SystemObject selectedObject_mock = context.mock(SystemObject.class);
-		final DefaultMutableTreeNode selectedNode_mock = context.mock(DefaultMutableTreeNode.class);
-		final List<Attribute> attributes = new ArrayList<Attribute>();
-		final Attribute attribute_1_mock = context.mock(Attribute.class, "attribute-1");
-		final Attribute attribute_2_mock = context.mock(Attribute.class, "attribute-2");
-		attributes.add(attribute_1_mock);
-		attributes.add(attribute_2_mock);
-
-		context.checking(new Expectations() {
-			{
-				oneOf(selectedObject_mock).getAttributes();
-				will(returnValue(attributes));
-			}
-		});
-		testable.loadAttributes(selectedObject_mock, selectedNode_mock);
-
-		context.checking(new Expectations() {
-			{
-				oneOf(attribute_1_mock).getValue();
-				will(returnValue(null));
-
-				oneOf(attribute_1_mock).setValue(null);
-
-				oneOf(editorDataModel_mock).nodeChanged(selectedNode_mock);
-			}
-		});
-
-		testable.setValueAt("string", 0, AttributesDataModel.COLUMN_IDX_TYPE);
-	}
-
-	@Test
-	public void setValueAt_type_unknown() {
-		final SystemObject selectedObject_mock = context.mock(SystemObject.class);
-		final DefaultMutableTreeNode selectedNode_mock = context.mock(DefaultMutableTreeNode.class);
-		final List<Attribute> attributes = new ArrayList<Attribute>();
-		final Attribute attribute_1_mock = context.mock(Attribute.class, "attribute-1");
-		final Attribute attribute_2_mock = context.mock(Attribute.class, "attribute-2");
-		attributes.add(attribute_1_mock);
-		attributes.add(attribute_2_mock);
-
-		context.checking(new Expectations() {
-			{
-				oneOf(selectedObject_mock).getAttributes();
-				will(returnValue(attributes));
-			}
-		});
-		testable.loadAttributes(selectedObject_mock, selectedNode_mock);
-
-		context.checking(new Expectations() {
-			{
-				oneOf(editorDataModel_mock).nodeChanged(selectedNode_mock);
-			}
-		});
-
-		testable.setValueAt("unknown", 0, AttributesDataModel.COLUMN_IDX_TYPE);
-	}
-
-	@SuppressWarnings("unchecked")
-	@Test
-	public void setValueAt_value_boolean() {
-		final SystemObject selectedObject_mock = context.mock(SystemObject.class);
-		final DefaultMutableTreeNode selectedNode_mock = context.mock(DefaultMutableTreeNode.class);
-		final List<Attribute> attributes = new ArrayList<Attribute>();
-		final Attribute attribute_1_mock = context.mock(Attribute.class, "attribute-1");
-		final Attribute attribute_2_mock = context.mock(Attribute.class, "attribute-2");
-		attributes.add(attribute_1_mock);
-		attributes.add(attribute_2_mock);
-
-		context.checking(new Expectations() {
-			{
-				oneOf(selectedObject_mock).getAttributes();
-				will(returnValue(attributes));
-			}
-		});
-		testable.loadAttributes(selectedObject_mock, selectedNode_mock);
-
-		context.checking(new Expectations() {
-			{
-				oneOf(attribute_1_mock).setValue(Boolean.TRUE);
-
-				oneOf(editorDataModel_mock).nodeChanged(selectedNode_mock);
-			}
-		});
-
-		testable.getDataVector().get(0).set(1, "boolean");
-		testable.setValueAt("true", 0, AttributesDataModel.COLUMN_IDX_VALUE);
-	}
-
-	@SuppressWarnings("unchecked")
-	@Test
-	public void setValueAt_value_boolean_null() {
-		final SystemObject selectedObject_mock = context.mock(SystemObject.class);
-		final DefaultMutableTreeNode selectedNode_mock = context.mock(DefaultMutableTreeNode.class);
-		final List<Attribute> attributes = new ArrayList<Attribute>();
-		final Attribute attribute_1_mock = context.mock(Attribute.class, "attribute-1");
-		final Attribute attribute_2_mock = context.mock(Attribute.class, "attribute-2");
-		attributes.add(attribute_1_mock);
-		attributes.add(attribute_2_mock);
-
-		context.checking(new Expectations() {
-			{
-				oneOf(selectedObject_mock).getAttributes();
-				will(returnValue(attributes));
-			}
-		});
-		testable.loadAttributes(selectedObject_mock, selectedNode_mock);
-
-		context.checking(new Expectations() {
-			{
-				oneOf(attribute_1_mock).setValue(null);
-
-				oneOf(editorDataModel_mock).nodeChanged(selectedNode_mock);
-			}
-		});
-
-		testable.getDataVector().get(0).set(1, "boolean");
-		testable.setValueAt(null, 0, AttributesDataModel.COLUMN_IDX_VALUE);
-	}
-
-	@SuppressWarnings("unchecked")
-	@Test
-	public void setValueAt_value_integer() {
-		final SystemObject selectedObject_mock = context.mock(SystemObject.class);
-		final DefaultMutableTreeNode selectedNode_mock = context.mock(DefaultMutableTreeNode.class);
-		final List<Attribute> attributes = new ArrayList<Attribute>();
-		final Attribute attribute_1_mock = context.mock(Attribute.class, "attribute-1");
-		final Attribute attribute_2_mock = context.mock(Attribute.class, "attribute-2");
-		attributes.add(attribute_1_mock);
-		attributes.add(attribute_2_mock);
-
-		context.checking(new Expectations() {
-			{
-				oneOf(selectedObject_mock).getAttributes();
-				will(returnValue(attributes));
-			}
-		});
-		testable.loadAttributes(selectedObject_mock, selectedNode_mock);
-
-		context.checking(new Expectations() {
-			{
-				oneOf(attribute_1_mock).setValue(Integer.valueOf(10));
-
-				oneOf(editorDataModel_mock).nodeChanged(selectedNode_mock);
-			}
-		});
-
-		testable.getDataVector().get(0).set(1, "integer");
-		testable.setValueAt("10", 0, AttributesDataModel.COLUMN_IDX_VALUE);
-	}
-
-	@SuppressWarnings("unchecked")
-	@Test
-	public void setValueAt_value_integer_null() {
-		final SystemObject selectedObject_mock = context.mock(SystemObject.class);
-		final DefaultMutableTreeNode selectedNode_mock = context.mock(DefaultMutableTreeNode.class);
-		final List<Attribute> attributes = new ArrayList<Attribute>();
-		final Attribute attribute_1_mock = context.mock(Attribute.class, "attribute-1");
-		final Attribute attribute_2_mock = context.mock(Attribute.class, "attribute-2");
-		attributes.add(attribute_1_mock);
-		attributes.add(attribute_2_mock);
-
-		context.checking(new Expectations() {
-			{
-				oneOf(selectedObject_mock).getAttributes();
-				will(returnValue(attributes));
-			}
-		});
-		testable.loadAttributes(selectedObject_mock, selectedNode_mock);
-
-		context.checking(new Expectations() {
-			{
-				oneOf(attribute_1_mock).setValue(null);
-
-				oneOf(editorDataModel_mock).nodeChanged(selectedNode_mock);
-			}
-		});
-
-		testable.getDataVector().get(0).set(1, "integer");
-		testable.setValueAt(null, 0, AttributesDataModel.COLUMN_IDX_VALUE);
-	}
-
-	@SuppressWarnings("unchecked")
-	@Test
-	public void setValueAt_value_string() {
-		final SystemObject selectedObject_mock = context.mock(SystemObject.class);
-		final DefaultMutableTreeNode selectedNode_mock = context.mock(DefaultMutableTreeNode.class);
-		final List<Attribute> attributes = new ArrayList<Attribute>();
-		final Attribute attribute_1_mock = context.mock(Attribute.class, "attribute-1");
-		final Attribute attribute_2_mock = context.mock(Attribute.class, "attribute-2");
-		attributes.add(attribute_1_mock);
-		attributes.add(attribute_2_mock);
-
-		context.checking(new Expectations() {
-			{
-				oneOf(selectedObject_mock).getAttributes();
-				will(returnValue(attributes));
-			}
-		});
-		testable.loadAttributes(selectedObject_mock, selectedNode_mock);
-
-		context.checking(new Expectations() {
-			{
-				oneOf(attribute_1_mock).setValue("test-string");
-
-				oneOf(editorDataModel_mock).nodeChanged(selectedNode_mock);
-			}
-		});
-
-		testable.getDataVector().get(0).set(1, "string");
-		testable.setValueAt("test-string", 0, AttributesDataModel.COLUMN_IDX_VALUE);
-	}
-
-	@SuppressWarnings("unchecked")
-	@Test
-	public void setValueAt_value_string_null() {
-		final SystemObject selectedObject_mock = context.mock(SystemObject.class);
-		final DefaultMutableTreeNode selectedNode_mock = context.mock(DefaultMutableTreeNode.class);
-		final List<Attribute> attributes = new ArrayList<Attribute>();
-		final Attribute attribute_1_mock = context.mock(Attribute.class, "attribute-1");
-		final Attribute attribute_2_mock = context.mock(Attribute.class, "attribute-2");
-		attributes.add(attribute_1_mock);
-		attributes.add(attribute_2_mock);
-
-		context.checking(new Expectations() {
-			{
-				oneOf(selectedObject_mock).getAttributes();
-				will(returnValue(attributes));
-			}
-		});
-		testable.loadAttributes(selectedObject_mock, selectedNode_mock);
-
-		context.checking(new Expectations() {
-			{
-				oneOf(attribute_1_mock).setValue(null);
-
-				oneOf(editorDataModel_mock).nodeChanged(selectedNode_mock);
-			}
-		});
-
-		testable.getDataVector().get(0).set(1, "string");
-		testable.setValueAt(null, 0, AttributesDataModel.COLUMN_IDX_VALUE);
-	}
-
-	@Test
-	public void setValueAt_value_unknown() {
-		final SystemObject selectedObject_mock = context.mock(SystemObject.class);
-		final DefaultMutableTreeNode selectedNode_mock = context.mock(DefaultMutableTreeNode.class);
-		final List<Attribute> attributes = new ArrayList<Attribute>();
-		final Attribute attribute_1_mock = context.mock(Attribute.class, "attribute-1");
-		final Attribute attribute_2_mock = context.mock(Attribute.class, "attribute-2");
-		attributes.add(attribute_1_mock);
-		attributes.add(attribute_2_mock);
-
-		context.checking(new Expectations() {
-			{
-				oneOf(selectedObject_mock).getAttributes();
-				will(returnValue(attributes));
-			}
-		});
-		testable.loadAttributes(selectedObject_mock, selectedNode_mock);
-
-		context.checking(new Expectations() {
-			{
-				oneOf(attribute_1_mock).setValue("unknown-value");
-
-				oneOf(editorDataModel_mock).nodeChanged(selectedNode_mock);
-			}
-		});
-
-		testable.setValueAt("unknown-value", 0, AttributesDataModel.COLUMN_IDX_VALUE);
-	}
-
-	@Test
-	public void setValueAt_value_unknown_null() {
-		final SystemObject selectedObject_mock = context.mock(SystemObject.class);
-		final DefaultMutableTreeNode selectedNode_mock = context.mock(DefaultMutableTreeNode.class);
-		final List<Attribute> attributes = new ArrayList<Attribute>();
-		final Attribute attribute_1_mock = context.mock(Attribute.class, "attribute-1");
-		final Attribute attribute_2_mock = context.mock(Attribute.class, "attribute-2");
-		attributes.add(attribute_1_mock);
-		attributes.add(attribute_2_mock);
-
-		context.checking(new Expectations() {
-			{
-				oneOf(selectedObject_mock).getAttributes();
-				will(returnValue(attributes));
-			}
-		});
-		testable.loadAttributes(selectedObject_mock, selectedNode_mock);
-
-		context.checking(new Expectations() {
-			{
-				oneOf(attribute_1_mock).setValue(null);
-
-				oneOf(editorDataModel_mock).nodeChanged(selectedNode_mock);
-			}
-		});
-
-		testable.setValueAt(null, 0, AttributesDataModel.COLUMN_IDX_VALUE);
+		testable.setValueAt("new-value", 0, AttributesDataModel.COLUMN_IDX_VALUE);
 	}
 
 	@Test
@@ -696,7 +292,7 @@ public class AttributesDataModelTest {
 	}
 
 	@Test
-	public void getValueAt_type_boolean() {
+	public void getValueAt_type() {
 		final SystemObject selectedObject_mock = context.mock(SystemObject.class);
 		final DefaultMutableTreeNode selectedNode_mock = context.mock(DefaultMutableTreeNode.class);
 		final List<Attribute> attributes = new ArrayList<Attribute>();
@@ -715,16 +311,16 @@ public class AttributesDataModelTest {
 
 		context.checking(new Expectations() {
 			{
-				oneOf(attribute_1_mock).getValue();
-				will(returnValue(Boolean.TRUE));
+				oneOf(attribute_1_mock).getType();
+				will(returnValue(AttributeType.STRING));
 			}
 		});
 
-		assertEquals("boolean", testable.getValueAt(0, AttributesDataModel.COLUMN_IDX_TYPE));
+		assertEquals(AttributeType.STRING, testable.getValueAt(0, AttributesDataModel.COLUMN_IDX_TYPE));
 	}
 
 	@Test
-	public void getValueAt_type_integer() {
+	public void getValueAt_value() {
 		final SystemObject selectedObject_mock = context.mock(SystemObject.class);
 		final DefaultMutableTreeNode selectedNode_mock = context.mock(DefaultMutableTreeNode.class);
 		final List<Attribute> attributes = new ArrayList<Attribute>();
@@ -744,179 +340,11 @@ public class AttributesDataModelTest {
 		context.checking(new Expectations() {
 			{
 				oneOf(attribute_1_mock).getValue();
-				will(returnValue(Integer.valueOf(10)));
+				will(returnValue("this-value"));
 			}
 		});
 
-		assertEquals("integer", testable.getValueAt(0, AttributesDataModel.COLUMN_IDX_TYPE));
-	}
-
-	@Test
-	public void getValueAt_type_string() {
-		final SystemObject selectedObject_mock = context.mock(SystemObject.class);
-		final DefaultMutableTreeNode selectedNode_mock = context.mock(DefaultMutableTreeNode.class);
-		final List<Attribute> attributes = new ArrayList<Attribute>();
-		final Attribute attribute_1_mock = context.mock(Attribute.class, "attribute-1");
-		final Attribute attribute_2_mock = context.mock(Attribute.class, "attribute-2");
-		attributes.add(attribute_1_mock);
-		attributes.add(attribute_2_mock);
-
-		context.checking(new Expectations() {
-			{
-				oneOf(selectedObject_mock).getAttributes();
-				will(returnValue(attributes));
-			}
-		});
-		testable.loadAttributes(selectedObject_mock, selectedNode_mock);
-
-		context.checking(new Expectations() {
-			{
-				oneOf(attribute_1_mock).getValue();
-				will(returnValue("value"));
-			}
-		});
-
-		assertEquals("string", testable.getValueAt(0, AttributesDataModel.COLUMN_IDX_TYPE));
-	}
-
-	@Test
-	public void getValueAt_type_unknown() {
-		final SystemObject selectedObject_mock = context.mock(SystemObject.class);
-		final DefaultMutableTreeNode selectedNode_mock = context.mock(DefaultMutableTreeNode.class);
-		final List<Attribute> attributes = new ArrayList<Attribute>();
-		final Attribute attribute_1_mock = context.mock(Attribute.class, "attribute-1");
-		final Attribute attribute_2_mock = context.mock(Attribute.class, "attribute-2");
-		attributes.add(attribute_1_mock);
-		attributes.add(attribute_2_mock);
-
-		context.checking(new Expectations() {
-			{
-				oneOf(selectedObject_mock).getAttributes();
-				will(returnValue(attributes));
-			}
-		});
-		testable.loadAttributes(selectedObject_mock, selectedNode_mock);
-
-		context.checking(new Expectations() {
-			{
-				oneOf(attribute_1_mock).getValue();
-				will(returnValue(null));
-			}
-		});
-
-		assertEquals("", testable.getValueAt(0, AttributesDataModel.COLUMN_IDX_TYPE));
-	}
-
-	@Test
-	public void getValueAt_value_boolean() {
-		final SystemObject selectedObject_mock = context.mock(SystemObject.class);
-		final DefaultMutableTreeNode selectedNode_mock = context.mock(DefaultMutableTreeNode.class);
-		final List<Attribute> attributes = new ArrayList<Attribute>();
-		final Attribute attribute_1_mock = context.mock(Attribute.class, "attribute-1");
-		final Attribute attribute_2_mock = context.mock(Attribute.class, "attribute-2");
-		attributes.add(attribute_1_mock);
-		attributes.add(attribute_2_mock);
-
-		context.checking(new Expectations() {
-			{
-				oneOf(selectedObject_mock).getAttributes();
-				will(returnValue(attributes));
-			}
-		});
-		testable.loadAttributes(selectedObject_mock, selectedNode_mock);
-
-		context.checking(new Expectations() {
-			{
-				oneOf(attribute_1_mock).getValue();
-				will(returnValue(Boolean.TRUE));
-			}
-		});
-
-		assertEquals("true", testable.getValueAt(0, AttributesDataModel.COLUMN_IDX_VALUE));
-	}
-
-	@Test
-	public void getValueAt_value_integer() {
-		final SystemObject selectedObject_mock = context.mock(SystemObject.class);
-		final DefaultMutableTreeNode selectedNode_mock = context.mock(DefaultMutableTreeNode.class);
-		final List<Attribute> attributes = new ArrayList<Attribute>();
-		final Attribute attribute_1_mock = context.mock(Attribute.class, "attribute-1");
-		final Attribute attribute_2_mock = context.mock(Attribute.class, "attribute-2");
-		attributes.add(attribute_1_mock);
-		attributes.add(attribute_2_mock);
-
-		context.checking(new Expectations() {
-			{
-				oneOf(selectedObject_mock).getAttributes();
-				will(returnValue(attributes));
-			}
-		});
-		testable.loadAttributes(selectedObject_mock, selectedNode_mock);
-
-		context.checking(new Expectations() {
-			{
-				oneOf(attribute_1_mock).getValue();
-				will(returnValue(Integer.valueOf(10)));
-			}
-		});
-
-		assertEquals("10", testable.getValueAt(0, AttributesDataModel.COLUMN_IDX_VALUE));
-	}
-
-	@Test
-	public void getValueAt_value_string() {
-		final SystemObject selectedObject_mock = context.mock(SystemObject.class);
-		final DefaultMutableTreeNode selectedNode_mock = context.mock(DefaultMutableTreeNode.class);
-		final List<Attribute> attributes = new ArrayList<Attribute>();
-		final Attribute attribute_1_mock = context.mock(Attribute.class, "attribute-1");
-		final Attribute attribute_2_mock = context.mock(Attribute.class, "attribute-2");
-		attributes.add(attribute_1_mock);
-		attributes.add(attribute_2_mock);
-
-		context.checking(new Expectations() {
-			{
-				oneOf(selectedObject_mock).getAttributes();
-				will(returnValue(attributes));
-			}
-		});
-		testable.loadAttributes(selectedObject_mock, selectedNode_mock);
-
-		context.checking(new Expectations() {
-			{
-				oneOf(attribute_1_mock).getValue();
-				will(returnValue("value"));
-			}
-		});
-
-		assertEquals("value", testable.getValueAt(0, AttributesDataModel.COLUMN_IDX_VALUE));
-	}
-
-	@Test
-	public void getValueAt_value_unknown() {
-		final SystemObject selectedObject_mock = context.mock(SystemObject.class);
-		final DefaultMutableTreeNode selectedNode_mock = context.mock(DefaultMutableTreeNode.class);
-		final List<Attribute> attributes = new ArrayList<Attribute>();
-		final Attribute attribute_1_mock = context.mock(Attribute.class, "attribute-1");
-		final Attribute attribute_2_mock = context.mock(Attribute.class, "attribute-2");
-		attributes.add(attribute_1_mock);
-		attributes.add(attribute_2_mock);
-
-		context.checking(new Expectations() {
-			{
-				oneOf(selectedObject_mock).getAttributes();
-				will(returnValue(attributes));
-			}
-		});
-		testable.loadAttributes(selectedObject_mock, selectedNode_mock);
-
-		context.checking(new Expectations() {
-			{
-				oneOf(attribute_1_mock).getValue();
-				will(returnValue(null));
-			}
-		});
-
-		assertEquals(null, testable.getValueAt(0, AttributesDataModel.COLUMN_IDX_VALUE));
+		assertEquals("this-value", testable.getValueAt(0, AttributesDataModel.COLUMN_IDX_VALUE));
 	}
 
 	@Test
@@ -956,7 +384,7 @@ public class AttributesDataModelTest {
 				oneOf(jTable_mock).getColumnModel();
 				will(returnValue(tableColumnModel_mock));
 
-				oneOf(tableColumnModel_mock).getColumn(1);
+				oneOf(tableColumnModel_mock).getColumn(AttributesDataModel.COLUMN_IDX_TYPE);
 				will(returnValue(tableColumn_mock));
 
 				// TODO (2023-02-22 #82): добавить Matcher для DefaultCellEditor

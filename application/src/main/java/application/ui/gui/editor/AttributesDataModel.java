@@ -15,21 +15,18 @@ import planning.model.SystemObject;
 
 public class AttributesDataModel extends DefaultTableModel {
 
-	// TODO (2023-02-23 #82): включить проверку copy-paste
-	// CPD-OFF
-
 	private static final long serialVersionUID = 4599213730293016122L;
 
 	private EditorDataModel editorDataModel;
 
 	public static final int COLUMN_IDX_NAME = 0;
 
-	public static final int COLUMN_IDX_TYPE = 1;
+	public static final int COLUMN_IDX_VALUE = 1;
 
-	public static final int COLUMN_IDX_VALUE = 2;
+	public static final int COLUMN_IDX_TYPE = 2;
 
 	public AttributesDataModel(EditorDataModel editorDataModel) {
-		super(new String[] { "name", "type", "value" }, 0);
+		super(new String[] { "name", "value", "type" }, 0);
 		this.editorDataModel = editorDataModel;
 	}
 
@@ -88,40 +85,12 @@ public class AttributesDataModel extends DefaultTableModel {
 			attribute.setName((String) aValue);
 			break;
 		case (COLUMN_IDX_TYPE):
-			// TODO (2022-10-30 #72): перенести в Attribute
-			if ("boolean".equals(aValue)) {
-				Object valueObject = attribute.getValue();
-				valueObject = valueObject != null ? Boolean.valueOf(valueObject.toString()) : null;
-				attribute.setValue(valueObject);
-			} else if ("integer".equals(aValue)) {
-				Object valueObject = attribute.getValue();
-				valueObject = valueObject != null ? Integer.valueOf(valueObject.toString()) : null;
-				attribute.setValue(valueObject);
-			} else if ("string".equals(aValue)) {
-				Object valueObject = attribute.getValue();
-				valueObject = valueObject != null ? valueObject.toString() : null;
-				attribute.setValue(valueObject);
-			} else {
-				;
-			}
+			attribute.setType(AttributeType.fromString((String) aValue));
 			break;
-		case (COLUMN_IDX_VALUE):
-			// TODO (2022-10-30 #72): перенести в Attribute
-			final String type = (String) dataVector.get(row).get(1);
-			if ("boolean".equals(type)) {
-				final Object valueObject = aValue != null ? Boolean.valueOf(aValue.toString()) : null;
-				attribute.setValue(valueObject);
-			} else if ("integer".equals(type)) {
-				final Object valueObject = aValue != null ? Integer.valueOf(aValue.toString()) : null;
-				attribute.setValue(valueObject);
-			} else if ("string".equals(type)) {
-				final Object valueObject = aValue != null ? aValue.toString() : null;
-				attribute.setValue(valueObject);
-			} else {
-				final Object valueObject = aValue != null ? aValue : null;
-				attribute.setValue(valueObject);
-			}
+		case (COLUMN_IDX_VALUE): {
+			attribute.setValue(aValue);
 			break;
+		}
 		default:
 			break;
 		}
@@ -131,34 +100,13 @@ public class AttributesDataModel extends DefaultTableModel {
 	@Override
 	public Object getValueAt(int row, int column) {
 		final Attribute attribute = attributes.get(row);
-		Object valueObject;
 		switch (column) {
 		case COLUMN_IDX_NAME:
 			return attribute.getName();
 		case COLUMN_IDX_TYPE:
-			// TODO (2022-09-24 #72): перенести в Attribute
-			valueObject = attribute.getValue();
-			if (valueObject instanceof Boolean) {
-				return "boolean";
-			} else if (valueObject instanceof Integer) {
-				return "integer";
-			} else if (valueObject instanceof String) {
-				return "string";
-			} else {
-				return "";
-			}
+			return attribute.getType();
 		case COLUMN_IDX_VALUE:
-			// TODO (2022-09-24 #72): перенести в Attribute
-			valueObject = attribute.getValue();
-			if (valueObject instanceof Boolean) {
-				return valueObject.toString();
-			} else if (valueObject instanceof Integer) {
-				return valueObject.toString();
-			} else if (valueObject instanceof String) {
-				return valueObject.toString();
-			} else {
-				return valueObject;
-			}
+			return attribute.getValue();
 		default:
 			return null;
 		}
@@ -175,7 +123,4 @@ public class AttributesDataModel extends DefaultTableModel {
 		table.getColumnModel().getColumn(AttributesDataModel.COLUMN_IDX_TYPE)
 				.setCellEditor(new DefaultCellEditor(comboBox));
 	}
-
-	// TODO (2023-02-23 #82): включить проверку copy-paste
-	// CPD-ON
 }

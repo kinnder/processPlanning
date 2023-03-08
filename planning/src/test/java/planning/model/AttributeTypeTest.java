@@ -23,6 +23,11 @@ public class AttributeTypeTest {
 	}
 
 	@Test
+	public void fromValue_boolean() {
+		assertEquals(AttributeType.BOOLEAN, AttributeType.fromValue(Boolean.valueOf(true)));
+	}
+
+	@Test
 	public void fromString_boolean() {
 		assertEquals(AttributeType.BOOLEAN, AttributeType.fromString("boolean"));
 		assertEquals(AttributeType.BOOLEAN, AttributeType.fromString("BOOLEAN"));
@@ -31,6 +36,11 @@ public class AttributeTypeTest {
 	@Test
 	public void toString_boolean() {
 		assertEquals("boolean", AttributeType.BOOLEAN.toString());
+	}
+
+	@Test
+	public void fromValue_integer() {
+		assertEquals(AttributeType.INTEGER, AttributeType.fromValue(Integer.valueOf(345)));
 	}
 
 	@Test
@@ -45,6 +55,11 @@ public class AttributeTypeTest {
 	}
 
 	@Test
+	public void fromValue_string() {
+		assertEquals(AttributeType.STRING, AttributeType.fromValue(String.valueOf("abc")));
+	}
+
+	@Test
 	public void fromString_string() {
 		assertEquals(AttributeType.STRING, AttributeType.fromString("string"));
 		assertEquals(AttributeType.STRING, AttributeType.fromString("STRING"));
@@ -56,13 +71,34 @@ public class AttributeTypeTest {
 	}
 
 	@Test
-	public void toString_object() {
-		assertEquals("object", AttributeType.OBJECT.toString());
+	public void fromValue_object() {
+		assertEquals(AttributeType.OBJECT, AttributeType.fromValue(new Object()));
 	}
 
 	@Test
 	public void fromString_object() {
 		assertEquals(AttributeType.OBJECT, AttributeType.fromString("object"));
 		assertEquals(AttributeType.OBJECT, AttributeType.fromString("OBJECT"));
+	}
+
+	@Test
+	public void toString_object() {
+		assertEquals("object", AttributeType.OBJECT.toString());
+	}
+
+	@Test
+	public void formValue_null() {
+		assertEquals(AttributeType.NULL, AttributeType.fromValue(null));
+	}
+
+	@Test
+	public void fromString_null() {
+		assertEquals(AttributeType.NULL, AttributeType.fromString("null"));
+		assertEquals(AttributeType.NULL, AttributeType.fromString("NULL"));
+	}
+
+	@Test
+	public void toString_null() {
+		assertEquals("null", AttributeType.NULL.toString());
 	}
 }
