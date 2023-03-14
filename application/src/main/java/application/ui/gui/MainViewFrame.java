@@ -135,6 +135,7 @@ public class MainViewFrame extends javax.swing.JFrame implements UserInterface {
 		public void actionPerformed(ActionEvent evt) {
 			final OptionsFrame frame = userInterfaceFactory.createOptionsView(application);
 			frame.updateComponents();
+			frame.setLocationRelativeTo(MainViewFrame.this);
 			frame.setVisible(true);
 		}
 	};

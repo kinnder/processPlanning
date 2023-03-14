@@ -168,6 +168,8 @@ public class MainViewFrameTest {
 				oneOf(userInterfaceFactory_mock).createOptionsView(application_mock);
 				will(returnValue(frame_mock));
 
+				oneOf(frame_mock).setLocationRelativeTo(testable);
+
 				oneOf(frame_mock).updateComponents();
 
 				oneOf(frame_mock).setVisible(true);
