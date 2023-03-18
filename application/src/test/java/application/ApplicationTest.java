@@ -256,11 +256,13 @@ public class ApplicationTest {
 				oneOf(persistanceStorage_mock).saveSystemTransformations(systemTransformations_mock, "path-to-file");
 				will(throwException(new IOException()));
 
-				oneOf(userInterfaceManager_mock).pushEvent(with(new CommandEventMatcher()
-						.expectType(CommandEvent.Type.Status).expectCommandName("saveSystemTransformations")));
+				oneOf(userInterfaceManager_mock)
+						.pushEvent(with(new CommandEventMatcher().expectType(CommandEvent.Type.Errored)
+								.expectCommandName("saveSystemTransformations").expectMessage("error")));
 
-				oneOf(commandManager_mock).pushEvent(with(new CommandEventMatcher().expectType(CommandEvent.Type.Status)
-						.expectCommandName("saveSystemTransformations")));
+				oneOf(commandManager_mock)
+						.pushEvent(with(new CommandEventMatcher().expectType(CommandEvent.Type.Errored)
+								.expectCommandName("saveSystemTransformations").expectMessage("error")));
 			}
 		});
 
@@ -589,11 +591,13 @@ public class ApplicationTest {
 				oneOf(persistanceStorage_mock).loadSystemProcess("path-to-file");
 				will(throwException(new JDOMException()));
 
-				oneOf(userInterfaceManager_mock).pushEvent(with(new CommandEventMatcher()
-						.expectType(CommandEvent.Type.Status).expectCommandName("loadSystemProcess")));
+				oneOf(userInterfaceManager_mock)
+						.pushEvent(with(new CommandEventMatcher().expectType(CommandEvent.Type.Errored)
+								.expectCommandName("loadSystemProcess").expectMessage("error")));
 
-				oneOf(commandManager_mock).pushEvent(with(new CommandEventMatcher().expectType(CommandEvent.Type.Status)
-						.expectCommandName("loadSystemProcess")));
+				oneOf(commandManager_mock)
+						.pushEvent(with(new CommandEventMatcher().expectType(CommandEvent.Type.Errored)
+								.expectCommandName("loadSystemProcess").expectMessage("error")));
 			}
 		});
 
@@ -627,11 +631,13 @@ public class ApplicationTest {
 				oneOf(persistanceStorage_mock).loadNodeNetwork("path-to-file");
 				will(throwException(new JDOMException()));
 
-				oneOf(userInterfaceManager_mock).pushEvent(with(new CommandEventMatcher()
-						.expectType(CommandEvent.Type.Status).expectCommandName("loadNodeNetwork")));
+				oneOf(userInterfaceManager_mock)
+						.pushEvent(with(new CommandEventMatcher().expectType(CommandEvent.Type.Errored)
+								.expectCommandName("loadNodeNetwork").expectMessage("error")));
 
-				oneOf(commandManager_mock).pushEvent(with(new CommandEventMatcher().expectType(CommandEvent.Type.Status)
-						.expectCommandName("loadNodeNetwork")));
+				oneOf(commandManager_mock)
+						.pushEvent(with(new CommandEventMatcher().expectType(CommandEvent.Type.Errored)
+								.expectCommandName("loadNodeNetwork").expectMessage("error")));
 			}
 		});
 
@@ -665,11 +671,13 @@ public class ApplicationTest {
 				oneOf(persistanceStorage_mock).loadTaskDescription("path-to-file");
 				will(throwException(new JDOMException()));
 
-				oneOf(userInterfaceManager_mock).pushEvent(with(new CommandEventMatcher()
-						.expectType(CommandEvent.Type.Status).expectCommandName("loadTaskDescription")));
+				oneOf(userInterfaceManager_mock)
+						.pushEvent(with(new CommandEventMatcher().expectType(CommandEvent.Type.Errored)
+								.expectCommandName("loadTaskDescription").expectMessage("error")));
 
-				oneOf(commandManager_mock).pushEvent(with(new CommandEventMatcher().expectType(CommandEvent.Type.Status)
-						.expectCommandName("loadTaskDescription")));
+				oneOf(commandManager_mock)
+						.pushEvent(with(new CommandEventMatcher().expectType(CommandEvent.Type.Errored)
+								.expectCommandName("loadTaskDescription").expectMessage("error")));
 			}
 		});
 
@@ -703,11 +711,13 @@ public class ApplicationTest {
 				oneOf(persistanceStorage_mock).loadSystemTransformations("path-to-file");
 				will(throwException(new JDOMException()));
 
-				oneOf(userInterfaceManager_mock).pushEvent(with(new CommandEventMatcher()
-						.expectType(CommandEvent.Type.Status).expectCommandName("loadSystemTransformations")));
+				oneOf(userInterfaceManager_mock)
+						.pushEvent(with(new CommandEventMatcher().expectType(CommandEvent.Type.Errored)
+								.expectCommandName("loadSystemTransformations").expectMessage("error")));
 
-				oneOf(commandManager_mock).pushEvent(with(new CommandEventMatcher().expectType(CommandEvent.Type.Status)
-						.expectCommandName("loadSystemTransformations")));
+				oneOf(commandManager_mock)
+						.pushEvent(with(new CommandEventMatcher().expectType(CommandEvent.Type.Errored)
+								.expectCommandName("loadSystemTransformations").expectMessage("error")));
 			}
 		});
 
@@ -742,11 +752,13 @@ public class ApplicationTest {
 				oneOf(persistanceStorage_mock).saveTaskDescription(taskDescription_mock, "path-to-file");
 				will(throwException(new IOException()));
 
-				oneOf(userInterfaceManager_mock).pushEvent(with(new CommandEventMatcher()
-						.expectType(CommandEvent.Type.Status).expectCommandName("saveTaskDescription")));
+				oneOf(userInterfaceManager_mock)
+						.pushEvent(with(new CommandEventMatcher().expectType(CommandEvent.Type.Errored)
+								.expectCommandName("saveTaskDescription").expectMessage("error")));
 
-				oneOf(commandManager_mock).pushEvent(with(new CommandEventMatcher().expectType(CommandEvent.Type.Status)
-						.expectCommandName("saveTaskDescription")));
+				oneOf(commandManager_mock)
+						.pushEvent(with(new CommandEventMatcher().expectType(CommandEvent.Type.Errored)
+								.expectCommandName("saveTaskDescription").expectMessage("error")));
 			}
 		});
 

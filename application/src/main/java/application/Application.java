@@ -7,6 +7,8 @@ import java.util.concurrent.Executors;
 
 import org.apache.commons.cli.UnrecognizedOptionException;
 import org.jdom2.JDOMException;
+import org.slf4j.LoggerFactory;
+
 import application.command.CommandManager;
 import application.command.ConvertCommand;
 import application.command.ConvertCommandData;
@@ -103,7 +105,8 @@ public class Application {
 		try {
 			persistanceStorage.saveSystemTransformations(systemTransformations, st_path);
 		} catch (IOException e) {
-			pushEvent(CommandEvent.status("saveSystemTransformations", e.getStackTrace().toString()));
+			pushEvent(CommandEvent.errored("saveSystemTransformations"));
+			LoggerFactory.getLogger(getClass()).error("", e);
 		}
 	}
 
@@ -117,7 +120,8 @@ public class Application {
 		try {
 			persistanceStorage.saveTaskDescription(taskDescription, td_path);
 		} catch (IOException e) {
-			pushEvent(CommandEvent.status("saveTaskDescription", e.getStackTrace().toString()));
+			pushEvent(CommandEvent.errored("saveTaskDescription"));
+			LoggerFactory.getLogger(getClass()).error("", e);
 		}
 	}
 
@@ -140,7 +144,8 @@ public class Application {
 		try {
 			systemTransformations = loadSystemTransformations(st_path);
 		} catch (IOException | JDOMException e) {
-			pushEvent(CommandEvent.status("loadSystemTransformations", e.getStackTrace().toString()));
+			pushEvent(CommandEvent.errored("loadSystemTransformations"));
+			LoggerFactory.getLogger(getClass()).error("", e);
 			systemTransformations = new SystemTransformations();
 		}
 		return systemTransformations;
@@ -157,7 +162,8 @@ public class Application {
 		try {
 			taskDescription = loadTaskDescription(td_path);
 		} catch (IOException | JDOMException e) {
-			pushEvent(CommandEvent.status("loadTaskDescription", e.getStackTrace().toString()));
+			pushEvent(CommandEvent.errored("loadTaskDescription"));
+			LoggerFactory.getLogger(getClass()).error("", e);
 			taskDescription = new TaskDescription();
 		}
 		return taskDescription;
@@ -174,7 +180,8 @@ public class Application {
 		try {
 			nodeNetwork = loadNodeNetwork(nn_path);
 		} catch (IOException | JDOMException e) {
-			pushEvent(CommandEvent.status("loadNodeNetwork", e.getStackTrace().toString()));
+			pushEvent(CommandEvent.errored("loadNodeNetwork"));
+			LoggerFactory.getLogger(getClass()).error("", e);
 			nodeNetwork = new NodeNetwork();
 		}
 		return nodeNetwork;
@@ -191,7 +198,8 @@ public class Application {
 		try {
 			systemProcess = loadSystemProcess(pr_path);
 		} catch (IOException | JDOMException e) {
-			pushEvent(CommandEvent.status("loadSystemProcess", e.getStackTrace().toString()));
+			pushEvent(CommandEvent.errored("loadSystemProcess"));
+			LoggerFactory.getLogger(getClass()).error("", e);
 			systemProcess = new SystemProcess();
 		}
 		return systemProcess;
