@@ -11,6 +11,11 @@
             <Property name="text" type="java.lang.String" value="Task Description"/>
           </Properties>
           <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="jmiTaskDescriptionNew">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="New"/>
+              </Properties>
+            </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jmiTaskDescriptionLoad">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Load"/>
@@ -28,6 +33,11 @@
             <Property name="text" type="java.lang.String" value="System Transformations"/>
           </Properties>
           <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="jmiSystemTransformationsNew">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="New"/>
+              </Properties>
+            </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jmiSystemTransformationsLoad">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Load"/>
@@ -45,6 +55,11 @@
             <Property name="text" type="java.lang.String" value="Node Network"/>
           </Properties>
           <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="jmiNodeNetworkNew">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="New"/>
+              </Properties>
+            </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jmiNodeNetworkLoad">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Load"/>
@@ -57,6 +72,11 @@
             <Property name="text" type="java.lang.String" value="Process"/>
           </Properties>
           <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="jmiProcessNew">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="New"/>
+              </Properties>
+            </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jmiProcessLoad">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Load"/>

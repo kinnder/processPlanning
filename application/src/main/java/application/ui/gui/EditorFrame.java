@@ -440,6 +440,7 @@ public class EditorFrame extends javax.swing.JFrame {
 	 */
 	// <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
 	private void initComponents() {
+
 		bgTransformationType = new javax.swing.ButtonGroup();
 		jspWorkArea = new javax.swing.JSplitPane();
 		jspData = new javax.swing.JScrollPane();
@@ -603,14 +604,18 @@ public class EditorFrame extends javax.swing.JFrame {
 		jtParameters = new javax.swing.JTable();
 		jmbMenu = new javax.swing.JMenuBar();
 		jmTaskDescription = new javax.swing.JMenu();
+		jmiTaskDescriptionNew = new javax.swing.JMenuItem();
 		jmiTaskDescriptionLoad = new javax.swing.JMenuItem();
 		jmiTaskDescriptionSave = new javax.swing.JMenuItem();
 		jmSystemTransformations = new javax.swing.JMenu();
+		jmiSystemTransformationsNew = new javax.swing.JMenuItem();
 		jmiSystemTransformationsLoad = new javax.swing.JMenuItem();
 		jmiSystemTransformationsSave = new javax.swing.JMenuItem();
 		jmNodeNetwork = new javax.swing.JMenu();
+		jmiNodeNetworkNew = new javax.swing.JMenuItem();
 		jmiNodeNetworkLoad = new javax.swing.JMenuItem();
 		jmProcess = new javax.swing.JMenu();
+		jmiProcessNew = new javax.swing.JMenuItem();
 		jmiProcessLoad = new javax.swing.JMenuItem();
 
 		setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -1880,6 +1885,9 @@ public class EditorFrame extends javax.swing.JFrame {
 
 		jmTaskDescription.setText("Task Description");
 
+		jmiTaskDescriptionNew.setText("New");
+		jmTaskDescription.add(jmiTaskDescriptionNew);
+
 		jmiTaskDescriptionLoad.setText("Load");
 		jmTaskDescription.add(jmiTaskDescriptionLoad);
 
@@ -1889,6 +1897,9 @@ public class EditorFrame extends javax.swing.JFrame {
 		jmbMenu.add(jmTaskDescription);
 
 		jmSystemTransformations.setText("System Transformations");
+
+		jmiSystemTransformationsNew.setText("New");
+		jmSystemTransformations.add(jmiSystemTransformationsNew);
 
 		jmiSystemTransformationsLoad.setText("Load");
 		jmSystemTransformations.add(jmiSystemTransformationsLoad);
@@ -1900,12 +1911,18 @@ public class EditorFrame extends javax.swing.JFrame {
 
 		jmNodeNetwork.setText("Node Network");
 
+		jmiNodeNetworkNew.setText("New");
+		jmNodeNetwork.add(jmiNodeNetworkNew);
+
 		jmiNodeNetworkLoad.setText("Load");
 		jmNodeNetwork.add(jmiNodeNetworkLoad);
 
 		jmbMenu.add(jmNodeNetwork);
 
 		jmProcess.setText("Process");
+
+		jmiProcessNew.setText("New");
+		jmProcess.add(jmiProcessNew);
 
 		jmiProcessLoad.setText("Load");
 		jmProcess.add(jmiProcessLoad);
@@ -2062,10 +2079,14 @@ public class EditorFrame extends javax.swing.JFrame {
 	private javax.swing.JMenu jmTaskDescription;
 	private javax.swing.JMenuBar jmbMenu;
 	private javax.swing.JMenuItem jmiNodeNetworkLoad;
+	private javax.swing.JMenuItem jmiNodeNetworkNew;
 	private javax.swing.JMenuItem jmiProcessLoad;
+	private javax.swing.JMenuItem jmiProcessNew;
 	private javax.swing.JMenuItem jmiSystemTransformationsLoad;
+	private javax.swing.JMenuItem jmiSystemTransformationsNew;
 	private javax.swing.JMenuItem jmiSystemTransformationsSave;
 	private javax.swing.JMenuItem jmiTaskDescriptionLoad;
+	private javax.swing.JMenuItem jmiTaskDescriptionNew;
 	private javax.swing.JMenuItem jmiTaskDescriptionSave;
 	private javax.swing.JPanel jpAction;
 	private javax.swing.JPanel jpActionEditor;
