@@ -139,13 +139,18 @@ public class EditorFrame extends javax.swing.JFrame {
 	}
 
 	private void setActions() {
+		jmiTaskDescriptionNew.setAction(taskDescriptionNewAction);
 		jmiTaskDescriptionLoad.setAction(taskDescriptionLoadAction);
 		jmiTaskDescriptionSave.setAction(taskDescriptionSaveAction);
 
+		jmiSystemTransformationsNew.setAction(systemTransformationsNewAction);
 		jmiSystemTransformationsLoad.setAction(systemTransformationsLoadAction);
 		jmiSystemTransformationsSave.setAction(systemTransformationsSaveAction);
 
+		jmiNodeNetworkNew.setAction(nodeNetworkNewAction);
 		jmiNodeNetworkLoad.setAction(nodeNetworkLoadAction);
+
+		jmiProcessNew.setAction(processNewAction);
 		jmiProcessLoad.setAction(processLoadAction);
 
 		// TODO (2022-11-18 #73): синхронизировать множественные и единственные числа в названиях
@@ -184,13 +189,27 @@ public class EditorFrame extends javax.swing.JFrame {
 		objectTemplateDataModel.setComponents(jtAttributeTemplates);
 	}
 
+	Action taskDescriptionNewAction = new AbstractAction("New") {
+		private static final long serialVersionUID = 8331309669949257478L;
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			final TaskDescription taskDescription = application.newTaskDescription_v2();
+			if (taskDescription != null) {
+				editorDataModel.loadTaskDescription(taskDescription);
+			}
+		}
+	};
+
 	Action taskDescriptionLoadAction = new AbstractAction("Load") {
 		private static final long serialVersionUID = 8331309669949257478L;
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			final TaskDescription taskDescription = application.loadTaskDescription();
-			editorDataModel.loadTaskDescription(taskDescription);
+			if (taskDescription != null) {
+				editorDataModel.loadTaskDescription(taskDescription);
+			}
 		}
 	};
 
@@ -204,13 +223,27 @@ public class EditorFrame extends javax.swing.JFrame {
 		}
 	};
 
+	Action systemTransformationsNewAction = new AbstractAction("New") {
+		private static final long serialVersionUID = -2934465114601682626L;
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			final SystemTransformations systemTransformations = application.newSystemTransformations_v2();
+			if (systemTransformations != null) {
+				editorDataModel.loadSystemTransformations(systemTransformations);
+			}
+		}
+	};
+
 	Action systemTransformationsLoadAction = new AbstractAction("Load") {
 		private static final long serialVersionUID = -6152997887082597540L;
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			final SystemTransformations systemTransformations = application.loadSystemTransformations();
-			editorDataModel.loadSystemTransformations(systemTransformations);
+			if (systemTransformations != null) {
+				editorDataModel.loadSystemTransformations(systemTransformations);
+			}
 		}
 	};
 
@@ -224,13 +257,39 @@ public class EditorFrame extends javax.swing.JFrame {
 		}
 	};
 
+	Action nodeNetworkNewAction = new AbstractAction("New") {
+		private static final long serialVersionUID = 7657799313389376389L;
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			final NodeNetwork nodeNetwork = application.newNodeNetwork_v2();
+			if (nodeNetwork != null) {
+				editorDataModel.loadNodeNetwork(nodeNetwork);
+			}
+		}
+	};
+
 	Action nodeNetworkLoadAction = new AbstractAction("Load") {
 		private static final long serialVersionUID = -6796904580309558162L;
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			final NodeNetwork nodeNetwork = application.loadNodeNetwork();
-			editorDataModel.loadNodeNetwork(nodeNetwork);
+			if (nodeNetwork != null) {
+				editorDataModel.loadNodeNetwork(nodeNetwork);
+			}
+		}
+	};
+
+	Action processNewAction = new AbstractAction("New") {
+		private static final long serialVersionUID = 7990486675464420960L;
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			final SystemProcess systemProcess = application.newSystemProcess_v2();
+			if (systemProcess != null) {
+				editorDataModel.loadSystemProcess(systemProcess);
+			}
 		}
 	};
 
@@ -240,7 +299,9 @@ public class EditorFrame extends javax.swing.JFrame {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			final SystemProcess systemProcess = application.loadSystemProcess();
-			editorDataModel.loadSystemProcess(systemProcess);
+			if (systemProcess != null) {
+				editorDataModel.loadSystemProcess(systemProcess);
+			}
 		}
 	};
 

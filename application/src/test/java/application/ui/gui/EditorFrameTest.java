@@ -308,6 +308,42 @@ public class EditorFrameTest {
 	}
 
 	@Test
+	public void taskDescriptionNewAction_name() {
+		assertEquals("New", testable.taskDescriptionNewAction.getValue(Action.NAME));
+	}
+
+	@Test
+	public void taskDescriptionNewAction_actionPerformed() {
+		final ActionEvent actionEvent_mock = context.mock(ActionEvent.class);
+		final TaskDescription taskDescription_mock = context.mock(TaskDescription.class);
+
+		context.checking(new Expectations() {
+			{
+				oneOf(application_mock).newTaskDescription_v2();
+				will(returnValue(taskDescription_mock));
+
+				oneOf(editorDataModel_mock).loadTaskDescription(taskDescription_mock);
+			}
+		});
+
+		testable.taskDescriptionNewAction.actionPerformed(actionEvent_mock);
+	}
+
+	@Test
+	public void taskDescriptionNewAction_actionPerformed_loadFailed() {
+		final ActionEvent actionEvent_mock = context.mock(ActionEvent.class);
+
+		context.checking(new Expectations() {
+			{
+				oneOf(application_mock).newTaskDescription_v2();
+				will(returnValue(null));
+			}
+		});
+
+		testable.taskDescriptionNewAction.actionPerformed(actionEvent_mock);
+	}
+
+	@Test
 	public void taskDescriptionLoadAction_name() {
 		assertEquals("Load", testable.taskDescriptionLoadAction.getValue(Action.NAME));
 	}
@@ -323,6 +359,20 @@ public class EditorFrameTest {
 				will(returnValue(taskDescription_mock));
 
 				oneOf(editorDataModel_mock).loadTaskDescription(taskDescription_mock);
+			}
+		});
+
+		testable.taskDescriptionLoadAction.actionPerformed(actionEvent_mock);
+	}
+
+	@Test
+	public void taskDescriptionLoadAction_actionPerformed_loadFailed() {
+		final ActionEvent actionEvent_mock = context.mock(ActionEvent.class);
+
+		context.checking(new Expectations() {
+			{
+				oneOf(application_mock).loadTaskDescription();
+				will(returnValue(null));
 			}
 		});
 
@@ -352,6 +402,42 @@ public class EditorFrameTest {
 	}
 
 	@Test
+	public void systemTransformationsNewAction_name() {
+		assertEquals("New", testable.systemTransformationsNewAction.getValue(Action.NAME));
+	}
+
+	@Test
+	public void systemTransformationsNewAction_actionPerformed() {
+		final ActionEvent actionEvent_mock = context.mock(ActionEvent.class);
+		final SystemTransformations systemTransformations_mock = context.mock(SystemTransformations.class);
+
+		context.checking(new Expectations() {
+			{
+				oneOf(application_mock).newSystemTransformations_v2();
+				will(returnValue(systemTransformations_mock));
+
+				oneOf(editorDataModel_mock).loadSystemTransformations(systemTransformations_mock);
+			}
+		});
+
+		testable.systemTransformationsNewAction.actionPerformed(actionEvent_mock);
+	}
+
+	@Test
+	public void systemTransformationsNewAction_actionPerformed_loadFailed() {
+		final ActionEvent actionEvent_mock = context.mock(ActionEvent.class);
+
+		context.checking(new Expectations() {
+			{
+				oneOf(application_mock).newSystemTransformations_v2();
+				will(returnValue(null));
+			}
+		});
+
+		testable.systemTransformationsNewAction.actionPerformed(actionEvent_mock);
+	}
+
+	@Test
 	public void systemTransformationsLoadAction_name() {
 		assertEquals("Load", testable.systemTransformationsLoadAction.getValue(Action.NAME));
 	}
@@ -367,6 +453,20 @@ public class EditorFrameTest {
 				will(returnValue(systemTransformations_mock));
 
 				oneOf(editorDataModel_mock).loadSystemTransformations(systemTransformations_mock);
+			}
+		});
+
+		testable.systemTransformationsLoadAction.actionPerformed(actionEvent_mock);
+	}
+
+	@Test
+	public void systemTransformationsLoadAction_actionPerformed_loadFailed() {
+		final ActionEvent actionEvent_mock = context.mock(ActionEvent.class);
+
+		context.checking(new Expectations() {
+			{
+				oneOf(application_mock).loadSystemTransformations();
+				will(returnValue(null));
 			}
 		});
 
@@ -396,6 +496,42 @@ public class EditorFrameTest {
 	}
 
 	@Test
+	public void nodeNetworkNewAction_name() {
+		assertEquals("New", testable.nodeNetworkNewAction.getValue(Action.NAME));
+	}
+
+	@Test
+	public void nodeNetworkNewAction_actionPerformed() {
+		final ActionEvent actionEvent_mock = context.mock(ActionEvent.class);
+		final NodeNetwork nodeNetwork_mock = context.mock(NodeNetwork.class);
+
+		context.checking(new Expectations() {
+			{
+				oneOf(application_mock).newNodeNetwork_v2();
+				will(returnValue(nodeNetwork_mock));
+
+				oneOf(editorDataModel_mock).loadNodeNetwork(nodeNetwork_mock);
+			}
+		});
+
+		testable.nodeNetworkNewAction.actionPerformed(actionEvent_mock);
+	}
+
+	@Test
+	public void nodeNetworkNewAction_actionPerformed_loadFailed() {
+		final ActionEvent actionEvent_mock = context.mock(ActionEvent.class);
+
+		context.checking(new Expectations() {
+			{
+				oneOf(application_mock).newNodeNetwork_v2();
+				will(returnValue(null));
+			}
+		});
+
+		testable.nodeNetworkNewAction.actionPerformed(actionEvent_mock);
+	}
+
+	@Test
 	public void nodeNetworkLoadAction_name() {
 		assertEquals("Load", testable.nodeNetworkLoadAction.getValue(Action.NAME));
 	}
@@ -418,6 +554,56 @@ public class EditorFrameTest {
 	}
 
 	@Test
+	public void nodeNetworkLoadAction_actionPerformed_loadFailed() {
+		final ActionEvent actionEvent_mock = context.mock(ActionEvent.class);
+
+		context.checking(new Expectations() {
+			{
+				oneOf(application_mock).loadNodeNetwork();
+				will(returnValue(null));
+			}
+		});
+
+		testable.nodeNetworkLoadAction.actionPerformed(actionEvent_mock);
+	}
+
+	@Test
+	public void processNewAction_name() {
+		assertEquals("New", testable.processNewAction.getValue(Action.NAME));
+	}
+
+	@Test
+	public void processNewAction_actionPerformed() {
+		final ActionEvent actionEvent_mock = context.mock(ActionEvent.class);
+		final SystemProcess systemProcess_mock = context.mock(SystemProcess.class);
+
+		context.checking(new Expectations() {
+			{
+				oneOf(application_mock).newSystemProcess_v2();
+				will(returnValue(systemProcess_mock));
+
+				oneOf(editorDataModel_mock).loadSystemProcess(systemProcess_mock);
+			}
+		});
+
+		testable.processNewAction.actionPerformed(actionEvent_mock);
+	}
+
+	@Test
+	public void processNewAction_actionPerformed_loadFailed() {
+		final ActionEvent actionEvent_mock = context.mock(ActionEvent.class);
+
+		context.checking(new Expectations() {
+			{
+				oneOf(application_mock).newSystemProcess_v2();
+				will(returnValue(null));
+			}
+		});
+
+		testable.processNewAction.actionPerformed(actionEvent_mock);
+	}
+
+	@Test
 	public void processLoadAction_name() {
 		assertEquals("Load", testable.processLoadAction.getValue(Action.NAME));
 	}
@@ -433,6 +619,20 @@ public class EditorFrameTest {
 				will(returnValue(systemProcess_mock));
 
 				oneOf(editorDataModel_mock).loadSystemProcess(systemProcess_mock);
+			}
+		});
+
+		testable.processLoadAction.actionPerformed(actionEvent_mock);
+	}
+
+	@Test
+	public void processLoadAction_actionPerformed_loadFailed() {
+		final ActionEvent actionEvent_mock = context.mock(ActionEvent.class);
+
+		context.checking(new Expectations() {
+			{
+				oneOf(application_mock).loadSystemProcess();
+				will(returnValue(null));
 			}
 		});
 
@@ -661,7 +861,7 @@ public class EditorFrameTest {
 	}
 
 	@Test
-	public void attributeTemplateInserAction_actionPerformed() {
+	public void attributeTemplateInsertAction_actionPerformed() {
 		final ActionEvent actionEvent_mock = context.mock(ActionEvent.class);
 
 		context.checking(new Expectations() {

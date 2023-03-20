@@ -133,6 +133,11 @@ public class Application {
 		persistanceStorage.saveNodeNetwork(nodeNetwork, path);
 	}
 
+	// TODO (2023-03-20 #88): объединить с аналогичной командой
+	public SystemTransformations newSystemTransformations_v2() {
+		return new SystemTransformations();
+	}
+
 	public SystemTransformations loadSystemTransformations(String path) throws IOException, JDOMException {
 		return persistanceStorage.loadSystemTransformations(path);
 	}
@@ -140,15 +145,19 @@ public class Application {
 	// TODO (2022-09-18 #72): переделать в команду
 	public SystemTransformations loadSystemTransformations() {
 		final String st_path = arguments.getArgument_st("systemTransformations.xml");
-		SystemTransformations systemTransformations;
+		SystemTransformations systemTransformations = null;
 		try {
 			systemTransformations = loadSystemTransformations(st_path);
 		} catch (IOException | JDOMException e) {
 			pushEvent(CommandEvent.errored("loadSystemTransformations"));
 			LoggerFactory.getLogger(getClass()).error("", e);
-			systemTransformations = new SystemTransformations();
 		}
 		return systemTransformations;
+	}
+
+	// TODO (2023-03-20 #88): объединить с аналогичной командой
+	public TaskDescription newTaskDescription_v2() {
+		return new TaskDescription();
 	}
 
 	public TaskDescription loadTaskDescription(String path) throws IOException, JDOMException {
@@ -158,15 +167,19 @@ public class Application {
 	// TODO (2022-09-18 #72): переделать в команду
 	public TaskDescription loadTaskDescription() {
 		final String td_path = arguments.getArgument_td("taskDescription.xml");
-		TaskDescription taskDescription;
+		TaskDescription taskDescription = null;
 		try {
 			taskDescription = loadTaskDescription(td_path);
 		} catch (IOException | JDOMException e) {
 			pushEvent(CommandEvent.errored("loadTaskDescription"));
 			LoggerFactory.getLogger(getClass()).error("", e);
-			taskDescription = new TaskDescription();
 		}
 		return taskDescription;
+	}
+
+	// TODO (2023-03-20 #88): объединить с аналогичной командой
+	public NodeNetwork newNodeNetwork_v2() {
+		return new NodeNetwork();
 	}
 
 	public NodeNetwork loadNodeNetwork(String path) throws IOException, JDOMException {
@@ -176,15 +189,19 @@ public class Application {
 	// TODO (2022-09-18 #72): переделать в команду
 	public NodeNetwork loadNodeNetwork() {
 		final String nn_path = arguments.getArgument_nn("nodeNetwork.xml");
-		NodeNetwork nodeNetwork;
+		NodeNetwork nodeNetwork = null;
 		try {
 			nodeNetwork = loadNodeNetwork(nn_path);
 		} catch (IOException | JDOMException e) {
 			pushEvent(CommandEvent.errored("loadNodeNetwork"));
 			LoggerFactory.getLogger(getClass()).error("", e);
-			nodeNetwork = new NodeNetwork();
 		}
 		return nodeNetwork;
+	}
+
+	// TODO (2023-03-20 #88): объединить с аналогичной командой
+	public SystemProcess newSystemProcess_v2() {
+		return new SystemProcess();
 	}
 
 	public SystemProcess loadSystemProcess(String path) throws IOException, JDOMException {
@@ -194,13 +211,12 @@ public class Application {
 	// TODO (2022-09-18 #72): переделать в команду
 	public SystemProcess loadSystemProcess() {
 		final String pr_path = arguments.getArgument_p("process.xml");
-		SystemProcess systemProcess;
+		SystemProcess systemProcess = null;
 		try {
 			systemProcess = loadSystemProcess(pr_path);
 		} catch (IOException | JDOMException e) {
 			pushEvent(CommandEvent.errored("loadSystemProcess"));
 			LoggerFactory.getLogger(getClass()).error("", e);
-			systemProcess = new SystemProcess();
 		}
 		return systemProcess;
 	}

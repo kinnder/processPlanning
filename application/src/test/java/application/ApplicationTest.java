@@ -1,6 +1,9 @@
 package application;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.concurrent.ExecutorService;
@@ -487,6 +490,11 @@ public class ApplicationTest {
 	}
 
 	@Test
+	public void newTaskDescription_v2() {
+		assertTrue(testable.newTaskDescription_v2() instanceof TaskDescription);
+	}
+
+	@Test
 	public void newSystemTransformations() {
 		context.checking(new Expectations() {
 			{
@@ -505,6 +513,21 @@ public class ApplicationTest {
 		});
 
 		testable.newSystemTransformations();
+	}
+
+	@Test
+	public void newSystemTransformations_v2() {
+		assertTrue(testable.newSystemTransformations_v2() instanceof SystemTransformations);
+	}
+
+	@Test
+	public void newNodeNetwork_v2() {
+		assertTrue(testable.newNodeNetwork_v2() instanceof NodeNetwork);
+	}
+
+	@Test
+	public void newSystemProcess_v2() {
+		assertTrue(testable.newSystemProcess_v2() instanceof SystemProcess);
 	}
 
 	@Test
@@ -601,7 +624,7 @@ public class ApplicationTest {
 			}
 		});
 
-		testable.loadSystemProcess();
+		assertNull(testable.loadSystemProcess());
 	}
 
 	@Test
@@ -641,7 +664,7 @@ public class ApplicationTest {
 			}
 		});
 
-		testable.loadNodeNetwork();
+		assertNull(testable.loadNodeNetwork());
 	}
 
 	@Test
@@ -681,7 +704,7 @@ public class ApplicationTest {
 			}
 		});
 
-		testable.loadTaskDescription();
+		assertNull(testable.loadTaskDescription());
 	}
 
 	@Test
@@ -721,7 +744,7 @@ public class ApplicationTest {
 			}
 		});
 
-		testable.loadSystemTransformations();
+		assertNull(testable.loadSystemTransformations());
 	}
 
 	@Test
