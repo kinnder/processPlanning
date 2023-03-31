@@ -155,21 +155,19 @@
             </Component>
           </SubComponents>
         </Container>
-        <Container class="javax.swing.JTabbedPane" name="jtpEditors">
+        <Container class="javax.swing.JPanel" name="jpEditors">
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JSplitPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JSplitPaneSupportLayout$JSplitPaneConstraintsDescription">
               <JSplitPaneConstraints position="right"/>
             </Constraint>
           </Constraints>
 
-          <Layout class="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout"/>
+          <Layout class="org.netbeans.modules.form.compat2.layouts.DesignCardLayout"/>
           <SubComponents>
             <Container class="javax.swing.JPanel" name="jpSystemEditor">
               <Constraints>
-                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-                  <JTabbedPaneConstraints tabName="System">
-                    <Property name="tabTitle" type="java.lang.String" value="System"/>
-                  </JTabbedPaneConstraints>
+                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignCardLayout" value="org.netbeans.modules.form.compat2.layouts.DesignCardLayout$CardConstraintsDescription">
+                  <CardConstraints cardName="systemEditor"/>
                 </Constraint>
               </Constraints>
 
@@ -461,7 +459,7 @@
                                           <Component id="jbLinksInsert" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
                                           <Component id="jbLinksDelete" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace pref="276" max="32767" attributes="0"/>
+                                          <EmptySpace pref="367" max="32767" attributes="0"/>
                                       </Group>
                                   </Group>
                                 </DimensionLayout>
@@ -500,10 +498,8 @@
             </Container>
             <Container class="javax.swing.JPanel" name="jpObjectEditor">
               <Constraints>
-                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-                  <JTabbedPaneConstraints tabName="Object">
-                    <Property name="tabTitle" type="java.lang.String" value="Object"/>
-                  </JTabbedPaneConstraints>
+                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignCardLayout" value="org.netbeans.modules.form.compat2.layouts.DesignCardLayout$CardConstraintsDescription">
+                  <CardConstraints cardName="objectEditor"/>
                 </Constraint>
               </Constraints>
 
@@ -623,7 +619,7 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="jpAttributesButtons" max="32767" attributes="0"/>
-                                  <Component id="jspAttributes" pref="489" max="32767" attributes="0"/>
+                                  <Component id="jspAttributes" pref="580" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -692,10 +688,8 @@
             </Container>
             <Container class="javax.swing.JPanel" name="jpSystemTransformationsEditor">
               <Constraints>
-                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-                  <JTabbedPaneConstraints tabName="SystemTransformations">
-                    <Property name="tabTitle" type="java.lang.String" value="SystemTransformations"/>
-                  </JTabbedPaneConstraints>
+                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignCardLayout" value="org.netbeans.modules.form.compat2.layouts.DesignCardLayout$CardConstraintsDescription">
+                  <CardConstraints cardName="systemTransformationsEditor"/>
                 </Constraint>
               </Constraints>
 
@@ -722,7 +716,7 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="jpSystemTransformationsButtons" max="32767" attributes="0"/>
-                              <Component id="jspSystemTransformations" pref="559" max="32767" attributes="0"/>
+                              <Component id="jspSystemTransformations" pref="650" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -806,10 +800,8 @@
             </Container>
             <Container class="javax.swing.JPanel" name="jpSystemTransformationEditor">
               <Constraints>
-                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-                  <JTabbedPaneConstraints tabName="System Transformation">
-                    <Property name="tabTitle" type="java.lang.String" value="System Transformation"/>
-                  </JTabbedPaneConstraints>
+                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignCardLayout" value="org.netbeans.modules.form.compat2.layouts.DesignCardLayout$CardConstraintsDescription">
+                  <CardConstraints cardName="systemTransformationEditor"/>
                 </Constraint>
               </Constraints>
 
@@ -833,7 +825,7 @@
                               <Component id="jlSystemTransformationName" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jtfSystemTransformationName" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace pref="559" max="32767" attributes="0"/>
+                          <EmptySpace pref="650" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -853,10 +845,8 @@
             </Container>
             <Container class="javax.swing.JPanel" name="jpSystemTemplateEditor">
               <Constraints>
-                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-                  <JTabbedPaneConstraints tabName="System Template">
-                    <Property name="tabTitle" type="java.lang.String" value="System Template"/>
-                  </JTabbedPaneConstraints>
+                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignCardLayout" value="org.netbeans.modules.form.compat2.layouts.DesignCardLayout$CardConstraintsDescription">
+                  <CardConstraints cardName="systemTemplateEditor"/>
                 </Constraint>
               </Constraints>
 
@@ -1145,7 +1135,7 @@
                                           <Component id="jbLinkTemplatesInsert" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
                                           <Component id="jbLinkTemplatesDelete" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace pref="276" max="32767" attributes="0"/>
+                                          <EmptySpace pref="367" max="32767" attributes="0"/>
                                       </Group>
                                   </Group>
                                 </DimensionLayout>
@@ -1184,10 +1174,8 @@
             </Container>
             <Container class="javax.swing.JPanel" name="jpObjectTemplateEditor">
               <Constraints>
-                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-                  <JTabbedPaneConstraints tabName="Object Template">
-                    <Property name="tabTitle" type="java.lang.String" value="Object Template"/>
-                  </JTabbedPaneConstraints>
+                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignCardLayout" value="org.netbeans.modules.form.compat2.layouts.DesignCardLayout$CardConstraintsDescription">
+                  <CardConstraints cardName="objectTemplateEditor"/>
                 </Constraint>
               </Constraints>
 
@@ -1302,7 +1290,7 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="jpAttributeTemplatesButtons" max="32767" attributes="0"/>
-                                  <Component id="jspAttributeTemplates" pref="489" max="32767" attributes="0"/>
+                                  <Component id="jspAttributeTemplates" pref="580" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -1371,10 +1359,8 @@
             </Container>
             <Container class="javax.swing.JPanel" name="jpTransformationsEditor">
               <Constraints>
-                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-                  <JTabbedPaneConstraints tabName="Transformations">
-                    <Property name="tabTitle" type="java.lang.String" value="Transformations"/>
-                  </JTabbedPaneConstraints>
+                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignCardLayout" value="org.netbeans.modules.form.compat2.layouts.DesignCardLayout$CardConstraintsDescription">
+                  <CardConstraints cardName="transformationsEditor"/>
                 </Constraint>
               </Constraints>
 
@@ -1401,7 +1387,7 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="jpTransformationsButtons" max="32767" attributes="0"/>
-                              <Component id="jspTransformations" pref="559" max="32767" attributes="0"/>
+                              <Component id="jspTransformations" pref="650" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -1449,7 +1435,7 @@
                               <Component id="jbTransformationsInserAttributeTransformation" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jbTransformationsDelete" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace pref="443" max="32767" attributes="0"/>
+                              <EmptySpace pref="534" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -1497,10 +1483,8 @@
             </Container>
             <Container class="javax.swing.JPanel" name="jpTransformationEditor">
               <Constraints>
-                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-                  <JTabbedPaneConstraints tabName="Transformation">
-                    <Property name="tabTitle" type="java.lang.String" value="Transformation"/>
-                  </JTabbedPaneConstraints>
+                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignCardLayout" value="org.netbeans.modules.form.compat2.layouts.DesignCardLayout$CardConstraintsDescription">
+                  <CardConstraints cardName="transformationEditor"/>
                 </Constraint>
               </Constraints>
 
@@ -1520,7 +1504,7 @@
                           <Component id="jpAttributeTransformation" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jpLinkTransformation" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="0" pref="304" max="32767" attributes="0"/>
+                          <EmptySpace min="0" pref="395" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -1775,10 +1759,8 @@
             </Container>
             <Container class="javax.swing.JPanel" name="jpActionEditor">
               <Constraints>
-                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-                  <JTabbedPaneConstraints tabName="Action">
-                    <Property name="tabTitle" type="java.lang.String" value="Action"/>
-                  </JTabbedPaneConstraints>
+                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignCardLayout" value="org.netbeans.modules.form.compat2.layouts.DesignCardLayout$CardConstraintsDescription">
+                  <CardConstraints cardName="actionEditor"/>
                 </Constraint>
               </Constraints>
 
@@ -1872,7 +1854,7 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="jpActionFunctionsButtons" max="32767" attributes="0"/>
-                                  <Component id="jspActionFunctions" pref="517" max="32767" attributes="0"/>
+                                  <Component id="jspActionFunctions" pref="608" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -1941,10 +1923,8 @@
             </Container>
             <Container class="javax.swing.JPanel" name="jpActionFunctionEditor">
               <Constraints>
-                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-                  <JTabbedPaneConstraints tabName="Action Function">
-                    <Property name="tabTitle" type="java.lang.String" value="Action Function"/>
-                  </JTabbedPaneConstraints>
+                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignCardLayout" value="org.netbeans.modules.form.compat2.layouts.DesignCardLayout$CardConstraintsDescription">
+                  <CardConstraints cardName="actionFunctionEditor"/>
                 </Constraint>
               </Constraints>
 
@@ -1974,7 +1954,7 @@
                               <Component id="jcbActionFunctionType" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jspActionFunctionLines" pref="547" max="32767" attributes="0"/>
+                          <Component id="jspActionFunctionLines" pref="638" max="32767" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -2020,10 +2000,8 @@
             </Container>
             <Container class="javax.swing.JPanel" name="jpNodeEditor">
               <Constraints>
-                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-                  <JTabbedPaneConstraints tabName="Node">
-                    <Property name="tabTitle" type="java.lang.String" value="Node"/>
-                  </JTabbedPaneConstraints>
+                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignCardLayout" value="org.netbeans.modules.form.compat2.layouts.DesignCardLayout$CardConstraintsDescription">
+                  <CardConstraints cardName="nodeEditor"/>
                 </Constraint>
               </Constraints>
 
@@ -2129,7 +2107,7 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="jpEdgesButtons" max="32767" attributes="0"/>
-                                  <Component id="jspEdges" pref="497" max="32767" attributes="0"/>
+                                  <Component id="jspEdges" pref="588" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -2200,10 +2178,8 @@
             </Container>
             <Container class="javax.swing.JPanel" name="jpEdgeEditor">
               <Constraints>
-                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-                  <JTabbedPaneConstraints tabName="Edge">
-                    <Property name="tabTitle" type="java.lang.String" value="Edge"/>
-                  </JTabbedPaneConstraints>
+                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignCardLayout" value="org.netbeans.modules.form.compat2.layouts.DesignCardLayout$CardConstraintsDescription">
+                  <CardConstraints cardName="edgeEditor"/>
                 </Constraint>
               </Constraints>
 
@@ -2408,7 +2384,7 @@
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Component id="jpParametersButtons" max="32767" attributes="0"/>
-                                      <Component id="jspParameters" pref="393" max="32767" attributes="0"/>
+                                      <Component id="jspParameters" pref="484" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                           </Group>
@@ -2480,6 +2456,26 @@
                   </SubComponents>
                 </Container>
               </SubComponents>
+            </Container>
+            <Container class="javax.swing.JPanel" name="jpEmpty">
+              <Constraints>
+                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignCardLayout" value="org.netbeans.modules.form.compat2.layouts.DesignCardLayout$CardConstraintsDescription">
+                  <CardConstraints cardName="empty"/>
+                </Constraint>
+              </Constraints>
+
+              <Layout>
+                <DimensionLayout dim="0">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <EmptySpace min="0" pref="482" max="32767" attributes="0"/>
+                  </Group>
+                </DimensionLayout>
+                <DimensionLayout dim="1">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <EmptySpace min="0" pref="678" max="32767" attributes="0"/>
+                  </Group>
+                </DimensionLayout>
+              </Layout>
             </Container>
           </SubComponents>
         </Container>

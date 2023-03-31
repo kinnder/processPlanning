@@ -21,6 +21,7 @@ import application.ui.gui.editor.SystemTransformationDataModel;
 import application.ui.gui.editor.SystemTransformationsDataModel;
 import application.ui.gui.editor.TransformationDataModel;
 import application.ui.gui.editor.TransformationsDataModel;
+import java.awt.CardLayout;
 import planning.method.Edge;
 import planning.method.Node;
 import planning.method.NodeNetwork;
@@ -506,7 +507,7 @@ public class EditorFrame extends javax.swing.JFrame {
 		jspWorkArea = new javax.swing.JSplitPane();
 		jspData = new javax.swing.JScrollPane();
 		jtData = new javax.swing.JTree();
-		jtpEditors = new javax.swing.JTabbedPane();
+		jpEditors = new javax.swing.JPanel();
 		jpSystemEditor = new javax.swing.JPanel();
 		jpSystem = new javax.swing.JPanel();
 		jlSystemName = new javax.swing.JLabel();
@@ -663,6 +664,7 @@ public class EditorFrame extends javax.swing.JFrame {
 		jbParametersDelete = new javax.swing.JButton();
 		jspParameters = new javax.swing.JScrollPane();
 		jtParameters = new javax.swing.JTable();
+		jpEmpty = new javax.swing.JPanel();
 		jmbMenu = new javax.swing.JMenuBar();
 		jmTaskDescription = new javax.swing.JMenu();
 		jmiTaskDescriptionNew = new javax.swing.JMenuItem();
@@ -695,6 +697,8 @@ public class EditorFrame extends javax.swing.JFrame {
 		jspData.setViewportView(jtData);
 
 		jspWorkArea.setLeftComponent(jspData);
+
+		jpEditors.setLayout(new java.awt.CardLayout());
 
 		jlSystemName.setText("name");
 
@@ -801,7 +805,7 @@ public class EditorFrame extends javax.swing.JFrame {
 				.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
 				.addGroup(jpLinksButtonsLayout.createSequentialGroup().addContainerGap().addComponent(jbLinksInsert)
 						.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED).addComponent(jbLinksDelete)
-						.addContainerGap(276, Short.MAX_VALUE)));
+						.addContainerGap(367, Short.MAX_VALUE)));
 
 		jspLinks.setViewportView(jtLinks);
 
@@ -851,7 +855,7 @@ public class EditorFrame extends javax.swing.JFrame {
 								.addComponent(jpSystemData, javax.swing.GroupLayout.DEFAULT_SIZE,
 										javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
 
-		jtpEditors.addTab("System", jpSystemEditor);
+		jpEditors.add(jpSystemEditor, "systemEditor");
 
 		jlObjectName.setText("name");
 
@@ -935,7 +939,7 @@ public class EditorFrame extends javax.swing.JFrame {
 								jpAttributesEditorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
 										.addComponent(jpAttributesButtons, javax.swing.GroupLayout.DEFAULT_SIZE,
 												javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-										.addComponent(jspAttributes, javax.swing.GroupLayout.DEFAULT_SIZE, 489,
+										.addComponent(jspAttributes, javax.swing.GroupLayout.DEFAULT_SIZE, 580,
 												Short.MAX_VALUE))));
 
 		final javax.swing.GroupLayout jpObjectEditorLayout = new javax.swing.GroupLayout(jpObjectEditor);
@@ -955,7 +959,7 @@ public class EditorFrame extends javax.swing.JFrame {
 								.addComponent(jpAttributesEditor, javax.swing.GroupLayout.DEFAULT_SIZE,
 										javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
 
-		jtpEditors.addTab("Object", jpObjectEditor);
+		jpEditors.add(jpObjectEditor, "objectEditor");
 
 		jlSystemTransformations.setText("System Transformations");
 
@@ -1007,10 +1011,10 @@ public class EditorFrame extends javax.swing.JFrame {
 								.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
 								.addComponent(jpSystemTransformationsButtons, javax.swing.GroupLayout.DEFAULT_SIZE,
 										javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-								.addComponent(jspSystemTransformations, javax.swing.GroupLayout.DEFAULT_SIZE, 559,
+								.addComponent(jspSystemTransformations, javax.swing.GroupLayout.DEFAULT_SIZE, 650,
 										Short.MAX_VALUE))));
 
-		jtpEditors.addTab("SystemTransformations", jpSystemTransformationsEditor);
+		jpEditors.add(jpSystemTransformationsEditor, "systemTransformationsEditor");
 
 		jlSystemTransformationName.setText("name");
 
@@ -1037,9 +1041,9 @@ public class EditorFrame extends javax.swing.JFrame {
 								.addComponent(jlSystemTransformationName).addComponent(jtfSystemTransformationName,
 										javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE,
 										javax.swing.GroupLayout.PREFERRED_SIZE))
-						.addContainerGap(559, Short.MAX_VALUE)));
+						.addContainerGap(650, Short.MAX_VALUE)));
 
-		jtpEditors.addTab("System Transformation", jpSystemTransformationEditor);
+		jpEditors.add(jpSystemTransformationEditor, "systemTransformationEditor");
 
 		jlSystemTemplateName.setText("name");
 
@@ -1154,7 +1158,7 @@ public class EditorFrame extends javax.swing.JFrame {
 						.addGroup(jpLinkTemplatesButtonsLayout.createSequentialGroup().addContainerGap()
 								.addComponent(jbLinkTemplatesInsert)
 								.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-								.addComponent(jbLinkTemplatesDelete).addContainerGap(276, Short.MAX_VALUE)));
+								.addComponent(jbLinkTemplatesDelete).addContainerGap(367, Short.MAX_VALUE)));
 
 		jspLinkTemplates.setViewportView(jtLinkTemplates);
 
@@ -1209,7 +1213,7 @@ public class EditorFrame extends javax.swing.JFrame {
 								.addComponent(jpSystemTemplateData, javax.swing.GroupLayout.DEFAULT_SIZE,
 										javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
 
-		jtpEditors.addTab("System Template", jpSystemTemplateEditor);
+		jpEditors.add(jpSystemTemplateEditor, "systemTemplateEditor");
 
 		jlObjectTemplateName.setText("name");
 
@@ -1297,7 +1301,7 @@ public class EditorFrame extends javax.swing.JFrame {
 										.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
 										.addComponent(jpAttributeTemplatesButtons, javax.swing.GroupLayout.DEFAULT_SIZE,
 												javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-										.addComponent(jspAttributeTemplates, javax.swing.GroupLayout.DEFAULT_SIZE, 489,
+										.addComponent(jspAttributeTemplates, javax.swing.GroupLayout.DEFAULT_SIZE, 580,
 												Short.MAX_VALUE))));
 
 		final javax.swing.GroupLayout jpObjectTemplateEditorLayout = new javax.swing.GroupLayout(jpObjectTemplateEditor);
@@ -1317,7 +1321,7 @@ public class EditorFrame extends javax.swing.JFrame {
 								.addComponent(jpAttributeTemplatesEditor, javax.swing.GroupLayout.DEFAULT_SIZE,
 										javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
 
-		jtpEditors.addTab("Object Template", jpObjectTemplateEditor);
+		jpEditors.add(jpObjectTemplateEditor, "objectTemplateEditor");
 
 		jlTransformations.setText("Transformations");
 
@@ -1357,7 +1361,7 @@ public class EditorFrame extends javax.swing.JFrame {
 								.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
 								.addComponent(jbTransformationsInserAttributeTransformation)
 								.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-								.addComponent(jbTransformationsDelete).addContainerGap(443, Short.MAX_VALUE)));
+								.addComponent(jbTransformationsDelete).addContainerGap(534, Short.MAX_VALUE)));
 
 		jtTransformations.setModel(transformationsDataModel);
 		jspTransformations.setViewportView(jtTransformations);
@@ -1382,10 +1386,10 @@ public class EditorFrame extends javax.swing.JFrame {
 										.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
 										.addComponent(jpTransformationsButtons, javax.swing.GroupLayout.DEFAULT_SIZE,
 												javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-										.addComponent(jspTransformations, javax.swing.GroupLayout.DEFAULT_SIZE, 559,
+										.addComponent(jspTransformations, javax.swing.GroupLayout.DEFAULT_SIZE, 650,
 												Short.MAX_VALUE))));
 
-		jtpEditors.addTab("Transformations", jpTransformationsEditor);
+		jpEditors.add(jpTransformationsEditor, "transformationsEditor");
 
 		jlTransformationObjectId.setText("object-id");
 
@@ -1561,9 +1565,9 @@ public class EditorFrame extends javax.swing.JFrame {
 								.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
 								.addComponent(jpLinkTransformation, javax.swing.GroupLayout.PREFERRED_SIZE,
 										javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-								.addGap(0, 304, Short.MAX_VALUE)));
+								.addGap(0, 395, Short.MAX_VALUE)));
 
-		jtpEditors.addTab("Transformation", jpTransformationEditor);
+		jpEditors.add(jpTransformationEditor, "transformationEditor");
 
 		jlActionName.setText("name");
 
@@ -1633,7 +1637,7 @@ public class EditorFrame extends javax.swing.JFrame {
 										.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
 										.addComponent(jpActionFunctionsButtons, javax.swing.GroupLayout.DEFAULT_SIZE,
 												javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-										.addComponent(jspActionFunctions, javax.swing.GroupLayout.DEFAULT_SIZE, 517,
+										.addComponent(jspActionFunctions, javax.swing.GroupLayout.DEFAULT_SIZE, 608,
 												Short.MAX_VALUE))));
 
 		final javax.swing.GroupLayout jpActionEditorLayout = new javax.swing.GroupLayout(jpActionEditor);
@@ -1653,7 +1657,7 @@ public class EditorFrame extends javax.swing.JFrame {
 								.addComponent(jpActionFunctionsEditor, javax.swing.GroupLayout.DEFAULT_SIZE,
 										javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
 
-		jtpEditors.addTab("Action", jpActionEditor);
+		jpEditors.add(jpActionEditor, "actionEditor");
 
 		jlActionFunctionType.setText("type");
 
@@ -1689,11 +1693,11 @@ public class EditorFrame extends javax.swing.JFrame {
 										javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE,
 										javax.swing.GroupLayout.PREFERRED_SIZE))
 						.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-						.addComponent(jspActionFunctionLines, javax.swing.GroupLayout.DEFAULT_SIZE, 547,
+						.addComponent(jspActionFunctionLines, javax.swing.GroupLayout.DEFAULT_SIZE, 638,
 								Short.MAX_VALUE)
 						.addContainerGap()));
 
-		jtpEditors.addTab("Action Function", jpActionFunctionEditor);
+		jpEditors.add(jpActionFunctionEditor, "actionFunctionEditor");
 
 		jlNodeId.setText("id");
 
@@ -1764,7 +1768,7 @@ public class EditorFrame extends javax.swing.JFrame {
 						.addGroup(jpEdgesEditorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
 								.addComponent(jpEdgesButtons, javax.swing.GroupLayout.DEFAULT_SIZE,
 										javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-								.addComponent(jspEdges, javax.swing.GroupLayout.DEFAULT_SIZE, 497, Short.MAX_VALUE))));
+								.addComponent(jspEdges, javax.swing.GroupLayout.DEFAULT_SIZE, 588, Short.MAX_VALUE))));
 
 		final javax.swing.GroupLayout jpNodeEditorLayout = new javax.swing.GroupLayout(jpNodeEditor);
 		jpNodeEditor.setLayout(jpNodeEditorLayout);
@@ -1783,7 +1787,7 @@ public class EditorFrame extends javax.swing.JFrame {
 								.addComponent(jpEdgesEditor, javax.swing.GroupLayout.DEFAULT_SIZE,
 										javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
 
-		jtpEditors.addTab("Node", jpNodeEditor);
+		jpEditors.add(jpNodeEditor, "nodeEditor");
 
 		jlEdgeId.setText("id");
 
@@ -1900,7 +1904,7 @@ public class EditorFrame extends javax.swing.JFrame {
 								jpParametersEditorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
 										.addComponent(jpParametersButtons, javax.swing.GroupLayout.DEFAULT_SIZE,
 												javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-										.addComponent(jspParameters, javax.swing.GroupLayout.DEFAULT_SIZE, 393,
+										.addComponent(jspParameters, javax.swing.GroupLayout.DEFAULT_SIZE, 484,
 												Short.MAX_VALUE))));
 
 		final javax.swing.GroupLayout jpOperationEditorLayout = new javax.swing.GroupLayout(jpOperationEditor);
@@ -1940,9 +1944,18 @@ public class EditorFrame extends javax.swing.JFrame {
 								.addComponent(jpOperationEditor, javax.swing.GroupLayout.DEFAULT_SIZE,
 										javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
 
-		jtpEditors.addTab("Edge", jpEdgeEditor);
+		jpEditors.add(jpEdgeEditor, "edgeEditor");
 
-		jspWorkArea.setRightComponent(jtpEditors);
+		final javax.swing.GroupLayout jpEmptyLayout = new javax.swing.GroupLayout(jpEmpty);
+		jpEmpty.setLayout(jpEmptyLayout);
+		jpEmptyLayout.setHorizontalGroup(jpEmptyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+				.addGap(0, 482, Short.MAX_VALUE));
+		jpEmptyLayout.setVerticalGroup(jpEmptyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+				.addGap(0, 678, Short.MAX_VALUE));
+
+		jpEditors.add(jpEmpty, "empty");
+
+		jspWorkArea.setRightComponent(jpEditors);
 
 		jmTaskDescription.setText("Task Description");
 
@@ -2007,61 +2020,68 @@ public class EditorFrame extends javax.swing.JFrame {
 	private void jtDataValueChanged(javax.swing.event.TreeSelectionEvent evt) {// GEN-FIRST:event_jtDataValueChanged
 		final DefaultMutableTreeNode selectedNode = (DefaultMutableTreeNode) evt.getPath().getLastPathComponent();
 		if (selectedNode == null) {
+			selectEditor("empty");
 			return;
 		}
 		final Object selectedObject = selectedNode.getUserObject();
 		if (selectedObject instanceof System) {
 			systemDataModel.clear();
-			jtpEditors.setSelectedComponent(jpSystemEditor);
+			selectEditor("systemEditor");
 			systemDataModel.loadSystem((System) selectedObject, selectedNode);
 		} else if (selectedObject instanceof SystemObject) {
 			objectDataModel.clear();
-			jtpEditors.setSelectedComponent(jpObjectEditor);
+			selectEditor("objectEditor");
 			objectDataModel.loadSystemObject((SystemObject) selectedObject, selectedNode);
 		} else if (selectedObject instanceof SystemTransformations) {
 			systemTransformationsDataModel.clear();
-			jtpEditors.setSelectedComponent(jpSystemTransformationsEditor);
+			selectEditor("systemTransformationsEditor");
 			systemTransformationsDataModel.loadSystemTransformations((SystemTransformations) selectedObject, selectedNode);
 		} else if (selectedObject instanceof SystemTransformation) {
 			systemTransformationDataModel.clear();
-			jtpEditors.setSelectedComponent(jpSystemTransformationEditor);
+			selectEditor("systemTransformationEditor");
 			systemTransformationDataModel.loadSystemTransformation((SystemTransformation) selectedObject, selectedNode);
 		} else if (selectedObject instanceof SystemTemplate) {
 			systemTemplateDataModel.clear();
-			jtpEditors.setSelectedComponent(jpSystemTemplateEditor);
+			selectEditor("systemTemplateEditor");
 			systemTemplateDataModel.loadSystemTemplate((SystemTemplate) selectedObject, selectedNode);
 		} else if (selectedObject instanceof SystemObjectTemplate) {
 			objectTemplateDataModel.clear();
-			jtpEditors.setSelectedComponent(jpObjectTemplateEditor);
+			selectEditor("objectTemplateEditor");
 			objectTemplateDataModel.loadSystemObjectTemplate((SystemObjectTemplate) selectedObject, selectedNode);
 		} else if (selectedObject instanceof planning.model.Action) {
 			actionDataModel.clear();
-			jtpEditors.setSelectedComponent(jpActionEditor);
+			selectEditor("actionEditor");
 			actionDataModel.loadAction((planning.model.Action) selectedObject, selectedNode);
 		} else if (selectedObject instanceof ActionFunction) {
 			actionFunctionDataModel.clear();
-			jtpEditors.setSelectedComponent(jpActionFunctionEditor);
+			selectEditor("actionFunctionEditor");
 			actionFunctionDataModel.loadActionFunction((ActionFunction) selectedObject, selectedNode);
 		} else if (selectedObject instanceof Transformations) {
 			transformationsDataModel.clear();
-			jtpEditors.setSelectedComponent(jpTransformationsEditor);
+			selectEditor("transformationsEditor");
 			transformationsDataModel.loadTransformations((Transformations) selectedObject, selectedNode);
 		} else if (selectedObject instanceof Transformation) {
 			transformationDataModel.clear();
-			jtpEditors.setSelectedComponent(jpTransformationEditor);
+			selectEditor("transformationEditor");
 			transformationDataModel.loadTransformation((Transformation) selectedObject, selectedNode);
 		} else if (selectedObject instanceof Node) {
 			nodeDataModel.clear();
-			jtpEditors.setSelectedComponent(jpNodeEditor);
+			selectEditor("nodeEditor");
 			nodeDataModel.loadNode((Node) selectedObject, selectedNode);
 		} else if (selectedObject instanceof Edge) {
 			edgeDataModel.clear();
-			jtpEditors.setSelectedComponent(jpEdgeEditor);
+			selectEditor("edgeEditor");
 			edgeDataModel.loadEdge((Edge) selectedObject, selectedNode);
 		} else {
+			selectEditor("empty");
 			java.lang.System.out.println("unknown: " + selectedObject.toString());
 		}
 	}// GEN-LAST:event_jtDataValueChanged
+
+	private void selectEditor(String editorName) {
+		final CardLayout layout = (CardLayout) jpEditors.getLayout();
+		layout.show(jpEditors, editorName);
+	}
 
 	public static void main(String args[]) throws Exception {
 		UserInterfaceFactory.initializeLookAndFeel();
@@ -2163,6 +2183,8 @@ public class EditorFrame extends javax.swing.JFrame {
 	private javax.swing.JPanel jpEdgeEditor;
 	private javax.swing.JPanel jpEdgesButtons;
 	private javax.swing.JPanel jpEdgesEditor;
+	private javax.swing.JPanel jpEditors;
+	private javax.swing.JPanel jpEmpty;
 	private javax.swing.JPanel jpLinkTemplatesButtons;
 	private javax.swing.JPanel jpLinkTemplatesEditor;
 	private javax.swing.JPanel jpLinkTransformation;
@@ -2246,6 +2268,5 @@ public class EditorFrame extends javax.swing.JFrame {
 	private javax.swing.JTextField jtfSystemTemplateName;
 	private javax.swing.JTextField jtfSystemTransformationName;
 	private javax.swing.JTextField jtfTransformationObjectId;
-	private javax.swing.JTabbedPane jtpEditors;
 	// End of variables declaration//GEN-END:variables
 }
