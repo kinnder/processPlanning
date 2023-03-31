@@ -188,6 +188,8 @@ public class EditorFrame extends javax.swing.JFrame {
 	private void setComponents() {
 		objectDataModel.setComponents(jtAttributes);
 		objectTemplateDataModel.setComponents(jtAttributeTemplates);
+
+		selectEditor("empty");
 	}
 
 	Action taskDescriptionNewAction = new AbstractAction("New") {
@@ -502,7 +504,6 @@ public class EditorFrame extends javax.swing.JFrame {
 	 */
 	// <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
 	private void initComponents() {
-
 		bgTransformationType = new javax.swing.ButtonGroup();
 		jspWorkArea = new javax.swing.JSplitPane();
 		jspData = new javax.swing.JScrollPane();
