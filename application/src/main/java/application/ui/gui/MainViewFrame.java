@@ -37,6 +37,7 @@ public class MainViewFrame extends javax.swing.JFrame implements UserInterface {
 		jmiUsage.setAction(usageAction);
 		jmiVerify.setAction(verifyAction);
 		jmiEditor.setAction(editorAction);
+		jmiClear.setAction(clearAction);
 	}
 
 	/**
@@ -46,6 +47,8 @@ public class MainViewFrame extends javax.swing.JFrame implements UserInterface {
 	 */
 	// <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
 	private void initComponents() {
+		jpmLogPopup = new javax.swing.JPopupMenu();
+		jmiClear = new javax.swing.JMenuItem();
 		jspLog = new javax.swing.JScrollPane();
 		jtaLog = new javax.swing.JTextArea();
 		jmbMainMenu = new javax.swing.JMenuBar();
@@ -63,14 +66,20 @@ public class MainViewFrame extends javax.swing.JFrame implements UserInterface {
 		jmiUsage = new javax.swing.JMenuItem();
 		jmiAbout = new javax.swing.JMenuItem();
 
+		jmiClear.setText("Clear");
+		jpmLogPopup.add(jmiClear);
+
 		setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 		setTitle("Process Engineering");
 		setName("jfMainView"); // NOI18N
+
+		jspLog.setComponentPopupMenu(jpmLogPopup);
 
 		jtaLog.setEditable(false);
 		jtaLog.setColumns(20);
 		jtaLog.setFont(new java.awt.Font("Monospaced", 0, 12)); // NOI18N
 		jtaLog.setRows(5);
+		jtaLog.setInheritsPopupMenu(true);
 		jspLog.setViewportView(jtaLog);
 
 		jmApplication.setText("Application");
@@ -224,6 +233,15 @@ public class MainViewFrame extends javax.swing.JFrame implements UserInterface {
 		}
 	};
 
+	Action clearAction = new AbstractAction("Clear") {
+		private static final long serialVersionUID = 7544316464301876150L;
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			jtaLog.setText(null);
+		}
+	};
+
 	public static void main(String args[]) throws Exception {
 		UserInterfaceFactory.initializeLookAndFeel();
 		SwingUtilities.invokeLater(() -> {
@@ -237,6 +255,7 @@ public class MainViewFrame extends javax.swing.JFrame implements UserInterface {
 	private javax.swing.JMenu jmHelp;
 	private javax.swing.JMenuBar jmbMainMenu;
 	private javax.swing.JMenuItem jmiAbout;
+	private javax.swing.JMenuItem jmiClear;
 	private javax.swing.JMenuItem jmiConvert;
 	private javax.swing.JMenuItem jmiEditor;
 	private javax.swing.JMenuItem jmiExit;
@@ -246,6 +265,7 @@ public class MainViewFrame extends javax.swing.JFrame implements UserInterface {
 	private javax.swing.JMenuItem jmiPlan;
 	private javax.swing.JMenuItem jmiUsage;
 	private javax.swing.JMenuItem jmiVerify;
+	private javax.swing.JPopupMenu jpmLogPopup;
 	private javax.swing.JScrollPane jspLog;
 	private javax.swing.JTextArea jtaLog;
 	// End of variables declaration//GEN-END:variables

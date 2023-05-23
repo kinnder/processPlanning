@@ -256,6 +256,18 @@ public class MainViewFrameTest {
 	}
 
 	@Test
+	public void clearAction_name() {
+		assertEquals("Clear", testable.clearAction.getValue(Action.NAME));
+	}
+
+	@Test
+	public void clearAction_actionPerformed() {
+		final ActionEvent actionEvent_mock = context.mock(ActionEvent.class);
+
+		testable.clearAction.actionPerformed(actionEvent_mock);
+	}
+
+	@Test
 	public void displayMessage() {
 		testable.displayMessage("user message");
 	}
